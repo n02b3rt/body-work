@@ -118,11 +118,21 @@ export interface UserAuthOperations {
   };
 }
 /**
+ * Konta zespołu i klientów — podobnie jak użytkownicy w WordPressie.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
   id: number;
+  /**
+   * Imię i nazwisko lub nazwa widoczna w panelu (jak „Wyświetlana nazwa” w WP).
+   */
+  name?: string | null;
+  /**
+   * Administrator — pełny dostęp. Moderator — treści i podgląd użytkowników. Redaktor — treści. Klient — bez panelu.
+   */
+  role: 'administrator' | 'moderator' | 'redaktor' | 'klient';
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -143,11 +153,16 @@ export interface User {
   collection: 'users';
 }
 /**
+ * Biblioteka mediów — odpowiednik „Mediów” w WordPressie.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
   id: number;
+  /**
+   * Krótki opis obrazu (dostępność i SEO).
+   */
   alt: string;
   updatedAt: string;
   createdAt: string;
@@ -240,6 +255,8 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  name?: T;
+  role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;

@@ -12,8 +12,10 @@
 ## Folder structure
 
 - **Route groups:** public site in `src/app/(frontend)/`, Payload admin/API in `src/app/(payload)/`. Do not add a root `src/app/layout.tsx` that wraps both — each group owns its own `<html>`/`<body>`.
+- **Dashboard host:** staff open the panel only via `DASHBOARD_HOST` (dev: `dash.localhost`). Never link to `/admin` on the public site host.
 - Feature-first inside `(frontend)/`: each route segment owns its `page.tsx`, and route-local components live alongside it. Shared, cross-route components/utilities go in `src/components/` and `src/lib/` (create these as soon as the first shared piece appears — don't pre-create empty folders).
-- **Payload collections:** one file per collection in `src/collections/`, registered in `src/payload.config.ts`.
+- **Payload collections:** one file per collection in `src/collections/`, registered in `src/payload.config.ts`. Access helpers live in `src/access/`.
+- **Roles:** `administrator` | `moderator` | `redaktor` | `klient` — use helpers from `src/access/roles.ts`; do not invent parallel permission checks.
 
 ## Patterns
 

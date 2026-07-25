@@ -2,7 +2,7 @@
 
 Next.js rewrite of the BodyWork Centrum website (physiotherapy, dietetics, massage, personal & group training), built using a scraped mirror of the live site as a content/design reference.
 
-**Stack:** Next.js 16 (App Router) + TypeScript + Tailwind CSS 4 + Payload CMS 3 (Postgres), on Node 20+ — plus a Python 3.13 scraper toolkit (`requests` + `BeautifulSoup`) used to mirror the current live site as a reference.
+**Stack:** Next.js 16 (App Router) + TypeScript + Tailwind CSS 4 + Payload CMS 3 (Postgres), on Node 20+ — plus a Python 3.13 scraper toolkit (`requests` + `BeautifulSoup`) used to mirror the current live site as a reference. Admin panel is reachable only on the dashboard host (`dash.localhost` in dev).
 
 > This file is the project's constitution. Read it **at the start of every session** — together with `AI_NOTES.md` (the running journal). It defines how we work and where things live. Keep it short: it is an index; details go in `docs/`.
 
@@ -63,9 +63,12 @@ This is the antidote to the "colossus on clay feet". After adding **any** featur
 | Feature / domain | Where (path) | Note |
 |---|---|---|
 | Public site (frontend) | `src/app/(frontend)/` | App Router route group with its own root layout; homepage is `page.tsx` |
-| Payload CMS admin + API | `src/app/(payload)/` | Admin UI at `/admin`; REST/GraphQL under `/api` |
-| Payload config | `src/payload.config.ts` | CMS entry: DB adapter, editor, collections |
+| Payload CMS admin + API | `src/app/(payload)/` | Admin UI only on dashboard host; REST/GraphQL under `/api` |
+| Host proxy (dash vs public) | `src/proxy.ts` | `dash.localhost` → admin; public hosts return **404** for `/admin` (no redirect leak) |
+| Access control / roles | `src/access/roles.ts` | Roles: administrator, moderator, redaktor, klient |
+| Payload config | `src/payload.config.ts` | CMS entry: DB adapter, editor, collections, i18n PL |
 | Payload collections | `src/collections/` | One file per collection (`Users`, `Media`, …) |
+| Admin UI extras | `src/components/admin/` | Custom dashboard chrome (e.g. `WelcomeDashboard`) |
 | Generated Payload types | `src/payload-types.ts` | Regenerate with `pnpm generate:types` |
 | Local Postgres (dev) | `docker-compose.yml` | `docker compose up -d` → `localhost:5432` / DB `bodywork` |
 | Static assets served by Next.js | `public/` | favicons, robots.txt, etc. |

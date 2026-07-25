@@ -13,6 +13,12 @@
 
 -->
 
+## 2026-07-26 — dashboard host, roles, WP-friendly admin chrome
+
+- **Done:** `src/proxy.ts` serves admin only on `dash.localhost` (rewrites `/` → `/admin`); public hosts get plain **404** for `/admin` (no redirect). User roles administrator/moderator/redaktor/klient with access helpers; Polish i18n + collection labels; `WelcomeDashboard` before dashboard.
+- **Decisions:** obscure admin entry by host, never redirect (leaks hostname); `klient` blocked from admin; redaktor cannot delete media or manage users; Payload `serverURL` points at dashboard URL.
+- **Watch out:** open panel at `http://dash.localhost:3000` (not `localhost/admin`). Existing DB users need a `role` column (dev push) — set first admin to `administrator` if create-first-user already ran. Domain content collections still TODO.
+
 ## 2026-07-25 — Payload CMS + Postgres
 
 - **Done:** Payload 3.86 embedded in the Next.js app; admin at `/admin` (create-first-user works); REST/GraphQL under `/api`; collections `Users` + `Media`; local Postgres via `docker-compose.yml`; frontend moved to `src/app/(frontend)/`.

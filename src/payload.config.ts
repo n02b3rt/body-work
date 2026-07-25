@@ -2,6 +2,8 @@ import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
+import { en } from 'payload/i18n/en'
+import { pl } from 'payload/i18n/pl'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
@@ -11,11 +13,24 @@ import { Users } from './collections/Users'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+const dashboardURL =
+  process.env.NEXT_PUBLIC_DASHBOARD_URL || 'http://dash.localhost:3000'
+const publicURL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+
 export default buildConfig({
+  serverURL: dashboardURL,
+  csrf: [dashboardURL, publicURL],
+  cors: [dashboardURL, publicURL],
   admin: {
     user: Users.slug,
+    meta: {
+      titleSuffix: '— BodyWork Panel',
+    },
     importMap: {
       baseDir: path.resolve(dirname),
+    },
+    components: {
+      beforeDashboard: ['/components/admin/WelcomeDashboard#WelcomeDashboard'],
     },
   },
   collections: [Users, Media],
@@ -29,5 +44,9 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URL || '',
     },
   }),
+  i18n: {
+    fallbackLanguage: 'pl',
+    supportedLanguages: { pl, en },
+  },
   sharp,
 })

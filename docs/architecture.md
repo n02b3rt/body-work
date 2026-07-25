@@ -32,9 +32,12 @@ Record deliberate choices so nobody asks "why is it like this?" a month later.
 | 2026-07-25 | Payload CMS 3 embedded in Next.js (not a separate backend) | Native App Router integration; one deploy unit for the Hetzner VPS |
 | 2026-07-25 | Self-hosted PostgreSQL (not Neon/Supabase) | Whole stack on one VPS; localhost latency; `pg_dump` backups; same adapter if `DATABASE_URL` ever changes |
 | 2026-07-25 | Separate root layouts via `(frontend)` / `(payload)` route groups | Payload `RootLayout` owns `<html>`/`<body>` for `/admin`; public site keeps its own layout |
+| 2026-07-26 | Admin only on `DASHBOARD_HOST` (`dash.localhost`); public `/admin` → 404 | Obscure entry point; no redirect (would leak dash hostname) |
+| 2026-07-26 | Four roles: administrator, moderator, redaktor, klient | WP-like staff vs client; `klient` blocked from admin panel |
 
 ## Integrations / external dependencies
 
 - **Live site reference:** `https://bodywork.testowe.eu` — source mirrored by `scripts/scrape/scrape_site.py`, listed via `scripts/scrape/sitemap.xml`.
-- **Payload CMS:** in-process; admin `/admin`; env: `DATABASE_URL`, `PAYLOAD_SECRET`, `NEXT_PUBLIC_SERVER_URL`.
+- **Payload CMS:** in-process; admin **only** at `NEXT_PUBLIC_DASHBOARD_URL` (dev: `http://dash.localhost:3000`); env: `DATABASE_URL`, `PAYLOAD_SECRET`, `NEXT_PUBLIC_SERVER_URL`, `NEXT_PUBLIC_DASHBOARD_URL`, `DASHBOARD_HOST`.
 - **PostgreSQL 16:** local via Docker Compose; production intended on the same Hetzner VPS as the Node app.
+- **Host proxy:** [`src/proxy.ts`](../src/proxy.ts) — dashboard host rewrites `/` → `/admin`; non-dashboard hosts return 404 for `/admin`.
