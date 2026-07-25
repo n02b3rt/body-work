@@ -1,0 +1,145 @@
+{
+  "Nav": {
+    "personalTraining": "Trening personalny",
+    "personalTrainingIndividual": "Trening indywidualny",
+    "personalTrainingPairs": "Trening w parze",
+    "personalTrainingAssessment": "Ocena funkcjonalna",
+    "personalTrainingTrainers": "Trenerzy",
+    "physiotherapy": "Fizjoterapia",
+    "physiotherapyManual": "Terapia manualna",
+    "physiotherapyRehab": "Rehabilitacja ruchowa",
+    "physiotherapyBelly": "Zdrowy brzuch",
+    "physiotherapySpecialists": "Specjaliści",
+    "groupTraining": "Trening grupowy",
+    "groupTrainingClasses": "Zajęcia grupowe",
+    "groupTrainingPlan": "Plan Zdrowej Zmiany",
+    "groupTrainingSchedule": "Grafik zajęć",
+    "groupTrainingMedicover": "Medicover",
+    "dietetics": "Dietetyka",
+    "dieteticsSpecialist1": "Iwona Stachowiak",
+    "dieteticsSpecialist2": "Magdalena Hajduk-Warchoł",
+    "bodylab": "Bodylab",
+    "bodylabVald": "Technologia VALD",
+    "bodylabComposition": "Analiza składu ciała",
+    "pricing": "Cennik",
+    "massage": "Masaż",
+    "blog": "Blog",
+    "contact": "Kontakt"
+  },
+  "Header": {
+    "logoAlt": "Logo BODYWORK",
+    "openMenu": "Otwórz menu",
+    "closeMenu": "Zamknij menu",
+    "instagramAlt": "Ikona Instagram",
+    "facebookAlt": "Ikona Facebook",
+    "languageSwitch": "EN"
+  },
+  "Hero": {
+    "title": "CIAŁO. TWÓJ PRZYJACIEL.",
+    "subtitle": "Sprawne ciało to wolność, która daje Ci siłę, by móc jak najlepiej wyrażać się w życiu i sporcie!"
+  },
+  "News": {
+    "heading": "News",
+    "items": [
+      {
+        "title": "Relacja z Warsztatu dla Kobiet."
+      },
+      {
+        "title": "Plan Zdrowej Zmiany. Nowa edycja! Start: 11.05.",
+        "detailTitle": "Popraw sylwetkę w 6 tygodni!",
+        "detail": "„Plan zdrowej zmiany” to profesjonalny program motywujący do rozpoczęcia aktywnego i zdrowego stylu życia. Przez 6 tygodni będziemy Cię prowadzić, szkolić, trenować i wspierać w każdym możliwym aspekcie. Termin projektu: 16.03.2026 – 27.04.2026, spotkanie organizacyjne 09.03.2026. Harmonogram treningów: pon 20:30, śr 20:30, pt 19:30."
+      },
+      {
+        "title": "Warsztaty dla Biegaczy. 09.05. w Poznaniu."
+      },
+      {
+        "title": "Dołącz do naszej społeczności na Instagramie i Facebooku.",
+        "detailTitle": "Zajrzyj na nasze social media po...",
+        "detail": "Proste i skuteczne ćwiczenia, które możesz wdrożyć od razu. Wskazówki do codziennej aktywności. Inspirujące historie innych klubowiczów. Pomysły na poprawę postawy, mobilności i siły. Wsparcie i motywację, które dodadzą Ci energii na każdy dzień."
+      },
+      {
+        "title": "Ocena funkcjonalna w promocyjnej cenie.",
+        "detailTitle": "Sprawdź swoją sprawność!",
+        "detail": "Pierwsze spotkanie z trenerem to tzw. ocena sprawności. Podczas kilku prostych ćwiczeń trener sprawdza co działa dobrze, a nad czym należy popracować podczas treningów. Ta ocena jest dla Ciebie i dla trenera — pomaga zbudować plan treningowy i weryfikować postępy. Teraz możesz nabyć ocenę funkcjonalną w specjalnej promocyjnej cenie!"
+      }
+    ]
+  },
+  "FriendlySpace": {
+    "heading": "Przyjazna przestrzeń.",
+    "body": "BODYWORK® to plac zabaw dla Twojego ciała. Otwarta przestrzeń z wolnymi ciężarami, funkcjonalnymi przyrządami, pasem bieżni lekkoatletycznej oraz maszynami oporowymi — wszystkim co jest niezbędne dla przygotowania fizycznego i rehabilitacji. Uzupełniają ją gabinety medyczne, dietetyczne oraz laboratorium biomechaniczne, strefa regeneracji z sauną i masażami oraz bar ze zdrowymi posiłkami, komponowanymi przez naszych dietetyków.",
+    "cta": "Zobacz galerię"
+  },
+  "Statements": {
+    "movementTool": "Ruch to nasze najważniejsze narzędzie pracy.",
+    "teachPotentialHeading": "Uczymy jak mądrze i skutecznie wykorzystać potencjał ciała.",
+    "teachPotentialBody": "Rozwijamy kluczowe elementy sprawności, które przekładają się na lepsze zdrowie, sylwetkę i wyniki sportowe. Każdy program tworzymy indywidualnie, w oparciu o aktualną wiedzę medyczną, aby zapobiegać kontuzjom, zmniejszać ból i rozwijać potencjał Twojego ciała.",
+    "healthProcessHeading": "Wierzymy, że zdrowie nie jest stanem, lecz procesem.",
+    "healthProcessBody": "To dynamiczna równowaga wielu elementów: ciała, genetyki, psychiki, relacji społecznych, odporności na stres, regeneracji oraz jakości odżywiania. To świadome podejście do profilaktyki — regularne monitorowanie parametrów funkcjonalnych, badania kontrolne i szybka reakcja na sygnały ostrzegawcze. Wymaga zaangażowania, uważności i mądrych wyborów.",
+    "learnMore": "Dowiedz się więcej",
+    "joinBodywork": "Dołącz do Bodywork."
+  },
+  "Services": {
+    "personalTraining": "Trening personalny",
+    "groupTraining": "Trening grupowy",
+    "physiotherapy": "Fizjoterapia",
+    "dietetics": "Dietetyka",
+    "massage": "Masaż",
+    "academy": "Akademia szkoleniowa"
+  },
+  "Team": {
+    "heading": "Zespół.",
+    "body": "Nasz zespół tworzą wysokiej klasy specjaliści, pracujący w koncepcji treningu medycznego i sportowego, uzupełnionego o nowoczesne metody terapii manualnej oraz dietetykę. Posiadają wiedzę i umiejętności wywodzące się z profesjonalnego sportu, rehabilitacji i coachingu. W oparciu o specjalnie przygotowany system rozwoju osobistego BODYWORK, pomogą Ci osiągnąć zamierzone rezultaty.",
+    "cta": "Poznaj nasz zespół"
+  },
+  "Testimonials": {
+    "heading": "Poznaj opinie naszych klientów:",
+    "items": [
+      {
+        "quote": "Siłownia dla tych co nie lubią „siłowni”, czyli stereotypowego miejsca dla pakerów. Bardzo przyjemna przestrzeń, profesjonalne podejście. Kompetentny i zaangażowany zespół. Bardzo duża wartość dodana do mojego życia. Polecam."
+      },
+      {
+        "quote": "BodyWork to miejsce, do którego naprawdę chce się wracać. Kameralne studio, świetnie zorganizowane i przyjazne dla każdego – niezależnie od poziomu. Przez ponad dwa lata trenowałam z Martyną – najlepsza trenerka, z jaką miałam okazję ćwiczyć. Profesjonalna, zaangażowana, z ogromną wiedzą i świetnym podejściem. Z całego serca polecam!"
+      },
+      {
+        "quote": "Body Work to najlepsze miejsce do jakiego mogłem trafić. Stworzone przez ludzi z pasją, dla ludzi którzy potrzebują pomocy bądź poprawy jakości życia. Profesjonalizm, empatia, uśmiech i gwarantowana fantastyczna atmosfera. Ćwiczenia są wymagające, ale dzięki nim ciągle progresuję. Polecam wszystkim."
+      },
+      {
+        "quote": "Przyjemne miejsce, profesjonalna kadra. Ćwiczy się z przyjemnością."
+      },
+      {
+        "quote": "Świetne, kameralne miejsce gdzie otrzymacie pełne wsparcie fachowych trenerów. Szczególnie dziękuję Dominice, która pomogła mi zrealizować mój cel sportowy."
+      }
+    ]
+  },
+  "Newsletter": {
+    "heading": "Zapisz się do newslettera.",
+    "subheading": "Bądź na bieżąco.",
+    "placeholder": "Wpisz tutaj swój e-mail...",
+    "submit": "Zapisz się",
+    "success": "Zostałeś pomyślnie dodany do naszego newslettera.",
+    "error": "Coś poszło nie tak. Spróbuj ponownie."
+  },
+  "Partners": {
+    "heading": "Zaufali nam"
+  },
+  "Footer": {
+    "kontaktHeading": "Kontakt",
+    "addressLabel": "Adres",
+    "addressLine1": "BODYWORK",
+    "addressLine2": "ul. Kajki 14",
+    "addressLine3": "60-573 Poznań",
+    "receptionLabel": "Recepcja",
+    "phone": "609 805 660",
+    "email": "info@body-work.pl",
+    "hoursLabel": "Godziny otwarcia",
+    "hoursLine1": "Pon – Pt: 7:00 – 22:00",
+    "hoursLine2": "Sb: 10:00 – 14:00",
+    "hoursLine3": "Nd: Zamknięte",
+    "showOnMap": "Pokaż na mapie",
+    "getDirections": "Nawiguj",
+    "privacyPolicy": "Polityka prywatności",
+    "terms": "Regulamin",
+    "cookies": "Cookies",
+    "copyright": "BODYWORK © {year}"
+  }
+}
