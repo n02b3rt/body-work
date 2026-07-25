@@ -30,11 +30,11 @@
 
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
 |---|---|---|---|---|---|
-| `/fizjoterapia/` | `/fizjoterapia/` | — | PL: — / EN: — | — | Not started |
-| `/fizjoterapia/terapia-manualna/` | same | — | PL: — / EN: — | — | Not started |
-| `/fizjoterapia/rehabilitacja-ruchowa/` | same | — | PL: — / EN: — | — | Not started |
-| `/fizjoterapia/zdrowy-brzuch/` | same | — | PL: — / EN: — | — | Not started |
-| `/fizjoterapia/specjalisci/` | same | — | PL: — / EN: — | — | Not started |
+| `/fizjoterapia/` | `/fizjoterapia/` | New: PhysiotherapyNav. Reused: PageHero, CenteredBand, TextMedia ×4, Accordion (6 equipment items), MediaCardCta ×2, TestimonialCarousel | PL: done / EN: done | Automated two-way check vs. the scrape (0 issues) — **not opened in a browser** | Bilingual |
+| `/fizjoterapia/terapia-manualna/` | same | Reused: PageHero, CenteredBand, Accordion (10 conditions) | PL: done / EN: done | Same check — caught a missing contact section | Bilingual |
+| `/fizjoterapia/rehabilitacja-ruchowa/` | same | Reused: PageHero, CenteredBand, Accordion (12 conditions) | PL: done / EN: done | Same check | Bilingual |
+| `/fizjoterapia/zdrowy-brzuch/` | same | Reused: PageHero; 3 leads + 2 pricing formats | PL: done / EN: done | Same check | Bilingual |
+| `/fizjoterapia/specjalisci/` | same | Reused: PageHero, CenteredBand; 2 categories × 11 specialists | PL: done / **EN: bios still Polish** (same reason as the trainers) | Same check | Built (PL) |
 
 ## Trening grupowy
 

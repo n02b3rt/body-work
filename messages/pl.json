@@ -521,5 +521,357 @@
         ]
       }
     ]
+  },
+  "Physiotherapy": {
+    "title": "Fizjoterapia",
+    "bandEyebrow": "Poznaj nasz system fizjoterapii",
+    "bandHeading": "Fizjoterapia, która przywraca sprawność!",
+    "bandBody": "Czy wyobrażasz sobie życie, w którym ciało jest Twoim sprzymierzeńcem, zamiast sprawiać Ci problemy? Nasz organizm to genialny mechanizm, który potrafi się samoregulować – wystarczy tylko trochę mu w tym pomóc! Będąc sprawnym możesz realizować swoje marzenia, od zwykłych spacerów po podróże i uprawianie sportu. W naszym Centrum stosujemy nowoczesne metody fizjoterapii, łącząc je z odpowiednio dobranymi ćwiczeniami i zbilansowaną dietą. Współpraca z naszymi terapeutami to proces poszukiwania przyczyny dysfunkcji, skutecznej terapii i utrwalania jej efektów w codziennym życiu. Naszym nadrzędnym celem jest pomoc w odzyskaniu zdrowia i sprawności tak szybko, jak to możliwe, aby każdy pacjent mógł wrócić do aktywności, cieszyć się swobodnym ruchem i prowadzić pełne, satysfakcjonujące życie.",
+    "bandSignUp": "Zapisz się",
+    "bandPricing": "Cennik",
+    "sections": [
+      {
+        "heading": "Kiedy możemy pomóc?",
+        "body": "Przede wszystkim koncentrujemy się na szybkim powrocie do sprawności fizycznej po kontuzji lub interwencji chirurgicznej. Najczęstsze dolegliwości, z którymi się spotykamy to: bóle pleców, bóle barków, kontuzje sportowe, wady postawy, zwichnięcia, rwa kulszowa, bóle głowy i bóle narządów wewnętrznych. Naszą silną stroną jest to, iż posiadamy duży zespół doskonałych fizjoterapeutów i trenerów medycznych. Do każdego Klienta dobieramy najbardziej odpowiedniego specjalistę. Ponieważ pracujemy zespołowo każdy Klient otrzymuje zawsze najlepszą możliwą pomoc, tak aby szybko mógł wrócić do zdrowia i ulubionej aktywności fizycznej.",
+        "image": "/images/fizjoterapia/hub-kiedy.webp"
+      },
+      {
+        "heading": "Metody pracy.",
+        "body": "Nasze działania łączą pracę w gabinecie z indywidualnie dopasowanym treningiem medycznym. Korzystamy zarówno z nowoczesnych metod terapeutycznych, jak i zaawansowanego sprzętu, w tym USG, EPTE, technologii Vald oraz Compex. Dzięki temu jesteśmy w stanie skutecznie wspierać pacjentów w zakresie leczenia bólu: ● tkanek miękkich: mięśni, powięzi, ścięgien, więzadeł; ● stawów obwodowych: skokowego, kolanowego, biodrowego, barkowego, łokciowego, stawów nadgarstka; ● kręgosłupa lędźwiowego, krzyżowego, szyjnego, piersiowego oraz żeber; ● głowy, twarzy, zębów pochodzenia mięśniowo-powięziowego; ● narządów wewnętrznych jamy brzusznej, klatki piersiowej oraz miednicy;",
+        "image": "/images/fizjoterapia/hub-metody.webp"
+      },
+      {
+        "heading": "Pierwsza wizyta.",
+        "body": "Pierwsza wizyta fizjoterapeutyczna to kluczowy etap w procesie diagnozy i rehabilitacji, który pozwala na dokładną ocenę Twojego stanu zdrowia oraz określenie indywidualnych potrzeb terapeutycznych. Na jej podstawie fizjoterapeuta identyfikuje źródło problemu, np. ból, kontuzję czy ograniczoną ruchomość i dobiera odpowiednią metodę terapii.",
+        "image": "/images/fizjoterapia/hub-pierwsza.webp"
+      },
+      {
+        "heading": "Przebieg wizyty.",
+        "body": "Wizyta u fizjoterapeuty zawsze zaczyna się od wywiadu, który jest niezwykle istotnym elementem każdego procesu leczenia. Kolejny etap to badanie. Na podstawie powyższych elementów nasz specjalista może wystawić wstępną diagnozę i ustalić plan leczenia. Po tym następuje właściwa terapia, która może trwać kilka wizyt lub nawet mieć charakter stały (np. u sportowców).",
+        "image": "/images/fizjoterapia/hub-przebieg.webp"
+      }
+    ],
+    "sectionCallCta": "Zadzwoń",
+    "sectionPricingCta": "Cennik",
+    "equipmentHeading": "Sprzęt:",
+    "equipment": [
+      {
+        "heading": "USG",
+        "body": "Wykorzystujemy USG nie tylko jako narzędzie diagnostyczne, ale również jako element nowoczesnej fizjoterapii i treningu, łącząc wiedzę, praktykę i technologię, aby jak najlepiej wspierać Twoje zdrowie i sprawność. Ultrasonografia pozwala w czasie rzeczywistym ocenić stan tkanek miękkich, takich jak mięśnie, ścięgna czy więzadła, a także monitorować ich regenerację i reakcję na terapię. Dzięki USG możemy szybko i precyzyjnie zlokalizować źródło bólu, ocenić rozległość urazów, kontrolować proces gojenia, sprawdzić jakość pracy mięśni podczas ruchu oraz monitorować efekty treningu i terapii. To narzędzie umożliwia indywidualne dopasowanie programów rehabilitacyjnych i treningowych, przyspieszając powrót do pełnej sprawności, minimalizując ryzyko kontuzji i zwiększając bezpieczeństwo w codziennej aktywności oraz sporcie.",
+        "image": "/images/fizjoterapia/sprzet/usg.webp"
+      },
+      {
+        "heading": "EPTE",
+        "body": "To innowacyjna metoda wspomagająca leczenie mięśni, ścięgien i więzadeł. Dzięki precyzyjnej aplikacji impulsów elektrycznych przyspieszamy regenerację tkanek, redukujemy ból i wspieramy powrót do pełnej sprawności. W połączeniu z monitorowaniem postępów w terapii możemy tworzyć spersonalizowane, skuteczne i bezpieczne programy rehabilitacyjne, minimalizując ryzyko nawrotu urazów i zwiększając efektywność treningu i terapii.",
+        "image": "/images/fizjoterapia/sprzet/epte.webp"
+      },
+      {
+        "heading": "COMPEX",
+        "body": "Wykorzystujemy elektrostymulację Compex jako element nowoczesnej fizjoterapii i treningu, łącząc zaawansowaną technologię z precyzyjną pracą mięśni. System ten pozwala na bezpieczną aktywację tkanek w czasie rzeczywistym, wspierając regenerację oraz zwiększając efektywność każdego ruchu. Dzięki technologii Compex możemy precyzyjnie budować siłę i wytrzymałość bez obciążania stawów, szybko redukować napięcia bólowe oraz przyspieszać powrót do sprawności po urazach. To narzędzie umożliwia indywidualne dopasowanie terapii do potrzeb Twojego ciała, minimalizując ryzyko kontuzji i zwiększając bezpieczeństwo w sporcie oraz codziennej aktywności.",
+        "image": "/images/fizjoterapia/sprzet/compex.webp"
+      },
+      {
+        "heading": "PLATFORMA FORCEDECKS",
+        "body": "Korzystamy z innowacyjnej platformy siłowej ForceDecks, która pozwala precyzyjnie mierzyć moc, równowagę i dynamikę ruchu w czasie rzeczywistym. Dzięki technologii czujników nacisku każda Twoja próba – skok, przysiad czy wypchnięcie – jest analizowana pod kątem siły generowanej przez mięśnie, asymetrii między kończynami oraz efektywności ruchu. ForceDecks to narzędzie nie tylko dla sportowców dążących do poprawy wyników, ale także dla osób powracających do sprawności po kontuzjach, które chcą bezpiecznie monitorować postępy i rozwijać funkcjonalną siłę w sposób inteligentny i kontrolowany.",
+        "image": "/images/fizjoterapia/sprzet/forcedecks.webp"
+      },
+      {
+        "heading": "DYNAMOMETR",
+        "body": "Zaawansowane urządzenie do precyzyjnego pomiaru siły mięśniowej. Dzięki niemu możemy ocenić moc, wytrzymałość i równowagę siłową poszczególnych grup mięśniowych, co pozwala odpowiednio programować trening, monitorować postępy i kontrolować proces rehabilitacji. Dynamo jest niezastąpione zarówno dla sportowców dążących do maksymalizacji wyników, jak i dla osób powracających do pełnej sprawności po urazach, umożliwiając bezpieczne i świadome zwiększanie siły mięśniowej oraz minimalizowanie ryzyka kontuzji.",
+        "image": "/images/fizjoterapia/sprzet/dynamometr.webp"
+      },
+      {
+        "heading": "AIRBANDS",
+        "body": "Wykorzystujemy opaski okluzyjne AirBands, innowacyjne narzędzie treningowe, które pozwala rozwijać siłę i masę mięśniową przy minimalnym obciążeniu stawów. Opaski działają poprzez delikatne ograniczenie przepływu krwi w wybranych partiach mięśniowych, co zwiększa aktywację włókien mięśniowych podczas ćwiczeń. Dzięki temu trening staje się bardziej inteligentny i bezpieczny, umożliwiając osiągnięcie znaczącej adaptacji mięśniowej przy niższym ryzyku przeciążeń stawów i ścięgien. Korzyści stosowania AirBands obejmują efektywne wzmacnianie mięśni, optymalizację rozwoju siły i masy mięśniowej porównywalną z tradycyjnym treningiem siłowym, minimalizację ryzyka urazów, wsparcie w rehabilitacji po kontuzjach oraz precyzyjną stymulację wybranych grup mięśniowych.",
+        "image": "/images/fizjoterapia/sprzet/airbands.webp"
+      }
+    ],
+    "teamHeading": "Zespół",
+    "teamCta": "Poznaj specjalistów",
+    "roomsHeading": "Gabinety",
+    "roomsCta": "Zobacz",
+    "testimonialsHeading": "Opinie klientów:",
+    "testimonials": [
+      {
+        "quote": "Bardzo polecam Bodywork i panią fizjoterapeutę Anetę Balcerzak! Niezwykłe połączenie wiedzy i profesjonalizmu. Dzięki indywidualnemu podejściu mogę funkcjonować bez bólu, a moja sprawność znacząco się poprawiła :) połączenie fizjoterapii i ćwiczeń daje cudowne efekty.",
+        "name": "Magda Sikarska"
+      },
+      {
+        "quote": "Jestem bardzo zadowolona z wizyt u fizjoterapeuty, Pana Grzegorza Ślęczki. Pan bardzo zaangażowany w swoją pracę, z ogromną wiedzą. Od razu postawił trafną hipotezę, zasugerował odpowiednie badania i ćwiczenia. Przed nami jeszcze trochę pracy, natomiast po trzech,czy czterech spotkaniach widzę ogromną różnicę.",
+        "name": "Justyna"
+      },
+      {
+        "quote": "Trafiłem z polecenia do fizjoterapeuty Bartosza i jestem zadowolony z współpracy. Omówienie urazu i dostosowanie treningu to było coś czego potrzebowałem. Otwierając pierwszy raz drzwi BodyWork czuć że ludzie tutaj są po to by Ci pomóc. Z przyjemnością zawitam tam ponownie.",
+        "name": "Tomasz Kowalski"
+      },
+      {
+        "quote": "Bardzo polecam fizjoterapeutę Panią Anię!",
+        "name": "Ilona Robakowska"
+      },
+      {
+        "quote": "Do BODYWORK pod skrzydła wspaniałego fizjoterapeuty i trenera personalnego Szymka trafiłam za namową ważnej dla mnie Osoby i autorytetu. Po \"przejściach\" miałam sporo kg do zrzucenia, do tego jestem totalnie anty-sportowa. Założone cele - początkowo myślałam, że nie do osiągnięcia - dzięki mojemu NAJ Trenerowi udało się uzyskać szybko i zdrowo. (...) wspaniała, rodzinna wręcz atmosfera, wszystko top class. (...) Z całego serca DZIĘKUJĘ!!!",
+        "name": "Natalia Kobelska – Dubiel"
+      },
+      {
+        "quote": "Moje ciało potrzebowało pomocy. Tutaj ją dostałem. Kasiu dziękuję. Katarzyna Adamek to mądra, empatyczna, kompetentna fizjoterapeutka i trenerka medyczna.",
+        "name": "Michał Hoffmann"
+      }
+    ],
+    "howToHeading": "Jak skorzystać z naszych usług?",
+    "howToBody": "Skontaktuj się z nami (zadzwoń pod nr 609805660 lub napisz poprzez e-mail: info@body-work.pl) i umów się na wizytę. Pracownicy recepcji udzielą Ci wszelkich dodatkowych, niezbędnych informacji.",
+    "howToCall": "Zadzwoń",
+    "howToEmail": "Wyślij e-mail"
+  },
+  "ManualTherapy": {
+    "title": "Terapia manualna.",
+    "bandEyebrow": "Jesteś w dobrych rękach!",
+    "bandHeading": "Kiedy możemy pomóc?",
+    "bandBody": "Terapia manualna to skuteczna metoda pracy z bólem i ograniczeniami ruchowymi, oparta na precyzyjnej diagnostyce oraz indywidualnie dobranych technikach terapeutycznych. Nasi fizjoterapeuci łączą wiedzę z zakresu terapii manualnej, osteopatii oraz treningu medycznego, aby kompleksowo wspierać proces leczenia. Dzięki pracy na tkankach miękkich, stawach oraz układzie nerwowym pomagamy zmniejszyć ból, poprawić zakres ruchu i przywrócić naturalną równowagę w ciele. Terapia manualna sprawdza się zarówno w przypadku dolegliwości przeciążeniowych, urazów, jak i przewlekłych problemów bólowych.",
+    "conditions": [
+      {
+        "heading": "Napięciowe bóle głowy.",
+        "body": "Napięciowe bóle głowy, jak sama nazwa mówi mogą wynikać z nadmiernych napięć mięśniowych obręczy barkowej, mięśni podpotylicznych, stresu, napięcia emocjonalnego, odwodnienia, małej ilości snu czy nieprawidłowej postawy ciała. Dolegliwości te uprzykrzają codziennie funkcjonowanie, nie pozwalają na pełne skupienie się oraz zmniejsza nasza produktywność. Są to globalne problemy, z którymi możemy pracować przez terapię manualną zaburzonych struktur, suche igłowanie, trening wzmacniający, edukację ergonomii codziennego poruszania się oraz wyciszanie napięć organizmu terapią czaszkowo - krzyżową.",
+        "image": "/images/fizjoterapia/manualna/1.webp"
+      },
+      {
+        "heading": "Bóle szyjnego odcinka kręgosłupa.",
+        "body": "Bóle szyjnego odcinka kręgosłupa często dolegają osobom o siedzącym charakterze pracy, ale również pracownikom fizycznym lub osobom po wypadkach komunikacyjnych. Niejednokrotnie wiążą się z tym dolegliwości promieniujące do kończyn górnych, drętwienia rąk, uczucie zmniejszonej siły w dłoniach, zawroty głowy, szumy uszne czy ograniczenie ruchów. Symptomy te nie muszą występować regularnie. Nierzadko zależy to od pory dnia, pozycji ciała, czy wykonywanej czynności, które mogą nasilać bóle. Często dolegliwości te są zauważane w zaawansowanym stadium, kiedy uprzykrzają codzienne funkcjonowanie. W takim przypadku należy wybrać się do fizjoterapeuty w celu konsultacji objawów i wykonania pełnej diagnostyki funkcjonalnej. Po weryfikacji problemu możemy pracować głównie przez terapię manualną, terapię tkanek miękkich, poprawę codziennych nawyków, edukację pacjenta, czy w szczególności przez ćwiczenia.",
+        "image": "/images/fizjoterapia/manualna/2.webp"
+      },
+      {
+        "heading": "Bolesny bark.",
+        "body": "Jest to termin, pod którym kryje się wiele dolegliwości zaczynając od problemów o podłożu stawowym, mięśniowym, neurologicznym wynikającym z podrażnienia nerwu, zamrożony bark, zapalenie stawu barkowego, konflikt podbarkowy, niestabilność stawu ramiennego, uszkodzenie obrąbka stawowego typu SLAP, zapalenie ścięgna głowy długiej bicepsa, zmiany zwyrodnieniowe stawu barkowo‑obojczykowego (ACJ). Dolegliwości barku mogą być następujące: ból barku rano i w nocy, tkliwość barku przy dotyku, ograniczony ruch, bolesny łuk (60‑120° odwodzenia kończyny górnej), ból przy spaniu na bolesnym boku, drętwienie ręki, osłabienie siły ramienia, opuchlizna lub zaczerwienienie stawu. Bark jest jednym z bardziej skomplikowanych stawów stąd, aby precyzyjnie poznać źródło bólu należy zgłosić się do fizjoterapeuty na konsultację i diagnostykę funkcjonalną. Czasami wymagane jest USG, które dopełnia badanie. Leczenie polega na połączeniu technik terapii manualnej, terapii tkanek miękkich z treningiem medycznym, wzmacniającym, nauką ergonomii pracy oraz poprawnością wykonywania ćwiczeń, również na siłowni.",
+        "image": "/images/fizjoterapia/manualna/3.webp"
+      },
+      {
+        "heading": "Łokieć tenisisty/golfisty.",
+        "body": "Problem ten może dotknąć zarówno sportowców, jak i osoby o siedzącym trybie pracy. Wbrew nazwie tenisiści i golfiści nie są główną grupą chorującą. W przypadku łokcia tenisisty mamy do czynienia z zapaleniem/entezopatią prostowników nadgarstka i palców. Łokieć golfisty to zapalenie/entezopatia zginaczy nadgarstka i palców. Wynika z tego, że są to schorzenia grupy mięśni o działaniu przeciwstawnym do siebie. Symptomy, które występują w obu dolegliwościach to: ból przy chwytaniu przedmiotów, osłabienie siły chwytu, tkliwość nadkłykcia bocznego kości ramiennej, tkliwość nadkłykcia przyśrodkowego kości ramiennej, ból promieniujący do nadgarstka, sztywność po nocnym bezruchu, ból podczas pracy z klawiaturą lub myszką, pieczenie/drętwienie w przypadku dodatkowego podrażnienia gałązki głębokiej nerwu promieniowego (PIN). Leczenie polega na połączeniu technik terapii manualnej, terapii tkanek miękkich, suchego igłowania, EPTE (przezskórna elektroliza), treningiem medycznym mającym na celu przebudowę ścięgna bolesnego mięśnia, treningu wzmacniającym obręcz barkową, nauką ergonomii pracy, codziennym stosowaniu ortezy z pelotą o działaniu uciskającym na daną grupę mięśniową. W przypadku ostrego stanu wymagane jest wprowadzenie farmakologii po uprzednim kontakcie z ortopedą.",
+        "image": "/images/fizjoterapia/manualna/4.webp"
+      },
+      {
+        "heading": "Bóle nadgarstka.",
+        "body": "Nadgarstek jest skomplikowaną strukturą złożoną z wielu kości, ścięgien, więzadeł, nerwów i naczyń krwionośnych. Symptomy z tej okolicy mają różnoraki początek. Potrafią pojawić się nagle w wyniku urazu o ostrym, uprzykrzającym bólu lub stopniowo w wyniku nawarstwiających się przeciążeń. Najczęściej zgłaszane objawy to: ból nadgarstka przy zginaniu, po urazie, podczas pracy przy komputerze, mrowienie, uczucie braku siły w dłoni, zmniejszony zakres ruchu, problem w podporach, ból podczas sportów rakietowych. Bóle nadgarstka mogą być przyczyną wielu dolegliwości: złamania nadgarstka, przeciążenia nadgarstka, skręcenia, zwichnięcia, zespołu cieśni nadgarstka, zapalenia stawów nadgarstka, choroba de Quervaina, reumatoidalnego zapalenia stawów nadgarstka, ganglionu nadgarstka. W związku z złożonością tego stawu zalecane jest skonsultowanie dolegliwości z fizjoterapeutą lub ortopedą, aby móc precyzyjnie rozpocząć rehabilitację. Leczenie polega na łączeniu diagnostyki obrazowej (RTG, USG, MRI), diagnostyki funkcjonalnej z terapią manualną, terapią tkanek miękkich, suchego igłowania, EPTE (przezskórna elektroliza), treningiem medycznym, edukacją pacjenta i ergonomią pracy.",
+        "image": "/images/fizjoterapia/manualna/5.webp"
+      },
+      {
+        "heading": "Bóle dolnego odcinka kręgosłupa.",
+        "body": "Pod tą nazwą ukrywają się dolegliwości z odcinka lędźwiowego, krzyżowego, stawów krzyżowo - biodrowych, dna miednicy, bioder czy innych układów ludzkiego organizmu. Są to problemy, które prawdopodobnie dotkną każdego z nas, gdyż statystycznie jest to najczęstsza przyczyna bólu z układu ruchu. Zgłaszane dolegliwości przez pacjentów to: ból przy zgięciu/wyproście, utrudnione poruszanie się, ból przy zmianie pozycji w łóżku, ból przy pierwszych ruchach po zastaniu, drętwienie, promieniowanie bólu do kończyn dolnych, zmniejszona siła mięśniowa w kończynach dolnych, ból podczas jazdy autem, ból przy dźwiganiu, nietrzymanie moczu. Powodem tych symptomów może być: przepuklina krążka międzykręgowego (dyskopatia) odcinka lędźwiowego, rwa kulszowa, zmiany zwyrodnieniowe odcinka lędźwiowego, przeciążenie mięśni pleców dolnego odcinka, ból pleców spowodowany wadami postawy, ból pleców związany z osteoporozą, ból korzeniowy lędźwi bez wyraźnej przyczyny (nieswoisty ból dolnego odcinka kręgosłupa), ból pleców mogący sugerować inne schorzenia (np. nerkowe, naczyniowe), zmiana biomechaniki ciała w związku z wagą, ciążą. Główne działania jakie należy zastosować w wyżej wymienionych trudnościach polegają na wizycie u fizjoterapeuty, który po dociekliwym wywiadzie i badaniu funkcjonalnym określi region przypadłości. Następnie wykona odpowiedni rodzaj terapii manualnej, terapii tkanek miękkich, czy suche igłowanie po czym dobierze ćwiczenia i trening, które w tym temacie są kluczową częścią leczenia. W przypadku niepokojących objawów fizjoterapeuta wskaże kolejne kroki takie jak: badania obrazowe czy wizyta u lekarza specjalisty w celu doboru farmakologii wspierającej rekonwalescencję.",
+        "image": "/images/fizjoterapia/manualna/6.webp"
+      },
+      {
+        "heading": "Zwyrodnienie stawu biodrowego.",
+        "body": "Koksartroza, czyli zwyrodnienie stawu biodrowego to przewlekła degeneracja chrząstki stawowej. Przypadłości jakie zgłaszają pacjenci to: ból biodra promieniujący do kolana, trzeszczenia w stawie biodrowym, sztywność stawu biodrowego, utrata ruchomości w biodrze, problemy z zakładaniem nogi, utykanie przy chodzeniu, ograniczone odwiedzenie/rotacja biodra, zaniki mięśni zajętej kończyny, ból w pachwinie. Najczęstszą przyczyną pojawienia się choroby zwyrodnieniowej są wieloletnie, permanentne przeciążenia stawów biodrowych, wady postawy, choroba Perthesa, inne choroby układowe mające pośredni wpływ na stawy. Leczenie jest zależne od stanu zaawansowania koksartrozy. W przypadku początkowych dolegliwości główne działanie polega na wykonywaniu dobranych przez fizjoterapeutę ćwiczeń, terapii manualnej, terapii tkanek miękkich oraz poprawy ergonomii poruszania się. W stanie znacznej degeneracji stawu wymagana jest opinia ortopedy, który może zalecić dostawowe iniekcje kwasu hialuronowego, osocza, sterydów, farmakoterapię lub wskazać leczenie operacyjne. W tej fazie również sugerowana jest współpraca z fizjoterapeutą.",
+        "image": "/images/fizjoterapia/manualna/7.webp"
+      },
+      {
+        "heading": "Bóle kolan.",
+        "body": "Ból kolana jest drugą najczęstszą dolegliwością z układu ruchu wśród społeczeństwa. Stwierdzenie \"ból kolana\" to zbyt rozległe nazewnictwo na różnorodność problemów z tym stawem. Pacjenci w większości przypadków opisują swoje symptomy jako: ból kolana przy schodzeniu ze schodów, przy zginaniu, przodu/tyłu kolana, ból kolan po bieganiu, po wysiłku, w nocy, po zastaniu, sztywność kolana, trzaski w kolanie. Są to bardzo ogólne wskazówki, za którymi mogą skrywać się rozmaite diagnozy. Przykładowe to: zapalenie stawu kolanowego, chondromalacja rzepki, uszkodzenie łąkotki, uszkodzenie więzadeł kolana, przeciążenie kolana, ból kolana promieniujący do łydki wynikający z problemów z kręgosłupem, również zwyrodnienia kolan o różnym stopniu zaawansowania. Dlatego też leczenie zaczynamy od konsultacji z fizjoterapeutą, który po diagnostyce funkcjonalnej może wykonać USG (dopełniając diagnozę) w celu potwierdzenia problematycznej struktury. Kolejnym etapem jest terapia manualna, terapia tkanek miękkich, suche igłowanie, trening medyczny, nauka ergonomii poruszania się. W ostrych przypadkach wymagana jest wizyta u ortopedy, który może zaoferować dalszą diagnostykę obrazową, dostawowe iniekcje kwasu hialuronowego, osocza, sterydów, farmakoterapię lub wskazać leczenie operacyjne. W tej fazie również sugerowana jest współpraca z fizjoterapeutą.",
+        "image": "/images/fizjoterapia/manualna/8.webp"
+      },
+      {
+        "heading": "Przeciążenia ścięgna Achillesa.",
+        "body": "Ścięgno Achillesa zbudowane jest z trzech mięśni: brzuchatego łydki, płaszczkowatego i podeszwowego. Budowa ta zapewnia mu wytrzymałość sięgającą nawet 7-krotności masy ciała. Pomimo dużej skali przyjmowanych ciężarów występują przypadki przeciążeń, a nawet zerwań ścięgna Achillesa. Najczęstszymi powodami bólu z tej struktury są: nagłe starty i zrywy do biegu, niedostateczna siła i mobilność względem przyjmowanych obciążeń, nagły powrót do sportu, zmiana obuwia dajacego znacznie większe wybicie podczas biegu np. karbonowa podeszwa. Wielokrotnie epizod uszkodzenia jest niewielki i przez to bagatelizujemy problem, co powoduje nawarstwienie się kolejnych mikrouszkodzeń, a w konsekwencji poważny uraz, czy stan zapalny. Ból przy chodzeniu, obrzęk, tkliwość okolicy Achillesa, ograniczona ruchomość w stawie skokowym, uczucie \"trzasku\" przy poruszaniu się, sztywność i ból podczas biegu to często zgłaszane objawy przez pacjentów. Samodzielne wyleczenie jest możliwe przez systematyczne wykonywanie odpowiednio dobranych ćwiczeń. Jednakże, aby było to możliwe wymagana jest kontynuacja u fizjoterapeuty w celu diagnozy, wykonania USG (dopełniające diagnozę), terapii manualnej, terapii tkanek miękkich, suchego igłowania, EPTE (przezskórna elektroliza) oraz planu treningu medycznego, aby przyspieszyć regenerację i przebudowę przyczepu ścięgna. W przypadku silnego uszkodzenia wymagana jest wizyta u ortopedy, który określi zaawansowane urazu, potrzebę zabiegu operacyjnego, dobierze farmakoterapię.",
+        "image": "/images/fizjoterapia/manualna/9.webp"
+      },
+      {
+        "heading": "Urazy stopy.",
+        "body": "Stopa podobnie jak nadgarstek składa się z różnorodnych pod kątem kształtu kości, ścięgien, więzadeł, nerwów i naczyń krwionośnych. Ten mały kompleks stawów dźwiga połowę masy naszego ciała, stąd częstość występowania urazów tej okolicy. Nagminnie dochodzi do skręceń stawów skokowych oraz mniej popularnych: złamań, przeciążeń stawów, płaskostopia, urazów stawu Lisfranca, zapalenia rozcięgna podeszwowego, haluksów, wrodzonych deformacji stopy. Najczęściej zgłaszane objawy to: ból, obrzęk, zasinienie, trudności w chodzeniu, deformacja, ból pięty, poranna sztywność, „trzaśnięcia\", trudności w zgięciu stopy, drętwienie. W związku z skomplikowaną budową stopy istotna jest konsultacja z fizjoterapeutą w celu diagnozy, wykonania USG (dopełniające diagnozę), terapii manualnej, terapii tkanek miękkich, suchego igłowania, EPTE (przezskórna elektroliza) oraz planu treningu medycznego mającego na celu przyspieszenie regeneracji i powrót do pełnej sprawności fizycznej. W przypadku silnego uszkodzenia wymagana jest wizyta u ortopedy, który określi zaawansowanie urazu, potrzebę zabiegu operacyjnego, dobierze farmakoterapię.",
+        "image": "/images/fizjoterapia/manualna/10.webp"
+      }
+    ],
+    "howToHeading": "Jak skorzystać z naszych usług?",
+    "howToBody": "Skontaktuj się z nami (zadzwoń pod nr 609805660 lub napisz poprzez e-mail: info@body-work.pl) i umów się na wizytę. Pracownicy recepcji udzielą Ci wszelkich dodatkowych, niezbędnych informacji.",
+    "howToCall": "Zadzwoń",
+    "howToEmail": "Napisz"
+  },
+  "MovementRehab": {
+    "title": "Rehabilitacja ruchowa.",
+    "bandHeading": "Kiedy możemy pomóc?",
+    "bandBody": "Rehabilitacja ruchowa to kompleksowe podejście do poprawy funkcjonowania całego ciała. Nasi fizjoterapeuci to wysoko wykwalifikowani specjaliści, którzy łączą wiedzę z zakresu terapii manualnej, treningu medycznego, terapii wisceralnej oraz nowoczesnych metod rehabilitacji ruchowej. Dzięki temu potrafimy nie tylko przywracać sprawność po urazach czy operacjach, ale również wspierać poprawę postawy, koordynacji i wydolności ruchowej. W pracy z pacjentami korzystamy z nowoczesnych narzędzi diagnostycznych i treningowych, a programy rehabilitacyjne dopasowujemy indywidualnie, aby maksymalnie zwiększyć efektywność i komfort terapii.",
+    "conditions": [
+      {
+        "heading": "Bóle rozcięgna podeszwowego.",
+        "body": "Przewlekły ból w okolicy przyczepu rozcięgna podeszwowego przy guzie piętowym, nasilający się przy pierwszych krokach rano lub po dłuższym bezruchu. Charakter bólu jest zwykle punktowy przy podeszwowej części pięty i związany z napięciem ścięgnisto-powięziowym podeszwy nogi. Zacząć się może jako mechaniczne przeciążenie przekazywane przez rozcięgno (np. długie stanie, bieganie, zwiększenie objętości treningu), zaburzenia mechaniki stopy, nadwaga i/lub skrócenie mięśni trójgłowych łydki. Zmiany degeneracyjne na poziomie przyczepu mięśni głębokich stopy są częstym rozwinięciem problemu. Podstawą leczenia, podobnie jak w tendinopatiach jest terapia ruchowa: praca nad mobilnością mięśnia trójgłowego, ćwiczenia wzmacniające mięśnie stopy/łydki oraz – przede wszystkim - progresywne obciążanie rozcięgna. Edukacja (modyfikacja przyzwyczajeń, zmiana obuwia/wkładek) i ćwiczenia w domu dają najlepsze rezultaty w połączeniu z wcześniej wymienionymi metodami.",
+        "image": "/images/fizjoterapia/rehab/1.webp"
+      },
+      {
+        "heading": "Skręcenia stawu skokowego.",
+        "body": "Uszkodzenie więzadeł stawu skokowego wskutek inwersji (najczęściej) lub ewersji (rzadko) stopy — istnieją III stopnie naruszenia struktur - od łagodnego naciągnięcia po całkowite zerwanie wymagające interwencji chirurgicznej. Objawami są: ból, obrzęk, ograniczenie chodu i stabilności. Mimo, iż zazwyczaj jest wynikiem nieszczęścia, uraz ten związany jest często z niewystarczającym przygotowaniem układu ruchu pod kątem propriocepcji czy siły mięśniowej całej kończyny dolnej – w tym bioder. W większości przypadków preferowanym sposobem leczenia jest rehabilitacja funkcjonalna — wczesne przywracanie zakresu ruchu w stawie skokowym, ćwiczenia siłowo-stabilizacyjne oraz trening propriocepcji / równowagi. Nauka udowadnia, iż programy oparte na ćwiczeniach zmniejszają ryzyko nawrotu.",
+        "image": "/images/fizjoterapia/rehab/2.webp"
+      },
+      {
+        "heading": "Tendinopatia Achillesa.",
+        "body": "Przewlekła dolegliwość ścięgna Achillesa mająca dwa oblicza. Objawia się bólem, sztywnością i ograniczeniem funkcji w okolicy 2–6 cm powyżej przyczepu piętowego lub przy przyczepie, a każdy z tych przypadków odznacza się trochę inną strategią działania. Zmiany ścięgna w tendinopatii mają charakter degeneracyjny raczej niż klasyczne ostre zapalenie, a pojawiają się zazwyczaj w wyniku przeciążenia (np. nagły wzrost obciążenia biegowego) czy zaburzeń mechaniki (np. ograniczona ruchomość stawu skokowego), ale mogą mieć na nie wpływ również wiek, zmiany metaboliczne czy nieadekwatna regeneracja. W przypadku tego typu jednostek najlepiej sprawdzają się protokoły ruchowe HSR (Heavy Slow Resistance) lub im podobne, polegające na stopniowalnym obciążaniu struktur ścięgnistych, by w końcu wrócić do bardziej funkcjonalnych i „skocznych” wzorców ruchowych.",
+        "image": "/images/fizjoterapia/rehab/3.webp"
+      },
+      {
+        "heading": "Kolano skoczka.",
+        "body": "Kolejna tendinopatia – tym razem ścięgna rzepki, objawiająca się bólem w jej dolnej okolicy, gdzie przyczepia się do guzowatości piszczeli — typowa u sportowców wykonujących skoki i lądowania. Dolegliwości tutaj odczuwalne są szczególnie przy wysiłku obciążającym wyprost kolana. Zmiany w ścięgnie swój początek mogą mieć poprzez przeciążenie ekscentryczne podczas lądowania/skoku, powtarzalne duże siły kompresyjne na ścięgno lub czynniki osłabiające strukturę ścięgna. W leczeniu tej dolegliwości oprócz progresywnego obciążania ścięgna, ważna będzie również praca nad techniką lądowania oraz trening mięśni powiązanych kinetycznie ze wzorcami ruchowymi wykorzystywanymi w danym sporcie.",
+        "image": "/images/fizjoterapia/rehab/4.webp"
+      },
+      {
+        "heading": "Kolano biegacza.",
+        "body": "Zespół bólowy przednio-bocznej części kolana, często nasilający się przy czynnościach obciążających staw rzepkowo-udowy: wchodzenie po schodach, kucanie, bieganie. Lokalizacja bólu w tym przypadku znajduje się po bocznej stronie rzepki lub za nią. Kolano biegacza ma charakter wieloczynnikowy: powtarzalne przeciążenie stawu rzepkowo-udowego (np. nagły wzrost objętości biegania), zaburzenia kontroli mięśniowej oraz czynniki związane z techniką biegu. Różne przeglądy naukowe podkreślają, iż np. zbyt niska siła prostowników oraz zaburzona kontrola biodra/kolana są modyfikowalnymi czynnikami ryzyka. Ruch i ukierunkowane ćwiczenia są podstawą leczenia — programy wzmacniające mięśnie prostowników kolana oraz mięśni biodra dają największe i najbardziej trwałe korzyści. Indywidualna terapia powinna łączyć ćwiczenia siłowe z treningiem neuromotorycznym (korekta wzorców ruchu przy lądowaniu i przetaczaniu stopy), edukacją o kontroli obciążenia i modyfikacją aktywności.",
+        "image": "/images/fizjoterapia/rehab/5.webp"
+      },
+      {
+        "heading": "Rekonstrukcja ACL i innych więzadeł.",
+        "body": "Zerwanie więzadła krzyżowego przedniego (ale też innych) w kolanie jest jednym z najczęstszych urazów, które wydarzają się na murawie czy stoku narciarskim. Taki wypadek najczęściej kończy się ingerencją chirurgiczną tj. rekonstrukcją tych struktur. Natomiast warto pamiętać, iż każda operacja ortopedyczna przypomina uraz sam w sobie. Kolejne tkanki zostają przerwane, aby dostać się do stawu, by mogło dojść do naprawy w stawie. Mimo, iż zabiegi takie spełniają swoją rolę w leczeniu uszkodzonych więzadeł, zostawiają pacjenta z osłabioną kończyną niezdolną do wcześniejszej aktywności. Na szczęście literatura naukowa bogata jest w treściwe protokoły i wytyczne dotyczące rehabilitacji kończyn dolnych po tego rodzaju działaniach. Wielomiesięczna rehabilitacji w tym przypadku polegać będzie na wczesnym przywracaniu zakresu, kontroli motorycznej, treningach hipertroficznych, siłowych by w końcu dojść do zaawansowanej plyometrii i drilli sportowych. Ponadto przywracanie do sprawności kierowane będzie konkretnymi i sprawdzonymi kryteriami powrotu do sportu.",
+        "image": "/images/fizjoterapia/rehab/6.webp"
+      },
+      {
+        "heading": "Bóle bioder.",
+        "body": "Ból w okolicy bioder i miednicy może mieć bardzo dużo potencjalnych źródeł. Genezy można szukać zarówno wewnątrzstawowo (np. choroba zwyrodnieniowa, zapalenie kaletki krętarza), na poziomie tkanek miękkich (np. tendinopatie mm. pośladkowych, naciągnięcia przywodzicieli) lub poza samym stawem, gdyż zdarza się, że ból rzutuje z kręgosłupa. Ze względu na wielkość struktury stawu biodrowego, ból może pojawiać się w pachwinach, w okolicy kości krzyżowej i niżej, ale także z przodu czy po boku. Tak rozległa gama możliwości podpowiada jak ważna w temacie bólu biodra jest specjalistyczna diagnoza problemu. Wyprowadzenie pacjenta z problemów bólowych w tym obszarze często polega na odpowiednio zaprogramowanym planie odbudowy mobilności biodra oraz wielokierunkowe wzmocnienie mięśni okalających staw.",
+        "image": "/images/fizjoterapia/rehab/7.webp"
+      },
+      {
+        "heading": "Ból dolnego odcinka kręgosłupa.",
+        "body": "Ból dolnego odcinka kręgosłupa jest obecnie pierwszą przyczyną niepełnosprawności na świecie wg. WHO. Co ciekawe, najczęściej występuje w postaci niespecyficznej – znaczy to, iż sam ból nie ma swojego źródła w uszkodzeniu czy degeneracji struktur kręgosłupa. Obecnie jako przyczyny niespecyficznego bólu kręgosłupa wymienia się niską sprawność fizyczną, przeciążenia czy czynniki psychospołeczne. Nie zmienia to faktu, iż wciąż zdarzają się przypadki „ostrego dysku”, mające swoje źródło w podrażnieniu korzeni nerwów wychodzących z rdzenia kręgowego. Niezależnie od przyczyny bólu, wytyczne mówią jasno – ćwiczenia terapeutyczne w znacznym stopniu redukują dolegliwości oraz poprawiają funkcję. Wczesne zachęcenie do aktywności z indywidualnym programem uzupełnionym o edukację o mechanizmach bólu wraz z ewentualnymi modyfikacjami stylu życia jest najlepszą drogą do powrotu do pełni życia.",
+        "image": "/images/fizjoterapia/rehab/8.webp"
+      },
+      {
+        "heading": "Ból stożka rotatorów barku.",
+        "body": "Dziś w literaturze przedmiotu nazywany RCRSP (pol. „ból barku związany ze stożkiem rotatorów”) termin-parasol opisuje takie schorzenia jak: tendinopatie stożka rotatorów, zapalenie kaletki podbarkowej i naderwanie stożka rotatorów. Problemy bólowe w okolicy barku mogą objawiać się na wiele sposobów, ale częstą ich formą jest znaczny dyskomfort przy unoszeniu i/lub rotacji ramienia oraz ograniczenie aktywności powyżej poziomu głowy. Źródłem tego rodzaju schorzeń mogą być zarówno urazy, przeciążenia związanie z powtarzalnymi ruchami w pracy/sporcie jak i degeneracja ścięgien z przyczyn naturalnych. Ćwiczenia fizyczne w tym przypadku są pierwszorzędnym wyborem leczenia zachowawczego. Zależnie od indywidualnych deficytów u pacjenta mogą być to ćwiczenia przywracające zakres ruchu w stawie, ćwiczenia wzmacniające mięśnie rotatorów (lub inne grupy mięśniowe biorące udział w ruchach kompleksu barkowego), trening kontroli łopatki czy po prostu bardziej ogólny trening siłowo-funkcjonalny kończyny górnej.",
+        "image": "/images/fizjoterapia/rehab/9.webp"
+      },
+      {
+        "heading": "Zamrożony bark.",
+        "body": "Tzw. zamrożony bark objawia się stopniowo narastającą bolesną sztywnością barku z ograniczeniem aktywnego i biernego zakresu ruchu, często przebiegającą w fazach – ciepłej (ostrej) – zimnej (sztywnej) – odmrożeniowej (remisja objawów). Długość poszczególnych faz jest mocno indywidualna. Etiologia choroby nie jest do końca znana, lecz wśród czynników ryzyka znajdują się: płeć (żeńska), wiek, nadwaga, cukrzyca, choroby tarczycy, wcześniejsze urazy barku oraz epizod długiego jego unieruchomienia. Mimo, iż nauka wciąż nie poznała do końca mechanizmów powstawania tego schorzenia, mamy już klarowne wytyczne dotyczące leczenia. Choroba ze względu na swój przebieg wymaga przede wszystkim edukacji pacjenta na ten temat, wraz z ewentualnymi uzupełnieniami w postaci terapii manualnej i/lub zastrzyków sterydowych. Filarem leczenia są natomiast ćwiczenia fizyczne barku – w fazie ostrej dostosowane do możliwości bólowych pacjenta, a w fazie sztywnej – bardziej „agresywne” treningi mobilizujące torebkę stawową w celu przywrócenia zakresu ruchu.",
+        "image": "/images/fizjoterapia/rehab/10.webp"
+      },
+      {
+        "heading": "Niestabilność łokcia.",
+        "body": "Niestabilność łokcia to zaburzenia biomechaniki stawu łokciowego przejawiające się uczuciem „przeskakiwania w stawie”, brakiem siły w kończynie, ograniczeniem zakresu ruchu, możliwym nawracającym podwichaniem oraz oczywiście bólem. W opisywanym przypadku objawy te są wynikiem braku stabilności wywołanej niewydolnością struktur więzadłowych okalających łokieć. Niestabilność łokcia może być oczywista – np. może dojść do zwichnięcia przedniego w wyniku upadku. Czasami jednak niestabilność może mieć mniej ostry charakter, a diagnoza zdarza się być nieoczywista. Rzadziej tego typu schorzenia powstają w wyniku chronicznego przeciążania łokcia np. w sportach rzutowych. Przykładami tu mogą być takie jednostki jak PLRI czy PMRI, gdzie uszkodzone zostają więzadła po stronie bocznej/przyśrodkowej i wywołują one dyskomfort w konkretnych ruchach kończyną. Ze względu na skomplikowanie omawianego tematu do rehabilitacji tego typu urazów trzeba podejść z odpowiednią wiedzą specjalistyczną. Trening ruchowy oparty na wczesnej mobilizacji i odbudowie kontroli motorycznej łokcia przy unikaniu niekorzystnych w początkowych fazach ruchów jest kluczem do powrotu do sprawności. Nieodpowiednie leczenie może prowadzić do powikłań, w tym przewlekłą, nawracającą postać niestabilności.",
+        "image": "/images/fizjoterapia/rehab/11.webp"
+      },
+      {
+        "heading": "Złamania kości.",
+        "body": "Złamania, czyli przerwania ciągłości kostnej występują we wszelakich formach – zależnie od rodzaju, lokalizacji i stopnia zaawansowania. Mogą być otwarte lub zamknięte, proste lub złożone (wieloodłamkowe), przebiegać poprzecznie do kości, wzdłuż niej lub nawet spiralnie. Do tego wymienić można złamania awulsyjne, kompresyjne czy typu „zielonej gałązki”. Naturalnie najczęściej są one wynikiem nieszczęśliwych upadków, ale zdarza się, że są następstwem osteopenii czy osteoporozy lub wynikają ze zmęczenia aparatu ruchu. Niezależnie od wszystkich wymienionych wcześniej rodzajów – najlepszym sposobem uporania się z nimi jest przywrócenie funkcji w dotkniętym obszarze ciała. Środkiem do tego celu jest odpowiednio poprowadzona rehabilitacja ruchem z naciskiem na jak najwcześniejsze, ale kontrolowane obciążanie dotkniętej kości. Każdy plan powrotu do sprawności powinien natomiast zostać zindywidualizowany pod konkretny typ złamania.",
+        "image": "/images/fizjoterapia/rehab/12.webp"
+      }
+    ],
+    "howToHeading": "Jak skorzystać z naszych usług?",
+    "howToBody": "Skontaktuj się z nami (zadzwoń pod nr 609805660 lub napisz poprzez e-mail: info@body-work.pl) i umów się na wizytę. Pracownicy recepcji udzielą Ci wszelkich dodatkowych, niezbędnych informacji.",
+    "howToCall": "Zadzwoń",
+    "howToEmail": "Napisz"
+  },
+  "HealthyBelly": {
+    "title": "Zdrowy brzuch.",
+    "leadHeading": "Projekt, który przywraca równowagę mięśniom brzucha i dna miednicy.",
+    "aboutHeading": "O projekcie.",
+    "aboutBody": "Pierwsze spotkanie to wywiad, badanie USG brzucha dynamiczne i statyczne, testowanie funkcjonalne mięśni tułowia (mięśnie brzucha, grzbietu, dna miednicy, przepony) i nauka ćwiczeń dla poprawy napięcia zmienionych tkanek. Cały projekt trwa około 2 miesiące, czyli 8 spotkań treningowych. Na ostatnim spotkaniu z cyklu sprawdzamy zmiany przy pomocy USG i testów, które były zastosowane na początku.",
+    "qualifyHeading": "Jakie dysfunkcje kwalifikują się do projektu?",
+    "qualifyBody": "● Rozejście kresy mięśnia prostego brzucha ● Przebyta ciąża (poród naturalny i cesarskie cięcie) ● Brak aktywności mięśni stabilizujących brzucha ● Problemy z dnem miednicy ● Stany po operacjach brzusznych",
+    "leadsHeading": "Prowadzące:",
+    "leads": [
+      {
+        "body": "SPECJALIZACJA - TRENING MEDYCZNY, TRENING I FIZJOTERAPIA KOBIET W CIĄŻY I PO PORODZIE Absolwentka kierunku fizjoterapia na Uniwersytecie Medycznym w Poznaniu. Specjalizuje się w treningu i terapii kobiet w ciąży oraz po porodzie. Zajmuje się też terapią przeciwbólową. W swojej pracy zależnie od potrzeb łączy pracę w gabinecie z treningiem. Ukończyła liczne kursy z zakresu treningu oraz fizjoterapii w okresie okołoporodowym, w tym również korekcji przy rozejściu mięśni brzucha, a także szkolenia z terapii tkanek miękkich, masażu i kinesiotapingu. Pierwsze doświadczenia w pracy z kobietami w ciąży i po porodzie zdobywała 5 lat temu w jednej z poznańskich szkół rodzenia. Aktualnie sama jest mamą i wie jak istotny jest brak dolegliwości bólowych w czasie ciąży oraz odpowiednio dobrany trening, by zdrowo powrócić do formy po porodzie. W swojej pracy skupia się na likwidowaniu dolegliwości bólowych, przygotowaniu do aktywnego porodu, poprawie funkcji i odbudowie ciała po porodzie.",
+        "image": "/images/fizjoterapia/brzuch-katarzyna-adamek.webp",
+        "name": "Katarzyna Adamek"
+      },
+      {
+        "body": "SPECJALIZACJA - TRENING MEDYCZNY, TRENING I FIZJOTERAPIA KOBIET W CIĄŻY I PO PORODZIE Absolwentka fizjoterapii Uniwersytetu Medycznego w Poznaniu, zdobywa nie tylko wiedzę teoretyczną, ale także praktyczne doświadczenie, które integruje z własnym podejściem do treningów. Poza kształceniem zawodowym rozwija się również dodatkowo uczestnicząc w kursach i konferencjach związanych z treningiem medycznym, zdobywając umiejętności w rehabilitacji pourazowej oraz w przypadku bólów kręgosłupa. Jej głównym obszarem zainteresowań są treningi w okresie okołoporodowym. Swoją wiedzę łączy z empatią i stara się tworzyć wyjątkową przestrzeń dla przyszłych mam, gdzie mogą doświadczyć wsparcia nie tylko fizycznego, ale i emocjonalnego. Pomaga również obecnym mamom powrócić do pełnej sprawności po porodzie. Jest certyfikowaną trenerką medyczną, ponadto ukończyła kursy związane z treningiem kobiet w ciąży oraz po porodzie Profi Fitness School. Szkoliła się z treningu prozdrowotnego dla mięśni dna miednicy oraz z rehabilitacji rozejścia mięśnia prostego brzucha pod okiem mgr Kasi Witek-Sokołowskiej. Ukończyła również liczne kursy uzupełniające, m.in z treningu funkcjonalnego, podstaw metody pilates, masażu tkanek głębokich oraz wykorzystania ultrasonografii w praktyce fizjoterapeuty.",
+        "image": "/images/fizjoterapia/brzuch-natalia-guzikowska.webp",
+        "name": "Natalia Guzikowska"
+      },
+      {
+        "body": "SPECJALIZACJA - TRENING MEDYCZNY, TRENING I FIZJOTERAPIA KOBIET W CIĄŻY I Z DYSFUNKCJAMI DNA MIEDNICY Fizjoterapeuta, trener, instruktor, szkoleniowiec, absolwentka AWF Poznań. Zajmuje się szeroko rozumianymi treningami zdrowotnymi… od nauki nowych czynności, przez zdobywanie wyniku sportowego, do przywracania utraconej funkcji po kontuzji. Specjalizuje się między innymi w treningu kobiet w ciąży, po operacjach brzusznych, problemach w obrębie dna miednicy, powrotem do sprawności po kontuzjach w piłce nożnej. Szczególną uwagę poświęca pracy ze stopą, której dysfunkcje mogą prowadzić do problemów w innych częściach ciała. Ukończyła liczne szkolenia z pracy z tkankami miękkimi, pracy z powięzią, kinezjotapingu, szkolenia z zakresu ruchu człowieka i coachingu.",
+        "image": "/images/fizjoterapia/brzuch-malgorzata-muzyka-kopera.webp",
+        "name": "Małgorzata Muzyka-Kopera"
+      }
+    ],
+    "formatsHeading": "Wybierz formę spotkań:",
+    "formats": [
+      {
+        "heading": "Konsultacja USG + Trening",
+        "price": "Koszt: 395,-",
+        "duration": "Czas: 1,5h",
+        "href": "https://bodywork.testowe.eu/zakupy/zdrowy-brzuch-konsultacja-usg-trening/"
+      },
+      {
+        "heading": "Pakiet 8 spotkań",
+        "price": "Koszt: 2.000,-",
+        "duration": "Czas: 1,5h",
+        "href": "https://bodywork.testowe.eu/zakupy/zdrowy-brzuch-pakiet-8-spotkan/"
+      }
+    ],
+    "formatCta": "Zapisz się"
+  },
+  "Physiotherapists": {
+    "title": "Specjaliści.",
+    "leadHeading": "Dobry fizjoterapeuta.",
+    "leadBody": "To człowiek otwarty na mowę ciała i słuchający co mówi Pacjent oraz jego ciało. To człowiek współpracujący ze specjalistami z zakresu diagnostyki obrazowej, dietetyki, psychologii, treningu sportowego czy medycyny. Przede wszystkim to osoba myśląca kreatywnie i samodzielnie z intencją pomocy w powrocie do zdrowia osobom, które tego potrzebują.",
+    "bandHeading": "Znajdź fizjoterapeutę dla siebie!",
+    "bandBody": "W BODYWORK stawiamy na specjalizację i interdyscyplinarną współpracę. Nasi fizjoterapeuci to eksperci w konkretnych obszarach ruchu, dzięki czemu otrzymujesz wsparcie oparte na najnowszej wiedzy i doświadczeniu. Wybór fizjoterapeuty o odpowiednim profilu to pierwszy krok do skutecznej realizacji Twoich celów.",
+    "directionsHeading": "Poznaj nasze główne kierunki pracy:",
+    "categories": [
+      {
+        "heading": "Specjalizacja ortopedyczna",
+        "body": "To specjalista, do którego trafisz w przypadku bólu, urazów lub ograniczeń w obrębie układu ruchu. Pracuje z problemami stawów, mięśni i tkanek miękkich - zarówno w fazie ostrej, jak i w procesie powrotu do pełnej sprawności. Skupia się na zrozumieniu przyczyny dolegliwości, przywracaniu funkcji oraz bezpiecznym wprowadzaniu ruchu, który staje się narzędziem leczenia i profilaktyki.",
+        "people": [
+          {
+            "body": "Od 2013 roku pomaga osobom dorosłym w powrocie do pełnej sprawności. Są to zarówno osoby po urazach (złamania, skręcenia, operacje), jak i te walczące z przewlekłym bólem (bóle pleców, barków, głowy). Specjalizuje się w pracy z osobami cierpiącymi na przewlekły ból pleców oraz po urazach kończyn dolnych. Towarzyszy pacjentom od momentu unieruchomienia aż do pełnego powrotu do aktywności. Zamiast działania objawowego, ustala z pacjentami rozwiązania oparte na terapii manualnej i ruchu dopasowanym do indywidualnych potrzeb. Jako absolwentka AWF w Poznaniu i Akademii Osteopatii, łączy precyzyjną diagnostykę z szerokim wachlarzem technik terapeutycznych - od podejścia osteopatycznego i akupunktury, przez Fascial Manipulation, po trening medyczny. Dopiero po dokładnym zbadaniu i zrozumieniu sytuacji pacjenta ustala plan działania. Terapia i trening to jedno. Najbardziej zależy jej, aby pacjenci nie bali się swojego ciała i odbudowali do niego zaufanie. Nie wstydzimy się słabości - budujemy na nich siłę. Nie boimy się ćwiczeń - dobieramy je tak, żeby były skuteczne i bezpieczne dla Twojego obecnego stanu. Jako pasjonatka kolarstwa rozumie, jak ważne jest odzyskanie pewności w swoim ciele i powrót do aktywności, która daje radość.",
+            "image": "/images/fizjoterapia/specjalisci/anna-sochacka.webp",
+            "name": "Anna Sochacka"
+          },
+          {
+            "body": "Doktor nauk medycznych w dyscyplinie nauki o zdrowiu, fizjoterapeuta oraz magister psychologii. W swojej pracy klinicznej łączy wiedzę z zakresu medycyny manualnej oraz psychologii, co pozwala mu patrzeć na problem pacjenta w sposób całościowy - szczególnie w przypadku dolegliwości przewlekłych i złożonych problemów bólowych. Podstawą jego pracy jest terapia manualna oparta na modelu International Academy of Orthopedic Medicine (IAOM), uzupełniana o nowoczesną diagnostykę funkcjonalną oraz indywidualnie dobrane postępowanie terapeutyczne. W procesie diagnostycznym wspiera się również oceną ultrasonograficzną (USG), która pozwala lepiej zrozumieć stan tkanek oraz precyzyjniej dobrać strategię leczenia. Podejście terapeutyczne opiera przede wszystkim na zasadach medycyny opartej na dowodach naukowych (Evidence-Based Medicine), łącząc aktualną wiedzę naukową z doświadczeniem klinicznym oraz indywidualnymi potrzebami pacjenta. Na co dzień pracuje zarówno ze sportowcami, jak i z pacjentami z różnorodnymi problemami klinicznymi, pomagając im wrócić do sprawności i aktywności.",
+            "image": "/images/fizjoterapia/specjalisci/bartosz-grobelny.webp",
+            "name": "Bartosz Grobelny"
+          },
+          {
+            "body": "Absolwentka Uniwersytetu Medycznego im. Karola Marcinkowskiego w Poznaniu na kierunku Fizjoterapia. Fundamentem jej pracy jest precyzyjna diagnostyka oraz techniki Niemieckiej Terapii Manualnej, które skutecznie łączy z suchym igłowaniem, terapią tkanek miękkich oraz treningiem medycznym. Głównym obszarem jej specjalizacji jest kompleksowa rehabilitacja osób po urazach, kontuzjach i zabiegach operacyjnych. Skutecznie prowadzi pacjentów z dolegliwościami przeciążeniowymi narządu ruchu, pomagając im w bezpiecznym powrocie do pełnej aktywności. Swoje doświadczenie buduje, współpracując z piłkarzami, tenisistami oraz biegaczami, dbając o ich formę i przygotowanie do sezonu. Warsztat pracy uzupełnia wiedzą z zakresu dna miednicy i rozejścia mięśnia prostego brzucha, co pozwala jej na jeszcze szersze spojrzenie na biomechanikę ciała, szczególnie w pracy z aktywnymi osobami. Jest zwolenniczką zasady, że trwała sprawność to efekt symbiozy fizjoterapii i indywidualnego treningu. Takie połączenie pozwala nie tylko wyeliminować ból, ale przede wszystkim wzmocnić ciało i zapobiegać nawrotom kontuzji. Dzięki połączeniu wiedzy klinicznej z praktyką sportową, precyzyjnie lokalizuje przyczynę problemu i dobiera rozwiązania, które pozwalają pacjentom odzyskać kontrolę nad własnym ciałem.",
+            "image": "/images/fizjoterapia/specjalisci/aneta-balcerzak.webp",
+            "name": "Aneta Balcerzak"
+          },
+          {
+            "body": "Absolwent Uniwersytetu Medycznego w Poznaniu na kierunku Fizjoterapia, który specjalizuje się w pracy z osobami po kontuzjach i zabiegach ortopedycznych. Na co dzień współpracuje z kadrą narodową kajakarzy górskich, a swoje kilkuletnie doświadczenie zdobywał, pracując z profesjonalnymi zawodnikami Akademii KKS Lech Poznań. Fizjoterapia i trening to dla niego jeden spójny proces — od leczenia i redukcji bólu, przez odbudowę siły i kontroli ruchu, aż po pełny powrót do aktywności fizycznej i sportu. Na co dzień pracuje z pacjentami po operacjach kolana, barku, stawu skokowego czy urazach mięśniowych, ale także z osobami, które stawiają na profilaktykę i świadome budowanie sprawności. Każdego pacjenta traktuje indywidualnie, łącząc aktualną wiedzę naukową z praktyką wyniesioną ze sportu wyczynowego. Jego celem jest nie tylko wyleczenie urazu, ale stworzenie fundamentu, który zmniejsza ryzyko kolejnych kontuzji i pozwala wrócić do pełnej formy.",
+            "image": "/images/fizjoterapia/specjalisci/jakub-dylewski.webp",
+            "name": "Jakub Dylewski"
+          },
+          {
+            "body": "Absolwent Pomorskiego Uniwersytetu Medycznego w Szczecinie, technik masażysta, wykładowca akademicki. Na podstawie szczegółowego wywiadu dobiera grupę testów diagnostycznych o odpowiedniej czułości i swoistości. Diagnostykę wspiera dodatkowo badaniem USG narządu ruchu. W swojej pracy stosuje terapię aktywną – w postaci różnych form ćwiczeń w zależności od jednostki chorobowej wraz z wykorzystaniem technik biernych jak terapia manualna, suche igłowanie, przezskórna elektroliza. Pomaga klientom o profilu ortopedycznym i sportowym. Pracuje z osobami po urazach ortopedycznych wymagających ukierunkowanej aktywności fizycznej; ze schorzeniami – ortopedycznymi, metabolicznymi i reumatologicznymi; które cierpią na podostry i chroniczny ból pleców odcinka lędźwiowego, piersiowego i szyjnego; które chcą poprawić swoje parametry sportowe; z miłośnikami sportu, którzy przygotowują się ogólnosprawnościowo do sezonu sportowego; z pacjentami mającymi schorzenia m.in. tendinopatie, enteziopatie; lub są pacjentami chronicznie bólowymi wynikającym ze zmian zwyrodnieniowych i degeneracyjnych.",
+            "image": "/images/fizjoterapia/specjalisci/grzegorz-sleczka.webp",
+            "name": "Grzegorz Ślęczka"
+          },
+          {
+            "body": "Doktor nauk medycznych o specjalności nauki o zdrowiu, absolwentka AWF w Poznaniu na kierunku fizjoterapia. Od 2009 roku z pasją zgłębia tajniki Terapii Manualnej Rakowskiego, którą z powodzeniem stosuje w pracy z pacjentami, szczególnie zajmując się osobami z zaburzeniami czynności narządu ruchu, w tym dysfunkcjami stawów skroniowo-żuchwowych. Magdalena kieruje się przekonaniem, że organizm ludzki „mówi” przez objawy, a jej rolą jest pomoc w „tłumaczeniu” tej mowy, by przywrócić równowagę i zdrowie pacjentom. Specjalizuje się w analizie i korygowaniu zaburzeń posturalnych oraz w kontroli motorycznej tułowia. W swojej praktyce uwzględnia również rolę stóp jako podstawy łańcuchów kinematycznych. Z satysfakcją współpracuje z trenerami, logopedami, ortodontami i psychologami, co pozwala na kompleksowe podejście do problemów pacjentów.",
+            "image": "/images/fizjoterapia/specjalisci/magdalena-tomczak.webp",
+            "name": "Magdalena Tomczak"
+          },
+          {
+            "body": "Fizjoterapeuta, trener, instruktor, szkoleniowiec, absolwentka AWF Poznań. Zajmuje się szeroko rozumianymi treningami zdrowotnymi… od przywracania utraconej funkcji po kontuzji do osiągania wyniku sportowego. Specjalizuje się między innymi w treningu prewencji i po kontuzjach w piłce nożnej (juniorskiej i seniorskiej). Szczególną uwagę poświęca pracy ze stopą, której dysfunkcje mogą prowadzić do problemów w innych częściach ciała. Zajmuje się także przywracaniem funkcji mięśni brzucha po operacjach, w bólach kręgosłupa, po ciążach. Ruch jest przypieczętowaniem postępowania fizjoterapeutycznego prowadzący do przedłużenia zdrowia w danym rejonie pracy. Ta misja jest przekazywana na szkoleniach Treningu Medycznego, które prowadzi Małgorzata. Ukończyła liczne szkolenia z pracy z tkankami miękkimi, pracy z powięzią, kinezjotapingu, szkolenia z zakresu ruchu człowieka i coachingu.",
+            "image": "/images/fizjoterapia/specjalisci/malgorzata-muzyka-kopera.webp",
+            "name": "Małgorzata Muzyka-Kopera"
+          },
+          {
+            "body": "Magister fizjoterapii oraz trener niebojący się łączenia wszelakich szkół i podejść do treningu, by osiągnąć wymarzony przez podopiecznego efekt. Od strony zawodowej – fascynat kończyny górnej. Współpracuje zarówno z ludźmi potrzebującymi pomocy w zakresie walki z bólem lub wymagającymi rehabilitacji pooperacyjnej, jak i osobami aktywnymi fizycznie doskonalącymi swoje dziedziny ruchowe. Swój warsztat opiera na przekonaniu o efektywności leczenia ruchem i usamodzielnieniu klienta. W wolnym czasie pasjonat wspinaczki boulderowej oraz amator grapplingu.",
+            "image": "/images/fizjoterapia/specjalisci/szymon-frankowski.webp",
+            "name": "Szymon Frankowski"
+          },
+          {
+            "body": "Fizjoterapeuta, trener funkcjonalny. Absolwent WSEiT w Poznaniu na kierunku fizjoterapia, z dyplomem na kierunku: kompleksowa terapia manualna. W pracy z pacjentem wykorzystuje różne formy terapii manualnej, m. in. masaż tkanek głębokich, terapię punktów spustowych, igłoterapię oraz manipulacje stawowe. Terapię bierną łączy z rehabilitacją ruchową, co pozwala na kompleksowe podejście do problemu oraz maksymalizację efektów terapeutycznych.Szczególne miejsce w warsztacie Mikołaja zajmują kontuzje przeciążeniowe oraz urazy stawu kolanowego.",
+            "image": "/images/fizjoterapia/specjalisci/mikolaj-mili.webp",
+            "name": "Mikołaj Mili"
+          }
+        ]
+      },
+      {
+        "heading": "Specjalizacja uroginekologiczna",
+        "body": "To specjalista zajmujący się zdrowiem w obszarze dna miednicy i funkcji kobiecego ciała. Wspiera w pracy z dolegliwościami takimi jak nietrzymanie moczu, obniżenie narządów czy bóle w obrębie miednicy, a także w okresie ciąży i po porodzie. Skupia się na świadomej pracy z ciałem, oddechem i napięciem, pomagając przywrócić komfort, kontrolę i bezpieczeństwo w codziennym funkcjonowaniu.",
+        "people": [
+          {
+            "body": "Absolwentka kierunku Fizjoterapia na Uniwersytecie Medycznym w Poznaniu. Specjalizuje się w treningu medycznym, treningu i fizjoterapii kobiet w ciąży i po porodzie, jak również kobiet chorujących na endometriozę. Certyfikowana instruktorka metody LOW PRESSURE FITNESS. Kasia bierze udział w projekcie “ZDROWY BRZUCH”, gdzie zajmuje się oceną mięśni brzucha pod kontrolą USG oraz treningiem mięśni brzucha i mięśni dna miednicy dostosowanym do istniejących dysfunkcji pacjenta. Zajmuje się też terapią przeciwbólową. Ukończyła liczne kursy z zakresu treningu oraz fizjoterapii w okresie okołoporodowym, w tym również korekcji przy rozejściu mięśni brzucha,kurs treningu medycznego i personalnego oraz metody LPF, jak również szkolenie Fizjoterapia w endometriozie. W swojej pracy zależnie od potrzeb łączy pracę w gabinecie z treningiem, aby działanie było kompleksowe i przynosiło lepsze efekty. Skupia się na likwidowaniu dolegliwości bólowych, przygotowaniu do aktywnego porodu oraz na poprawie funkcji i przywróceniu równowagi w pracy mięśni dna miednicy i mięśni brzucha po porodzie, operacjach brzusznych i w endometriozie. Jako mama dwójki dzieci wie jak istotny jest brak dolegliwości bólowych w czasie ciąży oraz odpowiednio dobrany trening, by zdrowo powrócić do formy po porodzie.",
+            "image": "/images/fizjoterapia/specjalisci/katarzyna-adamek.webp",
+            "name": "Katarzyna Adamek"
+          },
+          {
+            "body": "Trenerka oraz fizjoterapeutka ze specjalizacją w fizjoterapii uroginekologicznej. Na co dzień pracuje z kobietami zmagającymi się z problemami intymnymi, takimi jak nietrzymanie moczu, obniżenie narządów miednicy czy dolegliwości bólowe w obrębie dna miednicy. Wspiera kobiety w ciąży oraz po porodzie, pomagając odpowiednio dobierać aktywność fizyczną i odzyskać sprawność. Prowadzi również terapię i trening medyczny osób z dolegliwościami bólowymi, szczególnie w obrębie odcinka lędźwiowego kręgosłupa, a także wspiera osoby rozpoczynające swoją przygodę z ruchem. Prowadzi zajęcia grupowe typu Core oraz Zdrowy Kręgosłup, łącząc wiedzę fizjoterapeutyczną z praktycznym podejściem do treningu. Nieustannie pogłębia swoją wiedzę uczestnicząc w specjalistycznych kursach oraz konferencjach.",
+            "image": "/images/fizjoterapia/specjalisci/natalia-guzikowska.webp",
+            "name": "Natalia Guzikowska"
+          }
+        ]
+      }
+    ]
   }
 }
