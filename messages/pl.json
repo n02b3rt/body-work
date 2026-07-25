@@ -169,5 +169,357 @@
     "terms": "Regulamin",
     "cookies": "Cookies",
     "copyright": "BODYWORK © {year}"
+  },
+  "PersonalTraining": {
+    "title": "Trening personalny",
+    "introEyebrow": "Specjalizacje i system treningowy",
+    "introHeading": "Trening dopasowany do Ciebie.",
+    "introBody1": "BODYWORK to pierwsze w Polsce tak kompleksowe miejsce oparte na zintegrowanym podejściu do treningu personalnego i fizjoterapii. Ruch, indywidualnie dobrany, wielopłaszczyznowy i nastawiony na trwałe efekty to nasze główne narzędzie pracy. W centrum znajduje się ciało, najbardziej doskonała maszyna treningowa.",
+    "introBody2": "W zależności od Twoich indywidualnych potrzeb i aktualnego stanu zdrowia, wspólnie dobierzemy jeden z trzech głównych kierunków pracy. Pamiętaj, że nasze podejście jest elastyczne – granice między specjalizacjami często się przenikają, by jak najlepiej odpowiedzieć na to, czego w danej chwili potrzebuje Twoje ciało.",
+    "specializations": [
+      {
+        "heading": "Trening medyczny.",
+        "body": "To propozycja dla osób powracających do aktywności po kontuzjach, zabiegach lub zmagających się z dolegliwościami bólowymi układu ruchu. Stanowi również kluczowe wsparcie w procesie leczenia chorób przewlekłych i cywilizacyjnych, gdzie odpowiednio dobrany ruch jest niezbędnym elementem terapii. Skupiamy się na bezpiecznym przywracaniu funkcji, budowaniu stabilizacji i fundamentu pod dalszy rozwój Twojej sprawności."
+      },
+      {
+        "heading": "Trening funkcjonalny.",
+        "body": "Kierunek dla każdego, kto chce cieszyć się sprawnym ciałem, zdrową postawą i wysportowaną sylwetką na co dzień. Poprzez pracę nad wszechstronnością ruchu, poprawiamy mobilność i siłę, które realnie przekładają się na komfort życia i swobodę w podejmowaniu codziennych wyzwań. To trening oparty na naturalnych wzorcach ruchowych, który uczy Twoje ciało optymalnej pracy w pełnym zakresie."
+      },
+      {
+        "heading": "Trening motoryczny.",
+        "body": "Dedykowany osobom, które chcą świadomie rozwijać swój potencjał fizyczny i poprawić wyniki w wybranej dyscyplinie sportu. Skupiamy się na precyzyjnym kształtowaniu cech takich jak moc, szybkość czy wytrzymałość, przy jednoczesnym budowaniu odporności tkanek na przeciążenia. To programowanie oparte na dowodach, które pozwala zarówno profesjonalistom, jak i pasjonatom trenować mądrzej i bezpieczniej."
+      }
+    ],
+    "services": [
+      {
+        "heading": "Trening indywidualny.",
+        "body": "Praca z trenerem osobistym to najbardziej skuteczny i najszybszy sposób osiągnięcia celu, niezależnie od tego czy celem tym będzie sprawność fizyczna, przemiana sylwetki, wynik sportowy czy pozbycie się bólu. Każdy cykl treningów rozpoczyna się od diagnostyki, zdefiniowania celu i ustalenia indywidualnego planu treningowego. Później pozostaje już tylko praca pod okiem doświadczonego trenera, który zmotywuje Cię do działania!"
+      },
+      {
+        "heading": "Trening w parze.",
+        "body": "Trening w duecie to połączenie świadomej pracy z ciałem z czasem spędzonym razem – jakościowo, aktywnie i z uśmiechem. To idealna opcja dla tych, którzy chcą dzielić proces budowania formy z drugą osobą – partnerem, przyjacielem, rodzeństwem. Wspólna obecność zwiększa motywację, przełamuje bariery i w naturalny sposób dodaje energii do działania. Każda osoba w parze realizuje indywidualny plan, ale ćwiczycie razem – wspierając się."
+      },
+      {
+        "heading": "Ocena funkcjonalna.",
+        "body": "To pierwszy krok w stronę świadomego ruchu. Podczas szczegółowej oceny funkcjonalnej analizujemy Twoje wzorce ruchowe, zakresy mobilności, stabilność i sposób oddychania. To właśnie na tej podstawie projektujemy indywidualny plan treningowy, który nie tylko uwzględnia Twoje cele, ale przede wszystkim wspiera zdrowie i eliminuje potencjalne źródła bólu. Dzięki ocenie funkcjonalnej zyskujesz jasny obraz swojej sprawności oraz mapę prowadzącą do jej rozwoju."
+      }
+    ],
+    "assessmentHeading": "Sprawdź swoją sprawność.",
+    "assessmentBody1": "Pierwsze spotkanie z trenerem to tzw. ocena sprawności. Podczas kilku prostych ćwiczeń trener sprawdza co działa dobrze, a nad czym należy popracować podczas treningów.",
+    "assessmentBody2": "Pamiętaj – ta ocena jest dla Ciebie i dla trenera. Pomaga zbudować plan treningowy i weryfikować postępy.",
+    "assessmentCta": "Kup teraz 169,-",
+    "testimonialsHeading": "Opinie:",
+    "testimonials": [
+      {
+        "quote": "Ćwiczymy w Body Work od ponad 4 lat uczestnicząc w treningach personalnych dla dwóch osób i odkąd tam trafiliśmy, nie wyobrażamy sobie lepszego miejsca. Wykwalifikowana kadra - trafiliśmy pod skrzydła wspaniałych Trenerek Olgi i Dominiki oraz Dietetyczki Marty :), serdeczna atmosfera, czystość, przestrzeń. Bardzo polecamy!",
+        "name": "Olga Winkowska"
+      },
+      {
+        "quote": "Super miejsce do treningów. Trafiłem z bólem pleców i już po pierwszym spotkaniu z trenerem personalnym Mikołajem wiedziałem ze będzie dobrze. Fajne, profesjonalne podejście, przemiła atmosfera i bez nudy w trakcie treningu. Ból pleców minął po kilku spotkaniach a ja ćwiczę już ponad rok 🙂 Jeśli ktoś nie lubi zatłoczonych sieciowych klubów to szczerze polecam Bodywork.",
+        "name": "Paweł Tymrakiewicz"
+      },
+      {
+        "quote": "Bodywork jako same miejsce już od wejścia Was zachwyci. Kameralna i spokojna atmosfera, świetny sprzęt, przestrzeń i co bardzo ważne dobra energia. Idealne miejsce dla osób, które chcą utrzymać swoją kondycję, poprawić swoje wyniki lub dla osób po kontuzjach i operacjach, które potrzebują wrócić do pełnej sprawności. Wdzięczna x nieskończoność + polecam.",
+        "name": "Magdalena O."
+      },
+      {
+        "quote": "Miałam/mam wielkie szczęście współpracować z Gosią, która posiada ogromną wiedzę i doświadczenie. Już na pierwszym spotkaniu zdiagnozowała mój problem i dostosowała indywidualne ćwiczenia. Wspomnę, że nikt wcześniej nie potrafił zdiagnozować przyczyny przez wiele miesięcy.",
+        "name": "Magdalena"
+      },
+      {
+        "quote": "Moim zdaniem najlepsza siłownia w Poznaniu - ogromna odmiana po różnych sieciówkach: profesjonalizm, spokój, bardzo dobrze zorganizowana przestrzeń, różnorodna oferta, dostęp do specjalistów z różnych dziedzin, sauna, a do tego jeszcze kucharki przygotowujące znakomite posiłki (ach, te deserki!).",
+        "name": "Jacek Jaciubek"
+      },
+      {
+        "quote": "Bardzo polecam Kasię Adamek. U mnie poprawa zdrowia jest olbrzymia! Kasia jest profesjonalna, zna miliony różnych ćwiczeń i zawsze znajduje najbardziej odpowiednie dla Ciebie. W dodatku to przemiła i ciepła osoba. Naprawdę warto!",
+        "name": "Magda Przydział"
+      }
+    ],
+    "howToHeading": "Jak skorzystać z naszych usług?",
+    "howToBody": "Zadzwoń pod nr 609 805 660 i umów się na trening. Pracownicy recepcji udzielą Ci wszelkich dodatkowych, niezbędnych informacji.",
+    "howToCall": "Zadzwoń",
+    "howToPricing": "Cennik",
+    "teamHeading": "Zespół.",
+    "teamCta": "Poznaj trenerów",
+    "spaceHeading": "Przestrzeń.",
+    "spaceCta": "Zobacz"
+  },
+  "TrainingReasons": {
+    "heading": "Kiedy warto?",
+    "items": [
+      {
+        "heading": "Redukcja tkanki tłuszczowej",
+        "body": "Zgodnie z danymi PAP ponad 60% Polaków ma nadwagę, z czego 25% to osoby otyłe. Niestety dotyka to również w coraz większym stopniu dzieci i nastolatków. Zdaniem specjalistów otyłość i nadwaga powodują około 300 różnego rodzaju powikłań zdrowotnych. Co zatem zrobić? Zalecenia są dość oczywiste – właściwa dieta i zwiększona aktywność ruchowa. Jak zawsze jednak „diabeł tkwi w szczegółach”. I tak, właściwa dieta nie oznacza wcale zmniejszenia ilości jedzenia, a trening fizyczny również musi być wykonywany odpowiednio, aby przekładał się na spalanie tkanki tłuszczowej. Stąd niezwykle ważne jest, aby rozpocząć proces odchudzania w sposób przemyślany i z założeniem długotrwałego utrzymania efektów.",
+        "image": "/images/trening-personalny/reasons/fat-loss.webp"
+      },
+      {
+        "heading": "Poprawa sylwetki",
+        "body": "Zdecydowana większość społeczeństwa prowadzi siedzący styl życia (praca biurowa, transport, rozrywka przed telewizorem). Długotrwałe przebywanie w tej pozycji przyczynia się do nadmiernych i stałych napięć w okolicy karku, zamknięcia klatki piersiowej, osłabienia mięśni grzbietu, a w konsekwencji permanentnych dolegliwości bólowych i niestety nieproporcjonalnej, skrzywionej postawy ciała. Trening, którego założeniem jest poprawa sylwetki, ukierunkowany jest przede wszystkim na otwarcie i wyprostowanie naszego ciała, a także na poprawę ruchomości i zwiększenie elastyczności. Wyprostowana i smukła sylwetka to nie jedyne efekty takiego treningu. Czujemy się sprawniejsi, bardziej rozciągnięci, swobodniej nam się oddycha i odczuwamy więcej radości na codzień.",
+        "image": "/images/trening-personalny/reasons/posture.webp"
+      },
+      {
+        "heading": "Budowanie siły",
+        "body": "Siła to nie tylko liczba kilogramów, które podnosisz, ale także fundament stabilności, równowagi i wydolności całego ciała. Stawiamy na kompleksowe podejście do treningu siłowego, które łączy rozwój masy mięśniowej z poprawą koordynacji i pracy układu nerwowego. Nasz plan treningowy uwzględnia technikę, progresję obciążeń i różnorodne metody, które angażują mięśnie w sposób funkcjonalny. W trakcie treningów budujemy siłę nie tylko po to, by poprawić wydolność, ale by zwiększyć ochronę przed kontuzjami i poprawić codzienną sprawność. Skupiamy się na prawidłowej postawie i zaawansowanych ćwiczeniach, które angażują całe ciało, rozwijając siłę w różnych zakresach ruchu. Każdy trening dostosowujemy do indywidualnych potrzeb i celów, pomagając Ci osiągnąć najlepsze rezultaty w możliwie najbezpieczniejszy sposób.",
+        "image": "/images/trening-personalny/reasons/strength.webp"
+      },
+      {
+        "heading": "Przygotowanie motoryczne",
+        "body": "Kompleksowe przygotowanie motoryczne w BODYWORK® opiera się na potrzebach konkretnej dyscypliny i poziomu sportowego. Współpracujemy zarówno z zawodnikami sportów indywidualnych – takich jak lekkoatletyka, tenis czy sporty walki – jak i zespołowych, w tym piłki nożnej, ręcznej, siatkówki czy hokeja. W pracy wykorzystujemy nowoczesne technologie, m.in. platformę VALD, system Dynamo czy elektrostymulację Compex, co pozwala precyzyjnie monitorować postępy i optymalnie dostosowywać obciążenia treningowe. Wspieramy zawodników na każdym etapie rozwoju – od dzieci i młodzieży po profesjonalistów, w tym mistrzów świata i reprezentantów kadr narodowych. Trening motoryczny koncentruje się na rozwijaniu siły, mocy, szybkości, koordynacji, mobilności i wytrzymałości, zawsze z uwzględnieniem specyfiki dyscypliny oraz indywidualnych predyspozycji sportowca.",
+        "image": "/images/trening-personalny/reasons/athletic.webp"
+      },
+      {
+        "heading": "Trening medyczny",
+        "body": "Trening medyczny to indywidualnie dopasowana aktywność ruchowa, której celem jest przywrócenie sprawności, redukcja bólu i poprawa jakości życia. Stanowi naturalne przedłużenie procesu fizjoterapii – moment, w którym ciało jest gotowe na większe wyzwania, ale wciąż wymaga mądrego i bezpiecznego wsparcia. Pracujemy nad przywracaniem prawidłowych wzorców ruchowych, wzmacniamy osłabione struktury, budujemy stabilność i uczymy ciało funkcjonować efektywnie – bez kompensacji i ograniczeń. Trening medyczny jest dla każdego: osób wracających do aktywności po kontuzji, zmagających się z bólem przeciążeniowym, prowadzących siedzący tryb życia, a także tych, którzy chcą poruszać się swobodnie i świadomie. To ruch z konkretnym celem – Twoim celem.",
+        "image": "/images/trening-personalny/reasons/medical.webp"
+      },
+      {
+        "heading": "Trening kobiet w ciąży",
+        "body": "Działanie terapeuty polega tu na zastosowaniu technik powodujących rozluźnienie napiętych struktur oraz zmniejszających obrzęki. Dodatkowo możemy zastosować kinesiotaping, gdzie poprzez użycie plastra i zastosowanie odpowiednich technik wspomagamy rozciągnięcie mięśni lub też pobudzamy je do pracy. Dobrym uzupełnieniem działań w obszarze gabinetu jest indywidualnie dobrany trening, zarówno o charakterze medycznym jak i funkcjonalnym. Dobra kondycja organizmu nie tylko ułatwia poszczególne fazy porodu, ale przede wszystkim wpływa na szybszą regenerację po porodzie. Kobiety ćwiczące znacznie lepiej przechodzą okres połogu i łatwiej wrócić im do formy.",
+        "image": "/images/trening-personalny/reasons/pregnancy.webp"
+      },
+      {
+        "heading": "Trening osób starszych",
+        "body": "Forma ruchu dostosowana do potrzeb i możliwości osób w wieku dojrzałym. Głównym celem treningu jest wspieranie sprawności w codziennym funkcjonowaniu – poprawa siły mięśniowej, równowagi, koordynacji czy zakresu ruchu. Regularna aktywność pomaga również zmniejszać dolegliwości bólowe, wspiera ogólne samopoczucie i zachowanie niezależności na co dzień – tak, by jak najdłużej cieszyć się pełnią aktywnego życia. Dobrze zaplanowany trening to także ważny element profilaktyki – zmniejsza ryzyko upadków, urazów i przeciążeń. Podczas treningu zwracamy uwagę na bezpieczeństwo i tempo pracy, tak by każdy czuł się komfortowo i miał przestrzeń do wykonywania ćwiczeń w swoim rytmie. Trening prowadzony jest pod okiem fizjoterapeuty lub trenera, który dobiera ćwiczenia indywidualnie, z troską o zdrowie i możliwości danej osoby.",
+        "image": "/images/trening-personalny/reasons/seniors.webp"
+      },
+      {
+        "heading": "Trening dzieci i młodzieży",
+        "body": "Treningi dla dzieci i młodzieży są starannie zaprojektowane, aby wspierać ich rozwój fizyczny w sposób bezpieczny i efektywny. Programy treningowe są dostosowane do wieku, etapu rozwoju oraz indywidualnych potrzeb, co pozwala na osiąganie optymalnych efektów w zakresie poprawy koordynacji, siły, gibkości oraz wytrzymałości. Kładziemy szczególny nacisk na rozwój podstawowych umiejętności motorycznych, które stanowią fundament przyszłej aktywności sportowej. Współpracujemy zarówno z dziećmi, które dopiero zaczynają swoją przygodę ze sportem, jak i z młodymi zawodnikami, którzy aspirują do osiągnięć na poziomie wyczynowym. Nasze treningi są oparte na metodach, które uwzględniają specyficzne potrzeby młodych sportowców, pomagając im w prewencji kontuzji oraz rozwijaniu umiejętności niezbędnych w danej dyscyplinie. Dzięki odpowiedniemu podejściu, nasze zajęcia wspierają zarówno rozwój fizyczny, jak i budowanie pewności siebie oraz dyscypliny, które są kluczowe w sportowej drodze młodych zawodników.",
+        "image": "/images/trening-personalny/reasons/youth.webp"
+      }
+    ]
+  },
+  "IndividualTraining": {
+    "title": "Trening indywidualny.",
+    "assessmentHeading": "Sprawdź swoją sprawność!",
+    "assessmentBody": "Pierwsze spotkanie z trenerem to tzw. ocena sprawności. Podczas kilku prostych ćwiczeń trener sprawdza co działa dobrze, a nad czym należy popracować podczas treningów. Pamiętaj – ta ocena jest dla Ciebie i dla trenera. Pomaga zbudować plan treningowy i weryfikować postępy. Teraz możesz nabyć ocenę funkcjonalną w specjalnej promocyjnej cenie.",
+    "assessmentSignUp": "Zapisz się",
+    "assessmentMore": "Więcej informacji",
+    "sections": [
+      {
+        "heading": "Przebieg treningu.",
+        "body": "Sesja treningowa trwa 55 minut. W zależności od indywidualnych preferencji możesz trenować raz lub więcej razy w tygodniu. Najlepsze rezultaty uzyskuje się przy dwóch lub trzech sesjach na tydzień. Część z nich może być realizowana samodzielnie, zgodnie z wcześniej ustalonym planem. Pierwsze spotkanie z trenerem jest kluczowe. Z jednej strony chodzi o ustalenie celu (np. zmniejszenie masy ciała, poprawa sylwetki), z drugiej o sprawdzenie na jakim etapie jesteś, jeżeli chodzi o Twoją sprawność i rozwój fizyczny. W tym celu wykonywana jest tzw. ocena funkcjonalna. Jest to zestaw różnych ćwiczeń weryfikujących zdolności ruchowe, siłę, koordynację, wytrzymałość itp. W ten sposób trener uzyskuje dostęp do wiedzy o Twoim ciele, dzięki czemu może stworzyć skuteczny plan treningowy."
+      },
+      {
+        "heading": "Plan treningowy.",
+        "body": "Trenując regularnie (2-3 razy w tygodniu), pierwsze rezultaty powinieneś zauważyć już w pierwszym miesiącu pracy. Właśnie w początkowym okresie często zachodzi największy postęp. Jeżeli masz nadwagę lub nie byłeś wcześniej zbyt aktywny fizycznie, ciało szybko da Ci sygnał, że jest „zadowolone” z podejmowanego wysiłku. Rozpoczęcie pracy z ciałem czasem wymaga „przełamania się”. Dlatego warto, zwłaszcza na początku, skorzystać z pomocy trenera, który przygotuje odpowiedni plan treningowy oraz zmotywuje do działania. Jednocześnie będzie pilnować, aby trening rozwijał się stopniowo bez nadmiernego przeciążenia. W pewnym momencie trening przestaje być wyzwaniem, a staje się przyjemnością i radością. Jest codzienną rutyną, elementem wpisanym w cotygodniowy grafik zajęć."
+      },
+      {
+        "heading": "Dla kogo?",
+        "body": "Trening personalny jest dla każdego! Nie ma znaczenia w jakim jesteś wieku i jaki jest Twój stopień sprawności czy masa ciała. Właśnie dlatego, że ćwiczysz w formule „jeden na jeden”, Twój trener dopasowuje plan treningowy dokładnie pod Twoje indywidualne potrzeby. Bez wątpienia jest to najszybsza i najskuteczniejsza forma osiągnięcia celów na poziomie ciała. W Centrum BODYWORK pracujemy głównie w formule treningów personalnych. Jest u nas kameralnie, profesjonalnie i życzliwie. Nikt nikogo nie ocenia. Dlatego jeżeli odstraszają Cię zatłoczone kluby fitness, u nas znajdziesz spokój i zgrany, sympatyczny zespół, w każdej chwili służący pomocą."
+      },
+      {
+        "heading": "Dieta.",
+        "body": "Aby efekt treningu był w pełni widoczny, należy zadbać o właściwe odżywianie. Nie chodzi wcale o to, aby jeść mniej, przy zwiększonym wysiłku fizycznym, często musimy wręcz zacząć jeść więcej! Kluczowa jest natomiast zmiana naszych nawyków żywieniowych – nie tylko istotne jest co i w jakich ilościach spożywamy. Równie ważne są: częstotliwość posiłków, ilość spożywanych płynów, łączenie produktów żywieniowych itp. W zależności od celu treningu warto skorzystać z porady doświadczonego dietetyka. Jeżeli chciałbyś dowiedzieć się więcej o poradach dietetycznych w naszym Centrum zapraszamy do sekcji dietetycznej!"
+      }
+    ],
+    "sectionCta3": "Sprawdź cennik",
+    "sectionCta4": "Usługi dietetyczne",
+    "bandEyebrow": "Jak zacząć?",
+    "bandHeading": "Spotkaj się z trenerem personalnym!",
+    "bandBody": "Skorzystaj z pomocy osób, które w dziedzinie ruchu są specjalistami. Sprawdź czy taka forma pracy Ci odpowiada. Nie musisz od razu deklarować się na dłuższą formę współpracy. Przyjdź, zobacz i podejmij decyzję! Zapraszamy do kontaktu z recepcją naszego Centrum. Zadzwoń, aby uzyskać więcej informacji!",
+    "bandCall": "Zadzwoń i zapisz się",
+    "bandTrainers": "Poznaj trenerów",
+    "bookHeading": "Jak umówić się na pierwszy trening?",
+    "bookBody": "Skontaktuj się z nami (zadzwoń pod nr 609805660 lub napisz poprzez e-mail: info@body-work.pl) a pracownicy recepcji udzielą Ci wszelkich dodatkowych, niezbędnych informacji oraz zaproponują dogodny termin pierwszego spotkania.",
+    "bookCall": "Zadzwoń",
+    "bookEmail": "Wyślij e-mail"
+  },
+  "PairTraining": {
+    "title": "Trening w parze.",
+    "leadHeading": "Ruch Waszą wspólną przygodą!",
+    "leadBody": "Trening w parze to połączenie dbałości o zdrowie i sprawność fizyczną z wartościowym, aktywnym czasem spędzonym we dwoje. Niezależnie od tego, czy dopiero zaczynacie swoją przygodę z aktywnością fizyczną, czy chcecie urozmaicić dotychczasową rutynę, wspólne sesje z trenerem personalnym to świetna okazja do pracy nad formą w przyjaznej atmosferze. Dodatkową zaletą treningu w duecie jest wzajemna motywacja – obecność drugiej osoby często pomaga przełamać chwilowy brak energii i utrzymać systematyczność. Element zdrowej rywalizacji może pozytywnie wpłynąć na osiągane efekty, a wspólne ćwiczenia pozwalają wprowadzić więcej różnorodności i kreatywności do planu treningowego. To skuteczna i przyjemna forma pracy nad celami – zarówno indywidualnymi, jak i wspólnymi. Zabierz swojego małżonka, partnera albo przyjaciela – i zadbajcie o zdrowie wspólnie :)",
+    "leadContact": "Skontaktuj się z nami",
+    "leadPricing": "Cennik",
+    "sections": [
+      {
+        "heading": "Przebieg treningu.",
+        "body": "Każda sesja trwa 55 minut. W zależności od Waszych potrzeb i możliwości możecie trenować raz lub kilka razy w tygodniu – najlepsze efekty osiąga się przy dwóch lub trzech sesjach. Część treningów możecie realizować samodzielnie, zgodnie z przygotowanym wcześniej planem. Pierwsze spotkanie z trenerem ma kluczowe znaczenie – wspólnie określamy cele (np. redukcja masy ciała, poprawa sylwetki) oraz sprawdzamy Wasz aktualny poziom sprawności i rozwoju fizycznego. Dzięki temu powstaje spersonalizowany i skuteczny plan treningowy, który prowadzi Was do zamierzonych rezultatów."
+      },
+      {
+        "heading": "Plan treningowy.",
+        "body": "Trenując regularnie (2-3 razy w tygodniu), pierwsze rezultaty powinieneś zauważyć już w pierwszym miesiącu pracy. Właśnie w początkowym okresie często zachodzi największy postęp. Jeżeli masz nadwagę lub nie byłeś wcześniej zbyt aktywny fizycznie, ciało szybko da ci sygnał, że jest „zadowolone” z podejmowanego wysiłku. Rozpoczęcie pracy z ciałem czasem wymaga „przełamania się”. Dlatego warto, zwłaszcza na początku, skorzystać z pomocy trenera, który przygotuje odpowiedni plan treningowy oraz zmotywuje do działania. Jednocześnie będzie pilnować, aby trening rozwijał się stopniowo bez nadmiernego przeciążenia. W pewnym momencie trening przestaje być wyzwaniem, a staje się przyjemnością i radością. Jest codzienną rutyną, elementem wpisanym w cotygodniowy grafik zajęć."
+      },
+      {
+        "heading": "Dla kogo?",
+        "body": "Trening w parze to doskonała opcja dla osób, które chcą połączyć aktywność fizyczną ze wspólnie spędzonym czasem. Niezależnie od tego, czy przyjdziesz z partnerem, małżonkiem, czy przyjaciółką, treningi będą dostosowane do Waszych indywidualnych potrzeb i celów. Dzięki formule \"dwa na jeden\" możecie wspólnie pracować nad poprawą kondycji, siły, czy sprawności, a każdy z Was otrzyma odpowiednią uwagę i wsparcie trenera. W Centrum BODYWORK stawiamy na kameralną atmosferę, profesjonalizm i indywidualne podejście. Nasi trenerzy zadbają o to, abyście czuli się komfortowo i zmotywowani do działania. Jeśli unikasz zatłoczonych siłowni i preferujesz bardziej osobiste podejście, nasze treningi w parze to idealna opcja, by pracować nad celami, wspierając się nawzajem."
+      }
+    ],
+    "bookHeading": "Umów się na pierwszy trening.",
+    "bookBody": "Skorzystaj z pomocy osób, które są w tym zakresie specjalistami. Umów się na wizytę z trenerem personalnym i sprawdź czy taka forma pracy Ci odpowiada. Nie musisz od razu deklarować się na dłuższą współpracę. Przyjdź, zobacz i podejmij decyzję! Jeżeli masz jakiekolwiek pytania, skontaktuj się z nami! Pracownicy recepcji udzielą Ci wszelkich niezbędnych informacji oraz zaproponują dogodny termin pierwszego spotkania.",
+    "bookCall": "Zadzwoń",
+    "bookEmail": "Napisz"
+  },
+  "FunctionalAssessment": {
+    "title": "Trening z oceną funkcjonalną.",
+    "bandEyebrow": "Ocena funkcjonalna",
+    "bandHeading": "Sprawdź swoją sprawność!",
+    "bandBody": "Pierwsze spotkanie z trenerem to tzw. ocena sprawności. Podczas kilku prostych ćwiczeń trener sprawdza co działa dobrze, a nad czym należy popracować podczas treningów. Pamiętaj – ta ocena jest dla Ciebie i dla trenera. Pomaga zbudować plan treningowy i weryfikować postępy.",
+    "bandCta": "Kup teraz 169,-",
+    "whatHeading": "Czym jest ocena funkcjonalna?",
+    "whatBody": "Podczas spotkania trener posługuje się tzw. kartą oceny, czyli protokołem określającym poszczególne obszary Twojej sprawności fizycznej. Trener opisuje dane ćwiczenie i prosi Cię o jego wykonanie. Ćwiczenia są dobrane w taki sposób, aby zweryfikować szereg elementów mówiących o poziomie Twojej sprawności – jakie są Twoje zakresy ruchu i mobilność stawowa, zdolności motoryczne i koordynacyjne, siła, moc, wytrzymałość itp. Każde ćwiczenie oceniane jest w skali 0-3 (gdzie 0 – podczas ćwiczenia występuje ból, 3 – pełna zdolność prawidłowego wykonania ćwiczenia). Po przeprowadzeniu oceny powstaje „mapa” Twoich mocnych i słabych stron. Jest to znakomity punkt wyjściowy do ustalenia planu treningowego lub wskazania jakiego typu aktywności fizyczne są dla Ciebie najbardziej korzystne. W Centrum BODYWORK ocena funkcjonalna jest również pierwszym treningiem. Można zatem kontynuować pracę z trenerem na bazie przygotowanego planu treningowego lub wykorzystać ocenę dla własnej wiedzy i potrzeb.",
+    "blocks": [
+      {
+        "heading": "Przygotowanie.",
+        "body": "Jedyne co będziesz potrzebować to wygodny strój sportowy i sportowe obuwie. Warto pamiętać o posiłku, najlepiej na ok. 2 godziny przed spotkaniem. Podczas testów (a także w czasie treningów) nie powinniśmy być głodni (!), ale również nie powinno się spożywać jedzenia tuż przed treningiem. Przyda Ci się również woda – możesz ją zabrać ze sobą lub nabyć w naszym barze."
+      },
+      {
+        "heading": "Dobór trenera.",
+        "body": "Podczas rozmowy telefonicznej poprosimy Cię o bardzo krótkie przedstawienie Twojego celu i poziomu aktywności. Dla przykładu – Twoim celem może być chęć redukcji tkanki tłuszczowej, pozbycie się bólu pleców lub poprawienie ogólnej sprawności. Na podstawie tych informacji nasz pracownik dobierze odpowiedniego specjalistę. Oczywiście możesz również samemu wskazać trenera, z którym chciałbyś przeprowadzić testy."
+      },
+      {
+        "heading": "Przebieg.",
+        "body": "• 5 minut: krótka zapoznawcza rozmowa z trenerem, ustalenie Twoich celów (np. poprawa sylwetki, ogólna poprawa sprawności), przebytych kontuzji itp. • 45 minut: testy zgodne z kartą oceny (na sali treningowej) • 5 minut: podsumowanie wyników Możliwe, że po przeprowadzonym teście trener zaleci dodatkowy czas na „ochłonięcie” np. spacer na bieżni lub przejażdżkę na rowerze stacjonarnym."
+      }
+    ],
+    "bookHeading": "Umów się na trening.",
+    "bookBody": "Teraz możesz nabyć ocenę funkcjonalną w specjalnej PROMOCYJNEJ cenie. Podczas dokonywania zakupu w naszym sklepie online poprosimy Cię o pozostawienie danych kontaktowych – numeru telefonu i adresu email. Niezwłocznie po otrzymaniu potwierdzenia zakupu, osoba z recepcji skontaktuje się z Tobą i umówi dogodny dla Ciebie termin (od poniedziałku do piątku w godzinach 7.00-21.00). Jeśli chcesz umówić się telefonicznie, zapraszamy do kontaktu.",
+    "bookCta": "Zadzwoń"
+  },
+  "Trainers": {
+    "title": "Trenerzy.",
+    "leadHeading": "Dobry trener.",
+    "leadBody": "To ten, który pomaga osiągnąć zmiany nie tylko na poziomie sylwetki ciała, lecz również jest w stanie ocenić asymetrie funkcjonalne, usprawnić kręgosłup i poprawić wynik sportowy Klienta. W oparciu o specjalnie przygotowany system rozwoju osobistego BODYWORK, nasi trenerzy pomogą Ci osiągnąć zamierzone rezultaty.",
+    "bandEyebrow": "Trenerzy BODYWORK®",
+    "bandHeading": "Znajdź eksperta ruchu dla siebie!",
+    "bandBody": "W BODYWORK stawiamy na specjalizację i interdyscyplinarną współpracę. Nasi trenerzy to eksperci w konkretnych obszarach ruchu, dzięki czemu otrzymujesz wsparcie oparte na najnowszej wiedzy i doświadczeniu. Wybór trenera o odpowiednim profilu to pierwszy krok do skutecznej realizacji Twoich celów.",
+    "directionsHeading": "Poznaj nasze główne kierunki pracy:",
+    "categories": [
+      {
+        "heading": "Trening medyczny",
+        "body": "To ekspert, do którego trafisz w przypadku powrotu do aktywności po kontuzjach, zabiegach lub gdy zmagasz się z bólem. Skupia się na bezpiecznym przywracaniu funkcji Twojego ciała i wspiera proces leczenia chorób poprzez ruch. Jego zadaniem jest zbudowanie stabilnego fundamentu, który pozwoli Ci trenować bez lęku o nawrót dolegliwości.",
+        "image": "/images/trening-personalny/trenerzy-cat-medical.webp",
+        "trainers": [
+          {
+            "name": "Małgorzata Muzyka-kopera",
+            "specialisation": "SPECJALIZACJA — TRENING MEDYCZNY",
+            "bio": "Fizjoterapeuta, trener, instruktor, szkoleniowiec, absolwentka AWF Poznań. Zajmuje się szeroko rozumianymi treningami zdrowotnymi… od nauki nowych czynności, przez zdobywanie wyniku sportowego, do przywracania utraconej funkcji po kontuzji. Specjalizuje się między innymi w treningu kobiet w ciąży, po operacjach brzusznych, problemach w obrębie dna miednicy, powrotem do sprawności po kontuzjach w piłce nożnej. Szczególną uwagę poświęca pracy ze stopą, której dysfunkcje mogą prowadzić do problemów w innych częściach ciała. Ukończyła liczne szkolenia z pracy z tkankami miękkimi, pracy z powięzią, kinezjotapingu, szkolenia z zakresu ruchu człowieka i coachingu.",
+            "image": "/images/trening-personalny/trenerzy/malgorzata-muzyka-kopera.webp"
+          },
+          {
+            "name": "Anna Sochacka",
+            "specialisation": "SPECJALIZACJA — TRENING MEDYCZNY",
+            "bio": "Absolwentka kierunku fizjoterapia (specjalność w sporcie) poznańskiej Akademii Wychowania Fizycznego, osteopata, fizjoterapeutka grup młodzieżowych sekcji piłki nożnej KS „Warta” Poznań. By móc efektywniej pracować z pacjentami regularnie uczestniczy w specjalistycznych szkoleniach poszerzających wachlarz narzędzi terapeutycznych oraz bierze udział w konferencjach obejmujących tematykę fizjoterapii w sporcie. Zdobytą wiedzę i doświadczenie wykorzystuje do pomocy osobom aktywnym fizycznie, które pragną osiągnąć najwyższy poziom sprawności i zdrowia lub też odzyskać je po przebytej kontuzji, urazie bądź zabiegu. Miłośniczka gier zespołowych, niegdyś reprezentantka AWF Poznań w Akademickich Mistrzostwach Polski w futsalu, dziś swoje zamiłowanie do sportu realizuje poprzez bieganie.",
+            "image": "/images/trening-personalny/trenerzy/anna-sochacka.webp"
+          },
+          {
+            "name": "Katarzyna Adamek",
+            "specialisation": "SPECJALIZACJA — TRENING MEDYCZNY",
+            "bio": "Absolwentka kierunku Fizjoterapia na Uniwersytecie Medycznym w Poznaniu. Specjalizuje się w treningu medycznym, treningu i fizjoterapii kobiet w ciąży i po porodzie, jak również kobiet chorujących na endometriozę. Certyfikowana instruktorka metody LOW PRESSURE FITNESS. Kasia bierze udział w projekcie “ZDROWY BRZUCH”, gdzie zajmuje się oceną mięśni brzucha pod kontrolą USG oraz treningiem mięśni brzucha i mięśni dna miednicy dostosowanym do istniejących dysfunkcji pacjenta. Zajmuje się też terapią przeciwbólową. Ukończyła liczne kursy z zakresu treningu oraz fizjoterapii w okresie okołoporodowym, w tym również korekcji przy rozejściu mięśni brzucha, kurs treningu medycznego i personalnego oraz metody LPF, jak również szkolenie Fizjoterapia w endometriozie. W swojej pracy zależnie od potrzeb łączy pracę w gabinecie z treningiem, aby działanie było kompleksowe i przynosiło lepsze efekty. Skupia się na likwidowaniu dolegliwości bólowych, przygotowaniu do aktywnego porodu oraz na poprawie funkcji i przywróceniu równowagi w pracy mięśni dna miednicy i mięśni brzucha po porodzie, operacjach brzusznych i w endometriozie. Jako mama dwójki dzieci wie jak istotny jest brak dolegliwości bólowych w czasie ciąży oraz odpowiednio dobrany trening, by zdrowo powrócić do formy po porodzie.",
+            "image": "/images/trening-personalny/trenerzy/katarzyna-adamek.webp"
+          },
+          {
+            "name": "Natalia Guzikowska",
+            "specialisation": "SPECJALIZACJA — TRENING MEDYCZNY",
+            "bio": "Trenerka oraz fizjoterapeutka ze specjalizacją w fizjoterapii uroginekologicznej. Na co dzień pracuje z kobietami zmagającymi się z problemami intymnymi, takimi jak nietrzymanie moczu, obniżenie narządów miednicy czy dolegliwości bólowe w obrębie dna miednicy. Wspiera kobiety w ciąży oraz po porodzie, pomagając odpowiednio dobierać aktywność fizyczną i odzyskać sprawność. Prowadzi również terapię i trening medyczny osób z dolegliwościami bólowymi, szczególnie w obrębie odcinka lędźwiowego kręgosłupa, a także wspiera osoby rozpoczynające swoją przygodę z ruchem. Prowadzi zajęcia grupowe typu \"Core\" oraz „Zdrowy Kręgosłup”, łącząc wiedzę fizjoterapeutyczną z praktycznym podejściem do treningu. Nieustannie pogłębia swoją wiedzę uczestnicząc w specjalistycznych kursach oraz konferencjach.",
+            "image": "/images/trening-personalny/trenerzy/natalia-guzikowska.webp"
+          },
+          {
+            "name": "Aneta Balcerzak",
+            "specialisation": "SPECJALIZACJA — TRENING MEDYCZNY",
+            "bio": "Absolwentka Uniwersytetu Medycznego im. Karola Marcinkowskiego w Poznaniu na kierunku Fizjoterapia. Fundamentem jej pracy jest precyzyjna diagnostyka oraz techniki Niemieckiej Terapii Manualnej, które skutecznie łączy z suchym igłowaniem, terapią tkanek miękkich oraz treningiem medycznym. Głównym obszarem jej specjalizacji jest kompleksowa rehabilitacja osób po urazach, kontuzjach i zabiegach operacyjnych. Skutecznie prowadzi pacjentów z dolegliwościami przeciążeniowymi narządu ruchu, pomagając im w bezpiecznym powrocie do pełnej aktywności. Swoje doświadczenie buduje, współpracując z piłkarzami, tenisistami oraz biegaczami, dbając o ich formę i przygotowanie do sezonu. Warsztat pracy uzupełnia wiedzą z zakresu dna miednicy i rozejścia mięśnia prostego brzucha, co pozwala jej na jeszcze szersze spojrzenie na biomechanikę ciała, szczególnie w pracy z aktywnymi osobami. Jest zwolenniczką zasady, że trwała sprawność to efekt symbiozy fizjoterapii i indywidualnego treningu. Takie połączenie pozwala nie tylko wyeliminować ból, ale przede wszystkim wzmocnić ciało i zapobiegać nawrotom kontuzji. Dzięki połączeniu wiedzy klinicznej z praktyką sportową, precyzyjnie lokalizuje przyczynę problemu i dobiera rozwiązania, które pozwalają pacjentom odzyskać kontrolę nad własnym ciałem.",
+            "image": "/images/trening-personalny/trenerzy/aneta-balcerzak.webp"
+          },
+          {
+            "name": "Miłosz Tchórzka",
+            "specialisation": "SPECJALIZACJA — TRENING MEDYCZNY",
+            "bio": "Student 5 roku fizjoterapii na Uniwersytecie Medycznym w Poznaniu. Na co dzień łączy pasję do aktywności fizycznej z wiedzą zdobytą podczas nauki na licznych szkoleniach. Specjalizuje się w pracy z osobami powracającymi do aktywności po kontuzjach oraz dopiero budującymi swoją sprawność ruchową. Odpowiada za przygotowanie motoryczne w poznańskiej Akademii Koszykówki a także współpracuje z Poznańskim Towarzystwem Wioślarzy Tryton, gdzie wspiera zawodników w prewencji urazów i efektywnej regeneracji. Najważniejsze jest dla niego indywidualne podejście i dopasowanie planu działania do potrzeb, możliwości i celów każdego klienta. Prywatnie jest pasjonatem kształtowania sylwetki poprzez kalistenikę i trening siłowy.",
+            "image": "/images/trening-personalny/trenerzy/milosz-tchorzka.webp"
+          }
+        ]
+      },
+      {
+        "heading": "Trening funkcjonalny",
+        "body": "To ekspert od wszechstronnej sprawności, zdrowej postawy i wysportowanej sylwetki. Skupia się na optymalizacji wzorców ruchowych – nauczy Twoje ciało pracować w pełnych zakresach, poprawi Twoją mobilność i zbuduje siłę przydatną w codziennym życiu. Z jego pomocą codzienne wyzwania stają się łatwiejsze, a Ty poczujesz się po prostu lepiej w swoim ciele.",
+        "image": "/images/trening-personalny/trenerzy-cat-functional.webp",
+        "trainers": [
+          {
+            "name": "Katarzyna Adamek",
+            "specialisation": "SPECJALIZACJA — TRENING MEDYCZNY",
+            "bio": "Absolwentka kierunku Fizjoterapia na Uniwersytecie Medycznym w Poznaniu. Specjalizuje się w treningu medycznym, treningu i fizjoterapii kobiet w ciąży i po porodzie, jak również kobiet chorujących na endometriozę. Certyfikowana instruktorka metody LOW PRESSURE FITNESS. Kasia bierze udział w projekcie “ZDROWY BRZUCH”, gdzie zajmuje się oceną mięśni brzucha pod kontrolą USG oraz treningiem mięśni brzucha i mięśni dna miednicy dostosowanym do istniejących dysfunkcji pacjenta. Zajmuje się też terapią przeciwbólową. Ukończyła liczne kursy z zakresu treningu oraz fizjoterapii w okresie okołoporodowym, w tym również korekcji przy rozejściu mięśni brzucha, kurs treningu medycznego i personalnego oraz metody LPF, jak również szkolenie Fizjoterapia w endometriozie. W swojej pracy zależnie od potrzeb łączy pracę w gabinecie z treningiem, aby działanie było kompleksowe i przynosiło lepsze efekty. Skupia się na likwidowaniu dolegliwości bólowych, przygotowaniu do aktywnego porodu oraz na poprawie funkcji i przywróceniu równowagi w pracy mięśni dna miednicy i mięśni brzucha po porodzie, operacjach brzusznych i w endometriozie. Jako mama dwójki dzieci wie jak istotny jest brak dolegliwości bólowych w czasie ciąży oraz odpowiednio dobrany trening, by zdrowo powrócić do formy po porodzie.",
+            "image": "/images/trening-personalny/trenerzy/katarzyna-adamek.webp"
+          },
+          {
+            "name": "Dominika Kłoda",
+            "specialisation": "SPECJALIZACJA — TRENING FUNKCJONALNY",
+            "bio": "Trener personalny oraz trener przygotowania motorycznego. Absolwentka Akademii Wychowania Fizycznego w Poznaniu na kierunku Sport. Medalistka Mistrzostw Polski, Europy i Świata tanecznej federacji IFMS. Pasjonatka szeroko rozumianej aktywności fizycznej. Po zakończonej przygodzie tanecznej, pasję do sportu zaczęła realizować poprzez biegi długodystansowe. W swojej pracy szczególną uwagę zwraca na świadomy ruch, poprawę funkcjonowania ciała oraz osiąganie sportowych celów. Uważa, że aktywność fizyczna wpływa pozytywnie zarówno na ciało jak i umysł. Specjalizuje się w treningu funkcjonalnym.",
+            "image": "/images/trening-personalny/trenerzy/dominika-kloda.webp"
+          },
+          {
+            "name": "Szymon Frankowski",
+            "specialisation": "SPECJALIZACJA — TRENING FUNKCJONALNY",
+            "bio": "Magister fizjoterapii oraz trener niebojący się łączenia wszelakich szkół i podejść do treningu, by osiągnąć wymarzony przez podopiecznego efekt. Od strony zawodowej – fascynat kończyny górnej. Współpracuje zarówno z ludźmi potrzebującymi pomocy w zakresie walki z bólem lub wymagającymi rehabilitacji pooperacyjnej, jak i osobami aktywnymi fizycznie doskonalącymi swoje dziedziny ruchowe. Swój warsztat opiera na przekonaniu o efektywności leczenia ruchem i usamodzielnieniu klienta. W wolnym czasie pasjonat wspinaczki boulderowej oraz amator grapplingu.",
+            "image": "/images/trening-personalny/trenerzy/szymon-frankowski.webp"
+          },
+          {
+            "name": "Filip Deskur",
+            "specialisation": "SPECJALIZACJA — TRENING FUNKCJONALNY",
+            "bio": "Magister Fizjoterapii oraz trener funkcjonalny i medyczny. Od dziecka związany ze sportem: tenis, piłka nożna oraz zamiłowaniem do ruchu. Bazując na wiedzy zdobytej jako trener i fizjoterapeuta dostosowuje podejście do indywidualnych potrzeb klientów. Jego treningi bazują na budowaniu silnych fundamentów, funkcjonalności i prewencji urazów, oraz pracy z bólem. Dzięki zaangażowaniu i empatii wspiera swoich klientów nie tylko w ich fizycznym rozwoju, lecz również w wytrwałości do osiągania wyznaczonych celów.",
+            "image": "/images/trening-personalny/trenerzy/filip-deskur.webp"
+          },
+          {
+            "name": "Marta Falińska",
+            "specialisation": "SPECJALIZACJA — TRENING FUNKCJONALNY",
+            "bio": "Absolwentka fizjoterapii na Uniwersytecie Medycznym w Poznaniu. Zdobyte wykształcenie pozwoliło jej dogłębnie poznać anatomię, mechanizmy urazów oraz proces powrotu do sprawności, dzięki czemu skutecznie wspiera osoby aktywne w bezpiecznym powrocie do sportu i ich ulubionej aktywności po kontuzjach. Jako trenerka przygotowania motorycznego od kilku lat współpracuje z drużyną futbolu amerykańskiego oraz indywidualnie z zawodnikami różnych dyscyplin sportowych, pomagając im rozwijać potencjał sportowy i osiągać lepsze wyniki. W pracy z podopiecznymi stawia na wszechstronny, funkcjonalny ruch oraz precyzyjną analizę potrzeb, tworząc spójny i skuteczny system pracy. Jej priorytetem jest nie tylko poprawa wyników sportowych, ale również budowanie siły i sprawności, które przekładają się na realne korzyści w sporcie i codziennym życiu. Szczególnym obszarem jej zainteresowań jest trening szybkości oraz rozwój sprintu.",
+            "image": "/images/trening-personalny/trenerzy/marta-falinska.webp"
+          },
+          {
+            "name": "Julia Klonowska",
+            "specialisation": "SPECJALIZACJA — TRENING FUNKCJONALNY",
+            "bio": "Studentka 5. roku na kierunku Fizjoterapia Uniwersytetu Medycznego w Poznaniu. Od zawsze pasjonatka aktywności fizycznej - jeździectwa i piłki nożnej. Swoją karierę sportową w Polsce realizowała w pierwszoligowym zespole piłkarskim oraz w lidze uniwersyteckiej NCAA2 w Stanach Zjednoczonych, gdzie zdobyła bezcenne doświadczenia zawodnicze oraz trenerskie. Aktualnie zamiłowanie do sportów zespołowych realizuje współpracując z Kadrą Narodową Kobiet do lat 16 Polskiego Związku Hokeja na Trawie. W pracy z klientem skupia się na indywidualizacji podejścia do jego potrzeb oraz możliwości. Dąży do tego, aby zarażać pasją do aktywności fizycznej, która ma stanowić filar zdrowia i dobrego samopoczucia w zmaganiach życia codziennego. W przyszłości chce łączyć praktykę fizjoterapeutyczną w dziedzinie ortopedii z treningiem, aby otaczać swoich podopiecznych kompleksową i profesjonalną opieką.",
+            "image": "/images/trening-personalny/trenerzy/julia-klonowska.webp"
+          }
+        ]
+      },
+      {
+        "heading": "Trening motoryczny",
+        "body": "To ekspert dedykowany osobom, które chcą świadomie rozwijać swój potencjał fizyczny i poprawić wyniki w wybranej dyscyplinie sportu. Skupia się na precyzyjnym kształtowaniu cech takich jak moc, szybkość czy wytrzymałość, przy jednoczesnym dbaniu o odporność tkanek na przeciążenia. Niezależnie od tego, czy trenujesz zawodowo, czy z pasją, pomoże Ci trenować mądrzej i bezpieczniej.",
+        "image": "/images/trening-personalny/trenerzy-cat-athletic.webp",
+        "trainers": [
+          {
+            "name": "Wiktoria Dorau",
+            "specialisation": "SPECJALIZACJA — TRENING MOTORYCZNY",
+            "bio": "Absolwentka sportu na AWF Poznań oraz trenerka przygotowania motorycznego, która pomaga zawodnikom i osobom aktywnym trenować mądrzej, szybciej i skuteczniej. Doświadczenie zdobywała pracując z lekkoatletami, piłkarzami oraz biegaczami długodystansowymi, prowadząc treningi siłowe, motoryczne i funkcjonalne precyzyjnie dopasowane do celu i poziomu podopiecznych. W swojej pracy łączy wysokie standardy treningowe z przyjazną atmosferą, dzięki czemu trening jest nie tylko efektywny, ale też motywujący. Skupia się na rozwoju siły, szybkości, sprawności i odporności na kontuzje, zawsze bazując na dobrze zaplanowanym procesie. Pracuje zarówno z młodzieżą, jak i dorosłymi, stawiając na długofalowe efekty, bezpieczeństwo i realny progres. Jest wymagająca, ale wspierająca - zależy jej, aby każdy czuł się zaopiekowany i widział konkretne rezultaty swojej pracy.",
+            "image": "/images/trening-personalny/trenerzy/wiktoria-dorau.webp"
+          },
+          {
+            "name": "Adrian Budzisz",
+            "specialisation": "SPECJALIZACJA — TRENING MOTORYCZNY",
+            "bio": "Trener przygotowania motorycznego (S&C) oraz absolwent Akademii Wychowania Fizycznego w Poznaniu ze specjalizacją przygotowania motorycznego. W swojej pracy skutecznie przenosi teorię naukową na praktykę trenerską, opierając proces treningowy na aktualnych badaniach, sprawdzonych metodach oraz wieloletnim doświadczeniu. Współpracuje zarówno ze sportowcami wyczynowymi, osobami rekreacyjnie uprawiającymi sporty biegowe, jak i klientami rozpoczynającymi swoją przygodę z aktywnością fizyczną. Prowadzi również osoby w końcowych etapach powrotu do pełnej aktywności i sportu. Specjalizuje się w kompleksowym rozwoju sprawności, łącząc trening motoryczny z budowaniem wytrzymałości i poprawą zdolności wysiłkowych. W swojej filozofii treningowej podkreśla, że kluczem do osiągania celów są proste, systematycznie realizowane metody dopasowane do poziomu wytrenowania. Adrian biegle posługuje się językiem angielskim.",
+            "image": "/images/trening-personalny/trenerzy/adrian-budzisz.webp"
+          },
+          {
+            "name": "Jakub Gdula",
+            "specialisation": "SPECJALIZACJA — TRENING MOTORYCZNY",
+            "bio": "Absolwent Uniwersytetu Medycznego w Łodzi oraz Akademii Wychowania Fizycznego w Poznaniu na kierunku fizjoterapia. Doświadczenie zdobywał podczas pracy dla Polskiego Związku Hokeja na Trawie oraz Polskiego Związku Judo, które przekłada na indywidualną pracę ze sportowcami wszystkich dyscyplin od procesu rehabilitacji do momentu wypracowania pełnego potencjału fizycznego. Ostatnie lata to rozwój w kierunku pracy z zawodnikami sportów wytrzymałościowych takich jak Biegi Górskie, Lekkoatletyka oraz Triatlon, którzy zdobywali medale Mistrzostw Polski w swoich dyscyplinach oraz osiągali wysokie wyniki na arenie międzynarodowej. Prywatnie miłośnik górskich aktywności, kolarstwa oraz oglądania siatkówki.",
+            "image": "/images/trening-personalny/trenerzy/jakub-gdula.webp"
+          },
+          {
+            "name": "Mikołaj Mili",
+            "specialisation": "SPECJALIZACJA — TRENING MOTORYCZNY",
+            "bio": "Fizjoterapeuta, trener funkcjonalny. Absolwent WSEiT w Poznaniu na kierunku fizjoterapia, z dyplomem na kierunku: kompleksowa terapia manualna. W pracy z klientem stawia na integrację metod z zakresu fizjoterapii, treningu funkcjonalnego oraz treningu motorycznego. Jego nadrzędnym celem jest pomoc podopiecznym w procesach powrotu do aktywności po urazach i zabiegach ortopedycznych oraz odbudowie wydajności sportowej. W swojej pracy korzysta z różnych technologii pomiarowych (Force Decks, Dynamo czy VBT), które wspierają bezpieczne podejmowanie decyzji w kluczowych momentach całego procesu.\"Uważam, że płynne przejście z etapu rehabilitacji do treningu atletycznego to kluczowy aspekt udanego powrotu do sportu.\"Osobiste doświadczenia sportowe Mikołaja pozwalają jeszcze lepiej zrozumieć wymogi przygotowania fizycznego w sporcie. Podczas blisko 14 letniej przygody ze sportami walki został multimedalistą MP i ME fedracji IMAF w Ju Jitsu oraz Akademickich MP w BJJ. Na co dzień bierze czynny udział w amatorskich rozgrywkach siatkówki oraz siatkówki plażowej.",
+            "image": "/images/trening-personalny/trenerzy/mikolaj-mili.webp"
+          },
+          {
+            "name": "Franiciszek Kruk",
+            "specialisation": "SPECJALIZACJA — TRENING MOTORYCZNY",
+            "bio": "Fizjoterapeuta i trener przygotowania motorycznego certyfikowany przez ASCA (Level 1) oraz EXOS (Performance Specialist). Absolwent kierunku fizjoterapia na Akademii Wychowania Fizycznego w Poznaniu. Integruje fizjoterapię z treningiem motorycznym, prowadząc procesy optymalizacji performance’u oraz Return to Sport. Działania opiera na założeniach Evidence-Based Practice oraz analizie obiektywnych danych, wykorzystując profilowanie na platformach dynamometrycznych i ocenę funkcjonalną. W oparciu o mierzalne wyniki zarządza procesem budowania wysokiej tolerancji na obciążenia oraz rozwoju kompetencji ruchowych. Regularnie uczestniczy w specjalistycznych konferencjach i seminariach.",
+            "image": "/images/trening-personalny/trenerzy/franciszek-kruk.webp"
+          },
+          {
+            "name": "Jacek Maćkowiak",
+            "specialisation": "SPECJALIZACJA — TRENING MOTORYCZNY",
+            "bio": "Od lat pomaga sportowcom rozwijać potencjał fizyczny i osiągać lepsze wyniki - niezależnie od tego, czy grają na najwyższym poziomie, czy po prostu chcą być sprawniejsi, silniejsi i trenować w sposób świadomy. Na co dzień pracuje w Warcie Poznań jako trener przygotowania motorycznego pierwszego zespołu. Wcześniej szkolił zawodników Lecha Poznań i pełnił funkcję koordynatora przygotowania motorycznego w Liderze Basket Swarzędz. Jest absolwentem Akademii Wychowania Fizycznego w Poznaniu, a swoją wiedzę regularnie poszerza, uczestnicząc w renomowanych kursach i szkoleniach. Ukończył m.in. EXOS Performance Specialist, UEFA Fitness A, FMS, EPI Performance oraz programy ISSPF - co przekłada się na skuteczne i nowoczesne podejście do treningu. Współpracował z przedstawicielami różnych dyscyplin, głównie sportów zespołowych, ale również z osobami aktywnymi, które chcą trenować efektywnie i bezpiecznie. Pomaga poprawić kondycję, siłę, szybkość czy mobilność – niezależnie od poziomu zaawansowania. Prywatnie uwielbia sport w każdej postaci – szczególnie surfing i aktywne podróże. Dla niego ruch to nie tylko praca, ale styl życia, którym chętnie dzieli się z innymi.",
+            "image": "/images/trening-personalny/trenerzy/jacek-mackowiak.webp"
+          },
+          {
+            "name": "Jakub Dylewski",
+            "specialisation": "SPECJALIZACJA — TRENING MOTORYCZNY",
+            "bio": "Absolwent Uniwersytetu Medycznego w Poznaniu na kierunku Fizjoterapia, który specjalizuje się w pracy z osobami po kontuzjach i zabiegach ortopedycznych. Na co dzień współpracuje z kadrą narodową kajakarzy górskich, a swoje kilkuletnie doświadczenie zdobywał pracując z profesjonalnymi zawodnikami Akademii KKS Lech Poznań. Fizjoterapia i trening to dla niego jeden spójny proces - od leczenia i redukcji bólu, przez odbudowę siły i kontroli ruchu, aż po pełny powrót do aktywności fizycznej i sportu. Na co dzień pracuje z pacjentami po operacjach kolana, barku, stawu skokowego czy urazach mięśniowych, ale także z osobami, które stawiają na profilaktykę i świadome budowanie sprawności. Każdego pacjenta traktuje indywidualnie, łącząc aktualną wiedzę naukową z praktyką wyniesioną ze sportu wyczynowego. Jego celem jest nie tylko wyleczenie urazu, ale stworzenie fundamentu, który zmniejsza ryzyko kolejnych kontuzji i pozwala wrócić do pełnej formy.",
+            "image": "/images/trening-personalny/trenerzy/jakub-dylewski.webp"
+          }
+        ]
+      }
+    ]
   }
 }

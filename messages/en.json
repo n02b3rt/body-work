@@ -169,5 +169,357 @@
     "terms": "Terms & conditions",
     "cookies": "Cookies",
     "copyright": "BODYWORK © {year}"
+  },
+  "PersonalTraining": {
+    "title": "Personal training",
+    "introEyebrow": "Specialisations and training system",
+    "introHeading": "Training built around you.",
+    "introBody1": "BODYWORK is the first place in Poland to take such a comprehensive, integrated approach to personal training and physiotherapy. Movement — individually chosen, multi-layered and aimed at lasting results — is our main tool. At the centre of it is the body, the most remarkable training machine there is.",
+    "introBody2": "Depending on your individual needs and current health, we'll pick one of three main directions together. Our approach stays flexible: the lines between specialisations often blur, so we can respond to whatever your body needs at the time.",
+    "specializations": [
+      {
+        "heading": "Medical training.",
+        "body": "For people returning to activity after injuries or surgery, or dealing with pain in the musculoskeletal system. It's also key support in treating chronic and lifestyle diseases, where well-chosen movement is an essential part of therapy. We focus on safely restoring function, building stability, and laying the foundation for your fitness to grow."
+      },
+      {
+        "heading": "Functional training.",
+        "body": "For anyone who wants an able body, a healthy posture and an athletic build day to day. By working on all-round movement, we improve the mobility and strength that genuinely translate into comfort in life and ease in taking on everyday challenges. It's training based on natural movement patterns, teaching your body to work optimally through its full range."
+      },
+      {
+        "heading": "Athletic performance training.",
+        "body": "For people who want to develop their physical potential deliberately and improve results in a chosen sport. We focus on precisely shaping qualities like power, speed and endurance, while building the tissues' resilience to load. Evidence-based programming that lets professionals and enthusiasts alike train smarter and more safely."
+      }
+    ],
+    "services": [
+      {
+        "heading": "Individual training.",
+        "body": "Working with a personal trainer is the most effective and fastest way to reach your goal, whether that's physical fitness, changing your physique, a sporting result or getting rid of pain. Every training cycle starts with assessment, defining the goal and setting an individual training plan. After that it's simply work under the eye of an experienced trainer who'll keep you motivated!"
+      },
+      {
+        "heading": "Training in pairs.",
+        "body": "Training as a duo combines conscious work on your body with time spent together — well spent, active and with a smile. It's ideal for anyone who wants to share getting in shape with someone else: a partner, a friend, a sibling. Being there together boosts motivation, breaks down barriers and naturally adds energy. Each person follows their own plan, but you train side by side, supporting each other."
+      },
+      {
+        "heading": "Functional assessment.",
+        "body": "The first step towards conscious movement. During a detailed functional assessment we analyse your movement patterns, ranges of mobility, stability and the way you breathe. That's the basis on which we design an individual training plan — one that takes your goals into account but above all supports your health and removes potential sources of pain. It gives you a clear picture of your fitness and a map for developing it."
+      }
+    ],
+    "assessmentHeading": "Check your fitness.",
+    "assessmentBody1": "Your first meeting with a trainer is a functional assessment. Through a few simple exercises, the trainer checks what's already working well and what needs attention in your training.",
+    "assessmentBody2": "Remember — this assessment is for you as much as for the trainer. It helps build your training plan and track your progress.",
+    "assessmentCta": "Buy now 169 PLN",
+    "testimonialsHeading": "Reviews:",
+    "testimonials": [
+      {
+        "quote": "We've been training at Body Work for over 4 years, doing personal sessions for two, and since we found the place we can't imagine a better one. A qualified team — we ended up with the wonderful trainers Olga and Dominika and dietitian Marta — a warm atmosphere, cleanliness, space. Highly recommended!",
+        "name": "Olga Winkowska"
+      },
+      {
+        "quote": "A great place to train. I came in with back pain and after the very first session with personal trainer Mikołaj I knew it would be fine. A good, professional approach, a lovely atmosphere and never boring during the session. The back pain went after a few visits and I've been training for over a year now. If you don't like crowded chain gyms, I honestly recommend Bodywork.",
+        "name": "Paweł Tymrakiewicz"
+      },
+      {
+        "quote": "Bodywork as a place will impress you from the moment you walk in. An intimate, calm atmosphere, great equipment, space and — very important — good energy. Ideal for people who want to keep their condition up, improve their results, or who are coming back to full fitness after injuries and operations. Endlessly grateful, and I recommend it.",
+        "name": "Magdalena O."
+      },
+      {
+        "quote": "I had and still have the great fortune of working with Gosia, who has enormous knowledge and experience. At the very first meeting she diagnosed my problem and adapted the exercises to me. Worth mentioning: nobody had been able to find the cause for many months before that.",
+        "name": "Magdalena"
+      },
+      {
+        "quote": "In my opinion the best gym in Poznań — a huge change after various chains: professionalism, calm, very well organised space, a varied offer, access to specialists in different fields, a sauna, and on top of that cooks preparing excellent meals (oh, those desserts!).",
+        "name": "Jacek Jaciubek"
+      },
+      {
+        "quote": "I really recommend Kasia Adamek. My health has improved enormously! Kasia is professional, knows a million different exercises and always finds the ones that suit you best. She's also a very warm, lovely person. Genuinely worth it!",
+        "name": "Magda Przydział"
+      }
+    ],
+    "howToHeading": "How do I book a session?",
+    "howToBody": "Call 609 805 660 and book a training session. Our reception team will give you any extra information you need.",
+    "howToCall": "Call us",
+    "howToPricing": "Pricing",
+    "teamHeading": "Team.",
+    "teamCta": "Meet the trainers",
+    "spaceHeading": "Space.",
+    "spaceCta": "See it"
+  },
+  "TrainingReasons": {
+    "heading": "When is it worth it?",
+    "items": [
+      {
+        "heading": "Fat loss",
+        "body": "According to PAP data, over 60% of Poles are overweight, 25% of them obese — and it increasingly affects children and teenagers too. Specialists estimate that obesity and excess weight cause around 300 different health complications. So what can be done? The recommendations are fairly obvious: the right diet and more physical activity. As always, though, the devil is in the detail. A proper diet doesn't mean eating less, and physical training also has to be done correctly for it to translate into burning fat. That's why it matters so much to start the process deliberately, with lasting results in mind.",
+        "image": "/images/trening-personalny/reasons/fat-loss.webp"
+      },
+      {
+        "heading": "Better posture",
+        "body": "The vast majority of people lead a sedentary life — desk work, commuting, entertainment in front of the TV. Spending a long time in that position contributes to excessive, constant tension around the neck, a closed-off chest and weakened back muscles, and in consequence to permanent pain and, unfortunately, a disproportionate, crooked posture. Training aimed at improving posture is directed above all at opening and straightening the body, and at improving range of motion and flexibility. An upright, slimmer figure isn't the only effect: you feel fitter, more supple, you breathe more freely and you find more joy in everyday life.",
+        "image": "/images/trening-personalny/reasons/posture.webp"
+      },
+      {
+        "heading": "Building strength",
+        "body": "Strength isn't just the number of kilograms you lift — it's the foundation of stability, balance and the whole body's capacity. We take a comprehensive approach to strength training, combining muscle development with better coordination and nervous-system work. Our plan accounts for technique, load progression and varied methods that engage the muscles functionally. We build strength not only to improve capacity but to increase protection against injury and improve everyday ability. We focus on correct posture and advanced exercises that involve the whole body, developing strength across different ranges of motion. Every session is adapted to individual needs and goals, helping you get the best results in the safest way possible.",
+        "image": "/images/trening-personalny/reasons/strength.webp"
+      },
+      {
+        "heading": "Athletic preparation",
+        "body": "Comprehensive athletic preparation at BODYWORK® is based on the demands of the specific discipline and competitive level. We work with athletes in individual sports — athletics, tennis, combat sports — and in team sports including football, handball, volleyball and hockey. We use modern technology, among others the VALD platform, the Dynamo system and Compex electrostimulation, which lets us monitor progress precisely and adjust training loads optimally. We support athletes at every stage of development, from children and teenagers to professionals, including world champions and national-team members. Athletic training focuses on developing strength, power, speed, coordination, mobility and endurance, always accounting for the specifics of the discipline and the athlete's individual predispositions.",
+        "image": "/images/trening-personalny/reasons/athletic.webp"
+      },
+      {
+        "heading": "Medical training",
+        "body": "Medical training is individually tailored physical activity aimed at restoring function, reducing pain and improving quality of life. It is the natural continuation of physiotherapy — the point at which the body is ready for bigger challenges but still needs smart, safe support. We work on restoring correct movement patterns, strengthen weakened structures, build stability and teach the body to function efficiently, without compensation or limitation. Medical training is for everyone: people returning to activity after injury, dealing with overload pain, living sedentary lives, and those who simply want to move freely and consciously. It's movement with a specific goal — yours.",
+        "image": "/images/trening-personalny/reasons/medical.webp"
+      },
+      {
+        "heading": "Training during pregnancy",
+        "body": "Here the therapist's work involves techniques that release tense structures and reduce swelling. We can also use kinesiotaping, where a tape and the right technique help stretch muscles or stimulate them to work. A good complement to work in the treatment room is individually chosen training, both medical and functional. Being in good condition not only makes the stages of labour easier but above all leads to faster recovery afterwards. Women who exercise get through the postpartum period considerably better and find it easier to return to form.",
+        "image": "/images/trening-personalny/reasons/pregnancy.webp"
+      },
+      {
+        "heading": "Training for older adults",
+        "body": "A form of movement adapted to the needs and capabilities of people in later life. The main aim is to support ability in everyday functioning — improving muscle strength, balance, coordination and range of motion. Regular activity also helps reduce pain, supports general wellbeing and helps maintain day-to-day independence, so you can enjoy a full, active life for as long as possible. Well-planned training is also an important part of prevention: it reduces the risk of falls, injuries and overload. During sessions we pay attention to safety and pace, so everyone feels comfortable and has room to work at their own rhythm. Training is led by a physiotherapist or trainer who selects exercises individually, with care for each person's health and capabilities.",
+        "image": "/images/trening-personalny/reasons/seniors.webp"
+      },
+      {
+        "heading": "Training for children and teenagers",
+        "body": "Sessions for children and teenagers are carefully designed to support their physical development safely and effectively. Programmes are adapted to age, stage of development and individual needs, which allows optimal results in coordination, strength, flexibility and endurance. We place particular emphasis on developing fundamental motor skills, which form the foundation of future sporting activity. We work both with children just beginning their adventure with sport and with young athletes aiming for competitive achievement. Our training is based on methods that account for the specific needs of young athletes, helping with injury prevention and with developing the skills a given discipline requires. With the right approach, our sessions support physical development as well as building the self-confidence and discipline that are key on a young athlete's path.",
+        "image": "/images/trening-personalny/reasons/youth.webp"
+      }
+    ]
+  },
+  "IndividualTraining": {
+    "title": "Individual training.",
+    "assessmentHeading": "Check your fitness!",
+    "assessmentBody": "Your first meeting with a trainer is a functional assessment. Through a few simple exercises, the trainer checks what's already working well and what needs attention in your training. Remember — this assessment is for you as much as for the trainer. It helps build your training plan and track your progress. Right now you can get a functional assessment at a special price.",
+    "assessmentSignUp": "Sign up",
+    "assessmentMore": "More information",
+    "sections": [
+      {
+        "heading": "How a session works.",
+        "body": "A training session lasts 55 minutes. Depending on your preferences you can train once or several times a week — the best results come from two or three sessions weekly. Some of them can be done on your own, following a plan agreed in advance. The first meeting with your trainer is key. On one hand it's about setting the goal (losing weight, improving your physique), on the other about checking where you are in terms of fitness and physical development. That's what the functional assessment is for: a set of exercises testing movement ability, strength, coordination, endurance and so on. It gives the trainer access to knowledge about your body, so they can build an effective training plan."
+      },
+      {
+        "heading": "Your training plan.",
+        "body": "Training regularly (2–3 times a week), you should notice the first results within the first month. It's in that early period that the biggest progress often happens. If you're overweight or haven't been very active before, your body will quickly signal that it's pleased with the effort. Starting to work with your body sometimes takes pushing through. That's why it's worth working with a trainer, especially at the beginning — someone who'll prepare the right plan and keep you motivated, while making sure the training builds gradually and without excessive load. At some point training stops being a challenge and becomes a pleasure — a routine, a fixture in your weekly schedule."
+      },
+      {
+        "heading": "Who is it for?",
+        "body": "Personal training is for everyone! It doesn't matter what age you are, what your fitness level is or what you weigh. Precisely because you train one-to-one, your trainer matches the plan exactly to your individual needs. It is without doubt the fastest and most effective way to reach your goals at the level of the body. At BODYWORK we work mainly in a personal-training format. It's intimate, professional and friendly here. Nobody judges anyone. So if crowded fitness clubs put you off, here you'll find calm and a close-knit, welcoming team, ready to help at any moment."
+      },
+      {
+        "heading": "Diet.",
+        "body": "For the effects of training to show fully, you need to take care of proper nutrition. It isn't about eating less at all — with increased physical effort we often have to start eating more! What is key is changing our eating habits: it's not only what and how much we eat that matters. Meal frequency, fluid intake and how we combine foods matter just as much. Depending on your training goal it's worth getting advice from an experienced dietitian. If you'd like to know more about dietary consultations at our Centre, take a look at the dietetics section!"
+      }
+    ],
+    "sectionCta3": "See pricing",
+    "sectionCta4": "Dietetics services",
+    "bandEyebrow": "How do I start?",
+    "bandHeading": "Meet a personal trainer!",
+    "bandBody": "Take advantage of people who are specialists in the field of movement. See whether this way of working suits you. You don't have to commit to a longer arrangement straight away. Come, take a look and decide! Get in touch with our Centre's reception. Call for more information!",
+    "bandCall": "Call and sign up",
+    "bandTrainers": "Meet the trainers",
+    "bookHeading": "How do I book a first session?",
+    "bookBody": "Get in touch with us (call 609805660 or write to info@body-work.pl) and our reception team will give you any extra information you need and suggest a convenient time for your first meeting.",
+    "bookCall": "Call us",
+    "bookEmail": "Send an email"
+  },
+  "PairTraining": {
+    "title": "Training in pairs.",
+    "leadHeading": "Make movement your shared adventure!",
+    "leadBody": "Training in pairs combines caring for your health and fitness with valuable, active time spent together. Whether you're just beginning your adventure with physical activity or want to add variety to your existing routine, working as a pair gives you motivation, support and shared satisfaction from the results.",
+    "leadContact": "Get in touch",
+    "leadPricing": "Pricing",
+    "sections": [
+      {
+        "heading": "How a session works.",
+        "body": "Each session lasts 55 minutes. Depending on your needs and availability you can train once or several times a week — the best results come from two or three sessions. Some sessions you can do on your own, following the plan agreed with your trainer."
+      },
+      {
+        "heading": "Your training plan.",
+        "body": "Training regularly (2–3 times a week), you should notice the first results within the first month. It's in that early period that the biggest progress often happens. If you're overweight or haven't been very active before, your body will quickly signal that it's pleased with the effort."
+      },
+      {
+        "heading": "Who is it for?",
+        "body": "Training in pairs is an excellent option for people who want to combine physical activity with time spent together. Whether you come with a partner, a spouse or a friend, the sessions will be adapted to both of you."
+      }
+    ],
+    "bookHeading": "Book your first session.",
+    "bookBody": "Take advantage of people who are specialists in this area. Book a session with a personal trainer and see whether this way of working suits you. You don't have to commit to a longer arrangement straight away. Come, take a look and decide! If you have any questions at all, get in touch — our reception team will give you the information you need and suggest a convenient time for a first meeting.",
+    "bookCall": "Call us",
+    "bookEmail": "Write to us"
+  },
+  "FunctionalAssessment": {
+    "title": "Training with a functional assessment.",
+    "bandEyebrow": "Functional assessment",
+    "bandHeading": "Check your fitness!",
+    "bandBody": "Your first meeting with a trainer is a functional assessment. Through a few simple exercises, the trainer checks what's already working well and what needs attention in your training. Remember — this assessment is for you as much as for the trainer. It helps build your training plan and track your progress.",
+    "bandCta": "Buy now 169 PLN",
+    "whatHeading": "What is a functional assessment?",
+    "whatBody": "During the meeting the trainer uses an assessment card — a protocol covering the individual areas of your physical ability. The trainer describes an exercise and asks you to perform it. The exercises are chosen to verify a range of elements that describe your level of fitness: your ranges of motion and joint mobility, motor and coordination abilities, strength, power, endurance and so on. Each exercise is scored 0–3 (0 meaning pain during the exercise, 3 meaning full ability to perform it correctly). The assessment produces a map of your strengths and weaknesses. It's an excellent starting point for setting a training plan, or for identifying which kinds of physical activity suit you best. At Centrum BODYWORK the functional assessment is also your first training session, so you can either continue working with the trainer on the basis of the plan, or use the assessment for your own knowledge and purposes.",
+    "blocks": [
+      {
+        "heading": "Getting ready.",
+        "body": "All you'll need is comfortable sportswear and sports shoes. It's worth eating something, ideally around 2 hours before the meeting. During the tests (and during training) we shouldn't be hungry — but nor should we eat right before a session. You'll also want water: bring your own or buy it at our bar."
+      },
+      {
+        "heading": "Choosing a trainer.",
+        "body": "During the phone call we'll ask you to describe your goal and activity level very briefly. Your goal might be to reduce body fat, get rid of back pain or improve general fitness. On that basis our team will match you with the right specialist. Of course you can also name a trainer you'd like to do the tests with yourself."
+      },
+      {
+        "heading": "How it runs.",
+        "body": "• 5 minutes: a short introductory conversation with the trainer, establishing your goals (for example improving your physique or general fitness) and any past injuries. • 45 minutes: the tests according to the assessment card, in the training room. • 5 minutes: a summary of the results. The trainer may recommend extra time to cool down afterwards — a walk on the treadmill or a ride on a stationary bike."
+      }
+    ],
+    "bookHeading": "Book a session.",
+    "bookBody": "You can now buy the functional assessment at a special promotional price. When you buy in our online shop we'll ask you to leave contact details — a phone number and email address. As soon as we receive confirmation of the purchase, someone from reception will contact you and arrange a time that suits you (Monday to Friday, 7am–9pm). If you'd rather book by phone, do get in touch.",
+    "bookCta": "Call us"
+  },
+  "Trainers": {
+    "title": "Trainers.",
+    "leadHeading": "A good trainer.",
+    "leadBody": "Someone who helps you achieve change not only in your physique, but who can also assess functional asymmetries, improve your spine and raise a client's sporting result. Working from BODYWORK's own personal-development system, our trainers will help you reach the results you're aiming for.",
+    "bandEyebrow": "BODYWORK® trainers",
+    "bandHeading": "Find the movement expert for you!",
+    "bandBody": "At BODYWORK we believe in specialisation and interdisciplinary collaboration. Our trainers are experts in specific areas of movement, so the support you get is grounded in the latest knowledge and experience. Choosing a trainer with the right profile is the first step to meeting your goals effectively.",
+    "directionsHeading": "Our main directions of work:",
+    "categories": [
+      {
+        "heading": "Medical training",
+        "body": "The expert you'll see when returning to activity after injury or surgery, or when you're dealing with pain. They focus on safely restoring your body's function and support the treatment of illness through movement. Their job is to build a stable foundation that lets you train without fear of the problem returning.",
+        "image": "/images/trening-personalny/trenerzy-cat-medical.webp",
+        "trainers": [
+          {
+            "name": "Małgorzata Muzyka-kopera",
+            "specialisation": "Specialisation — medical training",
+            "bio": "Fizjoterapeuta, trener, instruktor, szkoleniowiec, absolwentka AWF Poznań. Zajmuje się szeroko rozumianymi treningami zdrowotnymi… od nauki nowych czynności, przez zdobywanie wyniku sportowego, do przywracania utraconej funkcji po kontuzji. Specjalizuje się między innymi w treningu kobiet w ciąży, po operacjach brzusznych, problemach w obrębie dna miednicy, powrotem do sprawności po kontuzjach w piłce nożnej. Szczególną uwagę poświęca pracy ze stopą, której dysfunkcje mogą prowadzić do problemów w innych częściach ciała. Ukończyła liczne szkolenia z pracy z tkankami miękkimi, pracy z powięzią, kinezjotapingu, szkolenia z zakresu ruchu człowieka i coachingu.",
+            "image": "/images/trening-personalny/trenerzy/malgorzata-muzyka-kopera.webp"
+          },
+          {
+            "name": "Anna Sochacka",
+            "specialisation": "Specialisation — medical training",
+            "bio": "Absolwentka kierunku fizjoterapia (specjalność w sporcie) poznańskiej Akademii Wychowania Fizycznego, osteopata, fizjoterapeutka grup młodzieżowych sekcji piłki nożnej KS „Warta” Poznań. By móc efektywniej pracować z pacjentami regularnie uczestniczy w specjalistycznych szkoleniach poszerzających wachlarz narzędzi terapeutycznych oraz bierze udział w konferencjach obejmujących tematykę fizjoterapii w sporcie. Zdobytą wiedzę i doświadczenie wykorzystuje do pomocy osobom aktywnym fizycznie, które pragną osiągnąć najwyższy poziom sprawności i zdrowia lub też odzyskać je po przebytej kontuzji, urazie bądź zabiegu. Miłośniczka gier zespołowych, niegdyś reprezentantka AWF Poznań w Akademickich Mistrzostwach Polski w futsalu, dziś swoje zamiłowanie do sportu realizuje poprzez bieganie.",
+            "image": "/images/trening-personalny/trenerzy/anna-sochacka.webp"
+          },
+          {
+            "name": "Katarzyna Adamek",
+            "specialisation": "Specialisation — medical training",
+            "bio": "Absolwentka kierunku Fizjoterapia na Uniwersytecie Medycznym w Poznaniu. Specjalizuje się w treningu medycznym, treningu i fizjoterapii kobiet w ciąży i po porodzie, jak również kobiet chorujących na endometriozę. Certyfikowana instruktorka metody LOW PRESSURE FITNESS. Kasia bierze udział w projekcie “ZDROWY BRZUCH”, gdzie zajmuje się oceną mięśni brzucha pod kontrolą USG oraz treningiem mięśni brzucha i mięśni dna miednicy dostosowanym do istniejących dysfunkcji pacjenta. Zajmuje się też terapią przeciwbólową. Ukończyła liczne kursy z zakresu treningu oraz fizjoterapii w okresie okołoporodowym, w tym również korekcji przy rozejściu mięśni brzucha, kurs treningu medycznego i personalnego oraz metody LPF, jak również szkolenie Fizjoterapia w endometriozie. W swojej pracy zależnie od potrzeb łączy pracę w gabinecie z treningiem, aby działanie było kompleksowe i przynosiło lepsze efekty. Skupia się na likwidowaniu dolegliwości bólowych, przygotowaniu do aktywnego porodu oraz na poprawie funkcji i przywróceniu równowagi w pracy mięśni dna miednicy i mięśni brzucha po porodzie, operacjach brzusznych i w endometriozie. Jako mama dwójki dzieci wie jak istotny jest brak dolegliwości bólowych w czasie ciąży oraz odpowiednio dobrany trening, by zdrowo powrócić do formy po porodzie.",
+            "image": "/images/trening-personalny/trenerzy/katarzyna-adamek.webp"
+          },
+          {
+            "name": "Natalia Guzikowska",
+            "specialisation": "Specialisation — medical training",
+            "bio": "Trenerka oraz fizjoterapeutka ze specjalizacją w fizjoterapii uroginekologicznej. Na co dzień pracuje z kobietami zmagającymi się z problemami intymnymi, takimi jak nietrzymanie moczu, obniżenie narządów miednicy czy dolegliwości bólowe w obrębie dna miednicy. Wspiera kobiety w ciąży oraz po porodzie, pomagając odpowiednio dobierać aktywność fizyczną i odzyskać sprawność. Prowadzi również terapię i trening medyczny osób z dolegliwościami bólowymi, szczególnie w obrębie odcinka lędźwiowego kręgosłupa, a także wspiera osoby rozpoczynające swoją przygodę z ruchem. Prowadzi zajęcia grupowe typu \"Core\" oraz „Zdrowy Kręgosłup”, łącząc wiedzę fizjoterapeutyczną z praktycznym podejściem do treningu. Nieustannie pogłębia swoją wiedzę uczestnicząc w specjalistycznych kursach oraz konferencjach.",
+            "image": "/images/trening-personalny/trenerzy/natalia-guzikowska.webp"
+          },
+          {
+            "name": "Aneta Balcerzak",
+            "specialisation": "Specialisation — medical training",
+            "bio": "Absolwentka Uniwersytetu Medycznego im. Karola Marcinkowskiego w Poznaniu na kierunku Fizjoterapia. Fundamentem jej pracy jest precyzyjna diagnostyka oraz techniki Niemieckiej Terapii Manualnej, które skutecznie łączy z suchym igłowaniem, terapią tkanek miękkich oraz treningiem medycznym. Głównym obszarem jej specjalizacji jest kompleksowa rehabilitacja osób po urazach, kontuzjach i zabiegach operacyjnych. Skutecznie prowadzi pacjentów z dolegliwościami przeciążeniowymi narządu ruchu, pomagając im w bezpiecznym powrocie do pełnej aktywności. Swoje doświadczenie buduje, współpracując z piłkarzami, tenisistami oraz biegaczami, dbając o ich formę i przygotowanie do sezonu. Warsztat pracy uzupełnia wiedzą z zakresu dna miednicy i rozejścia mięśnia prostego brzucha, co pozwala jej na jeszcze szersze spojrzenie na biomechanikę ciała, szczególnie w pracy z aktywnymi osobami. Jest zwolenniczką zasady, że trwała sprawność to efekt symbiozy fizjoterapii i indywidualnego treningu. Takie połączenie pozwala nie tylko wyeliminować ból, ale przede wszystkim wzmocnić ciało i zapobiegać nawrotom kontuzji. Dzięki połączeniu wiedzy klinicznej z praktyką sportową, precyzyjnie lokalizuje przyczynę problemu i dobiera rozwiązania, które pozwalają pacjentom odzyskać kontrolę nad własnym ciałem.",
+            "image": "/images/trening-personalny/trenerzy/aneta-balcerzak.webp"
+          },
+          {
+            "name": "Miłosz Tchórzka",
+            "specialisation": "Specialisation — medical training",
+            "bio": "Student 5 roku fizjoterapii na Uniwersytecie Medycznym w Poznaniu. Na co dzień łączy pasję do aktywności fizycznej z wiedzą zdobytą podczas nauki na licznych szkoleniach. Specjalizuje się w pracy z osobami powracającymi do aktywności po kontuzjach oraz dopiero budującymi swoją sprawność ruchową. Odpowiada za przygotowanie motoryczne w poznańskiej Akademii Koszykówki a także współpracuje z Poznańskim Towarzystwem Wioślarzy Tryton, gdzie wspiera zawodników w prewencji urazów i efektywnej regeneracji. Najważniejsze jest dla niego indywidualne podejście i dopasowanie planu działania do potrzeb, możliwości i celów każdego klienta. Prywatnie jest pasjonatem kształtowania sylwetki poprzez kalistenikę i trening siłowy.",
+            "image": "/images/trening-personalny/trenerzy/milosz-tchorzka.webp"
+          }
+        ]
+      },
+      {
+        "heading": "Functional training",
+        "body": "The expert in all-round ability, healthy posture and an athletic build. They focus on optimising movement patterns — teaching your body to work through full ranges, improving your mobility and building strength.",
+        "image": "/images/trening-personalny/trenerzy-cat-functional.webp",
+        "trainers": [
+          {
+            "name": "Katarzyna Adamek",
+            "specialisation": "Specialisation — functional training",
+            "bio": "Absolwentka kierunku Fizjoterapia na Uniwersytecie Medycznym w Poznaniu. Specjalizuje się w treningu medycznym, treningu i fizjoterapii kobiet w ciąży i po porodzie, jak również kobiet chorujących na endometriozę. Certyfikowana instruktorka metody LOW PRESSURE FITNESS. Kasia bierze udział w projekcie “ZDROWY BRZUCH”, gdzie zajmuje się oceną mięśni brzucha pod kontrolą USG oraz treningiem mięśni brzucha i mięśni dna miednicy dostosowanym do istniejących dysfunkcji pacjenta. Zajmuje się też terapią przeciwbólową. Ukończyła liczne kursy z zakresu treningu oraz fizjoterapii w okresie okołoporodowym, w tym również korekcji przy rozejściu mięśni brzucha, kurs treningu medycznego i personalnego oraz metody LPF, jak również szkolenie Fizjoterapia w endometriozie. W swojej pracy zależnie od potrzeb łączy pracę w gabinecie z treningiem, aby działanie było kompleksowe i przynosiło lepsze efekty. Skupia się na likwidowaniu dolegliwości bólowych, przygotowaniu do aktywnego porodu oraz na poprawie funkcji i przywróceniu równowagi w pracy mięśni dna miednicy i mięśni brzucha po porodzie, operacjach brzusznych i w endometriozie. Jako mama dwójki dzieci wie jak istotny jest brak dolegliwości bólowych w czasie ciąży oraz odpowiednio dobrany trening, by zdrowo powrócić do formy po porodzie.",
+            "image": "/images/trening-personalny/trenerzy/katarzyna-adamek.webp"
+          },
+          {
+            "name": "Dominika Kłoda",
+            "specialisation": "Specialisation — functional training",
+            "bio": "Trener personalny oraz trener przygotowania motorycznego. Absolwentka Akademii Wychowania Fizycznego w Poznaniu na kierunku Sport. Medalistka Mistrzostw Polski, Europy i Świata tanecznej federacji IFMS. Pasjonatka szeroko rozumianej aktywności fizycznej. Po zakończonej przygodzie tanecznej, pasję do sportu zaczęła realizować poprzez biegi długodystansowe. W swojej pracy szczególną uwagę zwraca na świadomy ruch, poprawę funkcjonowania ciała oraz osiąganie sportowych celów. Uważa, że aktywność fizyczna wpływa pozytywnie zarówno na ciało jak i umysł. Specjalizuje się w treningu funkcjonalnym.",
+            "image": "/images/trening-personalny/trenerzy/dominika-kloda.webp"
+          },
+          {
+            "name": "Szymon Frankowski",
+            "specialisation": "Specialisation — functional training",
+            "bio": "Magister fizjoterapii oraz trener niebojący się łączenia wszelakich szkół i podejść do treningu, by osiągnąć wymarzony przez podopiecznego efekt. Od strony zawodowej – fascynat kończyny górnej. Współpracuje zarówno z ludźmi potrzebującymi pomocy w zakresie walki z bólem lub wymagającymi rehabilitacji pooperacyjnej, jak i osobami aktywnymi fizycznie doskonalącymi swoje dziedziny ruchowe. Swój warsztat opiera na przekonaniu o efektywności leczenia ruchem i usamodzielnieniu klienta. W wolnym czasie pasjonat wspinaczki boulderowej oraz amator grapplingu.",
+            "image": "/images/trening-personalny/trenerzy/szymon-frankowski.webp"
+          },
+          {
+            "name": "Filip Deskur",
+            "specialisation": "Specialisation — functional training",
+            "bio": "Magister Fizjoterapii oraz trener funkcjonalny i medyczny. Od dziecka związany ze sportem: tenis, piłka nożna oraz zamiłowaniem do ruchu. Bazując na wiedzy zdobytej jako trener i fizjoterapeuta dostosowuje podejście do indywidualnych potrzeb klientów. Jego treningi bazują na budowaniu silnych fundamentów, funkcjonalności i prewencji urazów, oraz pracy z bólem. Dzięki zaangażowaniu i empatii wspiera swoich klientów nie tylko w ich fizycznym rozwoju, lecz również w wytrwałości do osiągania wyznaczonych celów.",
+            "image": "/images/trening-personalny/trenerzy/filip-deskur.webp"
+          },
+          {
+            "name": "Marta Falińska",
+            "specialisation": "Specialisation — functional training",
+            "bio": "Absolwentka fizjoterapii na Uniwersytecie Medycznym w Poznaniu. Zdobyte wykształcenie pozwoliło jej dogłębnie poznać anatomię, mechanizmy urazów oraz proces powrotu do sprawności, dzięki czemu skutecznie wspiera osoby aktywne w bezpiecznym powrocie do sportu i ich ulubionej aktywności po kontuzjach. Jako trenerka przygotowania motorycznego od kilku lat współpracuje z drużyną futbolu amerykańskiego oraz indywidualnie z zawodnikami różnych dyscyplin sportowych, pomagając im rozwijać potencjał sportowy i osiągać lepsze wyniki. W pracy z podopiecznymi stawia na wszechstronny, funkcjonalny ruch oraz precyzyjną analizę potrzeb, tworząc spójny i skuteczny system pracy. Jej priorytetem jest nie tylko poprawa wyników sportowych, ale również budowanie siły i sprawności, które przekładają się na realne korzyści w sporcie i codziennym życiu. Szczególnym obszarem jej zainteresowań jest trening szybkości oraz rozwój sprintu.",
+            "image": "/images/trening-personalny/trenerzy/marta-falinska.webp"
+          },
+          {
+            "name": "Julia Klonowska",
+            "specialisation": "Specialisation — functional training",
+            "bio": "Studentka 5. roku na kierunku Fizjoterapia Uniwersytetu Medycznego w Poznaniu. Od zawsze pasjonatka aktywności fizycznej - jeździectwa i piłki nożnej. Swoją karierę sportową w Polsce realizowała w pierwszoligowym zespole piłkarskim oraz w lidze uniwersyteckiej NCAA2 w Stanach Zjednoczonych, gdzie zdobyła bezcenne doświadczenia zawodnicze oraz trenerskie. Aktualnie zamiłowanie do sportów zespołowych realizuje współpracując z Kadrą Narodową Kobiet do lat 16 Polskiego Związku Hokeja na Trawie. W pracy z klientem skupia się na indywidualizacji podejścia do jego potrzeb oraz możliwości. Dąży do tego, aby zarażać pasją do aktywności fizycznej, która ma stanowić filar zdrowia i dobrego samopoczucia w zmaganiach życia codziennego. W przyszłości chce łączyć praktykę fizjoterapeutyczną w dziedzinie ortopedii z treningiem, aby otaczać swoich podopiecznych kompleksową i profesjonalną opieką.",
+            "image": "/images/trening-personalny/trenerzy/julia-klonowska.webp"
+          }
+        ]
+      },
+      {
+        "heading": "Athletic performance training",
+        "body": "The expert for people who want to develop their physical potential deliberately and improve results in a chosen sport. They focus on precisely shaping qualities such as power, speed and endurance.",
+        "image": "/images/trening-personalny/trenerzy-cat-athletic.webp",
+        "trainers": [
+          {
+            "name": "Wiktoria Dorau",
+            "specialisation": "Specialisation — athletic performance training",
+            "bio": "Absolwentka sportu na AWF Poznań oraz trenerka przygotowania motorycznego, która pomaga zawodnikom i osobom aktywnym trenować mądrzej, szybciej i skuteczniej. Doświadczenie zdobywała pracując z lekkoatletami, piłkarzami oraz biegaczami długodystansowymi, prowadząc treningi siłowe, motoryczne i funkcjonalne precyzyjnie dopasowane do celu i poziomu podopiecznych. W swojej pracy łączy wysokie standardy treningowe z przyjazną atmosferą, dzięki czemu trening jest nie tylko efektywny, ale też motywujący. Skupia się na rozwoju siły, szybkości, sprawności i odporności na kontuzje, zawsze bazując na dobrze zaplanowanym procesie. Pracuje zarówno z młodzieżą, jak i dorosłymi, stawiając na długofalowe efekty, bezpieczeństwo i realny progres. Jest wymagająca, ale wspierająca - zależy jej, aby każdy czuł się zaopiekowany i widział konkretne rezultaty swojej pracy.",
+            "image": "/images/trening-personalny/trenerzy/wiktoria-dorau.webp"
+          },
+          {
+            "name": "Adrian Budzisz",
+            "specialisation": "Specialisation — athletic performance training",
+            "bio": "Trener przygotowania motorycznego (S&C) oraz absolwent Akademii Wychowania Fizycznego w Poznaniu ze specjalizacją przygotowania motorycznego. W swojej pracy skutecznie przenosi teorię naukową na praktykę trenerską, opierając proces treningowy na aktualnych badaniach, sprawdzonych metodach oraz wieloletnim doświadczeniu. Współpracuje zarówno ze sportowcami wyczynowymi, osobami rekreacyjnie uprawiającymi sporty biegowe, jak i klientami rozpoczynającymi swoją przygodę z aktywnością fizyczną. Prowadzi również osoby w końcowych etapach powrotu do pełnej aktywności i sportu. Specjalizuje się w kompleksowym rozwoju sprawności, łącząc trening motoryczny z budowaniem wytrzymałości i poprawą zdolności wysiłkowych. W swojej filozofii treningowej podkreśla, że kluczem do osiągania celów są proste, systematycznie realizowane metody dopasowane do poziomu wytrenowania. Adrian biegle posługuje się językiem angielskim.",
+            "image": "/images/trening-personalny/trenerzy/adrian-budzisz.webp"
+          },
+          {
+            "name": "Jakub Gdula",
+            "specialisation": "Specialisation — athletic performance training",
+            "bio": "Absolwent Uniwersytetu Medycznego w Łodzi oraz Akademii Wychowania Fizycznego w Poznaniu na kierunku fizjoterapia. Doświadczenie zdobywał podczas pracy dla Polskiego Związku Hokeja na Trawie oraz Polskiego Związku Judo, które przekłada na indywidualną pracę ze sportowcami wszystkich dyscyplin od procesu rehabilitacji do momentu wypracowania pełnego potencjału fizycznego. Ostatnie lata to rozwój w kierunku pracy z zawodnikami sportów wytrzymałościowych takich jak Biegi Górskie, Lekkoatletyka oraz Triatlon, którzy zdobywali medale Mistrzostw Polski w swoich dyscyplinach oraz osiągali wysokie wyniki na arenie międzynarodowej. Prywatnie miłośnik górskich aktywności, kolarstwa oraz oglądania siatkówki.",
+            "image": "/images/trening-personalny/trenerzy/jakub-gdula.webp"
+          },
+          {
+            "name": "Mikołaj Mili",
+            "specialisation": "Specialisation — athletic performance training",
+            "bio": "Fizjoterapeuta, trener funkcjonalny. Absolwent WSEiT w Poznaniu na kierunku fizjoterapia, z dyplomem na kierunku: kompleksowa terapia manualna. W pracy z klientem stawia na integrację metod z zakresu fizjoterapii, treningu funkcjonalnego oraz treningu motorycznego. Jego nadrzędnym celem jest pomoc podopiecznym w procesach powrotu do aktywności po urazach i zabiegach ortopedycznych oraz odbudowie wydajności sportowej. W swojej pracy korzysta z różnych technologii pomiarowych (Force Decks, Dynamo czy VBT), które wspierają bezpieczne podejmowanie decyzji w kluczowych momentach całego procesu.\"Uważam, że płynne przejście z etapu rehabilitacji do treningu atletycznego to kluczowy aspekt udanego powrotu do sportu.\"Osobiste doświadczenia sportowe Mikołaja pozwalają jeszcze lepiej zrozumieć wymogi przygotowania fizycznego w sporcie. Podczas blisko 14 letniej przygody ze sportami walki został multimedalistą MP i ME fedracji IMAF w Ju Jitsu oraz Akademickich MP w BJJ. Na co dzień bierze czynny udział w amatorskich rozgrywkach siatkówki oraz siatkówki plażowej.",
+            "image": "/images/trening-personalny/trenerzy/mikolaj-mili.webp"
+          },
+          {
+            "name": "Franiciszek Kruk",
+            "specialisation": "Specialisation — athletic performance training",
+            "bio": "Fizjoterapeuta i trener przygotowania motorycznego certyfikowany przez ASCA (Level 1) oraz EXOS (Performance Specialist). Absolwent kierunku fizjoterapia na Akademii Wychowania Fizycznego w Poznaniu. Integruje fizjoterapię z treningiem motorycznym, prowadząc procesy optymalizacji performance’u oraz Return to Sport. Działania opiera na założeniach Evidence-Based Practice oraz analizie obiektywnych danych, wykorzystując profilowanie na platformach dynamometrycznych i ocenę funkcjonalną. W oparciu o mierzalne wyniki zarządza procesem budowania wysokiej tolerancji na obciążenia oraz rozwoju kompetencji ruchowych. Regularnie uczestniczy w specjalistycznych konferencjach i seminariach.",
+            "image": "/images/trening-personalny/trenerzy/franciszek-kruk.webp"
+          },
+          {
+            "name": "Jacek Maćkowiak",
+            "specialisation": "Specialisation — athletic performance training",
+            "bio": "Od lat pomaga sportowcom rozwijać potencjał fizyczny i osiągać lepsze wyniki - niezależnie od tego, czy grają na najwyższym poziomie, czy po prostu chcą być sprawniejsi, silniejsi i trenować w sposób świadomy. Na co dzień pracuje w Warcie Poznań jako trener przygotowania motorycznego pierwszego zespołu. Wcześniej szkolił zawodników Lecha Poznań i pełnił funkcję koordynatora przygotowania motorycznego w Liderze Basket Swarzędz. Jest absolwentem Akademii Wychowania Fizycznego w Poznaniu, a swoją wiedzę regularnie poszerza, uczestnicząc w renomowanych kursach i szkoleniach. Ukończył m.in. EXOS Performance Specialist, UEFA Fitness A, FMS, EPI Performance oraz programy ISSPF - co przekłada się na skuteczne i nowoczesne podejście do treningu. Współpracował z przedstawicielami różnych dyscyplin, głównie sportów zespołowych, ale również z osobami aktywnymi, które chcą trenować efektywnie i bezpiecznie. Pomaga poprawić kondycję, siłę, szybkość czy mobilność – niezależnie od poziomu zaawansowania. Prywatnie uwielbia sport w każdej postaci – szczególnie surfing i aktywne podróże. Dla niego ruch to nie tylko praca, ale styl życia, którym chętnie dzieli się z innymi.",
+            "image": "/images/trening-personalny/trenerzy/jacek-mackowiak.webp"
+          },
+          {
+            "name": "Jakub Dylewski",
+            "specialisation": "Specialisation — athletic performance training",
+            "bio": "Absolwent Uniwersytetu Medycznego w Poznaniu na kierunku Fizjoterapia, który specjalizuje się w pracy z osobami po kontuzjach i zabiegach ortopedycznych. Na co dzień współpracuje z kadrą narodową kajakarzy górskich, a swoje kilkuletnie doświadczenie zdobywał pracując z profesjonalnymi zawodnikami Akademii KKS Lech Poznań. Fizjoterapia i trening to dla niego jeden spójny proces - od leczenia i redukcji bólu, przez odbudowę siły i kontroli ruchu, aż po pełny powrót do aktywności fizycznej i sportu. Na co dzień pracuje z pacjentami po operacjach kolana, barku, stawu skokowego czy urazach mięśniowych, ale także z osobami, które stawiają na profilaktykę i świadome budowanie sprawności. Każdego pacjenta traktuje indywidualnie, łącząc aktualną wiedzę naukową z praktyką wyniesioną ze sportu wyczynowego. Jego celem jest nie tylko wyleczenie urazu, ale stworzenie fundamentu, który zmniejsza ryzyko kolejnych kontuzji i pozwala wrócić do pełnej formy.",
+            "image": "/images/trening-personalny/trenerzy/jakub-dylewski.webp"
+          }
+        ]
+      }
+    ]
   }
 }

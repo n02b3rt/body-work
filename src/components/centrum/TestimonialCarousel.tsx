@@ -1,25 +1,29 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CarouselArrows } from "./CarouselArrows";
 
-type Testimonial = { quote: string; name: string };
+export type Testimonial = { quote: string; name: string };
 
-export function TestimonialCarousel() {
-  const t = useTranslations("Testimonials");
-  const items = t.raw("items") as Testimonial[];
+type TestimonialCarouselProps = {
+  heading: string;
+  items: Testimonial[];
+};
+
+/** Quotes carousel. Content comes in as props rather than being read from a fixed
+ * translation namespace, because each section page carries its own set. */
+export function TestimonialCarousel({ heading, items }: TestimonialCarouselProps) {
   const [autoplay] = useState(() => Autoplay({ delay: 5500, stopOnInteraction: true }));
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" }, [autoplay]);
 
   return (
     <section className="border-t border-brand-navy-soft bg-background py-16 lg:py-24">
       <Container className="flex items-center justify-between gap-6">
-        <SectionHeading size="sub">{t("heading")}</SectionHeading>
+        <SectionHeading size="sub">{heading}</SectionHeading>
         <CarouselArrows api={emblaApi} />
       </Container>
 

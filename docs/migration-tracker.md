@@ -20,11 +20,11 @@
 
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
 |---|---|---|---|---|---|
-| `/trening-personalny/` | `/trening-personalny/` | — | PL: — / EN: — | — | Not started |
-| `/trening-personalny/trening-indywidualny/` | same | — | PL: — / EN: — | — | Not started |
-| `/trening-personalny/trening-w-parze/` | same | — | PL: — / EN: — | — | Not started |
-| `/trening-personalny/ocena-funkcjonalna/` | same | — | PL: — / EN: — | — | Not started |
-| `/trening-personalny/trenerzy/` | same | — | PL: — / EN: — | — | Not started |
+| `/trening-personalny/` | `/trening-personalny/` | New: SectionNav/PersonalTrainingNav, PageHero, CenteredBand, MediaCardCta. Reused: StatementSection, TextMedia, TestimonialCarousel (generalised to take items as props), NewsletterSignup | PL: done / EN: done | Copy verified verbatim against the scrape both ways (no missing headings, no altered strings) — **not yet opened in a browser** | Bilingual |
+| `/trening-personalny/trening-indywidualny/` | same | New: Accordion. Reused: PageHero, CenteredBand, TextMedia, SectionNav | PL: done / EN: done | Same automated two-way check | Bilingual |
+| `/trening-personalny/trening-w-parze/` | same | Reused: PageHero, TextMedia, Accordion (subset of the shared items), SectionNav | PL: done / EN: done | Same automated two-way check — this check caught a whole section I'd missed | Bilingual |
+| `/trening-personalny/ocena-funkcjonalna/` | same | Reused: PageHero, CenteredBand, StatementSection, SectionNav | PL: done / EN: done | Same automated two-way check | Bilingual |
+| `/trening-personalny/trenerzy/` | same | Reused: PageHero, CenteredBand, SectionNav; 3 categories × 18 trainer cards | PL: done / **EN: bios still Polish** (see AI_NOTES) | Same automated two-way check | Built (PL) |
 
 ## Fizjoterapia
 

@@ -22,6 +22,7 @@ export default async function CentrumHomePage() {
   const tMeetUs = await getTranslations("MeetUs");
   const tPartners = await getTranslations("Partners");
   const tFooter = await getTranslations("Footer");
+  const tTestimonials = await getTranslations("Testimonials");
 
   const services = [
     {
@@ -120,7 +121,10 @@ export default async function CentrumHomePage() {
         imageAlt={tTeam("heading")}
       />
 
-      <TestimonialCarousel />
+      <TestimonialCarousel
+        heading={tTestimonials("heading")}
+        items={tTestimonials.raw("items") as { quote: string; name: string }[]}
+      />
 
       <MeetUsCta
         heading={tMeetUs("heading")}
