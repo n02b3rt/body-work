@@ -1,9 +1,9 @@
 import { getTranslations } from "next-intl/server";
-import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PageHero } from "@/components/centrum/PageHero";
 import { CenteredBand } from "@/components/centrum/CenteredBand";
+import { Accordion, type AccordionItemData } from "@/components/centrum/Accordion";
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { PhysiotherapyNav } from "@/components/centrum/PhysiotherapyNav";
 
@@ -13,6 +13,11 @@ type Category = { heading: string; body: string; people: Person[] };
 export default async function PhysiotherapistsPage() {
   const t = await getTranslations("Physiotherapists");
   const categories = t.raw("categories") as Category[];
+
+  // The reference lists people as expandable rows spanning the section, not as a
+  // grid of photo cards.
+  const toAccordion = (people: Person[]): AccordionItemData[] =>
+    people.map((p) => ({ heading: p.name, body: p.body, image: p.image }));
 
   return (
     <>
@@ -26,7 +31,7 @@ export default async function PhysiotherapistsPage() {
         </Container>
       </section>
 
-      <CenteredBand heading={t("bandHeading")} body={<p>{t("bandBody")}</p>} />
+      <CenteredBand eyebrow={t("bandEyebrow")} heading={t("bandHeading")} body={<p>{t("bandBody")}</p>} />
 
       <div className="border-t border-brand-navy-soft bg-background">
         <Container className="py-16 lg:py-24">
@@ -40,27 +45,7 @@ export default async function PhysiotherapistsPage() {
             <SectionHeading>{category.heading}</SectionHeading>
             <p className="text-body text-brand-navy">{category.body}</p>
           </Container>
-
-          <Container className="grid border-l border-t border-brand-navy-soft sm:grid-cols-2 lg:grid-cols-3">
-            {category.people.map((person) => (
-              <article
-                key={`${category.heading}-${person.name}`}
-                className="flex flex-col gap-6 border-b border-r border-brand-navy-soft p-8"
-              >
-                <div className="relative aspect-[3/4] w-full overflow-hidden">
-                  <Image
-                    src={person.image}
-                    alt={person.name}
-                    fill
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover"
-                  />
-                </div>
-                <h3 className="text-h-menu uppercase text-brand-navy">{person.name}</h3>
-                <p className="text-body text-brand-navy">{person.body}</p>
-              </article>
-            ))}
-          </Container>
+          <Accordion items={toAccordion(category.people)} />
         </section>
       ))}
 

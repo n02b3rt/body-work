@@ -80,7 +80,8 @@
     "healthProcessHeading": "Wierzymy, że zdrowie nie jest stanem, lecz procesem.",
     "healthProcessBody": "To dynamiczna równowaga wielu elementów: ciała, genetyki, psychiki, relacji społecznych, odporności na stres, regeneracji oraz jakości odżywiania. To świadome podejście do profilaktyki — regularne monitorowanie parametrów funkcjonalnych, badania kontrolne i szybka reakcja na sygnały ostrzegawcze. Wymaga zaangażowania, uważności i mądrych wyborów.",
     "learnMore": "Dowiedz się więcej",
-    "joinBodywork": "Dołącz do Bodywork."
+    "joinBodywork": "Dołącz do Bodywork.",
+    "showLess": "Zwiń"
   },
   "Services": {
     "personalTraining": "Trening personalny",
@@ -795,7 +796,9 @@
         "href": "https://bodywork.testowe.eu/zakupy/zdrowy-brzuch-pakiet-8-spotkan/"
       }
     ],
-    "formatCta": "Zapisz się"
+    "formatCta": "Zapisz się",
+    "leadEyebrow": "Poznaj nasz autorski, 2-miesięczny program.",
+    "leadBody": "Specjalistyczny program dla osób z zaburzeniami pracy mięśni brzucha, dna miednicy i przepony. Proces terapii opiera się na nowoczesnej diagnostyce USG oraz ocenie fizjoterapeuty."
   },
   "Physiotherapists": {
     "title": "Specjaliści.",
@@ -872,6 +875,7 @@
           }
         ]
       }
-    ]
+    ],
+    "bandEyebrow": "Fizjoterapeuci BODYWORK"
   }
 }

@@ -97,11 +97,15 @@ function AccordionRow({
           open ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
         )}
       >
+        {/* The panel splits the full section width: padded copy on the left, the
+         * image filling its half edge to edge (no container padding around it). */}
         <div className="min-h-0">
-          <Container className="grid gap-10 py-12 lg:grid-cols-2 lg:gap-16">
-            <p className="text-body text-brand-navy">{item.body}</p>
+          <div className="grid lg:grid-cols-2">
+            <div className="px-4 py-12 sm:px-6 lg:py-16 lg:pl-8 lg:pr-16">
+              <p className="text-body text-brand-navy">{item.body}</p>
+            </div>
             {item.image ? (
-              <div className="relative aspect-video w-full overflow-hidden">
+              <div className="relative min-h-[18rem] w-full lg:min-h-full">
                 <Image
                   src={item.image}
                   alt={item.heading}
@@ -111,7 +115,7 @@ function AccordionRow({
                 />
               </div>
             ) : null}
-          </Container>
+          </div>
         </div>
       </div>
     </div>

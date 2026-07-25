@@ -80,7 +80,8 @@
     "healthProcessHeading": "We believe health isn't a state — it's a process.",
     "healthProcessBody": "It's a dynamic balance of many elements: body, genetics, mind, social relationships, resilience to stress, recovery and the quality of what you eat. It's a conscious approach to prevention — regularly monitoring functional parameters, check-ups, and reacting quickly to warning signs. It takes commitment, attention and smart choices.",
     "learnMore": "Learn more",
-    "joinBodywork": "Join Bodywork."
+    "joinBodywork": "Join Bodywork.",
+    "showLess": "Show less"
   },
   "Services": {
     "personalTraining": "Personal training",
@@ -795,7 +796,9 @@
         "href": "https://bodywork.testowe.eu/zakupy/zdrowy-brzuch-pakiet-8-spotkan/"
       }
     ],
-    "formatCta": "Sign up"
+    "formatCta": "Sign up",
+    "leadEyebrow": "Our own two-month programme.",
+    "leadBody": "A specialist programme for people with dysfunction of the abdominal, pelvic-floor and diaphragm muscles. The therapy process is based on modern ultrasound diagnostics and a physiotherapist’s assessment."
   },
   "Physiotherapists": {
     "title": "Specialists.",
@@ -872,6 +875,7 @@
           }
         ]
       }
-    ]
+    ],
+    "bandEyebrow": "BODYWORK physiotherapists"
   }
 }
