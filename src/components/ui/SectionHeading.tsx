@@ -41,7 +41,10 @@ const sizes: Record<SectionHeadingSize, string> = {
  * fixed size cannot work — at the cap, a 19-character page title rendered ~282px and
  * ran far past the viewport.
  */
-const FIT_COEFFICIENT = 1.7;
+// Tuned against uppercase glyph metrics (~0.62em average advance), which are wider
+// than mixed case — these headings are always uppercase, and a coefficient calibrated
+// on mixed case overflowed the container by ~5%.
+const FIT_COEFFICIENT = 1.5;
 const FIT_MAX = "17.6305rem";
 
 export function SectionHeading({

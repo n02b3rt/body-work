@@ -32,8 +32,15 @@ export default async function PersonalTrainingPage() {
 
   return (
     <>
-      <PersonalTrainingNav />
-      <PageHero title={t("title")} imageSrc="/images/trening-personalny/hero.webp" imageAlt={t("title")} />
+      {/* Hub page: the title comes first and the sticky sub-nav sits under it —
+       * the reverse of the subpages, matching the reference's document order. */}
+      <PageHero
+        title={t("title")}
+        titleSize="display"
+        belowTitle={<PersonalTrainingNav />}
+        imageSrc="/images/trening-personalny/hero.webp"
+        imageAlt={t("title")}
+      />
 
       <CenteredBand
         eyebrow={t("introEyebrow")}
