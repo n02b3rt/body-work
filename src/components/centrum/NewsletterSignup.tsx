@@ -2,8 +2,11 @@
 
 import { useState, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { buttonClasses } from "@/components/ui/Button";
+import { Link } from "@/i18n/navigation";
 
 export function NewsletterSignup() {
   const t = useTranslations("Newsletter");
@@ -17,18 +20,19 @@ export function NewsletterSignup() {
   }
 
   return (
-    <section className="bg-brand-navy py-20 text-white lg:py-28">
-      <Container className="flex flex-col items-center gap-8 text-center">
-        <SectionHeading as="h2" className="text-white">
+    <section className="relative overflow-hidden border-t border-brand-navy-soft bg-background py-20 lg:py-28">
+      <Image src="/images/home/newsletter-bg.webp" alt="" fill sizes="100vw" className="object-cover" />
+      <Container className="relative z-10 flex flex-col items-center gap-8 text-center">
+        <SectionHeading size="hero">
           {t("heading")}
           <br />
           {t("subheading")}
         </SectionHeading>
 
         {status === "success" ? (
-          <p className="text-lg">{t("success")}</p>
+          <p className="text-body text-brand-navy">{t("success")}</p>
         ) : (
-          <form onSubmit={handleSubmit} className="flex w-full max-w-md flex-col gap-4 sm:flex-row">
+          <form onSubmit={handleSubmit} className="flex w-full max-w-sm flex-col items-center gap-4">
             <label htmlFor="newsletter-email" className="sr-only">
               {t("placeholder")}
             </label>
@@ -39,14 +43,20 @@ export function NewsletterSignup() {
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               placeholder={t("placeholder")}
-              className="h-14 flex-1 rounded-full border border-white/40 bg-transparent px-6 text-white placeholder:text-white/60 focus:border-white focus:outline-none"
+              className="h-14 w-full rounded-full border border-brand-navy-soft bg-background px-6 text-center text-body text-brand-navy placeholder:text-brand-navy/60 focus:border-brand-navy focus:outline-none"
             />
-            <button
-              type="submit"
-              className="inline-flex min-h-14 items-center justify-center rounded-full border border-white bg-white px-7 text-sm font-semibold uppercase tracking-[0.1em] text-brand-navy transition-colors duration-200 hover:bg-transparent hover:text-white"
-            >
+            <button type="submit" className={buttonClasses("solid", "w-full")}>
               {t("submit")}
             </button>
+            <p className="text-label text-brand-navy">
+              {t.rich("consent", {
+                link: (chunks) => (
+                  <Link href="/regulamin" className="underline hover:text-brand-navy">
+                    {chunks}
+                  </Link>
+                ),
+              })}
+            </p>
           </form>
         )}
       </Container>

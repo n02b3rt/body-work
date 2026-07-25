@@ -14,7 +14,7 @@
 
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
 |---|---|---|---|---|---|
-| `/` | `/` (+ `/en`) | Hero, NewsCarousel, TextMedia ×2 (friendly space, team teaser), StatementSection ×3, ServiceGrid, TestimonialCarousel, NewsletterSignup, PartnerLogos (placeholder logos), Header, Footer | PL: done / EN: done | Verified structurally (build + dev server render, content/route checks) — **not yet checked in an actual browser at large viewport widths**, do that before calling this row done | In progress |
+| `/` | `/` (+ `/en`) | Hero (text only), FullBleedVideo (real hero video, now its own section), NewsCarousel, TextMedia ×2 (friendly space, team teaser — real photos), StatementSection ×4 (balanced fitness, movement tool, teach potential, health process), FullBleedImage, ServiceGrid (6 real photo tiles + CTA), TestimonialCarousel (with name attribution), NewsletterSignup (real bg, cream section), PartnerLogos (7 real logos), Header/MobileNav (real logo + icons, scroll-triggered logo/tagline crossfade, Akademia/Kontakt utility bar), Footer | PL: done / EN: done | Verified structurally against the scraped reference's actual HTML/CSS (not just build + dev server render — read `assets/css/auto.css` directly for exact colors/section structure since the header/section shape turned out meaningfully different from the first pass) — **still not checked in an actual browser**, Claude-in-Chrome was unavailable both sessions; do that before calling this row done | In progress |
 
 ## Trening personalny
 

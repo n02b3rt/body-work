@@ -38,6 +38,7 @@ Working with a coding agent other than Claude Code? Read `AGENTS.md` — same ru
 
 ## Non-negotiables
 
+- **Centrum: reproduce the scraped reference 1:1 visually.** Colors, imagery, typography treatment, and section content must match `scripts/scrape/scraped/` — use the real assets from each page's `media/` folder (copied into `public/`; photos go through `next/image`, video is served as a plain optimized static file — Next.js has no built-in video pipeline), not gradient/text placeholders. Layout mechanics (max-width/container behavior, grid implementation, breakpoints) are fair game to adapt — see the width-cap fix in `docs/architecture.md` — but the look should not be a reinterpretation. See `docs/scraped-site-map.md`.
 - **Ask before touching the stack.** Installing, removing, upgrading, or swapping any library/service requires telling the user first — see `docs/stack.md` for what's already approved and why.
 - **No AI/tool authorship anywhere** — not in commits, PRs, code, comments, or docs.
 - **Git:** feature branches (`feat/`, `fix/`, `refactor/`, `chore/`), never non-trivial commits straight to `main`. Full convention: `docs/conventions.md`.

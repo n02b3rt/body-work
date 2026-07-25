@@ -49,6 +49,81 @@ Source of truth for the full URL list: `scripts/scrape/sitemap.xml` (40 PL URLs 
 
 Blog posts aren't enumerated one-by-one here — list them with `ls scripts/scrape/scraped/blog/` or read `sitemap.xml`. They share one template; see [`migration-tracker.md`](./migration-tracker.md).
 
+## Using real media assets
+
+The raw HTML/CSS/JS mirror stays reference-only (per "What this is" above) — but each page's `<slug>/media/` folder is a flattened, conveniently-named set of every image *and video* that page actually uses, including shared assets like the logo, favicons, and social icons (confirmed on both `home/` and `cennik/`, so this generalizes). These are real BODYWORK assets — the client's own photos/video/logo — not template placeholders, and per the standing rule in `CLAUDE.md` they get used for real, not swapped for gradients:
+
+1. Find the asset in `<slug>/media/` by the hash filename referenced in that page's `index.html` (`<img>`/`<source>`/`<video>` tags) — e.g. `884eC2Yfh.webp`. Ignore the `__<hash>`-suffixed duplicates in the same folder; they're byte-identical copies.
+2. **Check for a `<video>` tag before assuming a section has no media** — the homepage hero's `<picture>` fallback had an empty `src` in the scrape (capture failure), which looks like "no image," but the real background was a `<video autoplay loop muted playsinline>` a few dozen lines later in the same section, sourced from a file that *did* copy correctly.
+3. Copy the single best-quality version into `public/images/<page>/` or `public/videos/` with a descriptive filename, and commit it — unlike the mirror itself, these copies are real project assets, not regenerable reference output.
+4. Photos: render with `next/image` (not a plain `<img>`), with a `sizes` attribute matching the component's actual rendered width at each breakpoint. Next.js's built-in optimizer (sharp) generates resized/format-converted (WebP/AVIF) variants on demand from that one source file — don't pre-generate multiple sizes yourself.
+5. Video: Next.js has no built-in video optimization pipeline — it's served as a plain static file from `public/videos/`. The scraped hero video is ~8.2MB, uncompressed for web delivery; re-encoding it needs `ffmpeg`, which isn't installed on this machine — ask before installing it.
+6. SVG logo/icons: a plain `<img>` (with an `eslint-disable-next-line @next/next/no-img-element` comment) is fine — they're vector, so `next/image`'s raster optimization doesn't apply.
+
+## Brand colors — confirmed exact values, don't re-guess them
+
+The reference is built with an atomic-CSS page-builder engine (ErgoCSS — see `assets/js/ergocss.js`) whose numbered utility classes (`bgc1`, `c2`, etc.) map to fixed hex values. Found by grepping `assets/css/auto.css` for `.bgc1{`/`.c1{` etc. (the file is minified to one line, so read it with `grep -oE`, not the file-reading tool):
+
+| Class | Hex | Use on the reference |
+|---|---|---|
+| `c1` / `bgc1` | `#001e3d` | Navy — body text, buttons, mobile nav drawer bg |
+| `c2` / `bgc2` | `#f9f7f0` | Cream — **the page background almost everywhere**; `bgcw` (pure white) has zero matches on the homepage, `<main>` itself carries `bgc2`. Don't assume alternating white/cream sections without checking. |
+| `c3` / `bgc3` | `#2c8657` | Green — used only for the "Akademia szkoleniowa" CTA (header utility bar + mobile floating pill), not a general accent |
+
+These are wired up in `src/app/globals.css` as `--brand-navy`, `--brand-surface`/`--background` (both cream), and `--brand-green`.
+
+## Breakpoints — the reference uses several, don't collapse them into one
+
+Its class prefixes are breakpoint prefixes. Which viewport range each maps to isn't guessable from the name — find it by locating the `@media` block that contains that prefix's rules in `assets/css/auto.css`:
+
+| Prefix | Range | Gates |
+|---|---|---|
+| `us:` | ≤ 639px | small-phone tweaks |
+| `ul:` | ≤ 1059px | mobile/tablet type sizes |
+| `ho:` | ≥ 1060px | **desktop type scale**, header row 2, desktop-vs-floating Akademia button |
+| `ug:` | ≤ 1339px | hamburger-only header |
+| `eo:` | ≥ 1340px | **full nav row** (links + social icons), mega-menu instead of the drawer |
+| `xo:` | ≥ 1480px | roomier nav-link padding (`ph3` instead of `ph2`) |
+
+Encoded here as `--breakpoint-nav: 1340px` and `--breakpoint-wide: 1060px` (plus an inline `min-[1480px]:` for the padding step). **The nav switch must not be lowered to Tailwind's `lg`/1024px**: the eight nav labels plus the brand slot, hamburger, icons and locale pill need ~1340px, and anything lower makes the nav overflow — which is exactly why it must be a separate breakpoint from the type-scale switch at 1060px.
+
+## Type scale — verified, don't invent sizes outside it
+
+Extracted from the reference's own `assets/css/auto.css` (its page-builder emits atomic classes like `f12s5`; breakpoint-prefixed variants like `ho:f12s5` live inside media queries, so grep for the **prefixed** form or you'll conclude the class doesn't exist). Encoded as `--text-*` tokens in `src/app/globals.css` — use those, not ad-hoc Tailwind tiers.
+
+| Token | Reference class | Size / line-height | Used for |
+|---|---|---|---|
+| `text-label` | `f2.25` | 0.7934rem / 1.125rem | nav links, small caps labels, testimonial attribution |
+| `text-btn` | `f2.5s2` | 0.8815rem / 1.125rem | button labels (+ `tracking-[0.1em]`, uppercase) |
+| `text-body` | `f3.125s3` | 1.1019rem / 1.53125rem | **every body paragraph on the site** |
+| `text-partner` | `f3` | 1.1278rem / 1.5rem | "NASI PARTNERZY" label, mobile nav items |
+| `text-value` | `f4` | 1.4104rem / 2rem | footer contact values (mobile) |
+| `text-value-lg` | `f6s4` | 2.1157rem / 2.5rem | footer contact values (desktop) |
+| `text-h-menu` | `f6s3` | 2.1157rem / 2.25rem | mega-menu column headings |
+| `text-h-tile` | `f7s3` | 2.4683rem / 2.5rem | service tile headings |
+| `text-h-mobile` | `f7s4` | 2.4683rem / 2.75rem | every section heading below `lg` |
+| `text-statement` | `f7s6` | 2.4683rem / 3.25rem | the oversized opening-statement paragraph |
+| `text-h-sub` | `f9s5` | 3.1735rem / 3.5rem | "Poznaj opinie naszych klientów:" |
+| `text-h-hero` | `f12s4` | 4.2313rem / 4rem | hero + newsletter headings |
+| `text-h-section` | `f12s5` | 4.2313rem / 4.25rem | standard section heading, desktop |
+| `text-h-display` | `f50` | 17.6305rem (clamped) | NEWS, KONTAKT |
+
+Three things that are easy to get wrong and were wrong here before being checked:
+
+1. **Headings are font-weight 400, not bold.** They carry no `fw*` class, so they inherit the body weight (Circular Pro Book / regular). Nav links are `fw3` (300).
+2. **Headings have no letter-spacing.** Their markup shows `ls-0.025em`, but that class **is not defined** in the stylesheet — it's a no-op. Don't add `tracking-tight`.
+3. **The scale is far more uniform than it looks.** Nearly every section heading is the same `f12s5` (~68px desktop / ~40px mobile) — including ones that look smaller in screenshots because their container is narrow. If a heading wraps where the reference keeps it on one line, widen the container rather than shrinking the type.
+
+`f50` is JS-fitted to the container width on the reference (its markup carries a `dynamic-header` class and an inline `font-size: 255px`). Reproduced here as `clamp(3.5rem, 17vw, 17.6305rem)` so it fills a normal desktop but stops growing on ultrawide.
+
+## Typography — real fonts are commercial, not yet licensed for reuse
+
+The reference site's `@font-face` rules (`assets/css/auto.css`) name the real typefaces:
+- **Circular Pro Book** (Lineto, paid) — main UI/body font
+- **Minion Pro** (Adobe, paid) — accent/serif use
+
+Both `.woff2` files exist in the scrape (`assets/fonts/circular-pro/`, `assets/fonts/minion-pro/`), but copying them into this project without confirming BODYWORK holds a webfont license that covers the new domain is a licensing question, not just a technical one — same category as "ask before touching the stack" in `CLAUDE.md`, just for a font instead of a package. Until that's resolved, `src/app/[locale]/layout.tsx` uses Plus Jakarta Sans (`next/font/google`) as a free geometric-sans stand-in — closer to Circular than the previous default (Geist), but not the real thing. Swap it for the licensed Circular Pro files (or a proper Adobe Fonts/Lineto web font link) once that's confirmed. Always load the `latin-ext` subset alongside `latin` for any font used here — Polish diacritics (ą ć ę ł ń ó ś ź ż) need it, and it's easy to silently miss.
+
 ## After building a page: verify it
 
 Once a page/component is built in Next.js, open it side-by-side with the mirror (`localhost:8765/<slug>/`) or the live site and check layout, copy, and imagery match before marking it done in `migration-tracker.md`. The reference is a page-builder template, not final design (PRD §6.2) — note deliberate deviations there rather than silently diverging.

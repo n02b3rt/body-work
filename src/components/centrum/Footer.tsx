@@ -16,67 +16,75 @@ export function Footer() {
   return (
     <footer className="border-t border-brand-navy-soft bg-brand-surface" id="kontakt">
       <Container className="py-16 lg:py-24">
-        <SectionHeading size="xl">{t("kontaktHeading")}</SectionHeading>
+        <SectionHeading size="display" uppercase>
+          {t("kontaktHeading")}
+        </SectionHeading>
 
-        <div className="mt-12 grid gap-10 sm:grid-cols-3">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-brand-navy/70">
-              {t("addressLabel")}
-            </p>
-            <p className="mt-3 text-lg text-brand-navy">
-              {t("addressLine1")}
-              <br />
-              {t("addressLine2")}
-              <br />
-              {t("addressLine3")}
-            </p>
+        <div className="mt-24 flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
+          <div className="grid gap-10 sm:grid-cols-3 lg:flex lg:gap-16">
+            <div>
+              <p className="text-label uppercase text-brand-navy">
+                {t("addressLabel")}
+              </p>
+              <p className="mt-6 text-value text-brand-navy wide:text-value-lg">
+                {t("addressLine1")}
+                <br />
+                {t("addressLine2")}
+                <br />
+                {t("addressLine3")}
+              </p>
+            </div>
+            <div>
+              <p className="text-label uppercase text-brand-navy">
+                {t("receptionLabel")}
+              </p>
+              <p className="mt-6 text-value text-brand-navy wide:text-value-lg">
+                <a href={`tel:+48${t("phone").replace(/\s/g, "")}`} className="hover:underline">
+                  {t("phone")}
+                </a>
+                <br />
+                <a href={`mailto:${t("email")}`} className="hover:underline">
+                  {t("email")}
+                </a>
+              </p>
+            </div>
+            <div>
+              <p className="text-label uppercase text-brand-navy">
+                {t("hoursLabel")}
+              </p>
+              <p className="mt-6 text-value text-brand-navy wide:text-value-lg">
+                {t("hoursLine1")}
+                <br />
+                {t("hoursLine2")}
+                <br />
+                {t("hoursLine3")}
+              </p>
+            </div>
           </div>
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-brand-navy/70">
-              {t("receptionLabel")}
-            </p>
-            <p className="mt-3 text-lg text-brand-navy">
-              <a href={`tel:+48${t("phone").replace(/\s/g, "")}`} className="hover:underline">
-                {t("phone")}
-              </a>
-              <br />
-              <a href={`mailto:${t("email")}`} className="hover:underline">
-                {t("email")}
-              </a>
-            </p>
-          </div>
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-brand-navy/70">
-              {t("hoursLabel")}
-            </p>
-            <p className="mt-3 text-lg text-brand-navy">
-              {t("hoursLine1")}
-              <br />
-              {t("hoursLine2")}
-              <br />
-              {t("hoursLine3")}
-            </p>
+
+          <div className="flex flex-wrap gap-4 lg:shrink-0 lg:flex-col lg:items-end">
+            <a href={MAP_URL} target="_blank" rel="noopener noreferrer" className={buttonClasses("outline", "min-w-60")}>
+              {t("showOnMap")}
+            </a>
+            <a href={DIRECTIONS_URL} target="_blank" rel="noopener noreferrer" className={buttonClasses("outline", "min-w-60")}>
+              {t("getDirections")}
+            </a>
           </div>
         </div>
+      </Container>
 
-        <div className="mt-10 flex flex-wrap gap-4">
-          <a href={MAP_URL} target="_blank" rel="noopener noreferrer" className={buttonClasses("outline")}>
-            {t("showOnMap")}
-          </a>
-          <a href={DIRECTIONS_URL} target="_blank" rel="noopener noreferrer" className={buttonClasses("outline")}>
-            {t("getDirections")}
-          </a>
-        </div>
-
-        <div className="mt-16 flex flex-col gap-4 border-t border-brand-navy-soft pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-brand-navy/80">
+      {/* Full-bleed divider, matching the header's row divider — the legal-links
+       * content inside stays at the usual container width. */}
+      <div className="border-t border-brand-navy-soft">
+        <Container className="flex flex-col gap-4 py-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-wrap gap-x-6 gap-y-2 text-body text-brand-navy">
             <Link href="/polityka-prywatnosci">{t("privacyPolicy")}</Link>
             <Link href="/regulamin">{t("terms")}</Link>
             <Link href="/cookies">{t("cookies")}</Link>
           </div>
-          <p className="text-sm text-brand-navy/70">{t("copyright", { year })}</p>
-        </div>
-      </Container>
+          <p className="text-body text-brand-navy">{t("copyright", { year })}</p>
+        </Container>
+      </div>
     </footer>
   );
 }

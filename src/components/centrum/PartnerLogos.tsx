@@ -1,29 +1,47 @@
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 
 type PartnerLogosProps = {
   heading?: string;
-  partners: string[];
 };
 
-/** Placeholder logo strip — real partner logos pending client delivery (PRD §17.B). */
-export function PartnerLogos({ heading, partners }: PartnerLogosProps) {
+// Real logos from the scraped reference (scripts/scrape/scraped/home/media/) — brand
+// names aren't recoverable from the source, so alt text stays generic until the
+// client identifies them.
+const partners = Array.from({ length: 7 }, (_, index) => ({
+  src: `/images/home/partner-${index + 1}.webp`,
+  alt: `Partner ${index + 1}`,
+}));
+
+// Duplicated so the marquee (see the `marquee` keyframes in globals.css) can loop
+// seamlessly — a -50% translate lands exactly on the start of the second copy.
+const track = [...partners, ...partners];
+
+export function PartnerLogos({ heading }: PartnerLogosProps) {
   return (
     <section className="border-t border-brand-navy-soft bg-background py-16">
-      <Container>
-        {heading ? (
-          <p className="mb-8 text-center text-sm font-semibold uppercase tracking-wide text-brand-navy/60">
-            {heading}
-          </p>
-        ) : null}
-        <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
-          {partners.map((partner) => (
-            <div
-              key={partner}
-              className="flex h-12 w-32 items-center justify-center rounded-lg bg-brand-navy/10 text-xs font-medium text-brand-navy/50"
-            >
-              {partner}
-            </div>
-          ))}
+      <Container className="flex items-stretch gap-10">
+        <div className="flex shrink-0 flex-col justify-between gap-10">
+          {heading ? (
+            <p className="max-w-28 text-partner uppercase leading-tight text-brand-navy">{heading}</p>
+          ) : null}
+          {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG mark, no raster optimization needed */}
+          <img src="/icons/logo-mark.svg" alt="" className="h-16 w-auto" />
+        </div>
+
+        {/* Decorative slanted divider between the label block and the logo strip. */}
+        <div className="w-px shrink-0 -skew-x-[20deg] bg-brand-navy-soft" aria-hidden />
+
+        {/* Logo box and gap are the reference's own values (`.partner-logo`:
+         * 180×96px, 48px margin-right); it also paces the scroll at 3s per logo. */}
+        <div className="flex flex-1 items-center overflow-hidden">
+          <div className="flex w-max animate-[marquee_21s_linear_infinite] items-center gap-12">
+            {track.map((partner, index) => (
+              <div key={`${partner.src}-${index}`} className="relative h-24 w-[180px] shrink-0">
+                <Image src={partner.src} alt={partner.alt} fill sizes="180px" className="object-contain" />
+              </div>
+            ))}
+          </div>
         </div>
       </Container>
     </section>

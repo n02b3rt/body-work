@@ -57,7 +57,7 @@ export function useNavItems(): NavItem[] {
       href: "/bodylab",
       children: [
         { label: t("bodylabVald"), href: "/bodylab/technologia-vald" },
-        { label: t("bodylabComposition"), href: "/bodylab/analiza-skladu-ciala" },
+        { label: t("bodylabComposition"), href: "/bodylab/analiza-skadu-ciala" },
       ],
     },
     { label: t("pricing"), href: "/cennik" },

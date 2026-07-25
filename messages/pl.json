@@ -28,10 +28,12 @@
   },
   "Header": {
     "logoAlt": "Logo BODYWORK",
+    "tagline": "Ciało to twój przyjaciel",
     "openMenu": "Otwórz menu",
     "closeMenu": "Zamknij menu",
     "instagramAlt": "Ikona Instagram",
     "facebookAlt": "Ikona Facebook",
+    "mapDirections": "Mapa dojazdu",
     "languageSwitch": "EN"
   },
   "Hero": {
@@ -70,6 +72,8 @@
     "cta": "Zobacz galerię"
   },
   "Statements": {
+    "balancedFitnessHeading": "Zrównoważony rozwój sprawności.",
+    "balancedFitnessBody": "Naszym celem jest zrównoważony rozwój sprawności, który wspiera zdrowie, sportową długowieczność oraz umożliwia bezpieczny i możliwie szybki powrót do aktywności po urazie lub chorobie. Łączymy najlepsze praktyki przygotowania motorycznego, nauk o sporcie, medycyny sportowej oraz nowoczesnej rehabilitacji.",
     "movementTool": "Ruch to nasze najważniejsze narzędzie pracy.",
     "teachPotentialHeading": "Uczymy jak mądrze i skutecznie wykorzystać potencjał ciała.",
     "teachPotentialBody": "Rozwijamy kluczowe elementy sprawności, które przekładają się na lepsze zdrowie, sylwetkę i wyniki sportowe. Każdy program tworzymy indywidualnie, w oparciu o aktualną wiedzę medyczną, aby zapobiegać kontuzjom, zmniejszać ból i rozwijać potencjał Twojego ciała.",
@@ -91,23 +95,46 @@
     "body": "Nasz zespół tworzą wysokiej klasy specjaliści, pracujący w koncepcji treningu medycznego i sportowego, uzupełnionego o nowoczesne metody terapii manualnej oraz dietetykę. Posiadają wiedzę i umiejętności wywodzące się z profesjonalnego sportu, rehabilitacji i coachingu. W oparciu o specjalnie przygotowany system rozwoju osobistego BODYWORK, pomogą Ci osiągnąć zamierzone rezultaty.",
     "cta": "Poznaj nasz zespół"
   },
+  "MeetUs": {
+    "heading": "Spotkajmy się! Mamy wiele do opowiedzenia.",
+    "body": "Zadzwoń pod nr {phone} i umów się na wizytę u jednego z naszych specjalistów: trenera, fizjoterapeuty lub dietetyka. Pracownicy recepcji udzielą Ci wszelkich dodatkowych, niezbędnych informacji. Zapraszamy również do kontaktu poprzez e-mail: {email}",
+    "call": "Zadzwoń",
+    "sendEmail": "Wyślij e-mail"
+  },
+  "Carousel": {
+    "previous": "Poprzedni",
+    "next": "Następny"
+  },
   "Testimonials": {
     "heading": "Poznaj opinie naszych klientów:",
     "items": [
       {
-        "quote": "Siłownia dla tych co nie lubią „siłowni”, czyli stereotypowego miejsca dla pakerów. Bardzo przyjemna przestrzeń, profesjonalne podejście. Kompetentny i zaangażowany zespół. Bardzo duża wartość dodana do mojego życia. Polecam."
+        "quote": "Siłownia dla tych co nie lubią „siłowni”, czyli stereotypowego miejsca dla pakerów. Bardzo przyjemna przestrzeń, profesjonalne podejście. Kompetentny i zaangażowany zespół. Bardzo duża wartość dodana do mojego życia. Polecam.",
+        "name": "Aleksandra Ossowska"
       },
       {
-        "quote": "BodyWork to miejsce, do którego naprawdę chce się wracać. Kameralne studio, świetnie zorganizowane i przyjazne dla każdego – niezależnie od poziomu. Przez ponad dwa lata trenowałam z Martyną – najlepsza trenerka, z jaką miałam okazję ćwiczyć. Profesjonalna, zaangażowana, z ogromną wiedzą i świetnym podejściem. Z całego serca polecam!"
+        "quote": "BodyWork to miejsce, do którego naprawdę chce się wracać. Kameralne studio, świetnie zorganizowane i przyjazne dla każdego – niezależnie od poziomu. Przez ponad dwa lata trenowałam z Martyną – najlepsza trenerka, z jaką miałam okazję ćwiczyć. Profesjonalna, zaangażowana, z ogromną wiedzą i świetnym podejściem. Z całego serca polecam!",
+        "name": "Kaja Rutkowska"
       },
       {
-        "quote": "Body Work to najlepsze miejsce do jakiego mogłem trafić. Stworzone przez ludzi z pasją, dla ludzi którzy potrzebują pomocy bądź poprawy jakości życia. Profesjonalizm, empatia, uśmiech i gwarantowana fantastyczna atmosfera. Ćwiczenia są wymagające, ale dzięki nim ciągle progresuję. Polecam wszystkim."
+        "quote": "Body Work to najlepsze miejsce do jakiego mogłem trafić. Stworzone przez ludzi z pasją, dla ludzi którzy potrzebują pomocy bądź poprawy jakości życia. Profesjonalizm, empatia, uśmiech i gwarantowana fantastyczna atmosfera. Ćwiczenia są wymagające, ale dzięki nim ciągle progresuję. Polecam wszystkim.",
+        "name": "Piotr Bresiński"
       },
       {
-        "quote": "Przyjemne miejsce, profesjonalna kadra. Ćwiczy się z przyjemnością."
+        "quote": "Przyjemne miejsce, profesjonalna kadra. Ćwiczy się z przyjemnością.",
+        "name": "Karolina Grzesiek"
       },
       {
-        "quote": "Świetne, kameralne miejsce gdzie otrzymacie pełne wsparcie fachowych trenerów. Szczególnie dziękuję Dominice, która pomogła mi zrealizować mój cel sportowy."
+        "quote": "Świetne, kameralne miejsce gdzie otrzymacie pełne wsparcie fachowych trenerów. Szczególnie dziękuję Dominice, która pomogła mi zrealizować mój cel sportowy.",
+        "name": "Artur Szybruk"
+      },
+      {
+        "quote": "Gorąco polecam amatorów i zawodników wszelkich sportów. Znajdziecie tutaj specjalistów w swoim fachu. Trening w BodyWork to czysta przyjemność w koleżeńskim klimacie. Lubię tu przebywać i przygotowywać się do zawodów.",
+        "name": "Kamil Leśniak"
+      },
+      {
+        "quote": "Super miejsce, przesympatyczna atmosfera, pyszne kawy i koktajle, wszystko zawsze zadbane i czyściutkie. Miejsce warte wszystkich pieniędzy! I co najważniejsze — Dominika to najlepsza trenerka na świecie!",
+        "name": "Adrianna"
       }
     ]
   },
@@ -116,11 +143,12 @@
     "subheading": "Bądź na bieżąco.",
     "placeholder": "Wpisz tutaj swój e-mail...",
     "submit": "Zapisz się",
+    "consent": "Wysłanie wiadomości jest równoznaczne z akceptacją <link>regulaminu</link>.",
     "success": "Zostałeś pomyślnie dodany do naszego newslettera.",
     "error": "Coś poszło nie tak. Spróbuj ponownie."
   },
   "Partners": {
-    "heading": "Zaufali nam"
+    "heading": "Nasi partnerzy"
   },
   "Footer": {
     "kontaktHeading": "Kontakt",

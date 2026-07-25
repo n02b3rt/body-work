@@ -2,26 +2,28 @@ import type { Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import { routing } from "@/i18n/routing";
 import { Header } from "@/components/centrum/Header";
 import { Footer } from "@/components/centrum/Footer";
 import "../globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+// Temporary stand-in for the real typeface (Circular Pro Book, a paid Lineto
+// font found in the scrape's @font-face rules) pending a licensing decision —
+// see docs/scraped-site-map.md. `latin-ext` is required for Polish diacritics.
+const fontSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta",
+  subsets: ["latin", "latin-ext"],
 });
 
 export const metadata: Metadata = {
   title: "BODYWORK Centrum",
   description:
     "BODYWORK — centrum treningu personalnego, fizjoterapii, dietetyki i masażu w Poznaniu.",
+  icons: {
+    icon: "/favicon-96x96.png",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 type LocaleLayoutProps = {
@@ -38,10 +40,14 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+    <html lang={locale} className={`${fontSans.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Header />
+          {/* Header is `fixed`, so this reserves its (tallest, unscrolled) height in
+           * normal flow — must stay in sync with Header's row1 (65px) + row2 (96px
+           * from 1060px up, hidden below it). */}
+          <div className="h-[65px] wide:h-[161px]" aria-hidden />
           <main className="flex-1">{children}</main>
           <Footer />
         </NextIntlClientProvider>

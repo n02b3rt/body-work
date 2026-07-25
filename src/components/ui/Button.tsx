@@ -1,15 +1,19 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
 import { cn } from "@/lib/cn";
 
-export type ButtonVariant = "outline" | "solid";
+export type ButtonVariant = "outline" | "solid" | "brand";
 
 export function buttonClasses(variant: ButtonVariant = "outline", className?: string) {
   return cn(
-    "inline-flex min-h-14 w-fit items-center justify-center rounded-full border border-brand-navy-soft px-7 text-center text-sm font-semibold uppercase tracking-[0.1em] transition-colors duration-200",
+    // Sizing/type copied from the reference's button (mih14/ph7/f2.5s2/ls0.1em, no
+    // font-weight class → body weight). See docs/scraped-site-map.md.
+    "inline-flex min-h-14 w-fit items-center justify-center rounded-full border border-brand-navy-soft px-7 text-center text-btn font-normal uppercase tracking-[0.1em] transition-colors duration-200",
     variant === "outline" &&
-      "bg-background text-brand-navy hover:bg-brand-navy hover:text-white",
+      "bg-background text-brand-navy hover:bg-brand-navy hover:text-background",
     variant === "solid" &&
-      "bg-brand-navy text-white hover:bg-background hover:text-brand-navy",
+      "bg-brand-navy text-background hover:bg-background hover:text-brand-navy",
+    variant === "brand" &&
+      "border-transparent bg-brand-green text-background hover:bg-brand-navy",
     className,
   );
 }

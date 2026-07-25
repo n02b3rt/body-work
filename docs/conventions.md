@@ -32,6 +32,7 @@ When turning a scraped Centrum page into a real one:
 2. Build it to be reused across pages, not page-specific, even if only one page needs it today — Centrum and Akademia are expected to share ~70% of components (PRD §7.2).
 3. After adding or reusing a component for a page, update its row in `migration-tracker.md` (components used/created, status).
 4. New component = bilingual from the start (see [`i18n.md`](./i18n.md)) — don't hardcode Polish strings "for now."
+5. Use the real photos/video/logo from that page's `media/` folder, not a placeholder — see "Using real media assets" in [`scraped-site-map.md`](./scraped-site-map.md).
 
 ## Patterns
 

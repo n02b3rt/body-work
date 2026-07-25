@@ -6,30 +6,37 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { CarouselArrows } from "./CarouselArrows";
 
-type Testimonial = { quote: string };
+type Testimonial = { quote: string; name: string };
 
 export function TestimonialCarousel() {
   const t = useTranslations("Testimonials");
   const items = t.raw("items") as Testimonial[];
   const [autoplay] = useState(() => Autoplay({ delay: 5500, stopOnInteraction: true }));
-  const [emblaRef] = useEmblaCarousel({ loop: true }, [autoplay]);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" }, [autoplay]);
 
   return (
     <section className="border-t border-brand-navy-soft bg-background py-16 lg:py-24">
-      <Container>
-        <SectionHeading size="md" className="mb-10">
-          {t("heading")}
-        </SectionHeading>
+      <Container className="flex items-center justify-between gap-6">
+        <SectionHeading size="sub">{t("heading")}</SectionHeading>
+        <CarouselArrows api={emblaApi} />
       </Container>
-      <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex gap-4 px-4 sm:px-6 lg:px-8">
+
+      {/* Cards are separated by hairlines (border-r/border-b) rather than being
+       * rounded boxes — matches the reference's testimonial slides. */}
+      <div className="mt-10 overflow-hidden border-t border-brand-navy-soft" ref={emblaRef}>
+        <div className="flex">
           {items.map((item, index) => (
             <blockquote
               key={index}
-              className="min-w-0 flex-[0_0_85%] rounded-2xl bg-brand-surface p-8 text-brand-navy sm:flex-[0_0_55%] lg:flex-[0_0_38%]"
+              className="flex min-w-0 flex-[0_0_85%] flex-col items-center justify-between gap-10 border-b border-r border-brand-navy-soft p-6 text-center text-brand-navy sm:flex-[0_0_50%] lg:flex-[0_0_25%]"
             >
-              <p className="text-base leading-relaxed">&ldquo;{item.quote}&rdquo;</p>
+              <span aria-hidden className="font-serif text-5xl leading-none text-brand-navy">
+                &ldquo;
+              </span>
+              <p className="text-body">{item.quote}</p>
+              <footer className="text-label font-light uppercase tracking-[1px]">{item.name}</footer>
             </blockquote>
           ))}
         </div>
