@@ -32,6 +32,20 @@ const socialLinks = [
   },
 ];
 
+/** The reference breaks these labels after the first word so each sits on two tight
+ * lines inside the 80px bar (its markup hard-codes a `<br>` in the same place). */
+function SubNavLabel({ label }: { label: string }) {
+  const [first, ...rest] = label.split(" ");
+  if (rest.length === 0) return <span>{label}</span>;
+  return (
+    <span>
+      {first}
+      <br />
+      {rest.join(" ")}
+    </span>
+  );
+}
+
 export function Header() {
   const navItems = useNavItems();
   const tHeader = useTranslations("Header");
@@ -41,7 +55,14 @@ export function Header() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hoveredHref, setHoveredHref] = useState<string | null>(null);
   const otherLocale = locale === "pl" ? "en" : "pl";
+  // Only items that actually have children open the sub-nav bar; hovering a plain
+  // link still underlines it, and closes whatever bar was open. Suppressed entirely
+  // while the hamburger panel is open so the two can't stack on top of each other.
+  const activeItem = menuOpen
+    ? undefined
+    : navItems.find((item) => item.href === hoveredHref && item.children?.length);
   // Opening the menu should visually match the scrolled/compact state (the panel
   // hangs right below a short row 1), not fight it.
   const compact = scrolled || menuOpen;
@@ -90,7 +111,7 @@ export function Header() {
       {/* The divider spans the full viewport edge-to-edge; the content inside stays
        * capped at the site's usual container width — matches the reference, which
        * full-bleeds its background/borders but never its actual content. */}
-      <div className="border-b border-brand-navy-soft">
+      <div className="relative border-b border-brand-navy-soft" onMouseLeave={() => setHoveredHref(null)}>
         <Container className="flex h-[65px] items-center justify-between gap-4">
           <Link href="/" className="relative z-10 block shrink-0">
             {/* Below the nav breakpoint there's no room for the fixed-width flip
@@ -118,43 +139,24 @@ export function Header() {
           {/* No gap between items and tighter padding below 1480px: the eight labels
            * need ~800px, and that's what fits at the 1340px switch point. The
            * reference does the same (`e:ph2` → `xo:ph3` at 1480px). */}
-          <nav className="hidden flex-1 items-center justify-end nav:flex">
+          <nav className="hidden h-full flex-1 items-stretch justify-end nav:flex">
             {navItems.map((item) => (
-              <div key={item.href} className="group relative">
-                <Link
-                  href={item.href}
-                  className="block whitespace-nowrap px-2 py-3 text-label font-light uppercase tracking-[1px] text-brand-navy transition-colors hover:opacity-70 min-[1480px]:px-3"
-                >
-                  {item.label}
-                </Link>
-                {item.children ? (
-                  <div className="invisible absolute left-0 top-full z-20 min-w-60 -translate-y-1 opacity-0 transition-all duration-150 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                    <ul className="mt-2 space-y-1 rounded-2xl border border-brand-navy-soft bg-background p-3 shadow-lg">
-                      {item.children.map((child) => (
-                        <li key={child.href}>
-                          {child.external ? (
-                            <a
-                              href={child.href}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="block rounded-lg px-3 py-2 text-label uppercase tracking-[1px] text-brand-navy hover:bg-brand-surface"
-                            >
-                              {child.label}
-                            </a>
-                          ) : (
-                            <Link
-                              href={child.href}
-                              className="block rounded-lg px-3 py-2 text-label uppercase tracking-[1px] text-brand-navy hover:bg-brand-surface"
-                            >
-                              {child.label}
-                            </Link>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : null}
-              </div>
+              <Link
+                key={item.href}
+                href={item.href}
+                onMouseEnter={() => setHoveredHref(item.href)}
+                onFocus={() => setHoveredHref(item.href)}
+                className="relative flex items-center whitespace-nowrap px-2 text-label font-light uppercase tracking-[1px] text-brand-navy min-[1480px]:px-3"
+              >
+                {item.label}
+                <span
+                  aria-hidden
+                  className={cn(
+                    "absolute bottom-0 left-3 w-[calc(100%-1.5rem)] bg-brand-navy transition-[height] duration-100 motion-reduce:transition-none",
+                    hoveredHref === item.href ? "h-2" : "h-0",
+                  )}
+                />
+              </Link>
             ))}
           </nav>
 
@@ -226,6 +228,60 @@ export function Header() {
             </Link>
           </div>
         </Container>
+
+        {/* Sub-nav: a full-bleed bar hanging under the whole header row, with the
+         * children laid out horizontally — not a floating card under one item. It
+         * lives here (a sibling of the nav, inside the row's `relative` wrapper) so
+         * it can span the viewport while still being aligned to the container, and
+         * so moving the pointer from a nav link down into it doesn't close it. */}
+        <div
+          aria-hidden={!activeItem}
+          inert={!activeItem}
+          // Needs its own `border-t` as well as `border-b` (the reference has both):
+          // `top-full` resolves against the wrapper's *padding* box, which excludes
+          // its border, so this opaque bar sits directly on top of the header row's
+          // bottom rule and would otherwise hide it.
+          className={cn(
+            "absolute inset-x-0 top-full z-20 hidden h-20 border-y border-brand-navy-soft bg-background transition-opacity duration-300 nav:block motion-reduce:transition-none",
+            activeItem ? "opacity-100" : "pointer-events-none opacity-0",
+          )}
+        >
+          <Container className="flex h-full items-center">
+            {activeItem?.children?.map((child, index) => {
+              const label = <SubNavLabel label={child.label} />;
+              const className = cn(
+                "relative mr-6 flex h-full items-center px-3 text-[0.7934rem] font-light uppercase leading-[1.0625rem] tracking-[1px] text-brand-navy transition-transform duration-300 ease-out motion-reduce:transition-none",
+                activeItem ? "translate-y-0" : "translate-y-12",
+              );
+              const style = { transitionDelay: activeItem ? `${index * 40}ms` : "0ms" };
+
+              return child.external ? (
+                <a
+                  key={child.href}
+                  href={child.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cn(className, "group")}
+                  style={style}
+                >
+                  {label}
+                  <span
+                    aria-hidden
+                    className="absolute bottom-0 left-3 h-0 w-[calc(100%-1.5rem)] bg-brand-navy transition-[height] duration-100 group-hover:h-2 motion-reduce:transition-none"
+                  />
+                </a>
+              ) : (
+                <Link key={child.href} href={child.href} className={cn(className, "group")} style={style}>
+                  {label}
+                  <span
+                    aria-hidden
+                    className="absolute bottom-0 left-3 h-0 w-[calc(100%-1.5rem)] bg-brand-navy transition-[height] duration-100 group-hover:h-2 motion-reduce:transition-none"
+                  />
+                </Link>
+              );
+            })}
+          </Container>
+        </div>
       </div>
 
       <div
