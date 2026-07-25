@@ -13,6 +13,11 @@
 
 -->
 
+## 2026-07-26 — /bodylab section: hub + VALD + body composition
+
+- **Done:** built the Bodylab section, bilingual. Hub (lead, full-bleed "every movement counts" band, three alternating tool blocks for ForceDecks / dynamometer / body composition, two of which link onward), `technologia-vald` (lead, diagnostics, benefits, two technologies, five audience groups, how it works, pricing accordion, booking), `analiza-skadu-ciala` (lead, precise data, what we measure, closing CTA). Only `BodylabNav` was new. Verified clean on the first pass — 22 long strings verbatim, 0 reference headings unaccounted for.
+- **Watch out:** the route is `/bodylab/analiza-skadu-ciala` — **missing the "ł" on purpose.** That is the real slug on the reference (confirmed in its markup and in `sitemap.xml`); an earlier session "corrected" it to `analiza-skladu-ciala` and broke the link. Noted in `BodylabNav` and the page file so it does not get "fixed" again.
+
 ## 2026-07-26 — /dietetyka section: hub + 2 dietitian pages
 
 - **Done:** built the dietetics section, bilingual. Hub (3 side-by-side statements, a "choose your path" band and two path cards linking to each dietitian, contact block), plus both dietitian pages: intro, "O mnie", the stages of working together, a pricing accordion, booking block with **their own** phone/email (Iwona's differ from the centre's — `+48 661 288 074` / `kontakt@poradnia-stachowiak.pl`, kept per-page rather than reusing the footer values), and their client quotes. Only `DieteticsNav` was new.

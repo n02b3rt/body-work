@@ -1275,5 +1275,98 @@
         "name": "Mikołaj"
       }
     ]
+  },
+  "Bodylab": {
+    "title": "Bodylab",
+    "leadHeading": "Understand your body. Raise your results. Maximise the effects.",
+    "leadBody": "W BODYLAB łączymy naukę, nowoczesną technologię i praktykę treningową, aby dać Ci pełny obraz funkcjonowania ciała. Nasze testy fizjologiczne i analizy ekspertów pozwalają świadomie rozwijać sprawność, optymalizować regenerację i osiągać lepsze wyniki – niezależnie od tego, czy trenujesz zawodowo, czy dbasz o zdrowie i kondycję na co dzień.",
+    "everyMoveHeading": "At BODYLAB every movement counts.",
+    "everyMoveBody": "Analizujemy motorykę i funkcjonowanie Twojego ciała, aby trening i rehabilitacja były w pełni dopasowane do Twoich możliwości. Tu nauka spotyka praktykę, a technologia maksymalizuje efekty każdego ćwiczenia.",
+    "techHeading": "Technology that supports your fitness.",
+    "tools": [
+      {
+        "eyebrow": "FORCEDECKS force platform.",
+        "heading": "Precise analysis of strength and movement dynamics.",
+        "body": "Korzystamy z innowacyjnej platformy siłowej ForceDecks, która pozwala precyzyjnie mierzyć moc, równowagę i dynamikę ruchu w czasie rzeczywistym. Dzięki technologii czujników nacisku każda Twoja próba – skok, przysiad czy wypchnięcie – jest analizowana pod kątem siły generowanej przez mięśnie, asymetrii między kończynami oraz efektywności ruchu. ForceDecks to narzędzie nie tylko dla sportowców dążących do poprawy wyników, ale także dla osób powracających do sprawności po kontuzjach, które chcą bezpiecznie monitorować postępy i rozwijać funkcjonalną siłę w sposób inteligentny i kontrolowany.",
+        "image": "/images/bodylab/hub-forcedecks.webp",
+        "href": "/bodylab/technologia-vald"
+      },
+      {
+        "eyebrow": "Dynamometer.",
+        "heading": "Muscle strength assessment.",
+        "body": "Zaawansowane urządzenie do precyzyjnego pomiaru siły mięśniowej. Dzięki niemu możemy ocenić moc, wytrzymałość i równowagę siłową poszczególnych grup mięśniowych, co pozwala odpowiednio programować trening, monitorować postępy i kontrolować proces rehabilitacji. Dynamo jest niezastąpione zarówno dla sportowców dążących do maksymalizacji wyników, jak i dla osób powracających do pełnej sprawności po urazach, umożliwiając bezpieczne i świadome zwiększanie siły mięśniowej oraz minimalizowanie ryzyka kontuzji.",
+        "image": "/images/bodylab/hub-dynamometr.webp"
+      },
+      {
+        "eyebrow": "Body composition analysis.",
+        "heading": "Analysis of your body's function and needs.",
+        "body": "Wykonujemy zaawansowaną analizę składu ciała przy użyciu profesjonalnych urządzeń medycznych, takich jak TANITA i InBody, które dostarczają szczegółowych danych o Twoim organizmie. System precyzyjnie mierzy masę ciała, procentową zawartość tkanki tłuszczowej, masę mięśniową, całkowitą zawartość wody oraz wskaźnik BMR, pozwalając zrozumieć, jak ciało funkcjonuje i jakie są jego potrzeby. Na podstawie wyników tworzymy indywidualne plany treningowe i dietetyczne, które optymalizują rozwój siły, sylwetki i sprawności, a jednocześnie minimalizują ryzyko kontuzji. Regularne pomiary umożliwiają monitorowanie postępów, świadome planowanie aktywności i świadomą pracę nad zdrowiem, dzięki czemu Twoje ciało działa sprawniej, efektywniej i dłużej utrzymuje pełną sprawność.",
+        "image": "/images/bodylab/hub-analiza.webp",
+        "href": "/bodylab/analiza-skadu-ciala"
+      }
+    ],
+    "toolsCta": "More information"
+  },
+  "ValdTechnology": {
+    "title": "VALD technology.",
+    "leadHeading": "Strength, health and better results.",
+    "leadBody": "Bez względu na to, czy Twoim celem są lepsze wyniki sportowe, rehabilitacja po urazach, czy generalna poprawa siły i sprawności, wykorzystanie zalet treningu ekscentrycznego otwiera przed Tobą zupełnie nowe możliwości.",
+    "diagHeading": "Sports diagnostics at the highest level.",
+    "diagBody": "Dzięki zastosowaniu nowoczesnych platform ForceDecks (by Vald Performance) możemy przeprowadzać szybką i łatwą ocenę stabilności, siły i ruchu. Co więcej monitorujemy również wydajność nerwowo-mięśniową, asymetrie i strategie ruchowe.",
+    "benefitsHeading": "Benefits.",
+    "benefitsBody": "Uzyskanie dokładnej wiedzy na temat własnej siły i mocy w zakresie wykonywanych ćwiczeń i wyskoków. Szybki proces pozyskania danych – wystarczy jedno 30-50-minutowe spotkanie! Dzięki uzyskanym informacjom możesz wejść na wyższy poziom sportowy oraz lepiej planować i zarządzać treningiem i rehabilitacją. Platforma ForceDecks charakteryzuje się wysokim poziomem wiarygodności, szybkością zbierania danych oraz możliwością porównania wyników z danymi normatywnymi dla każdej badanej populacji.",
+    "techHeading": "The technology we use:",
+    "tech": [
+      {
+        "heading": "FORCEDECKS force platform.",
+        "body": "ForceDecks to nowoczesny system do analizy siły i skoków, który pozwala w precyzyjny sposób ocenić funkcjonowanie układu ruchu. Dzięki dwóm specjalistycznym platformom mierzymy m.in. moc, asymetrię oraz ewentualne deficyty siłowe. To narzędzie daje nam możliwość nie tylko diagnozowania aktualnego stanu, ale także monitorowania progresu podczas rehabilitacji i treningu. W praktyce oznacza to, że możemy dokładnie sprawdzić, jak pracuje Twoje ciało, a następnie dopasować terapię lub plan treningowy tak, aby był maksymalnie skuteczny i bezpieczny. ForceDecks wspiera zarówno osoby wracające do pełnej sprawności po kontuzjach, jak i sportowców, którzy chcą rozwijać swoje możliwości i zapobiegać urazom."
+      },
+      {
+        "heading": "DYNAMO dynamometer.",
+        "body": "Dynamo to wielofunkcyjne urządzenie do pomiaru siły i zakresu ruchu. Dzięki niemu możemy w obiektywny sposób sprawdzić, jak pracują Twoje mięśnie i stawy – zarówno pod kątem siły, jak i mobilności. To narzędzie pozwala dokładnie ocenić m.in. balans mięśniowy, różnice między stronami ciała czy postępy w rehabilitacji. Dzięki precyzyjnym pomiarom możemy stworzyć jeszcze bardziej spersonalizowany program terapii i monitorować efekty pracy na każdym etapie. Dynamo znajduje zastosowanie zarówno w rehabilitacji po urazach, jak i w pracy ze sportowcami – wspiera profilaktykę przeciążeń, rozwój siły i bezpieczny powrót do pełnej sprawności."
+      }
+    ],
+    "audienceHeading": "Who is it for?",
+    "audience": [
+      {
+        "heading": "Professional athletes.",
+        "body": "*(zarówno sporty drużynowe jak i indywidualne) Maksymalizacja osiągów i prewencja kontuzji. Precyzyjne monitorowanie obciążeń treningowych i zmęczenia. Identyfikacja minimalnych, krytycznych asymetrii siły oraz dokładny pomiar mocy eksplozywnej, kluczowej dla wyników sportowych."
+      },
+      {
+        "heading": "Amateurs, advanced athletes and sport enthusiasts.",
+        "body": "Efektywny rozwój sportowy i bezpieczeństwo. Obiektywny pomiar postępów siłowych i mocy, co pozwala na indywidualne dopasowanie intensywności treningu. Pomaga w bezpiecznym planowaniu cykli treningowych i unikaniu stagnacji."
+      },
+      {
+        "heading": "Physically active people.",
+        "body": "Świadome budowanie sprawności i zapobieganie przeciążeniom. Ocena podstawowego poziomu siły i równowagi mięśniowej. Dostęp do obiektywnych wskaźników postępu (np. skoczności), które motywują i potwierdzają skuteczność wdrożonego planu treningowego."
+      },
+      {
+        "heading": "People in rehabilitation and returning to sport.",
+        "body": "Kontrolowany i bezpieczny powrót do pełnej aktywności. Dokładny pomiar deficytów siły i mocy po kontuzji (np. po operacji). Platforma dostarcza obiektywnych kryteriów, które decydują o bezpiecznym powrocie do treningu i zawodów, drastycznie redukując ryzyko ponownego urazu."
+      },
+      {
+        "heading": "Older adults.",
+        "body": "Utrzymanie niezależności ruchowej i profilaktyka upadków. Ocena kluczowych wskaźników stabilności, równowagi i siły kończyn dolnych. Regularne badanie pozwala monitorować efekty ćwiczeń i jest podstawowym narzędziem w programach prewencji upadków."
+      }
+    ],
+    "howHeading": "How does it work?",
+    "howBody": "Platformy siłowe istnieją od ponad 40 lat. Są to narzędzia służące do pomiaru sił reakcji podłoża (GRF) podczas różnych rodzajów ruchu (można je traktować jako fantazyjny typ wagi łazienkowej). GRF są jedną z najczęściej analizowanych miar biomechaniki i pomagają scharakteryzować ruchy człowieka. Podczas wykonywanych testów generowany jest wykres „siła x czas”, który stanowi podstawę wszystkich wskaźników. Wykres ten możemy traktować jako „obraz” zdolności do wytworzenia siły mięśniowej w danym okresie czasu. Dzięki temu określamy profil sportowca, sprawdzamy jego stan gotowości podczas fazy treningowej i wspieramy podjęcie decyzji o powrocie do sportu w przypadku rehabilitacji.",
+    "pricingHeading": "Pricing.",
+    "pricingBody": "TEST – OPCJA PEŁNA: 795 zł (uwzględnia: test rozszerzony, analizę i raport) TEST – OPCJA PODSTAWOWA: 495 zł (uwzględnia: test w wersji podstawowej, analizę i raport) DODATKOWA OSOBA: 125 zł (cena za każdą kolejną osobę / w jednym teście może brać udział max 5 osób) TEST KONTROLNY: 250 zł",
+    "bookHeading": "How do I book a testing session?",
+    "bookBody": "Skontaktuj się z nami a pracownicy recepcji udzielą Ci wszelkich niezbędnych informacji oraz zaproponują dogodny termin.",
+    "bookCall": "Call us",
+    "bookEmail": "Write to us"
+  },
+  "BodyComposition": {
+    "title": "Body composition analysis.",
+    "leadHeading": "Your starting point for working on your body consciously.",
+    "leadBody": "Twoje ciało kryje w sobie więcej informacji, niż można zobaczyć gołym okiem. Dzięki nowoczesnej analizie składu ciała odkryjesz pełniejszy obraz swojej sprawności i zdrowia.",
+    "dataHeading": "Precise data.",
+    "dataBody": "Podczas pierwszej wizyty dietetycznej korzystamy z profesjonalnych urządzeń medycznych TANITA i InBody, które umożliwiają precyzyjny pomiar masy ciała oraz tkanki tłuszczowej. Wyniki dostarczają konkretnych danych, które pomagają w planowaniu treningu, diety i monitorowaniu postępów.",
+    "measureHeading": "What do we measure?",
+    "measureBody": "Masa ciała – podstawowy wskaźnik, który warto śledzić w kontekście zdrowia i celów treningowych. Procentowa zawartość tkanki tłuszczowej – pozwala ocenić skład ciała i ryzyko chorób metabolicznych. Masa tkanki tłuszczowej w kilogramach – konkretny wynik, który daje nam punkt odniesienia przy zmianie stylu życia. Wskaźnik BMI – szybki sposób na ocenę proporcji masy do wzrostu, choć zawsze uzupełniamy go o szczegółowe dane ciała. Całkowita masa wody – monitorowanie nawodnienia i równowagi wodnej organizmu. Wskaźnik BMR (Podstawowa Przemiana Materii) – informacja o tym, ile energii Twój organizm spala w spoczynku, co pomaga w komponowaniu planu żywieniowego i treningowego.",
+    "planHeading": "With this data we can build an individual training and nutrition plan, matched to your needs and goals!",
+    "planCta": "Pricing"
   }
 }

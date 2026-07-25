@@ -58,9 +58,9 @@
 
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
 |---|---|---|---|---|---|
-| `/bodylab/` | `/bodylab/` | — | PL: — / EN: — | — | Not started |
-| `/bodylab/technologia-vald/` | same | — | PL: — / EN: — | — | Not started |
-| `/bodylab/analiza-skladu-ciala/` | same | — | PL: — / EN: — | — | Not started |
+| `/bodylab/` | `/bodylab/` | New: BodylabNav. Reused: PageHero; 3 alternating tool blocks | PL: done / EN: done | Automated two-way check (0 issues) — **not opened in a browser** | Bilingual |
+| `/bodylab/technologia-vald/` | same | Reused: PageHero, StatementSection ×7, Accordion (pricing) | PL: done / EN: done | Same check | Bilingual |
+| `/bodylab/analiza-skadu-ciala/` | same — note the slug really is missing the "ł" on the reference (markup + sitemap.xml) | Reused: PageHero, TextMedia ×2 | PL: done / EN: done | Same check | Bilingual |
 
 ## Standalone pages
 
