@@ -10,11 +10,25 @@
 - **Visual QA:** `—` until you've opened the built page next to `localhost:8765/<slug>/` (or the live site) and confirmed layout/copy/imagery match (see `scraped-site-map.md`).
 - **Status:** `Not started` → `In progress` → `Built (PL)` → `Bilingual` → `Verified`.
 
+## Site-wide check against the live original — 2026-07-26
+
+All 22 built routes were compared **rendered-output to rendered-output**: our SSR HTML from
+`localhost:3000` against the live `bodywork.testowe.eu`, matching headings, paragraphs, price
+figures and per-page section inventory. This is stronger than the earlier per-section checks,
+which compared our *message files* to the scrape and so could not catch a string that exists in
+`messages/*.json` but is never rendered — which is exactly the class of bug it found (Iwona's
+empty pricing panel). Result: **0 missing headings and 0 missing price figures on every subpage.**
+
+Still outstanding: nobody has looked at any of this in a browser. The Claude-in-Chrome extension
+has now been unreachable for six sessions running.
+
+What the pass fixed is recorded in `AI_NOTES.md`; the rows below carry the per-page detail.
+
 ## Homepage
 
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
 |---|---|---|---|---|---|
-| `/` | `/` (+ `/en`) | Hero (text only), FullBleedVideo (real hero video, now its own section), NewsCarousel, TextMedia ×2 (friendly space, team teaser — real photos), StatementSection ×4 (balanced fitness, movement tool, teach potential, health process), FullBleedImage, ServiceGrid (6 real photo tiles + CTA), TestimonialCarousel (with name attribution), NewsletterSignup (real bg, cream section), PartnerLogos (7 real logos), Header/MobileNav (real logo + icons, scroll-triggered logo/tagline crossfade, Akademia/Kontakt utility bar), Footer | PL: done / EN: done | Verified structurally against the scraped reference's actual HTML/CSS (not just build + dev server render — read `assets/css/auto.css` directly for exact colors/section structure since the header/section shape turned out meaningfully different from the first pass) — **still not checked in an actual browser**, Claude-in-Chrome was unavailable both sessions; do that before calling this row done | In progress |
+| `/` | `/` (+ `/en`) | Hero (text only), FullBleedVideo (real hero video, now its own section), NewsCarousel, TextMedia ×2 (friendly space, team teaser — real photos), StatementSection ×4 (balanced fitness, movement tool, teach potential, health process), FullBleedImage, ServiceGrid (6 real photo tiles + CTA), TestimonialCarousel (with name attribution), NewsletterSignup (real bg, cream section), PartnerLogos (7 real logos), Header/MobileNav (real logo + icons, scroll-triggered logo/tagline crossfade, Akademia/Kontakt utility bar), Footer, PromoBar | PL: done / EN: done | Verified structurally against the scraped reference's actual HTML/CSS (not just build + dev server render — read `assets/css/auto.css` directly for exact colors/section structure since the header/section shape turned out meaningfully different from the first pass) — **still not checked in an actual browser**, Claude-in-Chrome was unavailable both sessions; do that before calling this row done. 2026-07-26: all 7 testimonial quotes restored **verbatim** (they had been silently tidied up — see AI_NOTES). Remaining unmatched copy here is the News carousel, deliberately deferred until the blog exists | In progress |
 
 ## Trening personalny
 
@@ -42,7 +56,7 @@
 |---|---|---|---|---|---|
 | `/trening-grupowy/` | `/trening-grupowy/` | New: GroupTrainingNav. Reused: PageHero, CenteredBand, TextMedia ×2, TestimonialCarousel | PL: done / EN: done | Automated two-way check (0 issues) — **not opened in a browser** | Bilingual |
 | `/trening-grupowy/zajecia-grupowe/` | same | Reused: PageHero, CenteredBand, StatementSection ×3, Accordion (13 classes) | PL: done / EN: done | Same check | Bilingual |
-| `/trening-grupowy/plan-zdrowej-zmiany/` | same | Reused: PageHero, CenteredBand, StatementSection ×3, TestimonialCarousel (16 unattributed quotes) | PL: done / EN: done | Same check | Bilingual |
+| `/trening-grupowy/plan-zdrowej-zmiany/` | same | Reused: PageHero, CenteredBand, StatementSection ×3, TestimonialCarousel (16 unattributed quotes). Title runs on two lines (`titleNote` carries the edition date, as the reference's `<br>` does) | PL: done / EN: done | Same check + live re-verify 2026-07-26 | Bilingual |
 | `/trening-grupowy/medicover/` | same | Reused: PageHero | PL: done / EN: done | Same check | Bilingual |
 | `/trening-grupowy/grafik-zajec/` | outbound link only (eFitness) | n/a — confirmed: the scraped page carries no content of its own, only the shared footer, and every nav on the reference links straight to eFitness | n/a | n/a | Not applicable |
 
@@ -51,22 +65,22 @@
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
 |---|---|---|---|---|---|
 | `/dietetyka/` | `/dietetyka/` | New: DieteticsNav. Reused: PageHero, StatementSection ×3, two path cards | PL: done / EN: done | Automated two-way check (0 issues) — **not opened in a browser** | Bilingual |
-| `/dietetyka/iwona-stachowiak/` | same | Reused: PageHero, TextMedia ×4, Accordion (pricing), TestimonialCarousel (9 quotes) + 4-photo strip | PL: done / **EN: bio still Polish** | Same check | Built (PL) |
-| `/dietetyka/magdalena-hajduk-warchol/` | same | Reused: PageHero, StatementSection ×3, TextMedia ×2, Accordion (pricing), TestimonialCarousel (4 quotes) | PL: done / **EN: bio still Polish** | Same check | Built (PL) |
+| `/dietetyka/iwona-stachowiak/` | same | Reused: PageHero, TextMedia ×4, Accordion (pricing — 6 priced items, **was shipped empty until 2026-07-26**), TestimonialCarousel (9 quotes) + 4-photo strip. No newsletter block (reference has none) | PL: done / **EN: bio still Polish** | Same check + live re-verify 2026-07-26 | Built (PL) |
+| `/dietetyka/magdalena-hajduk-warchol/` | same | Reused: PageHero, StatementSection ×3, TextMedia ×2, Accordion (pricing), TestimonialCarousel (4 quotes). No newsletter block (reference has none) | PL: done / **EN: bio still Polish** | Same check + live re-verify 2026-07-26 | Built (PL) |
 
 ## BodyLab
 
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
 |---|---|---|---|---|---|
 | `/bodylab/` | `/bodylab/` | New: BodylabNav. Reused: PageHero; 3 alternating tool blocks | PL: done / EN: done | Automated two-way check (0 issues) — **not opened in a browser** | Bilingual |
-| `/bodylab/technologia-vald/` | same | Reused: PageHero, StatementSection ×7, Accordion (pricing) | PL: done / EN: done | Same check | Bilingual |
-| `/bodylab/analiza-skadu-ciala/` | same — note the slug really is missing the "ł" on the reference (markup + sitemap.xml) | Reused: PageHero, TextMedia ×2 | PL: done / EN: done | Same check | Bilingual |
+| `/bodylab/technologia-vald/` | same | Reused: PageHero, StatementSection ×7, Accordion (pricing). No newsletter block (reference has none) | PL: done / EN: done | Same check + live re-verify 2026-07-26 | Bilingual |
+| `/bodylab/analiza-skadu-ciala/` | same — note the slug really is missing the "ł" on the reference (markup + sitemap.xml) | Reused: PageHero, TextMedia ×2. No newsletter block (reference has none) | PL: done / EN: done | Same check + live re-verify 2026-07-26 | Bilingual |
 
 ## Standalone pages
 
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
 |---|---|---|---|---|---|
-| `/cennik/` | `/cennik/` | Reused: PageHero, Accordion (9 price rows; the component gained `cta`/`note`/`groups` for this page) | PL: done / EN: done | Two-way check plus a dedicated price audit — all 46 distinct figures verified present | Bilingual |
+| `/cennik/` | `/cennik/` | Reused: PageHero, Accordion (9 price rows; the component gained `cta`/`note`/`groups` and now `panelHeading` for this page). **No newsletter block** — the reference has none here | PL: done / EN: done | Two-way check plus a dedicated price audit — all 46 distinct figures verified present; re-verified against the live site 2026-07-26 | Bilingual |
 | `/masaz/` | `/masaz/` | — | PL: — / EN: — | — | Not started |
 | `/kontakt/` | `/kontakt/` | — | PL: — / EN: — | — | Not started |
 

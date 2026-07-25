@@ -4,6 +4,7 @@ import { useId, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/Container";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buttonClasses } from "@/components/ui/Button";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/cn";
@@ -17,6 +18,9 @@ export type AccordionItemData = {
   heading: string;
   body?: string;
   image?: string;
+  /** Fills the panel's other half in place of a photo, at full section-heading size —
+   * the reference uses this for the pricing page's "Dla naszych klientów masaż – 15%!". */
+  panelHeading?: string;
   note?: string;
   cta?: AccordionCta;
   groups?: { heading: string; body: string; cta?: AccordionCta }[];
@@ -132,6 +136,10 @@ function AccordionRow({
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   className="object-cover"
                 />
+              </div>
+            ) : item.panelHeading ? (
+              <div className="px-4 pb-12 sm:px-6 lg:border-l lg:border-brand-navy-soft lg:py-16 lg:pl-16 lg:pr-8">
+                <SectionHeading as="h4">{item.panelHeading}</SectionHeading>
               </div>
             ) : null}
           </div>

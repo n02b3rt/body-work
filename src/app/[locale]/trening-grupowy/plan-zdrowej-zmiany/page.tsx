@@ -21,7 +21,13 @@ export default async function HealthyChangePlanPage() {
   return (
     <>
       <GroupTrainingNav />
-      <PageHero title={t("title")} imageSrc="/images/trening-grupowy/plan-hero.webp" imageAlt={t("title")} />
+      {/* The reference breaks this title across two lines, the edition date on the
+       * second — kept out of `title` so the photo's alt text stays clean. */}
+      <PageHero
+        title={`${t("title")}\n${t("titleNote")}`}
+        imageSrc="/images/trening-grupowy/plan-hero.webp"
+        imageAlt={t("title")}
+      />
 
       <CenteredBand
         heading={t("bandHeading")}

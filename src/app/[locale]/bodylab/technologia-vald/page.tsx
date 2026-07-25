@@ -6,7 +6,6 @@ import { buttonClasses } from "@/components/ui/Button";
 import { PageHero } from "@/components/centrum/PageHero";
 import { StatementSection } from "@/components/centrum/StatementSection";
 import { Accordion, type AccordionItemData } from "@/components/centrum/Accordion";
-import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { BodylabNav } from "@/components/centrum/BodylabNav";
 
 type Block = { heading: string; body: string };
@@ -105,7 +104,6 @@ export default async function ValdTechnologyPage() {
         </Container>
       </section>
 
-      <NewsletterSignup />
     </>
   );
 }

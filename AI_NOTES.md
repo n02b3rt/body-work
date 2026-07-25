@@ -13,6 +13,24 @@
 
 -->
 
+## 2026-07-26 — verification pass against the **live** site: 5 real defects, incl. a missing global element
+
+- **Context:** the task as given was "build /cennik and all the training subpages" — but all 22 of those routes were already built and committed (the previous five commits). So the work became the second half of the ask: verify against the original and fix what's wrong.
+- **Changed the verification method, and that is what found things.** Every earlier session compared our **message files** to the scrape. This one compared **rendered output to rendered output** — our SSR HTML from `localhost:3000` against live `bodywork.testowe.eu` — which can catch a string that exists in `messages/*.json` but never reaches the page. That is exactly the first bug it found. Harness kept in the scratchpad; it diffs headings, paragraphs, price figures and per-page section inventory across all 22 routes in one run.
+- **Done — five confirmed defects fixed:**
+  1. **A whole standing element was missing site-wide:** the reference has, on *every* page, a fixed bottom-right stack of two dismissible promo pills (its `<aside class="pf … z99">`, z-index 121). New `PromoBar` component, mounted once in the locale layout; metrics/labels/cookies documented as a table in `docs/scraped-site-map.md`.
+  2. **The newsletter block is not global** — `/cennik`, both dietitian pages and both bodylab subpages don't have it on the reference, and we had added it to all five. Removed.
+  3. **Iwona's pricing accordion shipped empty** (`pricingBody: ""`) where the reference lists 6 priced items — the source of the only missing price figures anywhere. Filled by reusing the identical list already on the pricing page rather than retyping it, so the two can't drift.
+  4. `plan-zdrowej-zmiany` lost the **second line of its title** ("Nowa edycja / 11.05."; the reference puts a `<br>` in that `<h2>`).
+  5. cennik's "Dla naszych klientów masaż – 15%!" is a **full section-size `<h2>`** filling the panel's other half on the reference, not the small muted note we rendered → new optional `Accordion` `panelHeading`.
+  - Plus, off the named scope but a clear 1:1 violation found on the way: **all 7 homepage testimonials had been silently tidied up** — typos fixed, emoji dropped, `(...)` cut markers removed, one quote shortened to a third of its length. Restored verbatim from the scrape programmatically. Name↔quote pairing was already correct.
+- **Result:** 0 missing headings and 0 missing price figures on all 21 subpages; 0 newsletter mismatches. What still doesn't match on the homepage is the News carousel, which the user explicitly deferred until the blog exists.
+- **Watch out:**
+  - **Reproducing 1:1 means reproducing the client's typos.** The restored quotes contain `>siłowni<<` (a mangled quote mark, literally `&gt;siłowni&lt;&lt;` in the source), "wszyskich", "sa", "ciagle". These are attributed to named people, so altering their words is the worse error — but they are worth raising with the client rather than silently "fixing" again, which is how they got lost the first time.
+  - `PromoBar` reads its dismissal cookie via `useSyncExternalStore`, not `useState` + `useEffect`: the lint config enforces the React Compiler rules and rejects both `setState` in an effect body and a bare `document.cookie =` inside a component. The write lives in a module-scope function for the same reason. Server snapshot is a sentinel so no pill can flash in before hydration decides.
+  - **Two self-inflicted false alarms worth recognising next time.** (a) A dietitian quote showed as "not verbatim" purely because the checker normalised curly quotes on the reference side but not on ours — fixed by normalising in `squash()` itself. (b) `wide:right-7` looked like it hadn't compiled; the class was there and my grep pattern was wrong. Same trap as always in this project, just aimed at the checker: **grep the built CSS for the escaped selector or the property, and when a check disagrees with the code, suspect the check first.**
+  - A `"\u0000"` sentinel written through the `Write` tool landed in the file as a **literal NUL byte**, which made the source unreadable to grep. Write control characters as escape sequences.
+
 ## 2026-07-26 — /cennik page
 
 - **Done:** the pricing page — nine expandable rows (individual training, pairs, physiotherapy, massage, Healthy Change Plan, group classes, dietetics, ForceDecks test, healthy belly), each with its price list, a CTA and usually a trailing note. `Accordion` gained optional `cta`, `note` and `groups`, the last because the reference packs *both* dietitians into one row as two named sub-blocks. Price lists render with `whitespace-pre-line` so their line breaks survive.

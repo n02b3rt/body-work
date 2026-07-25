@@ -7,7 +7,6 @@ import { TextMedia } from "@/components/centrum/TextMedia";
 import { StatementSection } from "@/components/centrum/StatementSection";
 import { Accordion, type AccordionItemData } from "@/components/centrum/Accordion";
 import { TestimonialCarousel, type Testimonial } from "@/components/centrum/TestimonialCarousel";
-import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { DieteticsNav } from "@/components/centrum/DieteticsNav";
 
 type Step = { heading: string; body: string; image: string | null };
@@ -81,7 +80,6 @@ export default async function MagdalenaHajdukWarcholPage() {
 
       <TestimonialCarousel heading={t("testimonialsHeading")} items={t.raw("testimonials") as Testimonial[]} />
 
-      <NewsletterSignup />
     </>
   );
 }

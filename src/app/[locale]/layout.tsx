@@ -6,6 +6,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import { routing } from "@/i18n/routing";
 import { Header } from "@/components/centrum/Header";
 import { Footer } from "@/components/centrum/Footer";
+import { PromoBar } from "@/components/centrum/PromoBar";
 import "../globals.css";
 
 // Temporary stand-in for the real typeface (Circular Pro Book, a paid Lineto
@@ -50,6 +51,8 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
           <div className="h-[65px] wide:h-[161px]" aria-hidden />
           <main className="flex-1">{children}</main>
           <Footer />
+          {/* Standing promo pills, bottom-right on every page — as on the reference. */}
+          <PromoBar />
         </NextIntlClientProvider>
       </body>
     </html>

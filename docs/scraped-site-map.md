@@ -126,6 +126,37 @@ The reference site's `@font-face` rules (`assets/css/auto.css`) name the real ty
 
 Both `.woff2` files exist in the scrape (`assets/fonts/circular-pro/`, `assets/fonts/minion-pro/`), but copying them into this project without confirming BODYWORK holds a webfont license that covers the new domain is a licensing question, not just a technical one — same category as "ask before touching the stack" in `CLAUDE.md`, just for a font instead of a package. Until that's resolved, `src/app/[locale]/layout.tsx` uses Plus Jakarta Sans (`next/font/google`) as a free geometric-sans stand-in — closer to Circular than the previous default (Geist), but not the real thing. Swap it for the licensed Circular Pro files (or a proper Adobe Fonts/Lineto web font link) once that's confirmed. Always load the `latin-ext` subset alongside `latin` for any font used here — Polish diacritics (ą ć ę ł ń ó ś ź ż) need it, and it's easy to silently miss.
 
+## Standing elements — what repeats on every page, and what doesn't
+
+Three things are shared across every reference page: the header, the footer, and a **promo bar**
+that is easy to miss because it sits outside the page content.
+
+The promo bar is an `<aside class="pf … z99">` (inline `z-index: 121`) pinned to the bottom-right
+corner, holding a vertical stack of two dismissible pills. It is on **every** page, homepage
+included — verified across 8 sampled pages. Reproduced as `src/components/centrum/PromoBar.tsx`,
+mounted once in the locale layout.
+
+| Pill | Colours | Label | Links to | Dismiss cookie |
+|---|---|---|---|---|
+| 1 | navy bg (`bgc1`), cream text | "BEZPŁATNE ZAJĘCIA GRUPOWE! ZAPISZ SIĘ JUŻ TERAZ." | `/trening-grupowy/` | `popup1_closed` |
+| 2 | cream bg (`bgc2`), navy text | "NOWA EDYCJA PLANU ZDROWEJ ZMIANY / START: 11.05." | `/trening-grupowy/plan-zdrowej-zmiany/` | `popup2_closed` |
+
+Its metrics, resolved from the ErgoCSS classes (the scale is 1 unit = 0.25rem): container
+`bottom`/`right` `0.25rem` → `1.75rem` at ≥1060px (`ul:b1 ho:b7`), `min-height: 50vh`,
+`pointer-events: none` with `pea` on each pill; pill `border-radius: 25rem` (`br100`),
+`margin: 0.75rem` (`m3`), `min-height: 3.5rem` (`mih14`), `padding-inline: 1.75rem` (`ph7`),
+`border-width: 1px`; label `f2.5s2` (= `text-btn`) uppercase with `letter-spacing: 0.1em` and
+`padding-block: 1.375rem` (`pv5.5`). Dismissal sets a one-year cookie (`max-age=31536000`,
+`path=/`) and removes that pill.
+
+**The newsletter block is not global — check per page.** It looks like a standing footer element
+but five pages don't have it, and we had wrongly added it to all five:
+
+| Reference page | Newsletter block? |
+|---|---|
+| `/cennik/`, both `/dietetyka/<dietitian>/`, `/bodylab/technologia-vald/`, `/bodylab/analiza-skadu-ciala/` | **No** |
+| every other built page | Yes |
+
 ## After building a page: verify it
 
 Once a page/component is built in Next.js, open it side-by-side with the mirror (`localhost:8765/<slug>/`) or the live site and check layout, copy, and imagery match before marking it done in `migration-tracker.md`. The reference is a page-builder template, not final design (PRD §6.2) — note deliberate deviations there rather than silently diverging.

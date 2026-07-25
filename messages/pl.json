@@ -110,19 +110,19 @@
     "heading": "Poznaj opinie naszych klientów:",
     "items": [
       {
-        "quote": "Siłownia dla tych co nie lubią „siłowni”, czyli stereotypowego miejsca dla pakerów. Bardzo przyjemna przestrzeń, profesjonalne podejście. Kompetentny i zaangażowany zespół. Bardzo duża wartość dodana do mojego życia. Polecam.",
+        "quote": "Siłownia dla tych co nie lubią >siłowni<<tj. stereotypowego miejsca dla pakerów i ABSów :) (...) Bardzo przyjemna przestrzeń, profesjonalne podejście. Kompetentny i zaangażowany zespół. (...) Bardzo duża wartość dodana do mojego życia :) Polecam.",
         "name": "Aleksandra Ossowska"
       },
       {
-        "quote": "BodyWork to miejsce, do którego naprawdę chce się wracać. Kameralne studio, świetnie zorganizowane i przyjazne dla każdego – niezależnie od poziomu. Przez ponad dwa lata trenowałam z Martyną – najlepsza trenerka, z jaką miałam okazję ćwiczyć. Profesjonalna, zaangażowana, z ogromną wiedzą i świetnym podejściem. Z całego serca polecam!",
+        "quote": "BodyWork to miejsce, do którego naprawdę chce się wracać. Kameralne studio, świetnie zorganizowane i przyjazne dla każdego – niezależnie od poziomu.(...) Przez ponad dwa lata trenowałam z Martyną – najlepsza trenerka, z jaką miałam okazję ćwiczyć. Profesjonalna, zaangażowana, z ogromną wiedzą i świetnym podejściem. (...) Z całego serca polecam!",
         "name": "Kaja Rutkowska"
       },
       {
-        "quote": "Body Work to najlepsze miejsce do jakiego mogłem trafić. Stworzone przez ludzi z pasją, dla ludzi którzy potrzebują pomocy bądź poprawy jakości życia. Profesjonalizm, empatia, uśmiech i gwarantowana fantastyczna atmosfera. Ćwiczenia są wymagające, ale dzięki nim ciągle progresuję. Polecam wszystkim.",
+        "quote": "Body Work to najlepsze miejsce do jakiego mogłem trafić. Stworzone przez ludzi z pasją, dla ludzi którzy potrzebują pomocy bądź poprawy jakości życia. Profesjonalizm, empatia, uśmiech i gwarantowana fantastyczna atmosfera. Ćwiczenia sa wymagające,ale dzięki nim ciagle progresuje. Polecam Wszystkim",
         "name": "Piotr Bresiński"
       },
       {
-        "quote": "Przyjemne miejsce, profesjonalna kadra. Ćwiczy się z przyjemnością.",
+        "quote": "Przyjemne miejsce, profesjonalna kadra. Ćwiczy się z przyjemnością ☺️",
         "name": "Karolina Grzesiek"
       },
       {
@@ -130,11 +130,11 @@
         "name": "Artur Szybruk"
       },
       {
-        "quote": "Gorąco polecam amatorów i zawodników wszelkich sportów. Znajdziecie tutaj specjalistów w swoim fachu. Trening w BodyWork to czysta przyjemność w koleżeńskim klimacie. Lubię tu przebywać i przygotowywać się do zawodów.",
+        "quote": "Gorąco polecam amatorów, zawodników wszelkich sportów. Znajdziecie tutaj specjalistów w swoim fachu. Trening w BodyWork to czysta przyjemność w koleżeńskim klimacie. Lubię tu przebywać i przygotowywać się do zawodów. Także wizyta w sekcji barowej jest zawsze miła... :DBodywork to miejsce, które zdecydowanie wyróżnia się na tle innych! (...) trenerzy z ogromną wiedzą i umiejętnościami dobierają ćwiczenia idealnie dopasowane do potrzeb i celów, co daje świetne efekty, a także świadczy o ich pełnym profesjonalizmie i zaangażowaniu. Atmosfera jest bardzo przyjazna, co dodatkowo motywuje do regularnych treningów...",
         "name": "Kamil Leśniak"
       },
       {
-        "quote": "Super miejsce, przesympatyczna atmosfera, pyszne kawy i koktajle, wszystko zawsze zadbane i czyściutkie. Miejsce warte wszystkich pieniędzy! I co najważniejsze — Dominika to najlepsza trenerka na świecie!",
+        "quote": "Super miejsce, przesympatyczna atmosfera, pyszne kawki i koktajle, wszystko zawsze zadbane i czyściutkie. Miejsce warte wszyskich pieniędzy! ❤️ No i najważniejsze -> Dominika to najlepsza trenerka na świecie! ❤️",
         "name": "Adrianna"
       }
     ]
@@ -1101,7 +1101,8 @@
       {
         "quote": "Projekt oceniam bardzo dobrze - dużo miejsca, dostępność sprzętu, czyste szatnie"
       }
-    ]
+    ],
+    "titleNote": "Nowa edycja / 11.05."
   },
   "Medicover": {
     "title": "Medicover",
@@ -1169,7 +1170,7 @@
       }
     ],
     "pricingHeading": "Cennik",
-    "pricingBody": "",
+    "pricingBody": "• Konsultacja żywieniowa (ok. 60 minut) – 250,-\n• Wizyta kontrolna z analizą składu ciała (ok. 30 minut) – 200,-\n• Indywidualny jadłospis podstawowy / 1 tydzień – 200,-\n• Indywidualny jadłospis w chorobach / 1 tydzień – 200,-\n• Indywidualny jadłospis sportowy (redukcja) / 1 tydzień – 200,-\n• Indywidualny jadłospis sportowy (budowa masy mięśniowej) / 1 tydzień – 220,-",
     "bookHeading": "Jak umówić się na pierwszą wizytę?",
     "bookBody": "Skontaktuj się z dietetyczką, aby umówić dogodny termin wizyty, telefonicznie (+48 661-288-074) lub mailowo (kontakt@poradnia-stachowiak.pl).",
     "bookCall": "Zadzwoń",
@@ -1406,7 +1407,7 @@
           "label": "Więcej O Masażu",
           "href": "https://bodywork.testowe.eu/masaz/"
         },
-        "note": "Dla naszych klientów masaż – 15%!"
+        "panelHeading": "Dla naszych klientów masaż – 15%!"
       },
       {
         "heading": "Plan zdrowej zmiany.",
@@ -1465,5 +1466,10 @@
         }
       }
     ]
+  },
+  "PromoBar": {
+    "groupClasses": "Bezpłatne zajęcia grupowe! Zapisz się już teraz.",
+    "healthyChangePlan": "Nowa edycja Planu Zdrowej Zmiany / Start: 11.05.",
+    "close": "Zamknij"
   }
 }
