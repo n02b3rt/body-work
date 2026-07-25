@@ -13,6 +13,12 @@
 
 -->
 
+## 2026-07-25 — Payload CMS + Postgres
+
+- **Done:** Payload 3.86 embedded in the Next.js app; admin at `/admin` (create-first-user works); REST/GraphQL under `/api`; collections `Users` + `Media`; local Postgres via `docker-compose.yml`; frontend moved to `src/app/(frontend)/`.
+- **Decisions:** self-hosted Postgres (not Neon/Supabase) for a single Hetzner VPS; `(frontend)` / `(payload)` split root layouts; pnpm with `allowBuilds` for sharp/esbuild/`@parcel/watcher`; package `"type": "module"` required for Payload CLI.
+- **Watch out:** Payload blank template on GitHub `main` may be ahead of npm (e.g. `generatePayloadViewport` does not exist in 3.86 — match files to the installed version tag). No root `app/layout.tsx` wrapping both groups. Dev: `docker compose up -d` then `pnpm dev`. Email adapter not configured (logs to console). Domain collections (services, team, pages) not created yet.
+
 ## 2026-07-24 — project scaffold
 
 - **Done:** repository initialized; Next.js 16 (App Router, TypeScript, Tailwind CSS 4) scaffolded at repo root; existing Python scraper/mirror toolkit relocated to `scripts/scrape/` (paths and `.bat` scripts updated to still work from their new location); `CLAUDE.md`, `docs/`, and `AI_NOTES.md` in place.

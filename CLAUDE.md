@@ -2,7 +2,7 @@
 
 Next.js rewrite of the BodyWork Centrum website (physiotherapy, dietetics, massage, personal & group training), built using a scraped mirror of the live site as a content/design reference.
 
-**Stack:** Next.js 16 (App Router) + TypeScript + Tailwind CSS 4, on Node 20 — plus a Python 3.13 scraper toolkit (`requests` + `BeautifulSoup`) used to mirror the current live site as a reference.
+**Stack:** Next.js 16 (App Router) + TypeScript + Tailwind CSS 4 + Payload CMS 3 (Postgres), on Node 20+ — plus a Python 3.13 scraper toolkit (`requests` + `BeautifulSoup`) used to mirror the current live site as a reference.
 
 > This file is the project's constitution. Read it **at the start of every session** — together with `AI_NOTES.md` (the running journal). It defines how we work and where things live. Keep it short: it is an index; details go in `docs/`.
 
@@ -62,12 +62,16 @@ This is the antidote to the "colossus on clay feet". After adding **any** featur
 
 | Feature / domain | Where (path) | Note |
 |---|---|---|
-| Next.js app (pages, layouts, components) | `src/app/` | App Router; homepage is `src/app/page.tsx` |
+| Public site (frontend) | `src/app/(frontend)/` | App Router route group with its own root layout; homepage is `page.tsx` |
+| Payload CMS admin + API | `src/app/(payload)/` | Admin UI at `/admin`; REST/GraphQL under `/api` |
+| Payload config | `src/payload.config.ts` | CMS entry: DB adapter, editor, collections |
+| Payload collections | `src/collections/` | One file per collection (`Users`, `Media`, …) |
+| Generated Payload types | `src/payload-types.ts` | Regenerate with `pnpm generate:types` |
+| Local Postgres (dev) | `docker-compose.yml` | `docker compose up -d` → `localhost:5432` / DB `bodywork` |
 | Static assets served by Next.js | `public/` | favicons, robots.txt, etc. |
 | Site scraper / mirror toolkit | `scripts/scrape/` | `scrape_site.py` mirrors `bodywork.testowe.eu` into `scripts/scrape/scraped/` for content & design reference; `fix_local_paths.py` rewrites absolute URLs to relative |
 | Reference mirror output (gitignored) | `scripts/scrape/scraped/` | Regenerate with `scripts/scrape/run_scrape.bat`; preview with `scripts/scrape/serve_mirror.bat` (http://localhost:8765) |
 | Sitemap used by the scraper | `scripts/scrape/sitemap.xml` | Source list of URLs to mirror |
-| _(remove examples, add real rows)_ | | |
 
 **Rule:** a new domain = a new module/folder + a row in this table. When a row gets too broad, split it.
 

@@ -11,17 +11,20 @@
 
 ## Folder structure
 
-Feature-first inside `src/app/`: each route segment owns its `page.tsx`, and route-local components live alongside it. Shared, cross-route components/utilities go in `src/components/` and `src/lib/` (create these as soon as the first shared piece appears — don't pre-create empty folders).
+- **Route groups:** public site in `src/app/(frontend)/`, Payload admin/API in `src/app/(payload)/`. Do not add a root `src/app/layout.tsx` that wraps both — each group owns its own `<html>`/`<body>`.
+- Feature-first inside `(frontend)/`: each route segment owns its `page.tsx`, and route-local components live alongside it. Shared, cross-route components/utilities go in `src/components/` and `src/lib/` (create these as soon as the first shared piece appears — don't pre-create empty folders).
+- **Payload collections:** one file per collection in `src/collections/`, registered in `src/payload.config.ts`.
 
 ## Patterns
 
 - Server Components by default; add `"use client"` only where interactivity requires it.
-- Static content (page copy) can start as local constants/props; move to a CMS or data layer only when there's a real need to edit content without a deploy.
+- CMS content: read via `getPayload()` in Server Components; edit in `/admin`. Prefer collections over hard-coded copy once a content type is editable.
+- After changing admin UI components or collections that affect the import map: `pnpm generate:importmap`. After schema/field changes: `pnpm generate:types`.
 - One way to do one thing — if a second pattern for the same problem appears, consolidate.
 
 ## Code style
 
-- Linter / formatter: ESLint (`eslint.config.mjs`, `next lint` via `npm run lint`) + Tailwind class conventions. Run before committing.
+- Linter / formatter: ESLint (`eslint.config.mjs`, `pnpm lint`) + Tailwind class conventions. Run before committing.
 - Comments: only when they explain "why", not "what". No references to AI/tools.
 
 ## Tests
