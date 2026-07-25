@@ -66,7 +66,7 @@
 
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
 |---|---|---|---|---|---|
-| `/cennik/` | `/cennik/` | — | PL: — / EN: — | — | Not started |
+| `/cennik/` | `/cennik/` | Reused: PageHero, Accordion (9 price rows; the component gained `cta`/`note`/`groups` for this page) | PL: done / EN: done | Two-way check plus a dedicated price audit — all 46 distinct figures verified present | Bilingual |
 | `/masaz/` | `/masaz/` | — | PL: — / EN: — | — | Not started |
 | `/kontakt/` | `/kontakt/` | — | PL: — / EN: — | — | Not started |
 

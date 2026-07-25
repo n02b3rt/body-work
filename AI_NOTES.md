@@ -13,6 +13,11 @@
 
 -->
 
+## 2026-07-26 — /cennik page
+
+- **Done:** the pricing page — nine expandable rows (individual training, pairs, physiotherapy, massage, Healthy Change Plan, group classes, dietetics, ForceDecks test, healthy belly), each with its price list, a CTA and usually a trailing note. `Accordion` gained optional `cta`, `note` and `groups`, the last because the reference packs *both* dietitians into one row as two named sub-blocks. Price lists render with `whitespace-pre-line` so their line breaks survive.
+- **Decisions:** added a **price-specific audit** on top of the usual two-way check — every `\d+,-` / `\d+ zł` token in the reference must appear in our data. 46 distinct figures, all present. Worth doing because a wrong price is a materially worse defect than a wrong heading, and the copy check alone wouldn't isolate it. Kept the numbers untranslated in `en.json`: the reference writes bare amounts ("240,-") with no currency word, so there is nothing language-specific to change and duplicating them invites drift.
+
 ## 2026-07-26 — /bodylab section: hub + VALD + body composition
 
 - **Done:** built the Bodylab section, bilingual. Hub (lead, full-bleed "every movement counts" band, three alternating tool blocks for ForceDecks / dynamometer / body composition, two of which link onward), `technologia-vald` (lead, diagnostics, benefits, two technologies, five audience groups, how it works, pricing accordion, booking), `analiza-skadu-ciala` (lead, precise data, what we measure, closing CTA). Only `BodylabNav` was new. Verified clean on the first pass — 22 long strings verbatim, 0 reference headings unaccounted for.

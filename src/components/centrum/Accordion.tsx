@@ -5,12 +5,21 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/Container";
 import { buttonClasses } from "@/components/ui/Button";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/cn";
 
+export type AccordionCta = { label: string; href: string };
+
+/** A row's panel is either a single body (+ optional photo), or — on the pricing
+ * page — a price list with a CTA, a trailing note, and occasionally two named
+ * sub-blocks (the two dietitians share one row there). */
 export type AccordionItemData = {
   heading: string;
-  body: string;
+  body?: string;
   image?: string;
+  note?: string;
+  cta?: AccordionCta;
+  groups?: { heading: string; body: string; cta?: AccordionCta }[];
 };
 
 type AccordionProps = {
@@ -101,8 +110,18 @@ function AccordionRow({
          * image filling its half edge to edge (no container padding around it). */}
         <div className="min-h-0">
           <div className="grid lg:grid-cols-2">
-            <div className="px-4 py-12 sm:px-6 lg:py-16 lg:pl-8 lg:pr-16">
-              <p className="text-body text-brand-navy">{item.body}</p>
+            <div className="flex flex-col items-start gap-8 px-4 py-12 sm:px-6 lg:py-16 lg:pl-8 lg:pr-16">
+              {item.body ? <PanelText text={item.body} /> : null}
+              {item.cta ? <PanelLink cta={item.cta} /> : null}
+              {item.note ? <PanelText text={item.note} muted /> : null}
+
+              {item.groups?.map((group) => (
+                <div key={group.heading} className="flex flex-col items-start gap-6">
+                  <h4 className="text-h-menu text-brand-navy">{group.heading}</h4>
+                  <PanelText text={group.body} />
+                  {group.cta ? <PanelLink cta={group.cta} /> : null}
+                </div>
+              ))}
             </div>
             {item.image ? (
               <div className="relative min-h-[18rem] w-full lg:min-h-full">
@@ -119,5 +138,26 @@ function AccordionRow({
         </div>
       </div>
     </div>
+  );
+}
+
+/** Price lists arrive as one string with newlines, so blank-line-free breaks have
+ * to survive rendering. */
+function PanelText({ text, muted }: { text: string; muted?: boolean }) {
+  return (
+    <p className={cn("whitespace-pre-line text-body", muted ? "text-brand-navy/70" : "text-brand-navy")}>{text}</p>
+  );
+}
+
+function PanelLink({ cta }: { cta: AccordionCta }) {
+  const external = cta.href.startsWith("http") || cta.href.startsWith("tel:") || cta.href.startsWith("mailto:");
+  return external ? (
+    <a href={cta.href} target="_blank" rel="noopener noreferrer" className={buttonClasses("outline")}>
+      {cta.label}
+    </a>
+  ) : (
+    <Link href={cta.href} className={buttonClasses("outline")}>
+      {cta.label}
+    </Link>
   );
 }

@@ -1,0 +1,17 @@
+import { getTranslations } from "next-intl/server";
+import { PageHero } from "@/components/centrum/PageHero";
+import { Accordion, type AccordionItemData } from "@/components/centrum/Accordion";
+import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
+
+/** Standalone page — the pricing list has no sub-navigation of its own. */
+export default async function PricingPage() {
+  const t = await getTranslations("Pricing");
+
+  return (
+    <>
+      <PageHero title={t("title")} titleSize="display" />
+      <Accordion items={t.raw("items") as AccordionItemData[]} />
+      <NewsletterSignup />
+    </>
+  );
+}
