@@ -50,9 +50,9 @@
 
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
 |---|---|---|---|---|---|
-| `/dietetyka/` | `/dietetyka/` | — | PL: — / EN: — | — | Not started |
-| `/dietetyka/iwona-stachowiak/` | same | — | PL: — / EN: — | — | Not started |
-| `/dietetyka/magdalena-hajduk-warchol/` | same | — | PL: — / EN: — | — | Not started |
+| `/dietetyka/` | `/dietetyka/` | New: DieteticsNav. Reused: PageHero, StatementSection ×3, two path cards | PL: done / EN: done | Automated two-way check (0 issues) — **not opened in a browser** | Bilingual |
+| `/dietetyka/iwona-stachowiak/` | same | Reused: PageHero, TextMedia ×4, Accordion (pricing), TestimonialCarousel (9 quotes) + 4-photo strip | PL: done / **EN: bio still Polish** | Same check | Built (PL) |
+| `/dietetyka/magdalena-hajduk-warchol/` | same | Reused: PageHero, StatementSection ×3, TextMedia ×2, Accordion (pricing), TestimonialCarousel (4 quotes) | PL: done / **EN: bio still Polish** | Same check | Built (PL) |
 
 ## BodyLab
 

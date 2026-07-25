@@ -1111,5 +1111,169 @@
     "howToBody": "1. Skontaktuj się z nami, aby założyć profil i aktywować karnet (będzie ważny przez rok). 2. Wnieś kaucję w wysokości 20 zł – dzięki niej możesz samodzielnie rejestrować się przez internet. 3. Zarejestruj się online lub przyjdź na zajęcia, skanując kod z aplikacji Medicover lub wysyłając kod SMSem. 4. Na miejscu dokonaj płatności za zajęcia w wysokości 10–15 zł, w zależności od wybranego pakietu. Odwołanie rezerwacji: zajęcia wieczorne – do godz. 12:00 tego samego dnia, zajęcia poranne – do godz. 18:00 dnia poprzedzającego. Nieodwołanie rezerwacji skutkuje utratą kaucji.",
     "howToCall": "Call us",
     "howToEmail": "Send an email"
+  },
+  "Dietetics": {
+    "title": "Dietetics",
+    "rememberHeading": "Don't forget nutrition.",
+    "rememberBody": "W Centrum BODYWORK promujemy zdrowy tryb życia poprzez ruch i systematyczną pracę z ciałem. Właściwe dobranie diety jest elementarnym uzupełnieniem treningów zarówno u osób, które planują poprawić sylwetkę jak i tych aktywnych fizycznie.",
+    "whatHeading": "What is a diet?",
+    "whatBody": "Słowo „dieta” często kojarzy się z restrykcyjnym planem żywieniowym mającym na celu redukcję masy ciała. W rzeczywistości jednak dieta to po prostu nasz codzienny sposób odżywiania – wszystko, co jemy i pijemy w ciągu dnia, tygodnia czy miesiąca. Świadome podejście do diety nie musi oznaczać wyrzeczeń. To raczej sztuka komponowania posiłków tak, aby dostarczały organizmowi niezbędnych składników odżywczych, wspierały zdrowie i odpowiadały Twojemu stylowi życia oraz stanowi zdrowia.",
+    "goalHeading": "Setting the goal.",
+    "goalBody": "Dobrze zbilansowana dieta wspiera zdrowie i dostarcza organizmowi wszystkich niezbędnych składników do prawidłowego funkcjonowania. Kluczowym krokiem w jej opracowaniu jest poznanie Twojego trybu życia, stanu zdrowia i poziomu aktywności fizycznej. Plan żywieniowy osoby prowadzącej siedzący tryb życia będzie znacząco różnił się od diety sportowca, dlatego tak ważne jest indywidualne podejście. Dopiero po ustaleniu celu – czy jest to poprawa zdrowia, redukcja masy ciała, budowanie masy mięśniowej czy po prostu utrzymanie dobrej formy – można zaproponować skuteczne i bezpieczne rozwiązania.",
+    "pathsHeading": "Choose the path that suits you best!",
+    "paths": [
+      {
+        "heading": "01. Working with a meal plan and changing eating habits.",
+        "body": "Zaczynamy od zindywidualizowanego jadłospisu, który daje szybkie efekty, a następnie wprowadzamy intuicyjne jedzenie, aby utrwalić zdrowe nawyki. To idealna ścieżka dla osób, które nie wiedzą, jak komponować posiłki, nie mają czasu planować diety i chcą szybkich rezultatów oraz kulinarnych inspiracji.",
+        "cta": "Iwona Stachowiak",
+        "href": "/dietetyka/iwona-stachowiak"
+      },
+      {
+        "heading": "02. Intuitive eating and gradual habit change.",
+        "body": "Rozpoczynamy od dokładnej analizy Twojego sposobu żywienia, a następnie wprowadzamy małe, trwałe zmiany, ucząc świadomego zarządzania dietą. To idealna droga dla osób, które wolą stopniowe, bezstresowe zmiany i są gotowe poczekać trochę dłużej na efekty.",
+        "cta": "Magda Hajduk-Warchoł",
+        "href": "/dietetyka/magdalena-hajduk-warchol"
+      }
+    ],
+    "howToHeading": "How do I book a consultation?",
+    "howToBody": "Zadzwoń pod nr 609 805 660 i umów się na wizytę z jedną z naszych dietetyczek. Pracownicy recepcji udzielą Ci wszelkich dodatkowych, niezbędnych informacji.",
+    "howToCall": "Call us",
+    "howToEmail": "info@body-work.pl"
+  },
+  "DietitianIwona": {
+    "title": "Iwona Stachowiak",
+    "leadHeading": "Your health is my priority — let's start today!",
+    "aboutHeading": "About me.",
+    "aboutBody": "Dietetyka to moja praca i wielka pasja. Od ponad 10 lat prowadzę własną poradnię, w której pomogłam już ponad 3000 osób skutecznie schudnąć, zmienić nawyki i odzyskać zdrowie. Specjalizuję się w dietetyce sportowej, hormonalnej, ginekologicznej oraz procesach redukcji masy ciała. Moje podejście jest holistyczne. Łączę wiedzę medyczną z psychologią odżywiania, aby wspierać Pacjentów nie tylko w układaniu jadłospisu, ale także w pracy nad motywacją i trwałymi zmianami. Wierzę, że droga do wymarzonej sylwetki i zdrowia nie prowadzi przez drakońskie diety. Pokazuję, jak osiągać cele bez frustracji i wyrzeczeń, stawiając na zdrowie i równowagę. Zadbajmy o Twoje zdrowie razem!",
+    "processHeading": "How we work together.",
+    "steps": [
+      {
+        "heading": "Body composition analysis.",
+        "body": "Pierwsza konsultacja trwa około godziny i obejmuje profesjonalną analizę składu ciała metodą bioimpedancji. Badanie to pozwala precyzyjnie określić zawartość tkanki tłuszczowej, mięśni i wody oraz poznać Twoje zapotrzebowanie kaloryczne. Dzięki tym danym przygotuję plan idealnie dopasowany do potrzeb Twojego organizmu. Aby wynik był dokładny, na wizytę przyjdź na czczo lub min. 3 godziny po posiłku. Pomiar odbywa się boso, dlatego konieczne będzie zdjęcie obuwia i skarpet. Pamiętaj, że przeciwwskazaniem do badania jest ciąża, epilepsje, wszczepiony rozrusznik serca lub metalowe implanty.",
+        "image": "/images/dietetyka/iwona/1.webp"
+      },
+      {
+        "heading": "Nutrition and health interview.",
+        "body": "Fundamentem skutecznej współpracy jest szczegółowy wywiad żywieniowo-zdrowotny, który pozwala na pełne zrozumienie Twoich potrzeb. W pierwszej części skupimy się na Twoim stanie zdrowia – przeanalizujemy zdiagnozowane jednostki chorobowe, aktualne dolegliwości oraz przyjmowane leki i suplementację. Dzięki temu dieta będzie bezpieczna i wspierająca Twój organizm. W kolejnym kroku przyjrzymy się Twojej codzienności, analizując nawyki żywieniowe oraz preferencje smakowe. Wspólnie wybierzemy produkty, które lubisz i chcesz zachować w jadłospisie, oraz te, za którymi nie przepadasz. Takie podejście pozwoli mi stworzyć plan, który będzie nie tylko skuteczny, ale przede wszystkim smaczny i łatwy do utrzymania na co dzień.",
+        "image": "/images/dietetyka/iwona/2.webp"
+      },
+      {
+        "heading": "Your meal plan.",
+        "body": "Zwieńczeniem naszej konsultacji jest przygotowanie indywidualnego jadłospisu wraz z kompletem praktycznych wytycznych. Plan zostanie precyzyjnie dopasowany do Twojego zapotrzebowania energetycznego oraz rytmu dnia, bazując na szybkich w przygotowaniu posiłkach i ogólnodostępnych produktach. Każdy przepis zawiera dokładną gramaturę, sposób wykonania oraz wyliczoną wartość kaloryczną, co daje Ci pełną kontrolę nad realizacją założonego celu. Oprócz samego menu otrzymasz również zalecenia oraz listę zakupów, które pomogą Ci sprawnie poruszać się w nowej diecie. Nauczę Cię również, jak dokonywać świadomych wyborów zakupowych i czytać etykiety, aby zdrowe odżywianie było proste i intuicyjne w każdych okolicznościach.",
+        "image": "/images/dietetyka/iwona/3.webp"
+      },
+      {
+        "heading": "Follow-up visits and education.",
+        "body": "Podczas wizyt kontrolnych monitorujemy Twoje postępy i na bieżąco korygujemy plan, aby proces zmiany stylu życia był dla Ciebie komfortowy. W zależności od Twojego celu, regularnie weryfikujemy efekty: przy celu sylwetkowym wykonujemy kontrolne analizy składu ciała, natomiast przy celu prozdrowotnym skupiamy się na monitorowaniu wyników badań. Moim priorytetem jest trwałe budowanie nawyków, które pozwolą Ci utrzymać rezultaty na lata, bez zbędnych restrykcji. Dążymy do momentu, w którym nauczysz się jeść intuicyjne, ufając sygnałom płynącym z Twojego organizmu. Pod koniec naszej współpracy będziesz potrafić samodzielnie komponować posiłki, stopniowo odchodząc od sztywnego trzymania się jadłospisu. Cały ten proces odbywa się w kontrolowanych warunkach pod moim nadzorem, co daje Ci pewność i bezpieczeństwo przy przechodzeniu na pełną samodzielność żywieniową.",
+        "image": "/images/dietetyka/iwona/4.webp"
+      }
+    ],
+    "pricingHeading": "Pricing",
+    "pricingBody": "",
+    "bookHeading": "How do I book a first visit?",
+    "bookBody": "Skontaktuj się z dietetyczką, aby umówić dogodny termin wizyty, telefonicznie (+48 661-288-074) lub mailowo (kontakt@poradnia-stachowiak.pl).",
+    "bookCall": "Call",
+    "bookEmail": "Write",
+    "bookPhone": "+48661288074",
+    "bookMail": "kontakt@poradnia-stachowiak.pl",
+    "testimonialsHeading": "Client reviews:",
+    "testimonials": [
+      {
+        "quote": "Jestem bardzo zadowolona z każdej wizyty, jadłospisy są dostosowane do moich potrzeb, bardzo smaczne posiłki. Pani dietetyk bardzo miła, pełna empatii, wszystko wyjaśnia szczegółowo.Z wielką przyjemnością wrócę.",
+        "name": "Zuzanna"
+      },
+      {
+        "quote": "Bardzo polecam Panią Iwonę. Jest świetna w tym co robi. Zasugerowała mi diagnozę, której wcześniej nie usłyszałam od żadnego lekarza, którą później potwierdziły badania. (...) Przy okazji jest bardzo sympatyczną osobą, więc wizyta przebiega w miłej atmosferze. Właściwa osoba na właściwym miejscu.",
+        "name": "Oliwia"
+      },
+      {
+        "quote": "Pani Iwona z uśmiechem i zaangażowaniem podchodzi do swojej pracy. Dieta sama w sobie - coś cudownego. (...)",
+        "name": "Ewa"
+      },
+      {
+        "quote": "Jeszcze miesiąc temu sądziłam, że będę musiała leczyć refluks, a objawy zniknęły wraz ze zastosowaniem diety. Dania proste i szybkie w przygotowaniu, a przede wszystkim smaczne. (...)",
+        "name": "Weronika"
+      },
+      {
+        "quote": "Z uwagi na charakter pracy, rodzinę, dzieci, tryb życia.. posiłki miały być smaczne, łatwe i szybkie w przygotowaniu oraz kolorowe. I tak też było! Zbierałam komplementy po przygotowaniu 15 /max30 minutowego obiadu: „Mamo jakie to smaczne!” Co ważne, nic się nie marnowało, a produkty były łatwodostepne. Nikt nie chodził głodny. I nie wydawałam milion monet.",
+        "name": "Kinga"
+      },
+      {
+        "quote": "Dzięki Pani Dietetyk udało mi się znacznie obniżyć glikemie na czczo, dzięki czemu uniknąć leków. Ponadto po miesiącu poprzez jej wskazówki i zalecenia tak poprawił mi się obraz w USG jajników , że niespodziewanie ale ku radości zaszliśmy w trzecią ciążę. (...) Z całego serca więc polecam Panią Iwonę Stachowiak :)",
+        "name": "Patrycja"
+      },
+      {
+        "quote": "Mogę śmiało powiedzieć, że Pani Iwona odmieniła moje życie, pomogła mi w zrzuceniu 40kg! Gdyby nie ona, to chyba nigdy bym tego nie dokonała. Posiada ogromną wiedzę, fantastyczne podejście, przepyszne i proste jadłospisy. Potrafiła w dosłownie jeden miesiąc wyeliminować schorzenie, czego inni lekarze nie potrafili od lat (...)",
+        "name": "Agnieszka"
+      },
+      {
+        "quote": "W swoim 45 letnim życiu odwiedziłem już kilku dietetyków, ale dopiero u pani Iwony poczułem, że ktoś naprawdę mnie rozumie. Podejście od pacjenta jest tu zupełnie inne i elastyczne, co sprawia, że pierwszy raz nie czuję ani presji ani sztywnych reguł. Każda wizyta to przyjazna atmosfera, konkretne wskazówki i motywacja do dalszego gubienia kilogramów, które znikają podręcznikowo.",
+        "name": "Michał"
+      },
+      {
+        "quote": "Serdecznie polecam! Odkąd jestem na diecie, którą Pani Iwona specjalnie dla mnie ułożyła, nie mam problemów z sennością po posiłkach, czuję się dużo lepiej, a także mam zdecydowanie więcej energii. Posiłki mają sporą objętość, więc wcale nie odczuwam bycia na redukcji, a kilogramy idą w dół! Cieszę się, że trafiłam na tak wspaniałego dietetyka.",
+        "name": "Zuzanna"
+      }
+    ]
+  },
+  "DietitianMagda": {
+    "title": "Magdalena Hajduk-Warchoł",
+    "leadHeading": "Any moment is a good moment to change — I'll help you build a plan that works.",
+    "aboutHeading": "About me.",
+    "aboutBody": "Jestem dietetyczką kliniczną, wykładowczynią akademicką i certyfikowaną Trenerką Nauki, od ponad 10 lat wspierającą zdrowie i wydolność sportową dzieci oraz dorosłych poprzez odpowiednie żywienie. Pracuję elastycznymi metodami opartymi na dowodach naukowych, łącząc małe kroki, Jedzenie Intuicyjne i Atomowe Nawyki, by zmiany były trwałe i możliwe do utrzymania. Doświadczenie własnej redukcji masy ciała oraz macierzyństwo pozwoliły mi lepiej zrozumieć realne wyzwania pacjentów i rodzin. W codziennej pracy przekładam wiedzę naukową na proste, skuteczne wskazówki, bo wierzę, że małe decyzje budują zdrowie na całe życie.",
+    "steps": [
+      {
+        "heading": "Nutrition and medical interview",
+        "body": "Na początku naszej współpracy przeprowadzam z Tobą wywiad żywieniowo- medyczny, w którym oceniam Twój sposób żywienia, stan odżywienia (analiza składu ciała), stan zdrowia i dodatkowe elementy stylu życia wpływające na Twoje zdrowie. Na pierwszej wizycie ustalamy również jakie są Twoje dietetyczne cele. Po pierwszym spotkaniu wybierasz ścieżkę współpracy ze mną, w zależności od tego jakie są Twoje cele. Możesz wybrać ścieżkę nowe nawyki lub jedzenie intuicyjne.",
+        "image": null
+      },
+      {
+        "heading": "New habits.",
+        "body": "Tu pracujemy nad zmianą nawyków - pozbywamy się tych, które niekorzystnie wpływają na zdrowie i wprowadzamy takie, które pomogą osiągnąć prawidłową masę ciała, poprawić wyniki badań i korzystnie wpłyną na samopoczucie.",
+        "image": null
+      },
+      {
+        "heading": "Intuitive eating.",
+        "body": "Druga ścieżka - to czas kiedy przyglądamy się Twojej relacji z jedzeniem i naprawiamy wszystkie nieprawidłowe mechanizmy. Zajmujemy się nie tylko głodem emocjonalnym czy sytością, ale również tym co myślisz o jedzeniu. Celem spotkań jest zmiana Twojego podejścia do jedzenia, tak aby stało się ono Twoim sprzymierzeńcem, a nie wrogiem.",
+        "image": null
+      },
+      {
+        "heading": "Adjusting the meal plan.",
+        "body": "Na każdym etapie współpracy, możesz skorzystać z dodatkowej usługi - Modyfikacja jadłospisu. Jest to najlepszy sposób na dopasowanie Twojej diety do Twoich celów. Niezależnie czy to będzie redukcja masy ciała, budowanie masy mięśniowej, wsparcie w sporcie czy poprawa wyników badań. Na bazie Twojego 7-dniowego jadłospisu opracowuję modyfikacje, które ułatwiają wprowadzanie zmian. Istnieje również opcja indywidualnego jadłospisu 7-dniowego przygotowanego na podstawie Twoich preferencji żywieniowych.",
+        "image": "/images/dietetyka/magda/1.webp"
+      },
+      {
+        "heading": "The process.",
+        "body": "Zmiana nawyków i osiąganie celów dietetycznych to proces, który powinien przebiegać w odpowiednim tempie. Współpraca, która przynosi efekty, to minimum 4 spotkania, co 2-3 tygodnie w pierwszym etapie zmian. Możesz wybrać pakiet 4 lub 9 wizyt kontrolnych, których celem jest monitorowanie postępów i skuteczność wprowadzanych zmian.",
+        "image": "/images/dietetyka/magda/2.webp"
+      }
+    ],
+    "pricingHeading": "Pricing",
+    "pricingBody": "KONSULTACJA ŻYWIENIOWA (60 min) – 250,- WIZYTA KONTROLNA / ANALIZA SKŁADU CIAŁA (30 min) – 180,- PLAN ŻYWIENIOWY PODSTAWOWY (1 tydzień) – 300,- PLAN ŻYWIENIOWY SPECJALISTYCZNY (1 tydzień) – 350,- PAKIET START 5 WIZYT (konsultacja 60 min + 4 wizyty kontrolne) – 799,- PAKIET START 10 WIZYT (konsultacja 60 min + 9 wizyt kontrolnych) – 1550,- PAKIET PROCES (3 wizyty kontrolne) – 495,- PAKIET PROCES (5 wizyt kontrolnych) – 799,-",
+    "bookHeading": "How do I book a first visit?",
+    "bookBody": "Zadzwoń pod nr 609 805 660 i umów się na wizytę. Pracownicy recepcji udzielą Ci wszelkich dodatkowych, niezbędnych informacji.",
+    "bookCall": "Call",
+    "bookEmail": "Write",
+    "bookPhone": "609805660",
+    "bookMail": "info@body-work.pl",
+    "testimonialsHeading": "Client reviews:",
+    "testimonials": [
+      {
+        "quote": "Ogrom wiedzy, wspaniałe podejście, polecam osobom, które chcą zredukować wagę, jak i tym, które zmagają się z zaburzeniami odżywiania.",
+        "name": "Natalia"
+      },
+      {
+        "quote": "Polecam współpracę z Panią Magdą! Podczas konsultacji został przeprowadzony szczegółowy wywiad. (...) zauważyłam poprawę w wynikach pomiarów glukozy, na czym najbardziej mi zależało. Pani Magda odznacza się dużym profesjonalizmem, rzetelnie podchodzi do współpracy z pacjentem. Dodatkowo jest bardzo pozytywną osobą, która potrafi uważnie słuchać. Serdecznie polecam :)",
+        "name": "Paulina"
+      },
+      {
+        "quote": "Bardzo dobrze dopasowana dieta - z uwzględnieniem preferencji i ograniczeń. smakuje 10/10.",
+        "name": "Artur"
+      },
+      {
+        "quote": "Bardzo polecam współpracę z Magdą! Z jednej strony to bardzo miła, kontaktowa i otwarta osoba a z drugiej specjalista pracujący w oparciu o dane, analizy i solidny wywiad z pacjentem. Wszystko poparte szeroką i rzetelną naukową wiedzą.",
+        "name": "Mikołaj"
+      }
+    ]
   }
 }

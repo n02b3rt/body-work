@@ -13,6 +13,11 @@
 
 -->
 
+## 2026-07-26 — /dietetyka section: hub + 2 dietitian pages
+
+- **Done:** built the dietetics section, bilingual. Hub (3 side-by-side statements, a "choose your path" band and two path cards linking to each dietitian, contact block), plus both dietitian pages: intro, "O mnie", the stages of working together, a pricing accordion, booking block with **their own** phone/email (Iwona's differ from the centre's — `+48 661 288 074` / `kontakt@poradnia-stachowiak.pl`, kept per-page rather than reusing the footer values), and their client quotes. Only `DieteticsNav` was new.
+- **Watch out — the verifier produced 6 false "not verbatim" failures here**, and chasing them was worth it because the conclusion was the opposite of what it looked like. The reference marks words inside paragraphs with `<strong>`; my extractor strips tags without inserting anything (correct — inline elements add no whitespace when rendered), while the verifier's reference text replaces *every* tag with a space. So `jest <strong>holistyczne</strong>.` became `jest  holistyczne .` on one side and `jest holistyczne.` on the other, and the comparison failed on a phantom space. **My copy was right and the check was wrong.** Fixed by comparing with all whitespace stripped, which is immune to the artifact while still catching genuine wording differences — worth carrying into the remaining sections. Final: 35 long strings verbatim, 0 reference headings unaccounted for.
+
 ## 2026-07-26 — /trening-grupowy section: hub + 3 subpages
 
 - **Done:** built the group-training section, bilingual. Hub (lead statement, free-first-class band, two text/media blocks, schedule CTA, 7 testimonials), `zajecia-grupowe` (3 training kinds + 13-class accordion), `plan-zdrowej-zmiany` (goal/results/scope/for-whom/details/included + 16 quotes), `medicover`. Two small component changes: `SectionNav` now supports `external` items, and `TestimonialCarousel`'s `name` is optional.
