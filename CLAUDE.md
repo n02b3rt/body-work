@@ -1,124 +1,66 @@
-# BodyWork Centrum
+# BodyWork — ecosystem (hub + centrum + akademia + dashboard)
 
-Next.js rewrite of the BodyWork Centrum website (physiotherapy, dietetics, massage, personal & group training), built using a scraped mirror of the live site as a content/design reference.
+One Next.js 16 + Payload CMS app serving four domains (`body-work.pl` hub, `centrum.`/`akademia.` B2C/B2B sites, `dash.` admin) from one repo and one database, replacing an aging WordPress site. Stack: Next.js 16 (App Router) + TypeScript + Tailwind CSS 4 + Payload CMS 3, on Node 20 — plus a Python scraper toolkit that mirrors the old Centrum design as a content/design reference. Full requirements: `PRD.md`. Full stack list: `docs/stack.md`.
 
-**Stack:** Next.js 16 (App Router) + TypeScript + Tailwind CSS 4, on Node 20 — plus a Python 3.13 scraper toolkit (`requests` + `BeautifulSoup`) used to mirror the current live site as a reference.
+> Read this file **and** `AI_NOTES.md` at the start of every session. This file is an index — details live in `docs/`. Keep it short: add pointers here, not paragraphs.
 
-> This file is the project's constitution. Read it **at the start of every session** — together with `AI_NOTES.md` (the running journal). It defines how we work and where things live. Keep it short: it is an index; details go in `docs/`.
-
-> **Next.js 16 note:** this is newer than most training data. APIs, conventions, and file structure may differ from what you expect — check `node_modules/next/dist/docs/` or the installed version's own docs before assuming Next.js behavior, and heed deprecation notices.
-
----
-
-## Language convention (kills "Ponglish")
-
-Three separate axes — do not mix them:
-
-- **Repository language: English.** All code identifiers, comments, commit messages, documentation, and this file are written in **English** — **regardless of the language used in chat.** If someone chats in another language, the repository still stays in English. No mixing.
-- **User-facing content: Polish.** Text visible to end users (UI copy, labels, seed/demo data shown in the product) is written in **Polish**.
-- **Chat language:** whatever the person writes in. It has no effect on the two axes above.
-
-When in doubt, the repository language wins for anything that lives in the repo.
+> **Next.js 16 note:** newer than most training data. Check `node_modules/next/dist/docs/` or the installed version's own docs before assuming behavior.
 
 ---
 
 ## Think before you touch (`<plan>`)
 
-Before any non-trivial code change or a complex problem, you must write your reasoning step by step inside `<plan> … </plan>` tags — analyze edge cases, likely bugs, and alternatives there. Only **below** the plan produce the final solution. This forces real thinking (extra tokens spent on reasoning), which sharply cuts hallucinations and careless mistakes. Skip only for truly trivial one-liners.
+Before any non-trivial code change or a complex problem, write your reasoning step by step inside `<plan> … </plan>` tags — edge cases, likely bugs, alternatives. Only **below** the plan produce the final solution. Skip only for truly trivial one-liners.
 
 ---
 
-## How we work (loop)
+## Docs index — where to look
 
-For every change:
-1. **Understand** — check the "Project map" below and the relevant module / `docs/`. Read the code before you change it; don't guess.
-2. **Plan a small step** — one logical change at a time; for anything non-trivial, write the `<plan>` block first (see above).
-3. **Build** — small files, single responsibility.
-4. **Verify** — run / test that it works.
-5. **Update the map/docs** — if a feature or module was added (see below).
-6. **Commit** — short title, following the convention.
+Don't grep for context that's already written down. Find the topic below, read that file.
 
-**Definition of done:** the code works **and** the map/docs are updated **and** it's committed. For larger tasks, also add an entry to `AI_NOTES.md` (see below). Without this, the task isn't finished.
+| Need to know about... | Read |
+|---|---|
+| The full product spec, user stories, phases, API, data model | `PRD.md` |
+| What was done recently — session-to-session memory | `AI_NOTES.md` |
+| System overview, module map, dated decisions log | `docs/architecture.md` |
+| The four domains, host-based routing, shared vs. site-specific components | `docs/sites.md` |
+| Approved libraries/infra + **the "ask before installing" rule** | `docs/stack.md` |
+| Bilingual (PL/EN) strategy — next-intl vs. Payload localization | `docs/i18n.md` |
+| Naming, folders, git convention, code style, healthy-growth rules | `docs/conventions.md` |
+| What's in the scraped Centrum mirror and which URL maps to which folder | `docs/scraped-site-map.md` |
+| Page-by-page migration status (built? bilingual? visually verified?) | `docs/migration-tracker.md` |
+
+Domain-specific critical decisions and gotchas live inside the relevant `docs/<topic>.md` file (its own "Decisions"/"Gotchas" section) — not dumped into this file or into one giant notes file. See `docs/conventions.md` for the pattern.
+
+Working with a coding agent other than Claude Code? Read `AGENTS.md` — same rules, tool-agnostic.
 
 ---
 
-## Git — non-negotiable, from minute one
+## Non-negotiables
 
-- **Repo from the start.** `main` is always in a working state.
-- **Branches:** work on `feat/<short>`, `fix/<short>`, `refactor/<short>`, `chore/<short>`. Don't commit non-trivial changes straight to `main`.
-- **Commit = one logical change.** Commit often, in small steps.
-- **Commit title:** `type: short, on-point summary` (≤ ~60 chars), written in English. Types: `feat`, `fix`, `refactor`, `docs`, `style`, `test`, `chore`, `perf`.
-  - `feat: contact page layout`
-  - `fix: mobile nav overlap`
-  - `refactor: extract pricing card component`
-- **No long body.** The title should be enough. Add a short body (2–4 bullets) **only** when the change is large / functionally important / non-obvious.
-- **No AI/tool authorship, anywhere.** Never in commits, PRs, code, comments, or docs: no "Co-Authored-By", "Generated with", "AI", or tool names. This is also enforced by `.claude/settings.json` (`includeCoAuthoredBy: false`) — don't change it.
+- **Ask before touching the stack.** Installing, removing, upgrading, or swapping any library/service requires telling the user first — see `docs/stack.md` for what's already approved and why.
+- **No AI/tool authorship anywhere** — not in commits, PRs, code, comments, or docs.
+- **Git:** feature branches (`feat/`, `fix/`, `refactor/`, `chore/`), never non-trivial commits straight to `main`. Full convention: `docs/conventions.md`.
+- **Keep the docs current.** Definition of done = code works + the relevant `docs/*.md` updated + (larger tasks) an `AI_NOTES.md` entry + commit. A feature isn't finished until the map reflects it.
 
 ---
 
 ## Project map — WHERE THINGS LIVE 🔴 living index, update it with every feature
 
-This is the antidote to the "colossus on clay feet". After adding **any** feature, add a row. Before building anything, check here whether it already exists.
+Check here before building anything — don't duplicate what exists.
 
 | Feature / domain | Where (path) | Note |
 |---|---|---|
-| Next.js app (pages, layouts, components) | `src/app/` | App Router; homepage is `src/app/page.tsx` |
+| Next.js app (pages, layouts, components) | `src/app/[locale]/` | App Router + next-intl; Centrum homepage is built, see `docs/migration-tracker.md` |
+| Bilingual routing (next-intl) | `src/i18n/`, `src/proxy.ts` | `src/proxy.ts` is Next.js 16's renamed `middleware.ts` — see gotcha in `docs/architecture.md` |
+| UI translation strings | `messages/pl.json`, `messages/en.json` | See `docs/i18n.md` for the next-intl-vs-Payload-localization split |
+| Shared UI primitives | `src/components/ui/` | `Container` (max-width fix), `Button`, `SectionHeading` |
+| Centrum components | `src/components/centrum/` | Header, Footer, Hero, and the other homepage section blocks — reuse before adding new ones, see `docs/conventions.md` |
 | Static assets served by Next.js | `public/` | favicons, robots.txt, etc. |
-| Site scraper / mirror toolkit | `scripts/scrape/` | `scrape_site.py` mirrors `bodywork.testowe.eu` into `scripts/scrape/scraped/` for content & design reference; `fix_local_paths.py` rewrites absolute URLs to relative |
+| Site scraper / mirror toolkit | `scripts/scrape/` | Mirrors `bodywork.testowe.eu` (Centrum design reference); see `docs/scraped-site-map.md` |
 | Reference mirror output (gitignored) | `scripts/scrape/scraped/` | Regenerate with `scripts/scrape/run_scrape.bat`; preview with `scripts/scrape/serve_mirror.bat` (http://localhost:8765) |
 | Sitemap used by the scraper | `scripts/scrape/sitemap.xml` | Source list of URLs to mirror |
-| _(remove examples, add real rows)_ | | |
+| Hub / Centrum / Akademia / Dashboard route groups | not yet created | Will land under `src/app/[locale]/(hub)/`, `(centrum)/`, `(akademia)/`, `(payload)/` per `docs/sites.md` — add a row here for each as it's built |
+| Payload CMS + collections | not yet installed | See `docs/stack.md` before installing anything |
 
-**Rule:** a new domain = a new module/folder + a row in this table. When a row gets too broad, split it.
-
----
-
-## Architecture & documentation
-
-Details live outside this file so it stays lightweight:
-
-- **`docs/architecture.md`** — overview, main modules, data flow, key decisions. Read it before larger changes. Update it when the structure changes.
-- **`docs/conventions.md`** — naming, folder structure, patterns, style, tests. Follow what's written there.
-- Complex domain? Give it its own file in `docs/` (e.g. `docs/payments.md`) and link it from the map.
-
-**Rule:** docs travel with the code. Change behavior → update the relevant `docs/`. Stale docs are worse than none.
-
----
-
-## Project journal — `AI_NOTES.md`
-
-`AI_NOTES.md` is the project's running memory, meant to survive between sessions and context resets.
-
-- **Read it at the start of every session.**
-- **At the end of every larger task**, add a short dated entry at the top: what was done, the architectural decisions made, and what to watch out for next time.
-- Keep it short and honest — it's for the next person or the next session, including future-you.
-
----
-
-## Context handoff (session reset)
-
-An AI degrades when a chat gets too long (context pollution) or nears the token limit — it starts looping or making sloppy mistakes. When you notice that, don't push through it. Reset: get a clean technical dump, open a fresh chat, paste the dump, and continue on a fast, clean model.
-
-Prompt to paste when you want a handoff:
-
-> Produce a full technical dump of our current state (Context Handoff). List, in bullets: 1) exactly what we've done and that works, 2) where we're stuck / what we're working on now, 3) the next steps, 4) all key decisions and the names of changed files. Format it so I can paste it into a fresh chat and continue without losing context.
-
-Before ending a heavy session, capture the same summary in `AI_NOTES.md` so nothing is lost.
-
----
-
-## Healthy growth (so it doesn't become a colossus)
-
-- **Small files, single responsibility.** A file that does two things or grows past ~300 lines → split it.
-- **Module boundaries early.** One domain = one module. Don't mix layers (UI / logic / data) in one bag.
-- **Don't duplicate** — check the map first to see whether the feature already exists.
-- **Refactoring is normal work**, not "someday". Notice a mess in passing → clean it up and commit it separately.
-
----
-
-## How to search the project (for the coding agent)
-
-1. **Start with the map** — it tells you where things live. Faster than a blind grep.
-2. Not in the map? → grep by domain/feature name, find it, **add it to the map**.
-3. Read the module and its `docs/` before touching it.
-4. Keep CLAUDE.md short — as it grows, move detail into `docs/` and leave only a pointer here.
+**Rule:** a new domain = a new module/folder + a row in this table. When a row gets too broad, split it into its own `docs/<topic>.md` and link it from the docs index above.
