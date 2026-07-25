@@ -114,7 +114,9 @@ Three things that are easy to get wrong and were wrong here before being checked
 2. **Headings have no letter-spacing.** Their markup shows `ls-0.025em`, but that class **is not defined** in the stylesheet — it's a no-op. Don't add `tracking-tight`.
 3. **The scale is far more uniform than it looks.** Nearly every section heading is the same `f12s5` (~68px desktop / ~40px mobile) — including ones that look smaller in screenshots because their container is narrow. If a heading wraps where the reference keeps it on one line, widen the container rather than shrinking the type.
 
-`f50` is JS-fitted to the container width on the reference (its markup carries a `dynamic-header` class and an inline `font-size: 255px`). Reproduced here as `clamp(3.5rem, 17vw, 17.6305rem)` so it fills a normal desktop but stops growing on ultrawide.
+**An `X` prefix on a class means "disabled" in this page-builder** (`Xho:f50`, `Xmiw256px`, `Xmaw200`) — the class is emitted but never defined, so it does nothing. Don't read `Xho:f50` as "this heading is 282px".
+
+That matters most for `f50`: on the display headings **every** size class is `X`-prefixed, so the size comes purely from the `dynamic-header` script, which fits the text to the container on one line (hence the inline `font-size: 255px` on the homepage's four-letter "News"). The size therefore depends on how long the text is. `SectionHeading`'s `display` size reproduces this in CSS — a query container plus `min(calc(100cqw / <chars> * 1.7), 17.6305rem)`. A fixed size cannot work here: at the cap, a 19-character page title renders ~282px and runs far past the viewport.
 
 ## Typography — real fonts are commercial, not yet licensed for reuse
 

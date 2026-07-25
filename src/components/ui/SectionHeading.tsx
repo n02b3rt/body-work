@@ -1,4 +1,4 @@
-import type { ElementType, ReactNode } from "react";
+import type { CSSProperties, ElementType, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
 export type SectionHeadingSize = "display" | "section" | "hero" | "sub" | "tile" | "menu";
@@ -20,13 +20,29 @@ type SectionHeadingProps = {
  * so it's a no-op), meaning they render at the body weight — hence `font-normal`
  * here rather than the semibold/tracking-tight this component used to force. */
 const sizes: Record<SectionHeadingSize, string> = {
-  display: "text-h-display",
+  display: "",
   section: "text-h-mobile wide:text-h-section",
   hero: "text-h-mobile wide:text-h-hero",
   sub: "text-h-mobile wide:text-h-sub",
   tile: "text-h-tile",
   menu: "text-h-menu",
 };
+
+/**
+ * `display` headings (the oversized "NEWS" / "KONTAKT" / page titles) are sized to
+ * fill their container on a single line, so a long title comes out small and a short
+ * one huge. The reference does this in JavaScript: every size class on those
+ * headings is `X`-prefixed — this page-builder's "disabled" marker — leaving a
+ * `dynamic-header` script to write an inline `font-size` (hence its `font-size:
+ * 255px` on the homepage's four-letter "News").
+ *
+ * Reproduced here in pure CSS: the wrapper is a query container and the size is its
+ * width divided by the character count, capped so short words don't run away. A
+ * fixed size cannot work — at the cap, a 19-character page title rendered ~282px and
+ * ran far past the viewport.
+ */
+const FIT_COEFFICIENT = 1.7;
+const FIT_MAX = "17.6305rem";
 
 export function SectionHeading({
   children,
@@ -35,9 +51,35 @@ export function SectionHeading({
   uppercase = false,
   className,
 }: SectionHeadingProps) {
-  return (
-    <Tag className={cn("font-normal text-brand-navy", uppercase && "uppercase", sizes[size], className)}>
+  const isDisplay = size === "display";
+  const chars = isDisplay && typeof children === "string" ? children.trim().length : 0;
+
+  const style: CSSProperties | undefined =
+    chars > 0
+      ? {
+          fontSize: `min(calc(100cqw / ${chars} * ${FIT_COEFFICIENT}), ${FIT_MAX})`,
+          lineHeight: 0.85,
+        }
+      : undefined;
+
+  const heading = (
+    <Tag
+      style={style}
+      className={cn(
+        "font-normal text-brand-navy",
+        uppercase && "uppercase",
+        // Fitted headings stay on one line, matching the reference's `wsnw`.
+        chars > 0 && "whitespace-nowrap",
+        // Fall back to the fluid size when children aren't a plain string to measure.
+        isDisplay && chars === 0 && "text-h-display",
+        sizes[size],
+        className,
+      )}
+    >
       {children}
     </Tag>
   );
+
+  if (!isDisplay) return heading;
+  return <div className="[container-type:inline-size]">{heading}</div>;
 }
