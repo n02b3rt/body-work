@@ -40,11 +40,11 @@
 
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
 |---|---|---|---|---|---|
-| `/trening-grupowy/` | `/trening-grupowy/` | — | PL: — / EN: — | — | Not started |
-| `/trening-grupowy/zajecia-grupowe/` | same | — | PL: — / EN: — | — | Not started |
-| `/trening-grupowy/plan-zdrowej-zmiany/` | same | — | PL: — / EN: — | — | Not started |
-| `/trening-grupowy/medicover/` | same | — | PL: — / EN: — | — | Not started |
-| `/trening-grupowy/grafik-zajec/` | outbound link only (eFitness) | n/a | n/a | n/a | Not started |
+| `/trening-grupowy/` | `/trening-grupowy/` | New: GroupTrainingNav. Reused: PageHero, CenteredBand, TextMedia ×2, TestimonialCarousel | PL: done / EN: done | Automated two-way check (0 issues) — **not opened in a browser** | Bilingual |
+| `/trening-grupowy/zajecia-grupowe/` | same | Reused: PageHero, CenteredBand, StatementSection ×3, Accordion (13 classes) | PL: done / EN: done | Same check | Bilingual |
+| `/trening-grupowy/plan-zdrowej-zmiany/` | same | Reused: PageHero, CenteredBand, StatementSection ×3, TestimonialCarousel (16 unattributed quotes) | PL: done / EN: done | Same check | Bilingual |
+| `/trening-grupowy/medicover/` | same | Reused: PageHero | PL: done / EN: done | Same check | Bilingual |
+| `/trening-grupowy/grafik-zajec/` | outbound link only (eFitness) | n/a — confirmed: the scraped page carries no content of its own, only the shared footer, and every nav on the reference links straight to eFitness | n/a | n/a | Not applicable |
 
 ## Dietetyka
 

@@ -4,7 +4,9 @@ import { Link, usePathname } from "@/i18n/navigation";
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/lib/cn";
 
-export type SectionNavItem = { label: string; href: string };
+/** `external` items leave the site (e.g. the class calendar lives on eFitness), so
+ * they render as plain anchors rather than locale-aware links. */
+export type SectionNavItem = { label: string; href: string; external?: boolean };
 
 type SectionNavProps = {
   /** Label for the collapsed mobile control — the parent section's own name. */
@@ -43,32 +45,34 @@ export function SectionNav({ sectionLabel, items }: SectionNavProps) {
           </svg>
         </summary>
         <ul className="border-t border-brand-navy-soft">
-          {items.map((item) => (
-            <li key={item.href} className="border-b border-brand-navy-soft last:border-b-0">
-              <Link
-                href={item.href}
-                className={cn(
-                  "block px-4 py-3.5 text-btn uppercase tracking-[1px] text-brand-navy",
-                  isCurrent(item.href) ? "font-medium" : "font-light",
+          {items.map((item) => {
+            const className = cn(
+              "block px-4 py-3.5 text-btn uppercase tracking-[1px] text-brand-navy",
+              isCurrent(item.href) ? "font-medium" : "font-light",
+            );
+            return (
+              <li key={item.href} className="border-b border-brand-navy-soft last:border-b-0">
+                {item.external ? (
+                  <a href={item.href} target="_blank" rel="noopener noreferrer" className={className}>
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link href={item.href} className={className}>
+                    {item.label}
+                  </Link>
                 )}
-              >
-                {item.label}
-              </Link>
-            </li>
-          ))}
+              </li>
+            );
+          })}
         </ul>
       </details>
 
       {/* From 640px up: the horizontal row. */}
       <Container className="hidden h-20 items-center sm:flex">
-        {items.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            aria-current={isCurrent(item.href) ? "page" : undefined}
-            className="group relative mr-6 flex h-full items-center px-3 text-btn font-light uppercase tracking-[1px] text-brand-navy"
-          >
-            <SectionNavLabel label={item.label} />
+        {items.map((item) => {
+          const className =
+            "group relative mr-6 flex h-full items-center px-3 text-btn font-light uppercase tracking-[1px] text-brand-navy";
+          const underline = (
             <span
               aria-hidden
               className={cn(
@@ -76,8 +80,25 @@ export function SectionNav({ sectionLabel, items }: SectionNavProps) {
                 isCurrent(item.href) ? "h-2" : "h-0 group-hover:h-2",
               )}
             />
-          </Link>
-        ))}
+          );
+
+          return item.external ? (
+            <a key={item.href} href={item.href} target="_blank" rel="noopener noreferrer" className={className}>
+              <SectionNavLabel label={item.label} />
+              {underline}
+            </a>
+          ) : (
+            <Link
+              key={item.href}
+              href={item.href}
+              aria-current={isCurrent(item.href) ? "page" : undefined}
+              className={className}
+            >
+              <SectionNavLabel label={item.label} />
+              {underline}
+            </Link>
+          );
+        })}
       </Container>
     </div>
   );

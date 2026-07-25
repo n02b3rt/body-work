@@ -13,6 +13,15 @@
 
 -->
 
+## 2026-07-26 — /trening-grupowy section: hub + 3 subpages
+
+- **Done:** built the group-training section, bilingual. Hub (lead statement, free-first-class band, two text/media blocks, schedule CTA, 7 testimonials), `zajecia-grupowe` (3 training kinds + 13-class accordion), `plan-zdrowej-zmiany` (goal/results/scope/for-whom/details/included + 16 quotes), `medicover`. Two small component changes: `SectionNav` now supports `external` items, and `TestimonialCarousel`'s `name` is optional.
+- **Decisions:** **`grafik-zajec` is deliberately not built as a route.** It exists in the scrape (143KB) but contains no content of its own — only the shared footer — and every nav on the reference points straight at the eFitness calendar. So the sub-nav links out instead, which is what needed the `external` support. Recorded in `migration-tracker.md` as "not applicable" rather than leaving it looking unfinished.
+- **Two things the checks caught that eyeballing would not have:**
+  1. The class accordion has **13** entries, not the 11 my first outline showed — the outline was truncated by a `head` limit while I was skimming. Counting the `h3` blocks programmatically caught it, and the missing three images were copied.
+  2. The hub's testimonial **names were all silently dropped**. The extraction regex ended its match at the next `<h2>`, so the name heading (which is the next `<h2>`) could never fall inside the captured group — it returned 7 quotes with 0 names and looked fine. Rewritten to walk headings in document order and pair a quote with the name that follows. `plan-zdrowej-zmiany` genuinely has unattributed quotes, which is why `name` became optional rather than being forced.
+- **Watch out:** the verifier reports false positives when the reference wraps quotes in typographic quote marks (we strip them, since the carousel renders its own) and when a reference heading is split across separate fields. Both are handled by normalising quote characters and allowing word-level coverage — but if a future section shows "missing headings" that are clearly present, check the checker before changing the content. Final: 54 long strings verbatim, 0 reference headings unaccounted for.
+
 ## 2026-07-25 — /fizjoterapia section: hub page + all four subpages
 
 - **Done:** built the physiotherapy section (5 pages), bilingual, entirely from the components made for the training section — only `PhysiotherapyNav` was new. Hub: intro band, 4 text/media blocks, a 6-item equipment accordion (USG, EPTE, Compex, ForceDecks, dynamometer, AirBands), team/rooms cards, 6 testimonials, contact block. Subpages: `terapia-manualna` (10-condition accordion), `rehabilitacja-ruchowa` (12 conditions), `zdrowy-brzuch` (3 leads + 2 priced formats linking to the shop), `specjalisci` (2 specialisations × 11 people). 58 images copied.

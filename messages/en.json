@@ -877,5 +877,239 @@
       }
     ],
     "bandEyebrow": "BODYWORK physiotherapists"
+  },
+  "GroupTraining": {
+    "title": "Group training",
+    "leadHeading": "Movement that suits you!",
+    "leadBody": "Przestrzeń Centrum BODYWORK w Poznaniu to idealne miejsce dla treningów grupowych opartych na wielopłaszczyznowym ruchu. Wybierz jedną z naszych trzech specjalizacji – trening medyczny, trening funkcjonalny lub trening motoryczny i rozwijaj wymarzoną sprawność i ciało. Bogata oferta treningów grupowych BODYWORK to szeroka różnorodność zajęć o różnym stopniu intensywności. Poznaj nasz system treningu i dołącz do nas!",
+    "bandEyebrow": "Try it, no strings attached!",
+    "bandHeading": "Your first class is free.",
+    "bandBody": "Ponadto jeżeli jesteś posiadaczem karty Medicover Sport możesz skorzystać z dowolnych zajęć grupowych. Wystarczy, że przyjdziesz, wyślesz kod SMSem i... wchodzisz na zajęcia.",
+    "bandCta": "Sign up",
+    "classesHeading": "Group classes.",
+    "classesBody": "W Bodywork oferujemy szeroki wachlarz zajęć grupowych, które łączą świadomy ruch, energię wspólnego działania i profesjonalne prowadzenie. Tworzymy kameralne grupy, które pozwalają na indywidualne podejście, a jednocześnie dają energię wspólnego działania. W naszym grafiku znajdziesz różnorodne formy – od zajęć medycznych, przez funkcjonalne, aż po sportowe. Każdy trening prowadzony jest przez doświadczonych trenerów i fizjoterapeutów, którzy dbają nie tylko o technikę, ale też o Twoje bezpieczeństwo, komfort i motywację. Niezależnie od tego, czy dopiero zaczynasz, czy chcesz wejść na wyższy poziom – znajdziesz tu swoje miejsce i ludzi, z którymi dobrze się ćwiczy.",
+    "scheduleHeading": "Check the class schedule.",
+    "scheduleBody": "Nasz grafik zajęć został zaprojektowany tak, aby każdy mógł znaleźć coś dla siebie – niezależnie od poziomu zaawansowania, celów czy dostępnego czasu. Zajęcia odbywają się zarówno rano, jak i popołudniami, od poniedziałku do soboty. Wszystkie grupy są kameralne, a trenerzy dbają o to, żeby każdy uczestnik czuł się zaopiekowany. Wystarczy wybrać termin i wpisać trening do swojego tygodniowego rytmu. Zajrzyj do grafiku i zacznij budować swoją zdrową rutynę.",
+    "scheduleCta": "See the schedule",
+    "planHeading": "Healthy Change Plan.",
+    "planBody": "Nasz autorski, 6-tygodniowy program, który pomoże Ci rozpocząć aktywny i zdrowy styl życia. Pod okiem doświadczonych trenerów, fizjoterapeutów i dietetyków będziesz trenować, uczyć się i otrzymywać wsparcie na każdym kroku. Program łączy ćwiczenia, edukację i motywację – wszystko po to, aby wzmocnić ciało, poprawić kondycję, koordynację i sylwetkę, a jednocześnie zdobyć pewność siebie i radość z ruchu. To nie tylko trening – to świetna zabawa w grupie 12 uczestników, praktyczna wiedza o zdrowym odżywianiu i regeneracji oraz fundament do trwałej zmiany stylu życia. Po 6 tygodniach poczujesz różnicę – Twoje ciało będzie silniejsze, sprawniejsze, a Ty pełen energii i endorfin!",
+    "planMore": "Learn more",
+    "planSignUp": "Sign up!",
+    "testimonialsHeading": "Reviews:",
+    "testimonials": [
+      {
+        "quote": "Najlepsze centrum treningowe i wiele więcej. Tylko dzięki nim przekonałem się do regularnego trenowanie na zajęciach grupowych, a próbowałem wcześniej w kilku innych miejscach. Przyjazna, kameralna atmosfera, która jest ogromnym plusem w porównaniu do rynkowych sieciówek. Anulowałem Multisporta, bo wolę dopłacić za coś z czego rzeczywiście korzystam i sprawia mi przyjemność.",
+        "name": "P.F."
+      },
+      {
+        "quote": "Polecam zajęcia zdrowy kręgosłup i mobility z Agatą, pilates z Małgorzatą.",
+        "name": "Ewelina Koterska"
+      },
+      {
+        "quote": "Polacam Bodywork jako miejsce z przyjazną atmosferą, już od wejścia jesteśmy witani z uśmiecham, a trening funkcjonalny z Martą lub Julią to prawdziwa przyjemność.",
+        "name": "Julianna Szymańska"
+      },
+      {
+        "quote": "Z Kasią Adamek zacząłem trenować na obleganych zajęciach grupowych pilates. Poznałem ją jako: uważną,cierpliwą,skoncentrowaną na ćwiczących i posiadającą przede wszystkim dużą wiedzę trenerkę. Każdy trening był po prostu bardzo satysfakcjonującym doświadczeniem. Bez wahania wybrałem Kasię jako trenerkę na indywidualne treningi (...).",
+        "name": "Marcin Majchrzycki"
+      },
+      {
+        "quote": "Fajnie jest bo i człowiek potrenuje a i atmosfera jest pozytywna i po treningu człowiek wychodzi naładowany jak pocisk atomowy.Z pewnością każdy kto przyjedzie będzie zadowolony z szybkich postępów i dobrego samopoczucia.Polecam serdecznie. Dzika Kuna.",
+        "name": "Marek Rutek"
+      },
+      {
+        "quote": "Fajna silownia, zajecia grupowe sa prowadzone profesjonalnie a cala ekipa jest bardzo przyjazna. Naprawde milo jest tam chodzic bo czlowiek nie czuje sie tam obca osoba tylko faktycznie czescia zespolu.",
+        "name": "Katarzyna Skotnicka"
+      },
+      {
+        "quote": "Korzystam z zajęć grupowych już ponad dwa lata i uważam, że to najlepsze miejsce żeby na nowo pokochać sport. (...) Bardzo polecam zajęcia z Wiktorią - trening obwodowy. (...)",
+        "name": "Bernadeta M."
+      }
+    ]
+  },
+  "GroupClasses": {
+    "title": "Group classes",
+    "leadHeading": "Train to the rhythm of the group, progress at your own pace.",
+    "leadBody": "W Bodywork oferujemy szeroki wachlarz zajęć grupowych, które łączą świadomy ruch, energię wspólnego działania i profesjonalne prowadzenie. Niezależnie od tego, czy szukasz wzmocnienia, mobilności, kondycji czy chwili dla siebie – znajdziesz tu coś dla siebie. Ćwiczymy w kameralnych grupach, pod okiem doświadczonych trenerów i fizjoterapeutów, którzy dbają o technikę, bezpieczeństwo i dobrą atmosferę. Zobacz nasz grafik, wybierz zajęcia dla siebie i dołącz do ruchu, który daje radość, efekty i motywację.",
+    "leadSchedule": "See the schedule",
+    "leadPricing": "Pricing",
+    "kindsHeading": "Kinds of training",
+    "kinds": [
+      {
+        "heading": "Medical.",
+        "body": "Zajęcia skoncentrowane na zdrowiu, profilaktyce bólu i poprawie jakości ruchu. Wykorzystujemy sprawdzone metody, by wzmacniać mięśnie głębokie, odciążać kręgosłup i zwiększać świadomość ciała. To bezpieczna przestrzeń dla osób z bólami pleców, przeciążeniami i potrzebą regeneracji. Zajęcia: Zdrowy kręgosłup, Pilates, CORE, Powięź"
+      },
+      {
+        "heading": "Functional.",
+        "body": "Skupiamy się na naturalnych wzorcach ruchowych, które budują siłę, mobilność i sprawność potrzebną w codziennym życiu. Treningi dopasowane do każdego poziomu, prowadzone przez doświadczonych trenerów. Idealne, jeśli chcesz ruszać się lepiej, bez bólu i z większą kontrolą. Zajęcia: Trening funkcjonalny, Zdrowa sylwetka, Mobility, TRX, Trening funkcjonalny dla biegaczy"
+      },
+      {
+        "heading": "Sport.",
+        "body": "Zajęcia o wyższej intensywności dla tych, którzy chcą wzmocnić ciało, poprawić sylwetkę i przekraczać własne granice. Pracujemy na siłę, wytrzymałość i kondycję, wykorzystując różnorodne metody treningowe i sprzęt. Zajęcia: Trening siłowy, Trening funkcjonalny, Trening obwodowy"
+      }
+    ],
+    "freeHeading": "Your first session is free!",
+    "freeBody": "Jeżeli chciałbyś wypróbować nasz unikalny system treningu w grupie – zapraszamy na pierwsze bezpłatne zajęcia! Wybierz dowolny trening i zarejestruj się przez grafik zajęć lub telefonicznie.",
+    "freeCta": "Call us",
+    "classesHeading": "Our classes.",
+    "classes": [
+      {
+        "heading": "Core",
+        "body": "Jest to trening funkcjonalny, oparty o ćwiczenia angażujące i wzmacniające mięśnie głębokie tułowia. Silny korpus, przez wielu niedoceniany, jest gwarancją progresu podczas treningu każdego rodzaju. Celem treningu jest ochrona kręgów i stabilizacja kręgosłupa, nauka pracy mięśniami brzucha, kształtowanie prawidłowego toru oddechu oraz kontrola postury, która znacząco polepsza jakość codziennych aktywności. DLA KOGO? Treningiem core powinien zainteresować się w zasadzie każdy, ponieważ ułatwi on nasze codzienne funkcjonowanie. Treningi polecane są przede wszystkim osobom, które doświadczają bólu kręgosłupa. KORZYŚCI: - wzmocnienie mięśni brzucha, - większa mobilność, - większa siła, - poprawa sylwetki, - zmniejszone ryzyko bólu pleców i kontuzji. Trening stanowi ponadto idealne antidotum na bóle pleców wynikające z pracy przy komputerze lub jazdy samochodem. RODZAJ: Trening funkcjonalny INTENSYWNOŚĆ: Średnia",
+        "image": "/images/trening-grupowy/zajecia/1.webp"
+      },
+      {
+        "heading": "Mobility",
+        "body": "Jest to trening wzmacniający, który ma na celu pracę nad poprawą zakresów ruchów, zbudowanie w nich siły, zwiększenie elastyczności mięśni oraz pozbycie się uczucia sztywności w ciele. W odróżnieniu od tradycyjnego rozciągania, trening ten koncentruje się na aktywnych, kontrolowanych ruchach, które angażują mięśnie i umożliwiają pełne poruszanie się w różnych płaszczyznach. Mobilność pozwala zarówno na bardziej efektywne treningi poprzez zmniejszenie ryzyka kontuzji, jak i wykonywanie codziennych czynności bez ograniczeń i bólu. DLA KOGO? Mobility dedykowane jest osobom, które na co dzień spędzają większość czasu w pozycji siedzącej i z tego powodu odczuwają sztywność oraz dyskomfort w ciele, również osobom, które regularnie trenują i chcą zmniejszyć ryzyko kontuzji oraz przeciążeń, jak i osobom, które chcą zwiększyć kontrolę i świadomość ciała. KORZYŚCI: - poprawa zakresów ruchu, - prewencja kontuzji i przeciążeń - zwiększenie kontroli mięśniowej - pozbycie się uczucia sztywności w ciele, poprawa elastyczności RODZAJ: Trening medyczny INTENSYWNOŚĆ: Średnia",
+        "image": "/images/trening-grupowy/zajecia/2.webp"
+      },
+      {
+        "heading": "Pilates",
+        "body": "Jest to klasyczny trening o charakterze medycznym, w którym pracuje się z głębokimi mięśniami centrum. Ćwiczenia zasadnicze obejmują ruchy ułożone w serie, które wykonywane są powoli z oddechem i kontrolą napięcia mięśni. Seria rozciągania, spinania i rozluźniania zapewnia elastyczność całemu ciału, wysmuklając je i wydłużając. DLA KOGO? Ćwiczenia te są odpowiednie dla każdego, niezależnie od wieku czy stanu zaawansowania, ponieważ są spokojne i nie wymagają nagłych ruchów. To świetne rozluźnienie dla osób cierpiących na bóle kręgosłupa czy stawów. Pilates spodoba się także osobom, które zmagają się z nadwagą oraz tym, którzy wracają do aktywności fizycznej po dłuższej przerwie. Treningi polubią także osoby szukające odprężenia i relaksu. KORZYŚCI: Ćwiczenia wykonywane systematycznie poprawiają: - stabilizację kręgosłupa, - postawę ciała, - postawę stawów obwodowych. Pilates ma wiele zalet, oprócz wzmacniania ciała, redukuje stres oraz pomaga się wyciszyć po ciężkim dniu. Ponadto wzmacnia mięśnie dna miednicy i przywraca równowagę psychiczną. RODZAJ: Trening medyczny INTENSYWNOŚĆ: Niska",
+        "image": "/images/trening-grupowy/zajecia/3.webp"
+      },
+      {
+        "heading": "Fascia",
+        "body": "Jest to dość intensywny trening terapeutyczny bez obciążenia, ukierunkowany na najważniejsze medium ruchu w ciele człowieka. Powięź to rodzaj tkanki łącznej, która stanowi zewnętrzną osłonę mięśni całego ciała. W fundamentalny sposób wpływa ona na funkcjonowanie zarówno ciała jak i umysłu przez wzmacnianie mięśni, wyzwalanie emocji i poprawę samopoczucia. Sekwencje dynamicznych ruchów i częste zmiany pozycji uelastyczniają całe ciało. DLA KOGO? Powięź podstawowa jest treningiem przeznaczonym dla każdego, kto czuje się „spięty”, ma problem z bolącymi plecami, a także dla wszystkich, którzy chcą zadbać o prawidłowe funkcjonowanie ciała. Trening pomaga również zredukować stres i odprężyć się. KORZYŚCI: - wzmacnianie mięśni, - rozwój siły, - poprawa sprawności, - poprawa samopoczucia, - redukcja stresu i rozluźnienie. RODZAJ: Trening medyczny INTENSYWNOŚĆ: Średnia",
+        "image": "/images/trening-grupowy/zajecia/4.webp"
+      },
+      {
+        "heading": "Power Core",
+        "body": "To połączenie treningu medycznego z funkcjonalnym oparte o ćwiczenia aktywizujące i wzmacniające głębokie mięśnie tułowia. Zajęcia są idealne dla osób, które znają już podstawy pracy z mięśniami core (np. z zajęć „core” lub „zdrowy kręgosłup”) i szukają czegoś intensywniejszego. Podczas treningu korzystamy z różnorodnych akcesoriów - piłek gimnastycznych, gum oporowych czy przyborów równoważnych - dzięki czemu każda sesja jest ciekawa i wszechstronna. Głównym celem jest nauka świadomej kontroli tułowia w zmiennych, nieprzewidywalnych warunkach. Pozwala to poprawić komfort i jakość wykonywania codziennych aktywności, zmniejszyć ryzyko urazów oraz podnieść osiągi sportowe. DLA KOGO? Dla osób, które: chcą ponadprzeciętnie wzmocnić mięśnie głębokie; mają doświadczenie z podstawowymi ćwiczeniami i szukają nowych bodźców; trenują sporty wymagające stabilnego i silnego centrum ciała (np. bieganie, dźwiganie ciężarów). KORZYŚCI: - wzmocnienie mięśni brzucha i głębokich mięśni tułowia, - poprawa mobilności i siły, - lepsza sylwetka i kontrola ruchu, - mniejsze ryzyko bólu pleców i kontuzji. Trening świetnie sprawdzi się też u osób, które odczuwają napięcia i bóle pleców związane z pracą siedzącą czy częstą jazdą samochodem. RODZAJ: Trening medyczny/ funkcjonalny INTENSYWNOŚĆ: Średnia",
+        "image": "/images/trening-grupowy/zajecia/5.webp"
+      },
+      {
+        "heading": "Circuit training",
+        "body": "Jest to trening o charakterze siłowo-wytrzymałościowym. Składa się z zestawów ćwiczeń ustawionych w odpowiedniej kolejności, aby angażować na przemian różne partie mięśniowe. Całość tworzy obwód angażujący całe ciało i jest powtarzany kilka razy. Obwód zawiera elementy pracy siłowej z ciężarem własnego ciała lub obciążeniem zewnętrznym, nie brakuje również elementów kardio. Jest to wysiłek o charakterze interwałowym, gdzie przeplata się czas pracy o podniesionej intensywności z umiarkowaną przerwą. DLA KOGO? Jest to trening dla osób lubiących różnorodność i wysoką intensywność. Jeśli szybko nudzisz się powtarzalnymi ćwiczeniami, to treningi obwodowe są dla Ciebie idealne - z pewnością brak tu monotonii. KORZYŚCI: - wzrost siły, - większa wytrzymałość, - poprawa sylwetki, - redukcja tkanki tłuszczowej RODZAJ: Trening sportowy INTENSYWNOŚĆ: Wysoka",
+        "image": "/images/trening-grupowy/zajecia/6.webp"
+      },
+      {
+        "heading": "Functional training",
+        "body": "To zaawansowane zajęcia, które rozwijają umiejętności zdobyte podczas treningu podstawowego, wprowadzając elementy progresji w celu osiągnięcia jeszcze lepszych wyników. Podobnie jak w wersji podstawowej, trening opiera się na złożonych ćwiczeniach wielostawowych, naśladujących naturalne ruchy ciała. W tym przypadku jednak, pracujemy z większym obciążeniem i bardziej zaawansowanymi wariantami ćwiczeń, rozwiniętymi o elementy skocznościowe i poruszania się . Dodatkowo zwiększa się również intensywność zajęć. DLA KOGO? To idealna opcja dla osób, które zdobyły doświadczenie podczas treningu funkcjonalnego na poziomie podstawowym i chcą kontynuować swoją aktywność, przechodząc na wyższy poziom intensywności i zaawansowania. Uczestnicy tych zajęć powinni posiadać podstawową wiedzę na temat techniki wykonywanych ćwiczeń opartych na wzorcach ruchowych. KORZYŚCI: rozwinięcie zaawansowanych umiejętności fizycznych, poprawa wydolności, wzmocnienie całego ciała, poprawa sprawności, poprawa równowagi. RODZAJ: Trening funkcjonalny INTENSYWNOŚĆ: Wysoka",
+        "image": "/images/trening-grupowy/zajecia/7.webp"
+      },
+      {
+        "heading": "Functional training for runners",
+        "body": "Zajęcia stanowią uzupełnienie treningów biegowych. Program treningowy opiera się na kompleksowym rozwoju niezbędnych aspektów sprawności biegaczy. W głównej mierze ma na celu poprawienie ogólnej sprawności organizmu, a także zwiększenie efektywności biegu. Treningi są oparte zarówno na ćwiczeniach z ciężarem ciała, jak i obciążeniem zewnętrznym. Podczas treningów skupimy się między innymi na poprawie mobilności i elastyczności. Nie zabraknie także ćwiczeń siłowo-wytrzymałościowych oraz ruchów specyficznych dla biegaczy. DLA KOGO? Zarówno dla zaawansowanych biegaczy jak i dla osób biegających rekreacyjnie, którzy chcą poprawić technikę biegania i wzmocnić te elementy funkcjonowania organizmu, które przekładają się na efektywność biegu. KORZYŚCI: - poprawa koordynacji i równowagi, - zwiększenie wydolności organizmu, - wzmocnienie mięśni głębokich, - zwiększenie gibkości (co zmniejsza ryzyko kontuzji), - zwiększenie szybkości. RODZAJ: Trening funkcjonalny INTENSYWNOŚĆ: Średnia",
+        "image": "/images/trening-grupowy/zajecia/8.webp"
+      },
+      {
+        "heading": "Functional training with bands",
+        "body": "Jest to trening funkcjonalny, który łączy element siłowy, koordynację ruchu i stabilizację. Taśmy oporowe pozwalają na efektywne budowanie siły i wytrzymałości siłowej. Praca z taśmami charakteryzuje się zmiennym oporem - największe napięcie przypada na końcowy zakres ruchu, tym samym wspierana jest koordynacja nerwowo-mięśniowa. DLA KOGO? Dla tych, którzy chcą wzmocnić siłę mięśni łącząc to z koordynacją i stabilizacją. Trening jest idealny zarówno jako samodzielna jednostka lub uzupełnienie innych form aktywności. Poziom oporu taśm jest dostosowany do uczestnika, dzięki czemu trening sprawdzi się zarówno dla osób początkujących jak i zaawansowanych. KORZYŚCI: - wzmocnienie mięśni całego ciała, - poprawa równowagi, koordynacji i świadomości ruchu - zwiększenie siły i masy mięśniowej bez przeciążania stawów. RODZAJ: Trening funkcjonalny INTENSYWNOŚĆ: Średnia",
+        "image": "/images/trening-grupowy/zajecia/9.webp"
+      },
+      {
+        "heading": "Strength training",
+        "body": "To intensywne zajęcia grupowe skoncentrowane na budowaniu siły, wytrzymałości mięśniowej oraz doskonaleniu techniki ćwiczeń. Trening odbywa się w formie blokowej i obejmuje ćwiczenia na konkretne grupy mięśniowe. Wykorzystujemy podstawowy sprzęt — hantle, kettlebelle, gumy oporowe oraz ciężar własnego ciała. Ćwiczenia są ukierunkowane na progresję, budowanie siły oraz bezpieczną pracę pod obciążeniem. Poziom trudności można dostosować regulując ciężar dopasowany do swoich możliwości. DLA KOGO? Dla osób na każdym poziomie zaawansowania, które chcą wzmocnić ciało, poprawić technikę oraz pracować nad sylwetką. KORZYŚCI: Zwiększenie siły i wytrzymałości, poprawa techniki ćwiczeń, budowanie masy mięśniowej, redukcja tkanki tłuszczowej, kontrola ciała. RODZAJ: Trening siłowy INTENSYWNOŚĆ: Wysoka",
+        "image": "/images/trening-grupowy/zajecia/10.webp"
+      },
+      {
+        "heading": "TRX",
+        "body": "Trening z wykorzystaniem masy własnego ciała odbywający się w strefie systemów podwieszanych taśm typu TRX. Opiera się na ćwiczeniach funkcjonalnych, które zaangażują wszystkie mięśnie do pracy. Nie zabraknie takich ćwiczeń jak przysiady, wykroki czy pompki. Celem treningu jest przede wszystkim wzmocnienie ciała, ale równie dużą uwagę poświęca się ćwiczeniom poprawiającym elastyczność oraz równowagę. Dla osób pragnących pobudzić metabolizm jeszcze bardziej, przewidziane są również dodatkowe ćwiczenia o wyższej intensywności. DLA KOGO? Trening TRX będzie idealnym rozwiązaniem dla osób, które pragną usprawnić swoje ciało, poprawić kondycję, nauczyć się podstaw treningu na taśmach, a dodatkowo wymodelować sylwetkę. KORZYŚCI: -wzmocnienie ciała, -wymodelowanie sylwetki, -poprawa równowagi i koordynacji. -poprawa kondycji, -poprawa elastyczności i mobilności. RODZAJ: Trening funkcjonalny INTENSYWNOŚĆ: Średnia",
+        "image": "/images/trening-grupowy/zajecia/11.webp"
+      },
+      {
+        "heading": "Healthy physique",
+        "body": "Jest to funkcjonalny trening podnoszący ogólną sprawność. Zdrowa sylwetka opiera się na ćwiczeniach o średniej intensywności, co indukuje redukcję tkanki tłuszczowej. Na zajęciach nie zabraknie takich ćwiczeń jak skoki, przysiady czy plank. DLA KOGO? Zdrowa sylwetka jest dedykowana osobom chcącym poprawić sylwetkę i wzmocnić mięśnie, jednocześnie zyskując smukłe ciało. KORZYŚCI: - poprawna kompozycja ciała, - wzmacnianie mięśni ud, pośladków i brzucha, - modelowanie sylwetki, - poprawa kondycji, - poprawa samopoczucia. RODZAJ: Trening funkcjonalny INTENSYWNOŚĆ: Średnia",
+        "image": "/images/trening-grupowy/zajecia/12.webp"
+      },
+      {
+        "heading": "Healthy spine",
+        "body": "Są to zajęcia o charakterze medycznym, mające na celu świadomą pracę z kręgosłupem poprzez autoterapię, mobilizację oraz zestaw ćwiczeń rozciągających i wzmacniających. DLA KOGO? Trening ten jest dedykowany osobom w każdym wieku, szczególnie w przypadku problemów z powracającym bólem pleców oraz pracą siedzącą. KORZYŚCI: - minimalizacja bólu pleców, - wzmocnienie i uelastycznienie mięśni pleców, - utrzymanie prawidłowej postawy ciała, - nauka prawidłowego oddychania. RODZAJ: Trening medyczny INTENSYWNOŚĆ: Niska",
+        "image": "/images/trening-grupowy/zajecia/13.webp"
+      }
+    ]
+  },
+  "HealthyChangePlan": {
+    "title": "Healthy Change Plan",
+    "bandHeading": "Improve your shape in 6 weeks!",
+    "bandBody": "„Plan zdrowej zmiany” to profesjonalny program motywujący do rozpoczęcia aktywnego i zdrowego stylu życia. Przez 6 tygodni będziemy Cię prowadzić, szkolić, trenować i wspierać w każdym możliwym aspekcie. Dlaczego 6 tygodni? Ponieważ jest to wystarczająco długo, aby zobaczyć już znaczne efekty w swoim ciele – na poziomie wyglądu, sprawności, siły i kondycji fizycznej. Jednocześnie jest to na tyle krótko, iż „bez większego bólu” można przejść przez cały program i się po prostu nie zniechęcić. Sam program to nie tylko praca i wysiłek fizyczny. To przede wszystkim ogrom dobrej zabawy i współpracy z grupą 12 uczestników. Treningi i spotkania będą się odbywać pod okiem naszych doświadczonych trenerów, fizjoterapeutów i dietetyków, którzy przez cały czas będą Cię wspierać i motywować.",
+    "bandCta": "Sign up",
+    "goalHeading": "The goal.",
+    "goalBody": "Głównym celem programu jest rozpoczęcie trwałej przemiany w Twoim życiu. Chcemy zachęcić Cię do uprawiania sportu, właściwego odżywiania, odpowiedniej regeneracji i generalnie zdrowego stylu życia. Oprócz programu treningowego projekt będzie mieć charakter edukacyjny. W praktyce dowiesz się jak dbać o swoje ciało, aby służyło Ci przez wiele lat w zdrowiu i sprawności. Okres 6 tygodni to jedynie dobry początek tego co czeka Cię później – staniesz się sprawniejszy, szczęśliwszy i pewniejszy siebie. Wystarczy tylko zacząć!",
+    "resultsHeading": "What you'll gain by the end of the programme?",
+    "resultsBody": "Po 6 tygodniach wspólnej pracy wzrośnie Twoja siła, sprawność, koordynacja, poprawi się Twoja sylwetka i spadnie ilość tkanki tłuszczowej. Jednocześnie zyskasz większą pewność siebie i będziesz znakomicie czuć się w swojej skórze (endorfiny zrobią swoje… ;-)) Dowiesz się jak doskonałą maszyną jest ludzkie ciało i dostaniesz program jego obsługi.",
+    "scopeHeading": "What the programme covers:",
+    "scope": [
+      {
+        "heading": "01. Education",
+        "body": "W czasie projektu odbędą się trzy spotkania o charakterze edukacyjnym, podczas których nasi specjaliści przedstawią filozofię BODYWORK, począwszy od tego kiedy i dlaczego powinniśmy dbać o swoje ciało, poprzez praktyczne wskazówki dotyczące treningu, odżywiania, regeneracji i odpoczynku, aż po długoterminowe rezultaty takich działań. Dodatkowo w trakcie całego programu nasi trenerzy są do Twojej dyspozycji i sukcesywnie dzielą się wiedzą praktyczną."
+      },
+      {
+        "heading": "02. Training",
+        "body": "Zajęcia w grupie 12 uczestników prowadzone są 3 x w tygodniu w odstępach 1-2 dni. Celem treningu jest maksymalizacja Twojej sprawności, przy jednoczesnej poprawie sylwetki. Trening zawiera: przygotowanie do ćwiczeń, spalanie tkanki tłuszczowej, wsparcie przy dolegliwościach bólowych, wzmocnienie mięśni i kształtowanie sylwetki. W każdym tygodniu trener przekazuje uczestnikom pracę indywidualną oraz wyzwanie związane ze zmianą nawyków żywienia, pozycji siedzącej lub krótkich sesji ćwiczeń w domu."
+      },
+      {
+        "heading": "03. Diagnostics",
+        "body": "Przed rozpoczęciem programu każdy z uczestników odbędzie indywidualną sesję z trenerem oraz dietetykiem. Celem spotkania jest przeprowadzenie testów funkcjonalnych i określenie składu ciała. Na tej podstawie nasi specjaliści wspólnie z Tobą wyznaczą cel i plan na najbliższych 6 tygodni. Pod koniec projektu odbędzie się ponowne spotkanie z dietetykiem i sprawdzenie osiągniętych rezultatów. To pozwoli na weryfikację założonych wcześniej celów!"
+      }
+    ],
+    "forWhoHeading": "Who is it for?",
+    "forWhoBody": "● Wszystkie osoby, które są relatywnie mało aktywne fizycznie i chciałyby w mądry, zrównoważony sposób rozpocząć proces przemiany ● Osoby, które pragną zredukować poziom tkanki tłuszczowej lub zwiększyć masę mięśniową ● Osoby, które chciałyby być poprowadzone przez grupę specjalistów, tak, aby nie popełniać błędów i dzięki temu osiągnąć najlepsze rezultaty w jak najkrótszym czasie ● Minimalny wiek uczestnictwa to 14 lat",
+    "detailsHeading": "Practical details:",
+    "detailsBody": "● Cena uczestnictwa w projekcie 895 zł ● Liczba uczestników w grupie: min 8, max 12 osób ● Termin projektu: od 18.05.2026 r. do 29.06.2026 r. ● Spotkanie organizacyjne 11.05.2026 r. ● Harmonogram treningów: pon 20:30, śr 20:30, pt 19:30",
+    "detailsCta": "Sign up",
+    "includedHeading": "The price includes:",
+    "includedBody": "● Indywidualną ocenę funkcjonalną na początku projektu ● 2 pomiary składu ciała – na początku i na końcu ● Indywidualne wskazówki żywieniowe przygotowane po spotkaniu z dietetykiem ● 18 treningów w grupie maksymalnie 12 osób ● 3 wykłady o charakterze edukacyjnym ● Stałą opiekę i wsparcie naszego zespołu – w każdej chwili trwania projektu",
+    "testimonialsHeading": "Reviews:",
+    "testimonials": [
+      {
+        "quote": "Wszyscy byli świetni! Ekipa trenerów sprawiała, że chciało się przychodzić. Dzięki za wszystko! Jestem super szczęśliwa, że Was odwiedziłam i polecam wszystkim."
+      },
+      {
+        "quote": "Super otwartość i gotowość do pomocy, zwracanie uwagi na detale, które wpływają na ćwiczenie"
+      },
+      {
+        "quote": "Siłownia inna niż wszystkie - tu czuje się idealnie. Najlepsze miejsce"
+      },
+      {
+        "quote": "Kompleksowe podejście obejmujące zakres kultury fizycznej jak i zdrowy tryb życia - żywienie, treningi, regeneracja"
+      },
+      {
+        "quote": "Świetnie, że treningów było tak dużo - łatwo się przyzwyczaić do intensywności. Świetnie się bawiłam!"
+      },
+      {
+        "quote": "Najistotniejsze - holistyczna ocena ruchu"
+      },
+      {
+        "quote": "Bardzo dobry projekt. Można było o wszystko dopytać, rozwiać każde wątpliwości"
+      },
+      {
+        "quote": "Super, czułam się bardzo zaopiekowana, trenerzy i obsługa bardzo profesjonalni"
+      },
+      {
+        "quote": "Indywidualne podejście do członków projektu. Dużo jednostek treningowych, na których najbardziej mi zależało, plus dodatkowe wsparcie dietetyka"
+      },
+      {
+        "quote": "10/10 bez zastrzeżeń, pełen dostęp do wsparcia w kwestiach ogólnych jak i indywidualnych. Przyjazne, uśmiechnięte, wspierające podejście."
+      },
+      {
+        "quote": "Trenerzy bardzo kreatywni, specjaliści w swojej dziedzinie. Potrafią motywować i inspirować, wysoka kultura osobista"
+      },
+      {
+        "quote": "Dietetyka - super. Konsultacje i wykłady."
+      },
+      {
+        "quote": "Dziękuję za super czas! Daliście motywację do dalszych treningów"
+      },
+      {
+        "quote": "Super otwarci trenerzy, weseli, co też ważne! Chciało się chodzić pomimo zakwasów"
+      },
+      {
+        "quote": "Było super! Z każdym treningiem lepiej! W ogóle nie żałuję!"
+      },
+      {
+        "quote": "Projekt oceniam bardzo dobrze - dużo miejsca, dostępność sprzętu, czyste szatnie"
+      }
+    ]
+  },
+  "Medicover": {
+    "title": "Medicover",
+    "acceptHeading": "We accept Medicover cards.",
+    "acceptBody": "Jeżeli jesteś posiadaczem karty Medicover Sport informujemy, iż w naszym Centrum możesz skorzystać z dowolnych zajęć grupowych. Wystarczy, że przyjdziesz, wyślesz kod SMSem i... wchodzisz na zajęcia!",
+    "howToHeading": "Using it for the first time?",
+    "howToBody": "1. Skontaktuj się z nami, aby założyć profil i aktywować karnet (będzie ważny przez rok). 2. Wnieś kaucję w wysokości 20 zł – dzięki niej możesz samodzielnie rejestrować się przez internet. 3. Zarejestruj się online lub przyjdź na zajęcia, skanując kod z aplikacji Medicover lub wysyłając kod SMSem. 4. Na miejscu dokonaj płatności za zajęcia w wysokości 10–15 zł, w zależności od wybranego pakietu. Odwołanie rezerwacji: zajęcia wieczorne – do godz. 12:00 tego samego dnia, zajęcia poranne – do godz. 18:00 dnia poprzedzającego. Nieodwołanie rezerwacji skutkuje utratą kaucji.",
+    "howToCall": "Call us",
+    "howToEmail": "Send an email"
   }
 }

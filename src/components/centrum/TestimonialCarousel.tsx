@@ -7,7 +7,8 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CarouselArrows } from "./CarouselArrows";
 
-export type Testimonial = { quote: string; name: string };
+/** Some pages quote clients anonymously, so `name` is optional. */
+export type Testimonial = { quote: string; name?: string };
 
 type TestimonialCarouselProps = {
   heading: string;
@@ -40,7 +41,9 @@ export function TestimonialCarousel({ heading, items }: TestimonialCarouselProps
                 &ldquo;
               </span>
               <p className="text-body">{item.quote}</p>
-              <footer className="text-label font-light uppercase tracking-[1px]">{item.name}</footer>
+              {item.name ? (
+                <footer className="text-label font-light uppercase tracking-[1px]">{item.name}</footer>
+              ) : null}
             </blockquote>
           ))}
         </div>
