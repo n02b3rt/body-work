@@ -1,26 +1,89 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f9f7f0;
+  --foreground: #001e3d;
+  --brand-navy: #001e3d;
+  --brand-navy-soft: rgb(0 30 61 / 0.4);
+  --brand-surface: #f9f7f0;
+  --brand-green: #2c8657;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-navy-soft: var(--brand-navy-soft);
+  --color-brand-surface: var(--brand-surface);
+  --color-brand-green: var(--brand-green);
+  --font-sans: var(--font-plus-jakarta);
+
+  /* The reference uses two distinct breakpoints, confirmed by inspecting which media
+   * query each of its class prefixes lives in — don't collapse them into one:
+   *   `ug:`/`eo:` → 1340px: full nav row vs. hamburger-only. The eight nav labels
+   *      need ~850px, which only fits from 1340px up, so this must NOT be lowered.
+   *   `ul:`/`ho:` → 1060px: the type scale, header row 2, and the desktop-vs-floating
+   *      Akademia button. */
+  --breakpoint-nav: 1340px;
+  --breakpoint-wide: 1060px;
+
+  /* Type scale copied verbatim from the reference site's own stylesheet
+   * (scripts/scrape/scraped/assets/css/auto.css) — its page-builder names are in
+   * comments so any value can be re-verified against the source. Don't invent
+   * sizes outside this scale; see the table in docs/scraped-site-map.md. */
+  --text-label: 0.7934rem; /* f2.25 — nav links, small caps labels, attributions */
+  --text-label--line-height: 1.125rem;
+  --text-btn: 0.8815rem; /* f2.5s2 — button labels (with 0.1em tracking, uppercase) */
+  --text-btn--line-height: 1.125rem;
+  --text-body: 1.1019rem; /* f3.125s3 — every body paragraph on the page */
+  --text-body--line-height: 1.53125rem;
+  --text-partner: 1.1278rem; /* f3 — "NASI PARTNERZY" label */
+  --text-partner--line-height: 1.5rem;
+  --text-value: 1.4104rem; /* f4 — footer contact values, mobile */
+  --text-value--line-height: 2rem;
+  --text-value-lg: 2.1157rem; /* f6s4 — footer contact values, desktop */
+  --text-value-lg--line-height: 2.5rem;
+  --text-h-menu: 2.1157rem; /* f6s3 — mega-menu column headings */
+  --text-h-menu--line-height: 2.25rem;
+  --text-h-tile: 2.4683rem; /* f7s3 — service tile headings */
+  --text-h-tile--line-height: 2.5rem;
+  --text-h-mobile: 2.4683rem; /* f7s4 — every section heading below `lg` */
+  --text-h-mobile--line-height: 2.75rem;
+  --text-statement: 2.4683rem; /* f7s6 — the oversized opening-statement paragraph */
+  --text-statement--line-height: 3.25rem;
+  --text-h-sub: 3.1735rem; /* f9s5 — "Poznaj opinie naszych klientów:" */
+  --text-h-sub--line-height: 3.5rem;
+  --text-h-hero: 4.2313rem; /* f12s4 — hero + newsletter headings */
+  --text-h-hero--line-height: 4rem;
+  --text-h-section: 4.2313rem; /* f12s5 — standard section heading, desktop */
+  --text-h-section--line-height: 4.25rem;
+  /* f50 (17.6305rem) is JS-fitted to the container width on the reference. Clamped
+   * here so it still fills a normal desktop but can't keep growing on ultrawide. */
+  --text-h-display: clamp(3.5rem, 17vw, 17.6305rem);
+  --text-h-display--line-height: 0.85;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Reserve the scrollbar gutter permanently. Locking body scroll while the menu is
+ * open would otherwise remove the scrollbar, widen the viewport, and visibly shift
+ * the fixed header plus all centred content — this keeps opening the menu jump-free
+ * without any JS width compensation. */
+html {
+  scrollbar-gutter: stable;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Infinite partner-logo marquee (PartnerLogos) — the track is duplicated in markup,
+ * so a -50% shift is exactly one copy's width, giving a seamless loop. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }

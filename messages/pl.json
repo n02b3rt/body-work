@@ -1,0 +1,1469 @@
+{
+  "Nav": {
+    "personalTraining": "Trening personalny",
+    "personalTrainingIndividual": "Trening indywidualny",
+    "personalTrainingPairs": "Trening w parze",
+    "personalTrainingAssessment": "Ocena funkcjonalna",
+    "personalTrainingTrainers": "Trenerzy",
+    "physiotherapy": "Fizjoterapia",
+    "physiotherapyManual": "Terapia manualna",
+    "physiotherapyRehab": "Rehabilitacja ruchowa",
+    "physiotherapyBelly": "Zdrowy brzuch",
+    "physiotherapySpecialists": "Specjaliści",
+    "groupTraining": "Trening grupowy",
+    "groupTrainingClasses": "Zajęcia grupowe",
+    "groupTrainingPlan": "Plan Zdrowej Zmiany",
+    "groupTrainingSchedule": "Grafik zajęć",
+    "groupTrainingMedicover": "Medicover",
+    "dietetics": "Dietetyka",
+    "dieteticsSpecialist1": "Iwona Stachowiak",
+    "dieteticsSpecialist2": "Magdalena Hajduk-Warchoł",
+    "bodylab": "Bodylab",
+    "bodylabVald": "Technologia VALD",
+    "bodylabComposition": "Analiza składu ciała",
+    "pricing": "Cennik",
+    "massage": "Masaż",
+    "blog": "Blog",
+    "contact": "Kontakt"
+  },
+  "Header": {
+    "logoAlt": "Logo BODYWORK",
+    "tagline": "Ciało to twój przyjaciel",
+    "openMenu": "Otwórz menu",
+    "closeMenu": "Zamknij menu",
+    "instagramAlt": "Ikona Instagram",
+    "facebookAlt": "Ikona Facebook",
+    "mapDirections": "Mapa dojazdu",
+    "languageSwitch": "EN"
+  },
+  "Hero": {
+    "title": "CIAŁO. TWÓJ PRZYJACIEL.",
+    "subtitle": "Sprawne ciało to wolność, która daje Ci siłę, by móc jak najlepiej wyrażać się w życiu i sporcie!"
+  },
+  "News": {
+    "heading": "News",
+    "items": [
+      {
+        "title": "Relacja z Warsztatu dla Kobiet."
+      },
+      {
+        "title": "Plan Zdrowej Zmiany. Nowa edycja! Start: 11.05.",
+        "detailTitle": "Popraw sylwetkę w 6 tygodni!",
+        "detail": "„Plan zdrowej zmiany” to profesjonalny program motywujący do rozpoczęcia aktywnego i zdrowego stylu życia. Przez 6 tygodni będziemy Cię prowadzić, szkolić, trenować i wspierać w każdym możliwym aspekcie. Termin projektu: 16.03.2026 – 27.04.2026, spotkanie organizacyjne 09.03.2026. Harmonogram treningów: pon 20:30, śr 20:30, pt 19:30."
+      },
+      {
+        "title": "Warsztaty dla Biegaczy. 09.05. w Poznaniu."
+      },
+      {
+        "title": "Dołącz do naszej społeczności na Instagramie i Facebooku.",
+        "detailTitle": "Zajrzyj na nasze social media po...",
+        "detail": "Proste i skuteczne ćwiczenia, które możesz wdrożyć od razu. Wskazówki do codziennej aktywności. Inspirujące historie innych klubowiczów. Pomysły na poprawę postawy, mobilności i siły. Wsparcie i motywację, które dodadzą Ci energii na każdy dzień."
+      },
+      {
+        "title": "Ocena funkcjonalna w promocyjnej cenie.",
+        "detailTitle": "Sprawdź swoją sprawność!",
+        "detail": "Pierwsze spotkanie z trenerem to tzw. ocena sprawności. Podczas kilku prostych ćwiczeń trener sprawdza co działa dobrze, a nad czym należy popracować podczas treningów. Ta ocena jest dla Ciebie i dla trenera — pomaga zbudować plan treningowy i weryfikować postępy. Teraz możesz nabyć ocenę funkcjonalną w specjalnej promocyjnej cenie!"
+      }
+    ]
+  },
+  "FriendlySpace": {
+    "heading": "Przyjazna przestrzeń.",
+    "body": "BODYWORK® to plac zabaw dla Twojego ciała. Otwarta przestrzeń z wolnymi ciężarami, funkcjonalnymi przyrządami, pasem bieżni lekkoatletycznej oraz maszynami oporowymi — wszystkim co jest niezbędne dla przygotowania fizycznego i rehabilitacji. Uzupełniają ją gabinety medyczne, dietetyczne oraz laboratorium biomechaniczne, strefa regeneracji z sauną i masażami oraz bar ze zdrowymi posiłkami, komponowanymi przez naszych dietetyków.",
+    "cta": "Zobacz galerię"
+  },
+  "Statements": {
+    "balancedFitnessHeading": "Zrównoważony rozwój sprawności.",
+    "balancedFitnessBody": "Naszym celem jest zrównoważony rozwój sprawności, który wspiera zdrowie, sportową długowieczność oraz umożliwia bezpieczny i możliwie szybki powrót do aktywności po urazie lub chorobie. Łączymy najlepsze praktyki przygotowania motorycznego, nauk o sporcie, medycyny sportowej oraz nowoczesnej rehabilitacji.",
+    "movementTool": "Ruch to nasze najważniejsze narzędzie pracy.",
+    "teachPotentialHeading": "Uczymy jak mądrze i skutecznie wykorzystać potencjał ciała.",
+    "teachPotentialBody": "Rozwijamy kluczowe elementy sprawności, które przekładają się na lepsze zdrowie, sylwetkę i wyniki sportowe. Każdy program tworzymy indywidualnie, w oparciu o aktualną wiedzę medyczną, aby zapobiegać kontuzjom, zmniejszać ból i rozwijać potencjał Twojego ciała.",
+    "healthProcessHeading": "Wierzymy, że zdrowie nie jest stanem, lecz procesem.",
+    "healthProcessBody": "To dynamiczna równowaga wielu elementów: ciała, genetyki, psychiki, relacji społecznych, odporności na stres, regeneracji oraz jakości odżywiania. To świadome podejście do profilaktyki — regularne monitorowanie parametrów funkcjonalnych, badania kontrolne i szybka reakcja na sygnały ostrzegawcze. Wymaga zaangażowania, uważności i mądrych wyborów.",
+    "learnMore": "Dowiedz się więcej",
+    "joinBodywork": "Dołącz do Bodywork.",
+    "showLess": "Zwiń"
+  },
+  "Services": {
+    "personalTraining": "Trening personalny",
+    "groupTraining": "Trening grupowy",
+    "physiotherapy": "Fizjoterapia",
+    "dietetics": "Dietetyka",
+    "massage": "Masaż",
+    "academy": "Akademia szkoleniowa"
+  },
+  "Team": {
+    "heading": "Zespół.",
+    "body": "Nasz zespół tworzą wysokiej klasy specjaliści, pracujący w koncepcji treningu medycznego i sportowego, uzupełnionego o nowoczesne metody terapii manualnej oraz dietetykę. Posiadają wiedzę i umiejętności wywodzące się z profesjonalnego sportu, rehabilitacji i coachingu. W oparciu o specjalnie przygotowany system rozwoju osobistego BODYWORK, pomogą Ci osiągnąć zamierzone rezultaty.",
+    "cta": "Poznaj nasz zespół"
+  },
+  "MeetUs": {
+    "heading": "Spotkajmy się! Mamy wiele do opowiedzenia.",
+    "body": "Zadzwoń pod nr {phone} i umów się na wizytę u jednego z naszych specjalistów: trenera, fizjoterapeuty lub dietetyka. Pracownicy recepcji udzielą Ci wszelkich dodatkowych, niezbędnych informacji. Zapraszamy również do kontaktu poprzez e-mail: {email}",
+    "call": "Zadzwoń",
+    "sendEmail": "Wyślij e-mail"
+  },
+  "Carousel": {
+    "previous": "Poprzedni",
+    "next": "Następny"
+  },
+  "Testimonials": {
+    "heading": "Poznaj opinie naszych klientów:",
+    "items": [
+      {
+        "quote": "Siłownia dla tych co nie lubią „siłowni”, czyli stereotypowego miejsca dla pakerów. Bardzo przyjemna przestrzeń, profesjonalne podejście. Kompetentny i zaangażowany zespół. Bardzo duża wartość dodana do mojego życia. Polecam.",
+        "name": "Aleksandra Ossowska"
+      },
+      {
+        "quote": "BodyWork to miejsce, do którego naprawdę chce się wracać. Kameralne studio, świetnie zorganizowane i przyjazne dla każdego – niezależnie od poziomu. Przez ponad dwa lata trenowałam z Martyną – najlepsza trenerka, z jaką miałam okazję ćwiczyć. Profesjonalna, zaangażowana, z ogromną wiedzą i świetnym podejściem. Z całego serca polecam!",
+        "name": "Kaja Rutkowska"
+      },
+      {
+        "quote": "Body Work to najlepsze miejsce do jakiego mogłem trafić. Stworzone przez ludzi z pasją, dla ludzi którzy potrzebują pomocy bądź poprawy jakości życia. Profesjonalizm, empatia, uśmiech i gwarantowana fantastyczna atmosfera. Ćwiczenia są wymagające, ale dzięki nim ciągle progresuję. Polecam wszystkim.",
+        "name": "Piotr Bresiński"
+      },
+      {
+        "quote": "Przyjemne miejsce, profesjonalna kadra. Ćwiczy się z przyjemnością.",
+        "name": "Karolina Grzesiek"
+      },
+      {
+        "quote": "Świetne, kameralne miejsce gdzie otrzymacie pełne wsparcie fachowych trenerów. Szczególnie dziękuję Dominice, która pomogła mi zrealizować mój cel sportowy.",
+        "name": "Artur Szybruk"
+      },
+      {
+        "quote": "Gorąco polecam amatorów i zawodników wszelkich sportów. Znajdziecie tutaj specjalistów w swoim fachu. Trening w BodyWork to czysta przyjemność w koleżeńskim klimacie. Lubię tu przebywać i przygotowywać się do zawodów.",
+        "name": "Kamil Leśniak"
+      },
+      {
+        "quote": "Super miejsce, przesympatyczna atmosfera, pyszne kawy i koktajle, wszystko zawsze zadbane i czyściutkie. Miejsce warte wszystkich pieniędzy! I co najważniejsze — Dominika to najlepsza trenerka na świecie!",
+        "name": "Adrianna"
+      }
+    ]
+  },
+  "Newsletter": {
+    "heading": "Zapisz się do newslettera.",
+    "subheading": "Bądź na bieżąco.",
+    "placeholder": "Wpisz tutaj swój e-mail...",
+    "submit": "Zapisz się",
+    "consent": "Wysłanie wiadomości jest równoznaczne z akceptacją <link>regulaminu</link>.",
+    "success": "Zostałeś pomyślnie dodany do naszego newslettera.",
+    "error": "Coś poszło nie tak. Spróbuj ponownie."
+  },
+  "Partners": {
+    "heading": "Nasi partnerzy"
+  },
+  "Footer": {
+    "kontaktHeading": "Kontakt",
+    "addressLabel": "Adres",
+    "addressLine1": "BODYWORK",
+    "addressLine2": "ul. Kajki 14",
+    "addressLine3": "60-573 Poznań",
+    "receptionLabel": "Recepcja",
+    "phone": "609 805 660",
+    "email": "info@body-work.pl",
+    "hoursLabel": "Godziny otwarcia",
+    "hoursLine1": "Pon – Pt: 7:00 – 22:00",
+    "hoursLine2": "Sb: 10:00 – 14:00",
+    "hoursLine3": "Nd: Zamknięte",
+    "showOnMap": "Pokaż na mapie",
+    "getDirections": "Nawiguj",
+    "privacyPolicy": "Polityka prywatności",
+    "terms": "Regulamin",
+    "cookies": "Cookies",
+    "copyright": "BODYWORK © {year}"
+  },
+  "PersonalTraining": {
+    "title": "Trening personalny",
+    "introEyebrow": "Specjalizacje i system treningowy",
+    "introHeading": "Trening dopasowany do Ciebie.",
+    "introBody1": "BODYWORK to pierwsze w Polsce tak kompleksowe miejsce oparte na zintegrowanym podejściu do treningu personalnego i fizjoterapii. Ruch, indywidualnie dobrany, wielopłaszczyznowy i nastawiony na trwałe efekty to nasze główne narzędzie pracy. W centrum znajduje się ciało, najbardziej doskonała maszyna treningowa.",
+    "introBody2": "W zależności od Twoich indywidualnych potrzeb i aktualnego stanu zdrowia, wspólnie dobierzemy jeden z trzech głównych kierunków pracy. Pamiętaj, że nasze podejście jest elastyczne – granice między specjalizacjami często się przenikają, by jak najlepiej odpowiedzieć na to, czego w danej chwili potrzebuje Twoje ciało.",
+    "specializations": [
+      {
+        "heading": "Trening medyczny.",
+        "body": "To propozycja dla osób powracających do aktywności po kontuzjach, zabiegach lub zmagających się z dolegliwościami bólowymi układu ruchu. Stanowi również kluczowe wsparcie w procesie leczenia chorób przewlekłych i cywilizacyjnych, gdzie odpowiednio dobrany ruch jest niezbędnym elementem terapii. Skupiamy się na bezpiecznym przywracaniu funkcji, budowaniu stabilizacji i fundamentu pod dalszy rozwój Twojej sprawności."
+      },
+      {
+        "heading": "Trening funkcjonalny.",
+        "body": "Kierunek dla każdego, kto chce cieszyć się sprawnym ciałem, zdrową postawą i wysportowaną sylwetką na co dzień. Poprzez pracę nad wszechstronnością ruchu, poprawiamy mobilność i siłę, które realnie przekładają się na komfort życia i swobodę w podejmowaniu codziennych wyzwań. To trening oparty na naturalnych wzorcach ruchowych, który uczy Twoje ciało optymalnej pracy w pełnym zakresie."
+      },
+      {
+        "heading": "Trening motoryczny.",
+        "body": "Dedykowany osobom, które chcą świadomie rozwijać swój potencjał fizyczny i poprawić wyniki w wybranej dyscyplinie sportu. Skupiamy się na precyzyjnym kształtowaniu cech takich jak moc, szybkość czy wytrzymałość, przy jednoczesnym budowaniu odporności tkanek na przeciążenia. To programowanie oparte na dowodach, które pozwala zarówno profesjonalistom, jak i pasjonatom trenować mądrzej i bezpieczniej."
+      }
+    ],
+    "services": [
+      {
+        "heading": "Trening indywidualny.",
+        "body": "Praca z trenerem osobistym to najbardziej skuteczny i najszybszy sposób osiągnięcia celu, niezależnie od tego czy celem tym będzie sprawność fizyczna, przemiana sylwetki, wynik sportowy czy pozbycie się bólu. Każdy cykl treningów rozpoczyna się od diagnostyki, zdefiniowania celu i ustalenia indywidualnego planu treningowego. Później pozostaje już tylko praca pod okiem doświadczonego trenera, który zmotywuje Cię do działania!"
+      },
+      {
+        "heading": "Trening w parze.",
+        "body": "Trening w duecie to połączenie świadomej pracy z ciałem z czasem spędzonym razem – jakościowo, aktywnie i z uśmiechem. To idealna opcja dla tych, którzy chcą dzielić proces budowania formy z drugą osobą – partnerem, przyjacielem, rodzeństwem. Wspólna obecność zwiększa motywację, przełamuje bariery i w naturalny sposób dodaje energii do działania. Każda osoba w parze realizuje indywidualny plan, ale ćwiczycie razem – wspierając się."
+      },
+      {
+        "heading": "Ocena funkcjonalna.",
+        "body": "To pierwszy krok w stronę świadomego ruchu. Podczas szczegółowej oceny funkcjonalnej analizujemy Twoje wzorce ruchowe, zakresy mobilności, stabilność i sposób oddychania. To właśnie na tej podstawie projektujemy indywidualny plan treningowy, który nie tylko uwzględnia Twoje cele, ale przede wszystkim wspiera zdrowie i eliminuje potencjalne źródła bólu. Dzięki ocenie funkcjonalnej zyskujesz jasny obraz swojej sprawności oraz mapę prowadzącą do jej rozwoju."
+      }
+    ],
+    "assessmentHeading": "Sprawdź swoją sprawność.",
+    "assessmentBody1": "Pierwsze spotkanie z trenerem to tzw. ocena sprawności. Podczas kilku prostych ćwiczeń trener sprawdza co działa dobrze, a nad czym należy popracować podczas treningów.",
+    "assessmentBody2": "Pamiętaj – ta ocena jest dla Ciebie i dla trenera. Pomaga zbudować plan treningowy i weryfikować postępy.",
+    "assessmentCta": "Kup teraz 169,-",
+    "testimonialsHeading": "Opinie:",
+    "testimonials": [
+      {
+        "quote": "Ćwiczymy w Body Work od ponad 4 lat uczestnicząc w treningach personalnych dla dwóch osób i odkąd tam trafiliśmy, nie wyobrażamy sobie lepszego miejsca. Wykwalifikowana kadra - trafiliśmy pod skrzydła wspaniałych Trenerek Olgi i Dominiki oraz Dietetyczki Marty :), serdeczna atmosfera, czystość, przestrzeń. Bardzo polecamy!",
+        "name": "Olga Winkowska"
+      },
+      {
+        "quote": "Super miejsce do treningów. Trafiłem z bólem pleców i już po pierwszym spotkaniu z trenerem personalnym Mikołajem wiedziałem ze będzie dobrze. Fajne, profesjonalne podejście, przemiła atmosfera i bez nudy w trakcie treningu. Ból pleców minął po kilku spotkaniach a ja ćwiczę już ponad rok 🙂 Jeśli ktoś nie lubi zatłoczonych sieciowych klubów to szczerze polecam Bodywork.",
+        "name": "Paweł Tymrakiewicz"
+      },
+      {
+        "quote": "Bodywork jako same miejsce już od wejścia Was zachwyci. Kameralna i spokojna atmosfera, świetny sprzęt, przestrzeń i co bardzo ważne dobra energia. Idealne miejsce dla osób, które chcą utrzymać swoją kondycję, poprawić swoje wyniki lub dla osób po kontuzjach i operacjach, które potrzebują wrócić do pełnej sprawności. Wdzięczna x nieskończoność + polecam.",
+        "name": "Magdalena O."
+      },
+      {
+        "quote": "Miałam/mam wielkie szczęście współpracować z Gosią, która posiada ogromną wiedzę i doświadczenie. Już na pierwszym spotkaniu zdiagnozowała mój problem i dostosowała indywidualne ćwiczenia. Wspomnę, że nikt wcześniej nie potrafił zdiagnozować przyczyny przez wiele miesięcy.",
+        "name": "Magdalena"
+      },
+      {
+        "quote": "Moim zdaniem najlepsza siłownia w Poznaniu - ogromna odmiana po różnych sieciówkach: profesjonalizm, spokój, bardzo dobrze zorganizowana przestrzeń, różnorodna oferta, dostęp do specjalistów z różnych dziedzin, sauna, a do tego jeszcze kucharki przygotowujące znakomite posiłki (ach, te deserki!).",
+        "name": "Jacek Jaciubek"
+      },
+      {
+        "quote": "Bardzo polecam Kasię Adamek. U mnie poprawa zdrowia jest olbrzymia! Kasia jest profesjonalna, zna miliony różnych ćwiczeń i zawsze znajduje najbardziej odpowiednie dla Ciebie. W dodatku to przemiła i ciepła osoba. Naprawdę warto!",
+        "name": "Magda Przydział"
+      }
+    ],
+    "howToHeading": "Jak skorzystać z naszych usług?",
+    "howToBody": "Zadzwoń pod nr 609 805 660 i umów się na trening. Pracownicy recepcji udzielą Ci wszelkich dodatkowych, niezbędnych informacji.",
+    "howToCall": "Zadzwoń",
+    "howToPricing": "Cennik",
+    "teamHeading": "Zespół.",
+    "teamCta": "Poznaj trenerów",
+    "spaceHeading": "Przestrzeń.",
+    "spaceCta": "Zobacz"
+  },
+  "TrainingReasons": {
+    "heading": "Kiedy warto?",
+    "items": [
+      {
+        "heading": "Redukcja tkanki tłuszczowej",
+        "body": "Zgodnie z danymi PAP ponad 60% Polaków ma nadwagę, z czego 25% to osoby otyłe. Niestety dotyka to również w coraz większym stopniu dzieci i nastolatków. Zdaniem specjalistów otyłość i nadwaga powodują około 300 różnego rodzaju powikłań zdrowotnych. Co zatem zrobić? Zalecenia są dość oczywiste – właściwa dieta i zwiększona aktywność ruchowa. Jak zawsze jednak „diabeł tkwi w szczegółach”. I tak, właściwa dieta nie oznacza wcale zmniejszenia ilości jedzenia, a trening fizyczny również musi być wykonywany odpowiednio, aby przekładał się na spalanie tkanki tłuszczowej. Stąd niezwykle ważne jest, aby rozpocząć proces odchudzania w sposób przemyślany i z założeniem długotrwałego utrzymania efektów.",
+        "image": "/images/trening-personalny/reasons/fat-loss.webp"
+      },
+      {
+        "heading": "Poprawa sylwetki",
+        "body": "Zdecydowana większość społeczeństwa prowadzi siedzący styl życia (praca biurowa, transport, rozrywka przed telewizorem). Długotrwałe przebywanie w tej pozycji przyczynia się do nadmiernych i stałych napięć w okolicy karku, zamknięcia klatki piersiowej, osłabienia mięśni grzbietu, a w konsekwencji permanentnych dolegliwości bólowych i niestety nieproporcjonalnej, skrzywionej postawy ciała. Trening, którego założeniem jest poprawa sylwetki, ukierunkowany jest przede wszystkim na otwarcie i wyprostowanie naszego ciała, a także na poprawę ruchomości i zwiększenie elastyczności. Wyprostowana i smukła sylwetka to nie jedyne efekty takiego treningu. Czujemy się sprawniejsi, bardziej rozciągnięci, swobodniej nam się oddycha i odczuwamy więcej radości na codzień.",
+        "image": "/images/trening-personalny/reasons/posture.webp"
+      },
+      {
+        "heading": "Budowanie siły",
+        "body": "Siła to nie tylko liczba kilogramów, które podnosisz, ale także fundament stabilności, równowagi i wydolności całego ciała. Stawiamy na kompleksowe podejście do treningu siłowego, które łączy rozwój masy mięśniowej z poprawą koordynacji i pracy układu nerwowego. Nasz plan treningowy uwzględnia technikę, progresję obciążeń i różnorodne metody, które angażują mięśnie w sposób funkcjonalny. W trakcie treningów budujemy siłę nie tylko po to, by poprawić wydolność, ale by zwiększyć ochronę przed kontuzjami i poprawić codzienną sprawność. Skupiamy się na prawidłowej postawie i zaawansowanych ćwiczeniach, które angażują całe ciało, rozwijając siłę w różnych zakresach ruchu. Każdy trening dostosowujemy do indywidualnych potrzeb i celów, pomagając Ci osiągnąć najlepsze rezultaty w możliwie najbezpieczniejszy sposób.",
+        "image": "/images/trening-personalny/reasons/strength.webp"
+      },
+      {
+        "heading": "Przygotowanie motoryczne",
+        "body": "Kompleksowe przygotowanie motoryczne w BODYWORK® opiera się na potrzebach konkretnej dyscypliny i poziomu sportowego. Współpracujemy zarówno z zawodnikami sportów indywidualnych – takich jak lekkoatletyka, tenis czy sporty walki – jak i zespołowych, w tym piłki nożnej, ręcznej, siatkówki czy hokeja. W pracy wykorzystujemy nowoczesne technologie, m.in. platformę VALD, system Dynamo czy elektrostymulację Compex, co pozwala precyzyjnie monitorować postępy i optymalnie dostosowywać obciążenia treningowe. Wspieramy zawodników na każdym etapie rozwoju – od dzieci i młodzieży po profesjonalistów, w tym mistrzów świata i reprezentantów kadr narodowych. Trening motoryczny koncentruje się na rozwijaniu siły, mocy, szybkości, koordynacji, mobilności i wytrzymałości, zawsze z uwzględnieniem specyfiki dyscypliny oraz indywidualnych predyspozycji sportowca.",
+        "image": "/images/trening-personalny/reasons/athletic.webp"
+      },
+      {
+        "heading": "Trening medyczny",
+        "body": "Trening medyczny to indywidualnie dopasowana aktywność ruchowa, której celem jest przywrócenie sprawności, redukcja bólu i poprawa jakości życia. Stanowi naturalne przedłużenie procesu fizjoterapii – moment, w którym ciało jest gotowe na większe wyzwania, ale wciąż wymaga mądrego i bezpiecznego wsparcia. Pracujemy nad przywracaniem prawidłowych wzorców ruchowych, wzmacniamy osłabione struktury, budujemy stabilność i uczymy ciało funkcjonować efektywnie – bez kompensacji i ograniczeń. Trening medyczny jest dla każdego: osób wracających do aktywności po kontuzji, zmagających się z bólem przeciążeniowym, prowadzących siedzący tryb życia, a także tych, którzy chcą poruszać się swobodnie i świadomie. To ruch z konkretnym celem – Twoim celem.",
+        "image": "/images/trening-personalny/reasons/medical.webp"
+      },
+      {
+        "heading": "Trening kobiet w ciąży",
+        "body": "Działanie terapeuty polega tu na zastosowaniu technik powodujących rozluźnienie napiętych struktur oraz zmniejszających obrzęki. Dodatkowo możemy zastosować kinesiotaping, gdzie poprzez użycie plastra i zastosowanie odpowiednich technik wspomagamy rozciągnięcie mięśni lub też pobudzamy je do pracy. Dobrym uzupełnieniem działań w obszarze gabinetu jest indywidualnie dobrany trening, zarówno o charakterze medycznym jak i funkcjonalnym. Dobra kondycja organizmu nie tylko ułatwia poszczególne fazy porodu, ale przede wszystkim wpływa na szybszą regenerację po porodzie. Kobiety ćwiczące znacznie lepiej przechodzą okres połogu i łatwiej wrócić im do formy.",
+        "image": "/images/trening-personalny/reasons/pregnancy.webp"
+      },
+      {
+        "heading": "Trening osób starszych",
+        "body": "Forma ruchu dostosowana do potrzeb i możliwości osób w wieku dojrzałym. Głównym celem treningu jest wspieranie sprawności w codziennym funkcjonowaniu – poprawa siły mięśniowej, równowagi, koordynacji czy zakresu ruchu. Regularna aktywność pomaga również zmniejszać dolegliwości bólowe, wspiera ogólne samopoczucie i zachowanie niezależności na co dzień – tak, by jak najdłużej cieszyć się pełnią aktywnego życia. Dobrze zaplanowany trening to także ważny element profilaktyki – zmniejsza ryzyko upadków, urazów i przeciążeń. Podczas treningu zwracamy uwagę na bezpieczeństwo i tempo pracy, tak by każdy czuł się komfortowo i miał przestrzeń do wykonywania ćwiczeń w swoim rytmie. Trening prowadzony jest pod okiem fizjoterapeuty lub trenera, który dobiera ćwiczenia indywidualnie, z troską o zdrowie i możliwości danej osoby.",
+        "image": "/images/trening-personalny/reasons/seniors.webp"
+      },
+      {
+        "heading": "Trening dzieci i młodzieży",
+        "body": "Treningi dla dzieci i młodzieży są starannie zaprojektowane, aby wspierać ich rozwój fizyczny w sposób bezpieczny i efektywny. Programy treningowe są dostosowane do wieku, etapu rozwoju oraz indywidualnych potrzeb, co pozwala na osiąganie optymalnych efektów w zakresie poprawy koordynacji, siły, gibkości oraz wytrzymałości. Kładziemy szczególny nacisk na rozwój podstawowych umiejętności motorycznych, które stanowią fundament przyszłej aktywności sportowej. Współpracujemy zarówno z dziećmi, które dopiero zaczynają swoją przygodę ze sportem, jak i z młodymi zawodnikami, którzy aspirują do osiągnięć na poziomie wyczynowym. Nasze treningi są oparte na metodach, które uwzględniają specyficzne potrzeby młodych sportowców, pomagając im w prewencji kontuzji oraz rozwijaniu umiejętności niezbędnych w danej dyscyplinie. Dzięki odpowiedniemu podejściu, nasze zajęcia wspierają zarówno rozwój fizyczny, jak i budowanie pewności siebie oraz dyscypliny, które są kluczowe w sportowej drodze młodych zawodników.",
+        "image": "/images/trening-personalny/reasons/youth.webp"
+      }
+    ]
+  },
+  "IndividualTraining": {
+    "title": "Trening indywidualny.",
+    "assessmentHeading": "Sprawdź swoją sprawność!",
+    "assessmentBody": "Pierwsze spotkanie z trenerem to tzw. ocena sprawności. Podczas kilku prostych ćwiczeń trener sprawdza co działa dobrze, a nad czym należy popracować podczas treningów. Pamiętaj – ta ocena jest dla Ciebie i dla trenera. Pomaga zbudować plan treningowy i weryfikować postępy. Teraz możesz nabyć ocenę funkcjonalną w specjalnej promocyjnej cenie.",
+    "assessmentSignUp": "Zapisz się",
+    "assessmentMore": "Więcej informacji",
+    "sections": [
+      {
+        "heading": "Przebieg treningu.",
+        "body": "Sesja treningowa trwa 55 minut. W zależności od indywidualnych preferencji możesz trenować raz lub więcej razy w tygodniu. Najlepsze rezultaty uzyskuje się przy dwóch lub trzech sesjach na tydzień. Część z nich może być realizowana samodzielnie, zgodnie z wcześniej ustalonym planem. Pierwsze spotkanie z trenerem jest kluczowe. Z jednej strony chodzi o ustalenie celu (np. zmniejszenie masy ciała, poprawa sylwetki), z drugiej o sprawdzenie na jakim etapie jesteś, jeżeli chodzi o Twoją sprawność i rozwój fizyczny. W tym celu wykonywana jest tzw. ocena funkcjonalna. Jest to zestaw różnych ćwiczeń weryfikujących zdolności ruchowe, siłę, koordynację, wytrzymałość itp. W ten sposób trener uzyskuje dostęp do wiedzy o Twoim ciele, dzięki czemu może stworzyć skuteczny plan treningowy."
+      },
+      {
+        "heading": "Plan treningowy.",
+        "body": "Trenując regularnie (2-3 razy w tygodniu), pierwsze rezultaty powinieneś zauważyć już w pierwszym miesiącu pracy. Właśnie w początkowym okresie często zachodzi największy postęp. Jeżeli masz nadwagę lub nie byłeś wcześniej zbyt aktywny fizycznie, ciało szybko da Ci sygnał, że jest „zadowolone” z podejmowanego wysiłku. Rozpoczęcie pracy z ciałem czasem wymaga „przełamania się”. Dlatego warto, zwłaszcza na początku, skorzystać z pomocy trenera, który przygotuje odpowiedni plan treningowy oraz zmotywuje do działania. Jednocześnie będzie pilnować, aby trening rozwijał się stopniowo bez nadmiernego przeciążenia. W pewnym momencie trening przestaje być wyzwaniem, a staje się przyjemnością i radością. Jest codzienną rutyną, elementem wpisanym w cotygodniowy grafik zajęć."
+      },
+      {
+        "heading": "Dla kogo?",
+        "body": "Trening personalny jest dla każdego! Nie ma znaczenia w jakim jesteś wieku i jaki jest Twój stopień sprawności czy masa ciała. Właśnie dlatego, że ćwiczysz w formule „jeden na jeden”, Twój trener dopasowuje plan treningowy dokładnie pod Twoje indywidualne potrzeby. Bez wątpienia jest to najszybsza i najskuteczniejsza forma osiągnięcia celów na poziomie ciała. W Centrum BODYWORK pracujemy głównie w formule treningów personalnych. Jest u nas kameralnie, profesjonalnie i życzliwie. Nikt nikogo nie ocenia. Dlatego jeżeli odstraszają Cię zatłoczone kluby fitness, u nas znajdziesz spokój i zgrany, sympatyczny zespół, w każdej chwili służący pomocą."
+      },
+      {
+        "heading": "Dieta.",
+        "body": "Aby efekt treningu był w pełni widoczny, należy zadbać o właściwe odżywianie. Nie chodzi wcale o to, aby jeść mniej, przy zwiększonym wysiłku fizycznym, często musimy wręcz zacząć jeść więcej! Kluczowa jest natomiast zmiana naszych nawyków żywieniowych – nie tylko istotne jest co i w jakich ilościach spożywamy. Równie ważne są: częstotliwość posiłków, ilość spożywanych płynów, łączenie produktów żywieniowych itp. W zależności od celu treningu warto skorzystać z porady doświadczonego dietetyka. Jeżeli chciałbyś dowiedzieć się więcej o poradach dietetycznych w naszym Centrum zapraszamy do sekcji dietetycznej!"
+      }
+    ],
+    "sectionCta3": "Sprawdź cennik",
+    "sectionCta4": "Usługi dietetyczne",
+    "bandEyebrow": "Jak zacząć?",
+    "bandHeading": "Spotkaj się z trenerem personalnym!",
+    "bandBody": "Skorzystaj z pomocy osób, które w dziedzinie ruchu są specjalistami. Sprawdź czy taka forma pracy Ci odpowiada. Nie musisz od razu deklarować się na dłuższą formę współpracy. Przyjdź, zobacz i podejmij decyzję! Zapraszamy do kontaktu z recepcją naszego Centrum. Zadzwoń, aby uzyskać więcej informacji!",
+    "bandCall": "Zadzwoń i zapisz się",
+    "bandTrainers": "Poznaj trenerów",
+    "bookHeading": "Jak umówić się na pierwszy trening?",
+    "bookBody": "Skontaktuj się z nami (zadzwoń pod nr 609805660 lub napisz poprzez e-mail: info@body-work.pl) a pracownicy recepcji udzielą Ci wszelkich dodatkowych, niezbędnych informacji oraz zaproponują dogodny termin pierwszego spotkania.",
+    "bookCall": "Zadzwoń",
+    "bookEmail": "Wyślij e-mail"
+  },
+  "PairTraining": {
+    "title": "Trening w parze.",
+    "leadHeading": "Ruch Waszą wspólną przygodą!",
+    "leadBody": "Trening w parze to połączenie dbałości o zdrowie i sprawność fizyczną z wartościowym, aktywnym czasem spędzonym we dwoje. Niezależnie od tego, czy dopiero zaczynacie swoją przygodę z aktywnością fizyczną, czy chcecie urozmaicić dotychczasową rutynę, wspólne sesje z trenerem personalnym to świetna okazja do pracy nad formą w przyjaznej atmosferze. Dodatkową zaletą treningu w duecie jest wzajemna motywacja – obecność drugiej osoby często pomaga przełamać chwilowy brak energii i utrzymać systematyczność. Element zdrowej rywalizacji może pozytywnie wpłynąć na osiągane efekty, a wspólne ćwiczenia pozwalają wprowadzić więcej różnorodności i kreatywności do planu treningowego. To skuteczna i przyjemna forma pracy nad celami – zarówno indywidualnymi, jak i wspólnymi. Zabierz swojego małżonka, partnera albo przyjaciela – i zadbajcie o zdrowie wspólnie :)",
+    "leadContact": "Skontaktuj się z nami",
+    "leadPricing": "Cennik",
+    "sections": [
+      {
+        "heading": "Przebieg treningu.",
+        "body": "Każda sesja trwa 55 minut. W zależności od Waszych potrzeb i możliwości możecie trenować raz lub kilka razy w tygodniu – najlepsze efekty osiąga się przy dwóch lub trzech sesjach. Część treningów możecie realizować samodzielnie, zgodnie z przygotowanym wcześniej planem. Pierwsze spotkanie z trenerem ma kluczowe znaczenie – wspólnie określamy cele (np. redukcja masy ciała, poprawa sylwetki) oraz sprawdzamy Wasz aktualny poziom sprawności i rozwoju fizycznego. Dzięki temu powstaje spersonalizowany i skuteczny plan treningowy, który prowadzi Was do zamierzonych rezultatów."
+      },
+      {
+        "heading": "Plan treningowy.",
+        "body": "Trenując regularnie (2-3 razy w tygodniu), pierwsze rezultaty powinieneś zauważyć już w pierwszym miesiącu pracy. Właśnie w początkowym okresie często zachodzi największy postęp. Jeżeli masz nadwagę lub nie byłeś wcześniej zbyt aktywny fizycznie, ciało szybko da ci sygnał, że jest „zadowolone” z podejmowanego wysiłku. Rozpoczęcie pracy z ciałem czasem wymaga „przełamania się”. Dlatego warto, zwłaszcza na początku, skorzystać z pomocy trenera, który przygotuje odpowiedni plan treningowy oraz zmotywuje do działania. Jednocześnie będzie pilnować, aby trening rozwijał się stopniowo bez nadmiernego przeciążenia. W pewnym momencie trening przestaje być wyzwaniem, a staje się przyjemnością i radością. Jest codzienną rutyną, elementem wpisanym w cotygodniowy grafik zajęć."
+      },
+      {
+        "heading": "Dla kogo?",
+        "body": "Trening w parze to doskonała opcja dla osób, które chcą połączyć aktywność fizyczną ze wspólnie spędzonym czasem. Niezależnie od tego, czy przyjdziesz z partnerem, małżonkiem, czy przyjaciółką, treningi będą dostosowane do Waszych indywidualnych potrzeb i celów. Dzięki formule \"dwa na jeden\" możecie wspólnie pracować nad poprawą kondycji, siły, czy sprawności, a każdy z Was otrzyma odpowiednią uwagę i wsparcie trenera. W Centrum BODYWORK stawiamy na kameralną atmosferę, profesjonalizm i indywidualne podejście. Nasi trenerzy zadbają o to, abyście czuli się komfortowo i zmotywowani do działania. Jeśli unikasz zatłoczonych siłowni i preferujesz bardziej osobiste podejście, nasze treningi w parze to idealna opcja, by pracować nad celami, wspierając się nawzajem."
+      }
+    ],
+    "bookHeading": "Umów się na pierwszy trening.",
+    "bookBody": "Skorzystaj z pomocy osób, które są w tym zakresie specjalistami. Umów się na wizytę z trenerem personalnym i sprawdź czy taka forma pracy Ci odpowiada. Nie musisz od razu deklarować się na dłuższą współpracę. Przyjdź, zobacz i podejmij decyzję! Jeżeli masz jakiekolwiek pytania, skontaktuj się z nami! Pracownicy recepcji udzielą Ci wszelkich niezbędnych informacji oraz zaproponują dogodny termin pierwszego spotkania.",
+    "bookCall": "Zadzwoń",
+    "bookEmail": "Napisz"
+  },
+  "FunctionalAssessment": {
+    "title": "Trening z oceną funkcjonalną.",
+    "bandEyebrow": "Ocena funkcjonalna",
+    "bandHeading": "Sprawdź swoją sprawność!",
+    "bandBody": "Pierwsze spotkanie z trenerem to tzw. ocena sprawności. Podczas kilku prostych ćwiczeń trener sprawdza co działa dobrze, a nad czym należy popracować podczas treningów. Pamiętaj – ta ocena jest dla Ciebie i dla trenera. Pomaga zbudować plan treningowy i weryfikować postępy.",
+    "bandCta": "Kup teraz 169,-",
+    "whatHeading": "Czym jest ocena funkcjonalna?",
+    "whatBody": "Podczas spotkania trener posługuje się tzw. kartą oceny, czyli protokołem określającym poszczególne obszary Twojej sprawności fizycznej. Trener opisuje dane ćwiczenie i prosi Cię o jego wykonanie. Ćwiczenia są dobrane w taki sposób, aby zweryfikować szereg elementów mówiących o poziomie Twojej sprawności – jakie są Twoje zakresy ruchu i mobilność stawowa, zdolności motoryczne i koordynacyjne, siła, moc, wytrzymałość itp. Każde ćwiczenie oceniane jest w skali 0-3 (gdzie 0 – podczas ćwiczenia występuje ból, 3 – pełna zdolność prawidłowego wykonania ćwiczenia). Po przeprowadzeniu oceny powstaje „mapa” Twoich mocnych i słabych stron. Jest to znakomity punkt wyjściowy do ustalenia planu treningowego lub wskazania jakiego typu aktywności fizyczne są dla Ciebie najbardziej korzystne. W Centrum BODYWORK ocena funkcjonalna jest również pierwszym treningiem. Można zatem kontynuować pracę z trenerem na bazie przygotowanego planu treningowego lub wykorzystać ocenę dla własnej wiedzy i potrzeb.",
+    "blocks": [
+      {
+        "heading": "Przygotowanie.",
+        "body": "Jedyne co będziesz potrzebować to wygodny strój sportowy i sportowe obuwie. Warto pamiętać o posiłku, najlepiej na ok. 2 godziny przed spotkaniem. Podczas testów (a także w czasie treningów) nie powinniśmy być głodni (!), ale również nie powinno się spożywać jedzenia tuż przed treningiem. Przyda Ci się również woda – możesz ją zabrać ze sobą lub nabyć w naszym barze."
+      },
+      {
+        "heading": "Dobór trenera.",
+        "body": "Podczas rozmowy telefonicznej poprosimy Cię o bardzo krótkie przedstawienie Twojego celu i poziomu aktywności. Dla przykładu – Twoim celem może być chęć redukcji tkanki tłuszczowej, pozbycie się bólu pleców lub poprawienie ogólnej sprawności. Na podstawie tych informacji nasz pracownik dobierze odpowiedniego specjalistę. Oczywiście możesz również samemu wskazać trenera, z którym chciałbyś przeprowadzić testy."
+      },
+      {
+        "heading": "Przebieg.",
+        "body": "• 5 minut: krótka zapoznawcza rozmowa z trenerem, ustalenie Twoich celów (np. poprawa sylwetki, ogólna poprawa sprawności), przebytych kontuzji itp. • 45 minut: testy zgodne z kartą oceny (na sali treningowej) • 5 minut: podsumowanie wyników Możliwe, że po przeprowadzonym teście trener zaleci dodatkowy czas na „ochłonięcie” np. spacer na bieżni lub przejażdżkę na rowerze stacjonarnym."
+      }
+    ],
+    "bookHeading": "Umów się na trening.",
+    "bookBody": "Teraz możesz nabyć ocenę funkcjonalną w specjalnej PROMOCYJNEJ cenie. Podczas dokonywania zakupu w naszym sklepie online poprosimy Cię o pozostawienie danych kontaktowych – numeru telefonu i adresu email. Niezwłocznie po otrzymaniu potwierdzenia zakupu, osoba z recepcji skontaktuje się z Tobą i umówi dogodny dla Ciebie termin (od poniedziałku do piątku w godzinach 7.00-21.00). Jeśli chcesz umówić się telefonicznie, zapraszamy do kontaktu.",
+    "bookCta": "Zadzwoń"
+  },
+  "Trainers": {
+    "title": "Trenerzy.",
+    "leadHeading": "Dobry trener.",
+    "leadBody": "To ten, który pomaga osiągnąć zmiany nie tylko na poziomie sylwetki ciała, lecz również jest w stanie ocenić asymetrie funkcjonalne, usprawnić kręgosłup i poprawić wynik sportowy Klienta. W oparciu o specjalnie przygotowany system rozwoju osobistego BODYWORK, nasi trenerzy pomogą Ci osiągnąć zamierzone rezultaty.",
+    "bandEyebrow": "Trenerzy BODYWORK®",
+    "bandHeading": "Znajdź eksperta ruchu dla siebie!",
+    "bandBody": "W BODYWORK stawiamy na specjalizację i interdyscyplinarną współpracę. Nasi trenerzy to eksperci w konkretnych obszarach ruchu, dzięki czemu otrzymujesz wsparcie oparte na najnowszej wiedzy i doświadczeniu. Wybór trenera o odpowiednim profilu to pierwszy krok do skutecznej realizacji Twoich celów.",
+    "directionsHeading": "Poznaj nasze główne kierunki pracy:",
+    "categories": [
+      {
+        "heading": "Trening medyczny",
+        "body": "To ekspert, do którego trafisz w przypadku powrotu do aktywności po kontuzjach, zabiegach lub gdy zmagasz się z bólem. Skupia się na bezpiecznym przywracaniu funkcji Twojego ciała i wspiera proces leczenia chorób poprzez ruch. Jego zadaniem jest zbudowanie stabilnego fundamentu, który pozwoli Ci trenować bez lęku o nawrót dolegliwości.",
+        "image": "/images/trening-personalny/trenerzy-cat-medical.webp",
+        "trainers": [
+          {
+            "name": "Małgorzata Muzyka-kopera",
+            "specialisation": "SPECJALIZACJA — TRENING MEDYCZNY",
+            "bio": "Fizjoterapeuta, trener, instruktor, szkoleniowiec, absolwentka AWF Poznań. Zajmuje się szeroko rozumianymi treningami zdrowotnymi… od nauki nowych czynności, przez zdobywanie wyniku sportowego, do przywracania utraconej funkcji po kontuzji. Specjalizuje się między innymi w treningu kobiet w ciąży, po operacjach brzusznych, problemach w obrębie dna miednicy, powrotem do sprawności po kontuzjach w piłce nożnej. Szczególną uwagę poświęca pracy ze stopą, której dysfunkcje mogą prowadzić do problemów w innych częściach ciała. Ukończyła liczne szkolenia z pracy z tkankami miękkimi, pracy z powięzią, kinezjotapingu, szkolenia z zakresu ruchu człowieka i coachingu.",
+            "image": "/images/trening-personalny/trenerzy/malgorzata-muzyka-kopera.webp"
+          },
+          {
+            "name": "Anna Sochacka",
+            "specialisation": "SPECJALIZACJA — TRENING MEDYCZNY",
+            "bio": "Absolwentka kierunku fizjoterapia (specjalność w sporcie) poznańskiej Akademii Wychowania Fizycznego, osteopata, fizjoterapeutka grup młodzieżowych sekcji piłki nożnej KS „Warta” Poznań. By móc efektywniej pracować z pacjentami regularnie uczestniczy w specjalistycznych szkoleniach poszerzających wachlarz narzędzi terapeutycznych oraz bierze udział w konferencjach obejmujących tematykę fizjoterapii w sporcie. Zdobytą wiedzę i doświadczenie wykorzystuje do pomocy osobom aktywnym fizycznie, które pragną osiągnąć najwyższy poziom sprawności i zdrowia lub też odzyskać je po przebytej kontuzji, urazie bądź zabiegu. Miłośniczka gier zespołowych, niegdyś reprezentantka AWF Poznań w Akademickich Mistrzostwach Polski w futsalu, dziś swoje zamiłowanie do sportu realizuje poprzez bieganie.",
+            "image": "/images/trening-personalny/trenerzy/anna-sochacka.webp"
+          },
+          {
+            "name": "Katarzyna Adamek",
+            "specialisation": "SPECJALIZACJA — TRENING MEDYCZNY",
+            "bio": "Absolwentka kierunku Fizjoterapia na Uniwersytecie Medycznym w Poznaniu. Specjalizuje się w treningu medycznym, treningu i fizjoterapii kobiet w ciąży i po porodzie, jak również kobiet chorujących na endometriozę. Certyfikowana instruktorka metody LOW PRESSURE FITNESS. Kasia bierze udział w projekcie “ZDROWY BRZUCH”, gdzie zajmuje się oceną mięśni brzucha pod kontrolą USG oraz treningiem mięśni brzucha i mięśni dna miednicy dostosowanym do istniejących dysfunkcji pacjenta. Zajmuje się też terapią przeciwbólową. Ukończyła liczne kursy z zakresu treningu oraz fizjoterapii w okresie okołoporodowym, w tym również korekcji przy rozejściu mięśni brzucha, kurs treningu medycznego i personalnego oraz metody LPF, jak również szkolenie Fizjoterapia w endometriozie. W swojej pracy zależnie od potrzeb łączy pracę w gabinecie z treningiem, aby działanie było kompleksowe i przynosiło lepsze efekty. Skupia się na likwidowaniu dolegliwości bólowych, przygotowaniu do aktywnego porodu oraz na poprawie funkcji i przywróceniu równowagi w pracy mięśni dna miednicy i mięśni brzucha po porodzie, operacjach brzusznych i w endometriozie. Jako mama dwójki dzieci wie jak istotny jest brak dolegliwości bólowych w czasie ciąży oraz odpowiednio dobrany trening, by zdrowo powrócić do formy po porodzie.",
+            "image": "/images/trening-personalny/trenerzy/katarzyna-adamek.webp"
+          },
+          {
+            "name": "Natalia Guzikowska",
+            "specialisation": "SPECJALIZACJA — TRENING MEDYCZNY",
+            "bio": "Trenerka oraz fizjoterapeutka ze specjalizacją w fizjoterapii uroginekologicznej. Na co dzień pracuje z kobietami zmagającymi się z problemami intymnymi, takimi jak nietrzymanie moczu, obniżenie narządów miednicy czy dolegliwości bólowe w obrębie dna miednicy. Wspiera kobiety w ciąży oraz po porodzie, pomagając odpowiednio dobierać aktywność fizyczną i odzyskać sprawność. Prowadzi również terapię i trening medyczny osób z dolegliwościami bólowymi, szczególnie w obrębie odcinka lędźwiowego kręgosłupa, a także wspiera osoby rozpoczynające swoją przygodę z ruchem. Prowadzi zajęcia grupowe typu \"Core\" oraz „Zdrowy Kręgosłup”, łącząc wiedzę fizjoterapeutyczną z praktycznym podejściem do treningu. Nieustannie pogłębia swoją wiedzę uczestnicząc w specjalistycznych kursach oraz konferencjach.",
+            "image": "/images/trening-personalny/trenerzy/natalia-guzikowska.webp"
+          },
+          {
+            "name": "Aneta Balcerzak",
+            "specialisation": "SPECJALIZACJA — TRENING MEDYCZNY",
+            "bio": "Absolwentka Uniwersytetu Medycznego im. Karola Marcinkowskiego w Poznaniu na kierunku Fizjoterapia. Fundamentem jej pracy jest precyzyjna diagnostyka oraz techniki Niemieckiej Terapii Manualnej, które skutecznie łączy z suchym igłowaniem, terapią tkanek miękkich oraz treningiem medycznym. Głównym obszarem jej specjalizacji jest kompleksowa rehabilitacja osób po urazach, kontuzjach i zabiegach operacyjnych. Skutecznie prowadzi pacjentów z dolegliwościami przeciążeniowymi narządu ruchu, pomagając im w bezpiecznym powrocie do pełnej aktywności. Swoje doświadczenie buduje, współpracując z piłkarzami, tenisistami oraz biegaczami, dbając o ich formę i przygotowanie do sezonu. Warsztat pracy uzupełnia wiedzą z zakresu dna miednicy i rozejścia mięśnia prostego brzucha, co pozwala jej na jeszcze szersze spojrzenie na biomechanikę ciała, szczególnie w pracy z aktywnymi osobami. Jest zwolenniczką zasady, że trwała sprawność to efekt symbiozy fizjoterapii i indywidualnego treningu. Takie połączenie pozwala nie tylko wyeliminować ból, ale przede wszystkim wzmocnić ciało i zapobiegać nawrotom kontuzji. Dzięki połączeniu wiedzy klinicznej z praktyką sportową, precyzyjnie lokalizuje przyczynę problemu i dobiera rozwiązania, które pozwalają pacjentom odzyskać kontrolę nad własnym ciałem.",
+            "image": "/images/trening-personalny/trenerzy/aneta-balcerzak.webp"
+          },
+          {
+            "name": "Miłosz Tchórzka",
+            "specialisation": "SPECJALIZACJA — TRENING MEDYCZNY",
+            "bio": "Student 5 roku fizjoterapii na Uniwersytecie Medycznym w Poznaniu. Na co dzień łączy pasję do aktywności fizycznej z wiedzą zdobytą podczas nauki na licznych szkoleniach. Specjalizuje się w pracy z osobami powracającymi do aktywności po kontuzjach oraz dopiero budującymi swoją sprawność ruchową. Odpowiada za przygotowanie motoryczne w poznańskiej Akademii Koszykówki a także współpracuje z Poznańskim Towarzystwem Wioślarzy Tryton, gdzie wspiera zawodników w prewencji urazów i efektywnej regeneracji. Najważniejsze jest dla niego indywidualne podejście i dopasowanie planu działania do potrzeb, możliwości i celów każdego klienta. Prywatnie jest pasjonatem kształtowania sylwetki poprzez kalistenikę i trening siłowy.",
+            "image": "/images/trening-personalny/trenerzy/milosz-tchorzka.webp"
+          }
+        ]
+      },
+      {
+        "heading": "Trening funkcjonalny",
+        "body": "To ekspert od wszechstronnej sprawności, zdrowej postawy i wysportowanej sylwetki. Skupia się na optymalizacji wzorców ruchowych – nauczy Twoje ciało pracować w pełnych zakresach, poprawi Twoją mobilność i zbuduje siłę przydatną w codziennym życiu. Z jego pomocą codzienne wyzwania stają się łatwiejsze, a Ty poczujesz się po prostu lepiej w swoim ciele.",
+        "image": "/images/trening-personalny/trenerzy-cat-functional.webp",
+        "trainers": [
+          {
+            "name": "Katarzyna Adamek",
+            "specialisation": "SPECJALIZACJA — TRENING MEDYCZNY",
+            "bio": "Absolwentka kierunku Fizjoterapia na Uniwersytecie Medycznym w Poznaniu. Specjalizuje się w treningu medycznym, treningu i fizjoterapii kobiet w ciąży i po porodzie, jak również kobiet chorujących na endometriozę. Certyfikowana instruktorka metody LOW PRESSURE FITNESS. Kasia bierze udział w projekcie “ZDROWY BRZUCH”, gdzie zajmuje się oceną mięśni brzucha pod kontrolą USG oraz treningiem mięśni brzucha i mięśni dna miednicy dostosowanym do istniejących dysfunkcji pacjenta. Zajmuje się też terapią przeciwbólową. Ukończyła liczne kursy z zakresu treningu oraz fizjoterapii w okresie okołoporodowym, w tym również korekcji przy rozejściu mięśni brzucha, kurs treningu medycznego i personalnego oraz metody LPF, jak również szkolenie Fizjoterapia w endometriozie. W swojej pracy zależnie od potrzeb łączy pracę w gabinecie z treningiem, aby działanie było kompleksowe i przynosiło lepsze efekty. Skupia się na likwidowaniu dolegliwości bólowych, przygotowaniu do aktywnego porodu oraz na poprawie funkcji i przywróceniu równowagi w pracy mięśni dna miednicy i mięśni brzucha po porodzie, operacjach brzusznych i w endometriozie. Jako mama dwójki dzieci wie jak istotny jest brak dolegliwości bólowych w czasie ciąży oraz odpowiednio dobrany trening, by zdrowo powrócić do formy po porodzie.",
+            "image": "/images/trening-personalny/trenerzy/katarzyna-adamek.webp"
+          },
+          {
+            "name": "Dominika Kłoda",
+            "specialisation": "SPECJALIZACJA — TRENING FUNKCJONALNY",
+            "bio": "Trener personalny oraz trener przygotowania motorycznego. Absolwentka Akademii Wychowania Fizycznego w Poznaniu na kierunku Sport. Medalistka Mistrzostw Polski, Europy i Świata tanecznej federacji IFMS. Pasjonatka szeroko rozumianej aktywności fizycznej. Po zakończonej przygodzie tanecznej, pasję do sportu zaczęła realizować poprzez biegi długodystansowe. W swojej pracy szczególną uwagę zwraca na świadomy ruch, poprawę funkcjonowania ciała oraz osiąganie sportowych celów. Uważa, że aktywność fizyczna wpływa pozytywnie zarówno na ciało jak i umysł. Specjalizuje się w treningu funkcjonalnym.",
+            "image": "/images/trening-personalny/trenerzy/dominika-kloda.webp"
+          },
+          {
+            "name": "Szymon Frankowski",
+            "specialisation": "SPECJALIZACJA — TRENING FUNKCJONALNY",
+            "bio": "Magister fizjoterapii oraz trener niebojący się łączenia wszelakich szkół i podejść do treningu, by osiągnąć wymarzony przez podopiecznego efekt. Od strony zawodowej – fascynat kończyny górnej. Współpracuje zarówno z ludźmi potrzebującymi pomocy w zakresie walki z bólem lub wymagającymi rehabilitacji pooperacyjnej, jak i osobami aktywnymi fizycznie doskonalącymi swoje dziedziny ruchowe. Swój warsztat opiera na przekonaniu o efektywności leczenia ruchem i usamodzielnieniu klienta. W wolnym czasie pasjonat wspinaczki boulderowej oraz amator grapplingu.",
+            "image": "/images/trening-personalny/trenerzy/szymon-frankowski.webp"
+          },
+          {
+            "name": "Filip Deskur",
+            "specialisation": "SPECJALIZACJA — TRENING FUNKCJONALNY",
+            "bio": "Magister Fizjoterapii oraz trener funkcjonalny i medyczny. Od dziecka związany ze sportem: tenis, piłka nożna oraz zamiłowaniem do ruchu. Bazując na wiedzy zdobytej jako trener i fizjoterapeuta dostosowuje podejście do indywidualnych potrzeb klientów. Jego treningi bazują na budowaniu silnych fundamentów, funkcjonalności i prewencji urazów, oraz pracy z bólem. Dzięki zaangażowaniu i empatii wspiera swoich klientów nie tylko w ich fizycznym rozwoju, lecz również w wytrwałości do osiągania wyznaczonych celów.",
+            "image": "/images/trening-personalny/trenerzy/filip-deskur.webp"
+          },
+          {
+            "name": "Marta Falińska",
+            "specialisation": "SPECJALIZACJA — TRENING FUNKCJONALNY",
+            "bio": "Absolwentka fizjoterapii na Uniwersytecie Medycznym w Poznaniu. Zdobyte wykształcenie pozwoliło jej dogłębnie poznać anatomię, mechanizmy urazów oraz proces powrotu do sprawności, dzięki czemu skutecznie wspiera osoby aktywne w bezpiecznym powrocie do sportu i ich ulubionej aktywności po kontuzjach. Jako trenerka przygotowania motorycznego od kilku lat współpracuje z drużyną futbolu amerykańskiego oraz indywidualnie z zawodnikami różnych dyscyplin sportowych, pomagając im rozwijać potencjał sportowy i osiągać lepsze wyniki. W pracy z podopiecznymi stawia na wszechstronny, funkcjonalny ruch oraz precyzyjną analizę potrzeb, tworząc spójny i skuteczny system pracy. Jej priorytetem jest nie tylko poprawa wyników sportowych, ale również budowanie siły i sprawności, które przekładają się na realne korzyści w sporcie i codziennym życiu. Szczególnym obszarem jej zainteresowań jest trening szybkości oraz rozwój sprintu.",
+            "image": "/images/trening-personalny/trenerzy/marta-falinska.webp"
+          },
+          {
+            "name": "Julia Klonowska",
+            "specialisation": "SPECJALIZACJA — TRENING FUNKCJONALNY",
+            "bio": "Studentka 5. roku na kierunku Fizjoterapia Uniwersytetu Medycznego w Poznaniu. Od zawsze pasjonatka aktywności fizycznej - jeździectwa i piłki nożnej. Swoją karierę sportową w Polsce realizowała w pierwszoligowym zespole piłkarskim oraz w lidze uniwersyteckiej NCAA2 w Stanach Zjednoczonych, gdzie zdobyła bezcenne doświadczenia zawodnicze oraz trenerskie. Aktualnie zamiłowanie do sportów zespołowych realizuje współpracując z Kadrą Narodową Kobiet do lat 16 Polskiego Związku Hokeja na Trawie. W pracy z klientem skupia się na indywidualizacji podejścia do jego potrzeb oraz możliwości. Dąży do tego, aby zarażać pasją do aktywności fizycznej, która ma stanowić filar zdrowia i dobrego samopoczucia w zmaganiach życia codziennego. W przyszłości chce łączyć praktykę fizjoterapeutyczną w dziedzinie ortopedii z treningiem, aby otaczać swoich podopiecznych kompleksową i profesjonalną opieką.",
+            "image": "/images/trening-personalny/trenerzy/julia-klonowska.webp"
+          }
+        ]
+      },
+      {
+        "heading": "Trening motoryczny",
+        "body": "To ekspert dedykowany osobom, które chcą świadomie rozwijać swój potencjał fizyczny i poprawić wyniki w wybranej dyscyplinie sportu. Skupia się na precyzyjnym kształtowaniu cech takich jak moc, szybkość czy wytrzymałość, przy jednoczesnym dbaniu o odporność tkanek na przeciążenia. Niezależnie od tego, czy trenujesz zawodowo, czy z pasją, pomoże Ci trenować mądrzej i bezpieczniej.",
+        "image": "/images/trening-personalny/trenerzy-cat-athletic.webp",
+        "trainers": [
+          {
+            "name": "Wiktoria Dorau",
+            "specialisation": "SPECJALIZACJA — TRENING MOTORYCZNY",
+            "bio": "Absolwentka sportu na AWF Poznań oraz trenerka przygotowania motorycznego, która pomaga zawodnikom i osobom aktywnym trenować mądrzej, szybciej i skuteczniej. Doświadczenie zdobywała pracując z lekkoatletami, piłkarzami oraz biegaczami długodystansowymi, prowadząc treningi siłowe, motoryczne i funkcjonalne precyzyjnie dopasowane do celu i poziomu podopiecznych. W swojej pracy łączy wysokie standardy treningowe z przyjazną atmosferą, dzięki czemu trening jest nie tylko efektywny, ale też motywujący. Skupia się na rozwoju siły, szybkości, sprawności i odporności na kontuzje, zawsze bazując na dobrze zaplanowanym procesie. Pracuje zarówno z młodzieżą, jak i dorosłymi, stawiając na długofalowe efekty, bezpieczeństwo i realny progres. Jest wymagająca, ale wspierająca - zależy jej, aby każdy czuł się zaopiekowany i widział konkretne rezultaty swojej pracy.",
+            "image": "/images/trening-personalny/trenerzy/wiktoria-dorau.webp"
+          },
+          {
+            "name": "Adrian Budzisz",
+            "specialisation": "SPECJALIZACJA — TRENING MOTORYCZNY",
+            "bio": "Trener przygotowania motorycznego (S&C) oraz absolwent Akademii Wychowania Fizycznego w Poznaniu ze specjalizacją przygotowania motorycznego. W swojej pracy skutecznie przenosi teorię naukową na praktykę trenerską, opierając proces treningowy na aktualnych badaniach, sprawdzonych metodach oraz wieloletnim doświadczeniu. Współpracuje zarówno ze sportowcami wyczynowymi, osobami rekreacyjnie uprawiającymi sporty biegowe, jak i klientami rozpoczynającymi swoją przygodę z aktywnością fizyczną. Prowadzi również osoby w końcowych etapach powrotu do pełnej aktywności i sportu. Specjalizuje się w kompleksowym rozwoju sprawności, łącząc trening motoryczny z budowaniem wytrzymałości i poprawą zdolności wysiłkowych. W swojej filozofii treningowej podkreśla, że kluczem do osiągania celów są proste, systematycznie realizowane metody dopasowane do poziomu wytrenowania. Adrian biegle posługuje się językiem angielskim.",
+            "image": "/images/trening-personalny/trenerzy/adrian-budzisz.webp"
+          },
+          {
+            "name": "Jakub Gdula",
+            "specialisation": "SPECJALIZACJA — TRENING MOTORYCZNY",
+            "bio": "Absolwent Uniwersytetu Medycznego w Łodzi oraz Akademii Wychowania Fizycznego w Poznaniu na kierunku fizjoterapia. Doświadczenie zdobywał podczas pracy dla Polskiego Związku Hokeja na Trawie oraz Polskiego Związku Judo, które przekłada na indywidualną pracę ze sportowcami wszystkich dyscyplin od procesu rehabilitacji do momentu wypracowania pełnego potencjału fizycznego. Ostatnie lata to rozwój w kierunku pracy z zawodnikami sportów wytrzymałościowych takich jak Biegi Górskie, Lekkoatletyka oraz Triatlon, którzy zdobywali medale Mistrzostw Polski w swoich dyscyplinach oraz osiągali wysokie wyniki na arenie międzynarodowej. Prywatnie miłośnik górskich aktywności, kolarstwa oraz oglądania siatkówki.",
+            "image": "/images/trening-personalny/trenerzy/jakub-gdula.webp"
+          },
+          {
+            "name": "Mikołaj Mili",
+            "specialisation": "SPECJALIZACJA — TRENING MOTORYCZNY",
+            "bio": "Fizjoterapeuta, trener funkcjonalny. Absolwent WSEiT w Poznaniu na kierunku fizjoterapia, z dyplomem na kierunku: kompleksowa terapia manualna. W pracy z klientem stawia na integrację metod z zakresu fizjoterapii, treningu funkcjonalnego oraz treningu motorycznego. Jego nadrzędnym celem jest pomoc podopiecznym w procesach powrotu do aktywności po urazach i zabiegach ortopedycznych oraz odbudowie wydajności sportowej. W swojej pracy korzysta z różnych technologii pomiarowych (Force Decks, Dynamo czy VBT), które wspierają bezpieczne podejmowanie decyzji w kluczowych momentach całego procesu.\"Uważam, że płynne przejście z etapu rehabilitacji do treningu atletycznego to kluczowy aspekt udanego powrotu do sportu.\"Osobiste doświadczenia sportowe Mikołaja pozwalają jeszcze lepiej zrozumieć wymogi przygotowania fizycznego w sporcie. Podczas blisko 14 letniej przygody ze sportami walki został multimedalistą MP i ME fedracji IMAF w Ju Jitsu oraz Akademickich MP w BJJ. Na co dzień bierze czynny udział w amatorskich rozgrywkach siatkówki oraz siatkówki plażowej.",
+            "image": "/images/trening-personalny/trenerzy/mikolaj-mili.webp"
+          },
+          {
+            "name": "Franiciszek Kruk",
+            "specialisation": "SPECJALIZACJA — TRENING MOTORYCZNY",
+            "bio": "Fizjoterapeuta i trener przygotowania motorycznego certyfikowany przez ASCA (Level 1) oraz EXOS (Performance Specialist). Absolwent kierunku fizjoterapia na Akademii Wychowania Fizycznego w Poznaniu. Integruje fizjoterapię z treningiem motorycznym, prowadząc procesy optymalizacji performance’u oraz Return to Sport. Działania opiera na założeniach Evidence-Based Practice oraz analizie obiektywnych danych, wykorzystując profilowanie na platformach dynamometrycznych i ocenę funkcjonalną. W oparciu o mierzalne wyniki zarządza procesem budowania wysokiej tolerancji na obciążenia oraz rozwoju kompetencji ruchowych. Regularnie uczestniczy w specjalistycznych konferencjach i seminariach.",
+            "image": "/images/trening-personalny/trenerzy/franciszek-kruk.webp"
+          },
+          {
+            "name": "Jacek Maćkowiak",
+            "specialisation": "SPECJALIZACJA — TRENING MOTORYCZNY",
+            "bio": "Od lat pomaga sportowcom rozwijać potencjał fizyczny i osiągać lepsze wyniki - niezależnie od tego, czy grają na najwyższym poziomie, czy po prostu chcą być sprawniejsi, silniejsi i trenować w sposób świadomy. Na co dzień pracuje w Warcie Poznań jako trener przygotowania motorycznego pierwszego zespołu. Wcześniej szkolił zawodników Lecha Poznań i pełnił funkcję koordynatora przygotowania motorycznego w Liderze Basket Swarzędz. Jest absolwentem Akademii Wychowania Fizycznego w Poznaniu, a swoją wiedzę regularnie poszerza, uczestnicząc w renomowanych kursach i szkoleniach. Ukończył m.in. EXOS Performance Specialist, UEFA Fitness A, FMS, EPI Performance oraz programy ISSPF - co przekłada się na skuteczne i nowoczesne podejście do treningu. Współpracował z przedstawicielami różnych dyscyplin, głównie sportów zespołowych, ale również z osobami aktywnymi, które chcą trenować efektywnie i bezpiecznie. Pomaga poprawić kondycję, siłę, szybkość czy mobilność – niezależnie od poziomu zaawansowania. Prywatnie uwielbia sport w każdej postaci – szczególnie surfing i aktywne podróże. Dla niego ruch to nie tylko praca, ale styl życia, którym chętnie dzieli się z innymi.",
+            "image": "/images/trening-personalny/trenerzy/jacek-mackowiak.webp"
+          },
+          {
+            "name": "Jakub Dylewski",
+            "specialisation": "SPECJALIZACJA — TRENING MOTORYCZNY",
+            "bio": "Absolwent Uniwersytetu Medycznego w Poznaniu na kierunku Fizjoterapia, który specjalizuje się w pracy z osobami po kontuzjach i zabiegach ortopedycznych. Na co dzień współpracuje z kadrą narodową kajakarzy górskich, a swoje kilkuletnie doświadczenie zdobywał pracując z profesjonalnymi zawodnikami Akademii KKS Lech Poznań. Fizjoterapia i trening to dla niego jeden spójny proces - od leczenia i redukcji bólu, przez odbudowę siły i kontroli ruchu, aż po pełny powrót do aktywności fizycznej i sportu. Na co dzień pracuje z pacjentami po operacjach kolana, barku, stawu skokowego czy urazach mięśniowych, ale także z osobami, które stawiają na profilaktykę i świadome budowanie sprawności. Każdego pacjenta traktuje indywidualnie, łącząc aktualną wiedzę naukową z praktyką wyniesioną ze sportu wyczynowego. Jego celem jest nie tylko wyleczenie urazu, ale stworzenie fundamentu, który zmniejsza ryzyko kolejnych kontuzji i pozwala wrócić do pełnej formy.",
+            "image": "/images/trening-personalny/trenerzy/jakub-dylewski.webp"
+          }
+        ]
+      }
+    ]
+  },
+  "Physiotherapy": {
+    "title": "Fizjoterapia",
+    "bandEyebrow": "Poznaj nasz system fizjoterapii",
+    "bandHeading": "Fizjoterapia, która przywraca sprawność!",
+    "bandBody": "Czy wyobrażasz sobie życie, w którym ciało jest Twoim sprzymierzeńcem, zamiast sprawiać Ci problemy? Nasz organizm to genialny mechanizm, który potrafi się samoregulować – wystarczy tylko trochę mu w tym pomóc! Będąc sprawnym możesz realizować swoje marzenia, od zwykłych spacerów po podróże i uprawianie sportu. W naszym Centrum stosujemy nowoczesne metody fizjoterapii, łącząc je z odpowiednio dobranymi ćwiczeniami i zbilansowaną dietą. Współpraca z naszymi terapeutami to proces poszukiwania przyczyny dysfunkcji, skutecznej terapii i utrwalania jej efektów w codziennym życiu. Naszym nadrzędnym celem jest pomoc w odzyskaniu zdrowia i sprawności tak szybko, jak to możliwe, aby każdy pacjent mógł wrócić do aktywności, cieszyć się swobodnym ruchem i prowadzić pełne, satysfakcjonujące życie.",
+    "bandSignUp": "Zapisz się",
+    "bandPricing": "Cennik",
+    "sections": [
+      {
+        "heading": "Kiedy możemy pomóc?",
+        "body": "Przede wszystkim koncentrujemy się na szybkim powrocie do sprawności fizycznej po kontuzji lub interwencji chirurgicznej. Najczęstsze dolegliwości, z którymi się spotykamy to: bóle pleców, bóle barków, kontuzje sportowe, wady postawy, zwichnięcia, rwa kulszowa, bóle głowy i bóle narządów wewnętrznych. Naszą silną stroną jest to, iż posiadamy duży zespół doskonałych fizjoterapeutów i trenerów medycznych. Do każdego Klienta dobieramy najbardziej odpowiedniego specjalistę. Ponieważ pracujemy zespołowo każdy Klient otrzymuje zawsze najlepszą możliwą pomoc, tak aby szybko mógł wrócić do zdrowia i ulubionej aktywności fizycznej.",
+        "image": "/images/fizjoterapia/hub-kiedy.webp"
+      },
+      {
+        "heading": "Metody pracy.",
+        "body": "Nasze działania łączą pracę w gabinecie z indywidualnie dopasowanym treningiem medycznym. Korzystamy zarówno z nowoczesnych metod terapeutycznych, jak i zaawansowanego sprzętu, w tym USG, EPTE, technologii Vald oraz Compex. Dzięki temu jesteśmy w stanie skutecznie wspierać pacjentów w zakresie leczenia bólu: ● tkanek miękkich: mięśni, powięzi, ścięgien, więzadeł; ● stawów obwodowych: skokowego, kolanowego, biodrowego, barkowego, łokciowego, stawów nadgarstka; ● kręgosłupa lędźwiowego, krzyżowego, szyjnego, piersiowego oraz żeber; ● głowy, twarzy, zębów pochodzenia mięśniowo-powięziowego; ● narządów wewnętrznych jamy brzusznej, klatki piersiowej oraz miednicy;",
+        "image": "/images/fizjoterapia/hub-metody.webp"
+      },
+      {
+        "heading": "Pierwsza wizyta.",
+        "body": "Pierwsza wizyta fizjoterapeutyczna to kluczowy etap w procesie diagnozy i rehabilitacji, który pozwala na dokładną ocenę Twojego stanu zdrowia oraz określenie indywidualnych potrzeb terapeutycznych. Na jej podstawie fizjoterapeuta identyfikuje źródło problemu, np. ból, kontuzję czy ograniczoną ruchomość i dobiera odpowiednią metodę terapii.",
+        "image": "/images/fizjoterapia/hub-pierwsza.webp"
+      },
+      {
+        "heading": "Przebieg wizyty.",
+        "body": "Wizyta u fizjoterapeuty zawsze zaczyna się od wywiadu, który jest niezwykle istotnym elementem każdego procesu leczenia. Kolejny etap to badanie. Na podstawie powyższych elementów nasz specjalista może wystawić wstępną diagnozę i ustalić plan leczenia. Po tym następuje właściwa terapia, która może trwać kilka wizyt lub nawet mieć charakter stały (np. u sportowców).",
+        "image": "/images/fizjoterapia/hub-przebieg.webp"
+      }
+    ],
+    "sectionCallCta": "Zadzwoń",
+    "sectionPricingCta": "Cennik",
+    "equipmentHeading": "Sprzęt:",
+    "equipment": [
+      {
+        "heading": "USG",
+        "body": "Wykorzystujemy USG nie tylko jako narzędzie diagnostyczne, ale również jako element nowoczesnej fizjoterapii i treningu, łącząc wiedzę, praktykę i technologię, aby jak najlepiej wspierać Twoje zdrowie i sprawność. Ultrasonografia pozwala w czasie rzeczywistym ocenić stan tkanek miękkich, takich jak mięśnie, ścięgna czy więzadła, a także monitorować ich regenerację i reakcję na terapię. Dzięki USG możemy szybko i precyzyjnie zlokalizować źródło bólu, ocenić rozległość urazów, kontrolować proces gojenia, sprawdzić jakość pracy mięśni podczas ruchu oraz monitorować efekty treningu i terapii. To narzędzie umożliwia indywidualne dopasowanie programów rehabilitacyjnych i treningowych, przyspieszając powrót do pełnej sprawności, minimalizując ryzyko kontuzji i zwiększając bezpieczeństwo w codziennej aktywności oraz sporcie.",
+        "image": "/images/fizjoterapia/sprzet/usg.webp"
+      },
+      {
+        "heading": "EPTE",
+        "body": "To innowacyjna metoda wspomagająca leczenie mięśni, ścięgien i więzadeł. Dzięki precyzyjnej aplikacji impulsów elektrycznych przyspieszamy regenerację tkanek, redukujemy ból i wspieramy powrót do pełnej sprawności. W połączeniu z monitorowaniem postępów w terapii możemy tworzyć spersonalizowane, skuteczne i bezpieczne programy rehabilitacyjne, minimalizując ryzyko nawrotu urazów i zwiększając efektywność treningu i terapii.",
+        "image": "/images/fizjoterapia/sprzet/epte.webp"
+      },
+      {
+        "heading": "COMPEX",
+        "body": "Wykorzystujemy elektrostymulację Compex jako element nowoczesnej fizjoterapii i treningu, łącząc zaawansowaną technologię z precyzyjną pracą mięśni. System ten pozwala na bezpieczną aktywację tkanek w czasie rzeczywistym, wspierając regenerację oraz zwiększając efektywność każdego ruchu. Dzięki technologii Compex możemy precyzyjnie budować siłę i wytrzymałość bez obciążania stawów, szybko redukować napięcia bólowe oraz przyspieszać powrót do sprawności po urazach. To narzędzie umożliwia indywidualne dopasowanie terapii do potrzeb Twojego ciała, minimalizując ryzyko kontuzji i zwiększając bezpieczeństwo w sporcie oraz codziennej aktywności.",
+        "image": "/images/fizjoterapia/sprzet/compex.webp"
+      },
+      {
+        "heading": "PLATFORMA FORCEDECKS",
+        "body": "Korzystamy z innowacyjnej platformy siłowej ForceDecks, która pozwala precyzyjnie mierzyć moc, równowagę i dynamikę ruchu w czasie rzeczywistym. Dzięki technologii czujników nacisku każda Twoja próba – skok, przysiad czy wypchnięcie – jest analizowana pod kątem siły generowanej przez mięśnie, asymetrii między kończynami oraz efektywności ruchu. ForceDecks to narzędzie nie tylko dla sportowców dążących do poprawy wyników, ale także dla osób powracających do sprawności po kontuzjach, które chcą bezpiecznie monitorować postępy i rozwijać funkcjonalną siłę w sposób inteligentny i kontrolowany.",
+        "image": "/images/fizjoterapia/sprzet/forcedecks.webp"
+      },
+      {
+        "heading": "DYNAMOMETR",
+        "body": "Zaawansowane urządzenie do precyzyjnego pomiaru siły mięśniowej. Dzięki niemu możemy ocenić moc, wytrzymałość i równowagę siłową poszczególnych grup mięśniowych, co pozwala odpowiednio programować trening, monitorować postępy i kontrolować proces rehabilitacji. Dynamo jest niezastąpione zarówno dla sportowców dążących do maksymalizacji wyników, jak i dla osób powracających do pełnej sprawności po urazach, umożliwiając bezpieczne i świadome zwiększanie siły mięśniowej oraz minimalizowanie ryzyka kontuzji.",
+        "image": "/images/fizjoterapia/sprzet/dynamometr.webp"
+      },
+      {
+        "heading": "AIRBANDS",
+        "body": "Wykorzystujemy opaski okluzyjne AirBands, innowacyjne narzędzie treningowe, które pozwala rozwijać siłę i masę mięśniową przy minimalnym obciążeniu stawów. Opaski działają poprzez delikatne ograniczenie przepływu krwi w wybranych partiach mięśniowych, co zwiększa aktywację włókien mięśniowych podczas ćwiczeń. Dzięki temu trening staje się bardziej inteligentny i bezpieczny, umożliwiając osiągnięcie znaczącej adaptacji mięśniowej przy niższym ryzyku przeciążeń stawów i ścięgien. Korzyści stosowania AirBands obejmują efektywne wzmacnianie mięśni, optymalizację rozwoju siły i masy mięśniowej porównywalną z tradycyjnym treningiem siłowym, minimalizację ryzyka urazów, wsparcie w rehabilitacji po kontuzjach oraz precyzyjną stymulację wybranych grup mięśniowych.",
+        "image": "/images/fizjoterapia/sprzet/airbands.webp"
+      }
+    ],
+    "teamHeading": "Zespół",
+    "teamCta": "Poznaj specjalistów",
+    "roomsHeading": "Gabinety",
+    "roomsCta": "Zobacz",
+    "testimonialsHeading": "Opinie klientów:",
+    "testimonials": [
+      {
+        "quote": "Bardzo polecam Bodywork i panią fizjoterapeutę Anetę Balcerzak! Niezwykłe połączenie wiedzy i profesjonalizmu. Dzięki indywidualnemu podejściu mogę funkcjonować bez bólu, a moja sprawność znacząco się poprawiła :) połączenie fizjoterapii i ćwiczeń daje cudowne efekty.",
+        "name": "Magda Sikarska"
+      },
+      {
+        "quote": "Jestem bardzo zadowolona z wizyt u fizjoterapeuty, Pana Grzegorza Ślęczki. Pan bardzo zaangażowany w swoją pracę, z ogromną wiedzą. Od razu postawił trafną hipotezę, zasugerował odpowiednie badania i ćwiczenia. Przed nami jeszcze trochę pracy, natomiast po trzech,czy czterech spotkaniach widzę ogromną różnicę.",
+        "name": "Justyna"
+      },
+      {
+        "quote": "Trafiłem z polecenia do fizjoterapeuty Bartosza i jestem zadowolony z współpracy. Omówienie urazu i dostosowanie treningu to było coś czego potrzebowałem. Otwierając pierwszy raz drzwi BodyWork czuć że ludzie tutaj są po to by Ci pomóc. Z przyjemnością zawitam tam ponownie.",
+        "name": "Tomasz Kowalski"
+      },
+      {
+        "quote": "Bardzo polecam fizjoterapeutę Panią Anię!",
+        "name": "Ilona Robakowska"
+      },
+      {
+        "quote": "Do BODYWORK pod skrzydła wspaniałego fizjoterapeuty i trenera personalnego Szymka trafiłam za namową ważnej dla mnie Osoby i autorytetu. Po \"przejściach\" miałam sporo kg do zrzucenia, do tego jestem totalnie anty-sportowa. Założone cele - początkowo myślałam, że nie do osiągnięcia - dzięki mojemu NAJ Trenerowi udało się uzyskać szybko i zdrowo. (...) wspaniała, rodzinna wręcz atmosfera, wszystko top class. (...) Z całego serca DZIĘKUJĘ!!!",
+        "name": "Natalia Kobelska – Dubiel"
+      },
+      {
+        "quote": "Moje ciało potrzebowało pomocy. Tutaj ją dostałem. Kasiu dziękuję. Katarzyna Adamek to mądra, empatyczna, kompetentna fizjoterapeutka i trenerka medyczna.",
+        "name": "Michał Hoffmann"
+      }
+    ],
+    "howToHeading": "Jak skorzystać z naszych usług?",
+    "howToBody": "Skontaktuj się z nami (zadzwoń pod nr 609805660 lub napisz poprzez e-mail: info@body-work.pl) i umów się na wizytę. Pracownicy recepcji udzielą Ci wszelkich dodatkowych, niezbędnych informacji.",
+    "howToCall": "Zadzwoń",
+    "howToEmail": "Wyślij e-mail"
+  },
+  "ManualTherapy": {
+    "title": "Terapia manualna.",
+    "bandEyebrow": "Jesteś w dobrych rękach!",
+    "bandHeading": "Kiedy możemy pomóc?",
+    "bandBody": "Terapia manualna to skuteczna metoda pracy z bólem i ograniczeniami ruchowymi, oparta na precyzyjnej diagnostyce oraz indywidualnie dobranych technikach terapeutycznych. Nasi fizjoterapeuci łączą wiedzę z zakresu terapii manualnej, osteopatii oraz treningu medycznego, aby kompleksowo wspierać proces leczenia. Dzięki pracy na tkankach miękkich, stawach oraz układzie nerwowym pomagamy zmniejszyć ból, poprawić zakres ruchu i przywrócić naturalną równowagę w ciele. Terapia manualna sprawdza się zarówno w przypadku dolegliwości przeciążeniowych, urazów, jak i przewlekłych problemów bólowych.",
+    "conditions": [
+      {
+        "heading": "Napięciowe bóle głowy.",
+        "body": "Napięciowe bóle głowy, jak sama nazwa mówi mogą wynikać z nadmiernych napięć mięśniowych obręczy barkowej, mięśni podpotylicznych, stresu, napięcia emocjonalnego, odwodnienia, małej ilości snu czy nieprawidłowej postawy ciała. Dolegliwości te uprzykrzają codziennie funkcjonowanie, nie pozwalają na pełne skupienie się oraz zmniejsza nasza produktywność. Są to globalne problemy, z którymi możemy pracować przez terapię manualną zaburzonych struktur, suche igłowanie, trening wzmacniający, edukację ergonomii codziennego poruszania się oraz wyciszanie napięć organizmu terapią czaszkowo - krzyżową.",
+        "image": "/images/fizjoterapia/manualna/1.webp"
+      },
+      {
+        "heading": "Bóle szyjnego odcinka kręgosłupa.",
+        "body": "Bóle szyjnego odcinka kręgosłupa często dolegają osobom o siedzącym charakterze pracy, ale również pracownikom fizycznym lub osobom po wypadkach komunikacyjnych. Niejednokrotnie wiążą się z tym dolegliwości promieniujące do kończyn górnych, drętwienia rąk, uczucie zmniejszonej siły w dłoniach, zawroty głowy, szumy uszne czy ograniczenie ruchów. Symptomy te nie muszą występować regularnie. Nierzadko zależy to od pory dnia, pozycji ciała, czy wykonywanej czynności, które mogą nasilać bóle. Często dolegliwości te są zauważane w zaawansowanym stadium, kiedy uprzykrzają codzienne funkcjonowanie. W takim przypadku należy wybrać się do fizjoterapeuty w celu konsultacji objawów i wykonania pełnej diagnostyki funkcjonalnej. Po weryfikacji problemu możemy pracować głównie przez terapię manualną, terapię tkanek miękkich, poprawę codziennych nawyków, edukację pacjenta, czy w szczególności przez ćwiczenia.",
+        "image": "/images/fizjoterapia/manualna/2.webp"
+      },
+      {
+        "heading": "Bolesny bark.",
+        "body": "Jest to termin, pod którym kryje się wiele dolegliwości zaczynając od problemów o podłożu stawowym, mięśniowym, neurologicznym wynikającym z podrażnienia nerwu, zamrożony bark, zapalenie stawu barkowego, konflikt podbarkowy, niestabilność stawu ramiennego, uszkodzenie obrąbka stawowego typu SLAP, zapalenie ścięgna głowy długiej bicepsa, zmiany zwyrodnieniowe stawu barkowo‑obojczykowego (ACJ). Dolegliwości barku mogą być następujące: ból barku rano i w nocy, tkliwość barku przy dotyku, ograniczony ruch, bolesny łuk (60‑120° odwodzenia kończyny górnej), ból przy spaniu na bolesnym boku, drętwienie ręki, osłabienie siły ramienia, opuchlizna lub zaczerwienienie stawu. Bark jest jednym z bardziej skomplikowanych stawów stąd, aby precyzyjnie poznać źródło bólu należy zgłosić się do fizjoterapeuty na konsultację i diagnostykę funkcjonalną. Czasami wymagane jest USG, które dopełnia badanie. Leczenie polega na połączeniu technik terapii manualnej, terapii tkanek miękkich z treningiem medycznym, wzmacniającym, nauką ergonomii pracy oraz poprawnością wykonywania ćwiczeń, również na siłowni.",
+        "image": "/images/fizjoterapia/manualna/3.webp"
+      },
+      {
+        "heading": "Łokieć tenisisty/golfisty.",
+        "body": "Problem ten może dotknąć zarówno sportowców, jak i osoby o siedzącym trybie pracy. Wbrew nazwie tenisiści i golfiści nie są główną grupą chorującą. W przypadku łokcia tenisisty mamy do czynienia z zapaleniem/entezopatią prostowników nadgarstka i palców. Łokieć golfisty to zapalenie/entezopatia zginaczy nadgarstka i palców. Wynika z tego, że są to schorzenia grupy mięśni o działaniu przeciwstawnym do siebie. Symptomy, które występują w obu dolegliwościach to: ból przy chwytaniu przedmiotów, osłabienie siły chwytu, tkliwość nadkłykcia bocznego kości ramiennej, tkliwość nadkłykcia przyśrodkowego kości ramiennej, ból promieniujący do nadgarstka, sztywność po nocnym bezruchu, ból podczas pracy z klawiaturą lub myszką, pieczenie/drętwienie w przypadku dodatkowego podrażnienia gałązki głębokiej nerwu promieniowego (PIN). Leczenie polega na połączeniu technik terapii manualnej, terapii tkanek miękkich, suchego igłowania, EPTE (przezskórna elektroliza), treningiem medycznym mającym na celu przebudowę ścięgna bolesnego mięśnia, treningu wzmacniającym obręcz barkową, nauką ergonomii pracy, codziennym stosowaniu ortezy z pelotą o działaniu uciskającym na daną grupę mięśniową. W przypadku ostrego stanu wymagane jest wprowadzenie farmakologii po uprzednim kontakcie z ortopedą.",
+        "image": "/images/fizjoterapia/manualna/4.webp"
+      },
+      {
+        "heading": "Bóle nadgarstka.",
+        "body": "Nadgarstek jest skomplikowaną strukturą złożoną z wielu kości, ścięgien, więzadeł, nerwów i naczyń krwionośnych. Symptomy z tej okolicy mają różnoraki początek. Potrafią pojawić się nagle w wyniku urazu o ostrym, uprzykrzającym bólu lub stopniowo w wyniku nawarstwiających się przeciążeń. Najczęściej zgłaszane objawy to: ból nadgarstka przy zginaniu, po urazie, podczas pracy przy komputerze, mrowienie, uczucie braku siły w dłoni, zmniejszony zakres ruchu, problem w podporach, ból podczas sportów rakietowych. Bóle nadgarstka mogą być przyczyną wielu dolegliwości: złamania nadgarstka, przeciążenia nadgarstka, skręcenia, zwichnięcia, zespołu cieśni nadgarstka, zapalenia stawów nadgarstka, choroba de Quervaina, reumatoidalnego zapalenia stawów nadgarstka, ganglionu nadgarstka. W związku z złożonością tego stawu zalecane jest skonsultowanie dolegliwości z fizjoterapeutą lub ortopedą, aby móc precyzyjnie rozpocząć rehabilitację. Leczenie polega na łączeniu diagnostyki obrazowej (RTG, USG, MRI), diagnostyki funkcjonalnej z terapią manualną, terapią tkanek miękkich, suchego igłowania, EPTE (przezskórna elektroliza), treningiem medycznym, edukacją pacjenta i ergonomią pracy.",
+        "image": "/images/fizjoterapia/manualna/5.webp"
+      },
+      {
+        "heading": "Bóle dolnego odcinka kręgosłupa.",
+        "body": "Pod tą nazwą ukrywają się dolegliwości z odcinka lędźwiowego, krzyżowego, stawów krzyżowo - biodrowych, dna miednicy, bioder czy innych układów ludzkiego organizmu. Są to problemy, które prawdopodobnie dotkną każdego z nas, gdyż statystycznie jest to najczęstsza przyczyna bólu z układu ruchu. Zgłaszane dolegliwości przez pacjentów to: ból przy zgięciu/wyproście, utrudnione poruszanie się, ból przy zmianie pozycji w łóżku, ból przy pierwszych ruchach po zastaniu, drętwienie, promieniowanie bólu do kończyn dolnych, zmniejszona siła mięśniowa w kończynach dolnych, ból podczas jazdy autem, ból przy dźwiganiu, nietrzymanie moczu. Powodem tych symptomów może być: przepuklina krążka międzykręgowego (dyskopatia) odcinka lędźwiowego, rwa kulszowa, zmiany zwyrodnieniowe odcinka lędźwiowego, przeciążenie mięśni pleców dolnego odcinka, ból pleców spowodowany wadami postawy, ból pleców związany z osteoporozą, ból korzeniowy lędźwi bez wyraźnej przyczyny (nieswoisty ból dolnego odcinka kręgosłupa), ból pleców mogący sugerować inne schorzenia (np. nerkowe, naczyniowe), zmiana biomechaniki ciała w związku z wagą, ciążą. Główne działania jakie należy zastosować w wyżej wymienionych trudnościach polegają na wizycie u fizjoterapeuty, który po dociekliwym wywiadzie i badaniu funkcjonalnym określi region przypadłości. Następnie wykona odpowiedni rodzaj terapii manualnej, terapii tkanek miękkich, czy suche igłowanie po czym dobierze ćwiczenia i trening, które w tym temacie są kluczową częścią leczenia. W przypadku niepokojących objawów fizjoterapeuta wskaże kolejne kroki takie jak: badania obrazowe czy wizyta u lekarza specjalisty w celu doboru farmakologii wspierającej rekonwalescencję.",
+        "image": "/images/fizjoterapia/manualna/6.webp"
+      },
+      {
+        "heading": "Zwyrodnienie stawu biodrowego.",
+        "body": "Koksartroza, czyli zwyrodnienie stawu biodrowego to przewlekła degeneracja chrząstki stawowej. Przypadłości jakie zgłaszają pacjenci to: ból biodra promieniujący do kolana, trzeszczenia w stawie biodrowym, sztywność stawu biodrowego, utrata ruchomości w biodrze, problemy z zakładaniem nogi, utykanie przy chodzeniu, ograniczone odwiedzenie/rotacja biodra, zaniki mięśni zajętej kończyny, ból w pachwinie. Najczęstszą przyczyną pojawienia się choroby zwyrodnieniowej są wieloletnie, permanentne przeciążenia stawów biodrowych, wady postawy, choroba Perthesa, inne choroby układowe mające pośredni wpływ na stawy. Leczenie jest zależne od stanu zaawansowania koksartrozy. W przypadku początkowych dolegliwości główne działanie polega na wykonywaniu dobranych przez fizjoterapeutę ćwiczeń, terapii manualnej, terapii tkanek miękkich oraz poprawy ergonomii poruszania się. W stanie znacznej degeneracji stawu wymagana jest opinia ortopedy, który może zalecić dostawowe iniekcje kwasu hialuronowego, osocza, sterydów, farmakoterapię lub wskazać leczenie operacyjne. W tej fazie również sugerowana jest współpraca z fizjoterapeutą.",
+        "image": "/images/fizjoterapia/manualna/7.webp"
+      },
+      {
+        "heading": "Bóle kolan.",
+        "body": "Ból kolana jest drugą najczęstszą dolegliwością z układu ruchu wśród społeczeństwa. Stwierdzenie \"ból kolana\" to zbyt rozległe nazewnictwo na różnorodność problemów z tym stawem. Pacjenci w większości przypadków opisują swoje symptomy jako: ból kolana przy schodzeniu ze schodów, przy zginaniu, przodu/tyłu kolana, ból kolan po bieganiu, po wysiłku, w nocy, po zastaniu, sztywność kolana, trzaski w kolanie. Są to bardzo ogólne wskazówki, za którymi mogą skrywać się rozmaite diagnozy. Przykładowe to: zapalenie stawu kolanowego, chondromalacja rzepki, uszkodzenie łąkotki, uszkodzenie więzadeł kolana, przeciążenie kolana, ból kolana promieniujący do łydki wynikający z problemów z kręgosłupem, również zwyrodnienia kolan o różnym stopniu zaawansowania. Dlatego też leczenie zaczynamy od konsultacji z fizjoterapeutą, który po diagnostyce funkcjonalnej może wykonać USG (dopełniając diagnozę) w celu potwierdzenia problematycznej struktury. Kolejnym etapem jest terapia manualna, terapia tkanek miękkich, suche igłowanie, trening medyczny, nauka ergonomii poruszania się. W ostrych przypadkach wymagana jest wizyta u ortopedy, który może zaoferować dalszą diagnostykę obrazową, dostawowe iniekcje kwasu hialuronowego, osocza, sterydów, farmakoterapię lub wskazać leczenie operacyjne. W tej fazie również sugerowana jest współpraca z fizjoterapeutą.",
+        "image": "/images/fizjoterapia/manualna/8.webp"
+      },
+      {
+        "heading": "Przeciążenia ścięgna Achillesa.",
+        "body": "Ścięgno Achillesa zbudowane jest z trzech mięśni: brzuchatego łydki, płaszczkowatego i podeszwowego. Budowa ta zapewnia mu wytrzymałość sięgającą nawet 7-krotności masy ciała. Pomimo dużej skali przyjmowanych ciężarów występują przypadki przeciążeń, a nawet zerwań ścięgna Achillesa. Najczęstszymi powodami bólu z tej struktury są: nagłe starty i zrywy do biegu, niedostateczna siła i mobilność względem przyjmowanych obciążeń, nagły powrót do sportu, zmiana obuwia dajacego znacznie większe wybicie podczas biegu np. karbonowa podeszwa. Wielokrotnie epizod uszkodzenia jest niewielki i przez to bagatelizujemy problem, co powoduje nawarstwienie się kolejnych mikrouszkodzeń, a w konsekwencji poważny uraz, czy stan zapalny. Ból przy chodzeniu, obrzęk, tkliwość okolicy Achillesa, ograniczona ruchomość w stawie skokowym, uczucie \"trzasku\" przy poruszaniu się, sztywność i ból podczas biegu to często zgłaszane objawy przez pacjentów. Samodzielne wyleczenie jest możliwe przez systematyczne wykonywanie odpowiednio dobranych ćwiczeń. Jednakże, aby było to możliwe wymagana jest kontynuacja u fizjoterapeuty w celu diagnozy, wykonania USG (dopełniające diagnozę), terapii manualnej, terapii tkanek miękkich, suchego igłowania, EPTE (przezskórna elektroliza) oraz planu treningu medycznego, aby przyspieszyć regenerację i przebudowę przyczepu ścięgna. W przypadku silnego uszkodzenia wymagana jest wizyta u ortopedy, który określi zaawansowane urazu, potrzebę zabiegu operacyjnego, dobierze farmakoterapię.",
+        "image": "/images/fizjoterapia/manualna/9.webp"
+      },
+      {
+        "heading": "Urazy stopy.",
+        "body": "Stopa podobnie jak nadgarstek składa się z różnorodnych pod kątem kształtu kości, ścięgien, więzadeł, nerwów i naczyń krwionośnych. Ten mały kompleks stawów dźwiga połowę masy naszego ciała, stąd częstość występowania urazów tej okolicy. Nagminnie dochodzi do skręceń stawów skokowych oraz mniej popularnych: złamań, przeciążeń stawów, płaskostopia, urazów stawu Lisfranca, zapalenia rozcięgna podeszwowego, haluksów, wrodzonych deformacji stopy. Najczęściej zgłaszane objawy to: ból, obrzęk, zasinienie, trudności w chodzeniu, deformacja, ból pięty, poranna sztywność, „trzaśnięcia\", trudności w zgięciu stopy, drętwienie. W związku z skomplikowaną budową stopy istotna jest konsultacja z fizjoterapeutą w celu diagnozy, wykonania USG (dopełniające diagnozę), terapii manualnej, terapii tkanek miękkich, suchego igłowania, EPTE (przezskórna elektroliza) oraz planu treningu medycznego mającego na celu przyspieszenie regeneracji i powrót do pełnej sprawności fizycznej. W przypadku silnego uszkodzenia wymagana jest wizyta u ortopedy, który określi zaawansowanie urazu, potrzebę zabiegu operacyjnego, dobierze farmakoterapię.",
+        "image": "/images/fizjoterapia/manualna/10.webp"
+      }
+    ],
+    "howToHeading": "Jak skorzystać z naszych usług?",
+    "howToBody": "Skontaktuj się z nami (zadzwoń pod nr 609805660 lub napisz poprzez e-mail: info@body-work.pl) i umów się na wizytę. Pracownicy recepcji udzielą Ci wszelkich dodatkowych, niezbędnych informacji.",
+    "howToCall": "Zadzwoń",
+    "howToEmail": "Napisz"
+  },
+  "MovementRehab": {
+    "title": "Rehabilitacja ruchowa.",
+    "bandHeading": "Kiedy możemy pomóc?",
+    "bandBody": "Rehabilitacja ruchowa to kompleksowe podejście do poprawy funkcjonowania całego ciała. Nasi fizjoterapeuci to wysoko wykwalifikowani specjaliści, którzy łączą wiedzę z zakresu terapii manualnej, treningu medycznego, terapii wisceralnej oraz nowoczesnych metod rehabilitacji ruchowej. Dzięki temu potrafimy nie tylko przywracać sprawność po urazach czy operacjach, ale również wspierać poprawę postawy, koordynacji i wydolności ruchowej. W pracy z pacjentami korzystamy z nowoczesnych narzędzi diagnostycznych i treningowych, a programy rehabilitacyjne dopasowujemy indywidualnie, aby maksymalnie zwiększyć efektywność i komfort terapii.",
+    "conditions": [
+      {
+        "heading": "Bóle rozcięgna podeszwowego.",
+        "body": "Przewlekły ból w okolicy przyczepu rozcięgna podeszwowego przy guzie piętowym, nasilający się przy pierwszych krokach rano lub po dłuższym bezruchu. Charakter bólu jest zwykle punktowy przy podeszwowej części pięty i związany z napięciem ścięgnisto-powięziowym podeszwy nogi. Zacząć się może jako mechaniczne przeciążenie przekazywane przez rozcięgno (np. długie stanie, bieganie, zwiększenie objętości treningu), zaburzenia mechaniki stopy, nadwaga i/lub skrócenie mięśni trójgłowych łydki. Zmiany degeneracyjne na poziomie przyczepu mięśni głębokich stopy są częstym rozwinięciem problemu. Podstawą leczenia, podobnie jak w tendinopatiach jest terapia ruchowa: praca nad mobilnością mięśnia trójgłowego, ćwiczenia wzmacniające mięśnie stopy/łydki oraz – przede wszystkim - progresywne obciążanie rozcięgna. Edukacja (modyfikacja przyzwyczajeń, zmiana obuwia/wkładek) i ćwiczenia w domu dają najlepsze rezultaty w połączeniu z wcześniej wymienionymi metodami.",
+        "image": "/images/fizjoterapia/rehab/1.webp"
+      },
+      {
+        "heading": "Skręcenia stawu skokowego.",
+        "body": "Uszkodzenie więzadeł stawu skokowego wskutek inwersji (najczęściej) lub ewersji (rzadko) stopy — istnieją III stopnie naruszenia struktur - od łagodnego naciągnięcia po całkowite zerwanie wymagające interwencji chirurgicznej. Objawami są: ból, obrzęk, ograniczenie chodu i stabilności. Mimo, iż zazwyczaj jest wynikiem nieszczęścia, uraz ten związany jest często z niewystarczającym przygotowaniem układu ruchu pod kątem propriocepcji czy siły mięśniowej całej kończyny dolnej – w tym bioder. W większości przypadków preferowanym sposobem leczenia jest rehabilitacja funkcjonalna — wczesne przywracanie zakresu ruchu w stawie skokowym, ćwiczenia siłowo-stabilizacyjne oraz trening propriocepcji / równowagi. Nauka udowadnia, iż programy oparte na ćwiczeniach zmniejszają ryzyko nawrotu.",
+        "image": "/images/fizjoterapia/rehab/2.webp"
+      },
+      {
+        "heading": "Tendinopatia Achillesa.",
+        "body": "Przewlekła dolegliwość ścięgna Achillesa mająca dwa oblicza. Objawia się bólem, sztywnością i ograniczeniem funkcji w okolicy 2–6 cm powyżej przyczepu piętowego lub przy przyczepie, a każdy z tych przypadków odznacza się trochę inną strategią działania. Zmiany ścięgna w tendinopatii mają charakter degeneracyjny raczej niż klasyczne ostre zapalenie, a pojawiają się zazwyczaj w wyniku przeciążenia (np. nagły wzrost obciążenia biegowego) czy zaburzeń mechaniki (np. ograniczona ruchomość stawu skokowego), ale mogą mieć na nie wpływ również wiek, zmiany metaboliczne czy nieadekwatna regeneracja. W przypadku tego typu jednostek najlepiej sprawdzają się protokoły ruchowe HSR (Heavy Slow Resistance) lub im podobne, polegające na stopniowalnym obciążaniu struktur ścięgnistych, by w końcu wrócić do bardziej funkcjonalnych i „skocznych” wzorców ruchowych.",
+        "image": "/images/fizjoterapia/rehab/3.webp"
+      },
+      {
+        "heading": "Kolano skoczka.",
+        "body": "Kolejna tendinopatia – tym razem ścięgna rzepki, objawiająca się bólem w jej dolnej okolicy, gdzie przyczepia się do guzowatości piszczeli — typowa u sportowców wykonujących skoki i lądowania. Dolegliwości tutaj odczuwalne są szczególnie przy wysiłku obciążającym wyprost kolana. Zmiany w ścięgnie swój początek mogą mieć poprzez przeciążenie ekscentryczne podczas lądowania/skoku, powtarzalne duże siły kompresyjne na ścięgno lub czynniki osłabiające strukturę ścięgna. W leczeniu tej dolegliwości oprócz progresywnego obciążania ścięgna, ważna będzie również praca nad techniką lądowania oraz trening mięśni powiązanych kinetycznie ze wzorcami ruchowymi wykorzystywanymi w danym sporcie.",
+        "image": "/images/fizjoterapia/rehab/4.webp"
+      },
+      {
+        "heading": "Kolano biegacza.",
+        "body": "Zespół bólowy przednio-bocznej części kolana, często nasilający się przy czynnościach obciążających staw rzepkowo-udowy: wchodzenie po schodach, kucanie, bieganie. Lokalizacja bólu w tym przypadku znajduje się po bocznej stronie rzepki lub za nią. Kolano biegacza ma charakter wieloczynnikowy: powtarzalne przeciążenie stawu rzepkowo-udowego (np. nagły wzrost objętości biegania), zaburzenia kontroli mięśniowej oraz czynniki związane z techniką biegu. Różne przeglądy naukowe podkreślają, iż np. zbyt niska siła prostowników oraz zaburzona kontrola biodra/kolana są modyfikowalnymi czynnikami ryzyka. Ruch i ukierunkowane ćwiczenia są podstawą leczenia — programy wzmacniające mięśnie prostowników kolana oraz mięśni biodra dają największe i najbardziej trwałe korzyści. Indywidualna terapia powinna łączyć ćwiczenia siłowe z treningiem neuromotorycznym (korekta wzorców ruchu przy lądowaniu i przetaczaniu stopy), edukacją o kontroli obciążenia i modyfikacją aktywności.",
+        "image": "/images/fizjoterapia/rehab/5.webp"
+      },
+      {
+        "heading": "Rekonstrukcja ACL i innych więzadeł.",
+        "body": "Zerwanie więzadła krzyżowego przedniego (ale też innych) w kolanie jest jednym z najczęstszych urazów, które wydarzają się na murawie czy stoku narciarskim. Taki wypadek najczęściej kończy się ingerencją chirurgiczną tj. rekonstrukcją tych struktur. Natomiast warto pamiętać, iż każda operacja ortopedyczna przypomina uraz sam w sobie. Kolejne tkanki zostają przerwane, aby dostać się do stawu, by mogło dojść do naprawy w stawie. Mimo, iż zabiegi takie spełniają swoją rolę w leczeniu uszkodzonych więzadeł, zostawiają pacjenta z osłabioną kończyną niezdolną do wcześniejszej aktywności. Na szczęście literatura naukowa bogata jest w treściwe protokoły i wytyczne dotyczące rehabilitacji kończyn dolnych po tego rodzaju działaniach. Wielomiesięczna rehabilitacji w tym przypadku polegać będzie na wczesnym przywracaniu zakresu, kontroli motorycznej, treningach hipertroficznych, siłowych by w końcu dojść do zaawansowanej plyometrii i drilli sportowych. Ponadto przywracanie do sprawności kierowane będzie konkretnymi i sprawdzonymi kryteriami powrotu do sportu.",
+        "image": "/images/fizjoterapia/rehab/6.webp"
+      },
+      {
+        "heading": "Bóle bioder.",
+        "body": "Ból w okolicy bioder i miednicy może mieć bardzo dużo potencjalnych źródeł. Genezy można szukać zarówno wewnątrzstawowo (np. choroba zwyrodnieniowa, zapalenie kaletki krętarza), na poziomie tkanek miękkich (np. tendinopatie mm. pośladkowych, naciągnięcia przywodzicieli) lub poza samym stawem, gdyż zdarza się, że ból rzutuje z kręgosłupa. Ze względu na wielkość struktury stawu biodrowego, ból może pojawiać się w pachwinach, w okolicy kości krzyżowej i niżej, ale także z przodu czy po boku. Tak rozległa gama możliwości podpowiada jak ważna w temacie bólu biodra jest specjalistyczna diagnoza problemu. Wyprowadzenie pacjenta z problemów bólowych w tym obszarze często polega na odpowiednio zaprogramowanym planie odbudowy mobilności biodra oraz wielokierunkowe wzmocnienie mięśni okalających staw.",
+        "image": "/images/fizjoterapia/rehab/7.webp"
+      },
+      {
+        "heading": "Ból dolnego odcinka kręgosłupa.",
+        "body": "Ból dolnego odcinka kręgosłupa jest obecnie pierwszą przyczyną niepełnosprawności na świecie wg. WHO. Co ciekawe, najczęściej występuje w postaci niespecyficznej – znaczy to, iż sam ból nie ma swojego źródła w uszkodzeniu czy degeneracji struktur kręgosłupa. Obecnie jako przyczyny niespecyficznego bólu kręgosłupa wymienia się niską sprawność fizyczną, przeciążenia czy czynniki psychospołeczne. Nie zmienia to faktu, iż wciąż zdarzają się przypadki „ostrego dysku”, mające swoje źródło w podrażnieniu korzeni nerwów wychodzących z rdzenia kręgowego. Niezależnie od przyczyny bólu, wytyczne mówią jasno – ćwiczenia terapeutyczne w znacznym stopniu redukują dolegliwości oraz poprawiają funkcję. Wczesne zachęcenie do aktywności z indywidualnym programem uzupełnionym o edukację o mechanizmach bólu wraz z ewentualnymi modyfikacjami stylu życia jest najlepszą drogą do powrotu do pełni życia.",
+        "image": "/images/fizjoterapia/rehab/8.webp"
+      },
+      {
+        "heading": "Ból stożka rotatorów barku.",
+        "body": "Dziś w literaturze przedmiotu nazywany RCRSP (pol. „ból barku związany ze stożkiem rotatorów”) termin-parasol opisuje takie schorzenia jak: tendinopatie stożka rotatorów, zapalenie kaletki podbarkowej i naderwanie stożka rotatorów. Problemy bólowe w okolicy barku mogą objawiać się na wiele sposobów, ale częstą ich formą jest znaczny dyskomfort przy unoszeniu i/lub rotacji ramienia oraz ograniczenie aktywności powyżej poziomu głowy. Źródłem tego rodzaju schorzeń mogą być zarówno urazy, przeciążenia związanie z powtarzalnymi ruchami w pracy/sporcie jak i degeneracja ścięgien z przyczyn naturalnych. Ćwiczenia fizyczne w tym przypadku są pierwszorzędnym wyborem leczenia zachowawczego. Zależnie od indywidualnych deficytów u pacjenta mogą być to ćwiczenia przywracające zakres ruchu w stawie, ćwiczenia wzmacniające mięśnie rotatorów (lub inne grupy mięśniowe biorące udział w ruchach kompleksu barkowego), trening kontroli łopatki czy po prostu bardziej ogólny trening siłowo-funkcjonalny kończyny górnej.",
+        "image": "/images/fizjoterapia/rehab/9.webp"
+      },
+      {
+        "heading": "Zamrożony bark.",
+        "body": "Tzw. zamrożony bark objawia się stopniowo narastającą bolesną sztywnością barku z ograniczeniem aktywnego i biernego zakresu ruchu, często przebiegającą w fazach – ciepłej (ostrej) – zimnej (sztywnej) – odmrożeniowej (remisja objawów). Długość poszczególnych faz jest mocno indywidualna. Etiologia choroby nie jest do końca znana, lecz wśród czynników ryzyka znajdują się: płeć (żeńska), wiek, nadwaga, cukrzyca, choroby tarczycy, wcześniejsze urazy barku oraz epizod długiego jego unieruchomienia. Mimo, iż nauka wciąż nie poznała do końca mechanizmów powstawania tego schorzenia, mamy już klarowne wytyczne dotyczące leczenia. Choroba ze względu na swój przebieg wymaga przede wszystkim edukacji pacjenta na ten temat, wraz z ewentualnymi uzupełnieniami w postaci terapii manualnej i/lub zastrzyków sterydowych. Filarem leczenia są natomiast ćwiczenia fizyczne barku – w fazie ostrej dostosowane do możliwości bólowych pacjenta, a w fazie sztywnej – bardziej „agresywne” treningi mobilizujące torebkę stawową w celu przywrócenia zakresu ruchu.",
+        "image": "/images/fizjoterapia/rehab/10.webp"
+      },
+      {
+        "heading": "Niestabilność łokcia.",
+        "body": "Niestabilność łokcia to zaburzenia biomechaniki stawu łokciowego przejawiające się uczuciem „przeskakiwania w stawie”, brakiem siły w kończynie, ograniczeniem zakresu ruchu, możliwym nawracającym podwichaniem oraz oczywiście bólem. W opisywanym przypadku objawy te są wynikiem braku stabilności wywołanej niewydolnością struktur więzadłowych okalających łokieć. Niestabilność łokcia może być oczywista – np. może dojść do zwichnięcia przedniego w wyniku upadku. Czasami jednak niestabilność może mieć mniej ostry charakter, a diagnoza zdarza się być nieoczywista. Rzadziej tego typu schorzenia powstają w wyniku chronicznego przeciążania łokcia np. w sportach rzutowych. Przykładami tu mogą być takie jednostki jak PLRI czy PMRI, gdzie uszkodzone zostają więzadła po stronie bocznej/przyśrodkowej i wywołują one dyskomfort w konkretnych ruchach kończyną. Ze względu na skomplikowanie omawianego tematu do rehabilitacji tego typu urazów trzeba podejść z odpowiednią wiedzą specjalistyczną. Trening ruchowy oparty na wczesnej mobilizacji i odbudowie kontroli motorycznej łokcia przy unikaniu niekorzystnych w początkowych fazach ruchów jest kluczem do powrotu do sprawności. Nieodpowiednie leczenie może prowadzić do powikłań, w tym przewlekłą, nawracającą postać niestabilności.",
+        "image": "/images/fizjoterapia/rehab/11.webp"
+      },
+      {
+        "heading": "Złamania kości.",
+        "body": "Złamania, czyli przerwania ciągłości kostnej występują we wszelakich formach – zależnie od rodzaju, lokalizacji i stopnia zaawansowania. Mogą być otwarte lub zamknięte, proste lub złożone (wieloodłamkowe), przebiegać poprzecznie do kości, wzdłuż niej lub nawet spiralnie. Do tego wymienić można złamania awulsyjne, kompresyjne czy typu „zielonej gałązki”. Naturalnie najczęściej są one wynikiem nieszczęśliwych upadków, ale zdarza się, że są następstwem osteopenii czy osteoporozy lub wynikają ze zmęczenia aparatu ruchu. Niezależnie od wszystkich wymienionych wcześniej rodzajów – najlepszym sposobem uporania się z nimi jest przywrócenie funkcji w dotkniętym obszarze ciała. Środkiem do tego celu jest odpowiednio poprowadzona rehabilitacja ruchem z naciskiem na jak najwcześniejsze, ale kontrolowane obciążanie dotkniętej kości. Każdy plan powrotu do sprawności powinien natomiast zostać zindywidualizowany pod konkretny typ złamania.",
+        "image": "/images/fizjoterapia/rehab/12.webp"
+      }
+    ],
+    "howToHeading": "Jak skorzystać z naszych usług?",
+    "howToBody": "Skontaktuj się z nami (zadzwoń pod nr 609805660 lub napisz poprzez e-mail: info@body-work.pl) i umów się na wizytę. Pracownicy recepcji udzielą Ci wszelkich dodatkowych, niezbędnych informacji.",
+    "howToCall": "Zadzwoń",
+    "howToEmail": "Napisz"
+  },
+  "HealthyBelly": {
+    "title": "Zdrowy brzuch.",
+    "leadHeading": "Projekt, który przywraca równowagę mięśniom brzucha i dna miednicy.",
+    "aboutHeading": "O projekcie.",
+    "aboutBody": "Pierwsze spotkanie to wywiad, badanie USG brzucha dynamiczne i statyczne, testowanie funkcjonalne mięśni tułowia (mięśnie brzucha, grzbietu, dna miednicy, przepony) i nauka ćwiczeń dla poprawy napięcia zmienionych tkanek. Cały projekt trwa około 2 miesiące, czyli 8 spotkań treningowych. Na ostatnim spotkaniu z cyklu sprawdzamy zmiany przy pomocy USG i testów, które były zastosowane na początku.",
+    "qualifyHeading": "Jakie dysfunkcje kwalifikują się do projektu?",
+    "qualifyBody": "● Rozejście kresy mięśnia prostego brzucha ● Przebyta ciąża (poród naturalny i cesarskie cięcie) ● Brak aktywności mięśni stabilizujących brzucha ● Problemy z dnem miednicy ● Stany po operacjach brzusznych",
+    "leadsHeading": "Prowadzące:",
+    "leads": [
+      {
+        "body": "SPECJALIZACJA - TRENING MEDYCZNY, TRENING I FIZJOTERAPIA KOBIET W CIĄŻY I PO PORODZIE Absolwentka kierunku fizjoterapia na Uniwersytecie Medycznym w Poznaniu. Specjalizuje się w treningu i terapii kobiet w ciąży oraz po porodzie. Zajmuje się też terapią przeciwbólową. W swojej pracy zależnie od potrzeb łączy pracę w gabinecie z treningiem. Ukończyła liczne kursy z zakresu treningu oraz fizjoterapii w okresie okołoporodowym, w tym również korekcji przy rozejściu mięśni brzucha, a także szkolenia z terapii tkanek miękkich, masażu i kinesiotapingu. Pierwsze doświadczenia w pracy z kobietami w ciąży i po porodzie zdobywała 5 lat temu w jednej z poznańskich szkół rodzenia. Aktualnie sama jest mamą i wie jak istotny jest brak dolegliwości bólowych w czasie ciąży oraz odpowiednio dobrany trening, by zdrowo powrócić do formy po porodzie. W swojej pracy skupia się na likwidowaniu dolegliwości bólowych, przygotowaniu do aktywnego porodu, poprawie funkcji i odbudowie ciała po porodzie.",
+        "image": "/images/fizjoterapia/brzuch-katarzyna-adamek.webp",
+        "name": "Katarzyna Adamek"
+      },
+      {
+        "body": "SPECJALIZACJA - TRENING MEDYCZNY, TRENING I FIZJOTERAPIA KOBIET W CIĄŻY I PO PORODZIE Absolwentka fizjoterapii Uniwersytetu Medycznego w Poznaniu, zdobywa nie tylko wiedzę teoretyczną, ale także praktyczne doświadczenie, które integruje z własnym podejściem do treningów. Poza kształceniem zawodowym rozwija się również dodatkowo uczestnicząc w kursach i konferencjach związanych z treningiem medycznym, zdobywając umiejętności w rehabilitacji pourazowej oraz w przypadku bólów kręgosłupa. Jej głównym obszarem zainteresowań są treningi w okresie okołoporodowym. Swoją wiedzę łączy z empatią i stara się tworzyć wyjątkową przestrzeń dla przyszłych mam, gdzie mogą doświadczyć wsparcia nie tylko fizycznego, ale i emocjonalnego. Pomaga również obecnym mamom powrócić do pełnej sprawności po porodzie. Jest certyfikowaną trenerką medyczną, ponadto ukończyła kursy związane z treningiem kobiet w ciąży oraz po porodzie Profi Fitness School. Szkoliła się z treningu prozdrowotnego dla mięśni dna miednicy oraz z rehabilitacji rozejścia mięśnia prostego brzucha pod okiem mgr Kasi Witek-Sokołowskiej. Ukończyła również liczne kursy uzupełniające, m.in z treningu funkcjonalnego, podstaw metody pilates, masażu tkanek głębokich oraz wykorzystania ultrasonografii w praktyce fizjoterapeuty.",
+        "image": "/images/fizjoterapia/brzuch-natalia-guzikowska.webp",
+        "name": "Natalia Guzikowska"
+      },
+      {
+        "body": "SPECJALIZACJA - TRENING MEDYCZNY, TRENING I FIZJOTERAPIA KOBIET W CIĄŻY I Z DYSFUNKCJAMI DNA MIEDNICY Fizjoterapeuta, trener, instruktor, szkoleniowiec, absolwentka AWF Poznań. Zajmuje się szeroko rozumianymi treningami zdrowotnymi… od nauki nowych czynności, przez zdobywanie wyniku sportowego, do przywracania utraconej funkcji po kontuzji. Specjalizuje się między innymi w treningu kobiet w ciąży, po operacjach brzusznych, problemach w obrębie dna miednicy, powrotem do sprawności po kontuzjach w piłce nożnej. Szczególną uwagę poświęca pracy ze stopą, której dysfunkcje mogą prowadzić do problemów w innych częściach ciała. Ukończyła liczne szkolenia z pracy z tkankami miękkimi, pracy z powięzią, kinezjotapingu, szkolenia z zakresu ruchu człowieka i coachingu.",
+        "image": "/images/fizjoterapia/brzuch-malgorzata-muzyka-kopera.webp",
+        "name": "Małgorzata Muzyka-Kopera"
+      }
+    ],
+    "formatsHeading": "Wybierz formę spotkań:",
+    "formats": [
+      {
+        "heading": "Konsultacja USG + Trening",
+        "price": "Koszt: 395,-",
+        "duration": "Czas: 1,5h",
+        "href": "https://bodywork.testowe.eu/zakupy/zdrowy-brzuch-konsultacja-usg-trening/"
+      },
+      {
+        "heading": "Pakiet 8 spotkań",
+        "price": "Koszt: 2.000,-",
+        "duration": "Czas: 1,5h",
+        "href": "https://bodywork.testowe.eu/zakupy/zdrowy-brzuch-pakiet-8-spotkan/"
+      }
+    ],
+    "formatCta": "Zapisz się",
+    "leadEyebrow": "Poznaj nasz autorski, 2-miesięczny program.",
+    "leadBody": "Specjalistyczny program dla osób z zaburzeniami pracy mięśni brzucha, dna miednicy i przepony. Proces terapii opiera się na nowoczesnej diagnostyce USG oraz ocenie fizjoterapeuty."
+  },
+  "Physiotherapists": {
+    "title": "Specjaliści.",
+    "leadHeading": "Dobry fizjoterapeuta.",
+    "leadBody": "To człowiek otwarty na mowę ciała i słuchający co mówi Pacjent oraz jego ciało. To człowiek współpracujący ze specjalistami z zakresu diagnostyki obrazowej, dietetyki, psychologii, treningu sportowego czy medycyny. Przede wszystkim to osoba myśląca kreatywnie i samodzielnie z intencją pomocy w powrocie do zdrowia osobom, które tego potrzebują.",
+    "bandHeading": "Znajdź fizjoterapeutę dla siebie!",
+    "bandBody": "W BODYWORK stawiamy na specjalizację i interdyscyplinarną współpracę. Nasi fizjoterapeuci to eksperci w konkretnych obszarach ruchu, dzięki czemu otrzymujesz wsparcie oparte na najnowszej wiedzy i doświadczeniu. Wybór fizjoterapeuty o odpowiednim profilu to pierwszy krok do skutecznej realizacji Twoich celów.",
+    "directionsHeading": "Poznaj nasze główne kierunki pracy:",
+    "categories": [
+      {
+        "heading": "Specjalizacja ortopedyczna",
+        "body": "To specjalista, do którego trafisz w przypadku bólu, urazów lub ograniczeń w obrębie układu ruchu. Pracuje z problemami stawów, mięśni i tkanek miękkich - zarówno w fazie ostrej, jak i w procesie powrotu do pełnej sprawności. Skupia się na zrozumieniu przyczyny dolegliwości, przywracaniu funkcji oraz bezpiecznym wprowadzaniu ruchu, który staje się narzędziem leczenia i profilaktyki.",
+        "people": [
+          {
+            "body": "Od 2013 roku pomaga osobom dorosłym w powrocie do pełnej sprawności. Są to zarówno osoby po urazach (złamania, skręcenia, operacje), jak i te walczące z przewlekłym bólem (bóle pleców, barków, głowy). Specjalizuje się w pracy z osobami cierpiącymi na przewlekły ból pleców oraz po urazach kończyn dolnych. Towarzyszy pacjentom od momentu unieruchomienia aż do pełnego powrotu do aktywności. Zamiast działania objawowego, ustala z pacjentami rozwiązania oparte na terapii manualnej i ruchu dopasowanym do indywidualnych potrzeb. Jako absolwentka AWF w Poznaniu i Akademii Osteopatii, łączy precyzyjną diagnostykę z szerokim wachlarzem technik terapeutycznych - od podejścia osteopatycznego i akupunktury, przez Fascial Manipulation, po trening medyczny. Dopiero po dokładnym zbadaniu i zrozumieniu sytuacji pacjenta ustala plan działania. Terapia i trening to jedno. Najbardziej zależy jej, aby pacjenci nie bali się swojego ciała i odbudowali do niego zaufanie. Nie wstydzimy się słabości - budujemy na nich siłę. Nie boimy się ćwiczeń - dobieramy je tak, żeby były skuteczne i bezpieczne dla Twojego obecnego stanu. Jako pasjonatka kolarstwa rozumie, jak ważne jest odzyskanie pewności w swoim ciele i powrót do aktywności, która daje radość.",
+            "image": "/images/fizjoterapia/specjalisci/anna-sochacka.webp",
+            "name": "Anna Sochacka"
+          },
+          {
+            "body": "Doktor nauk medycznych w dyscyplinie nauki o zdrowiu, fizjoterapeuta oraz magister psychologii. W swojej pracy klinicznej łączy wiedzę z zakresu medycyny manualnej oraz psychologii, co pozwala mu patrzeć na problem pacjenta w sposób całościowy - szczególnie w przypadku dolegliwości przewlekłych i złożonych problemów bólowych. Podstawą jego pracy jest terapia manualna oparta na modelu International Academy of Orthopedic Medicine (IAOM), uzupełniana o nowoczesną diagnostykę funkcjonalną oraz indywidualnie dobrane postępowanie terapeutyczne. W procesie diagnostycznym wspiera się również oceną ultrasonograficzną (USG), która pozwala lepiej zrozumieć stan tkanek oraz precyzyjniej dobrać strategię leczenia. Podejście terapeutyczne opiera przede wszystkim na zasadach medycyny opartej na dowodach naukowych (Evidence-Based Medicine), łącząc aktualną wiedzę naukową z doświadczeniem klinicznym oraz indywidualnymi potrzebami pacjenta. Na co dzień pracuje zarówno ze sportowcami, jak i z pacjentami z różnorodnymi problemami klinicznymi, pomagając im wrócić do sprawności i aktywności.",
+            "image": "/images/fizjoterapia/specjalisci/bartosz-grobelny.webp",
+            "name": "Bartosz Grobelny"
+          },
+          {
+            "body": "Absolwentka Uniwersytetu Medycznego im. Karola Marcinkowskiego w Poznaniu na kierunku Fizjoterapia. Fundamentem jej pracy jest precyzyjna diagnostyka oraz techniki Niemieckiej Terapii Manualnej, które skutecznie łączy z suchym igłowaniem, terapią tkanek miękkich oraz treningiem medycznym. Głównym obszarem jej specjalizacji jest kompleksowa rehabilitacja osób po urazach, kontuzjach i zabiegach operacyjnych. Skutecznie prowadzi pacjentów z dolegliwościami przeciążeniowymi narządu ruchu, pomagając im w bezpiecznym powrocie do pełnej aktywności. Swoje doświadczenie buduje, współpracując z piłkarzami, tenisistami oraz biegaczami, dbając o ich formę i przygotowanie do sezonu. Warsztat pracy uzupełnia wiedzą z zakresu dna miednicy i rozejścia mięśnia prostego brzucha, co pozwala jej na jeszcze szersze spojrzenie na biomechanikę ciała, szczególnie w pracy z aktywnymi osobami. Jest zwolenniczką zasady, że trwała sprawność to efekt symbiozy fizjoterapii i indywidualnego treningu. Takie połączenie pozwala nie tylko wyeliminować ból, ale przede wszystkim wzmocnić ciało i zapobiegać nawrotom kontuzji. Dzięki połączeniu wiedzy klinicznej z praktyką sportową, precyzyjnie lokalizuje przyczynę problemu i dobiera rozwiązania, które pozwalają pacjentom odzyskać kontrolę nad własnym ciałem.",
+            "image": "/images/fizjoterapia/specjalisci/aneta-balcerzak.webp",
+            "name": "Aneta Balcerzak"
+          },
+          {
+            "body": "Absolwent Uniwersytetu Medycznego w Poznaniu na kierunku Fizjoterapia, który specjalizuje się w pracy z osobami po kontuzjach i zabiegach ortopedycznych. Na co dzień współpracuje z kadrą narodową kajakarzy górskich, a swoje kilkuletnie doświadczenie zdobywał, pracując z profesjonalnymi zawodnikami Akademii KKS Lech Poznań. Fizjoterapia i trening to dla niego jeden spójny proces — od leczenia i redukcji bólu, przez odbudowę siły i kontroli ruchu, aż po pełny powrót do aktywności fizycznej i sportu. Na co dzień pracuje z pacjentami po operacjach kolana, barku, stawu skokowego czy urazach mięśniowych, ale także z osobami, które stawiają na profilaktykę i świadome budowanie sprawności. Każdego pacjenta traktuje indywidualnie, łącząc aktualną wiedzę naukową z praktyką wyniesioną ze sportu wyczynowego. Jego celem jest nie tylko wyleczenie urazu, ale stworzenie fundamentu, który zmniejsza ryzyko kolejnych kontuzji i pozwala wrócić do pełnej formy.",
+            "image": "/images/fizjoterapia/specjalisci/jakub-dylewski.webp",
+            "name": "Jakub Dylewski"
+          },
+          {
+            "body": "Absolwent Pomorskiego Uniwersytetu Medycznego w Szczecinie, technik masażysta, wykładowca akademicki. Na podstawie szczegółowego wywiadu dobiera grupę testów diagnostycznych o odpowiedniej czułości i swoistości. Diagnostykę wspiera dodatkowo badaniem USG narządu ruchu. W swojej pracy stosuje terapię aktywną – w postaci różnych form ćwiczeń w zależności od jednostki chorobowej wraz z wykorzystaniem technik biernych jak terapia manualna, suche igłowanie, przezskórna elektroliza. Pomaga klientom o profilu ortopedycznym i sportowym. Pracuje z osobami po urazach ortopedycznych wymagających ukierunkowanej aktywności fizycznej; ze schorzeniami – ortopedycznymi, metabolicznymi i reumatologicznymi; które cierpią na podostry i chroniczny ból pleców odcinka lędźwiowego, piersiowego i szyjnego; które chcą poprawić swoje parametry sportowe; z miłośnikami sportu, którzy przygotowują się ogólnosprawnościowo do sezonu sportowego; z pacjentami mającymi schorzenia m.in. tendinopatie, enteziopatie; lub są pacjentami chronicznie bólowymi wynikającym ze zmian zwyrodnieniowych i degeneracyjnych.",
+            "image": "/images/fizjoterapia/specjalisci/grzegorz-sleczka.webp",
+            "name": "Grzegorz Ślęczka"
+          },
+          {
+            "body": "Doktor nauk medycznych o specjalności nauki o zdrowiu, absolwentka AWF w Poznaniu na kierunku fizjoterapia. Od 2009 roku z pasją zgłębia tajniki Terapii Manualnej Rakowskiego, którą z powodzeniem stosuje w pracy z pacjentami, szczególnie zajmując się osobami z zaburzeniami czynności narządu ruchu, w tym dysfunkcjami stawów skroniowo-żuchwowych. Magdalena kieruje się przekonaniem, że organizm ludzki „mówi” przez objawy, a jej rolą jest pomoc w „tłumaczeniu” tej mowy, by przywrócić równowagę i zdrowie pacjentom. Specjalizuje się w analizie i korygowaniu zaburzeń posturalnych oraz w kontroli motorycznej tułowia. W swojej praktyce uwzględnia również rolę stóp jako podstawy łańcuchów kinematycznych. Z satysfakcją współpracuje z trenerami, logopedami, ortodontami i psychologami, co pozwala na kompleksowe podejście do problemów pacjentów.",
+            "image": "/images/fizjoterapia/specjalisci/magdalena-tomczak.webp",
+            "name": "Magdalena Tomczak"
+          },
+          {
+            "body": "Fizjoterapeuta, trener, instruktor, szkoleniowiec, absolwentka AWF Poznań. Zajmuje się szeroko rozumianymi treningami zdrowotnymi… od przywracania utraconej funkcji po kontuzji do osiągania wyniku sportowego. Specjalizuje się między innymi w treningu prewencji i po kontuzjach w piłce nożnej (juniorskiej i seniorskiej). Szczególną uwagę poświęca pracy ze stopą, której dysfunkcje mogą prowadzić do problemów w innych częściach ciała. Zajmuje się także przywracaniem funkcji mięśni brzucha po operacjach, w bólach kręgosłupa, po ciążach. Ruch jest przypieczętowaniem postępowania fizjoterapeutycznego prowadzący do przedłużenia zdrowia w danym rejonie pracy. Ta misja jest przekazywana na szkoleniach Treningu Medycznego, które prowadzi Małgorzata. Ukończyła liczne szkolenia z pracy z tkankami miękkimi, pracy z powięzią, kinezjotapingu, szkolenia z zakresu ruchu człowieka i coachingu.",
+            "image": "/images/fizjoterapia/specjalisci/malgorzata-muzyka-kopera.webp",
+            "name": "Małgorzata Muzyka-Kopera"
+          },
+          {
+            "body": "Magister fizjoterapii oraz trener niebojący się łączenia wszelakich szkół i podejść do treningu, by osiągnąć wymarzony przez podopiecznego efekt. Od strony zawodowej – fascynat kończyny górnej. Współpracuje zarówno z ludźmi potrzebującymi pomocy w zakresie walki z bólem lub wymagającymi rehabilitacji pooperacyjnej, jak i osobami aktywnymi fizycznie doskonalącymi swoje dziedziny ruchowe. Swój warsztat opiera na przekonaniu o efektywności leczenia ruchem i usamodzielnieniu klienta. W wolnym czasie pasjonat wspinaczki boulderowej oraz amator grapplingu.",
+            "image": "/images/fizjoterapia/specjalisci/szymon-frankowski.webp",
+            "name": "Szymon Frankowski"
+          },
+          {
+            "body": "Fizjoterapeuta, trener funkcjonalny. Absolwent WSEiT w Poznaniu na kierunku fizjoterapia, z dyplomem na kierunku: kompleksowa terapia manualna. W pracy z pacjentem wykorzystuje różne formy terapii manualnej, m. in. masaż tkanek głębokich, terapię punktów spustowych, igłoterapię oraz manipulacje stawowe. Terapię bierną łączy z rehabilitacją ruchową, co pozwala na kompleksowe podejście do problemu oraz maksymalizację efektów terapeutycznych.Szczególne miejsce w warsztacie Mikołaja zajmują kontuzje przeciążeniowe oraz urazy stawu kolanowego.",
+            "image": "/images/fizjoterapia/specjalisci/mikolaj-mili.webp",
+            "name": "Mikołaj Mili"
+          }
+        ]
+      },
+      {
+        "heading": "Specjalizacja uroginekologiczna",
+        "body": "To specjalista zajmujący się zdrowiem w obszarze dna miednicy i funkcji kobiecego ciała. Wspiera w pracy z dolegliwościami takimi jak nietrzymanie moczu, obniżenie narządów czy bóle w obrębie miednicy, a także w okresie ciąży i po porodzie. Skupia się na świadomej pracy z ciałem, oddechem i napięciem, pomagając przywrócić komfort, kontrolę i bezpieczeństwo w codziennym funkcjonowaniu.",
+        "people": [
+          {
+            "body": "Absolwentka kierunku Fizjoterapia na Uniwersytecie Medycznym w Poznaniu. Specjalizuje się w treningu medycznym, treningu i fizjoterapii kobiet w ciąży i po porodzie, jak również kobiet chorujących na endometriozę. Certyfikowana instruktorka metody LOW PRESSURE FITNESS. Kasia bierze udział w projekcie “ZDROWY BRZUCH”, gdzie zajmuje się oceną mięśni brzucha pod kontrolą USG oraz treningiem mięśni brzucha i mięśni dna miednicy dostosowanym do istniejących dysfunkcji pacjenta. Zajmuje się też terapią przeciwbólową. Ukończyła liczne kursy z zakresu treningu oraz fizjoterapii w okresie okołoporodowym, w tym również korekcji przy rozejściu mięśni brzucha,kurs treningu medycznego i personalnego oraz metody LPF, jak również szkolenie Fizjoterapia w endometriozie. W swojej pracy zależnie od potrzeb łączy pracę w gabinecie z treningiem, aby działanie było kompleksowe i przynosiło lepsze efekty. Skupia się na likwidowaniu dolegliwości bólowych, przygotowaniu do aktywnego porodu oraz na poprawie funkcji i przywróceniu równowagi w pracy mięśni dna miednicy i mięśni brzucha po porodzie, operacjach brzusznych i w endometriozie. Jako mama dwójki dzieci wie jak istotny jest brak dolegliwości bólowych w czasie ciąży oraz odpowiednio dobrany trening, by zdrowo powrócić do formy po porodzie.",
+            "image": "/images/fizjoterapia/specjalisci/katarzyna-adamek.webp",
+            "name": "Katarzyna Adamek"
+          },
+          {
+            "body": "Trenerka oraz fizjoterapeutka ze specjalizacją w fizjoterapii uroginekologicznej. Na co dzień pracuje z kobietami zmagającymi się z problemami intymnymi, takimi jak nietrzymanie moczu, obniżenie narządów miednicy czy dolegliwości bólowe w obrębie dna miednicy. Wspiera kobiety w ciąży oraz po porodzie, pomagając odpowiednio dobierać aktywność fizyczną i odzyskać sprawność. Prowadzi również terapię i trening medyczny osób z dolegliwościami bólowymi, szczególnie w obrębie odcinka lędźwiowego kręgosłupa, a także wspiera osoby rozpoczynające swoją przygodę z ruchem. Prowadzi zajęcia grupowe typu Core oraz Zdrowy Kręgosłup, łącząc wiedzę fizjoterapeutyczną z praktycznym podejściem do treningu. Nieustannie pogłębia swoją wiedzę uczestnicząc w specjalistycznych kursach oraz konferencjach.",
+            "image": "/images/fizjoterapia/specjalisci/natalia-guzikowska.webp",
+            "name": "Natalia Guzikowska"
+          }
+        ]
+      }
+    ],
+    "bandEyebrow": "Fizjoterapeuci BODYWORK"
+  },
+  "GroupTraining": {
+    "title": "Trening grupowy",
+    "leadHeading": "Ruch, optymalny dla Ciebie!",
+    "leadBody": "Przestrzeń Centrum BODYWORK w Poznaniu to idealne miejsce dla treningów grupowych opartych na wielopłaszczyznowym ruchu. Wybierz jedną z naszych trzech specjalizacji – trening medyczny, trening funkcjonalny lub trening motoryczny i rozwijaj wymarzoną sprawność i ciało. Bogata oferta treningów grupowych BODYWORK to szeroka różnorodność zajęć o różnym stopniu intensywności. Poznaj nasz system treningu i dołącz do nas!",
+    "bandEyebrow": "Wypróbuj bez zobowiązań!",
+    "bandHeading": "Pierwsze zajęcia są bezpłatne.",
+    "bandBody": "Ponadto jeżeli jesteś posiadaczem karty Medicover Sport możesz skorzystać z dowolnych zajęć grupowych. Wystarczy, że przyjdziesz, wyślesz kod SMSem i... wchodzisz na zajęcia.",
+    "bandCta": "Zapisz się",
+    "classesHeading": "Zajęcia grupowe.",
+    "classesBody": "W Bodywork oferujemy szeroki wachlarz zajęć grupowych, które łączą świadomy ruch, energię wspólnego działania i profesjonalne prowadzenie. Tworzymy kameralne grupy, które pozwalają na indywidualne podejście, a jednocześnie dają energię wspólnego działania. W naszym grafiku znajdziesz różnorodne formy – od zajęć medycznych, przez funkcjonalne, aż po sportowe. Każdy trening prowadzony jest przez doświadczonych trenerów i fizjoterapeutów, którzy dbają nie tylko o technikę, ale też o Twoje bezpieczeństwo, komfort i motywację. Niezależnie od tego, czy dopiero zaczynasz, czy chcesz wejść na wyższy poziom – znajdziesz tu swoje miejsce i ludzi, z którymi dobrze się ćwiczy.",
+    "scheduleHeading": "Sprawdź grafik zajęć.",
+    "scheduleBody": "Nasz grafik zajęć został zaprojektowany tak, aby każdy mógł znaleźć coś dla siebie – niezależnie od poziomu zaawansowania, celów czy dostępnego czasu. Zajęcia odbywają się zarówno rano, jak i popołudniami, od poniedziałku do soboty. Wszystkie grupy są kameralne, a trenerzy dbają o to, żeby każdy uczestnik czuł się zaopiekowany. Wystarczy wybrać termin i wpisać trening do swojego tygodniowego rytmu. Zajrzyj do grafiku i zacznij budować swoją zdrową rutynę.",
+    "scheduleCta": "Sprawdź grafik",
+    "planHeading": "Plan Zdrowej Zmiany.",
+    "planBody": "Nasz autorski, 6-tygodniowy program, który pomoże Ci rozpocząć aktywny i zdrowy styl życia. Pod okiem doświadczonych trenerów, fizjoterapeutów i dietetyków będziesz trenować, uczyć się i otrzymywać wsparcie na każdym kroku. Program łączy ćwiczenia, edukację i motywację – wszystko po to, aby wzmocnić ciało, poprawić kondycję, koordynację i sylwetkę, a jednocześnie zdobyć pewność siebie i radość z ruchu. To nie tylko trening – to świetna zabawa w grupie 12 uczestników, praktyczna wiedza o zdrowym odżywianiu i regeneracji oraz fundament do trwałej zmiany stylu życia. Po 6 tygodniach poczujesz różnicę – Twoje ciało będzie silniejsze, sprawniejsze, a Ty pełen energii i endorfin!",
+    "planMore": "Dowiedz się więcej",
+    "planSignUp": "Zapisz się!",
+    "testimonialsHeading": "Opinie:",
+    "testimonials": [
+      {
+        "quote": "Najlepsze centrum treningowe i wiele więcej. Tylko dzięki nim przekonałem się do regularnego trenowanie na zajęciach grupowych, a próbowałem wcześniej w kilku innych miejscach. Przyjazna, kameralna atmosfera, która jest ogromnym plusem w porównaniu do rynkowych sieciówek. Anulowałem Multisporta, bo wolę dopłacić za coś z czego rzeczywiście korzystam i sprawia mi przyjemność.",
+        "name": "P.F."
+      },
+      {
+        "quote": "Polecam zajęcia zdrowy kręgosłup i mobility z Agatą, pilates z Małgorzatą.",
+        "name": "Ewelina Koterska"
+      },
+      {
+        "quote": "Polacam Bodywork jako miejsce z przyjazną atmosferą, już od wejścia jesteśmy witani z uśmiecham, a trening funkcjonalny z Martą lub Julią to prawdziwa przyjemność.",
+        "name": "Julianna Szymańska"
+      },
+      {
+        "quote": "Z Kasią Adamek zacząłem trenować na obleganych zajęciach grupowych pilates. Poznałem ją jako: uważną,cierpliwą,skoncentrowaną na ćwiczących i posiadającą przede wszystkim dużą wiedzę trenerkę. Każdy trening był po prostu bardzo satysfakcjonującym doświadczeniem. Bez wahania wybrałem Kasię jako trenerkę na indywidualne treningi (...).",
+        "name": "Marcin Majchrzycki"
+      },
+      {
+        "quote": "Fajnie jest bo i człowiek potrenuje a i atmosfera jest pozytywna i po treningu człowiek wychodzi naładowany jak pocisk atomowy.Z pewnością każdy kto przyjedzie będzie zadowolony z szybkich postępów i dobrego samopoczucia.Polecam serdecznie. Dzika Kuna.",
+        "name": "Marek Rutek"
+      },
+      {
+        "quote": "Fajna silownia, zajecia grupowe sa prowadzone profesjonalnie a cala ekipa jest bardzo przyjazna. Naprawde milo jest tam chodzic bo czlowiek nie czuje sie tam obca osoba tylko faktycznie czescia zespolu.",
+        "name": "Katarzyna Skotnicka"
+      },
+      {
+        "quote": "Korzystam z zajęć grupowych już ponad dwa lata i uważam, że to najlepsze miejsce żeby na nowo pokochać sport. (...) Bardzo polecam zajęcia z Wiktorią - trening obwodowy. (...)",
+        "name": "Bernadeta M."
+      }
+    ]
+  },
+  "GroupClasses": {
+    "title": "Zajęcia grupowe",
+    "leadHeading": "Trenuj w rytmie grupy, rozwijaj się w swoim tempie.",
+    "leadBody": "W Bodywork oferujemy szeroki wachlarz zajęć grupowych, które łączą świadomy ruch, energię wspólnego działania i profesjonalne prowadzenie. Niezależnie od tego, czy szukasz wzmocnienia, mobilności, kondycji czy chwili dla siebie – znajdziesz tu coś dla siebie. Ćwiczymy w kameralnych grupach, pod okiem doświadczonych trenerów i fizjoterapeutów, którzy dbają o technikę, bezpieczeństwo i dobrą atmosferę. Zobacz nasz grafik, wybierz zajęcia dla siebie i dołącz do ruchu, który daje radość, efekty i motywację.",
+    "leadSchedule": "Sprawdź grafik",
+    "leadPricing": "Cennik",
+    "kindsHeading": "Rodzaje treningu",
+    "kinds": [
+      {
+        "heading": "Medyczny.",
+        "body": "Zajęcia skoncentrowane na zdrowiu, profilaktyce bólu i poprawie jakości ruchu. Wykorzystujemy sprawdzone metody, by wzmacniać mięśnie głębokie, odciążać kręgosłup i zwiększać świadomość ciała. To bezpieczna przestrzeń dla osób z bólami pleców, przeciążeniami i potrzebą regeneracji. Zajęcia: Zdrowy kręgosłup, Pilates, CORE, Powięź"
+      },
+      {
+        "heading": "Funkcjonalny.",
+        "body": "Skupiamy się na naturalnych wzorcach ruchowych, które budują siłę, mobilność i sprawność potrzebną w codziennym życiu. Treningi dopasowane do każdego poziomu, prowadzone przez doświadczonych trenerów. Idealne, jeśli chcesz ruszać się lepiej, bez bólu i z większą kontrolą. Zajęcia: Trening funkcjonalny, Zdrowa sylwetka, Mobility, TRX, Trening funkcjonalny dla biegaczy"
+      },
+      {
+        "heading": "Sportowy.",
+        "body": "Zajęcia o wyższej intensywności dla tych, którzy chcą wzmocnić ciało, poprawić sylwetkę i przekraczać własne granice. Pracujemy na siłę, wytrzymałość i kondycję, wykorzystując różnorodne metody treningowe i sprzęt. Zajęcia: Trening siłowy, Trening funkcjonalny, Trening obwodowy"
+      }
+    ],
+    "freeHeading": "Pierwszy trening jest bezpłatny!",
+    "freeBody": "Jeżeli chciałbyś wypróbować nasz unikalny system treningu w grupie – zapraszamy na pierwsze bezpłatne zajęcia! Wybierz dowolny trening i zarejestruj się przez grafik zajęć lub telefonicznie.",
+    "freeCta": "Zadzwoń",
+    "classesHeading": "Poznaj nasze zajęcia.",
+    "classes": [
+      {
+        "heading": "Core",
+        "body": "Jest to trening funkcjonalny, oparty o ćwiczenia angażujące i wzmacniające mięśnie głębokie tułowia. Silny korpus, przez wielu niedoceniany, jest gwarancją progresu podczas treningu każdego rodzaju. Celem treningu jest ochrona kręgów i stabilizacja kręgosłupa, nauka pracy mięśniami brzucha, kształtowanie prawidłowego toru oddechu oraz kontrola postury, która znacząco polepsza jakość codziennych aktywności. DLA KOGO? Treningiem core powinien zainteresować się w zasadzie każdy, ponieważ ułatwi on nasze codzienne funkcjonowanie. Treningi polecane są przede wszystkim osobom, które doświadczają bólu kręgosłupa. KORZYŚCI: - wzmocnienie mięśni brzucha, - większa mobilność, - większa siła, - poprawa sylwetki, - zmniejszone ryzyko bólu pleców i kontuzji. Trening stanowi ponadto idealne antidotum na bóle pleców wynikające z pracy przy komputerze lub jazdy samochodem. RODZAJ: Trening funkcjonalny INTENSYWNOŚĆ: Średnia",
+        "image": "/images/trening-grupowy/zajecia/1.webp"
+      },
+      {
+        "heading": "Mobility",
+        "body": "Jest to trening wzmacniający, który ma na celu pracę nad poprawą zakresów ruchów, zbudowanie w nich siły, zwiększenie elastyczności mięśni oraz pozbycie się uczucia sztywności w ciele. W odróżnieniu od tradycyjnego rozciągania, trening ten koncentruje się na aktywnych, kontrolowanych ruchach, które angażują mięśnie i umożliwiają pełne poruszanie się w różnych płaszczyznach. Mobilność pozwala zarówno na bardziej efektywne treningi poprzez zmniejszenie ryzyka kontuzji, jak i wykonywanie codziennych czynności bez ograniczeń i bólu. DLA KOGO? Mobility dedykowane jest osobom, które na co dzień spędzają większość czasu w pozycji siedzącej i z tego powodu odczuwają sztywność oraz dyskomfort w ciele, również osobom, które regularnie trenują i chcą zmniejszyć ryzyko kontuzji oraz przeciążeń, jak i osobom, które chcą zwiększyć kontrolę i świadomość ciała. KORZYŚCI: - poprawa zakresów ruchu, - prewencja kontuzji i przeciążeń - zwiększenie kontroli mięśniowej - pozbycie się uczucia sztywności w ciele, poprawa elastyczności RODZAJ: Trening medyczny INTENSYWNOŚĆ: Średnia",
+        "image": "/images/trening-grupowy/zajecia/2.webp"
+      },
+      {
+        "heading": "Pilates",
+        "body": "Jest to klasyczny trening o charakterze medycznym, w którym pracuje się z głębokimi mięśniami centrum. Ćwiczenia zasadnicze obejmują ruchy ułożone w serie, które wykonywane są powoli z oddechem i kontrolą napięcia mięśni. Seria rozciągania, spinania i rozluźniania zapewnia elastyczność całemu ciału, wysmuklając je i wydłużając. DLA KOGO? Ćwiczenia te są odpowiednie dla każdego, niezależnie od wieku czy stanu zaawansowania, ponieważ są spokojne i nie wymagają nagłych ruchów. To świetne rozluźnienie dla osób cierpiących na bóle kręgosłupa czy stawów. Pilates spodoba się także osobom, które zmagają się z nadwagą oraz tym, którzy wracają do aktywności fizycznej po dłuższej przerwie. Treningi polubią także osoby szukające odprężenia i relaksu. KORZYŚCI: Ćwiczenia wykonywane systematycznie poprawiają: - stabilizację kręgosłupa, - postawę ciała, - postawę stawów obwodowych. Pilates ma wiele zalet, oprócz wzmacniania ciała, redukuje stres oraz pomaga się wyciszyć po ciężkim dniu. Ponadto wzmacnia mięśnie dna miednicy i przywraca równowagę psychiczną. RODZAJ: Trening medyczny INTENSYWNOŚĆ: Niska",
+        "image": "/images/trening-grupowy/zajecia/3.webp"
+      },
+      {
+        "heading": "Powięź",
+        "body": "Jest to dość intensywny trening terapeutyczny bez obciążenia, ukierunkowany na najważniejsze medium ruchu w ciele człowieka. Powięź to rodzaj tkanki łącznej, która stanowi zewnętrzną osłonę mięśni całego ciała. W fundamentalny sposób wpływa ona na funkcjonowanie zarówno ciała jak i umysłu przez wzmacnianie mięśni, wyzwalanie emocji i poprawę samopoczucia. Sekwencje dynamicznych ruchów i częste zmiany pozycji uelastyczniają całe ciało. DLA KOGO? Powięź podstawowa jest treningiem przeznaczonym dla każdego, kto czuje się „spięty”, ma problem z bolącymi plecami, a także dla wszystkich, którzy chcą zadbać o prawidłowe funkcjonowanie ciała. Trening pomaga również zredukować stres i odprężyć się. KORZYŚCI: - wzmacnianie mięśni, - rozwój siły, - poprawa sprawności, - poprawa samopoczucia, - redukcja stresu i rozluźnienie. RODZAJ: Trening medyczny INTENSYWNOŚĆ: Średnia",
+        "image": "/images/trening-grupowy/zajecia/4.webp"
+      },
+      {
+        "heading": "Power Core",
+        "body": "To połączenie treningu medycznego z funkcjonalnym oparte o ćwiczenia aktywizujące i wzmacniające głębokie mięśnie tułowia. Zajęcia są idealne dla osób, które znają już podstawy pracy z mięśniami core (np. z zajęć „core” lub „zdrowy kręgosłup”) i szukają czegoś intensywniejszego. Podczas treningu korzystamy z różnorodnych akcesoriów - piłek gimnastycznych, gum oporowych czy przyborów równoważnych - dzięki czemu każda sesja jest ciekawa i wszechstronna. Głównym celem jest nauka świadomej kontroli tułowia w zmiennych, nieprzewidywalnych warunkach. Pozwala to poprawić komfort i jakość wykonywania codziennych aktywności, zmniejszyć ryzyko urazów oraz podnieść osiągi sportowe. DLA KOGO? Dla osób, które: chcą ponadprzeciętnie wzmocnić mięśnie głębokie; mają doświadczenie z podstawowymi ćwiczeniami i szukają nowych bodźców; trenują sporty wymagające stabilnego i silnego centrum ciała (np. bieganie, dźwiganie ciężarów). KORZYŚCI: - wzmocnienie mięśni brzucha i głębokich mięśni tułowia, - poprawa mobilności i siły, - lepsza sylwetka i kontrola ruchu, - mniejsze ryzyko bólu pleców i kontuzji. Trening świetnie sprawdzi się też u osób, które odczuwają napięcia i bóle pleców związane z pracą siedzącą czy częstą jazdą samochodem. RODZAJ: Trening medyczny/ funkcjonalny INTENSYWNOŚĆ: Średnia",
+        "image": "/images/trening-grupowy/zajecia/5.webp"
+      },
+      {
+        "heading": "Trening obwodowy",
+        "body": "Jest to trening o charakterze siłowo-wytrzymałościowym. Składa się z zestawów ćwiczeń ustawionych w odpowiedniej kolejności, aby angażować na przemian różne partie mięśniowe. Całość tworzy obwód angażujący całe ciało i jest powtarzany kilka razy. Obwód zawiera elementy pracy siłowej z ciężarem własnego ciała lub obciążeniem zewnętrznym, nie brakuje również elementów kardio. Jest to wysiłek o charakterze interwałowym, gdzie przeplata się czas pracy o podniesionej intensywności z umiarkowaną przerwą. DLA KOGO? Jest to trening dla osób lubiących różnorodność i wysoką intensywność. Jeśli szybko nudzisz się powtarzalnymi ćwiczeniami, to treningi obwodowe są dla Ciebie idealne - z pewnością brak tu monotonii. KORZYŚCI: - wzrost siły, - większa wytrzymałość, - poprawa sylwetki, - redukcja tkanki tłuszczowej RODZAJ: Trening sportowy INTENSYWNOŚĆ: Wysoka",
+        "image": "/images/trening-grupowy/zajecia/6.webp"
+      },
+      {
+        "heading": "Trening funkcjonalny",
+        "body": "To zaawansowane zajęcia, które rozwijają umiejętności zdobyte podczas treningu podstawowego, wprowadzając elementy progresji w celu osiągnięcia jeszcze lepszych wyników. Podobnie jak w wersji podstawowej, trening opiera się na złożonych ćwiczeniach wielostawowych, naśladujących naturalne ruchy ciała. W tym przypadku jednak, pracujemy z większym obciążeniem i bardziej zaawansowanymi wariantami ćwiczeń, rozwiniętymi o elementy skocznościowe i poruszania się . Dodatkowo zwiększa się również intensywność zajęć. DLA KOGO? To idealna opcja dla osób, które zdobyły doświadczenie podczas treningu funkcjonalnego na poziomie podstawowym i chcą kontynuować swoją aktywność, przechodząc na wyższy poziom intensywności i zaawansowania. Uczestnicy tych zajęć powinni posiadać podstawową wiedzę na temat techniki wykonywanych ćwiczeń opartych na wzorcach ruchowych. KORZYŚCI: rozwinięcie zaawansowanych umiejętności fizycznych, poprawa wydolności, wzmocnienie całego ciała, poprawa sprawności, poprawa równowagi. RODZAJ: Trening funkcjonalny INTENSYWNOŚĆ: Wysoka",
+        "image": "/images/trening-grupowy/zajecia/7.webp"
+      },
+      {
+        "heading": "Trening funkcjonalny dla biegaczy",
+        "body": "Zajęcia stanowią uzupełnienie treningów biegowych. Program treningowy opiera się na kompleksowym rozwoju niezbędnych aspektów sprawności biegaczy. W głównej mierze ma na celu poprawienie ogólnej sprawności organizmu, a także zwiększenie efektywności biegu. Treningi są oparte zarówno na ćwiczeniach z ciężarem ciała, jak i obciążeniem zewnętrznym. Podczas treningów skupimy się między innymi na poprawie mobilności i elastyczności. Nie zabraknie także ćwiczeń siłowo-wytrzymałościowych oraz ruchów specyficznych dla biegaczy. DLA KOGO? Zarówno dla zaawansowanych biegaczy jak i dla osób biegających rekreacyjnie, którzy chcą poprawić technikę biegania i wzmocnić te elementy funkcjonowania organizmu, które przekładają się na efektywność biegu. KORZYŚCI: - poprawa koordynacji i równowagi, - zwiększenie wydolności organizmu, - wzmocnienie mięśni głębokich, - zwiększenie gibkości (co zmniejsza ryzyko kontuzji), - zwiększenie szybkości. RODZAJ: Trening funkcjonalny INTENSYWNOŚĆ: Średnia",
+        "image": "/images/trening-grupowy/zajecia/8.webp"
+      },
+      {
+        "heading": "Trening funkcjonalny z gumami",
+        "body": "Jest to trening funkcjonalny, który łączy element siłowy, koordynację ruchu i stabilizację. Taśmy oporowe pozwalają na efektywne budowanie siły i wytrzymałości siłowej. Praca z taśmami charakteryzuje się zmiennym oporem - największe napięcie przypada na końcowy zakres ruchu, tym samym wspierana jest koordynacja nerwowo-mięśniowa. DLA KOGO? Dla tych, którzy chcą wzmocnić siłę mięśni łącząc to z koordynacją i stabilizacją. Trening jest idealny zarówno jako samodzielna jednostka lub uzupełnienie innych form aktywności. Poziom oporu taśm jest dostosowany do uczestnika, dzięki czemu trening sprawdzi się zarówno dla osób początkujących jak i zaawansowanych. KORZYŚCI: - wzmocnienie mięśni całego ciała, - poprawa równowagi, koordynacji i świadomości ruchu - zwiększenie siły i masy mięśniowej bez przeciążania stawów. RODZAJ: Trening funkcjonalny INTENSYWNOŚĆ: Średnia",
+        "image": "/images/trening-grupowy/zajecia/9.webp"
+      },
+      {
+        "heading": "Trening siłowy",
+        "body": "To intensywne zajęcia grupowe skoncentrowane na budowaniu siły, wytrzymałości mięśniowej oraz doskonaleniu techniki ćwiczeń. Trening odbywa się w formie blokowej i obejmuje ćwiczenia na konkretne grupy mięśniowe. Wykorzystujemy podstawowy sprzęt — hantle, kettlebelle, gumy oporowe oraz ciężar własnego ciała. Ćwiczenia są ukierunkowane na progresję, budowanie siły oraz bezpieczną pracę pod obciążeniem. Poziom trudności można dostosować regulując ciężar dopasowany do swoich możliwości. DLA KOGO? Dla osób na każdym poziomie zaawansowania, które chcą wzmocnić ciało, poprawić technikę oraz pracować nad sylwetką. KORZYŚCI: Zwiększenie siły i wytrzymałości, poprawa techniki ćwiczeń, budowanie masy mięśniowej, redukcja tkanki tłuszczowej, kontrola ciała. RODZAJ: Trening siłowy INTENSYWNOŚĆ: Wysoka",
+        "image": "/images/trening-grupowy/zajecia/10.webp"
+      },
+      {
+        "heading": "TRX",
+        "body": "Trening z wykorzystaniem masy własnego ciała odbywający się w strefie systemów podwieszanych taśm typu TRX. Opiera się na ćwiczeniach funkcjonalnych, które zaangażują wszystkie mięśnie do pracy. Nie zabraknie takich ćwiczeń jak przysiady, wykroki czy pompki. Celem treningu jest przede wszystkim wzmocnienie ciała, ale równie dużą uwagę poświęca się ćwiczeniom poprawiającym elastyczność oraz równowagę. Dla osób pragnących pobudzić metabolizm jeszcze bardziej, przewidziane są również dodatkowe ćwiczenia o wyższej intensywności. DLA KOGO? Trening TRX będzie idealnym rozwiązaniem dla osób, które pragną usprawnić swoje ciało, poprawić kondycję, nauczyć się podstaw treningu na taśmach, a dodatkowo wymodelować sylwetkę. KORZYŚCI: -wzmocnienie ciała, -wymodelowanie sylwetki, -poprawa równowagi i koordynacji. -poprawa kondycji, -poprawa elastyczności i mobilności. RODZAJ: Trening funkcjonalny INTENSYWNOŚĆ: Średnia",
+        "image": "/images/trening-grupowy/zajecia/11.webp"
+      },
+      {
+        "heading": "Zdrowa sylwetka",
+        "body": "Jest to funkcjonalny trening podnoszący ogólną sprawność. Zdrowa sylwetka opiera się na ćwiczeniach o średniej intensywności, co indukuje redukcję tkanki tłuszczowej. Na zajęciach nie zabraknie takich ćwiczeń jak skoki, przysiady czy plank. DLA KOGO? Zdrowa sylwetka jest dedykowana osobom chcącym poprawić sylwetkę i wzmocnić mięśnie, jednocześnie zyskując smukłe ciało. KORZYŚCI: - poprawna kompozycja ciała, - wzmacnianie mięśni ud, pośladków i brzucha, - modelowanie sylwetki, - poprawa kondycji, - poprawa samopoczucia. RODZAJ: Trening funkcjonalny INTENSYWNOŚĆ: Średnia",
+        "image": "/images/trening-grupowy/zajecia/12.webp"
+      },
+      {
+        "heading": "Zdrowy kręgosłup",
+        "body": "Są to zajęcia o charakterze medycznym, mające na celu świadomą pracę z kręgosłupem poprzez autoterapię, mobilizację oraz zestaw ćwiczeń rozciągających i wzmacniających. DLA KOGO? Trening ten jest dedykowany osobom w każdym wieku, szczególnie w przypadku problemów z powracającym bólem pleców oraz pracą siedzącą. KORZYŚCI: - minimalizacja bólu pleców, - wzmocnienie i uelastycznienie mięśni pleców, - utrzymanie prawidłowej postawy ciała, - nauka prawidłowego oddychania. RODZAJ: Trening medyczny INTENSYWNOŚĆ: Niska",
+        "image": "/images/trening-grupowy/zajecia/13.webp"
+      }
+    ]
+  },
+  "HealthyChangePlan": {
+    "title": "Plan Zdrowej Zmiany",
+    "bandHeading": "Popraw sylwetkę w 6 tygodni!",
+    "bandBody": "„Plan zdrowej zmiany” to profesjonalny program motywujący do rozpoczęcia aktywnego i zdrowego stylu życia. Przez 6 tygodni będziemy Cię prowadzić, szkolić, trenować i wspierać w każdym możliwym aspekcie. Dlaczego 6 tygodni? Ponieważ jest to wystarczająco długo, aby zobaczyć już znaczne efekty w swoim ciele – na poziomie wyglądu, sprawności, siły i kondycji fizycznej. Jednocześnie jest to na tyle krótko, iż „bez większego bólu” można przejść przez cały program i się po prostu nie zniechęcić. Sam program to nie tylko praca i wysiłek fizyczny. To przede wszystkim ogrom dobrej zabawy i współpracy z grupą 12 uczestników. Treningi i spotkania będą się odbywać pod okiem naszych doświadczonych trenerów, fizjoterapeutów i dietetyków, którzy przez cały czas będą Cię wspierać i motywować.",
+    "bandCta": "Zapisz się",
+    "goalHeading": "Cel projektu.",
+    "goalBody": "Głównym celem programu jest rozpoczęcie trwałej przemiany w Twoim życiu. Chcemy zachęcić Cię do uprawiania sportu, właściwego odżywiania, odpowiedniej regeneracji i generalnie zdrowego stylu życia. Oprócz programu treningowego projekt będzie mieć charakter edukacyjny. W praktyce dowiesz się jak dbać o swoje ciało, aby służyło Ci przez wiele lat w zdrowiu i sprawności. Okres 6 tygodni to jedynie dobry początek tego co czeka Cię później – staniesz się sprawniejszy, szczęśliwszy i pewniejszy siebie. Wystarczy tylko zacząć!",
+    "resultsHeading": "Co osiągniesz po ukończeniu programu?",
+    "resultsBody": "Po 6 tygodniach wspólnej pracy wzrośnie Twoja siła, sprawność, koordynacja, poprawi się Twoja sylwetka i spadnie ilość tkanki tłuszczowej. Jednocześnie zyskasz większą pewność siebie i będziesz znakomicie czuć się w swojej skórze (endorfiny zrobią swoje… ;-)) Dowiesz się jak doskonałą maszyną jest ludzkie ciało i dostaniesz program jego obsługi.",
+    "scopeHeading": "Zakres projektu:",
+    "scope": [
+      {
+        "heading": "01. Edukacja",
+        "body": "W czasie projektu odbędą się trzy spotkania o charakterze edukacyjnym, podczas których nasi specjaliści przedstawią filozofię BODYWORK, począwszy od tego kiedy i dlaczego powinniśmy dbać o swoje ciało, poprzez praktyczne wskazówki dotyczące treningu, odżywiania, regeneracji i odpoczynku, aż po długoterminowe rezultaty takich działań. Dodatkowo w trakcie całego programu nasi trenerzy są do Twojej dyspozycji i sukcesywnie dzielą się wiedzą praktyczną."
+      },
+      {
+        "heading": "02. Trening",
+        "body": "Zajęcia w grupie 12 uczestników prowadzone są 3 x w tygodniu w odstępach 1-2 dni. Celem treningu jest maksymalizacja Twojej sprawności, przy jednoczesnej poprawie sylwetki. Trening zawiera: przygotowanie do ćwiczeń, spalanie tkanki tłuszczowej, wsparcie przy dolegliwościach bólowych, wzmocnienie mięśni i kształtowanie sylwetki. W każdym tygodniu trener przekazuje uczestnikom pracę indywidualną oraz wyzwanie związane ze zmianą nawyków żywienia, pozycji siedzącej lub krótkich sesji ćwiczeń w domu."
+      },
+      {
+        "heading": "03. Diagnostyka",
+        "body": "Przed rozpoczęciem programu każdy z uczestników odbędzie indywidualną sesję z trenerem oraz dietetykiem. Celem spotkania jest przeprowadzenie testów funkcjonalnych i określenie składu ciała. Na tej podstawie nasi specjaliści wspólnie z Tobą wyznaczą cel i plan na najbliższych 6 tygodni. Pod koniec projektu odbędzie się ponowne spotkanie z dietetykiem i sprawdzenie osiągniętych rezultatów. To pozwoli na weryfikację założonych wcześniej celów!"
+      }
+    ],
+    "forWhoHeading": "Dla kogo?",
+    "forWhoBody": "● Wszystkie osoby, które są relatywnie mało aktywne fizycznie i chciałyby w mądry, zrównoważony sposób rozpocząć proces przemiany ● Osoby, które pragną zredukować poziom tkanki tłuszczowej lub zwiększyć masę mięśniową ● Osoby, które chciałyby być poprowadzone przez grupę specjalistów, tak, aby nie popełniać błędów i dzięki temu osiągnąć najlepsze rezultaty w jak najkrótszym czasie ● Minimalny wiek uczestnictwa to 14 lat",
+    "detailsHeading": "Szczegóły organizacyjne:",
+    "detailsBody": "● Cena uczestnictwa w projekcie 895 zł ● Liczba uczestników w grupie: min 8, max 12 osób ● Termin projektu: od 18.05.2026 r. do 29.06.2026 r. ● Spotkanie organizacyjne 11.05.2026 r. ● Harmonogram treningów: pon 20:30, śr 20:30, pt 19:30",
+    "detailsCta": "Zapisz się",
+    "includedHeading": "W cenie projektu otrzymujesz:",
+    "includedBody": "● Indywidualną ocenę funkcjonalną na początku projektu ● 2 pomiary składu ciała – na początku i na końcu ● Indywidualne wskazówki żywieniowe przygotowane po spotkaniu z dietetykiem ● 18 treningów w grupie maksymalnie 12 osób ● 3 wykłady o charakterze edukacyjnym ● Stałą opiekę i wsparcie naszego zespołu – w każdej chwili trwania projektu",
+    "testimonialsHeading": "Opinie:",
+    "testimonials": [
+      {
+        "quote": "Wszyscy byli świetni! Ekipa trenerów sprawiała, że chciało się przychodzić. Dzięki za wszystko! Jestem super szczęśliwa, że Was odwiedziłam i polecam wszystkim."
+      },
+      {
+        "quote": "Super otwartość i gotowość do pomocy, zwracanie uwagi na detale, które wpływają na ćwiczenie"
+      },
+      {
+        "quote": "Siłownia inna niż wszystkie - tu czuje się idealnie. Najlepsze miejsce"
+      },
+      {
+        "quote": "Kompleksowe podejście obejmujące zakres kultury fizycznej jak i zdrowy tryb życia - żywienie, treningi, regeneracja"
+      },
+      {
+        "quote": "Świetnie, że treningów było tak dużo - łatwo się przyzwyczaić do intensywności. Świetnie się bawiłam!"
+      },
+      {
+        "quote": "Najistotniejsze - holistyczna ocena ruchu"
+      },
+      {
+        "quote": "Bardzo dobry projekt. Można było o wszystko dopytać, rozwiać każde wątpliwości"
+      },
+      {
+        "quote": "Super, czułam się bardzo zaopiekowana, trenerzy i obsługa bardzo profesjonalni"
+      },
+      {
+        "quote": "Indywidualne podejście do członków projektu. Dużo jednostek treningowych, na których najbardziej mi zależało, plus dodatkowe wsparcie dietetyka"
+      },
+      {
+        "quote": "10/10 bez zastrzeżeń, pełen dostęp do wsparcia w kwestiach ogólnych jak i indywidualnych. Przyjazne, uśmiechnięte, wspierające podejście."
+      },
+      {
+        "quote": "Trenerzy bardzo kreatywni, specjaliści w swojej dziedzinie. Potrafią motywować i inspirować, wysoka kultura osobista"
+      },
+      {
+        "quote": "Dietetyka - super. Konsultacje i wykłady."
+      },
+      {
+        "quote": "Dziękuję za super czas! Daliście motywację do dalszych treningów"
+      },
+      {
+        "quote": "Super otwarci trenerzy, weseli, co też ważne! Chciało się chodzić pomimo zakwasów"
+      },
+      {
+        "quote": "Było super! Z każdym treningiem lepiej! W ogóle nie żałuję!"
+      },
+      {
+        "quote": "Projekt oceniam bardzo dobrze - dużo miejsca, dostępność sprzętu, czyste szatnie"
+      }
+    ]
+  },
+  "Medicover": {
+    "title": "Medicover",
+    "acceptHeading": "Honorujemy karty Medicover.",
+    "acceptBody": "Jeżeli jesteś posiadaczem karty Medicover Sport informujemy, iż w naszym Centrum możesz skorzystać z dowolnych zajęć grupowych. Wystarczy, że przyjdziesz, wyślesz kod SMSem i... wchodzisz na zajęcia!",
+    "howToHeading": "Jak skorzystać pierwszy raz?",
+    "howToBody": "1. Skontaktuj się z nami, aby założyć profil i aktywować karnet (będzie ważny przez rok). 2. Wnieś kaucję w wysokości 20 zł – dzięki niej możesz samodzielnie rejestrować się przez internet. 3. Zarejestruj się online lub przyjdź na zajęcia, skanując kod z aplikacji Medicover lub wysyłając kod SMSem. 4. Na miejscu dokonaj płatności za zajęcia w wysokości 10–15 zł, w zależności od wybranego pakietu. Odwołanie rezerwacji: zajęcia wieczorne – do godz. 12:00 tego samego dnia, zajęcia poranne – do godz. 18:00 dnia poprzedzającego. Nieodwołanie rezerwacji skutkuje utratą kaucji.",
+    "howToCall": "Zadzwoń",
+    "howToEmail": "Wyślij e-mail"
+  },
+  "Dietetics": {
+    "title": "Dietetyka",
+    "rememberHeading": "Pamiętaj o odżywianiu.",
+    "rememberBody": "W Centrum BODYWORK promujemy zdrowy tryb życia poprzez ruch i systematyczną pracę z ciałem. Właściwe dobranie diety jest elementarnym uzupełnieniem treningów zarówno u osób, które planują poprawić sylwetkę jak i tych aktywnych fizycznie.",
+    "whatHeading": "Czym jest dieta?",
+    "whatBody": "Słowo „dieta” często kojarzy się z restrykcyjnym planem żywieniowym mającym na celu redukcję masy ciała. W rzeczywistości jednak dieta to po prostu nasz codzienny sposób odżywiania – wszystko, co jemy i pijemy w ciągu dnia, tygodnia czy miesiąca. Świadome podejście do diety nie musi oznaczać wyrzeczeń. To raczej sztuka komponowania posiłków tak, aby dostarczały organizmowi niezbędnych składników odżywczych, wspierały zdrowie i odpowiadały Twojemu stylowi życia oraz stanowi zdrowia.",
+    "goalHeading": "Określenie celu.",
+    "goalBody": "Dobrze zbilansowana dieta wspiera zdrowie i dostarcza organizmowi wszystkich niezbędnych składników do prawidłowego funkcjonowania. Kluczowym krokiem w jej opracowaniu jest poznanie Twojego trybu życia, stanu zdrowia i poziomu aktywności fizycznej. Plan żywieniowy osoby prowadzącej siedzący tryb życia będzie znacząco różnił się od diety sportowca, dlatego tak ważne jest indywidualne podejście. Dopiero po ustaleniu celu – czy jest to poprawa zdrowia, redukcja masy ciała, budowanie masy mięśniowej czy po prostu utrzymanie dobrej formy – można zaproponować skuteczne i bezpieczne rozwiązania.",
+    "pathsHeading": "Wybierz ścieżkę, która najlepiej pasuje do Ciebie!",
+    "paths": [
+      {
+        "heading": "01. Praca z jadłospisem i zmianą nawyków żywieniowych.",
+        "body": "Zaczynamy od zindywidualizowanego jadłospisu, który daje szybkie efekty, a następnie wprowadzamy intuicyjne jedzenie, aby utrwalić zdrowe nawyki. To idealna ścieżka dla osób, które nie wiedzą, jak komponować posiłki, nie mają czasu planować diety i chcą szybkich rezultatów oraz kulinarnych inspiracji.",
+        "cta": "Iwona Stachowiak",
+        "href": "/dietetyka/iwona-stachowiak"
+      },
+      {
+        "heading": "02. Jedzenie intuicyjne i stopniowa zmiana nawyków.",
+        "body": "Rozpoczynamy od dokładnej analizy Twojego sposobu żywienia, a następnie wprowadzamy małe, trwałe zmiany, ucząc świadomego zarządzania dietą. To idealna droga dla osób, które wolą stopniowe, bezstresowe zmiany i są gotowe poczekać trochę dłużej na efekty.",
+        "cta": "Magda Hajduk-Warchoł",
+        "href": "/dietetyka/magdalena-hajduk-warchol"
+      }
+    ],
+    "howToHeading": "Jak skorzystać z naszych usług?",
+    "howToBody": "Zadzwoń pod nr 609 805 660 i umów się na wizytę z jedną z naszych dietetyczek. Pracownicy recepcji udzielą Ci wszelkich dodatkowych, niezbędnych informacji.",
+    "howToCall": "Zadzwoń",
+    "howToEmail": "info@body-work.pl"
+  },
+  "DietitianIwona": {
+    "title": "Iwona Stachowiak",
+    "leadHeading": "Twoje zdrowie to dla mnie priorytet! Zacznijmy działać już dziś!",
+    "aboutHeading": "O mnie.",
+    "aboutBody": "Dietetyka to moja praca i wielka pasja. Od ponad 10 lat prowadzę własną poradnię, w której pomogłam już ponad 3000 osób skutecznie schudnąć, zmienić nawyki i odzyskać zdrowie. Specjalizuję się w dietetyce sportowej, hormonalnej, ginekologicznej oraz procesach redukcji masy ciała. Moje podejście jest holistyczne. Łączę wiedzę medyczną z psychologią odżywiania, aby wspierać Pacjentów nie tylko w układaniu jadłospisu, ale także w pracy nad motywacją i trwałymi zmianami. Wierzę, że droga do wymarzonej sylwetki i zdrowia nie prowadzi przez drakońskie diety. Pokazuję, jak osiągać cele bez frustracji i wyrzeczeń, stawiając na zdrowie i równowagę. Zadbajmy o Twoje zdrowie razem!",
+    "processHeading": "Przebieg współpracy.",
+    "steps": [
+      {
+        "heading": "Analiza składu ciała.",
+        "body": "Pierwsza konsultacja trwa około godziny i obejmuje profesjonalną analizę składu ciała metodą bioimpedancji. Badanie to pozwala precyzyjnie określić zawartość tkanki tłuszczowej, mięśni i wody oraz poznać Twoje zapotrzebowanie kaloryczne. Dzięki tym danym przygotuję plan idealnie dopasowany do potrzeb Twojego organizmu. Aby wynik był dokładny, na wizytę przyjdź na czczo lub min. 3 godziny po posiłku. Pomiar odbywa się boso, dlatego konieczne będzie zdjęcie obuwia i skarpet. Pamiętaj, że przeciwwskazaniem do badania jest ciąża, epilepsje, wszczepiony rozrusznik serca lub metalowe implanty.",
+        "image": "/images/dietetyka/iwona/1.webp"
+      },
+      {
+        "heading": "Wywiad żywieniowo-zdrowotny.",
+        "body": "Fundamentem skutecznej współpracy jest szczegółowy wywiad żywieniowo-zdrowotny, który pozwala na pełne zrozumienie Twoich potrzeb. W pierwszej części skupimy się na Twoim stanie zdrowia – przeanalizujemy zdiagnozowane jednostki chorobowe, aktualne dolegliwości oraz przyjmowane leki i suplementację. Dzięki temu dieta będzie bezpieczna i wspierająca Twój organizm. W kolejnym kroku przyjrzymy się Twojej codzienności, analizując nawyki żywieniowe oraz preferencje smakowe. Wspólnie wybierzemy produkty, które lubisz i chcesz zachować w jadłospisie, oraz te, za którymi nie przepadasz. Takie podejście pozwoli mi stworzyć plan, który będzie nie tylko skuteczny, ale przede wszystkim smaczny i łatwy do utrzymania na co dzień.",
+        "image": "/images/dietetyka/iwona/2.webp"
+      },
+      {
+        "heading": "Plan żywieniowy.",
+        "body": "Zwieńczeniem naszej konsultacji jest przygotowanie indywidualnego jadłospisu wraz z kompletem praktycznych wytycznych. Plan zostanie precyzyjnie dopasowany do Twojego zapotrzebowania energetycznego oraz rytmu dnia, bazując na szybkich w przygotowaniu posiłkach i ogólnodostępnych produktach. Każdy przepis zawiera dokładną gramaturę, sposób wykonania oraz wyliczoną wartość kaloryczną, co daje Ci pełną kontrolę nad realizacją założonego celu. Oprócz samego menu otrzymasz również zalecenia oraz listę zakupów, które pomogą Ci sprawnie poruszać się w nowej diecie. Nauczę Cię również, jak dokonywać świadomych wyborów zakupowych i czytać etykiety, aby zdrowe odżywianie było proste i intuicyjne w każdych okolicznościach.",
+        "image": "/images/dietetyka/iwona/3.webp"
+      },
+      {
+        "heading": "Wizyty kontrolne i edukacja.",
+        "body": "Podczas wizyt kontrolnych monitorujemy Twoje postępy i na bieżąco korygujemy plan, aby proces zmiany stylu życia był dla Ciebie komfortowy. W zależności od Twojego celu, regularnie weryfikujemy efekty: przy celu sylwetkowym wykonujemy kontrolne analizy składu ciała, natomiast przy celu prozdrowotnym skupiamy się na monitorowaniu wyników badań. Moim priorytetem jest trwałe budowanie nawyków, które pozwolą Ci utrzymać rezultaty na lata, bez zbędnych restrykcji. Dążymy do momentu, w którym nauczysz się jeść intuicyjne, ufając sygnałom płynącym z Twojego organizmu. Pod koniec naszej współpracy będziesz potrafić samodzielnie komponować posiłki, stopniowo odchodząc od sztywnego trzymania się jadłospisu. Cały ten proces odbywa się w kontrolowanych warunkach pod moim nadzorem, co daje Ci pewność i bezpieczeństwo przy przechodzeniu na pełną samodzielność żywieniową.",
+        "image": "/images/dietetyka/iwona/4.webp"
+      }
+    ],
+    "pricingHeading": "Cennik",
+    "pricingBody": "",
+    "bookHeading": "Jak umówić się na pierwszą wizytę?",
+    "bookBody": "Skontaktuj się z dietetyczką, aby umówić dogodny termin wizyty, telefonicznie (+48 661-288-074) lub mailowo (kontakt@poradnia-stachowiak.pl).",
+    "bookCall": "Zadzwoń",
+    "bookEmail": "Napisz",
+    "bookPhone": "+48661288074",
+    "bookMail": "kontakt@poradnia-stachowiak.pl",
+    "testimonialsHeading": "Opinie klientów:",
+    "testimonials": [
+      {
+        "quote": "Jestem bardzo zadowolona z każdej wizyty, jadłospisy są dostosowane do moich potrzeb, bardzo smaczne posiłki. Pani dietetyk bardzo miła, pełna empatii, wszystko wyjaśnia szczegółowo.Z wielką przyjemnością wrócę.",
+        "name": "Zuzanna"
+      },
+      {
+        "quote": "Bardzo polecam Panią Iwonę. Jest świetna w tym co robi. Zasugerowała mi diagnozę, której wcześniej nie usłyszałam od żadnego lekarza, którą później potwierdziły badania. (...) Przy okazji jest bardzo sympatyczną osobą, więc wizyta przebiega w miłej atmosferze. Właściwa osoba na właściwym miejscu.",
+        "name": "Oliwia"
+      },
+      {
+        "quote": "Pani Iwona z uśmiechem i zaangażowaniem podchodzi do swojej pracy. Dieta sama w sobie - coś cudownego. (...)",
+        "name": "Ewa"
+      },
+      {
+        "quote": "Jeszcze miesiąc temu sądziłam, że będę musiała leczyć refluks, a objawy zniknęły wraz ze zastosowaniem diety. Dania proste i szybkie w przygotowaniu, a przede wszystkim smaczne. (...)",
+        "name": "Weronika"
+      },
+      {
+        "quote": "Z uwagi na charakter pracy, rodzinę, dzieci, tryb życia.. posiłki miały być smaczne, łatwe i szybkie w przygotowaniu oraz kolorowe. I tak też było! Zbierałam komplementy po przygotowaniu 15 /max30 minutowego obiadu: „Mamo jakie to smaczne!” Co ważne, nic się nie marnowało, a produkty były łatwodostepne. Nikt nie chodził głodny. I nie wydawałam milion monet.",
+        "name": "Kinga"
+      },
+      {
+        "quote": "Dzięki Pani Dietetyk udało mi się znacznie obniżyć glikemie na czczo, dzięki czemu uniknąć leków. Ponadto po miesiącu poprzez jej wskazówki i zalecenia tak poprawił mi się obraz w USG jajników , że niespodziewanie ale ku radości zaszliśmy w trzecią ciążę. (...) Z całego serca więc polecam Panią Iwonę Stachowiak :)",
+        "name": "Patrycja"
+      },
+      {
+        "quote": "Mogę śmiało powiedzieć, że Pani Iwona odmieniła moje życie, pomogła mi w zrzuceniu 40kg! Gdyby nie ona, to chyba nigdy bym tego nie dokonała. Posiada ogromną wiedzę, fantastyczne podejście, przepyszne i proste jadłospisy. Potrafiła w dosłownie jeden miesiąc wyeliminować schorzenie, czego inni lekarze nie potrafili od lat (...)",
+        "name": "Agnieszka"
+      },
+      {
+        "quote": "W swoim 45 letnim życiu odwiedziłem już kilku dietetyków, ale dopiero u pani Iwony poczułem, że ktoś naprawdę mnie rozumie. Podejście od pacjenta jest tu zupełnie inne i elastyczne, co sprawia, że pierwszy raz nie czuję ani presji ani sztywnych reguł. Każda wizyta to przyjazna atmosfera, konkretne wskazówki i motywacja do dalszego gubienia kilogramów, które znikają podręcznikowo.",
+        "name": "Michał"
+      },
+      {
+        "quote": "Serdecznie polecam! Odkąd jestem na diecie, którą Pani Iwona specjalnie dla mnie ułożyła, nie mam problemów z sennością po posiłkach, czuję się dużo lepiej, a także mam zdecydowanie więcej energii. Posiłki mają sporą objętość, więc wcale nie odczuwam bycia na redukcji, a kilogramy idą w dół! Cieszę się, że trafiłam na tak wspaniałego dietetyka.",
+        "name": "Zuzanna"
+      }
+    ]
+  },
+  "DietitianMagda": {
+    "title": "Magdalena Hajduk-Warchoł",
+    "leadHeading": "Każdy moment jest dobry na zmianę! Pomogę Ci wdrożyć realny plan.",
+    "aboutHeading": "O mnie.",
+    "aboutBody": "Jestem dietetyczką kliniczną, wykładowczynią akademicką i certyfikowaną Trenerką Nauki, od ponad 10 lat wspierającą zdrowie i wydolność sportową dzieci oraz dorosłych poprzez odpowiednie żywienie. Pracuję elastycznymi metodami opartymi na dowodach naukowych, łącząc małe kroki, Jedzenie Intuicyjne i Atomowe Nawyki, by zmiany były trwałe i możliwe do utrzymania. Doświadczenie własnej redukcji masy ciała oraz macierzyństwo pozwoliły mi lepiej zrozumieć realne wyzwania pacjentów i rodzin. W codziennej pracy przekładam wiedzę naukową na proste, skuteczne wskazówki, bo wierzę, że małe decyzje budują zdrowie na całe życie.",
+    "steps": [
+      {
+        "heading": "Wywiad żywieniowo – medyczny",
+        "body": "Na początku naszej współpracy przeprowadzam z Tobą wywiad żywieniowo- medyczny, w którym oceniam Twój sposób żywienia, stan odżywienia (analiza składu ciała), stan zdrowia i dodatkowe elementy stylu życia wpływające na Twoje zdrowie. Na pierwszej wizycie ustalamy również jakie są Twoje dietetyczne cele. Po pierwszym spotkaniu wybierasz ścieżkę współpracy ze mną, w zależności od tego jakie są Twoje cele. Możesz wybrać ścieżkę nowe nawyki lub jedzenie intuicyjne.",
+        "image": null
+      },
+      {
+        "heading": "Nowe nawyki.",
+        "body": "Tu pracujemy nad zmianą nawyków - pozbywamy się tych, które niekorzystnie wpływają na zdrowie i wprowadzamy takie, które pomogą osiągnąć prawidłową masę ciała, poprawić wyniki badań i korzystnie wpłyną na samopoczucie.",
+        "image": null
+      },
+      {
+        "heading": "Jedzenie intuicyjne.",
+        "body": "Druga ścieżka - to czas kiedy przyglądamy się Twojej relacji z jedzeniem i naprawiamy wszystkie nieprawidłowe mechanizmy. Zajmujemy się nie tylko głodem emocjonalnym czy sytością, ale również tym co myślisz o jedzeniu. Celem spotkań jest zmiana Twojego podejścia do jedzenia, tak aby stało się ono Twoim sprzymierzeńcem, a nie wrogiem.",
+        "image": null
+      },
+      {
+        "heading": "Modyfikacja jadłospisu.",
+        "body": "Na każdym etapie współpracy, możesz skorzystać z dodatkowej usługi - Modyfikacja jadłospisu. Jest to najlepszy sposób na dopasowanie Twojej diety do Twoich celów. Niezależnie czy to będzie redukcja masy ciała, budowanie masy mięśniowej, wsparcie w sporcie czy poprawa wyników badań. Na bazie Twojego 7-dniowego jadłospisu opracowuję modyfikacje, które ułatwiają wprowadzanie zmian. Istnieje również opcja indywidualnego jadłospisu 7-dniowego przygotowanego na podstawie Twoich preferencji żywieniowych.",
+        "image": "/images/dietetyka/magda/1.webp"
+      },
+      {
+        "heading": "Proces.",
+        "body": "Zmiana nawyków i osiąganie celów dietetycznych to proces, który powinien przebiegać w odpowiednim tempie. Współpraca, która przynosi efekty, to minimum 4 spotkania, co 2-3 tygodnie w pierwszym etapie zmian. Możesz wybrać pakiet 4 lub 9 wizyt kontrolnych, których celem jest monitorowanie postępów i skuteczność wprowadzanych zmian.",
+        "image": "/images/dietetyka/magda/2.webp"
+      }
+    ],
+    "pricingHeading": "Cennik",
+    "pricingBody": "KONSULTACJA ŻYWIENIOWA (60 min) – 250,- WIZYTA KONTROLNA / ANALIZA SKŁADU CIAŁA (30 min) – 180,- PLAN ŻYWIENIOWY PODSTAWOWY (1 tydzień) – 300,- PLAN ŻYWIENIOWY SPECJALISTYCZNY (1 tydzień) – 350,- PAKIET START 5 WIZYT (konsultacja 60 min + 4 wizyty kontrolne) – 799,- PAKIET START 10 WIZYT (konsultacja 60 min + 9 wizyt kontrolnych) – 1550,- PAKIET PROCES (3 wizyty kontrolne) – 495,- PAKIET PROCES (5 wizyt kontrolnych) – 799,-",
+    "bookHeading": "Jak umówić się na pierwszą wizytę?",
+    "bookBody": "Zadzwoń pod nr 609 805 660 i umów się na wizytę. Pracownicy recepcji udzielą Ci wszelkich dodatkowych, niezbędnych informacji.",
+    "bookCall": "Zadzwoń",
+    "bookEmail": "Napisz",
+    "bookPhone": "609805660",
+    "bookMail": "info@body-work.pl",
+    "testimonialsHeading": "Opinie klientów:",
+    "testimonials": [
+      {
+        "quote": "Ogrom wiedzy, wspaniałe podejście, polecam osobom, które chcą zredukować wagę, jak i tym, które zmagają się z zaburzeniami odżywiania.",
+        "name": "Natalia"
+      },
+      {
+        "quote": "Polecam współpracę z Panią Magdą! Podczas konsultacji został przeprowadzony szczegółowy wywiad. (...) zauważyłam poprawę w wynikach pomiarów glukozy, na czym najbardziej mi zależało. Pani Magda odznacza się dużym profesjonalizmem, rzetelnie podchodzi do współpracy z pacjentem. Dodatkowo jest bardzo pozytywną osobą, która potrafi uważnie słuchać. Serdecznie polecam :)",
+        "name": "Paulina"
+      },
+      {
+        "quote": "Bardzo dobrze dopasowana dieta - z uwzględnieniem preferencji i ograniczeń. smakuje 10/10.",
+        "name": "Artur"
+      },
+      {
+        "quote": "Bardzo polecam współpracę z Magdą! Z jednej strony to bardzo miła, kontaktowa i otwarta osoba a z drugiej specjalista pracujący w oparciu o dane, analizy i solidny wywiad z pacjentem. Wszystko poparte szeroką i rzetelną naukową wiedzą.",
+        "name": "Mikołaj"
+      }
+    ]
+  },
+  "Bodylab": {
+    "title": "Bodylab",
+    "leadHeading": "Zrozum swoje ciało. Podnieś wyniki. Maksymalizuj efekty.",
+    "leadBody": "W BODYLAB łączymy naukę, nowoczesną technologię i praktykę treningową, aby dać Ci pełny obraz funkcjonowania ciała. Nasze testy fizjologiczne i analizy ekspertów pozwalają świadomie rozwijać sprawność, optymalizować regenerację i osiągać lepsze wyniki – niezależnie od tego, czy trenujesz zawodowo, czy dbasz o zdrowie i kondycję na co dzień.",
+    "everyMoveHeading": "W BODYLAB każdy ruch ma znaczenie.",
+    "everyMoveBody": "Analizujemy motorykę i funkcjonowanie Twojego ciała, aby trening i rehabilitacja były w pełni dopasowane do Twoich możliwości. Tu nauka spotyka praktykę, a technologia maksymalizuje efekty każdego ćwiczenia.",
+    "techHeading": "Technologia, która wspiera Twoją sprawność.",
+    "tools": [
+      {
+        "eyebrow": "Platforma siłowa FORCEDECKS.",
+        "heading": "Precyzyjna analiza siły i dynamiki ruchu.",
+        "body": "Korzystamy z innowacyjnej platformy siłowej ForceDecks, która pozwala precyzyjnie mierzyć moc, równowagę i dynamikę ruchu w czasie rzeczywistym. Dzięki technologii czujników nacisku każda Twoja próba – skok, przysiad czy wypchnięcie – jest analizowana pod kątem siły generowanej przez mięśnie, asymetrii między kończynami oraz efektywności ruchu. ForceDecks to narzędzie nie tylko dla sportowców dążących do poprawy wyników, ale także dla osób powracających do sprawności po kontuzjach, które chcą bezpiecznie monitorować postępy i rozwijać funkcjonalną siłę w sposób inteligentny i kontrolowany.",
+        "image": "/images/bodylab/hub-forcedecks.webp",
+        "href": "/bodylab/technologia-vald"
+      },
+      {
+        "eyebrow": "Dynamometr.",
+        "heading": "Ocena siły mięśniowej.",
+        "body": "Zaawansowane urządzenie do precyzyjnego pomiaru siły mięśniowej. Dzięki niemu możemy ocenić moc, wytrzymałość i równowagę siłową poszczególnych grup mięśniowych, co pozwala odpowiednio programować trening, monitorować postępy i kontrolować proces rehabilitacji. Dynamo jest niezastąpione zarówno dla sportowców dążących do maksymalizacji wyników, jak i dla osób powracających do pełnej sprawności po urazach, umożliwiając bezpieczne i świadome zwiększanie siły mięśniowej oraz minimalizowanie ryzyka kontuzji.",
+        "image": "/images/bodylab/hub-dynamometr.webp"
+      },
+      {
+        "eyebrow": "Analiza składu ciała.",
+        "heading": "Analiza funkcji i potrzeb Twojego organizmu.",
+        "body": "Wykonujemy zaawansowaną analizę składu ciała przy użyciu profesjonalnych urządzeń medycznych, takich jak TANITA i InBody, które dostarczają szczegółowych danych o Twoim organizmie. System precyzyjnie mierzy masę ciała, procentową zawartość tkanki tłuszczowej, masę mięśniową, całkowitą zawartość wody oraz wskaźnik BMR, pozwalając zrozumieć, jak ciało funkcjonuje i jakie są jego potrzeby. Na podstawie wyników tworzymy indywidualne plany treningowe i dietetyczne, które optymalizują rozwój siły, sylwetki i sprawności, a jednocześnie minimalizują ryzyko kontuzji. Regularne pomiary umożliwiają monitorowanie postępów, świadome planowanie aktywności i świadomą pracę nad zdrowiem, dzięki czemu Twoje ciało działa sprawniej, efektywniej i dłużej utrzymuje pełną sprawność.",
+        "image": "/images/bodylab/hub-analiza.webp",
+        "href": "/bodylab/analiza-skadu-ciala"
+      }
+    ],
+    "toolsCta": "Więcej informacji"
+  },
+  "ValdTechnology": {
+    "title": "Technologia VALD.",
+    "leadHeading": "Siła, zdrowie i lepsze wyniki.",
+    "leadBody": "Bez względu na to, czy Twoim celem są lepsze wyniki sportowe, rehabilitacja po urazach, czy generalna poprawa siły i sprawności, wykorzystanie zalet treningu ekscentrycznego otwiera przed Tobą zupełnie nowe możliwości.",
+    "diagHeading": "Najwyższy poziom diagnostyki sportowej.",
+    "diagBody": "Dzięki zastosowaniu nowoczesnych platform ForceDecks (by Vald Performance) możemy przeprowadzać szybką i łatwą ocenę stabilności, siły i ruchu. Co więcej monitorujemy również wydajność nerwowo-mięśniową, asymetrie i strategie ruchowe.",
+    "benefitsHeading": "Korzyści.",
+    "benefitsBody": "Uzyskanie dokładnej wiedzy na temat własnej siły i mocy w zakresie wykonywanych ćwiczeń i wyskoków. Szybki proces pozyskania danych – wystarczy jedno 30-50-minutowe spotkanie! Dzięki uzyskanym informacjom możesz wejść na wyższy poziom sportowy oraz lepiej planować i zarządzać treningiem i rehabilitacją. Platforma ForceDecks charakteryzuje się wysokim poziomem wiarygodności, szybkością zbierania danych oraz możliwością porównania wyników z danymi normatywnymi dla każdej badanej populacji.",
+    "techHeading": "Technologie, które wykorzystujemy:",
+    "tech": [
+      {
+        "heading": "Platforma siłowa FORCEDECKS.",
+        "body": "ForceDecks to nowoczesny system do analizy siły i skoków, który pozwala w precyzyjny sposób ocenić funkcjonowanie układu ruchu. Dzięki dwóm specjalistycznym platformom mierzymy m.in. moc, asymetrię oraz ewentualne deficyty siłowe. To narzędzie daje nam możliwość nie tylko diagnozowania aktualnego stanu, ale także monitorowania progresu podczas rehabilitacji i treningu. W praktyce oznacza to, że możemy dokładnie sprawdzić, jak pracuje Twoje ciało, a następnie dopasować terapię lub plan treningowy tak, aby był maksymalnie skuteczny i bezpieczny. ForceDecks wspiera zarówno osoby wracające do pełnej sprawności po kontuzjach, jak i sportowców, którzy chcą rozwijać swoje możliwości i zapobiegać urazom."
+      },
+      {
+        "heading": "Dynamometr DYNAMO.",
+        "body": "Dynamo to wielofunkcyjne urządzenie do pomiaru siły i zakresu ruchu. Dzięki niemu możemy w obiektywny sposób sprawdzić, jak pracują Twoje mięśnie i stawy – zarówno pod kątem siły, jak i mobilności. To narzędzie pozwala dokładnie ocenić m.in. balans mięśniowy, różnice między stronami ciała czy postępy w rehabilitacji. Dzięki precyzyjnym pomiarom możemy stworzyć jeszcze bardziej spersonalizowany program terapii i monitorować efekty pracy na każdym etapie. Dynamo znajduje zastosowanie zarówno w rehabilitacji po urazach, jak i w pracy ze sportowcami – wspiera profilaktykę przeciążeń, rozwój siły i bezpieczny powrót do pełnej sprawności."
+      }
+    ],
+    "audienceHeading": "Dla kogo?",
+    "audience": [
+      {
+        "heading": "Pro Sportowcy.",
+        "body": "*(zarówno sporty drużynowe jak i indywidualne) Maksymalizacja osiągów i prewencja kontuzji. Precyzyjne monitorowanie obciążeń treningowych i zmęczenia. Identyfikacja minimalnych, krytycznych asymetrii siły oraz dokładny pomiar mocy eksplozywnej, kluczowej dla wyników sportowych."
+      },
+      {
+        "heading": "Amatorzy, Zaawansowani I Pasjonaci Sportu.",
+        "body": "Efektywny rozwój sportowy i bezpieczeństwo. Obiektywny pomiar postępów siłowych i mocy, co pozwala na indywidualne dopasowanie intensywności treningu. Pomaga w bezpiecznym planowaniu cykli treningowych i unikaniu stagnacji."
+      },
+      {
+        "heading": "Osoby Aktywne Fizycznie.",
+        "body": "Świadome budowanie sprawności i zapobieganie przeciążeniom. Ocena podstawowego poziomu siły i równowagi mięśniowej. Dostęp do obiektywnych wskaźników postępu (np. skoczności), które motywują i potwierdzają skuteczność wdrożonego planu treningowego."
+      },
+      {
+        "heading": "Osoby W Trkacie Rehabilitacji I Powracające Do Sportu.",
+        "body": "Kontrolowany i bezpieczny powrót do pełnej aktywności. Dokładny pomiar deficytów siły i mocy po kontuzji (np. po operacji). Platforma dostarcza obiektywnych kryteriów, które decydują o bezpiecznym powrocie do treningu i zawodów, drastycznie redukując ryzyko ponownego urazu."
+      },
+      {
+        "heading": "Seniorzy.",
+        "body": "Utrzymanie niezależności ruchowej i profilaktyka upadków. Ocena kluczowych wskaźników stabilności, równowagi i siły kończyn dolnych. Regularne badanie pozwala monitorować efekty ćwiczeń i jest podstawowym narzędziem w programach prewencji upadków."
+      }
+    ],
+    "howHeading": "Jak to działa?",
+    "howBody": "Platformy siłowe istnieją od ponad 40 lat. Są to narzędzia służące do pomiaru sił reakcji podłoża (GRF) podczas różnych rodzajów ruchu (można je traktować jako fantazyjny typ wagi łazienkowej). GRF są jedną z najczęściej analizowanych miar biomechaniki i pomagają scharakteryzować ruchy człowieka. Podczas wykonywanych testów generowany jest wykres „siła x czas”, który stanowi podstawę wszystkich wskaźników. Wykres ten możemy traktować jako „obraz” zdolności do wytworzenia siły mięśniowej w danym okresie czasu. Dzięki temu określamy profil sportowca, sprawdzamy jego stan gotowości podczas fazy treningowej i wspieramy podjęcie decyzji o powrocie do sportu w przypadku rehabilitacji.",
+    "pricingHeading": "Cennik.",
+    "pricingBody": "TEST – OPCJA PEŁNA: 795 zł (uwzględnia: test rozszerzony, analizę i raport) TEST – OPCJA PODSTAWOWA: 495 zł (uwzględnia: test w wersji podstawowej, analizę i raport) DODATKOWA OSOBA: 125 zł (cena za każdą kolejną osobę / w jednym teście może brać udział max 5 osób) TEST KONTROLNY: 250 zł",
+    "bookHeading": "Jak skorzystać z usługi testowania?",
+    "bookBody": "Skontaktuj się z nami a pracownicy recepcji udzielą Ci wszelkich niezbędnych informacji oraz zaproponują dogodny termin.",
+    "bookCall": "Zadzwoń",
+    "bookEmail": "Napisz"
+  },
+  "BodyComposition": {
+    "title": "Analiza składu ciała.",
+    "leadHeading": "Twój punkt wyjścia do świadomej pracy nad ciałem.",
+    "leadBody": "Twoje ciało kryje w sobie więcej informacji, niż można zobaczyć gołym okiem. Dzięki nowoczesnej analizie składu ciała odkryjesz pełniejszy obraz swojej sprawności i zdrowia.",
+    "dataHeading": "Precyzyjne dane.",
+    "dataBody": "Podczas pierwszej wizyty dietetycznej korzystamy z profesjonalnych urządzeń medycznych TANITA i InBody, które umożliwiają precyzyjny pomiar masy ciała oraz tkanki tłuszczowej. Wyniki dostarczają konkretnych danych, które pomagają w planowaniu treningu, diety i monitorowaniu postępów.",
+    "measureHeading": "Co mierzymy?",
+    "measureBody": "Masa ciała – podstawowy wskaźnik, który warto śledzić w kontekście zdrowia i celów treningowych. Procentowa zawartość tkanki tłuszczowej – pozwala ocenić skład ciała i ryzyko chorób metabolicznych. Masa tkanki tłuszczowej w kilogramach – konkretny wynik, który daje nam punkt odniesienia przy zmianie stylu życia. Wskaźnik BMI – szybki sposób na ocenę proporcji masy do wzrostu, choć zawsze uzupełniamy go o szczegółowe dane ciała. Całkowita masa wody – monitorowanie nawodnienia i równowagi wodnej organizmu. Wskaźnik BMR (Podstawowa Przemiana Materii) – informacja o tym, ile energii Twój organizm spala w spoczynku, co pomaga w komponowaniu planu żywieniowego i treningowego.",
+    "planHeading": "Dzięki tym danym możemy stworzyć indywidualny plan treningowy i dietetyczny, dopasowany do Twoich potrzeb i celów!",
+    "planCta": "Cennik"
+  },
+  "Pricing": {
+    "title": "Cennik",
+    "items": [
+      {
+        "heading": "Trening indywidualny.",
+        "body": "TRENING PERSONALNY – POZIOM I:\n• 1 trening – 240,-\n• 4 treningi – 890,-\n• 8 treningów – 1650,-\n• 24 treningi – 4750,-\nTRENING PERSONALNY – POZIOM II:\n• 1 trening – 260,-\n• 4 treningi – 970,-\n• 8 treningów – 1810,-\n• 24 treningi – 5210,-\nTRENING PERSONALNY – POZIOM III:\n• 1 trening – 295,-\n• 4 treningi – 1060,-\n• 8 treningów – 1980,-\n• 24 treningi – 5710,-",
+        "cta": {
+          "label": "Więcej O Treningu",
+          "href": "https://bodywork.testowe.eu/trening-personalny/trening-indywidualny/"
+        },
+        "note": "W naszym cenniku obowiązują trzy poziomy cenowe dla treningów.\nPoziom zależy od specjalisty – jego doświadczenia, zakresu specjalizacji oraz stopnia zaawansowania w pracy z konkretnymi przypadkami. Podczas rozmowy telefonicznej doradzimy, który z naszych specjalistów najlepiej odpowiada Twoim potrzebom – i poinformujemy, jaki będzie koszt wizyty.\nTrening trwa ok. 55 min.\nOcenę funkcjonalną i badanie poziomu sprawności; Indywidualnie prowadzony program treningowy; Abonament umożliwiający indywidualne korzystanie z Centrum w czasie trwania karnetu; Dostęp do sauny;\nW RAMACH PAKIETU OFERUJEMY:\n• Ocenę funkcjonalną i badanie poziomu sprawności\n• Indywidualnie prowadzony program treningowy\n• Abonament umożliwiający indywidualne korzystanie z Centrum w czasie trwania karnetu\n• Dostęp do sauny\n• Możliwość zakupienia karnetów wejściowych na zajęcia grupowe w specjalnych cenach:\n125 zł (pakiet 5x) / 250 zł (pakiet 10x)"
+      },
+      {
+        "heading": "Trening w parze.",
+        "body": "TRENING PERSONALNY – POZIOM I:\n• 1 trening – 360,-\n• 4 treningi – 1360,-\n• 8 treningów – 2420,-\n• 24 treningi – 6985,-\nTRENING PERSONALNY – POZIOM II:\n• 1 trening – 390,-\n• 5 treningów – 1450,-\n• 8 treningi – 2710,-\n• 24 treningi – 7800,-",
+        "cta": {
+          "label": "Więcej O Treningu",
+          "href": "https://bodywork.testowe.eu/trening-personalny/trening-w-parze/"
+        },
+        "note": "W naszym cenniku obowiązują dwa poziomy cenowe dla treningów w parze.\nPoziom zależy od specjalisty – jego doświadczenia, zakresu specjalizacji oraz stopnia zaawansowania w pracy z konkretnymi przypadkami.\nPodczas rozmowy telefonicznej doradzimy, który z naszych specjalistów najlepiej odpowiada Waszym potrzebom – i poinformujemy, jaki będzie koszt wizyty.\nTrening trwa ok. 55 min.\nW RAMACH PAKIETU OFERUJEMY:\n• Ocenę funkcjonalną i badanie poziomu sprawności\n• Indywidualnie prowadzony program treningowy\n• Abonament umożliwiający indywidualne korzystanie z Centrum w czasie trwania karnetu\n• Dostęp do sauny\n• Możliwość zakupienia karnetów wejściowych na zajęcia grupowe w specjalnych cenach:\n125 zł (pakiet 5x) / 250 zł (pakiet 10x)"
+      },
+      {
+        "heading": "Fizjoterapia.",
+        "body": "WIZYTA FIZJOTERAPEUTYCZNA – POZIOM I (ok. 55 min):\n• 1 wizyta – 240,-\n• 4 wizyty– 890,-\n• 8 wizyt – 1650,-\n• 24 wizyty – 4750,-\nWIZYTA FIZJOTERAPEUTYCZNA – POZIOM II (ok. 55 min):\n• 1 wizyta – 260,-\n• 4 wizyty – 970,-\n• 8 wizyt – 1810,-\n• 24 wizyty – 5210,-\nWIZYTA FIZJOTERAPEUTYCZNA – POZIOM III (ok. 55 min):\n• 1 wizyta – 295,-\n• 4 wizyty – 1060,-\n• 8 wizyt – 1980,-\n• 24 wizyty – 5710,-",
+        "cta": {
+          "label": "Więcej O Fizjoterapii",
+          "href": "https://bodywork.testowe.eu/fizjoterapia/"
+        },
+        "note": "W naszym cenniku obowiązują trzy poziomy cenowe dla fizjoterapii. Poziom zależy od specjalisty – jego doświadczenia, zakresu specjalizacji oraz stopnia zaawansowania w pracy z konkretnymi przypadkami. Podczas rozmowy telefonicznej doradzimy, który z naszych specjalistów najlepiej odpowiada Twoim potrzebom – i poinformujemy, jaki będzie koszt wizyty.\nWizyta trwa ok. 55 min.\nW RAMACH PAKIETU OFERUJEMY:\n• Abonament umożliwiający indywidualne korzystanie z Centrum w czasie trwania karnetu\n• Dostęp do sauny\n• Możliwość zakupienia karnetów wejściowych na zajęcia grupowe w cenach specjalnych:\n175 zł (pakiet 5x) / 350 zł (pakiet 10x)"
+      },
+      {
+        "heading": "Masaż.",
+        "body": "Masaż klasyczny / sportowy / relaksacyjny / kobido (twarz, głowa, dekolt, szyja, ramiona)\n(ok. 55 minut) – 240,-\nPAKIETY WIZYT:\n• 4 wizyty – 890,-\n• 8 wizyt – 1650,-\n• 24 wizyty – 4750,-\nMasaż kobido + taping\n(ok. 70 minut) – 260,-\nPAKIETY WIZYT:\n• 5 wizyt – 1190,-\n• 10 wizyt – 2200,-",
+        "cta": {
+          "label": "Więcej O Masażu",
+          "href": "https://bodywork.testowe.eu/masaz/"
+        },
+        "note": "Dla naszych klientów masaż – 15%!"
+      },
+      {
+        "heading": "Plan zdrowej zmiany.",
+        "body": "Koszt uczestnictwa w projekcie to 560zł.",
+        "cta": {
+          "label": "Więcej O Projekcie",
+          "href": "https://bodywork.testowe.eu/trening-grupowy/plan-zdrowej-zmiany/"
+        },
+        "note": "W CENIE PROJEKTU OTRZYMUJESZ:\n• Indywidualną ocenę funkcjonalną na początku projektu\n• 2 pomiary składu ciała – na początku i na końcu\n• Indywidualne wskazówki żywieniowe przygotowane po spotkaniu z dietetykiem\n• 18 treningów w grupie maksymalnie 12 osób\n• 3 wykłady o charakterze edukacyjnym\n• Stałą opiekę i wsparcie naszego zespołu – w każdej chwili trwania projektu"
+      },
+      {
+        "heading": "Zajęcia grupowe.",
+        "body": "PAKIETY:\n• 1 trening – 45,-\n• 5 treningów – 190,-\n• 10 treningów – 310,-\nKARTY ABONAMENTOWE:\n• 1 miesiąc – 240,-\n• 3 miesiące – 650,-\n• 6 miesięcy – 1200,-\n• 1 rok – 2090,-",
+        "cta": {
+          "label": "Sprawdź Grafik",
+          "href": "https://bodywork-poznan.cms.efitness.com.pl/kalendarz-zajec"
+        },
+        "note": "Honorujemy kartę Medicover Sport.\nObecnie wymagana jest dodatkowa opłata:\n10-15 zł przy wejściu na pojedynczy trening.\nTrening trwa ok. 45-55 min:\nW RAMACH PAKIETU OFERUJEMY:\n• Dostęp do wszystkich zajęć grupowych w dowolnych godzinach (wg kalendarza zajęć)\n• Dostęp do sauny"
+      },
+      {
+        "heading": "Dietetyka.",
+        "groups": [
+          {
+            "heading": "Iwona Stachowiak",
+            "body": "• Konsultacja żywieniowa (ok. 60 minut) – 250,-\n• Wizyta kontrolna z analizą składu ciała (ok. 30 minut) – 200,-\n• Indywidualny jadłospis podstawowy / 1 tydzień – 200,-\n• Indywidualny jadłospis w chorobach / 1 tydzień – 200,-\n• Indywidualny jadłospis sportowy (redukcja) / 1 tydzień – 200,-\n• Indywidualny jadłospis sportowy (budowa masy mięśniowej) / 1 tydzień – 220,-",
+            "cta": {
+              "label": "Więcej Informacji O Współpracy Z Iwoną",
+              "href": "https://bodywork.testowe.eu/dietetyka/iwona-stachowiak/"
+            }
+          },
+          {
+            "heading": "Magda Hajduk-Warchoł",
+            "body": "• Konsultacja żywieniowa (60 min) – 250,-\n• Wizyta kontrolna / analiza składu ciała (30 min) – 180,-\n• Plan żywieniowy podstawowy (1 tydzień) – 300,-\n• Plan żywieniowy specjalistyczny (1 tydzień) – 350,-\n• Pakiet start 5 wizyt (konsultacja 60 min + 4 wizyty kontrolne) – 799,-\n• Pakiet start 10 wizyt (konsultacja 60 min + 9 wizyt kontrolnych) – 1550,-\n• Pakiet proces (3 wizyty kontrolne) – 495,-\n• Pakiet proces (5 wizyt kontrolnych) – 799,-\nPakiety nie zawierają planów żywieniowych.\nPakiet START 5 wizyt jest ważny przez 5 miesięcy.\nPakiet START 10 wizyt jest ważny przez 8 miesięcy.\nPakiet PROCES 3 wizyty jest ważny 2 miesiące.\nPakiet PROCES 5 wizyt jest ważny 5 miesięcy.",
+            "cta": {
+              "label": "Więcej Informacji O Współpracy Z Magdą",
+              "href": "https://bodywork.testowe.eu/dietetyka/magdalena-hajduk-warchol/"
+            }
+          }
+        ]
+      },
+      {
+        "heading": "Test diagnostyczny FORCE-DECKS®.",
+        "body": "TEST – OPCJA PEŁNA: 795 zł\n(uwzględnia: test rozszerzony, analizę i raport)\nTEST – OPCJA PODSTAWOWA: 495 zł\n(uwzględnia: test w wersji podstawowej, analizę i raport)",
+        "cta": {
+          "label": "Więcej O Testach",
+          "href": "https://bodywork.testowe.eu/bodylab/technologia-vald/"
+        },
+        "note": "DODATKOWA OSOBA: 125 zł\n(cena za każdą kolejną osobę / w jednym teście może brać udział max 5 osób)\nTEST KONTROLNY: 250 zł"
+      },
+      {
+        "heading": "Zdrowy brzuch.",
+        "body": "Konsultacja USG + trening (1,5h): 395,-\nPakiet 8 spotkań (9h): 200,-\n(pierwsze i ostatnie spotkanie połączone z konsultacją z USG)",
+        "cta": {
+          "label": "Więcej O Projekcie",
+          "href": "https://bodywork.testowe.eu/fizjoterapia/zdrowy-brzuch/"
+        }
+      }
+    ]
+  }
+}
