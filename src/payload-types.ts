@@ -12,54 +12,7 @@
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "supportedTimezones".
  */
-export type SupportedTimezones =
-  | 'Pacific/Midway'
-  | 'Pacific/Niue'
-  | 'Pacific/Honolulu'
-  | 'Pacific/Rarotonga'
-  | 'America/Anchorage'
-  | 'Pacific/Gambier'
-  | 'America/Los_Angeles'
-  | 'America/Tijuana'
-  | 'America/Denver'
-  | 'America/Phoenix'
-  | 'America/Chicago'
-  | 'America/Guatemala'
-  | 'America/New_York'
-  | 'America/Bogota'
-  | 'America/Caracas'
-  | 'America/Santiago'
-  | 'America/Buenos_Aires'
-  | 'America/Sao_Paulo'
-  | 'Atlantic/South_Georgia'
-  | 'Atlantic/Azores'
-  | 'Atlantic/Cape_Verde'
-  | 'Europe/London'
-  | 'Europe/Berlin'
-  | 'Africa/Lagos'
-  | 'Europe/Athens'
-  | 'Africa/Cairo'
-  | 'Europe/Moscow'
-  | 'Asia/Riyadh'
-  | 'Asia/Dubai'
-  | 'Asia/Baku'
-  | 'Asia/Karachi'
-  | 'Asia/Tashkent'
-  | 'Asia/Calcutta'
-  | 'Asia/Dhaka'
-  | 'Asia/Almaty'
-  | 'Asia/Jakarta'
-  | 'Asia/Bangkok'
-  | 'Asia/Shanghai'
-  | 'Asia/Singapore'
-  | 'Asia/Tokyo'
-  | 'Asia/Seoul'
-  | 'Australia/Brisbane'
-  | 'Australia/Sydney'
-  | 'Pacific/Guam'
-  | 'Pacific/Noumea'
-  | 'Pacific/Auckland'
-  | 'Pacific/Fiji';
+export type SupportedTimezones = 'Europe/Warsaw';
 
 export interface Config {
   auth: {
@@ -126,7 +79,7 @@ export interface UserAuthOperations {
   };
 }
 /**
- * Konta zespołu i klientów.
+ * Konta zespo┼éu i klient├│w.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
@@ -134,11 +87,11 @@ export interface UserAuthOperations {
 export interface User {
   id: number;
   /**
-   * Imię i nazwisko lub nazwa widoczna w panelu.
+   * Imi─Ö i nazwisko lub nazwa widoczna w panelu.
    */
   name?: string | null;
   /**
-   * Administrator — pełny dostęp. Moderator — treści i podgląd użytkowników. Redaktor — treści. Klient — bez panelu.
+   * Administrator ÔÇö pe┼ény dost─Öp. Moderator ÔÇö tre┼Ťci i podgl─ůd u┼╝ytkownik├│w. Redaktor ÔÇö tre┼Ťci. Klient ÔÇö bez panelu.
    */
   role: 'administrator' | 'moderator' | 'redaktor' | 'klient';
   updatedAt: string;
@@ -161,7 +114,7 @@ export interface User {
   collection: 'users';
 }
 /**
- * Biblioteka mediów. Obrazy zapisywane jako WebP, wideo jako WebM.
+ * Biblioteka medi├│w. Obrazy zapisywane jako WebP, wideo jako WebM.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
@@ -169,7 +122,7 @@ export interface User {
 export interface Media {
   id: number;
   /**
-   * Krótki opis obrazu (dostępność i SEO).
+   * Kr├│tki opis obrazu (dost─Öpno┼Ť─ç i SEO).
    */
   alt: string;
   updatedAt: string;
@@ -185,7 +138,7 @@ export interface Media {
   focalY?: number | null;
 }
 /**
- * Struktura witryny — strony można zagnieżdżać (rodzic → dziecko).
+ * Struktura witryny ÔÇö strony mo┼╝na zagnie┼╝d┼╝a─ç (rodzic Ôćĺ dziecko).
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
@@ -194,7 +147,7 @@ export interface Page {
   id: number;
   title: string;
   /**
-   * Fragment adresu URL (bez ukośników).
+   * Fragment adresu URL (bez uko┼Ťnik├│w).
    */
   slug: string;
   content?: {
@@ -213,7 +166,7 @@ export interface Page {
     [k: string]: unknown;
   } | null;
   /**
-   * Ustaw, aby umieścić stronę w drzewie pod inną stroną.
+   * Ustaw, aby umie┼Ťci─ç stron─Ö w drzewie pod inn─ů stron─ů.
    */
   parent?: (number | null) | Page;
   breadcrumbs?:
@@ -225,11 +178,11 @@ export interface Page {
       }[]
     | null;
   /**
-   * Tytuł i opis widoczne w wyszukiwarkach oraz przy udostępnianiu w mediach społecznościowych.
+   * Tytu┼é i opis widoczne w wyszukiwarkach oraz przy udost─Öpnianiu w mediach spo┼éeczno┼Ťciowych.
    */
   meta?: {
     /**
-     * Jeśli puste, użyty zostanie tytuł dokumentu.
+     * Je┼Ťli puste, u┼╝yty zostanie tytu┼é dokumentu.
      */
     title?: string | null;
     description?: string | null;
@@ -250,7 +203,7 @@ export interface Post {
   id: number;
   title: string;
   /**
-   * Fragment adresu URL (bez ukośników).
+   * Fragment adresu URL (bez uko┼Ťnik├│w).
    */
   slug: string;
   excerpt?: string | null;
@@ -273,11 +226,11 @@ export interface Post {
   publishedAt?: string | null;
   author?: (number | null) | User;
   /**
-   * Tytuł i opis widoczne w wyszukiwarkach oraz przy udostępnianiu w mediach społecznościowych.
+   * Tytu┼é i opis widoczne w wyszukiwarkach oraz przy udost─Öpnianiu w mediach spo┼éeczno┼Ťciowych.
    */
   meta?: {
     /**
-     * Jeśli puste, użyty zostanie tytuł dokumentu.
+     * Je┼Ťli puste, u┼╝yty zostanie tytu┼é dokumentu.
      */
     title?: string | null;
     description?: string | null;
@@ -506,7 +459,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
- * Tożsamość marki, dane kontaktowe i domyślne SEO.
+ * To┼╝samo┼Ť─ç marki, dane kontaktowe i domy┼Ťlne SEO.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings".

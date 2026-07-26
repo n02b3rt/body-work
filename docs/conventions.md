@@ -17,6 +17,7 @@
 - **Payload collections:** one file per collection in `src/collections/`, registered in `src/payload.config.ts`. Access helpers live in `src/access/`.
 - **Roles:** `administrator` | `moderator` | `redaktor` | `klient` — use helpers from `src/access/roles.ts`; do not invent parallel permission checks.
 - **Public UI strings:** next-intl — add keys to `messages/pl.json` (and `en.json`); do not hardcode user-facing Polish in frontend components when a message key exists.
+- **Dates/times (display):** use helpers from `src/lib/format-date.ts` (`formatDatePl`, `formatDateTimePl`) or next-intl `useFormatter().dateTime(value, 'dateTime')` — never ad-hoc `toLocaleString` / ISO strings in UI. Storage stays ISO/UTC.
 - **Admin labels:** Polish strings in Payload collection/global configs are fine (editors work in PL).
 - **Admin sidebar:** structure lives in `src/admin/nav-tree.ts`; do not rely on Payload `admin.group` for multi-level nav (custom `AdminNav` replaces DefaultNav). Stub leaves use `/admin/coming-soon?section=<id>`.
 - **Short admin URLs:** nav links use `/admin/c/<slug>` and `/admin/g/<slug>`; `src/proxy.ts` rewrites them to Payload’s `/collections/` and `/globals/`. Built-in Payload links may still show the long form.

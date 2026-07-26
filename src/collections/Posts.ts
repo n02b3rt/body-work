@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { isAdministrator, isModerator, staff } from '@/access/roles'
 import { metaFields, slugField } from '@/fields/meta'
+import { PAYLOAD_DATETIME_FORMAT, PAYLOAD_TIME_FORMAT } from '@/lib/format-date'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -59,6 +60,8 @@ export const Posts: CollectionConfig = {
         position: 'sidebar',
         date: {
           pickerAppearance: 'dayAndTime',
+          displayFormat: PAYLOAD_DATETIME_FORMAT,
+          timeFormat: PAYLOAD_TIME_FORMAT,
         },
       },
     },

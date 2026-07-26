@@ -73,6 +73,7 @@ This is the antidote to the "colossus on clay feet". After adding **any** featur
 | Admin UI extras | `src/components/admin/` | WelcomeDashboard, PagesTree, AdminNav, ComingSoonView |
 | Admin nav tree | `src/admin/nav-tree.ts` | Nested sidebar structure (custom Nav; stubs → `/admin/coming-soon`) |
 | Frontend i18n | `messages/`, `src/i18n/` | next-intl (default `pl`) |
+| Date/time display (PL) | `src/lib/format-date.ts` | `formatDatePl`, `formatDateTimePl`; Payload `admin.dateFormat`; next-intl `formats` |
 | Media compression | `src/lib/compress-media.ts` | Images → WebP, video → WebM on upload |
 | Generated Payload types | `src/payload-types.ts` | Regenerate with `pnpm generate:types` |
 | Local Postgres (dev) | `docker-compose.yml` | `docker compose up -d` → `localhost:5432` / DB `bodywork` |

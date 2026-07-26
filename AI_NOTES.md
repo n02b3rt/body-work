@@ -13,6 +13,12 @@
 
 -->
 
+
+## 2026-07-26 — Polish date/time display
+- **Done:** Shared `src/lib/format-date.ts` (`formatDatePl`, `formatDateTimePl`, Payload date-fns constants, next-intl `intlFormats`). Payload admin `dateFormat` + `Europe/Warsaw` timezone; Posts `publishedAt` picker uses 24h PL format. next-intl request config wires `formats`.
+- **Decisions:** `Intl` + `pl-PL` for frontend helpers; date-fns pattern strings for Payload admin (`dd.MM.yyyy, HH:mm`); no new npm deps.
+- **Watch out:** Payload `dateFormat` is global (not per admin locale) — fine while PL is primary. List columns (`updatedAt`, etc.) follow `admin.dateFormat`; some Payload internals may still use English defaults.
+
 ## 2026-07-26 — custom CMS admin nav layout
 
 - **Done:** Nested admin sidebar (Kokpit / Treści / E-commerce / Zarządzanie) via custom `AdminNav` with SVG icons; real links for Pages/Posts/Media/Users/Site Settings; other leaves → `ComingSoonView` at `/admin/coming-soon`. Short vanity URLs `/admin/c/*` and `/admin/g/*` rewritten in `proxy.ts` to Payload’s `/collections/` and `/globals/`.

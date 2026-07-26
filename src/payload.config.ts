@@ -13,6 +13,7 @@ import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
 import { SiteSettings } from './globals/SiteSettings'
+import { PAYLOAD_DATETIME_FORMAT } from './lib/format-date'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -27,6 +28,11 @@ export default buildConfig({
   cors: [dashboardURL, publicURL],
   admin: {
     user: Users.slug,
+    dateFormat: PAYLOAD_DATETIME_FORMAT,
+    timezones: {
+      defaultTimezone: 'Europe/Warsaw',
+      supportedTimezones: [{ label: 'Warszawa (CET/CEST)', value: 'Europe/Warsaw' }],
+    },
     meta: {
       titleSuffix: '— BodyWork Panel',
     },
