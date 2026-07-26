@@ -93,6 +93,7 @@ What the pass fixed is recorded in `AI_NOTES.md`; the rows below carry the per-p
 | `/cennik/` | `/cennik/` | Reused: PageHero, Accordion (9 price rows; the component gained `cta`/`note`/`groups` and now `panelHeading` for this page). **No newsletter block** — the reference has none here | PL: done / EN: done | Two-way check plus a dedicated price audit — all 46 distinct figures verified present; re-verified against the live site 2026-07-26 | Bilingual |
 | `/masaz/` | `/masaz/` | — | PL: — / EN: — | — | Not started |
 | `/kontakt/` | `/kontakt/` | — | PL: — / EN: — | — | Not started |
+| `/instrukcja/` | `/instrukcja/` | New: none. Reused: PageHero, StatementSection ×8 (3 of them a 3-up bullet row), FullBleedImage ×4, CenteredBand, MediaCardCta ×2. 7 images copied. No newsletter block — the reference has none | PL: done / EN: done | Two-way check vs. the live site: 0 missing headings | Bilingual |
 
 ## Blog
 
@@ -105,7 +106,20 @@ What the pass fixed is recorded in `AI_NOTES.md`; the rows below carry the per-p
 
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
 |---|---|---|---|---|---|
-| `/polityka-prywatnosci/`, `/regulamin/`, `/cookies/` | matching routes | — | PL: — / EN: — | — | Not started |
+| `/regulamin/` | `/regulamin/` | New: `LegalDocument`. Reused: PageHero. 11 sections (§ I–XI), no imagery, no newsletter | PL: done / **EN: text stays Polish** — see below | Two-way check vs. the live site: 0 missing headings | Built (PL) |
+| `/polityka-prywatnosci/` | `/polityka-prywatnosci/` | Reused: PageHero, `LegalDocument`. 12 sections (I–XII) | PL: done / **EN: text stays Polish** — see below | Same check: 0 missing headings | Built (PL) |
+| `/cookies/` | `/cookies/` | — | PL: — / EN: — | — | Not started |
+
+**The two legal documents are deliberately not translated.** `en.json` carries the Polish
+text for `Terms` and `Privacy`. A mistranslated T&C or privacy policy is legal exposure,
+not a copy nit — these need a professional/legal pass before an English version ships.
+Same precedent as the trainer and specialist biographies.
+
+**`LegalDocument` renders its body at `text-statement` (~39.5px desktop) on purpose.** The
+reference really does set `ho:f7s6` on every paragraph of both documents — verified on
+three separate paragraphs. It is a surprising size for a T&C, so it is reproduced rather
+than quietly reduced; if the client wants it smaller, that is a one-line change and a
+deliberate deviation to record here.
 | `/instrukcja/`, `/test/`, `/podziekowanie/` | TBD | — | — | — | **Confirm with client first** (PRD §13 Phase 0) — may not carry over |
 
 ## Out of scope for Centrum migration

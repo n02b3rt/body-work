@@ -58,6 +58,7 @@ Check here before building anything — don't duplicate what exists.
 | Bilingual routing (next-intl) | `src/i18n/`, `src/proxy.ts` | `src/proxy.ts` is Next.js 16's renamed `middleware.ts` — see gotcha in `docs/architecture.md` |
 | UI translation strings | `messages/pl.json`, `messages/en.json` | See `docs/i18n.md` for the next-intl-vs-Payload-localization split |
 | Shared UI primitives | `src/components/ui/` | `Container` (max-width fix), `Button`, `SectionHeading` |
+| Off-site link targets | `src/lib/external-links.ts` | eFitness schedule, socials, and the gallery target — **read the `GALLERY_URL` note**: the reference links four buttons at a `/galeria` page that doesn't exist |
 | Centrum components | `src/components/centrum/` | Header, Footer, Hero, PromoBar and the other section blocks — reuse before adding new ones, see `docs/conventions.md` |
 | Payload CMS admin + API | `src/app/(payload)/` | Admin UI only on dashboard host; REST/GraphQL under `/api` |
 | Host proxy (dash vs public) | `src/proxy.ts` | `dash.localhost` → admin; public hosts return **404** for `/admin` (no redirect leak); rewrites `/admin/c/*`→`/collections/*`, `/admin/g/*`→`/globals/*` |

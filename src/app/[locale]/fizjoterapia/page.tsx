@@ -11,6 +11,7 @@ import { MediaCardCta } from "@/components/centrum/MediaCardCta";
 import { TestimonialCarousel, type Testimonial } from "@/components/centrum/TestimonialCarousel";
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { PhysiotherapyNav } from "@/components/centrum/PhysiotherapyNav";
+import { GALLERY_URL } from "@/lib/external-links";
 
 const SHOP_PHYSIO_URL = "https://bodywork.testowe.eu/zakupy/fizjoterapia/";
 
@@ -92,7 +93,8 @@ export default async function PhysiotherapyPage() {
             imageSrc="/images/fizjoterapia/hub-gabinety.webp"
             imageAlt={t("roomsHeading")}
             ctaLabel={t("roomsCta")}
-            ctaHref="/galeria"
+            ctaHref={GALLERY_URL}
+        external
           />
         </Container>
       </div>

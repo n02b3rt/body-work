@@ -13,6 +13,7 @@ import { TestimonialCarousel } from "@/components/centrum/TestimonialCarousel";
 import { MeetUsCta } from "@/components/centrum/MeetUsCta";
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { PartnerLogos } from "@/components/centrum/PartnerLogos";
+import { GALLERY_URL } from "@/lib/external-links";
 
 export default async function CentrumHomePage() {
   const tFriendlySpace = await getTranslations("FriendlySpace");
@@ -71,7 +72,8 @@ export default async function CentrumHomePage() {
         heading={tFriendlySpace("heading")}
         body={tFriendlySpace("body")}
         ctaLabel={tFriendlySpace("cta")}
-        ctaHref="/galeria"
+        ctaHref={GALLERY_URL}
+        external
         imageSrc="/images/home/friendly-space.webp"
         imageAlt={tFriendlySpace("heading")}
       />

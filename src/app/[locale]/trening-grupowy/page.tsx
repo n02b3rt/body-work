@@ -9,8 +9,8 @@ import { TextMedia } from "@/components/centrum/TextMedia";
 import { TestimonialCarousel, type Testimonial } from "@/components/centrum/TestimonialCarousel";
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { GroupTrainingNav } from "@/components/centrum/GroupTrainingNav";
+import { SCHEDULE_URL } from "@/lib/external-links";
 
-const SCHEDULE_URL = "https://bodywork-poznan.cms.efitness.com.pl/kalendarz-zajec";
 const SHOP_PLAN_URL = "https://bodywork.testowe.eu/zakupy/plan-zdrowej-zmiany/";
 
 export default async function GroupTrainingPage() {

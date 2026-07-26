@@ -9,8 +9,8 @@ import { StatementSection } from "@/components/centrum/StatementSection";
 import { Accordion, type AccordionItemData } from "@/components/centrum/Accordion";
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { GroupTrainingNav } from "@/components/centrum/GroupTrainingNav";
+import { SCHEDULE_URL } from "@/lib/external-links";
 
-const SCHEDULE_URL = "https://bodywork-poznan.cms.efitness.com.pl/kalendarz-zajec";
 
 type Kind = { heading: string; body: string };
 

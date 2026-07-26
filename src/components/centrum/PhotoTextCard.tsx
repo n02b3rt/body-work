@@ -9,6 +9,8 @@ type PhotoTextCardProps = {
   body: ReactNode;
   ctaLabel?: string;
   ctaHref?: string;
+  /** Render the CTA as a plain anchor for an off-site target — matching `MediaCardCta`. */
+  external?: boolean;
   imageSrc: string;
   imageAlt: string;
 };
@@ -24,7 +26,7 @@ type PhotoTextCardProps = {
  * below the photo and lost its background contrast (the page background is the
  * same cream as the card). Anchoring to `bottom-0` instead makes overflow-below
  * structurally impossible: the card can only grow upward into the photo. */
-export function PhotoTextCard({ heading, body, ctaLabel, ctaHref, imageSrc, imageAlt }: PhotoTextCardProps) {
+export function PhotoTextCard({ heading, body, ctaLabel, ctaHref, external, imageSrc, imageAlt }: PhotoTextCardProps) {
   return (
     <section className="border-t border-brand-navy-soft bg-background">
       <div className="relative aspect-[4/5] w-full sm:aspect-[16/9] lg:aspect-[2.2/1]">
@@ -38,9 +40,20 @@ export function PhotoTextCard({ heading, body, ctaLabel, ctaHref, imageSrc, imag
             <SectionHeading uppercase>{heading}</SectionHeading>
             <p className="mt-10 max-w-2xl text-body text-brand-navy">{body}</p>
             {ctaLabel && ctaHref ? (
-              <Link href={ctaHref} className={buttonClasses("outline", "mt-10")}>
-                {ctaLabel}
-              </Link>
+              external ? (
+                <a
+                  href={ctaHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={buttonClasses("outline", "mt-10")}
+                >
+                  {ctaLabel}
+                </a>
+              ) : (
+                <Link href={ctaHref} className={buttonClasses("outline", "mt-10")}>
+                  {ctaLabel}
+                </Link>
+              )
             ) : null}
           </div>
         </div>
