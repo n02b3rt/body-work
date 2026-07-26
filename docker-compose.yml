@@ -3,7 +3,10 @@ services:
     image: postgres:16-alpine
     restart: unless-stopped
     ports:
-      - '5432:5432'
+      # Bound to loopback so the database is never reachable from the network, and the
+      # host port is overridable via POSTGRES_PORT — a dev machine may already be
+      # running another Postgres on 5432.
+      - '127.0.0.1:${POSTGRES_PORT:-5432}:5432'
     environment:
       POSTGRES_USER: payload
       POSTGRES_PASSWORD: payload

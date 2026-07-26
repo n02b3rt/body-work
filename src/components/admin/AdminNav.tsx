@@ -12,7 +12,7 @@ import { NavIcon } from '@/components/admin/nav-icons'
 import { NavHamburger, NavWrapper } from '@payloadcms/next/client'
 import { Link, Logout } from '@payloadcms/ui'
 import { usePathname, useSearchParams } from 'next/navigation'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useMemo, useSyncExternalStore } from 'react'
 
 const baseClass = 'nav'
 const OPEN_STORAGE_KEY = 'bw-admin-nav-open'
@@ -61,11 +61,48 @@ function branchContainsActive(
   })
 }
 
-function readStoredOpen(): Record<string, boolean> {
-  if (typeof window === 'undefined') return {}
+/**
+ * Which branches are expanded lives in localStorage, i.e. outside React. It is read
+ * through a store rather than mirrored into state by an effect: the lint config
+ * enforces the React Compiler rules and rejects a synchronous `setState` in an effect
+ * body, and `useSyncExternalStore` is the sanctioned way to read external mutable
+ * state without a hydration mismatch (the server snapshot is simply "nothing open").
+ *
+ * Snapshots are the raw JSON string so repeated reads stay referentially equal.
+ */
+const EMPTY_SNAPSHOT = '{}'
+const openListeners = new Set<() => void>()
+
+function subscribeOpen(listener: () => void) {
+  openListeners.add(listener)
+  return () => {
+    openListeners.delete(listener)
+  }
+}
+
+function openSnapshot(): string {
   try {
-    const raw = window.localStorage.getItem(OPEN_STORAGE_KEY)
-    if (!raw) return {}
+    return window.localStorage.getItem(OPEN_STORAGE_KEY) ?? EMPTY_SNAPSHOT
+  } catch {
+    return EMPTY_SNAPSHOT
+  }
+}
+
+function openServerSnapshot(): string {
+  return EMPTY_SNAPSHOT
+}
+
+function writeStoredOpen(map: Record<string, boolean>) {
+  try {
+    window.localStorage.setItem(OPEN_STORAGE_KEY, JSON.stringify(map))
+  } catch {
+    // A blocked localStorage only means the tree forgets its state between visits.
+  }
+  for (const listener of openListeners) listener()
+}
+
+function parseStoredOpen(raw: string): Record<string, boolean> {
+  try {
     const parsed = JSON.parse(raw) as unknown
     if (parsed && typeof parsed === 'object') {
       return parsed as Record<string, boolean>
@@ -200,54 +237,18 @@ export function AdminNav() {
   const searchParams = useSearchParams()
   const sectionParam = searchParams.get('section')
 
-  const [openMap, setOpenMap] = useState<Record<string, boolean>>({})
-  const [hydrated, setHydrated] = useState(false)
+  const storedRaw = useSyncExternalStore(subscribeOpen, openSnapshot, openServerSnapshot)
+  const openMap = useMemo(() => parseStoredOpen(storedRaw), [storedRaw])
 
-  useEffect(() => {
-    setOpenMap(readStoredOpen())
-    setHydrated(true)
-  }, [])
-
-  useEffect(() => {
-    if (!hydrated) return
-    setOpenMap((prev) => {
-      const next: Record<string, boolean> = { ...prev }
-      let changed = false
-      const ensureOpen = (nodes: NavNode[]) => {
-        for (const node of nodes) {
-          if (!isNavBranch(node)) continue
-          if (branchContainsActive(node, pathname, sectionParam)) {
-            if (next[node.id] !== true) {
-              next[node.id] = true
-              changed = true
-            }
-          }
-          ensureOpen(node.children)
-        }
-      }
-      ensureOpen(adminNavTree)
-      if (!changed) return prev
-      try {
-        window.localStorage.setItem(OPEN_STORAGE_KEY, JSON.stringify(next))
-      } catch {
-        // ignore
-      }
-      return next
-    })
-  }, [pathname, sectionParam, hydrated])
-
-  const toggle = useCallback((id: string) => {
-    setOpenMap((prev) => {
-      const currentlyOpen = prev[id] ?? false
-      const next = { ...prev, [id]: !currentlyOpen }
-      try {
-        window.localStorage.setItem(OPEN_STORAGE_KEY, JSON.stringify(next))
-      } catch {
-        // ignore
-      }
-      return next
-    })
-  }, [])
+  // A branch holding the active route renders open regardless of what's stored — see
+  // the `?? (depth === 0 || hasActive)` fallback in `NavBranchView`. Nothing needs to be
+  // written for that, so there is no effect here mirroring it into storage.
+  const toggle = useCallback(
+    (id: string) => {
+      writeStoredOpen({ ...openMap, [id]: !(openMap[id] ?? false) })
+    },
+    [openMap],
+  )
 
   return (
     <NavWrapper baseClass={baseClass}>

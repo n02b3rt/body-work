@@ -3,7 +3,7 @@
 import type { Page } from '@/payload-types'
 import { useConfig } from '@payloadcms/ui'
 import Link from 'next/link'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 type TreeNode = Page & { children: TreeNode[] }
 
@@ -92,26 +92,42 @@ export function PagesTree() {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
 
-  const load = useCallback(async () => {
-    setLoading(true)
-    setError(null)
-    try {
-      const res = await fetch(`${config.routes?.api || '/api'}/pages?limit=200&depth=0&sort=title`, {
-        credentials: 'include',
-      })
-      if (!res.ok) throw new Error(`HTTP ${res.status}`)
-      const json = (await res.json()) as { docs: Page[] }
-      setPages(json.docs || [])
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Nie udało się wczytać stron')
-    } finally {
-      setLoading(false)
-    }
-  }, [config.routes?.api])
+  const [reloadToken, setReloadToken] = useState(0)
+  const apiRoute = config.routes?.api || '/api'
 
   useEffect(() => {
-    void load()
-  }, [load])
+    let cancelled = false
+
+    // Every state update sits behind an `await`, so none of them run synchronously in
+    // the effect body — which is what the React Compiler lint rule rejects. The
+    // cancelled flag also stops a late response from writing into an unmounted tree.
+    void (async () => {
+      try {
+        const res = await fetch(`${apiRoute}/pages?limit=200&depth=0&sort=title`, {
+          credentials: 'include',
+        })
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        const json = (await res.json()) as { docs: Page[] }
+        if (cancelled) return
+        setPages(json.docs || [])
+        setError(null)
+      } catch (err) {
+        if (cancelled) return
+        setError(err instanceof Error ? err.message : 'Nie udało się wczytać stron')
+      } finally {
+        if (!cancelled) setLoading(false)
+      }
+    })()
+
+    return () => {
+      cancelled = true
+    }
+  }, [apiRoute, reloadToken])
+
+  const reload = () => {
+    setLoading(true)
+    setReloadToken((token) => token + 1)
+  }
 
   const tree = useMemo(() => buildTree(pages), [pages])
 
@@ -119,7 +135,7 @@ export function PagesTree() {
     <div className="bw-pages-tree">
       <div className="bw-pages-tree__header">
         <strong>Drzewo stron</strong>
-        <button type="button" className="bw-pages-tree__refresh" onClick={() => void load()}>
+        <button type="button" className="bw-pages-tree__refresh" onClick={reload}>
           Odśwież
         </button>
       </div>
