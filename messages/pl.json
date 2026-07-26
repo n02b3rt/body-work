@@ -1471,5 +1471,19 @@
     "groupClasses": "Bezpłatne zajęcia grupowe! Zapisz się już teraz.",
     "healthyChangePlan": "Nowa edycja Planu Zdrowej Zmiany / Start: 11.05.",
     "close": "Zamknij"
+  },
+  "site": {
+    "name": "BodyWork Centrum",
+    "tagline": "Fizjoterapia, dieta, masaż i trening"
+  },
+  "nav": {
+    "home": "Strona główna",
+    "services": "Usługi",
+    "blog": "Blog",
+    "contact": "Kontakt"
+  },
+  "common": {
+    "loading": "Ładowanie…",
+    "error": "Coś poszło nie tak"
   }
 }

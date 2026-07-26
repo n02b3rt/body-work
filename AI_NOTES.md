@@ -13,6 +13,15 @@
 
 -->
 
+## 2026-07-26 — merged the Payload CMS stack into the site
+
+- **Done:** merged PRs #2/#3/#4 (`feat/cms-layout`, which contains the other two) into `main` on top of the finished public site. 12 conflicts resolved by hand.
+- **Decisions:** **pnpm is now the package manager** (user's call — `docs/stack.md` had this flagged as an open question); `package-lock.json` removed so only `pnpm-lock.yaml` remains. `messages/*.json` merged as a union — all 37 site namespaces kept, the CMS branch's `site`/`nav`/`common` added on top (they don't collide). The three `src/i18n/*` files were functionally identical on both sides, so ours were kept (they use `hasLocale` rather than a manual cast). `next.config.ts` keeps the CMS branch's `withPayload(withNextIntl(...))` composition.
+- **Two things the merge had to fix, or the site would have broken:**
+  1. `images.localPatterns` listed only `/api/media/file/**`. Setting that key at all turns `next/image` into an allowlist, so every photo under `/images/**` would have failed with `next-image-unconfigured-localpatterns`. Both patterns are now listed.
+  2. The CMS branch's `proxy.ts` replaced next-intl's middleware without delegating to it, which would have killed locale routing (`localePrefix: "as-needed"` needs the middleware to rewrite `/` → `/pl`). The two are now composed in one default-exported `proxy`: host gating first, then `/admin` 404 on public hosts, `/api` passed through untouched, everything else handed to next-intl.
+- **Watch out:** **this merge is not build-verified** — pnpm isn't installed on this machine, so `pnpm install` and a build never ran. Do that before trusting it. Also note the CMS branch exported its proxy as a *named* `proxy`, while ours used a default export; the merged file uses the default export, which is the form confirmed working on this project. If the named form is also valid in Next 16, nothing is lost either way. Code style differs across the seam (the CMS files use single quotes and no semicolons, the site files use double quotes and semicolons) — worth one decision and a formatter rather than letting it drift.
+
 ## 2026-07-26 — first real browser pass (Chrome finally connected): 4 more defects, all measured
 
 - **Context:** the Claude-in-Chrome extension connected for the first time in this project (six sessions of it being unreachable). Ran the side-by-side pass against the live site that `migration-tracker.md` had been carrying as a debt.
@@ -163,9 +172,32 @@
 - **Done:** read the new `PRD.md` (full ecosystem spec: hub + centrum + akademia + dashboard, Payload CMS, self-hosted Postgres). Restructured `CLAUDE.md` into a lean index/router; added `AGENTS.md` (tool-agnostic mirror of the same rules); rewrote `docs/architecture.md` to reflect the real 4-domain system; expanded `docs/conventions.md` (git convention, healthy-growth rules, context-handoff prompt, and a scraped-content component-reuse rule all moved in from CLAUDE.md). Added `docs/stack.md` (approved library list + "ask before installing" rule), `docs/sites.md` (domain/routing model), `docs/i18n.md` (next-intl vs. Payload localization split), `docs/scraped-site-map.md` (verified folder ↔ URL map of `scripts/scrape/scraped/`, built from actually inspecting the filesystem, not assumed), and `docs/migration-tracker.md` (page-by-page build/bilingual/visual-QA checklist, seeded from the scraped mirror's ~22 unique templates).
 - **Decisions:** confirmed with the user — database is self-hosted PostgreSQL on the Hetzner VPS, **not NeonDB** (a stray stack note conflicted with PRD's "zero abonamentów SaaS" rule); **no Prisma** (Payload's Local API already owns the schema — a second ORM on the same Postgres instance was rejected as redundant/risky). Both logged in `docs/architecture.md`'s decisions table.
 - **Watch out:** the scraped Centrum mirror (`scripts/scrape/scraped/`) is Polish-only — there's no English reference to copy from, EN copy has to be authored per page (see `docs/i18n.md`). Akademia has zero design/content yet (PRD's top schedule risk) — its rows in `docs/sites.md` and `docs/migration-tracker.md` stay empty until that's delivered. No app code changed this session — docs/workflow scaffolding only, done on branch `chore/docs-restructure`, not committed yet.
+## 2026-07-26 — custom CMS admin nav layout
 
+- **Done:** Nested admin sidebar (Kokpit / Treści / E-commerce / Zarządzanie) via custom `AdminNav` with SVG icons; real links for Pages/Posts/Media/Users/Site Settings; other leaves → `ComingSoonView` at `/admin/coming-soon`. Short vanity URLs `/admin/c/*` and `/admin/g/*` rewritten in `proxy.ts` to Payload’s `/collections/` and `/globals/`.
+- **Decisions:** Replace Payload DefaultNav entirely (groups are only 1 level); Nested Docs stays for page document hierarchy only; stubs are custom views, not empty collections; cannot remove `/collections` inside Payload itself without a fork.
+- **Watch out:** After nav/component changes run `pnpm generate:importmap`. Expand/collapse state is in `localStorage` (`bw-admin-nav-open`). Payload’s own in-app links may still show `/collections/` or `/globals/`. Wire role filtering later.
+
+## 2026-07-26 — content model, next-intl, media compression
+
+- **Done:** Site Settings global (identity/contact/SEO); Pages with nested-docs + expandable tree UI + SEO meta; Posts (blog) with drafts; next-intl wired (`messages/pl|en`, frontend layout); media uploads compressed to WebP / WebM; removed WordPress comparison copy from admin.
+- **Decisions:** Payload drafts instead of custom status field; nested-docs for page hierarchy; sharp for images, ffmpeg (bundled installer) for video→WebM; next-intl for public UI strings (admin labels stay Polish in collection configs).
+- **Watch out:** Video conversion is CPU-heavy and may fail on exotic codecs — original file is kept on error. Expand `[locale]` routing later if EN public site is needed beyond messages.
+
+## 2026-07-26 — dashboard host, roles, Polish admin chrome
+
+- **Done:** `src/proxy.ts` serves admin only on `dash.localhost` (rewrites `/` → `/admin`); public hosts get plain **404** for `/admin` (no redirect). User roles administrator/moderator/redaktor/klient with access helpers; Polish i18n + collection labels; `WelcomeDashboard` before dashboard.
+- **Decisions:** obscure admin entry by host, never redirect (leaks hostname); `klient` blocked from admin; redaktor cannot delete media or manage users; Payload `serverURL` points at dashboard URL.
+- **Watch out:** open panel at `http://dash.localhost:3000` (not `localhost/admin`). Existing DB users need a `role` column (dev push) — set first admin to `administrator` if create-first-user already ran.
+
+## 2026-07-25 — Payload CMS + Postgres
+
+- **Done:** Payload 3.86 embedded in the Next.js app; admin at `/admin` (create-first-user works); REST/GraphQL under `/api`; collections `Users` + `Media`; local Postgres via `docker-compose.yml`; frontend moved to `src/app/(frontend)/`.
+- **Decisions:** self-hosted Postgres (not Neon/Supabase) for a single Hetzner VPS; `(frontend)` / `(payload)` split root layouts; pnpm with `allowBuilds` for sharp/esbuild/`@parcel/watcher`; package `"type": "module"` required for Payload CLI.
+- **Watch out:** Payload blank template on GitHub `main` may be ahead of npm (e.g. `generatePayloadViewport` does not exist in 3.86 — match files to the installed version tag). No root `app/layout.tsx` wrapping both groups. Dev: `docker compose up -d` then `pnpm dev`. Email adapter not configured (logs to console). Domain collections (services, team, pages) not created yet.
 ## 2026-07-24 — project scaffold
 
 - **Done:** repository initialized; Next.js 16 (App Router, TypeScript, Tailwind CSS 4) scaffolded at repo root; existing Python scraper/mirror toolkit relocated to `scripts/scrape/` (paths and `.bat` scripts updated to still work from their new location); `CLAUDE.md`, `docs/`, and `AI_NOTES.md` in place.
 - **Decisions:** stack — Next.js 16 + TypeScript + Tailwind CSS 4, with the Python scraper kept as a supporting reference tool, not the product itself; repo language — English; UI language — Polish. The scraped mirror (`scripts/scrape/scraped/`, ~300MB) is gitignored and regenerable via `scripts/scrape/run_scrape.bat` — it's a content/design reference, not something the Next.js app depends on at runtime.
 - **Watch out:** Next.js 16 is newer than most model training data — API/conventions may differ from what's expected; check `node_modules/next/dist/docs/` before assuming behavior. No actual site pages/content have been built yet — homepage is still the default `create-next-app` starter.
+

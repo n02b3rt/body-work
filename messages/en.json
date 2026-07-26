@@ -1471,5 +1471,19 @@
     "groupClasses": "Free group classes! Sign up now.",
     "healthyChangePlan": "New Healthy Change Plan edition / Start: 11.05.",
     "close": "Close"
+  },
+  "site": {
+    "name": "BodyWork Centrum",
+    "tagline": "Physiotherapy, nutrition, massage and training"
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "common": {
+    "loading": "Loading…",
+    "error": "Something went wrong"
   }
 }

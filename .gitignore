@@ -32,6 +32,10 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+
+# Payload media uploads (local disk storage)
+/media
 
 # vercel
 .vercel
