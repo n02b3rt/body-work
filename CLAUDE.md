@@ -68,13 +68,14 @@ This is the antidote to the "colossus on clay feet". After adding **any** featur
 | Access control / roles | `src/access/roles.ts` | Roles: administrator, moderator, redaktor, klient |
 | Payload config | `src/payload.config.ts` | CMS entry: DB adapter, editor, collections, i18n PL |
 | Payload collections | `src/collections/` | `Users`, `Media`, `Pages` (nested tree), `Posts` (blog) |
+| Media library (admin) | `src/collections/Media.ts`, `src/components/admin/media/`, `docs/media.md` | Explorer (grid/list/folders), a11y/SEO fields, conversion options |
 | Site settings (global) | `src/globals/SiteSettings.ts` | Brand identity, contact, default SEO |
 | Shared CMS fields | `src/fields/` | SEO meta, slug helpers |
-| Admin UI extras | `src/components/admin/` | WelcomeDashboard, PagesTree, AdminNav, ComingSoonView |
+| Admin UI extras | `src/components/admin/` | WelcomeDashboard, PagesTree, AdminNav, ComingSoonView, media/* |
 | Admin nav tree | `src/admin/nav-tree.ts` | Nested sidebar structure (custom Nav; stubs → `/admin/coming-soon`) |
 | Frontend i18n | `messages/`, `src/i18n/` | next-intl (default `pl`) |
 | Date/time display (PL) | `src/lib/format-date.ts` | `formatDatePl`, `formatDateTimePl`; Payload `admin.dateFormat`; next-intl `formats` |
-| Media compression | `src/lib/compress-media.ts` | Images → WebP, video → WebM on upload |
+| Media compression | `src/lib/compress-media.ts`, `src/lib/media-filename.ts` | Format/size/quality options; ALT/slug from filename |
 | Generated Payload types | `src/payload-types.ts` | Regenerate with `pnpm generate:types` |
 | Local Postgres (dev) | `docker-compose.yml` | `docker compose up -d` → `localhost:5432` / DB `bodywork` |
 | Static assets served by Next.js | `public/` | favicons, robots.txt, etc. |

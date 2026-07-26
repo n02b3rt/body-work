@@ -79,7 +79,7 @@ export interface UserAuthOperations {
   };
 }
 /**
- * Konta zespo┼éu i klient├│w.
+ * Konta zespołu i klientów.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
@@ -87,11 +87,11 @@ export interface UserAuthOperations {
 export interface User {
   id: number;
   /**
-   * Imi─Ö i nazwisko lub nazwa widoczna w panelu.
+   * Imię i nazwisko lub nazwa widoczna w panelu.
    */
   name?: string | null;
   /**
-   * Administrator ÔÇö pe┼ény dost─Öp. Moderator ÔÇö tre┼Ťci i podgl─ůd u┼╝ytkownik├│w. Redaktor ÔÇö tre┼Ťci. Klient ÔÇö bez panelu.
+   * Administrator — pełny dostęp. Moderator — treści i podgląd użytkowników. Redaktor — treści. Klient — bez panelu.
    */
   role: 'administrator' | 'moderator' | 'redaktor' | 'klient';
   updatedAt: string;
@@ -114,7 +114,7 @@ export interface User {
   collection: 'users';
 }
 /**
- * Biblioteka medi├│w. Obrazy zapisywane jako WebP, wideo jako WebM.
+ * Biblioteka mediów z polami dostępności/SEO, konwersją formatu i widokiem eksploratora.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
@@ -122,9 +122,49 @@ export interface User {
 export interface Media {
   id: number;
   /**
-   * Kr├│tki opis obrazu (dost─Öpno┼Ť─ç i SEO).
+   * Nazwa wyświetlana w bibliotece. Domyślnie z nazwy pliku.
    */
-  alt: string;
+  title?: string | null;
+  /**
+   * Wymagany dla dostępności i SEO (chyba że dekoracyjny). Uzupełniany z nazwy pliku — sprawdź i popraw.
+   */
+  alt?: string | null;
+  /**
+   * Zaznacz, gdy obraz nie niesie informacji (tło, ozdoba). ALT będzie traktowany jako pusty.
+   */
+  isDecorative?: boolean | null;
+  /**
+   * Opcjonalny podpis widoczny przy obrazie na stronie.
+   */
+  caption?: string | null;
+  /**
+   * Dłuższy opis kontekstu (SEO, redakcja, wyszukiwanie w bibliotece).
+   */
+  description?: string | null;
+  /**
+   * Identyfikator URL / nazwy pliku. Domyślnie z nazwy pliku.
+   */
+  slug?: string | null;
+  /**
+   * Słowa kluczowe do filtrowania w bibliotece (np. fizjoterapia, sala).
+   */
+  tags?: string[] | null;
+  /**
+   * Stosowane przy uploadzie / wymianie pliku. Domyślnie WebP dla obrazów i WebM dla wideo.
+   */
+  convertFormat?: ('optimized' | 'avif' | 'original') | null;
+  /**
+   * Skalowanie obrazów przed zapisem (ignorowane dla wideo). 1920 px to dobry kompromis jakość/waga.
+   */
+  maxDimension?: ('1920' | '1280' | '2560' | 'none') | null;
+  /**
+   * Dotyczy konwersji WebP / AVIF (ignorowane przy „bez konwersji”).
+   */
+  imageQuality?: ('balanced' | 'high' | 'small') | null;
+  /**
+   * Ustawiane automatycznie z MIME; używane do folderów w bibliotece.
+   */
+  kind?: ('image' | 'video' | 'document' | 'other') | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -136,9 +176,35 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+  sizes?: {
+    thumb?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    card?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    large?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
 }
 /**
- * Struktura witryny ÔÇö strony mo┼╝na zagnie┼╝d┼╝a─ç (rodzic Ôćĺ dziecko).
+ * Struktura witryny — strony można zagnieżdżać (rodzic → dziecko).
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
@@ -147,7 +213,7 @@ export interface Page {
   id: number;
   title: string;
   /**
-   * Fragment adresu URL (bez uko┼Ťnik├│w).
+   * Fragment adresu URL (bez ukośników).
    */
   slug: string;
   content?: {
@@ -166,7 +232,7 @@ export interface Page {
     [k: string]: unknown;
   } | null;
   /**
-   * Ustaw, aby umie┼Ťci─ç stron─Ö w drzewie pod inn─ů stron─ů.
+   * Ustaw, aby umieścić stronę w drzewie pod inną stroną.
    */
   parent?: (number | null) | Page;
   breadcrumbs?:
@@ -178,11 +244,11 @@ export interface Page {
       }[]
     | null;
   /**
-   * Tytu┼é i opis widoczne w wyszukiwarkach oraz przy udost─Öpnianiu w mediach spo┼éeczno┼Ťciowych.
+   * Tytuł i opis widoczne w wyszukiwarkach oraz przy udostępnianiu w mediach społecznościowych.
    */
   meta?: {
     /**
-     * Je┼Ťli puste, u┼╝yty zostanie tytu┼é dokumentu.
+     * Jeśli puste, użyty zostanie tytuł dokumentu.
      */
     title?: string | null;
     description?: string | null;
@@ -203,7 +269,7 @@ export interface Post {
   id: number;
   title: string;
   /**
-   * Fragment adresu URL (bez uko┼Ťnik├│w).
+   * Fragment adresu URL (bez ukośników).
    */
   slug: string;
   excerpt?: string | null;
@@ -226,11 +292,11 @@ export interface Post {
   publishedAt?: string | null;
   author?: (number | null) | User;
   /**
-   * Tytu┼é i opis widoczne w wyszukiwarkach oraz przy udost─Öpnianiu w mediach spo┼éeczno┼Ťciowych.
+   * Tytuł i opis widoczne w wyszukiwarkach oraz przy udostępnianiu w mediach społecznościowych.
    */
   meta?: {
     /**
-     * Je┼Ťli puste, u┼╝yty zostanie tytu┼é dokumentu.
+     * Jeśli puste, użyty zostanie tytuł dokumentu.
      */
     title?: string | null;
     description?: string | null;
@@ -352,7 +418,17 @@ export interface UsersSelect<T extends boolean = true> {
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
+  title?: T;
   alt?: T;
+  isDecorative?: T;
+  caption?: T;
+  description?: T;
+  slug?: T;
+  tags?: T;
+  convertFormat?: T;
+  maxDimension?: T;
+  imageQuality?: T;
+  kind?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -364,6 +440,40 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+  sizes?:
+    | T
+    | {
+        thumb?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        card?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        large?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -459,7 +569,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
- * To┼╝samo┼Ť─ç marki, dane kontaktowe i domy┼Ťlne SEO.
+ * Tożsamość marki, dane kontaktowe i domyślne SEO.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings".

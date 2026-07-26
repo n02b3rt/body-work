@@ -21,6 +21,7 @@
 - **Admin labels:** Polish strings in Payload collection/global configs are fine (editors work in PL).
 - **Admin sidebar:** structure lives in `src/admin/nav-tree.ts`; do not rely on Payload `admin.group` for multi-level nav (custom `AdminNav` replaces DefaultNav). Stub leaves use `/admin/coming-soon?section=<id>`.
 - **Short admin URLs:** nav links use `/admin/c/<slug>` and `/admin/g/<slug>`; `src/proxy.ts` rewrites them to Payload’s `/collections/` and `/globals/`. Built-in Payload links may still show the long form.
+- **Media library:** collection fields + conversion hooks in `src/collections/Media.ts` / `src/lib/compress-media.ts`; explorer UI under `src/components/admin/media/` (see `docs/media.md`).
 
 ## Patterns
 

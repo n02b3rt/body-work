@@ -133,7 +133,7 @@ export const adminNavTree: NavBranch[] = [
           ),
           link(
             'content-media-all',
-            'Wszystkie pliki',
+            'Biblioteka',
             collectionHref('media'),
             'list',
           ),

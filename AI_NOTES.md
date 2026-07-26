@@ -13,6 +13,11 @@
 
 -->
 
+## 2026-07-26 — media library explorer + a11y/SEO fields
+
+- **Done:** Media collection expanded (ALT/title/slug/caption/description/tags/decorative, conversion options, `kind` folders); compression accepts format/max-edge/quality; custom list view `MediaLibrary` (grid/list, folders by type, sort/search, details preview). Docs in `docs/media.md`.
+- **Decisions:** No image-recognition ALT (filename suggestion only — no API key/cost); replace Payload list via `views.list.Component`; default max edge 1920 + WebP/WebM; Payload `imageSizes` thumb/card/large.
+- **Watch out:** Conversion options apply only on upload/replace. Schema change needs DB push/migrate. Regenerate importmap + types after component/field edits.
 
 ## 2026-07-26 — Polish date/time display
 - **Done:** Shared `src/lib/format-date.ts` (`formatDatePl`, `formatDateTimePl`, Payload date-fns constants, next-intl `intlFormats`). Payload admin `dateFormat` + `Europe/Warsaw` timezone; Posts `publishedAt` picker uses 24h PL format. next-intl request config wires `formats`.
