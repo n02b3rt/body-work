@@ -14,6 +14,7 @@ How it works in one paragraph: the Python toolkit in `scripts/scrape/` mirrors t
 |---|---|---|
 | Public frontend | Site pages, layouts, marketing UI | `src/app/(frontend)/` |
 | Payload CMS | Admin UI, REST/GraphQL, auth, uploads | `src/app/(payload)/`, `src/payload.config.ts`, `src/collections/`, `src/globals/` |
+| Admin shell / nav | Custom nested sidebar + coming-soon stubs | `src/admin/nav-tree.ts`, `src/components/admin/AdminNav.tsx`, `ComingSoonView.tsx` |
 | Access / roles | RBAC helpers | `src/access/` |
 | Frontend i18n | next-intl messages + routing helpers | `messages/`, `src/i18n/` |
 | PostgreSQL | CMS data store (local Docker; same on Hetzner VPS) | `docker-compose.yml` (dev) |
@@ -39,6 +40,8 @@ Record deliberate choices so nobody asks "why is it like this?" a month later.
 | 2026-07-26 | Frontend copy via next-intl (`messages/pl.json`) | Keep UI translations out of components; Payload admin stays PL labels in config |
 | 2026-07-26 | Pages with nested-docs + expandable tree; Posts blog; Site Settings global | Content model for marketing site |
 | 2026-07-26 | Upload compression: images→WebP, video→WebM | Smaller assets by default via sharp + ffmpeg |
+| 2026-07-26 | Custom nested AdminNav (not Payload `admin.group`) | Multi-level WP-style tree; Nested Docs is for document hierarchy only |
+| 2026-07-26 | Short admin paths `/admin/c/*` and `/admin/g/*` via proxy rewrite | Payload hardcodes `/collections` & `/globals`; vanity URLs without forking |
 
 ## Integrations / external dependencies
 

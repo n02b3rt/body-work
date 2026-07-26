@@ -34,7 +34,17 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
     components: {
+      Nav: '/components/admin/AdminNav#AdminNav',
       beforeDashboard: ['/components/admin/WelcomeDashboard#WelcomeDashboard'],
+      views: {
+        comingSoon: {
+          Component: '/components/admin/ComingSoonView#ComingSoonView',
+          path: '/coming-soon',
+          meta: {
+            title: 'W przygotowaniu',
+          },
+        },
+      },
     },
   },
   collections: [Users, Media, Pages, Posts],

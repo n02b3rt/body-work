@@ -35,30 +35,30 @@ export function WelcomeDashboard() {
       </p>
 
       <div className="bw-welcome__cards">
-        <Link className="bw-welcome__card" href="/admin/collections/pages">
+        <Link className="bw-welcome__card" href="/admin/c/pages">
           <span className="bw-welcome__card-label">Strony</span>
           <span className="bw-welcome__card-hint">Struktura i treści podstron</span>
         </Link>
 
-        <Link className="bw-welcome__card" href="/admin/collections/posts">
+        <Link className="bw-welcome__card" href="/admin/c/posts">
           <span className="bw-welcome__card-label">Wpisy</span>
           <span className="bw-welcome__card-hint">Blog i aktualności</span>
         </Link>
 
-        <Link className="bw-welcome__card" href="/admin/collections/media">
+        <Link className="bw-welcome__card" href="/admin/c/media">
           <span className="bw-welcome__card-label">Media</span>
           <span className="bw-welcome__card-hint">Zdjęcia i pliki (WebP / WebM)</span>
         </Link>
 
         {canManageUsers ? (
-          <Link className="bw-welcome__card" href="/admin/collections/users">
+          <Link className="bw-welcome__card" href="/admin/c/users">
             <span className="bw-welcome__card-label">Użytkownicy</span>
             <span className="bw-welcome__card-hint">Konta zespołu i klientów</span>
           </Link>
         ) : null}
 
         {canManageSettings ? (
-          <Link className="bw-welcome__card" href="/admin/globals/site-settings">
+          <Link className="bw-welcome__card" href="/admin/g/site-settings">
             <span className="bw-welcome__card-label">Ustawienia witryny</span>
             <span className="bw-welcome__card-hint">Tożsamość, kontakt, SEO</span>
           </Link>

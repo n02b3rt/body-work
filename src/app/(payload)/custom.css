@@ -141,3 +141,142 @@
   font-size: 0.8rem;
 }
 
+/* —— Custom nested admin nav —— */
+
+.bw-nav__tree {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.25rem 0 1rem;
+}
+
+.bw-nav__branch-toggle {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: 100%;
+  margin: 0;
+  padding: 0.35rem 0.5rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.9rem;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.bw-nav__branch-toggle:hover {
+  background: var(--theme-elevation-100);
+}
+
+.bw-nav__branch-toggle--root {
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--theme-elevation-700);
+  margin-top: 0.5rem;
+}
+
+.bw-nav__branch:first-child > .bw-nav__branch-toggle--root {
+  margin-top: 0;
+}
+
+.bw-nav__chevron {
+  display: inline-flex;
+  width: 0.85rem;
+  flex-shrink: 0;
+  color: var(--theme-elevation-600);
+  font-size: 0.7rem;
+  line-height: 1;
+}
+
+.bw-nav__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+  color: var(--theme-elevation-700);
+}
+
+.bw-nav__icon svg {
+  display: block;
+}
+
+.bw-nav__branch-toggle--root .bw-nav__icon {
+  color: var(--theme-elevation-600);
+}
+
+.bw-nav__link {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.bw-nav__branch-label {
+  flex: 1;
+  min-width: 0;
+}
+
+.bw-nav__children {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+  padding: 0.1rem 0 0.25rem 0.15rem;
+}
+
+.bw-nav__leaf .nav__link {
+  padding-left: 1.35rem;
+}
+
+.bw-nav__stub-mark {
+  margin-left: 0.25rem;
+  color: var(--theme-elevation-500);
+  font-weight: 700;
+}
+
+.bw-nav__link--active {
+  font-weight: 600;
+}
+
+.bw-coming-soon {
+  max-width: 36rem;
+  padding: 2rem 0;
+}
+
+.bw-coming-soon__eyebrow {
+  margin: 0 0 0.5rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--theme-elevation-600);
+}
+
+.bw-coming-soon__title {
+  margin: 0 0 0.75rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.bw-coming-soon__lead {
+  margin: 0;
+  color: var(--theme-elevation-800);
+  line-height: 1.5;
+}
+
+.bw-coming-soon__path {
+  margin: 1.25rem 0 0;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--theme-elevation-150);
+  border-radius: 4px;
+  background: var(--theme-elevation-50);
+  font-size: 0.9rem;
+  color: var(--theme-elevation-700);
+}
+

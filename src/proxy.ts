@@ -33,6 +33,25 @@ export function proxy(request: NextRequest) {
       url.pathname = '/admin'
       return NextResponse.rewrite(url)
     }
+
+    // Short vanity paths for collections/globals (Payload still serves /collections|/globals).
+    // Browser keeps /admin/c/... and /admin/g/...; internal routing sees the long form.
+    const shortCollection = pathname.match(/^\/admin\/c(?:\/(.*))?$/)
+    if (shortCollection) {
+      const url = request.nextUrl.clone()
+      const rest = shortCollection[1] ?? ''
+      url.pathname = rest ? `/admin/collections/${rest}` : '/admin/collections'
+      return NextResponse.rewrite(url)
+    }
+
+    const shortGlobal = pathname.match(/^\/admin\/g(?:\/(.*))?$/)
+    if (shortGlobal) {
+      const url = request.nextUrl.clone()
+      const rest = shortGlobal[1] ?? ''
+      url.pathname = rest ? `/admin/globals/${rest}` : '/admin/globals'
+      return NextResponse.rewrite(url)
+    }
+
     return NextResponse.next()
   }
 

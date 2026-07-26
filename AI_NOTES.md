@@ -13,6 +13,12 @@
 
 -->
 
+## 2026-07-26 — custom CMS admin nav layout
+
+- **Done:** Nested admin sidebar (Kokpit / Treści / E-commerce / Zarządzanie) via custom `AdminNav` with SVG icons; real links for Pages/Posts/Media/Users/Site Settings; other leaves → `ComingSoonView` at `/admin/coming-soon`. Short vanity URLs `/admin/c/*` and `/admin/g/*` rewritten in `proxy.ts` to Payload’s `/collections/` and `/globals/`.
+- **Decisions:** Replace Payload DefaultNav entirely (groups are only 1 level); Nested Docs stays for page document hierarchy only; stubs are custom views, not empty collections; cannot remove `/collections` inside Payload itself without a fork.
+- **Watch out:** After nav/component changes run `pnpm generate:importmap`. Expand/collapse state is in `localStorage` (`bw-admin-nav-open`). Payload’s own in-app links may still show `/collections/` or `/globals/`. Wire role filtering later.
+
 ## 2026-07-26 — content model, next-intl, media compression
 
 - **Done:** Site Settings global (identity/contact/SEO); Pages with nested-docs + expandable tree UI + SEO meta; Posts (blog) with drafts; next-intl wired (`messages/pl|en`, frontend layout); media uploads compressed to WebP / WebM; removed WordPress comparison copy from admin.

@@ -49,7 +49,7 @@ function TreeItem({
 }) {
   const [open, setOpen] = useState(depth < 1)
   const hasChildren = node.children.length > 0
-  const href = `${adminRoute}/collections/pages/${node.id}`
+  const href = `${adminRoute}/c/pages/${node.id}`
 
   return (
     <li className="bw-pages-tree__item">
