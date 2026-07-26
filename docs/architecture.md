@@ -13,7 +13,9 @@ How it works in one paragraph: the Python toolkit in `scripts/scrape/` mirrors t
 | Module | Responsibility | Path |
 |---|---|---|
 | Public frontend | Site pages, layouts, marketing UI | `src/app/(frontend)/` |
-| Payload CMS | Admin UI, REST/GraphQL, auth, uploads | `src/app/(payload)/`, `src/payload.config.ts`, `src/collections/` |
+| Payload CMS | Admin UI, REST/GraphQL, auth, uploads | `src/app/(payload)/`, `src/payload.config.ts`, `src/collections/`, `src/globals/` |
+| Access / roles | RBAC helpers | `src/access/` |
+| Frontend i18n | next-intl messages + routing helpers | `messages/`, `src/i18n/` |
 | PostgreSQL | CMS data store (local Docker; same on Hetzner VPS) | `docker-compose.yml` (dev) |
 | Scraper toolkit | Mirrors the live site for reference | `scripts/scrape/` |
 
@@ -33,7 +35,10 @@ Record deliberate choices so nobody asks "why is it like this?" a month later.
 | 2026-07-25 | Self-hosted PostgreSQL (not Neon/Supabase) | Whole stack on one VPS; localhost latency; `pg_dump` backups; same adapter if `DATABASE_URL` ever changes |
 | 2026-07-25 | Separate root layouts via `(frontend)` / `(payload)` route groups | Payload `RootLayout` owns `<html>`/`<body>` for `/admin`; public site keeps its own layout |
 | 2026-07-26 | Admin only on `DASHBOARD_HOST` (`dash.localhost`); public `/admin` → 404 | Obscure entry point; no redirect (would leak dash hostname) |
-| 2026-07-26 | Four roles: administrator, moderator, redaktor, klient | WP-like staff vs client; `klient` blocked from admin panel |
+| 2026-07-26 | Four roles: administrator, moderator, redaktor, klient | Staff vs client; `klient` blocked from admin panel |
+| 2026-07-26 | Frontend copy via next-intl (`messages/pl.json`) | Keep UI translations out of components; Payload admin stays PL labels in config |
+| 2026-07-26 | Pages with nested-docs + expandable tree; Posts blog; Site Settings global | Content model for marketing site |
+| 2026-07-26 | Upload compression: images→WebP, video→WebM | Smaller assets by default via sharp + ffmpeg |
 
 ## Integrations / external dependencies
 
@@ -41,3 +46,4 @@ Record deliberate choices so nobody asks "why is it like this?" a month later.
 - **Payload CMS:** in-process; admin **only** at `NEXT_PUBLIC_DASHBOARD_URL` (dev: `http://dash.localhost:3000`); env: `DATABASE_URL`, `PAYLOAD_SECRET`, `NEXT_PUBLIC_SERVER_URL`, `NEXT_PUBLIC_DASHBOARD_URL`, `DASHBOARD_HOST`.
 - **PostgreSQL 16:** local via Docker Compose; production intended on the same Hetzner VPS as the Node app.
 - **Host proxy:** [`src/proxy.ts`](../src/proxy.ts) — dashboard host rewrites `/` → `/admin`; non-dashboard hosts return 404 for `/admin`.
+- **next-intl:** public site strings in `messages/*.json`; config in `src/i18n/`.

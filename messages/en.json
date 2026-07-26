@@ -1,0 +1,16 @@
+{
+  "site": {
+    "name": "BodyWork Centrum",
+    "tagline": "Physiotherapy, nutrition, massage and training"
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "common": {
+    "loading": "Loading…",
+    "error": "Something went wrong"
+  }
+}

@@ -13,11 +13,17 @@
 
 -->
 
-## 2026-07-26 — dashboard host, roles, WP-friendly admin chrome
+## 2026-07-26 — content model, next-intl, media compression
+
+- **Done:** Site Settings global (identity/contact/SEO); Pages with nested-docs + expandable tree UI + SEO meta; Posts (blog) with drafts; next-intl wired (`messages/pl|en`, frontend layout); media uploads compressed to WebP / WebM; removed WordPress comparison copy from admin.
+- **Decisions:** Payload drafts instead of custom status field; nested-docs for page hierarchy; sharp for images, ffmpeg (bundled installer) for video→WebM; next-intl for public UI strings (admin labels stay Polish in collection configs).
+- **Watch out:** Video conversion is CPU-heavy and may fail on exotic codecs — original file is kept on error. Expand `[locale]` routing later if EN public site is needed beyond messages.
+
+## 2026-07-26 — dashboard host, roles, Polish admin chrome
 
 - **Done:** `src/proxy.ts` serves admin only on `dash.localhost` (rewrites `/` → `/admin`); public hosts get plain **404** for `/admin` (no redirect). User roles administrator/moderator/redaktor/klient with access helpers; Polish i18n + collection labels; `WelcomeDashboard` before dashboard.
 - **Decisions:** obscure admin entry by host, never redirect (leaks hostname); `klient` blocked from admin; redaktor cannot delete media or manage users; Payload `serverURL` points at dashboard URL.
-- **Watch out:** open panel at `http://dash.localhost:3000` (not `localhost/admin`). Existing DB users need a `role` column (dev push) — set first admin to `administrator` if create-first-user already ran. Domain content collections still TODO.
+- **Watch out:** open panel at `http://dash.localhost:3000` (not `localhost/admin`). Existing DB users need a `role` column (dev push) — set first admin to `administrator` if create-first-user already ran.
 
 ## 2026-07-25 — Payload CMS + Postgres
 

@@ -16,6 +16,8 @@
 - Feature-first inside `(frontend)/`: each route segment owns its `page.tsx`, and route-local components live alongside it. Shared, cross-route components/utilities go in `src/components/` and `src/lib/` (create these as soon as the first shared piece appears — don't pre-create empty folders).
 - **Payload collections:** one file per collection in `src/collections/`, registered in `src/payload.config.ts`. Access helpers live in `src/access/`.
 - **Roles:** `administrator` | `moderator` | `redaktor` | `klient` — use helpers from `src/access/roles.ts`; do not invent parallel permission checks.
+- **Public UI strings:** next-intl — add keys to `messages/pl.json` (and `en.json`); do not hardcode user-facing Polish in frontend components when a message key exists.
+- **Admin labels:** Polish strings in Payload collection/global configs are fine (editors work in PL).
 
 ## Patterns
 

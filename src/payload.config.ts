@@ -1,4 +1,5 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -8,7 +9,10 @@ import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
 import { Media } from './collections/Media'
+import { Pages } from './collections/Pages'
+import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
+import { SiteSettings } from './globals/SiteSettings'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -33,7 +37,8 @@ export default buildConfig({
       beforeDashboard: ['/components/admin/WelcomeDashboard#WelcomeDashboard'],
     },
   },
-  collections: [Users, Media],
+  collections: [Users, Media, Pages, Posts],
+  globals: [SiteSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -48,5 +53,14 @@ export default buildConfig({
     fallbackLanguage: 'pl',
     supportedLanguages: { pl, en },
   },
-  sharp,
+  plugins: [
+    nestedDocsPlugin({
+      collections: ['pages'],
+      generateLabel: (_, doc) => String(doc.title ?? ''),
+      generateURL: (docs) =>
+        docs.reduce((url, doc) => `${url}/${String(doc.slug ?? '')}`, ''),
+    }),
+  ],
+  // sharp@0.35 types diverge slightly from Payload's SharpDependency expectation
+  sharp: sharp as never,
 })

@@ -18,6 +18,7 @@ export function WelcomeDashboard() {
   const role = typed?.role
   const displayName = typed?.name || typed?.email || 'użytkowniku'
   const canManageUsers = role === 'administrator' || role === 'moderator'
+  const canManageSettings = role === 'administrator'
 
   return (
     <div className="bw-welcome">
@@ -30,19 +31,36 @@ export function WelcomeDashboard() {
             · rola: <strong>{roleLabel[role] ?? role}</strong>
           </>
         ) : null}
-        . Ten panel zastępuje WordPress wp-admin — treści i media edytujesz tutaj.
+        .
       </p>
 
       <div className="bw-welcome__cards">
+        <Link className="bw-welcome__card" href="/admin/collections/pages">
+          <span className="bw-welcome__card-label">Strony</span>
+          <span className="bw-welcome__card-hint">Struktura i treści podstron</span>
+        </Link>
+
+        <Link className="bw-welcome__card" href="/admin/collections/posts">
+          <span className="bw-welcome__card-label">Wpisy</span>
+          <span className="bw-welcome__card-hint">Blog i aktualności</span>
+        </Link>
+
         <Link className="bw-welcome__card" href="/admin/collections/media">
           <span className="bw-welcome__card-label">Media</span>
-          <span className="bw-welcome__card-hint">Dodawaj i zarządzaj zdjęciami oraz plikami</span>
+          <span className="bw-welcome__card-hint">Zdjęcia i pliki (WebP / WebM)</span>
         </Link>
 
         {canManageUsers ? (
           <Link className="bw-welcome__card" href="/admin/collections/users">
             <span className="bw-welcome__card-label">Użytkownicy</span>
             <span className="bw-welcome__card-hint">Konta zespołu i klientów</span>
+          </Link>
+        ) : null}
+
+        {canManageSettings ? (
+          <Link className="bw-welcome__card" href="/admin/globals/site-settings">
+            <span className="bw-welcome__card-label">Ustawienia witryny</span>
+            <span className="bw-welcome__card-hint">Tożsamość, kontakt, SEO</span>
           </Link>
         ) : null}
 

@@ -3,9 +3,9 @@ import type { CollectionConfig } from 'payload'
 import {
   administrators,
   administratorsField,
-  canAccessAdmin,
   isAdministrator,
   isModerator,
+  isStaff,
 } from '@/access/roles'
 
 export const Users: CollectionConfig = {
@@ -18,11 +18,11 @@ export const Users: CollectionConfig = {
     useAsTitle: 'email',
     defaultColumns: ['name', 'email', 'role', 'updatedAt'],
     group: 'Ustawienia',
-    description: 'Konta zespołu i klientów — podobnie jak użytkownicy w WordPressie.',
+    description: 'Konta zespołu i klientów.',
   },
   auth: true,
   access: {
-    admin: canAccessAdmin,
+    admin: ({ req: { user } }) => isStaff(user),
     create: administrators,
     read: ({ req: { user } }) => {
       if (!user) return false
@@ -43,7 +43,7 @@ export const Users: CollectionConfig = {
       type: 'text',
       label: 'Nazwa wyświetlana',
       admin: {
-        description: 'Imię i nazwisko lub nazwa widoczna w panelu (jak „Wyświetlana nazwa” w WP).',
+        description: 'Imię i nazwisko lub nazwa widoczna w panelu.',
       },
     },
     {
@@ -72,11 +72,9 @@ export const Users: CollectionConfig = {
   hooks: {
     beforeChange: [
       ({ data, req, operation }) => {
-        // First user (create-first-user) becomes administrator.
         if (operation === 'create' && !req.user) {
           return { ...data, role: 'administrator' }
         }
-        // Non-admins cannot create privileged accounts.
         if (operation === 'create' && req.user && !isAdministrator(req.user)) {
           return { ...data, role: 'klient' }
         }

@@ -67,8 +67,12 @@ This is the antidote to the "colossus on clay feet". After adding **any** featur
 | Host proxy (dash vs public) | `src/proxy.ts` | `dash.localhost` → admin; public hosts return **404** for `/admin` (no redirect leak) |
 | Access control / roles | `src/access/roles.ts` | Roles: administrator, moderator, redaktor, klient |
 | Payload config | `src/payload.config.ts` | CMS entry: DB adapter, editor, collections, i18n PL |
-| Payload collections | `src/collections/` | One file per collection (`Users`, `Media`, …) |
-| Admin UI extras | `src/components/admin/` | Custom dashboard chrome (e.g. `WelcomeDashboard`) |
+| Payload collections | `src/collections/` | `Users`, `Media`, `Pages` (nested tree), `Posts` (blog) |
+| Site settings (global) | `src/globals/SiteSettings.ts` | Brand identity, contact, default SEO |
+| Shared CMS fields | `src/fields/` | SEO meta, slug helpers |
+| Admin UI extras | `src/components/admin/` | WelcomeDashboard, PagesTree |
+| Frontend i18n | `messages/`, `src/i18n/` | next-intl (default `pl`) |
+| Media compression | `src/lib/compress-media.ts` | Images → WebP, video → WebM on upload |
 | Generated Payload types | `src/payload-types.ts` | Regenerate with `pnpm generate:types` |
 | Local Postgres (dev) | `docker-compose.yml` | `docker compose up -d` → `localhost:5432` / DB `bodywork` |
 | Static assets served by Next.js | `public/` | favicons, robots.txt, etc. |
