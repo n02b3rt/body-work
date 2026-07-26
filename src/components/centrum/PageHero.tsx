@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { cn } from "@/lib/cn";
 
 type PageHeroProps = {
   title: string;
@@ -27,7 +28,12 @@ export function PageHero({ title, titleSize = "section", belowTitle, imageSrc, i
           as="h1"
           size={titleSize}
           uppercase
-          className={title.includes("\n") ? "whitespace-pre-line" : undefined}
+          className={cn(
+            // Every hub title on the reference carries `ho:tar` — right-aligned from
+            // 1060px up. Its subpage titles and the `/kontakt/` one do not.
+            titleSize === "display" && "wide:text-right",
+            title.includes("\n") && "whitespace-pre-line",
+          )}
         >
           {title}
         </SectionHeading>

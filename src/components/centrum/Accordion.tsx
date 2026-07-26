@@ -110,11 +110,14 @@ function AccordionRow({
           open ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
         )}
       >
-        {/* The panel splits the full section width: padded copy on the left, the
-         * image filling its half edge to edge (no container padding around it). */}
+        {/* The panel splits its width in two: copy on the left, and on the right either
+         * the image filling its half edge to edge or a section-size heading. It shares
+         * the row header's `Container` so the copy lines up under the row title — on the
+         * reference both sit at the same 48px page inset, and letting the panel run
+         * full-bleed instead left the copy ~228px to the left of its own heading. */}
         <div className="min-h-0">
-          <div className="grid lg:grid-cols-2">
-            <div className="flex flex-col items-start gap-8 px-4 py-12 sm:px-6 lg:py-16 lg:pl-8 lg:pr-16">
+          <Container className="grid lg:grid-cols-2">
+            <div className="flex flex-col items-start gap-8 py-12 lg:py-16 lg:pr-16">
               {item.body ? <PanelText text={item.body} /> : null}
               {item.cta ? <PanelLink cta={item.cta} /> : null}
               {item.note ? <PanelText text={item.note} muted /> : null}
@@ -133,16 +136,18 @@ function AccordionRow({
                   src={item.image}
                   alt={item.heading}
                   fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  // Half of the capped container, not half the viewport — the panel
+                  // is inside `Container`, so this cell never exceeds 688px.
+                  sizes="(min-width: 1024px) min(50vw, 688px), 100vw"
                   className="object-cover"
                 />
               </div>
             ) : item.panelHeading ? (
-              <div className="px-4 pb-12 sm:px-6 lg:border-l lg:border-brand-navy-soft lg:py-16 lg:pl-16 lg:pr-8">
+              <div className="pb-12 lg:border-l lg:border-brand-navy-soft lg:py-16 lg:pl-16">
                 <SectionHeading as="h4">{item.panelHeading}</SectionHeading>
               </div>
             ) : null}
-          </div>
+          </Container>
         </div>
       </div>
     </div>

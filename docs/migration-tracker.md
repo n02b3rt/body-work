@@ -19,8 +19,18 @@ which compared our *message files* to the scrape and so could not catch a string
 `messages/*.json` but is never rendered — which is exactly the class of bug it found (Iwona's
 empty pricing panel). Result: **0 missing headings and 0 missing price figures on every subpage.**
 
-Still outstanding: nobody has looked at any of this in a browser. The Claude-in-Chrome extension
-has now been unreachable for six sessions running.
+**A real browser pass followed on the same day** — Chrome connected for the first time in this
+project. It compared our pages with the live site by reading `getBoundingClientRect` /
+`getComputedStyle` on both sides (screenshots are downscaled, so eyeballed positions mislead) and
+found four further defects: hub titles were left-aligned where the reference right-aligns them,
+the display-heading cap was 282px instead of the real 255px, accordion panel copy didn't line up
+under its own row heading, and every price list had lost the reference's blank lines. All fixed
+and re-measured against the original — see `AI_NOTES.md`.
+
+Two things it could **not** confirm: the reference's promo pills were already dismissed by cookie
+in this browser, so they were compared by spec rather than side by side; and `resize_window` does
+nothing while the Chrome window is maximized, so the sub-1060px layout is confirmed from the
+compiled CSS only, not from a live narrow render.
 
 What the pass fixed is recorded in `AI_NOTES.md`; the rows below carry the per-page detail.
 

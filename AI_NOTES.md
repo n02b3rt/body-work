@@ -13,6 +13,23 @@
 
 -->
 
+## 2026-07-26 — first real browser pass (Chrome finally connected): 4 more defects, all measured
+
+- **Context:** the Claude-in-Chrome extension connected for the first time in this project (six sessions of it being unreachable). Ran the side-by-side pass against the live site that `migration-tracker.md` had been carrying as a debt.
+- **Method that actually worked:** screenshots alone were misleading — the capture is downscaled (1568px wide for a 1912px viewport), so eyeballed pixel positions are unreliable. Every finding below came from `getBoundingClientRect` + `getComputedStyle` read on **both** sides at the same viewport, with screenshots used only to notice *where* to look.
+- **Done — four more defects fixed:**
+  1. **Hub page titles were left-aligned; the reference right-aligns them.** Every hub title carries `ho:tar` (`text-align: right` from 1060px up) — confirmed in the markup of all 7 hub pages *and* by the live computed style. `/kontakt/` and the footer's KONTAKT deliberately do **not**, so the rule went on `PageHero`'s `display` size only.
+  2. **The display-heading cap was wrong: 255px, not 282px.** The real ceiling comes from the reference's `dynamic-header` script (sets 256px, immediately decrements to 255px, then only shrinks). Measured exactly 255px on the live `/cennik` title. `f50`'s 17.6305rem was never the cap — that class is `X`-prefixed, i.e. disabled.
+  3. **Accordion panel copy didn't line up under its own row heading** — the row header sits in `Container` while the panel ran full-bleed, leaving the copy 228px to the left of the title above it (measured 261 vs 32). On the reference both sit at the same 48px inset. Panel now shares the row's `Container`; verified the image variant still fills its half exactly (`688px 688px` grid, image 949→1637).
+  4. **Every price list had lost the reference's blank lines** — it separates blocks with `<br><br>` and we had collapsed all of it to single newlines. Fixed mechanically across all 16 lists: where a string of ours is whitespace-identical to a reference paragraph, adopt the reference's exact line structure. Safe by construction, since only whitespace can differ.
+- **Verified matching after the fixes:** title 255px/right-aligned, `15%` panel heading 67.7008px vs the reference's 67.701px, 5 blank lines vs 5, row heading and panel copy both at 261px, promo pills navy `rgb(0,30,61)` / cream `rgb(249,247,240)` at 28+12px from the corner with `z-index: 121`. Re-ran the full 22-route text diff: unchanged, no regressions.
+- **Watch out:**
+  - **The reference's promo pills were already dismissed in this browser** (`<aside>` present, `childCount: 0`), so they could not be compared visually — the cookie from an earlier human visit suppresses them. Don't read their absence on the live site as "they aren't there".
+  - **`resize_window` silently does nothing when the Chrome window is maximized** — it returns success and the viewport stays put. The sub-1060px promo-bar offsets are therefore confirmed only from the compiled CSS (`right:0.25rem` below, `1.75rem` inside `@media (min-width:1060px)`), not from a live narrow render.
+  - Two false alarms that cost time, both worth recognising: the `●` vs `•` bullet "difference" is just the stand-in font (both sides are U+2022 — checked codepoints), and a screenshot that looked like the open panel was clipped mid-glyph was a mid-transition capture — the measured heights (633px content in a 632.5px track) showed nothing was clipped. **Measure before believing a screenshot.**
+  - `<p[^>]*>` also matches SVG `<path …>`, which wrecked paragraph segmentation and made 9 of 16 price lists look like they had no reference match. Use `<p(?=[\s>])[^>]*>`.
+  - One Chrome tab wedged mid-session (screenshots timing out for minutes while `navigate` and JS still worked, and the dev server answering in 0.2s). A fresh tab fixed it instantly — don't debug the page when only screenshots fail.
+
 ## 2026-07-26 — verification pass against the **live** site: 5 real defects, incl. a missing global element
 
 - **Context:** the task as given was "build /cennik and all the training subpages" — but all 22 of those routes were already built and committed (the previous five commits). So the work became the second half of the ask: verify against the original and fix what's wrong.

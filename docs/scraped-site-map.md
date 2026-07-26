@@ -108,6 +108,10 @@ Extracted from the reference's own `assets/css/auto.css` (its page-builder emits
 | `text-h-section` | `f12s5` | 4.2313rem / 4.25rem | standard section heading, desktop |
 | `text-h-display` | `f50` | 17.6305rem (clamped) | NEWS, KONTAKT |
 
+**Hub page titles are right-aligned** (`ho:tar` → `text-align: right` from 1060px up) — all seven of them, confirmed in their markup and by reading the computed style off the live site. Subpage titles, the `/kontakt/` title and the footer's KONTAKT are **not**; the homepage's NEWS heading is. `PageHero` applies this to its `display` size only.
+
+**The display-heading ceiling is 255px, not 17.6305rem.** `f50` is `X`-prefixed (disabled), so the size comes purely from the `dynamic-header` script, which sets 256px, immediately decrements to 255px, and from there only shrinks to fit. Measured 255px on the live `/cennik` title. `SectionHeading`'s `FIT_MAX` uses 255px.
+
 Three things that are easy to get wrong and were wrong here before being checked:
 
 1. **Headings are font-weight 400, not bold.** They carry no `fw*` class, so they inherit the body weight (Circular Pro Book / regular). Nav links are `fw3` (300).
