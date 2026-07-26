@@ -22,7 +22,16 @@
 
 Feature-first inside `src/app/`: each route segment owns its `page.tsx`, route-local components live alongside it. Shared, cross-route components/utilities go in `src/components/` and `src/lib/` (create these as soon as the first shared piece appears — don't pre-create empty folders).
 
-Site split (hub/centrum/akademia/dash): route groups under `src/app/`, e.g. `app/(centrum)/`, `app/(akademia)/` — see [`sites.md`](./sites.md) for the full model. Not created yet; create the first route group when the first real route is built, not before.
+Site split (hub/centrum/akademia/dash): route groups under `src/app/` — see [`sites.md`](./sites.md) for the full model. Hub and Akademia aren't created yet; create the first route group when the first real route is built, not before.
+
+- **Route groups today:** the public site is `src/app/[locale]/`, Payload admin/API is `src/app/(payload)/`. **Do not add a root `src/app/layout.tsx`** that wraps both — each tree owns its own `<html>`/`<body>`, which is what lets Payload render its own document shell.
+- **Dashboard host:** staff open the panel only via `DASHBOARD_HOST` (dev: `dash.localhost`). Never link to `/admin` from the public site.
+- **Payload collections:** one file per collection in `src/collections/`, registered in `src/payload.config.ts`. Access helpers live in `src/access/`.
+- **Roles:** `administrator` | `moderator` | `redaktor` | `klient` — use the helpers in `src/access/roles.ts`; don't invent parallel permission checks.
+- **Public UI strings:** next-intl — add keys to `messages/pl.json` (and `en.json`); don't hardcode user-facing Polish in frontend components when a message key exists.
+- **Admin labels:** Polish strings in Payload collection/global configs are fine (editors work in PL).
+- **Admin sidebar:** structure lives in `src/admin/nav-tree.ts`; don't rely on Payload's `admin.group` for multi-level nav (a custom `AdminNav` replaces DefaultNav). Stub leaves use `/admin/coming-soon?section=<id>`.
+- **Short admin URLs:** nav links use `/admin/c/<slug>` and `/admin/g/<slug>`; `src/proxy.ts` rewrites them to Payload's `/collections/` and `/globals/`. Built-in Payload links may still show the long form.
 
 ## Reuse before you build (scraped-site workflow)
 
@@ -37,12 +46,14 @@ When turning a scraped Centrum page into a real one:
 ## Patterns
 
 - Server Components by default; add `"use client"` only where interactivity requires it.
-- Static content (page copy) can start as local constants/props; move to Payload once it's installed — don't hand-roll a data layer in between.
+- CMS content: read via `getPayload()` in Server Components; edit in `/admin`. Prefer collections over hard-coded copy once a content type is editable. The existing page copy still lives in `messages/*.json` — migrate it to Payload deliberately, page by page, rather than hand-rolling a second data layer in between.
+- After changing admin UI components or collections that affect the import map: `pnpm generate:importmap`. After schema/field changes: `pnpm generate:types`.
 - One way to do one thing — if a second pattern for the same problem appears, consolidate.
 
 ## Code style
 
-- Linter / formatter: ESLint today (`eslint.config.mjs`, `npm run lint`); PRD's target is Biome — that's a pending stack decision, don't switch without asking (see [`stack.md`](./stack.md)).
+- Linter / formatter: ESLint (`eslint.config.mjs`, `pnpm lint`) + Tailwind class conventions. Run before committing. PRD's target is Biome — still a pending stack decision, don't switch without asking (see [`stack.md`](./stack.md)).
+- **Quote style is inconsistent across the seam** between the site files (double quotes, semicolons) and the CMS files (single quotes, no semicolons), inherited from the Payload template. Pick one and apply it with a formatter rather than letting each new file guess.
 - Comments: only when they explain "why", not "what". No references to AI/tools.
 
 ## Tests

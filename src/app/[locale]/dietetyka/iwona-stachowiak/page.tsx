@@ -7,7 +7,6 @@ import { PageHero } from "@/components/centrum/PageHero";
 import { TextMedia } from "@/components/centrum/TextMedia";
 import { Accordion, type AccordionItemData } from "@/components/centrum/Accordion";
 import { TestimonialCarousel, type Testimonial } from "@/components/centrum/TestimonialCarousel";
-import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { DieteticsNav } from "@/components/centrum/DieteticsNav";
 
 type Step = { heading: string; body: string; image: string };
@@ -89,7 +88,6 @@ export default async function IwonaStachowiakPage() {
 
       <TestimonialCarousel heading={t("testimonialsHeading")} items={t.raw("testimonials") as Testimonial[]} />
 
-      <NewsletterSignup />
     </>
   );
 }

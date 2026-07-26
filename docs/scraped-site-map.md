@@ -108,6 +108,10 @@ Extracted from the reference's own `assets/css/auto.css` (its page-builder emits
 | `text-h-section` | `f12s5` | 4.2313rem / 4.25rem | standard section heading, desktop |
 | `text-h-display` | `f50` | 17.6305rem (clamped) | NEWS, KONTAKT |
 
+**Hub page titles are right-aligned** (`ho:tar` → `text-align: right` from 1060px up) — all seven of them, confirmed in their markup and by reading the computed style off the live site. Subpage titles, the `/kontakt/` title and the footer's KONTAKT are **not**; the homepage's NEWS heading is. `PageHero` applies this to its `display` size only.
+
+**The display-heading ceiling is 255px, not 17.6305rem.** `f50` is `X`-prefixed (disabled), so the size comes purely from the `dynamic-header` script, which sets 256px, immediately decrements to 255px, and from there only shrinks to fit. Measured 255px on the live `/cennik` title. `SectionHeading`'s `FIT_MAX` uses 255px.
+
 Three things that are easy to get wrong and were wrong here before being checked:
 
 1. **Headings are font-weight 400, not bold.** They carry no `fw*` class, so they inherit the body weight (Circular Pro Book / regular). Nav links are `fw3` (300).
@@ -125,6 +129,37 @@ The reference site's `@font-face` rules (`assets/css/auto.css`) name the real ty
 - **Minion Pro** (Adobe, paid) — accent/serif use
 
 Both `.woff2` files exist in the scrape (`assets/fonts/circular-pro/`, `assets/fonts/minion-pro/`), but copying them into this project without confirming BODYWORK holds a webfont license that covers the new domain is a licensing question, not just a technical one — same category as "ask before touching the stack" in `CLAUDE.md`, just for a font instead of a package. Until that's resolved, `src/app/[locale]/layout.tsx` uses Plus Jakarta Sans (`next/font/google`) as a free geometric-sans stand-in — closer to Circular than the previous default (Geist), but not the real thing. Swap it for the licensed Circular Pro files (or a proper Adobe Fonts/Lineto web font link) once that's confirmed. Always load the `latin-ext` subset alongside `latin` for any font used here — Polish diacritics (ą ć ę ł ń ó ś ź ż) need it, and it's easy to silently miss.
+
+## Standing elements — what repeats on every page, and what doesn't
+
+Three things are shared across every reference page: the header, the footer, and a **promo bar**
+that is easy to miss because it sits outside the page content.
+
+The promo bar is an `<aside class="pf … z99">` (inline `z-index: 121`) pinned to the bottom-right
+corner, holding a vertical stack of two dismissible pills. It is on **every** page, homepage
+included — verified across 8 sampled pages. Reproduced as `src/components/centrum/PromoBar.tsx`,
+mounted once in the locale layout.
+
+| Pill | Colours | Label | Links to | Dismiss cookie |
+|---|---|---|---|---|
+| 1 | navy bg (`bgc1`), cream text | "BEZPŁATNE ZAJĘCIA GRUPOWE! ZAPISZ SIĘ JUŻ TERAZ." | `/trening-grupowy/` | `popup1_closed` |
+| 2 | cream bg (`bgc2`), navy text | "NOWA EDYCJA PLANU ZDROWEJ ZMIANY / START: 11.05." | `/trening-grupowy/plan-zdrowej-zmiany/` | `popup2_closed` |
+
+Its metrics, resolved from the ErgoCSS classes (the scale is 1 unit = 0.25rem): container
+`bottom`/`right` `0.25rem` → `1.75rem` at ≥1060px (`ul:b1 ho:b7`), `min-height: 50vh`,
+`pointer-events: none` with `pea` on each pill; pill `border-radius: 25rem` (`br100`),
+`margin: 0.75rem` (`m3`), `min-height: 3.5rem` (`mih14`), `padding-inline: 1.75rem` (`ph7`),
+`border-width: 1px`; label `f2.5s2` (= `text-btn`) uppercase with `letter-spacing: 0.1em` and
+`padding-block: 1.375rem` (`pv5.5`). Dismissal sets a one-year cookie (`max-age=31536000`,
+`path=/`) and removes that pill.
+
+**The newsletter block is not global — check per page.** It looks like a standing footer element
+but five pages don't have it, and we had wrongly added it to all five:
+
+| Reference page | Newsletter block? |
+|---|---|
+| `/cennik/`, both `/dietetyka/<dietitian>/`, `/bodylab/technologia-vald/`, `/bodylab/analiza-skadu-ciala/` | **No** |
+| every other built page | Yes |
 
 ## After building a page: verify it
 

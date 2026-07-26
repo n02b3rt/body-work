@@ -5,7 +5,6 @@ import { buttonClasses } from "@/components/ui/Button";
 import { Link } from "@/i18n/navigation";
 import { PageHero } from "@/components/centrum/PageHero";
 import { TextMedia } from "@/components/centrum/TextMedia";
-import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { BodylabNav } from "@/components/centrum/BodylabNav";
 
 /** Route slug intentionally missing the "ł" — see BodylabNav. */
@@ -51,7 +50,6 @@ export default async function BodyCompositionPage() {
         </Container>
       </section>
 
-      <NewsletterSignup />
     </>
   );
 }

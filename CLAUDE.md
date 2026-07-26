@@ -4,6 +4,8 @@ One Next.js 16 + Payload CMS app serving four domains (`body-work.pl` hub, `cent
 
 > Read this file **and** `AI_NOTES.md` at the start of every session. This file is an index — details live in `docs/`. Keep it short: add pointers here, not paragraphs.
 
+> **The admin panel is reachable only on the dashboard host** (`dash.localhost` in dev). Public hosts return a plain 404 for `/admin` — see `src/proxy.ts`.
+
 > **Next.js 16 note:** newer than most training data. Check `node_modules/next/dist/docs/` or the installed version's own docs before assuming behavior.
 
 ---
@@ -52,16 +54,28 @@ Check here before building anything — don't duplicate what exists.
 
 | Feature / domain | Where (path) | Note |
 |---|---|---|
-| Next.js app (pages, layouts, components) | `src/app/[locale]/` | App Router + next-intl; Centrum homepage is built, see `docs/migration-tracker.md` |
+| Public site (pages, layouts) | `src/app/[locale]/` | App Router + next-intl; all Centrum pages are built, see `docs/migration-tracker.md`. Its own root layout — there is deliberately no `src/app/layout.tsx`, so this and `(payload)` can each own their `<html>` |
 | Bilingual routing (next-intl) | `src/i18n/`, `src/proxy.ts` | `src/proxy.ts` is Next.js 16's renamed `middleware.ts` — see gotcha in `docs/architecture.md` |
 | UI translation strings | `messages/pl.json`, `messages/en.json` | See `docs/i18n.md` for the next-intl-vs-Payload-localization split |
 | Shared UI primitives | `src/components/ui/` | `Container` (max-width fix), `Button`, `SectionHeading` |
-| Centrum components | `src/components/centrum/` | Header, Footer, Hero, and the other homepage section blocks — reuse before adding new ones, see `docs/conventions.md` |
+| Centrum components | `src/components/centrum/` | Header, Footer, Hero, PromoBar and the other section blocks — reuse before adding new ones, see `docs/conventions.md` |
+| Payload CMS admin + API | `src/app/(payload)/` | Admin UI only on dashboard host; REST/GraphQL under `/api` |
+| Host proxy (dash vs public) | `src/proxy.ts` | `dash.localhost` → admin; public hosts return **404** for `/admin` (no redirect leak); rewrites `/admin/c/*`→`/collections/*`, `/admin/g/*`→`/globals/*` |
+| Access control / roles | `src/access/roles.ts` | Roles: administrator, moderator, redaktor, klient |
+| Payload config | `src/payload.config.ts` | CMS entry: DB adapter, editor, collections, i18n PL |
+| Payload collections | `src/collections/` | `Users`, `Media`, `Pages` (nested tree), `Posts` (blog) |
+| Site settings (global) | `src/globals/SiteSettings.ts` | Brand identity, contact, default SEO |
+| Shared CMS fields | `src/fields/` | SEO meta, slug helpers |
+| Admin UI extras | `src/components/admin/` | WelcomeDashboard, PagesTree, AdminNav, ComingSoonView |
+| Admin nav tree | `src/admin/nav-tree.ts` | Nested sidebar structure (custom Nav; stubs → `/admin/coming-soon`) |
+| Frontend i18n | `messages/`, `src/i18n/` | next-intl (default `pl`) |
+| Media compression | `src/lib/compress-media.ts` | Images → WebP, video → WebM on upload |
+| Generated Payload types | `src/payload-types.ts` | Regenerate with `pnpm generate:types` |
+| Local Postgres (dev) | `docker-compose.yml` | `docker compose up -d` → `localhost:5432` / DB `bodywork` |
 | Static assets served by Next.js | `public/` | favicons, robots.txt, etc. |
 | Site scraper / mirror toolkit | `scripts/scrape/` | Mirrors `bodywork.testowe.eu` (Centrum design reference); see `docs/scraped-site-map.md` |
 | Reference mirror output (gitignored) | `scripts/scrape/scraped/` | Regenerate with `scripts/scrape/run_scrape.bat`; preview with `scripts/scrape/serve_mirror.bat` (http://localhost:8765) |
 | Sitemap used by the scraper | `scripts/scrape/sitemap.xml` | Source list of URLs to mirror |
-| Hub / Centrum / Akademia / Dashboard route groups | not yet created | Will land under `src/app/[locale]/(hub)/`, `(centrum)/`, `(akademia)/`, `(payload)/` per `docs/sites.md` — add a row here for each as it's built |
-| Payload CMS + collections | not yet installed | See `docs/stack.md` before installing anything |
+| Hub / Akademia route groups | not yet created | Will land under `src/app/[locale]/(hub)/` and `(akademia)/` per `docs/sites.md` — add a row here for each as it's built |
 
 **Rule:** a new domain = a new module/folder + a row in this table. When a row gets too broad, split it into its own `docs/<topic>.md` and link it from the docs index above.

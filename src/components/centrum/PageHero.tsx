@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { cn } from "@/lib/cn";
 
 type PageHeroProps = {
   title: string;
@@ -19,7 +20,21 @@ export function PageHero({ title, titleSize = "section", belowTitle, imageSrc, i
   return (
     <>
       <Container className="py-10 lg:py-14">
-        <SectionHeading as="h1" size={titleSize} uppercase>
+        {/* A title may carry its own line breaks — the reference hard-codes a `<br>` in
+         * the Plan Zdrowej Zmiany heading to hang the edition date on a second line.
+         * Applied only when there is one, because `display` titles set
+         * `whitespace-nowrap` and two whitespace utilities would collide. */}
+        <SectionHeading
+          as="h1"
+          size={titleSize}
+          uppercase
+          className={cn(
+            // Every hub title on the reference carries `ho:tar` — right-aligned from
+            // 1060px up. Its subpage titles and the `/kontakt/` one do not.
+            titleSize === "display" && "wide:text-right",
+            title.includes("\n") && "whitespace-pre-line",
+          )}
+        >
           {title}
         </SectionHeading>
       </Container>
