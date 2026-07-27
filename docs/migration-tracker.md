@@ -212,6 +212,41 @@ had loaded. The cost was the markup and the DOM: 62 cards, each carrying two inl
 icons. The document only shrank 13% because the post *data* still ships for client-side
 filtering; that is the deliberate trade.
 
+### The blog audit against the live site, and the 188KB nobody had noticed (2026-07-27)
+
+Weighed both sites with the same tool, the same `Accept` header, and the same srcset selection
+rule, so neither is charged for candidates it merely offers.
+
+| | Ours before | Ours after | Live reference |
+|---|---|---|---|
+| `/blog` document | 362.8 KB | **169.8 KB** | 1659.5 KB |
+| `/blog` page weight | 754.9 KB | **561.9 KB** | 3605.6 KB (capped at 40 images; it renders 63) |
+| Post document | 305.5 KB | **112.4 KB** | 159.7 KB |
+| Post page weight | 375.9 KB | **182.8 KB** | 230.4 KB |
+| Image format served | AVIF | AVIF | WebP, 2 JPEG |
+
+**The audit found one thing that was worse than the reference, and it was ours.** Our post
+document was 305 KB against their 160 KB. `getMessages()` returns all 46 namespaces, about
+188 KB, and handing that whole object to `NextIntlClientProvider` shipped every word of every
+page to every visitor. A post page carried the newsletter status copy, the blog filter labels
+and the trainer biographies, none of which it renders.
+
+Only **11 of 46** namespaces are read inside a `"use client"` file, and those total **7.1 KB**.
+Server components use `getTranslations`, which resolves server-side and sends nothing. So 96%
+of that payload was dead weight, on every page of the site rather than just the blog.
+
+`src/i18n/client-namespaces.ts` holds the list and `pnpm check:messages` fails the build if a
+client component starts reading a namespace nobody added, which would otherwise render as a
+key path in a rarely visited component.
+
+**Image formats:** every one of the 998 files in `media/` is WebP, no exceptions, averaging
+47 KB; the 230 originals average 73 KB with only 8 above 250 KB. What reaches a browser is
+AVIF, since `next/image` re-encodes on the way out. The reference serves WebP with a couple of
+JPEGs left over.
+
+TTFB is not a fair comparison, ours is localhost against their public host, but for the record:
+a static post page answers in **~60ms**, the listing and archives in ~150ms.
+
 ### A fourth field the import got from the wrong place (2026-07-27)
 
 `scripts/content-health.ts` was written to list editorial work, and the first thing it found

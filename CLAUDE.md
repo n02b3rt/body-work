@@ -58,6 +58,7 @@ Check here before building anything: don't duplicate what exists.
 |---|---|---|
 | Public site (pages, layouts) | `src/app/[locale]/` | App Router + next-intl; all Centrum pages are built, see `docs/migration-tracker.md`. Its own root layout, there is deliberately no `src/app/layout.tsx`, so this and `(payload)` can each own their `<html>` |
 | Bilingual routing (next-intl) | `src/i18n/`, `src/proxy.ts` | `src/proxy.ts` is Next.js 16's renamed `middleware.ts`, see gotcha in `docs/architecture.md` |
+| Which messages reach the browser | `src/i18n/client-namespaces.ts`, `pnpm check:messages` | **Only 11 of 46 namespaces ship.** `getMessages()` is 188KB; client components need 7.1KB. Add a namespace here when a `"use client"` file starts reading one, or it renders as a key path |
 | UI translation strings | `messages/pl.json`, `messages/en.json` | See `docs/i18n.md` for the next-intl-vs-Payload-localization split |
 | Shared UI primitives | `src/components/ui/` | `Container` (max-width fix), `Button`, `SectionHeading` |
 | Blog (listing + post) | `src/app/[locale]/blog/` | Reads Payload's Local API; `BlogList` does the category/search filtering client-side, renders the newest post as the reference's featured card, and prints **no dates** |
