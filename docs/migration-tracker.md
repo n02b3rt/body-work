@@ -212,6 +212,43 @@ had loaded. The cost was the markup and the DOM: 62 cards, each carrying two inl
 icons. The document only shrank 13% because the post *data* still ships for client-side
 filtering; that is the deliberate trade.
 
+### The two editorial gaps, as far as code can honestly take them (2026-07-27)
+
+Both items previously listed as "left for a human". Post copy was not touched.
+
+**Alt text.** Checked the mirror first, and **all 572 content images on the reference carry no
+`alt` attribute at all**, so there was nothing to import and no description to copy. Our
+fallback of "the post's title" therefore already beat the reference, but it meant up to six
+images in one article announced the same sentence, which for a screen-reader user is worse
+than useless because it cannot tell them apart.
+
+`scripts/fix-image-alt-text.ts` sets the alt to `"<post title>: <nearest heading above the
+image>"`. Every word is the client's own copy, taken from the article the image sits in, and
+it does what an alt is for here: it locates the picture. **102 of 150** in-article images now
+name their section. The other 48 sit above the first heading, so there is no section to name
+and they keep the title.
+
+Two things the first run taught, both fixed: several of these "headings" are whole sentences,
+so the result is clipped at a word boundary to stay near the 125 characters screen readers and
+search engines expect; and most titles end in a full stop while some end in a question mark,
+so a blind `": "` produced `"...ostateczność?: Ponieważ"`. Result: median alt 41 characters,
+longest 129, no punctuation collisions.
+
+Thumbnails keep the article title, which is correct rather than lazy: a card's subject *is*
+the article.
+
+**Subheadings cannot be fixed by code.** Inserting `h2`s means writing in someone else's
+article. Instead `scripts/content-health.ts` turns "somebody should look at the posts" into a
+worklist: the 15 posts with no subheading, longest first, so the worst offender
+(`anatomia-i-funkcja-miesnia-czworoglowego-uda`, 2765 words with no structure at all) is at
+the top. It also reports the 48 images that still need eyes, and separates them from the 58
+thumbnails where the title is the right answer, so it does not invent a gap.
+
+It found one thing nobody had noticed: **two posts have no category**, including
+`testy-w-sporcie-twoja-mapa-w-drodze-na-szczyt`, which is the newest post and the one the
+listing features. No category means no archive lists it and no `article:section` is emitted.
+A ten-second fix in the panel, on a real gap.
+
 ### SEO hardening, production ready (2026-07-27)
 
 Everything proposed after the first SEO pass, less one item that turned out to be moot.
