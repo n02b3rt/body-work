@@ -13,6 +13,18 @@
 
 -->
 
+## 2026-07-27 — image delivery: the `sizes` hint was the whole problem
+
+- **Done:** `/blog`'s first screen went from **518KB to 208KB of image data (−59%)** at 2x. Three changes: honest `sizes` on the grid cards, AVIF enabled, and author portraits pointed at the 400px variant instead of the 768px one.
+- **The stored files were not the problem, which is worth knowing before anyone "optimises" them again.** Uploads are already capped at a 2560px long edge and converted to WebP, with four variants generated. What decided the bytes on the wire was the `sizes` attribute.
+
+  The grid cards claimed `33vw`. The grid is capped at 1440px, so above that a card is a fixed **480px** — at a 1920 viewport `33vw` claims 634px, and on a 2x screen Next therefore reached for its **1920** candidate rather than 1080. Measured on one photo: 270KB a card against 99KB for the honest slot. The breakpoint was wrong too (1060 vs the `lg` the grid actually uses).
+- **AVIF was never being served.** Every `/_next/image` response came back `image/webp` even with `Accept: image/avif,…` — Next needs `images.formats` set explicitly. Now `["image/avif", "image/webp"]`: 12-16% smaller on these photos, and WebP-only clients still get WebP (checked both Accept headers).
+- **In-article images now take `hero` (1920) as their source, not `content` (1200).** Widening the post body to full width left them stretched — the slot is up to 1376 CSS px. No transfer cost: the served width comes from `sizes`, not from how big the source is. Choosing a *smaller* source only caps quality; choosing a larger one costs the optimizer some decode work.
+- **Two false alarms.** The listing HTML contains `sizes="48x48"`, which looks malformed — it is on `<link rel="icon">`, where `WIDTHxHEIGHT` is the correct format, and Next generates it. And the biggest file on disk (363KB, 2560×2557) is an author portrait, which reads like waste until you notice `next/image` never serves it — the 400px variant does.
+- **Verified:** ten first-screen images fetched both ways and summed. `sizes` and variant choices confirmed in the served HTML (9 cards on the corrected hint, portrait on `-400x399.webp`). `tsc`, lint, build clean.
+- **Watch out:** 46MB across 998 files still sits in `media/`. That is four variants plus a capped original per image, so it is mostly inherent; cutting it means narrower `imageSizes` and regenerating all 230 rows, which nothing currently needs. Also note the long tail of odd variant widths (1739px, 1639px, 1289px…) is not a bug — `withoutEnlargement` names a variant after the source's own width when the source is narrower than the target.
+
 ## 2026-07-27 — blog listing renders a window of cards instead of all 62
 
 - **Done:** `/blog` now puts 9 cards in the DOM and adds 9 more as the reader scrolls, via an `IntersectionObserver` triggering 600px ahead of the viewport, with a "Pokaż więcej" button and an `aria-live` count beside it so keyboards and observer-less browsers can still reach the rest.
