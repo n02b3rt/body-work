@@ -100,3 +100,5 @@ A stack note floating outside the PRD mentioned NeonDB and Prisma. Checked again
 - **Prisma → rejected.** Payload already owns the database schema, migrations, and query layer via its Local API. A second ORM touching the same Postgres instance is redundant and a migration-conflict risk. If a genuinely separate data need shows up later (e.g. a reporting layer outside Payload's collections), raise it as a new proposal — don't reintroduce Prisma by default.
 
 See [`architecture.md`](./architecture.md) → Key decisions for the dated log entry.
+
+| jsdom | **devDependency only.** Required by Payload's own `convertHTMLToLexical`, which takes a `JSDOM` constructor as an argument rather than bundling a DOM. Used by `scripts/import-blog.ts` to migrate the scraped articles; never imported by the app. Approved 2026-07-27. **Pinned to `^26`** — jsdom 30 pulls an ESM-only transitive dependency that Payload's tsx-based script runner loads via `require()`, which fails with `ERR_REQUIRE_ESM`. |

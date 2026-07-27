@@ -3,18 +3,7 @@ import { getTranslations } from "next-intl/server";
 import config from "@payload-config";
 import { PageHero } from "@/components/centrum/PageHero";
 import { BlogList, type BlogCard, type BlogCategory } from "@/components/centrum/BlogList";
-import type { Media, Post } from "@/payload-types";
-
-function mediaCard(image: Post["featuredImage"], fallbackAlt: string) {
-  if (!image || typeof image !== "object") return null;
-  const media = image as Media;
-  // Prefer the generated `card` size over the original — see the imageSizes on the
-  // Media collection. Falls back to the original if the size wasn't generated (e.g. an
-  // upload smaller than the target width).
-  const url = media.sizes?.card?.url ?? media.url;
-  if (!url) return null;
-  return { url, alt: media.alt || fallbackAlt };
-}
+import { mediaFrom } from "@/lib/media";
 
 /** Blog listing. Posts are read through Payload's Local API — in-process, no HTTP hop. */
 export default async function BlogPage() {
@@ -43,7 +32,7 @@ export default async function BlogPage() {
     categoryIds: (post.categories ?? [])
       .map((item) => (typeof item === "object" ? String(item.id) : String(item)))
       .filter(Boolean),
-    image: mediaCard(post.featuredImage, post.title),
+    image: mediaFrom(post.featuredImage, "card", post.title),
   }));
 
   const categoryOptions: BlogCategory[] = categories.docs.map((item) => ({

@@ -2,22 +2,15 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import { getPayload } from "payload";
 import { getTranslations } from "next-intl/server";
-import { RichText } from "@payloadcms/richtext-lexical/react";
 import config from "@payload-config";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buttonClasses } from "@/components/ui/Button";
 import { Link } from "@/i18n/navigation";
-import type { Media } from "@/payload-types";
+import { mediaFrom } from "@/lib/media";
+import { PostBody } from "@/components/centrum/PostBody";
 
 type PostPageProps = { params: Promise<{ slug: string; locale: string }> };
-
-function imageOf(value: unknown, size: "hero" | "thumbnail") {
-  if (!value || typeof value !== "object") return null;
-  const media = value as Media;
-  const url = media.sizes?.[size]?.url ?? media.url;
-  return url ? { url, alt: media.alt || "" } : null;
-}
 
 function formatDate(value?: string | null) {
   if (!value) return null;
@@ -42,9 +35,9 @@ export default async function PostPage({ params }: PostPageProps) {
   const post = result.docs[0];
   if (!post) notFound();
 
-  const hero = imageOf(post.featuredImage, "hero");
+  const hero = mediaFrom(post.featuredImage, "hero", post.title);
   const author = post.author && typeof post.author === "object" ? post.author : null;
-  const authorPhoto = author ? imageOf(author.photo, "thumbnail") : null;
+  const authorPhoto = author ? mediaFrom(author.photo, "thumbnail", author.name) : null;
   const date = formatDate(post.publishedAt);
   const categories = (post.categories ?? []).filter((c) => typeof c === "object");
 
@@ -81,11 +74,7 @@ export default async function PostPage({ params }: PostPageProps) {
           {/* Payload stores Lexical JSON; this renders it with the default converters.
             * `blog-prose` carries the typography for headings, lists and images inside
             * the article — see globals.css. */}
-          {post.content ? (
-            <div className="blog-prose max-w-[42rem]">
-              <RichText data={post.content} />
-            </div>
-          ) : null}
+          {post.content ? <PostBody content={post.content} /> : null}
         </Container>
       </article>
 

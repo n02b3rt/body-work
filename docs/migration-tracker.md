@@ -99,20 +99,21 @@ What the pass fixed is recorded in `AI_NOTES.md`; the rows below carry the per-p
 
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
 |---|---|---|---|---|---|
-| `/blog/` (listing) | `/blog/` | New: `BlogList` (category select + search + empty state, filtered client-side as on the reference). Reused: PageHero | PL: done / EN: done | Renders correctly against an empty database; needs re-checking once posts are imported | In progress |
-| `/blog/<slug>/` × 62 posts | `/blog/<slug>/` | Template built: meta line, hero, Lexical body via `RichText`, author block, back link. `.blog-prose` in globals.css carries the article typography | PL: template done / EN: UI strings done, post content is Polish | Template renders; **62 posts not yet imported** | In progress |
+| `/blog/` (listing) | `/blog/` | New: `BlogList` (category select + search + empty state, filtered client-side as on the reference). Reused: PageHero | PL: done / EN: done | 62 cards render from the database; no dashboard-host URLs leak into the page | Bilingual |
+| `/blog/<slug>/` × 62 posts | `/blog/<slug>/` | Template built: meta line, hero, Lexical body via `RichText`, author block, back link. `.blog-prose` in globals.css carries the article typography | PL: done / EN: UI strings done, **post content is Polish** (62 articles — a translation job for a human, not a machine) | All 62 imported and rendering: body, inline images, author block. Verified 0 empty bodies, 0 posts without an author/date/reading time, 0 CSS leaks | Built (PL) |
 
 ### Blog — what the reference actually has (verified 2026-07-27)
 
 | Thing | Finding |
 |---|---|
 | Posts | 62. One (`operacja-koniecznosc-czy-ostatecznosc`) had failed the original scrape with a `ConnectionError` and was re-fetched by hand |
-| Images | **60 of 61 scraped posts carry content images — 194 in total**, 1–12 per post (most often 2). One post has none |
+| Images | **56 of 62 posts carry content images; 6 have none at all.** An earlier count of "60 of 61, 194 images" was wrong — it counted the author portrait as a content image. 168 media files were imported in total (post images + 18 author portraits) |
 | Categories | Exactly four: Fizjoterapia, Masaż, Trening, Dietetyka. Posts can carry several (35 posts carry two); 2 posts are uncategorised |
-| Authors | **18**, each with a photo, stored as a separate builder collection. They are trainers/physiotherapists, not CMS users — hence the `Authors` collection rather than a `users` relationship |
+| Authors | **24 distinct names**, of which only **18 have a portrait** in the source. They are trainers/physiotherapists, not CMS users — hence the `Authors` collection rather than a `users` relationship. Two credits don't split cleanly in the source: one is a joint "Karol Kikut & Jakub Grzęda", another runs the name into a sentence; the importer cuts the name at the first comma, which handles both |
 | Card meta | date · reading time ("10 min") · author name |
 | Body markup | A small, clean vocabulary: `p`, `h2`, `h3`, `strong`, `em`, `ol`/`li`, `img`, `a` — plus exactly one `blockquote` and one `table` in the whole corpus |
-| Pagination | None found. The listing appears to render every post and filter client-side |
+| Pagination | None found. The listing renders every post and filters client-side |
+| Uncategorised | 2 posts carry no category on the reference, and none here either |
 
 ## Legal & utility
 
