@@ -39,7 +39,10 @@ export const metaFields: Field = {
   ],
 }
 
-export const slugField = (fieldToUse = 'title'): Field => ({
+export const slugField = (
+  fieldToUse = 'title',
+  { description = 'Fragment adresu URL (bez ukośników).' }: { description?: string } = {},
+): Field => ({
   name: 'slug',
   type: 'text',
   label: 'Slug',
@@ -48,7 +51,7 @@ export const slugField = (fieldToUse = 'title'): Field => ({
   index: true,
   admin: {
     position: 'sidebar',
-    description: 'Fragment adresu URL (bez ukośników).',
+    description,
   },
   hooks: {
     beforeValidate: [

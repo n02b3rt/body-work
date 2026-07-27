@@ -6,7 +6,6 @@
 
 One Next.js 16 app + embedded Payload CMS 3, serving four domains from one repo and one database, split by request host:
 
-<<<<<<< HEAD
 | Domain | Site | Role |
 |---|---|---|
 | `body-work.pl` | Hub | Landing, routes to Centrum / Akademia / Alfabet Ruchu (external) |
@@ -32,6 +31,7 @@ Status: all 22 Centrum pages are built and bilingual against the scraper mirror 
 | Centrum components | Header, Footer, Hero, PromoBar, and the other section blocks | `src/components/centrum/` |
 | Payload CMS | Admin UI, REST/GraphQL, auth, uploads | `src/app/(payload)/`, `src/payload.config.ts`, `src/collections/`, `src/globals/` |
 | Admin shell / nav | Custom nested sidebar + coming-soon stubs | `src/admin/nav-tree.ts`, `src/components/admin/AdminNav.tsx`, `ComingSoonView.tsx` |
+| Media library | Upload a11y/SEO fields, conversion, explorer UI | `src/collections/Media.ts`, `src/components/admin/media/`, `docs/media.md` |
 | Access / roles | RBAC helpers | `src/access/` |
 | PostgreSQL | CMS data store (local Docker; same on Hetzner VPS) | `docker-compose.yml` (dev) |
 | Scraper toolkit | Mirrors the Centrum design reference | `scripts/scrape/` |
@@ -67,6 +67,7 @@ Record deliberate choices so nobody re-litigates them a month later without caus
 | 2026-07-26 | **pnpm** as the package manager; `package-lock.json` removed | Was flagged as an open question in [`stack.md`](./stack.md); decided by the user when the CMS stack landed, since that branch was already pnpm-only |
 | 2026-07-26 | `images.localPatterns` lists `/images/**` alongside `/api/media/file/**` | Setting the key at all turns `next/image` into an allowlist — with only Payload's path listed, every photo on the public site would fail |
 | 2026-07-26 | One `proxy.ts` composing host gating **and** next-intl | Next allows a single proxy; the CMS branch's version replaced the i18n middleware instead of delegating to it, which would have killed locale routing |
+| 2026-07-26 | Media library: ALT/slug derived from the filename (no vision API); optional WebP/AVIF/WebM with a max edge; custom explorer list | Decent a11y defaults without API keys, with editors reviewing the ALT; explorer UX beats the stock table |
 
 ## Gotchas
 

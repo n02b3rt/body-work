@@ -13,9 +13,12 @@ import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
+import { SiteComponents } from './collections/SiteComponents'
 import { Subscribers } from './collections/Subscribers'
 import { Users } from './collections/Users'
 import { SiteSettings } from './globals/SiteSettings'
+import { ThemeColors } from './globals/ThemeColors'
+import { PAYLOAD_DATETIME_FORMAT } from './lib/format-date'
 import { resendEmailAdapter } from './lib/payload-email'
 
 const filename = fileURLToPath(import.meta.url)
@@ -31,6 +34,11 @@ export default buildConfig({
   cors: [dashboardURL, publicURL],
   admin: {
     user: Users.slug,
+    dateFormat: PAYLOAD_DATETIME_FORMAT,
+    timezones: {
+      defaultTimezone: 'Europe/Warsaw',
+      supportedTimezones: [{ label: 'Warszawa (CET/CEST)', value: 'Europe/Warsaw' }],
+    },
     meta: {
       titleSuffix: '— BodyWork Panel',
     },
@@ -51,8 +59,8 @@ export default buildConfig({
       },
     },
   },
-  collections: [Users, Authors, Categories, Media, Pages, Posts, Subscribers],
-  globals: [SiteSettings],
+  collections: [Users, Authors, Categories, Media, Pages, Posts, Subscribers, SiteComponents],
+  globals: [SiteSettings, ThemeColors],
   // Password resets and email verification for the author accounts. Without an adapter
   // Payload only logs them, so they never arrive — see src/lib/payload-email.ts.
   email: resendEmailAdapter(),

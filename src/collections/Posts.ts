@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { isAdministrator, isModerator, staff } from '@/access/roles'
 import { metaFields, slugField } from '@/fields/meta'
+import { PAYLOAD_DATETIME_FORMAT, PAYLOAD_TIME_FORMAT } from '@/lib/format-date'
 
 /** Words per minute for the "N min" label. 200 is the usual figure for prose. */
 const WORDS_PER_MINUTE = 200
@@ -94,6 +95,8 @@ export const Posts: CollectionConfig = {
         position: 'sidebar',
         date: {
           pickerAppearance: 'dayAndTime',
+          displayFormat: PAYLOAD_DATETIME_FORMAT,
+          timeFormat: PAYLOAD_TIME_FORMAT,
         },
       },
     },

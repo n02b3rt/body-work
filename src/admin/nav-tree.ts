@@ -143,7 +143,7 @@ export const adminNavTree: NavBranch[] = [
           ),
           link(
             'content-media-all',
-            'Wszystkie pliki',
+            'Biblioteka',
             collectionHref('media'),
             'list',
           ),
@@ -217,16 +217,27 @@ export const adminNavTree: NavBranch[] = [
         label: 'Wygląd',
         icon: 'appearance',
         children: [
-          stub('management-appearance-colors', 'Schemat kolorów', 'colors'),
+          link(
+            'management-appearance-colors',
+            'Schemat kolorów',
+            globalHref('theme-colors'),
+            'colors',
+          ),
           {
             id: 'management-appearance-components',
             label: 'Komponenty',
             icon: 'component',
             children: [
-              stub('management-appearance-components-new', 'Nowy komponent', 'plus'),
-              stub(
+              link(
+                'management-appearance-components-new',
+                'Nowy komponent',
+                collectionHref('site-components', '/create'),
+                'plus',
+              ),
+              link(
                 'management-appearance-components-all',
                 'Wszystkie komponenty',
+                collectionHref('site-components'),
                 'list',
               ),
             ],

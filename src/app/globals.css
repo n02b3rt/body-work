@@ -18,6 +18,38 @@
   --color-brand-green: var(--brand-green);
   --font-sans: var(--font-plus-jakarta);
 
+  /* Palette editable from the panel (Wygląd → Schemat kolorów). The `--bw-*` variables
+   * are injected onto `:root` by the locale layout; the fallbacks keep these utilities
+   * usable when the global has never been saved.
+   *
+   * These arrived with the media-library branch, which was written against the old
+   * `(frontend)/globals.css` — they are additive and do not touch the reference-derived
+   * tokens above.
+   *
+   * **`--color-text-body`, not `--color-body`.** The branch called it `--color-body`, which
+   * in Tailwind v4 generates a `text-body` utility — colliding with the `--text-body` font
+   * size used in 76 places across 39 files. Renamed on the way in; the same goes for
+   * `--color-text-heading`, for symmetry. */
+  --color-brand: var(--bw-primary, #0f766e);
+  --color-brand-hover: var(--bw-primary-hover, #115e59);
+  --color-brand-alt: var(--bw-secondary, #1e293b);
+  --color-brand-alt-hover: var(--bw-secondary-hover, #0f172a);
+  --color-accent: var(--bw-accent, #f59e0b);
+  --color-text-heading: var(--bw-text-heading, #0f172a);
+  --color-text-body: var(--bw-text-body, #334155);
+  --color-muted: var(--bw-text-muted, #64748b);
+  --color-inverted: var(--bw-text-inverted, #ffffff);
+  --color-link: var(--bw-link, #0f766e);
+  --color-link-hover: var(--bw-link-hover, #115e59);
+  --color-page: var(--bw-surface-page, #ffffff);
+  --color-surface: var(--bw-surface, #f8fafc);
+  --color-surface-alt: var(--bw-surface-alt, #f1f5f9);
+  --color-line: var(--bw-border, #e2e8f0);
+  --color-success: var(--bw-success, #16a34a);
+  --color-warning: var(--bw-warning, #d97706);
+  --color-error: var(--bw-error, #dc2626);
+  --color-info: var(--bw-info, #0284c7);
+
   /* The reference uses two distinct breakpoints, confirmed by inspecting which media
    * query each of its class prefixes lives in — don't collapse them into one:
    *   `ug:`/`eo:` → 1340px: full nav row vs. hamburger-only. The eight nav labels
