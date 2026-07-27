@@ -102,7 +102,7 @@ export function MegaMenu({ open, onClose }: MegaMenuProps) {
       <Container className="py-10">
         <div className={columnClasses} style={stagger(0)}>
           {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG mark, no raster optimization needed */}
-          <img src="/icons/logo-mark.svg" alt="" className="h-24 w-auto" />
+          <img src="/icons/logo-mark.svg" width={86} height={121} alt="" className="h-24 w-auto" />
         </div>
 
         <div className="mt-10 grid grid-cols-5 divide-x divide-brand-navy-soft border-t border-brand-navy-soft pt-10">

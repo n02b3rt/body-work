@@ -212,6 +212,65 @@ had loaded. The cost was the markup and the DOM: 62 cards, each carrying two inl
 icons. The document only shrank 13% because the post *data* still ships for client-side
 filtering; that is the deliberate trade.
 
+### Every Lighthouse category at 100 (2026-07-27)
+
+Second pass, closing each item the first pass had listed as outstanding.
+
+| | `/` | `/blog` | Post page |
+|---|---|---|---|
+| Performance | **100** | **100** | **100** |
+| Accessibility | **100** | **100** | **100** |
+| Best practices | **100** | **100** | **100** |
+| SEO | **100** | **100** | **100** |
+| LCP | 0.7s | 0.6s | 0.8s |
+| CLS / TBT | 0 / 0ms | 0 / 0ms | 0 / 0ms |
+| Server response | 0ms | 10ms | 10ms |
+
+Accessibility was 96 and 94; the three findings behind that are all closed.
+
+**Green darkened, and this one is a palette deviation.** `#2c8657` measured **4.21** against the
+cream button text where WCAG AA wants 4.5 at 14px. It is now `#28794f`, which measures **4.97**.
+The palette is normally the client's and stays as the reference has it; this is the single value
+that failed an accessibility floor, and the shift is small enough to be imperceptible beside the
+original. Logged in the deviations table.
+
+**Heading levels are re-based at render time, and not one word of copy changed.** Some imported
+articles open at `h3` with no `h2` above them, which leaves a hole in the outline a screen
+reader reads out. `PostBody` now renders an article's own top heading level as `h2` and shifts
+everything below it by the same amount, so the author's relative structure survives intact.
+Verified on `trzy-oblicza-bolu`, whose three `h3` now render as three `h2`.
+
+The converter is built per article rather than at module scope, because it counts levels as it
+goes and a shared counter would leak one post's structure into the next.
+
+**The SVG logos carry `width` and `height`.** Only the aspect ratio; the CSS classes still
+decide the rendered size.
+
+**`/blog` is static at last.** It was the one blog page still answering `no-store`, because a
+route that reads `searchParams` cannot be prerendered. Pagination moved from `?page=N` into
+`/blog/strona/N`: page one is `/blog`, page two onwards is a prerendered route, `strona/1` and
+anything past the end return 404 rather than serving a duplicate or an empty indexable page.
+Verified: `/blog` 10 post links, `strona/2` 19, `strona/7` all 62, `strona/8` 404, and the whole
+chain now answers `s-maxage=3600, stale-while-revalidate`.
+
+`BLOG_PAGE_SIZE` lives in `src/lib/blog-page-size.ts`, a module with no imports, because
+`BlogList` is a Client Component and taking the constant from `blog-listing.ts` would drag
+Payload into the browser bundle.
+
+### What is left, and why it stays
+
+- **"Avoid multiple page redirects", 170ms.** Still not reproducible. Four header variants and
+  two never-requested paths answer 200 directly, and `proxy.ts` issues no redirect for public
+  paths. Treated as an artefact of Lighthouse's own navigation.
+- **13KiB of "legacy JavaScript" and 27KiB unused, in one chunk.** Checked: it is a Turbopack
+  chunk carrying Next's runtime, loaded `async`, not a `nomodule` polyfill bundle. The
+  polyfills Lighthouse names (`Array.prototype.at`, `Object.hasOwn`) are the framework's own.
+  Not reachable without leaving Next's defaults.
+- **Three portrait thumbnails "improperly sized".** They are tall images in a 16:9 box under
+  `object-cover`, so the crop discards pixels that were still downloaded. `sizes` cannot
+  express a crop; the only fix is cropping the stored variants, which is a decision about the
+  client's photographs rather than a technical one.
+
 ### Lighthouse, and a correction: nothing was static (2026-07-27)
 
 **Correction first.** An earlier entry claimed the build went from 67 to 199 prerendered pages.
@@ -511,6 +570,7 @@ styling and link-target changes.
 | `LegalDocument` section headings | ~68px section size | `menu` size, ~34px | At eleven numbered sections, 68px reads as eleven page titles |
 | Gallery buttons (4 places) | link to `/galeria` | link to the Instagram profile (`GALLERY_URL`) | `/galeria` 404s on the live site, is absent from `sitemap.xml` and has no scrape folder: the broken link is upstream |
 | MegaMenu "Grafik zajęć" | links to internal `/trening-grupowy/grafik-zajec` | links out to eFitness | That internal page carries no content of its own; the reference's own header dropdown links out |
+| Brand green on buttons | `#2c8657` | `#28794f` | The original measured **4.21** contrast against the cream button text where WCAG AA requires 4.5 at 14px. The new value measures 4.97 and is visually near-identical. The only palette value that failed an accessibility floor |
 | Newsletter success message | "Zostałeś pomyślnie dodany do naszego newslettera" | "Sprawdź skrzynkę: wysłaliśmy Ci link, który potwierdza zapis" | With double opt-in the old wording is simply untrue at that moment: nothing is added until the link is clicked |
 | `/blog` listing dates | featured card prints `29.08.2025` | no date anywhere on the listing | Client's instruction: *"Na stronie /blog nie pisz kurwa daty kiedy to było"*. Reading time and author stay. Dates are untouched on the post pages themselves, which is where the instruction did not reach |
 | `/blog` grid edges | vertical lines at the row's left and right edges (its row is full-bleed) | same lines, at the 1440px cap instead of the viewport | Client asked for them back after the first pass dropped them. The grid gets its own wrapper rather than `Container`, so its horizontal padding sits on the cards: otherwise the edge line would be 64px from the text where the interior dividers are 32px |

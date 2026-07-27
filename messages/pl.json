@@ -1664,7 +1664,8 @@
     "categoryCount": "{count, plural, =0 {Brak wpisów w tej kategorii.} one {Jeden wpis o {category}.} few {# wpisy o {category}.} other {# wpisów o {category}.}}",
     "categoriesHeading": "Kategorie",
     "fromTheBlog": "Z naszego bloga",
-    "moreIn": "Więcej o {category}"
+    "moreIn": "Więcej o {category}",
+    "pageTitle": "Blog, strona {page}"
   },
   "Errors": {
     "notFoundCode": "404",

@@ -13,6 +13,19 @@
 
 -->
 
+## 2026-07-27: every Lighthouse category at 100
+
+- **Done:** closed every item the first Lighthouse pass left open. Performance, accessibility, best practices and SEO all **100** on the homepage, the listing and a post page. LCP 0.6-0.8s, CLS 0, TBT 0ms, server response 0-10ms.
+- **Accessibility went 96/94 to 100** on the back of three fixes:
+  1. **Green darkened**, `#2c8657` to `#28794f`. The original measured **4.21** against the cream button text where AA wants 4.5 at 14px; the new value measures 4.97. This is a palette deviation, normally off limits, taken because it was the one value failing an accessibility floor and the shift is imperceptible. Logged in the deviations table.
+  2. **Heading levels re-based at render time.** Some articles open at `h3` with no `h2`, leaving a hole in the outline. `PostBody` renders an article's own top level as `h2` and shifts the rest by the same amount, so the author's structure survives. **No copy changed.** Verified on `trzy-oblicza-bolu`: three `h3` now render as three `h2`.
+  3. **SVG logos carry `width`/`height`**, aspect ratio only; CSS still sizes them.
+- **A bug I introduced and caught in the same sitting:** the heading converter was first written at module scope, so its level counter would have been shared across posts and leaked the first article's structure into the next. It is built per article now. TypeScript also rejected my hand-written converter types, which was the prompt to use Payload's own and stop inventing them.
+- **`/blog` is finally static.** It was the last blog page answering `no-store`, because reading `searchParams` prevents prerendering. Pagination moved from `?page=N` to `/blog/strona/N`. Page one stays `/blog`; `strona/1` and anything past the end 404 rather than duplicating or serving an empty indexable page. Verified: 10 / 19 / 62 post links across `/blog`, `strona/2`, `strona/7`, `strona/8` a 404, whole chain on `s-maxage=3600`.
+- **`BLOG_PAGE_SIZE` sits in its own import-free module.** `BlogList` is a Client Component, so taking the constant from `blog-listing.ts` would have pulled Payload into the browser bundle.
+- **Two findings rejected after checking, rather than chased.** The 13KiB "legacy JavaScript" is a Turbopack chunk carrying Next's runtime, loaded `async` and not a `nomodule` polyfill bundle, so the polyfills named are the framework's own. And three "improperly sized" thumbnails are tall images cropped by `object-cover` in a 16:9 box, which `sizes` cannot express; fixing it means cropping the client's photographs.
+- **Watch out:** the pagination URLs are new (`/blog/strona/N`). Nothing linked to `?page=N` outside the listing itself and the sitemap never carried it, so there is nothing to redirect, but that is worth knowing if anyone bookmarked one during the last few hours.
+
 ## 2026-07-27: Lighthouse, and I had to correct myself about static rendering
 
 - **The correction matters more than the numbers.** I claimed the build went from 67 to 199 prerendered pages. Wrong. `Generating static pages (199/199)` counts pages Next *processes*, not pages it serves statically. The route table said `f` against every route and `.next/prerender-manifest.json` held five entries, none a page. I read the reassuring line instead of the authoritative one, then repeated the number in a commit message, a PR and the tracker. All three now carry the correction.
