@@ -100,7 +100,13 @@ What the pass fixed is recorded in `AI_NOTES.md`; the rows below carry the per-p
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
 |---|---|---|---|---|---|
 | `/blog/` (listing) | `/blog/` | New: `BlogList` (category select + search + empty state, filtered client-side as on the reference). Reused: PageHero | PL: done / EN: done | 62 cards render from the database; no dashboard-host URLs leak into the page | Bilingual |
-| `/blog/<slug>/` × 62 posts | `/blog/<slug>/` | Template built: meta line, hero, Lexical body via `RichText`, author block, back link. `.blog-prose` in globals.css carries the article typography | PL: done / EN: UI strings done, **post content is Polish** (62 articles — a translation job for a human, not a machine) | All 62 imported and rendering: body, inline images, author block. Verified 0 empty bodies, 0 posts without an author/date/reading time, 0 CSS leaks | Built (PL) |
+| `/blog/<slug>/` × 62 posts | `/blog/<slug>/` | Template built: meta line, hero, Lexical body via `RichText`, author block, back link. `.blog-prose` in globals.css carries the article typography | PL: done / EN: UI strings done, **post content is Polish** (62 articles — a translation job for a human, not a machine) | Checked in a real browser: 62 cards, filter (Fizjoterapia 43 / Trening 50 / Dietetyka 4 / Masaż 4) and search both work, empty state matches the reference wording. Six post pages sampled — bodies, inline images and author blocks all render, no failed image loads, no dashboard-host URLs. 0 empty bodies, 0 posts missing an author/date/reading time, 0 CSS leaks | Bilingual |
+
+**No hero image and no lead paragraph on a post page — both were duplicates.**
+`featuredImage` is the post's *first body image*, kept for the listing card; rendering it
+as a hero showed the same picture twice, full-bleed and again a few lines into the
+article. `excerpt` is likewise the article's own opening paragraph, so printing it above
+the body repeated that paragraph in oversized type. The reference has neither element.
 
 ### Blog — what the reference actually has (verified 2026-07-27)
 

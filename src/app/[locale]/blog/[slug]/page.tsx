@@ -20,6 +20,14 @@ function formatDate(value?: string | null) {
     : date.toLocaleDateString("pl-PL", { day: "2-digit", month: "2-digit", year: "numeric" });
 }
 
+/** No hero image above the article: `featuredImage` is the post's *first body image*,
+ * used for the listing card, and the reference doesn't show a separate hero either — so
+ * rendering one here displayed the same picture twice, once full-bleed and again a few
+ * lines down inside the body.
+ *
+ * The excerpt isn't rendered here either, for the same reason: it is taken from the
+ * article's own opening paragraph, so showing it above the body repeated that paragraph
+ * in oversized type. It exists for the listing cards. */
 export default async function PostPage({ params }: PostPageProps) {
   const { slug } = await params;
   const t = await getTranslations("Blog");
@@ -35,7 +43,6 @@ export default async function PostPage({ params }: PostPageProps) {
   const post = result.docs[0];
   if (!post) notFound();
 
-  const hero = mediaFrom(post.featuredImage, "hero", post.title);
   const author = post.author && typeof post.author === "object" ? post.author : null;
   const authorPhoto = author ? mediaFrom(author.photo, "thumbnail", author.name) : null;
   const date = formatDate(post.publishedAt);
@@ -59,18 +66,8 @@ export default async function PostPage({ params }: PostPageProps) {
         ) : null}
       </Container>
 
-      {hero ? (
-        <div className="relative aspect-[4/3] w-full sm:aspect-[16/9] lg:aspect-[2.4/1]">
-          <Image src={hero.url} alt={hero.alt || post.title} fill priority sizes="100vw" className="object-cover" />
-        </div>
-      ) : null}
-
       <article className="border-t border-brand-navy-soft bg-background">
         <Container className="py-12 lg:py-16">
-          {post.excerpt ? (
-            <p className="mb-10 max-w-[42rem] text-statement text-brand-navy">{post.excerpt}</p>
-          ) : null}
-
           {/* Payload stores Lexical JSON; this renders it with the default converters.
             * `blog-prose` carries the typography for headings, lists and images inside
             * the article — see globals.css. */}
