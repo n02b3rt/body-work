@@ -12,54 +12,7 @@
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "supportedTimezones".
  */
-export type SupportedTimezones =
-  | 'Pacific/Midway'
-  | 'Pacific/Niue'
-  | 'Pacific/Honolulu'
-  | 'Pacific/Rarotonga'
-  | 'America/Anchorage'
-  | 'Pacific/Gambier'
-  | 'America/Los_Angeles'
-  | 'America/Tijuana'
-  | 'America/Denver'
-  | 'America/Phoenix'
-  | 'America/Chicago'
-  | 'America/Guatemala'
-  | 'America/New_York'
-  | 'America/Bogota'
-  | 'America/Caracas'
-  | 'America/Santiago'
-  | 'America/Buenos_Aires'
-  | 'America/Sao_Paulo'
-  | 'Atlantic/South_Georgia'
-  | 'Atlantic/Azores'
-  | 'Atlantic/Cape_Verde'
-  | 'Europe/London'
-  | 'Europe/Berlin'
-  | 'Africa/Lagos'
-  | 'Europe/Athens'
-  | 'Africa/Cairo'
-  | 'Europe/Moscow'
-  | 'Asia/Riyadh'
-  | 'Asia/Dubai'
-  | 'Asia/Baku'
-  | 'Asia/Karachi'
-  | 'Asia/Tashkent'
-  | 'Asia/Calcutta'
-  | 'Asia/Dhaka'
-  | 'Asia/Almaty'
-  | 'Asia/Jakarta'
-  | 'Asia/Bangkok'
-  | 'Asia/Shanghai'
-  | 'Asia/Singapore'
-  | 'Asia/Tokyo'
-  | 'Asia/Seoul'
-  | 'Australia/Brisbane'
-  | 'Australia/Sydney'
-  | 'Pacific/Guam'
-  | 'Pacific/Noumea'
-  | 'Pacific/Auckland'
-  | 'Pacific/Fiji';
+export type SupportedTimezones = 'Europe/Warsaw';
 
 export interface Config {
   auth: {
@@ -74,6 +27,7 @@ export interface Config {
     pages: Page;
     posts: Post;
     subscribers: Subscriber;
+    'site-components': SiteComponent;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -88,6 +42,7 @@ export interface Config {
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     subscribers: SubscribersSelect<false> | SubscribersSelect<true>;
+    'site-components': SiteComponentsSelect<false> | SiteComponentsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -99,9 +54,11 @@ export interface Config {
   fallbackLocale: null;
   globals: {
     'site-settings': SiteSetting;
+    'theme-colors': ThemeColor;
   };
   globalsSelect: {
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    'theme-colors': ThemeColorsSelect<false> | ThemeColorsSelect<true>;
   };
   locale: null;
   widgets: {
@@ -193,7 +150,7 @@ export interface Author {
   createdAt: string;
 }
 /**
- * Biblioteka mediów. Obrazy zapisywane jako WebP, wideo jako WebM.
+ * Biblioteka mediów z polami dostępności/SEO, konwersją formatu i widokiem eksploratora.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
@@ -201,9 +158,49 @@ export interface Author {
 export interface Media {
   id: number;
   /**
-   * Krótki opis obrazu (dostępność i SEO).
+   * Nazwa wyświetlana w bibliotece. Domyślnie z nazwy pliku.
    */
-  alt: string;
+  title?: string | null;
+  /**
+   * Wymagany dla dostępności i SEO (chyba że dekoracyjny). Uzupełniany z nazwy pliku — sprawdź i popraw.
+   */
+  alt?: string | null;
+  /**
+   * Zaznacz, gdy obraz nie niesie informacji (tło, ozdoba). ALT będzie traktowany jako pusty.
+   */
+  isDecorative?: boolean | null;
+  /**
+   * Opcjonalny podpis widoczny przy obrazie na stronie.
+   */
+  caption?: string | null;
+  /**
+   * Dłuższy opis kontekstu (SEO, redakcja, wyszukiwanie w bibliotece).
+   */
+  description?: string | null;
+  /**
+   * Identyfikator URL / nazwy pliku. Domyślnie z nazwy pliku.
+   */
+  slug?: string | null;
+  /**
+   * Słowa kluczowe do filtrowania w bibliotece (np. fizjoterapia, sala).
+   */
+  tags?: string[] | null;
+  /**
+   * Stosowane przy uploadzie / wymianie pliku. Domyślnie WebP dla obrazów i WebM dla wideo.
+   */
+  convertFormat?: ('optimized' | 'avif' | 'original') | null;
+  /**
+   * Skalowanie obrazów przed zapisem (ignorowane dla wideo). 1920 px to dobry kompromis jakość/waga.
+   */
+  maxDimension?: ('1920' | '1280' | '2560' | 'none') | null;
+  /**
+   * Dotyczy konwersji WebP / AVIF (ignorowane przy „bez konwersji”).
+   */
+  imageQuality?: ('balanced' | 'high' | 'small') | null;
+  /**
+   * Ustawiane automatycznie z MIME; używane do folderów w bibliotece.
+   */
+  kind?: ('image' | 'video' | 'document' | 'other') | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -410,6 +407,393 @@ export interface Subscriber {
   createdAt: string;
 }
 /**
+ * Gotowe bloki (przyciski, hero, karuzele, galerie) z własnymi parametrami — do wstawiania na stronach.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-components".
+ */
+export interface SiteComponent {
+  id: number;
+  /**
+   * Nazwa robocza widoczna tylko w panelu.
+   */
+  name: string;
+  /**
+   * Typ decyduje o dostępnych parametrach poniżej.
+   */
+  type: 'button' | 'hero' | 'carousel' | 'gallery' | 'cta' | 'features';
+  /**
+   * Napis, odnośnik i wygląd przycisku.
+   */
+  button?: {
+    label?: string | null;
+    href?: string | null;
+    newTab?: boolean | null;
+    variant?: ('solid' | 'outline' | 'ghost' | 'link') | null;
+    size?: ('sm' | 'md' | 'lg') | null;
+    radius?: ('none' | 'sm' | 'md' | 'lg' | 'full') | null;
+    fullWidth?: boolean | null;
+    background?: {
+      token?:
+        | (
+            | 'brand.primary'
+            | 'brand.primaryHover'
+            | 'brand.secondary'
+            | 'brand.secondaryHover'
+            | 'brand.accent'
+            | 'text.heading'
+            | 'text.body'
+            | 'text.muted'
+            | 'text.inverted'
+            | 'text.link'
+            | 'text.linkHover'
+            | 'surface.page'
+            | 'surface.surface'
+            | 'surface.surfaceAlt'
+            | 'surface.border'
+            | 'surface.overlay'
+            | 'state.success'
+            | 'state.warning'
+            | 'state.error'
+            | 'state.info'
+            | 'custom'
+            | 'none'
+          )
+        | null;
+      custom?: string | null;
+    };
+    textColor?: {
+      token?:
+        | (
+            | 'brand.primary'
+            | 'brand.primaryHover'
+            | 'brand.secondary'
+            | 'brand.secondaryHover'
+            | 'brand.accent'
+            | 'text.heading'
+            | 'text.body'
+            | 'text.muted'
+            | 'text.inverted'
+            | 'text.link'
+            | 'text.linkHover'
+            | 'surface.page'
+            | 'surface.surface'
+            | 'surface.surfaceAlt'
+            | 'surface.border'
+            | 'surface.overlay'
+            | 'state.success'
+            | 'state.warning'
+            | 'state.error'
+            | 'state.info'
+            | 'custom'
+            | 'none'
+          )
+        | null;
+      custom?: string | null;
+    };
+    /**
+     * Używane przy stylu „obramowany”.
+     */
+    borderColor?: {
+      token?:
+        | (
+            | 'brand.primary'
+            | 'brand.primaryHover'
+            | 'brand.secondary'
+            | 'brand.secondaryHover'
+            | 'brand.accent'
+            | 'text.heading'
+            | 'text.body'
+            | 'text.muted'
+            | 'text.inverted'
+            | 'text.link'
+            | 'text.linkHover'
+            | 'surface.page'
+            | 'surface.surface'
+            | 'surface.surfaceAlt'
+            | 'surface.border'
+            | 'surface.overlay'
+            | 'state.success'
+            | 'state.warning'
+            | 'state.error'
+            | 'state.info'
+            | 'custom'
+            | 'none'
+          )
+        | null;
+      custom?: string | null;
+    };
+  };
+  /**
+   * Duże zdjęcie z nagłówkiem, opisem i wezwaniem do działania.
+   */
+  hero?: {
+    image?: (number | null) | Media;
+    heading?: string | null;
+    subheading?: string | null;
+    height?: ('sm' | 'md' | 'lg' | 'screen') | null;
+    align?: ('left' | 'center' | 'right') | null;
+    /**
+     * Kolor nakładki pochodzi z palety (Tła → Przyciemnienie zdjęć).
+     */
+    overlayOpacity?: number | null;
+    radius?: ('none' | 'sm' | 'md' | 'lg' | 'full') | null;
+    textColor?: {
+      token?:
+        | (
+            | 'brand.primary'
+            | 'brand.primaryHover'
+            | 'brand.secondary'
+            | 'brand.secondaryHover'
+            | 'brand.accent'
+            | 'text.heading'
+            | 'text.body'
+            | 'text.muted'
+            | 'text.inverted'
+            | 'text.link'
+            | 'text.linkHover'
+            | 'surface.page'
+            | 'surface.surface'
+            | 'surface.surfaceAlt'
+            | 'surface.border'
+            | 'surface.overlay'
+            | 'state.success'
+            | 'state.warning'
+            | 'state.error'
+            | 'state.info'
+            | 'custom'
+            | 'none'
+          )
+        | null;
+      custom?: string | null;
+    };
+    /**
+     * Wskaż istniejący komponent typu „Przycisk”.
+     */
+    ctaButton?: (number | null) | SiteComponent;
+  };
+  /**
+   * Przewijane zdjęcia z podpisami — np. galeria gabinetu.
+   */
+  carousel?: {
+    slides?:
+      | {
+          image: number | Media;
+          caption?: string | null;
+          href?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    slidesPerView?: ('1' | '2' | '3') | null;
+    aspectRatio?: ('16-9' | '21-9' | '4-3' | '1-1' | '3-4') | null;
+    radius?: ('none' | 'sm' | 'md' | 'lg' | 'full') | null;
+    gap?: ('none' | 'sm' | 'md' | 'lg') | null;
+    autoplay?: boolean | null;
+    interval?: number | null;
+    showArrows?: boolean | null;
+    showDots?: boolean | null;
+    loop?: boolean | null;
+  };
+  /**
+   * Siatka zdjęć — realizacje, zespół, wnętrza.
+   */
+  gallery?: {
+    images?: (number | Media)[] | null;
+    columns?: ('1' | '2' | '3' | '4') | null;
+    gap?: ('none' | 'sm' | 'md' | 'lg') | null;
+    aspectRatio?: ('16-9' | '21-9' | '4-3' | '1-1' | '3-4') | null;
+    radius?: ('none' | 'sm' | 'md' | 'lg' | 'full') | null;
+    lightbox?: boolean | null;
+    /**
+     * Podpis pobierany jest z pola „Podpis” w bibliotece mediów.
+     */
+    showCaptions?: boolean | null;
+  };
+  /**
+   * Wyróżniony pasek z zachętą do kontaktu lub rezerwacji.
+   */
+  cta?: {
+    heading?: string | null;
+    text?: string | null;
+    align?: ('left' | 'center' | 'right') | null;
+    padding?: ('sm' | 'md' | 'lg') | null;
+    background?: {
+      token?:
+        | (
+            | 'brand.primary'
+            | 'brand.primaryHover'
+            | 'brand.secondary'
+            | 'brand.secondaryHover'
+            | 'brand.accent'
+            | 'text.heading'
+            | 'text.body'
+            | 'text.muted'
+            | 'text.inverted'
+            | 'text.link'
+            | 'text.linkHover'
+            | 'surface.page'
+            | 'surface.surface'
+            | 'surface.surfaceAlt'
+            | 'surface.border'
+            | 'surface.overlay'
+            | 'state.success'
+            | 'state.warning'
+            | 'state.error'
+            | 'state.info'
+            | 'custom'
+            | 'none'
+          )
+        | null;
+      custom?: string | null;
+    };
+    textColor?: {
+      token?:
+        | (
+            | 'brand.primary'
+            | 'brand.primaryHover'
+            | 'brand.secondary'
+            | 'brand.secondaryHover'
+            | 'brand.accent'
+            | 'text.heading'
+            | 'text.body'
+            | 'text.muted'
+            | 'text.inverted'
+            | 'text.link'
+            | 'text.linkHover'
+            | 'surface.page'
+            | 'surface.surface'
+            | 'surface.surfaceAlt'
+            | 'surface.border'
+            | 'surface.overlay'
+            | 'state.success'
+            | 'state.warning'
+            | 'state.error'
+            | 'state.info'
+            | 'custom'
+            | 'none'
+          )
+        | null;
+      custom?: string | null;
+    };
+    radius?: ('none' | 'sm' | 'md' | 'lg' | 'full') | null;
+    button?: (number | null) | SiteComponent;
+  };
+  /**
+   * Zestaw kart z ikoną/zdjęciem, tytułem i krótkim opisem.
+   */
+  features?: {
+    items?:
+      | {
+          title: string;
+          text?: string | null;
+          image?: (number | null) | Media;
+          href?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    columns?: ('1' | '2' | '3' | '4') | null;
+    gap?: ('none' | 'sm' | 'md' | 'lg') | null;
+    cardBackground?: {
+      token?:
+        | (
+            | 'brand.primary'
+            | 'brand.primaryHover'
+            | 'brand.secondary'
+            | 'brand.secondaryHover'
+            | 'brand.accent'
+            | 'text.heading'
+            | 'text.body'
+            | 'text.muted'
+            | 'text.inverted'
+            | 'text.link'
+            | 'text.linkHover'
+            | 'surface.page'
+            | 'surface.surface'
+            | 'surface.surfaceAlt'
+            | 'surface.border'
+            | 'surface.overlay'
+            | 'state.success'
+            | 'state.warning'
+            | 'state.error'
+            | 'state.info'
+            | 'custom'
+            | 'none'
+          )
+        | null;
+      custom?: string | null;
+    };
+    cardBorder?: {
+      token?:
+        | (
+            | 'brand.primary'
+            | 'brand.primaryHover'
+            | 'brand.secondary'
+            | 'brand.secondaryHover'
+            | 'brand.accent'
+            | 'text.heading'
+            | 'text.body'
+            | 'text.muted'
+            | 'text.inverted'
+            | 'text.link'
+            | 'text.linkHover'
+            | 'surface.page'
+            | 'surface.surface'
+            | 'surface.surfaceAlt'
+            | 'surface.border'
+            | 'surface.overlay'
+            | 'state.success'
+            | 'state.warning'
+            | 'state.error'
+            | 'state.info'
+            | 'custom'
+            | 'none'
+          )
+        | null;
+      custom?: string | null;
+    };
+    titleColor?: {
+      token?:
+        | (
+            | 'brand.primary'
+            | 'brand.primaryHover'
+            | 'brand.secondary'
+            | 'brand.secondaryHover'
+            | 'brand.accent'
+            | 'text.heading'
+            | 'text.body'
+            | 'text.muted'
+            | 'text.inverted'
+            | 'text.link'
+            | 'text.linkHover'
+            | 'surface.page'
+            | 'surface.surface'
+            | 'surface.surfaceAlt'
+            | 'surface.border'
+            | 'surface.overlay'
+            | 'state.success'
+            | 'state.warning'
+            | 'state.error'
+            | 'state.info'
+            | 'custom'
+            | 'none'
+          )
+        | null;
+      custom?: string | null;
+    };
+    radius?: ('none' | 'sm' | 'md' | 'lg' | 'full') | null;
+  };
+  /**
+   * Identyfikator używany przy wstawianiu komponentu na stronę.
+   */
+  slug: string;
+  /**
+   * Gdzie i po co ten komponent jest używany.
+   */
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -460,6 +844,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'subscribers';
         value: number | Subscriber;
+      } | null)
+    | ({
+        relationTo: 'site-components';
+        value: number | SiteComponent;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -556,7 +944,17 @@ export interface CategoriesSelect<T extends boolean = true> {
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
+  title?: T;
   alt?: T;
+  isDecorative?: T;
+  caption?: T;
+  description?: T;
+  slug?: T;
+  tags?: T;
+  convertFormat?: T;
+  maxDimension?: T;
+  imageQuality?: T;
+  kind?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -686,6 +1084,153 @@ export interface SubscribersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-components_select".
+ */
+export interface SiteComponentsSelect<T extends boolean = true> {
+  name?: T;
+  type?: T;
+  button?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        newTab?: T;
+        variant?: T;
+        size?: T;
+        radius?: T;
+        fullWidth?: T;
+        background?:
+          | T
+          | {
+              token?: T;
+              custom?: T;
+            };
+        textColor?:
+          | T
+          | {
+              token?: T;
+              custom?: T;
+            };
+        borderColor?:
+          | T
+          | {
+              token?: T;
+              custom?: T;
+            };
+      };
+  hero?:
+    | T
+    | {
+        image?: T;
+        heading?: T;
+        subheading?: T;
+        height?: T;
+        align?: T;
+        overlayOpacity?: T;
+        radius?: T;
+        textColor?:
+          | T
+          | {
+              token?: T;
+              custom?: T;
+            };
+        ctaButton?: T;
+      };
+  carousel?:
+    | T
+    | {
+        slides?:
+          | T
+          | {
+              image?: T;
+              caption?: T;
+              href?: T;
+              id?: T;
+            };
+        slidesPerView?: T;
+        aspectRatio?: T;
+        radius?: T;
+        gap?: T;
+        autoplay?: T;
+        interval?: T;
+        showArrows?: T;
+        showDots?: T;
+        loop?: T;
+      };
+  gallery?:
+    | T
+    | {
+        images?: T;
+        columns?: T;
+        gap?: T;
+        aspectRatio?: T;
+        radius?: T;
+        lightbox?: T;
+        showCaptions?: T;
+      };
+  cta?:
+    | T
+    | {
+        heading?: T;
+        text?: T;
+        align?: T;
+        padding?: T;
+        background?:
+          | T
+          | {
+              token?: T;
+              custom?: T;
+            };
+        textColor?:
+          | T
+          | {
+              token?: T;
+              custom?: T;
+            };
+        radius?: T;
+        button?: T;
+      };
+  features?:
+    | T
+    | {
+        items?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              image?: T;
+              href?: T;
+              id?: T;
+            };
+        columns?: T;
+        gap?: T;
+        cardBackground?:
+          | T
+          | {
+              token?: T;
+              custom?: T;
+            };
+        cardBorder?:
+          | T
+          | {
+              token?: T;
+              custom?: T;
+            };
+        titleColor?:
+          | T
+          | {
+              token?: T;
+              custom?: T;
+            };
+        radius?: T;
+      };
+  slug?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -746,6 +1291,105 @@ export interface SiteSetting {
   createdAt?: string | null;
 }
 /**
+ * Paleta motywu stosowana na całej stronie. Kolory trafiają na front jako zmienne CSS (--bw-*).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "theme-colors".
+ */
+export interface ThemeColor {
+  id: number;
+  brand?: {
+    /**
+     * Podstawowy kolor marki (przyciski, aktywne elementy). Zmienna CSS: --bw-primary
+     */
+    primary?: string | null;
+    /**
+     * Zmienna CSS: --bw-primary-hover
+     */
+    primaryHover?: string | null;
+    /**
+     * Zmienna CSS: --bw-secondary
+     */
+    secondary?: string | null;
+    /**
+     * Zmienna CSS: --bw-secondary-hover
+     */
+    secondaryHover?: string | null;
+    /**
+     * Wyróżnienia, odznaki, elementy przyciągające wzrok. Zmienna CSS: --bw-accent
+     */
+    accent?: string | null;
+  };
+  text?: {
+    /**
+     * Zmienna CSS: --bw-text-heading
+     */
+    heading?: string | null;
+    /**
+     * Zmienna CSS: --bw-text-body
+     */
+    body?: string | null;
+    /**
+     * Zmienna CSS: --bw-text-muted
+     */
+    muted?: string | null;
+    /**
+     * Używany na przyciskach i sekcjach z ciemnym tłem. Zmienna CSS: --bw-text-inverted
+     */
+    inverted?: string | null;
+    /**
+     * Zmienna CSS: --bw-link
+     */
+    link?: string | null;
+    /**
+     * Zmienna CSS: --bw-link-hover
+     */
+    linkHover?: string | null;
+  };
+  surface?: {
+    /**
+     * Zmienna CSS: --bw-surface-page
+     */
+    page?: string | null;
+    /**
+     * Zmienna CSS: --bw-surface
+     */
+    surface?: string | null;
+    /**
+     * Zmienna CSS: --bw-surface-alt
+     */
+    surfaceAlt?: string | null;
+    /**
+     * Zmienna CSS: --bw-border
+     */
+    border?: string | null;
+    /**
+     * Kolor nakładki na hero i karuzelach (krycie ustawia komponent). Zmienna CSS: --bw-overlay
+     */
+    overlay?: string | null;
+  };
+  state?: {
+    /**
+     * Zmienna CSS: --bw-success
+     */
+    success?: string | null;
+    /**
+     * Zmienna CSS: --bw-warning
+     */
+    warning?: string | null;
+    /**
+     * Zmienna CSS: --bw-error
+     */
+    error?: string | null;
+    /**
+     * Zmienna CSS: --bw-info
+     */
+    info?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings_select".
  */
@@ -760,6 +1404,51 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   defaultMetaTitle?: T;
   defaultMetaDescription?: T;
   defaultOgImage?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "theme-colors_select".
+ */
+export interface ThemeColorsSelect<T extends boolean = true> {
+  brand?:
+    | T
+    | {
+        primary?: T;
+        primaryHover?: T;
+        secondary?: T;
+        secondaryHover?: T;
+        accent?: T;
+      };
+  text?:
+    | T
+    | {
+        heading?: T;
+        body?: T;
+        muted?: T;
+        inverted?: T;
+        link?: T;
+        linkHover?: T;
+      };
+  surface?:
+    | T
+    | {
+        page?: T;
+        surface?: T;
+        surfaceAlt?: T;
+        border?: T;
+        overlay?: T;
+      };
+  state?:
+    | T
+    | {
+        success?: T;
+        warning?: T;
+        error?: T;
+        info?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

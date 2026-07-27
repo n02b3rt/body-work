@@ -7,6 +7,7 @@ import { routing } from "@/i18n/routing";
 import { Header } from "@/components/centrum/Header";
 import { Footer } from "@/components/centrum/Footer";
 import { PromoBar } from "@/components/centrum/PromoBar";
+import { getThemeCss } from "@/lib/get-theme-colors";
 import "../globals.css";
 
 // Temporary stand-in for the real typeface (Circular Pro Book, a paid Lineto
@@ -39,9 +40,19 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   }
 
   const messages = await getMessages();
+  const themeCss = await getThemeCss();
 
   return (
     <html lang={locale} className={`${fontSans.variable} h-full antialiased`}>
+      <head>
+        {/* Palette from Wygląd → Schemat kolorów, as `--bw-*` custom properties on :root.
+          * `globals.css` aliases them into Tailwind colour tokens with static fallbacks, so
+          * an unsaved global or an unreachable database degrades to those rather than
+          * leaving the page unstyled. This block arrived with the media-library branch,
+          * which put it in the old `(frontend)/layout.tsx`; that route group no longer
+          * exists, so it lives here — the locale layout owns `<html>` now. */}
+        <style id="bw-theme">{themeCss}</style>
+      </head>
       <body className="flex min-h-full flex-col">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Header />
