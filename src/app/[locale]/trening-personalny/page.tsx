@@ -12,6 +12,7 @@ import { MediaCardCta } from "@/components/centrum/MediaCardCta";
 import { TestimonialCarousel, type Testimonial } from "@/components/centrum/TestimonialCarousel";
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { PersonalTrainingNav } from "@/components/centrum/PersonalTrainingNav";
+import { BlogTeasers } from "@/components/centrum/BlogTeasers";
 import { GALLERY_URL } from "@/lib/external-links";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -154,6 +155,7 @@ export default async function PersonalTrainingPage() {
           />
         </Container>
       </div>
+      <BlogTeasers category="trening" />
 
       <NewsletterSignup />
     </>

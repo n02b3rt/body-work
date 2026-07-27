@@ -1,4 +1,4 @@
-import { readdir } from "fs/promises";
+import { readdir, stat } from "fs/promises";
 import path from "path";
 import type { MetadataRoute } from "next";
 import { getPayload } from "payload";
@@ -18,14 +18,22 @@ import { SITE_URL, localePath } from "@/lib/metadata";
  *  result of clicking a link in an email, and carries `robots: noindex` to match. */
 const EXCLUDED = new Set(["/newsletter"]);
 
-async function staticRoutes(): Promise<string[]> {
+type StaticRoute = { route: string; lastModified: Date };
+
+async function staticRoutes(): Promise<StaticRoute[]> {
   const root = path.join(process.cwd(), "src", "app", "[locale]");
-  const found: string[] = [];
+  const found: StaticRoute[] = [];
 
   async function walk(dir: string, route: string) {
     const entries = await readdir(dir, { withFileTypes: true });
     if (entries.some((e) => e.isFile() && e.name === "page.tsx")) {
-      found.push(route || "/");
+      // The route file's own mtime. Every static route used to report `new Date()`, so all 27
+      // of them claimed to have changed on the current request, which is a freshness signal
+      // no crawler should believe and several are documented as discounting.
+      const mtime = await stat(path.join(dir, "page.tsx"))
+        .then((info) => info.mtime)
+        .catch(() => new Date());
+      found.push({ route: route || "/", lastModified: mtime });
     }
     for (const entry of entries) {
       if (!entry.isDirectory()) continue;
@@ -36,13 +44,16 @@ async function staticRoutes(): Promise<string[]> {
   }
 
   await walk(root, "");
-  return found.filter((route) => !EXCLUDED.has(route)).sort();
+  return found
+    .filter((item) => !EXCLUDED.has(item.route))
+    .sort((a, b) => a.route.localeCompare(b.route));
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const routes = await staticRoutes();
 
   let posts: { slug: string; updatedAt: string }[] = [];
+  let categories: string[] = [];
   try {
     const payload = await getPayload({ config });
     const result = await payload.find({
@@ -54,26 +65,57 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     posts = result.docs
       .filter((doc) => doc.slug)
       .map((doc) => ({ slug: doc.slug as string, updatedAt: doc.updatedAt }));
+
+    // Category archives are generated from the CMS too, so they belong here rather than in
+    // the filesystem walk, which only sees static folders.
+    const categoryResult = await payload.find({ collection: "categories", limit: 50, depth: 0 });
+    categories = categoryResult.docs.map((doc) => doc.slug).filter(Boolean) as string[];
   } catch {
     // A sitemap that lists the static pages is far better than a build that fails
     // because the database happens to be unreachable.
   }
 
-  const entry = (route: string, lastModified?: string, priority = 0.7) => ({
+  const entry = (
+    route: string,
+    lastModified: Date,
+    priority = 0.7,
+    /** Posts are Polish on both locales, so listing an English alternate for them would
+     *  repeat the `hreflang` mistake the post pages just had removed. */
+    bilingual = true,
+  ) => ({
     url: `${SITE_URL}${localePath(routing.defaultLocale, route)}`,
-    lastModified: lastModified ? new Date(lastModified) : new Date(),
+    lastModified,
     changeFrequency: "monthly" as const,
     priority,
-    alternates: {
-      languages: Object.fromEntries(
-        routing.locales.map((locale) => [locale, `${SITE_URL}${localePath(locale, route)}`]),
-      ),
-    },
+    ...(bilingual
+      ? {
+          alternates: {
+            languages: Object.fromEntries(
+              routing.locales.map((locale) => [
+                locale,
+                `${SITE_URL}${localePath(locale, route)}`,
+              ]),
+            ),
+          },
+        }
+      : {}),
   });
 
+  const home = routes.find((item) => item.route === "/");
+  // An archive is as fresh as the newest post it lists.
+  const newest = posts.reduce<Date>(
+    (latest, post) => (new Date(post.updatedAt) > latest ? new Date(post.updatedAt) : latest),
+    new Date(0),
+  );
+
   return [
-    entry("/", undefined, 1),
-    ...routes.filter((route) => route !== "/").map((route) => entry(route)),
-    ...posts.map((post) => entry(`/blog/${post.slug}`, post.updatedAt, 0.5)),
+    entry("/", home?.lastModified ?? new Date(), 1),
+    ...routes
+      .filter((item) => item.route !== "/")
+      .map((item) => entry(item.route, item.lastModified)),
+    ...categories.map((slug) => entry(`/blog/kategoria/${slug}`, newest, 0.6, false)),
+    ...posts.map((post) =>
+      entry(`/blog/${post.slug}`, new Date(post.updatedAt), 0.5, false),
+    ),
   ];
 }

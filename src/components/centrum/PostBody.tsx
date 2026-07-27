@@ -32,6 +32,9 @@ const converters: JSXConvertersFunction = ({ defaultConverters }) => ({
         height={image.height ?? 800}
         sizes="(min-width: 1440px) 1376px, (min-width: 1024px) calc(100vw - 4rem), 100vw"
         className="h-auto w-full"
+        {...(image.blurDataURL
+          ? { placeholder: "blur" as const, blurDataURL: image.blurDataURL }
+          : {})}
       />
     );
   },

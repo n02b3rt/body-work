@@ -29,6 +29,10 @@ type PageMetadataArgs = {
   description?: string;
   /** Site-relative or absolute; converted to absolute for OG. */
   image?: string | null;
+  /** Intrinsic size of `image`. Facebook and LinkedIn render a card more reliably when the
+   *  dimensions are declared, instead of having to fetch the file to find them. */
+  imageWidth?: number | null;
+  imageHeight?: number | null;
   type?: "website" | "article";
   publishedTime?: string | null;
   modifiedTime?: string | null;
@@ -58,6 +62,8 @@ export function pageMetadata({
   title,
   description,
   image,
+  imageWidth,
+  imageHeight,
   type = "website",
   publishedTime,
   modifiedTime,
@@ -65,7 +71,13 @@ export function pageMetadata({
   authors,
   singleLanguage = false,
 }: PageMetadataArgs): Metadata {
-  const url = `${SITE_URL}${localePath(locale, path)}`;
+  // `singleLanguage` means the text exists in one language only, so every locale's URL is
+  // serving the same words. Pointing them all at the default locale's URL consolidates the
+  // ranking signals there instead of leaving near-duplicates competing. Removing the
+  // `hreflang` pair alone was not enough: /en/blog/<slug> still self-canonicalised.
+  const canonicalLocale = singleLanguage ? routing.defaultLocale : locale;
+  const url = `${SITE_URL}${localePath(canonicalLocale, path)}`;
+  const pageUrl = `${SITE_URL}${localePath(locale, path)}`;
   const ogImage = image
     ? image.startsWith("http")
       ? image
@@ -93,10 +105,17 @@ export function pageMetadata({
       type,
       siteName: SITE_NAME,
       locale: locale === "pl" ? "pl_PL" : "en_GB",
-      url,
+      // og:url names the page being viewed; the canonical above names the one to index.
+      url: pageUrl,
       title,
       ...(description ? { description } : {}),
-      images: [{ url: ogImage }],
+      images: [
+        {
+          url: ogImage,
+          ...(imageWidth ? { width: imageWidth } : {}),
+          ...(imageHeight ? { height: imageHeight } : {}),
+        },
+      ],
       ...(publishedTime ? { publishedTime } : {}),
       ...(modifiedTime ? { modifiedTime } : {}),
       ...(section ? { section } : {}),

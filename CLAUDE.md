@@ -63,6 +63,10 @@ Check here before building anything: don't duplicate what exists.
 | Blog (listing + post) | `src/app/[locale]/blog/` | Reads Payload's Local API; `BlogList` does the category/search filtering client-side, renders the newest post as the reference's featured card, and prints **no dates** |
 | Repairing imported blog data | `scripts/fix-blog-from-reference.ts` | The import took thumbnail/excerpt/date from the article body, all three were wrong. This reads the listing's own metadata instead. `DRY=1` to preview (**not** `--dry`, see `docs/architecture.md`) |
 | Media sizing / compression | `src/collections/Media.ts`, `src/lib/compress-media.ts` | Uploads are downscaled to a 2560px long edge and converted to WebP; four `imageSizes` (thumbnail/card/content/hero) are generated |
+| Category archives | `src/app/[locale]/blog/kategoria/[slug]/` | Static, one per category, in the sitemap. An addition: the reference filters client-side only |
+| Shared post card | `src/components/centrum/PostCard.tsx` | Used by the archives and the "read next" block. The listing keeps its own copy, which carries the grid divider borders |
+| Blog teasers on service pages | `src/components/centrum/BlogTeasers.tsx` | Three posts from a matching category at the foot of five service pages |
+| Image placeholders (LQIP) | `scripts/import-blur-placeholders.ts`, `blurDataURL` on Media | Harvested from the mirror's own `<picture>` backgrounds. 189/230 covered |
 | Structured data (JSON-LD) | `src/lib/structured-data.ts` | `HealthAndBeautyBusiness` sitewide, `BlogPosting` + `BreadcrumbList` per post. Rendered via `dangerouslySetInnerHTML`, which is the documented App Router way |
 | RSS feed | `src/app/feed.xml/route.ts` | Polish only, deliberately. Lives outside `[locale]` so no locale prefix is negotiated onto it |
 | Page metadata / SEO | `src/lib/metadata.ts`, each route's `generateMetadata` | One helper builds the title, canonical, `hreflang` pair, Open Graph and Twitter tags. Every route has its own title, they were all identical before |

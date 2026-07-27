@@ -9,6 +9,7 @@ import { TextMedia } from "@/components/centrum/TextMedia";
 import { TestimonialCarousel, type Testimonial } from "@/components/centrum/TestimonialCarousel";
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { GroupTrainingNav } from "@/components/centrum/GroupTrainingNav";
+import { BlogTeasers } from "@/components/centrum/BlogTeasers";
 import { SCHEDULE_URL } from "@/lib/external-links";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -92,6 +93,7 @@ export default async function GroupTrainingPage() {
       </section>
 
       <TestimonialCarousel heading={t("testimonialsHeading")} items={t.raw("testimonials") as Testimonial[]} />
+      <BlogTeasers category="trening" />
 
       <NewsletterSignup />
     </>

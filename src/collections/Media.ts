@@ -146,6 +146,16 @@ export const Media: CollectionConfig = {
   },
   fields: [
     {
+      name: 'blurDataURL',
+      type: 'textarea',
+      label: 'Placeholder (LQIP)',
+      admin: {
+        readOnly: true,
+        description: 'Rozmyta miniatura w base64, używana podczas ładowania zdjęcia.',
+        position: 'sidebar',
+      },
+    },
+    {
       type: 'tabs',
       tabs: [
         {
@@ -299,6 +309,14 @@ export const Media: CollectionConfig = {
       ],
     },
   ],
+  // Low-quality image placeholder, as a base64 data URI, for `next/image`'s
+  // `placeholder="blur"`. The reference site ships one of these per image in its own
+  // metadata, so the imported posts get theirs for free; see
+  // `scripts/import-blur-placeholders.ts`. Anything uploaded later simply has none, and
+  // `next/image` falls back to no placeholder.
+  //
+  // Read-only in the panel: it is derived data, and a 300-character data URI in an editable
+  // field is only ever going to be pasted over by accident.
   upload: {
     mimeTypes: ['image/*', 'video/*', 'application/pdf'],
     // Payload generates these with sharp on upload, so the frontend can ask for a size

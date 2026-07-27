@@ -29,16 +29,27 @@ export type SizeName = "thumbnail" | "card" | "content" | "hero";
  * A size is missing whenever the upload was narrower than its target width, see
  * `withoutEnlargement` on the Media collection.
  */
+export type ResolvedMedia = {
+  url: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  /** Base64 LQIP for `next/image`'s `placeholder="blur"`, when one was imported. */
+  blurDataURL?: string;
+};
+
 export function mediaFrom(
   value: unknown,
   preferred: SizeName,
   fallbackAlt = "",
-): { url: string; alt: string; width?: number; height?: number } | null {
+): ResolvedMedia | null {
   if (!value || typeof value !== "object") return null;
   const media = value as Media;
 
   const order: SizeName[] = ["hero", "content", "card", "thumbnail"];
   const candidates = [preferred, ...order.filter((name) => name !== preferred)];
+
+  const blurDataURL = typeof media.blurDataURL === "string" ? media.blurDataURL : undefined;
 
   for (const name of candidates) {
     const size = media.sizes?.[name];
@@ -49,6 +60,7 @@ export function mediaFrom(
         alt: media.alt || fallbackAlt,
         width: size?.width ?? undefined,
         height: size?.height ?? undefined,
+        blurDataURL,
       };
     }
   }
@@ -60,6 +72,7 @@ export function mediaFrom(
         alt: media.alt || fallbackAlt,
         width: media.width ?? undefined,
         height: media.height ?? undefined,
+        blurDataURL,
       }
     : null;
 }

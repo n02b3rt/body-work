@@ -15,7 +15,9 @@ export type BlogCard = {
   readingMinutes?: number | null;
   authorName?: string | null;
   categoryIds: string[];
-  image?: { url: string; alt: string } | null;
+  /** `blurDataURL` is the reference's own LQIP, imported by
+   *  `scripts/import-blur-placeholders.ts`; absent on anything uploaded since. */
+  image?: { url: string; alt: string; blurDataURL?: string } | null;
 };
 
 export type BlogCategory = { id: string; title: string };
@@ -265,6 +267,9 @@ export function BlogList({
                   priority
                   sizes="(min-width: 1060px) 50vw, 100vw"
                   className="object-cover"
+                  {...(featured.image.blurDataURL
+                    ? { placeholder: "blur" as const, blurDataURL: featured.image.blurDataURL }
+                    : {})}
                 />
               </div>
             ) : null}
@@ -306,6 +311,9 @@ export function BlogList({
                       // The breakpoint is 1024px because the grid goes three-up at `lg`.
                       sizes="(min-width: 1440px) 480px, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      {...(post.image.blurDataURL
+                        ? { placeholder: "blur" as const, blurDataURL: post.image.blurDataURL }
+                        : {})}
                     />
                   </div>
                 ) : null}

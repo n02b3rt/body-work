@@ -1658,7 +1658,13 @@
     "shownCount": "Widzisz {shown} z {total} wpisów",
     "metaDescription": "Artykuły o treningu, fizjoterapii, dietetyce i masażu, pisane przez zespół BODYWORK.",
     "relatedHeading": "Przeczytaj również",
-    "breadcrumbHome": "Strona główna"
+    "breadcrumbHome": "Strona główna",
+    "categoryTitle": "{category} na blogu BODYWORK",
+    "categoryDescription": "Wszystkie artykuły o {category} od zespołu BODYWORK.",
+    "categoryCount": "{count, plural, =0 {Brak wpisów w tej kategorii.} one {Jeden wpis o {category}.} few {# wpisy o {category}.} other {# wpisów o {category}.}}",
+    "categoriesHeading": "Kategorie",
+    "fromTheBlog": "Z naszego bloga",
+    "moreIn": "Więcej o {category}"
   },
   "Errors": {
     "notFoundCode": "404",

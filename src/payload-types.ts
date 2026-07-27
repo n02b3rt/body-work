@@ -158,6 +158,10 @@ export interface Author {
 export interface Media {
   id: number;
   /**
+   * Rozmyta miniatura w base64, używana podczas ładowania zdjęcia.
+   */
+  blurDataURL?: string | null;
+  /**
    * Nazwa wyświetlana w bibliotece. Domyślnie z nazwy pliku.
    */
   title?: string | null;
@@ -944,6 +948,7 @@ export interface CategoriesSelect<T extends boolean = true> {
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
+  blurDataURL?: T;
   title?: T;
   alt?: T;
   isDecorative?: T;

@@ -1658,7 +1658,13 @@
     "shownCount": "Showing {shown} of {total} posts",
     "metaDescription": "Articles on training, physiotherapy, nutrition and massage, written by the BODYWORK team.",
     "relatedHeading": "Read next",
-    "breadcrumbHome": "Home"
+    "breadcrumbHome": "Home",
+    "categoryTitle": "{category} on the BODYWORK blog",
+    "categoryDescription": "Every article on {category} from the BODYWORK team.",
+    "categoryCount": "{count, plural, =0 {No posts in this category yet.} one {One post on {category}.} other {# posts on {category}.}}",
+    "categoriesHeading": "Categories",
+    "fromTheBlog": "From our blog",
+    "moreIn": "More on {category}"
   },
   "Errors": {
     "notFoundCode": "404",

@@ -11,6 +11,7 @@ import { MediaCardCta } from "@/components/centrum/MediaCardCta";
 import { TestimonialCarousel, type Testimonial } from "@/components/centrum/TestimonialCarousel";
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { PhysiotherapyNav } from "@/components/centrum/PhysiotherapyNav";
+import { BlogTeasers } from "@/components/centrum/BlogTeasers";
 import { GALLERY_URL } from "@/lib/external-links";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -125,6 +126,7 @@ export default async function PhysiotherapyPage() {
           </div>
         </Container>
       </section>
+      <BlogTeasers category="fizjoterapia" />
 
       <NewsletterSignup />
     </>
