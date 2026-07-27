@@ -1630,5 +1630,18 @@
     "backToBlog": "Back to the blog",
     "author": "Author",
     "publishedOn": "Published"
+  },
+  "Errors": {
+    "notFoundCode": "404",
+    "notFoundHeading": "This page isn't here.",
+    "notFoundBody": "The address may have changed, or the link has simply aged. Below are the places people visit most — or just call reception and we'll point you the right way.",
+    "errorCode": "Error",
+    "errorHeading": "Something on our side didn't work.",
+    "errorBody": "This isn't your fault. Try reloading — and if it happens again, tell us and we'll look into it.",
+    "tryAgain": "Try again",
+    "goHome": "Home page",
+    "usefulLinks": "Useful pages",
+    "errorReference": "Reference",
+    "globalTitle": "Error — BODYWORK Centrum"
   }
 }

@@ -44,9 +44,9 @@ URL coverage: **27 of 32** content pages built; **62 of 62** blog posts in the d
 
 ### Gaps, worst first
 
-Items 2–5 were fixed on 2026-07-27 and are struck through below. **1 and 6 remain open**:
-the newsletter form still discards addresses (blocked on a decision — own `Subscribers`
-collection or an external service), and the 404 page is still Next's default.
+Items 2–6 were fixed on 2026-07-27 and are struck through below. **Only 1 remains open**:
+the newsletter form still discards addresses, blocked on a decision — own `Subscribers`
+collection or an external service.
 
 | # | Gap | Why it matters |
 |---|---|---|
@@ -55,7 +55,30 @@ collection or an external service), and the 404 page is still Next's default.
 | 3 | ~~No `sitemap.xml`~~ — **fixed 2026-07-27.** `src/app/sitemap.ts` emits **89 URLs** (27 pages + 62 posts) with `hreflang` pairs for both locales. Static routes are discovered by walking `src/app/[locale]` so the list can't drift; posts come from Payload, and a database outage degrades to the static pages rather than failing the build | — |
 | 4 | ~~No `robots.txt`~~ — **fixed 2026-07-27.** Allows everything except `/admin` and `/api/`, and points at the sitemap | — |
 | 5 | ~~No Open Graph tags~~ — **fixed 2026-07-27.** Seven `og:*` plus four `twitter:*` tags per page, canonical and `hreflang`. A post with a featured image uses it; the rest fall back to a real brand photo. Posts also carry `og:type=article` and `article:published_time` | — |
-| 6 | **The 404 page is Next's default** — no header, footer or branding | A visitor who mistypes a URL lands outside the site |
+| 6 | ~~The 404 page is Next's default~~ — **fixed 2026-07-27.** Branded 404, a `[locale]/error.tsx` boundary and a root `global-error.tsx`. See the note below | — |
+
+### Error pages — how they had to be wired
+
+Three surfaces: `[locale]/not-found.tsx` (404), `[locale]/error.tsx` (render failures, with
+a retry button) and `app/global-error.tsx` (a failure in the locale layout itself, so it
+brings its own `<html>`, styles and font).
+
+Two things about this app's shape made it harder than it looks, both worth knowing:
+
+1. **An unmatched URL never reached our 404.** With no root layout — `[locale]` and
+   `(payload)` deliberately own their own `<html>` — Next resolves an unmatched path
+   against the *root* `not-found`, which doesn't exist here, so visitors got the unstyled
+   built-in. Fixed with a `[locale]/[...rest]` catch-all that calls `notFound()`, since a
+   `notFound()` raised inside the segment *does* resolve to the segment's boundary.
+   Next's `global-not-found` would cover this too but is still behind an experimental flag.
+2. **`not-found.tsx` has to be a Client Component.** Both `getTranslations()` and
+   `getTranslations({ locale: await getLocale() })` throw inside a not-found boundary — the
+   request locale is never established for one — and when the file throws, Next silently
+   substitutes its own blank 404. That failure is indistinguishable from "the boundary
+   isn't wired up", which cost real time to diagnose. `useTranslations` works because the
+   locale layout still renders around it. Trade-off: the copy is hydrated rather than
+   server-rendered, so the initial HTML is empty. Acceptable — the 404 **status** is what
+   crawlers act on, and the page renders fully for every real visitor.
 
 ### Checked and *not* a gap
 

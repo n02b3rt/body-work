@@ -64,6 +64,7 @@ Check here before building anything — don't duplicate what exists.
 | Media sizing / compression | `src/collections/Media.ts`, `src/lib/compress-media.ts` | Uploads are downscaled to a 2560px long edge and converted to WebP; four `imageSizes` (thumbnail/card/content/hero) are generated |
 | Page metadata / SEO | `src/lib/metadata.ts`, each route's `generateMetadata` | One helper builds the title, canonical, `hreflang` pair, Open Graph and Twitter tags. Every route has its own title — they were all identical before |
 | Sitemap + robots | `src/app/sitemap.ts`, `src/app/robots.ts` | The sitemap discovers static routes by walking `src/app/[locale]` and pulls posts from Payload, so it can't drift when a page is added |
+| Error pages | `src/app/[locale]/not-found.tsx`, `error.tsx`, `src/app/global-error.tsx`, `[locale]/[...rest]/` | The catch-all and the client-component 404 are both load-bearing — read the note in `docs/migration-tracker.md` before touching them |
 | Off-site link targets | `src/lib/external-links.ts` | eFitness schedule, socials, and the gallery target — **read the `GALLERY_URL` note**: the reference links four buttons at a `/galeria` page that doesn't exist |
 | Centrum components | `src/components/centrum/` | Header, Footer, Hero, PromoBar and the other section blocks — reuse before adding new ones, see `docs/conventions.md` |
 | Payload CMS admin + API | `src/app/(payload)/` | Admin UI only on dashboard host; REST/GraphQL under `/api` |

@@ -1630,5 +1630,18 @@
     "backToBlog": "Wróć na blog",
     "author": "Autor",
     "publishedOn": "Opublikowano"
+  },
+  "Errors": {
+    "notFoundCode": "404",
+    "notFoundHeading": "Tej strony tu nie ma.",
+    "notFoundBody": "Adres mógł się zmienić, a link zestarzeć. Poniżej znajdziesz najczęściej odwiedzane miejsca — albo po prostu zadzwoń do recepcji, podpowiemy.",
+    "errorCode": "Błąd",
+    "errorHeading": "Coś po naszej stronie nie zadziałało.",
+    "errorBody": "To nie Twoja wina. Spróbuj odświeżyć — jeśli problem wróci, daj nam znać, a zajmiemy się tym.",
+    "tryAgain": "Spróbuj ponownie",
+    "goHome": "Strona główna",
+    "usefulLinks": "Przydatne strony",
+    "errorReference": "Numer zgłoszenia",
+    "globalTitle": "Błąd — BODYWORK Centrum"
   }
 }
