@@ -77,6 +77,8 @@ Record deliberate choices so nobody re-litigates them a month later without caus
 
 - **`payload run` strips extra argv.** `process.argv` inside a script contains only the node binary and Payload's `bin.js`, so a `--dry` style flag silently reads as absent — a "dry run" of `scripts/fix-blog-from-reference.ts` wrote all 62 posts before this was understood. Pass switches as environment variables (`DRY=1 pnpm payload run …`) and print the active mode at startup.
 
+- **A programmatic scroll does not drive `IntersectionObserver` in the browser-automation context.** `window.scrollTo(...)` evaluated through the extension moves `scrollY` and reflows, but no observer callback is delivered — not even the initial one the spec guarantees on `observe()`. This cost real time on the blog listing's lazy rendering: a hand-attached probe observer logged **zero** events, which reads exactly like a broken effect. Verifying with a real scroll (the `computer` tool's scroll action) revealed the code had been correct all along. **When checking anything driven by an observer, use real input events.**
+
 ## Integrations / external dependencies
 
 - **Centrum design reference:** `https://bodywork.testowe.eu` — mirrored by `scripts/scrape/scrape_site.py`; itself a page-builder export, not final design (PRD §6.2) — treat as structural/visual reference only.

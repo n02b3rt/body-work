@@ -1653,7 +1653,9 @@
     "readMore": "Przeczytaj",
     "backToBlog": "Wróć na blog",
     "author": "Autor",
-    "publishedOn": "Opublikowano"
+    "publishedOn": "Opublikowano",
+    "loadMore": "Pokaż więcej wpisów",
+    "shownCount": "Widzisz {shown} z {total} wpisów"
   },
   "Errors": {
     "notFoundCode": "404",
