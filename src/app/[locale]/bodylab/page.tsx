@@ -7,8 +7,15 @@ import { Link } from "@/i18n/navigation";
 import { PageHero } from "@/components/centrum/PageHero";
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { BodylabNav } from "@/components/centrum/BodylabNav";
+import { pageMetadata } from "@/lib/metadata";
 
 type Tool = { eyebrow: string; heading: string; body: string; image: string; href?: string };
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Bodylab" });
+  return pageMetadata({ locale, path: "/bodylab", title: t("title") });
+}
 
 export default async function BodylabPage() {
   const t = await getTranslations("Bodylab");

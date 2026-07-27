@@ -5,6 +5,13 @@ import { buttonClasses } from "@/components/ui/Button";
 import { PageHero } from "@/components/centrum/PageHero";
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { GroupTrainingNav } from "@/components/centrum/GroupTrainingNav";
+import { pageMetadata } from "@/lib/metadata";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Medicover" });
+  return pageMetadata({ locale, path: "/trening-grupowy/medicover", title: t("title") });
+}
 
 export default async function MedicoverPage() {
   const t = await getTranslations("Medicover");

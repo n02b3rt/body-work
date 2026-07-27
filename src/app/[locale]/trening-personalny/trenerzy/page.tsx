@@ -6,9 +6,16 @@ import { PageHero } from "@/components/centrum/PageHero";
 import { CenteredBand } from "@/components/centrum/CenteredBand";
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { PersonalTrainingNav } from "@/components/centrum/PersonalTrainingNav";
+import { pageMetadata } from "@/lib/metadata";
 
 type Trainer = { name: string; specialisation: string; bio: string; image: string };
 type Category = { heading: string; body: string; image: string; trainers: Trainer[] };
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Trainers" });
+  return pageMetadata({ locale, path: "/trening-personalny/trenerzy", title: t("title") });
+}
 
 export default async function TrainersPage() {
   const t = await getTranslations("Trainers");

@@ -1,6 +1,13 @@
 import { getTranslations } from "next-intl/server";
 import { PageHero } from "@/components/centrum/PageHero";
 import { MeetUsCta } from "@/components/centrum/MeetUsCta";
+import { pageMetadata } from "@/lib/metadata";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Footer" });
+  return pageMetadata({ locale, path: "/kontakt", title: t("kontaktHeading") });
+}
 
 /**
  * The reference's `/kontakt` has **no content of its own** — its `<main>` holds nothing

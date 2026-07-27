@@ -82,13 +82,13 @@ Per PRD §9 — "zero abonamentów SaaS tam, gdzie istnieje dojrzała alternatyw
 | Reverse proxy / TLS | Caddy or Traefik + Let's Encrypt |
 | Media storage | MinIO / Hetzner Object Storage |
 | Backups | restic → Hetzner Storage Box |
-| Newsletter | Listmonk (self-hosted) |
+| Newsletter | **Resend** delivers; the list lives in our own Postgres (`subscribers`). Listmonk deferred — see below |
 | Analytics | Umami (self-hosted, cookieless) + GTM/GA4/Meta Pixel behind consent |
 | Monitoring | Uptime Kuma |
 | Error tracking | GlitchTip (Sentry-SDK compatible) |
 | CDN/DNS/WAF | Cloudflare Free |
 | Payments | Przelewy24 (paid by necessity — commission only, no subscription) |
-| Transactional email | SMTP relay |
+| Transactional email | **Resend** (this is the "SMTP relay" the PRD already exempts from self-hosting) |
 
 Full picture: `PRD.md` §7 and §9.
 
@@ -100,3 +100,38 @@ A stack note floating outside the PRD mentioned NeonDB and Prisma. Checked again
 - **Prisma → rejected.** Payload already owns the database schema, migrations, and query layer via its Local API. A second ORM touching the same Postgres instance is redundant and a migration-conflict risk. If a genuinely separate data need shows up later (e.g. a reporting layer outside Payload's collections), raise it as a new proposal — don't reintroduce Prisma by default.
 
 See [`architecture.md`](./architecture.md) → Key decisions for the dated log entry.
+
+## Email: Resend, and why it doesn't break the self-hosting rule (2026-07-27)
+
+Approved by the user: *"ogólnie będziemy robić to przez bramkę resenda"*.
+
+`PRD.md` §9 makes self-hosting cardinal, and this table used to say Newsletter = Listmonk.
+Resend does not contradict that, for one reason worth stating plainly: **the PRD already
+exempts the mail relay** ("everything below runs on the Hetzner VPS except the payment
+gateway, SMTP relay, and domains/VPS"). Outbound mail is the one piece where self-hosting
+actively loses — deliverability depends on IP reputation built over years, and a fresh VPS
+IP lands in spam folders. So the relay was always going to be somebody else's.
+
+What *would* have broken the rule is letting Resend own the subscriber list. It doesn't:
+
+- **The list is a Payload collection (`subscribers`) in our Postgres.** The RODO consent
+  record — confirmation token, timestamp, IP — is therefore ours, which is the only place it
+  is any use if someone asks us to prove consent.
+- **Listmonk is deferred, not rejected.** It is a list manager and campaign composer; it
+  still needs a relay underneath, and that relay would be Resend. So this is the layer
+  Listmonk would sit on, not an alternative to it. Adding it later is an export/import
+  because we hold the data.
+- **No SDK.** `src/lib/email.ts` is one `fetch` to `api.resend.com`, so swapping the relay
+  (SES, a plain SMTP host, Listmonk's own sender) is a change to one file. **No new
+  dependency was added for any of this** — including Payload's email adapter, which is
+  hand-rolled in `src/lib/payload-email.ts` rather than pulling `@payloadcms/email-resend`
+  to do what `email.ts` already does.
+
+**Before mail can actually go out, two things need doing by hand** (neither is a code task):
+verify `body-work.pl` in Resend by adding its DKIM and SPF records in Cloudflare, and put
+the API key in `.env` as `RESEND_API_KEY`. Until then Resend will only send from
+`onboarding@resend.dev` to the account owner's own address. **With no key set, mail is
+logged to the server console instead of sent** — deliberate, so the flow is testable in dev
+and a missing key in production is a visible log rather than a 500.
+
+| jsdom | **devDependency only.** Required by Payload's own `convertHTMLToLexical`, which takes a `JSDOM` constructor as an argument rather than bundling a DOM. Used by `scripts/import-blog.ts` to migrate the scraped articles; never imported by the app. Approved 2026-07-27. **Pinned to `^26`** — jsdom 30 pulls an ESM-only transitive dependency that Payload's tsx-based script runner loads via `require()`, which fails with `ERR_REQUIRE_ESM`. |

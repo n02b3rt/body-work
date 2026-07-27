@@ -145,8 +145,32 @@
     "placeholder": "Wpisz tutaj swój e-mail...",
     "submit": "Zapisz się",
     "consent": "Wysłanie wiadomości jest równoznaczne z akceptacją <link>regulaminu</link>.",
-    "success": "Zostałeś pomyślnie dodany do naszego newslettera.",
-    "error": "Coś poszło nie tak. Spróbuj ponownie."
+    "sending": "Wysyłanie...",
+    "success": "Sprawdź skrzynkę — wysłaliśmy Ci link, który potwierdza zapis.",
+    "error": "Coś poszło nie tak. Spróbuj ponownie.",
+    "errorInvalid": "Ten adres e-mail wygląda na niepoprawny.",
+    "errorRateLimited": "Za dużo prób z tego miejsca. Spróbuj ponownie później."
+  },
+  "NewsletterStatus": {
+    "metaTitle": "Newsletter",
+    "backHome": "Strona główna",
+    "readBlog": "Czytaj blog",
+    "confirmedCode": "Gotowe",
+    "confirmedHeading": "Jesteś na liście.",
+    "confirmedBody": "Zapis potwierdzony. Będziemy pisać wtedy, kiedy mamy coś do powiedzenia — bez zalewania skrzynki. Wypisać się możesz jednym kliknięciem w każdej wiadomości.",
+    "unsubscribedCode": "Wypisano",
+    "unsubscribedHeading": "Już Cię nie ma na liście.",
+    "unsubscribedBody": "Twój adres został wypisany z newslettera i nie wyślemy na niego nic więcej. Jeśli zmienisz zdanie, zapisz się ponownie na stronie głównej.",
+    "confirmCode": "Wypis",
+    "confirmHeading": "Wypisać Cię z newslettera?",
+    "confirmBody": "Nic jeszcze nie zmieniliśmy — potwierdź, żeby usunąć swój adres z listy.",
+    "confirmButton": "Tak, wypisz mnie",
+    "invalidCode": "Link",
+    "invalidHeading": "Ten link już nie działa.",
+    "invalidBody": "Mógł zostać użyty wcześniej albo wygasnąć. Jeśli chcesz zapisać się do newslettera, zrób to jeszcze raz na stronie głównej.",
+    "errorCode": "Błąd",
+    "errorHeading": "Coś się nie udało.",
+    "errorBody": "Nie mogliśmy przetworzyć tego linku. Spróbuj ponownie za chwilę albo napisz do nas na info@body-work.pl."
   },
   "Partners": {
     "heading": "Nasi partnerzy"
@@ -1617,5 +1641,31 @@
     "trainersCta": "Poznaj trenerów",
     "spaceHeading": "Przestrzeń.",
     "spaceCta": "Zobacz"
+  },
+  "Blog": {
+    "title": "Blog",
+    "allCategories": "Wybierz kategorię",
+    "searchLabel": "Szukaj",
+    "searchPlaceholder": "Wyszukaj...",
+    "empty": "Niestety, żaden wpis nie pasuje do Twoich kryteriów.",
+    "noPosts": "Nie ma jeszcze żadnych wpisów.",
+    "readingTime": "{minutes} min",
+    "readMore": "Przeczytaj",
+    "backToBlog": "Wróć na blog",
+    "author": "Autor",
+    "publishedOn": "Opublikowano"
+  },
+  "Errors": {
+    "notFoundCode": "404",
+    "notFoundHeading": "Tej strony tu nie ma.",
+    "notFoundBody": "Adres mógł się zmienić, a link zestarzeć. Poniżej znajdziesz najczęściej odwiedzane miejsca — albo po prostu zadzwoń do recepcji, podpowiemy.",
+    "errorCode": "Błąd",
+    "errorHeading": "Coś po naszej stronie nie zadziałało.",
+    "errorBody": "To nie Twoja wina. Spróbuj odświeżyć — jeśli problem wróci, daj nam znać, a zajmiemy się tym.",
+    "tryAgain": "Spróbuj ponownie",
+    "goHome": "Strona główna",
+    "usefulLinks": "Przydatne strony",
+    "errorReference": "Numer zgłoszenia",
+    "globalTitle": "Błąd — BODYWORK Centrum"
   }
 }

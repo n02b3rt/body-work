@@ -145,8 +145,32 @@
     "placeholder": "Enter your email here...",
     "submit": "Sign up",
     "consent": "By sending this you agree to our <link>terms and conditions</link>.",
-    "success": "You've been successfully added to our newsletter.",
-    "error": "Something went wrong. Please try again."
+    "sending": "Sending...",
+    "success": "Check your inbox — we've sent you a link to confirm the signup.",
+    "error": "Something went wrong. Please try again.",
+    "errorInvalid": "That email address doesn't look right.",
+    "errorRateLimited": "Too many attempts from here. Please try again later."
+  },
+  "NewsletterStatus": {
+    "metaTitle": "Newsletter",
+    "backHome": "Home",
+    "readBlog": "Read the blog",
+    "confirmedCode": "Done",
+    "confirmedHeading": "You're on the list.",
+    "confirmedBody": "Signup confirmed. We'll write when we actually have something to say — no inbox flooding. You can unsubscribe with one click in any message.",
+    "unsubscribedCode": "Removed",
+    "unsubscribedHeading": "You're off the list.",
+    "unsubscribedBody": "Your address has been unsubscribed and we won't send anything else to it. If you change your mind, sign up again from the homepage.",
+    "confirmCode": "Unsubscribe",
+    "confirmHeading": "Unsubscribe from the newsletter?",
+    "confirmBody": "Nothing has changed yet — confirm to remove your address from the list.",
+    "confirmButton": "Yes, unsubscribe me",
+    "invalidCode": "Link",
+    "invalidHeading": "This link no longer works.",
+    "invalidBody": "It may already have been used, or it expired. If you'd like to subscribe, please sign up again from the homepage.",
+    "errorCode": "Error",
+    "errorHeading": "That didn't work.",
+    "errorBody": "We couldn't process this link. Try again in a moment, or email us at info@body-work.pl."
   },
   "Partners": {
     "heading": "Our partners"
@@ -1617,5 +1641,31 @@
     "trainersCta": "Meet the trainers",
     "spaceHeading": "The space.",
     "spaceCta": "See it"
+  },
+  "Blog": {
+    "title": "Blog",
+    "allCategories": "Choose a category",
+    "searchLabel": "Search",
+    "searchPlaceholder": "Search...",
+    "empty": "Sorry, no post matches your criteria.",
+    "noPosts": "There are no posts yet.",
+    "readingTime": "{minutes} min",
+    "readMore": "Read more",
+    "backToBlog": "Back to the blog",
+    "author": "Author",
+    "publishedOn": "Published"
+  },
+  "Errors": {
+    "notFoundCode": "404",
+    "notFoundHeading": "This page isn't here.",
+    "notFoundBody": "The address may have changed, or the link has simply aged. Below are the places people visit most — or just call reception and we'll point you the right way.",
+    "errorCode": "Error",
+    "errorHeading": "Something on our side didn't work.",
+    "errorBody": "This isn't your fault. Try reloading — and if it happens again, tell us and we'll look into it.",
+    "tryAgain": "Try again",
+    "goHome": "Home page",
+    "usefulLinks": "Useful pages",
+    "errorReference": "Reference",
+    "globalTitle": "Error — BODYWORK Centrum"
   }
 }

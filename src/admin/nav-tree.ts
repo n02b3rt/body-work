@@ -116,8 +116,18 @@ export const adminNavTree: NavBranch[] = [
             collectionHref('posts'),
             'list',
           ),
-          stub('content-blog-categories', 'Kategorie', 'folder'),
-          stub('content-blog-tags', 'Tagi', 'tag'),
+          link(
+            'content-blog-categories',
+            'Kategorie',
+            collectionHref('categories'),
+            'folder',
+          ),
+          link(
+            'content-blog-authors',
+            'Autorzy',
+            collectionHref('authors'),
+            'users',
+          ),
         ],
       },
       {

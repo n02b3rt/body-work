@@ -68,9 +68,12 @@ export interface Config {
   blocks: {};
   collections: {
     users: User;
+    authors: Author;
+    categories: Category;
     media: Media;
     pages: Page;
     posts: Post;
+    subscribers: Subscriber;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -79,9 +82,12 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
+    authors: AuthorsSelect<false> | AuthorsSelect<true>;
+    categories: CategoriesSelect<false> | CategoriesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
+    subscribers: SubscribersSelect<false> | SubscribersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -161,6 +167,32 @@ export interface User {
   collection: 'users';
 }
 /**
+ * Autorzy wpisów na blogu — imię, nazwisko, zdjęcie i krótki opis.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors".
+ */
+export interface Author {
+  id: number;
+  name: string;
+  /**
+   * Fragment adresu URL (bez ukośników).
+   */
+  slug: string;
+  /**
+   * Np. „Fizjoterapeuta", „Trener przygotowania motorycznego".
+   */
+  role?: string | null;
+  photo?: (number | null) | Media;
+  bio?: string | null;
+  /**
+   * Opcjonalnie — tylko jeśli ten autor ma też konto w panelu.
+   */
+  user?: (number | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Biblioteka mediów. Obrazy zapisywane jako WebP, wideo jako WebM.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -183,6 +215,56 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+  sizes?: {
+    thumbnail?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    card?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    content?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    hero?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
+}
+/**
+ * Kategorie wpisów na blogu.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: number;
+  title: string;
+  /**
+   * Fragment adresu URL (bez ukośników).
+   */
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * Struktura witryny — strony można zagnieżdżać (rodzic → dziecko).
@@ -271,7 +353,15 @@ export interface Post {
   } | null;
   featuredImage?: (number | null) | Media;
   publishedAt?: string | null;
-  author?: (number | null) | User;
+  author?: (number | null) | Author;
+  /**
+   * Wpis może należeć do kilku kategorii — tak jest w obecnym serwisie.
+   */
+  categories?: (number | Category)[] | null;
+  /**
+   * Zostaw puste — policzy się automatycznie z długości treści przy zapisie.
+   */
+  readingMinutes?: number | null;
   /**
    * Tytuł i opis widoczne w wyszukiwarkach oraz przy udostępnianiu w mediach społecznościowych.
    */
@@ -287,6 +377,37 @@ export interface Post {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * Zapisy do newslettera. Wysyłkę obsługuje Resend, ale lista jest tutaj — status „Potwierdzony” oznacza kliknięcie linku w mailu (wymóg RODO).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscribers".
+ */
+export interface Subscriber {
+  id: number;
+  email: string;
+  /**
+   * Tylko „Potwierdzony” wolno wysyłać. Reszta to brak zgody.
+   */
+  status: 'pending' | 'confirmed' | 'unsubscribed';
+  /**
+   * Język, w którym zapisał się subskrybent — do segmentacji wysyłek.
+   */
+  locale: 'pl' | 'en';
+  /**
+   * Losowy identyfikator z linków potwierdzenia i wypisu.
+   */
+  token: string;
+  confirmedAt?: string | null;
+  unsubscribedAt?: string | null;
+  /**
+   * Strona, z której przyszedł zapis.
+   */
+  source?: string | null;
+  consentIp?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -317,6 +438,14 @@ export interface PayloadLockedDocument {
         value: number | User;
       } | null)
     | ({
+        relationTo: 'authors';
+        value: number | Author;
+      } | null)
+    | ({
+        relationTo: 'categories';
+        value: number | Category;
+      } | null)
+    | ({
         relationTo: 'media';
         value: number | Media;
       } | null)
@@ -327,6 +456,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'posts';
         value: number | Post;
+      } | null)
+    | ({
+        relationTo: 'subscribers';
+        value: number | Subscriber;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -396,6 +529,30 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors_select".
+ */
+export interface AuthorsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  role?: T;
+  photo?: T;
+  bio?: T;
+  user?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories_select".
+ */
+export interface CategoriesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
@@ -411,6 +568,50 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+  sizes?:
+    | T
+    | {
+        thumbnail?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        card?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        content?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        hero?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -453,6 +654,8 @@ export interface PostsSelect<T extends boolean = true> {
   featuredImage?: T;
   publishedAt?: T;
   author?: T;
+  categories?: T;
+  readingMinutes?: T;
   meta?:
     | T
     | {
@@ -464,6 +667,22 @@ export interface PostsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscribers_select".
+ */
+export interface SubscribersSelect<T extends boolean = true> {
+  email?: T;
+  status?: T;
+  locale?: T;
+  token?: T;
+  confirmedAt?: T;
+  unsubscribedAt?: T;
+  source?: T;
+  consentIp?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -8,8 +8,15 @@ import { TextMedia } from "@/components/centrum/TextMedia";
 import { Accordion, type AccordionItemData } from "@/components/centrum/Accordion";
 import { TestimonialCarousel, type Testimonial } from "@/components/centrum/TestimonialCarousel";
 import { DieteticsNav } from "@/components/centrum/DieteticsNav";
+import { pageMetadata } from "@/lib/metadata";
 
 type Step = { heading: string; body: string; image: string };
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "DietitianIwona" });
+  return pageMetadata({ locale, path: "/dietetyka/iwona-stachowiak", title: t("title") });
+}
 
 export default async function IwonaStachowiakPage() {
   const t = await getTranslations("DietitianIwona");

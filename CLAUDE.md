@@ -60,13 +60,22 @@ Check here before building anything — don't duplicate what exists.
 | Bilingual routing (next-intl) | `src/i18n/`, `src/proxy.ts` | `src/proxy.ts` is Next.js 16's renamed `middleware.ts` — see gotcha in `docs/architecture.md` |
 | UI translation strings | `messages/pl.json`, `messages/en.json` | See `docs/i18n.md` for the next-intl-vs-Payload-localization split |
 | Shared UI primitives | `src/components/ui/` | `Container` (max-width fix), `Button`, `SectionHeading` |
+| Blog (listing + post) | `src/app/[locale]/blog/` | Reads Payload's Local API; `BlogList` does the category/search filtering client-side, renders the newest post as the reference's featured card, and prints **no dates** |
+| Repairing imported blog data | `scripts/fix-blog-from-reference.ts` | The import took thumbnail/excerpt/date from the article body — all three were wrong. This reads the listing's own metadata instead. `DRY=1` to preview (**not** `--dry`, see `docs/architecture.md`) |
+| Media sizing / compression | `src/collections/Media.ts`, `src/lib/compress-media.ts` | Uploads are downscaled to a 2560px long edge and converted to WebP; four `imageSizes` (thumbnail/card/content/hero) are generated |
+| Page metadata / SEO | `src/lib/metadata.ts`, each route's `generateMetadata` | One helper builds the title, canonical, `hreflang` pair, Open Graph and Twitter tags. Every route has its own title — they were all identical before |
+| Sitemap + robots | `src/app/sitemap.ts`, `src/app/robots.ts` | The sitemap discovers static routes by walking `src/app/[locale]` and pulls posts from Payload, so it can't drift when a page is added |
+| Newsletter (double opt-in) | `src/app/api/newsletter/` (subscribe / confirm / unsubscribe), `src/collections/Subscribers.ts`, `src/app/[locale]/newsletter/` | **The list lives in our Postgres, Resend only delivers.** Unsubscribe is GET-asks / POST-does on purpose — read the note in `docs/migration-tracker.md` |
+| Outgoing email (Resend) | `src/lib/email.ts`, `src/lib/payload-email.ts` | One `fetch`, no SDK, no new dependency. **No `RESEND_API_KEY` → mail is logged, not sent.** The hand-rolled Payload adapter is what makes password resets arrive at all |
+| Shared notice shell | `src/components/centrum/NoticeLayout.tsx` | Big statement + body + actions. Backs the 404, the error boundary and the newsletter confirmation (was `ErrorLayout`) |
+| Error pages | `src/app/[locale]/not-found.tsx`, `error.tsx`, `src/app/global-error.tsx`, `[locale]/[...rest]/` | The catch-all and the client-component 404 are both load-bearing — read the note in `docs/migration-tracker.md` before touching them |
 | Off-site link targets | `src/lib/external-links.ts` | eFitness schedule, socials, and the gallery target — **read the `GALLERY_URL` note**: the reference links four buttons at a `/galeria` page that doesn't exist |
 | Centrum components | `src/components/centrum/` | Header, Footer, Hero, PromoBar and the other section blocks — reuse before adding new ones, see `docs/conventions.md` |
 | Payload CMS admin + API | `src/app/(payload)/` | Admin UI only on dashboard host; REST/GraphQL under `/api` |
 | Host proxy (dash vs public) | `src/proxy.ts` | `dash.localhost` → admin; public hosts return **404** for `/admin` (no redirect leak); rewrites `/admin/c/*`→`/collections/*`, `/admin/g/*`→`/globals/*` |
 | Access control / roles | `src/access/roles.ts` | Roles: administrator, moderator, redaktor, klient |
 | Payload config | `src/payload.config.ts` | CMS entry: DB adapter, editor, collections, i18n PL |
-| Payload collections | `src/collections/` | `Users`, `Media`, `Pages` (nested tree), `Posts` (blog) |
+| Payload collections | `src/collections/` | `Users`, `Authors`, `Categories`, `Media`, `Pages` (nested tree), `Posts` (blog) |
 | Site settings (global) | `src/globals/SiteSettings.ts` | Brand identity, contact, default SEO |
 | Shared CMS fields | `src/fields/` | SEO meta, slug helpers |
 | Admin UI extras | `src/components/admin/` | WelcomeDashboard, PagesTree, AdminNav, ComingSoonView |

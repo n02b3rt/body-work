@@ -6,9 +6,16 @@ import { CenteredBand } from "@/components/centrum/CenteredBand";
 import { Accordion, type AccordionItemData } from "@/components/centrum/Accordion";
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { PhysiotherapyNav } from "@/components/centrum/PhysiotherapyNav";
+import { pageMetadata } from "@/lib/metadata";
 
 type Person = { name: string; body: string; image: string };
 type Category = { heading: string; body: string; people: Person[] };
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Physiotherapists" });
+  return pageMetadata({ locale, path: "/fizjoterapia/specjalisci", title: t("title") });
+}
 
 export default async function PhysiotherapistsPage() {
   const t = await getTranslations("Physiotherapists");

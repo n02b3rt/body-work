@@ -6,6 +6,13 @@ import { Link } from "@/i18n/navigation";
 import { PageHero } from "@/components/centrum/PageHero";
 import { TextMedia } from "@/components/centrum/TextMedia";
 import { BodylabNav } from "@/components/centrum/BodylabNav";
+import { pageMetadata } from "@/lib/metadata";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "BodyComposition" });
+  return pageMetadata({ locale, path: "/bodylab/analiza-skadu-ciala", title: t("title") });
+}
 
 /** Route slug intentionally missing the "ł" — see BodylabNav. */
 export default async function BodyCompositionPage() {
