@@ -5,7 +5,7 @@ import React from 'react'
 import { asRecord, bool, buttonSize, color, radius, str } from './helpers'
 
 /**
- * Renders a button from its parameter group — used by the button preview and
+ * Renders a button from its parameter group: used by the button preview and
  * by hero/CTA previews that reference a button component.
  */
 export function ButtonChip({ data }: { data: unknown }) {

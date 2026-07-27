@@ -4,7 +4,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 export type LegalSection = { heading: string; body: string };
 
 type LegalDocumentProps = {
-  /** Line under the page title — the effective date on the terms, the scope line on
+  /** Line under the page title: the effective date on the terms, the scope line on
    * the privacy policy. */
   intro?: string;
   sections: LegalSection[];
@@ -27,7 +27,7 @@ const proseClasses = "max-w-[42rem] whitespace-pre-line text-body leading-[1.7] 
  *    the left half empty. Here each section is one left-aligned column, which also stops
  *    the fixed promo pills in the bottom-right corner from landing on top of the text.
  * 3. Section headings are `menu` size (~34px) rather than the reference's ~68px section
- *    size — at eleven numbered sections, that size reads as eleven page titles.
+ *    size, at eleven numbered sections, that size reads as eleven page titles.
  *
  * Recorded in `docs/migration-tracker.md`. Content is still verbatim; this is styling.
  */

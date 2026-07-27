@@ -11,7 +11,7 @@ type ContainerProps = {
  * Caps content width so pages stay readable on large/ultrawide monitors.
  * The scraped reference site has no such cap (its widest breakpoint is
  * literally `max-width:99999999px`), which is why every page there
- * stretches edge to edge — see docs/scraped-site-map.md.
+ * stretches edge to edge, see docs/scraped-site-map.md.
  */
 export function Container({
   children,

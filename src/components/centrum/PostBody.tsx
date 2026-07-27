@@ -11,7 +11,7 @@ type PostBodyProps = {
  * Renders a post's Lexical body.
  *
  * The `upload` converter is overridden because the default one emits Payload's absolute
- * URL, which points at the dashboard host (`serverURL`) — unreachable for a public
+ * URL, which points at the dashboard host (`serverURL`): unreachable for a public
  * visitor and rejected outright by `next/image`. Going through `mediaFrom` gives a
  * relative path and the `content`-width variant instead of the full original.
  */
@@ -20,8 +20,8 @@ const converters: JSXConvertersFunction = ({ defaultConverters }) => ({
   upload: ({ node }) => {
     // `hero` (1920) rather than `content` (1200): the article body is full width now, so its
     // images occupy up to 1376 CSS px and a 1200px source was being stretched. This costs
-    // nothing in transfer — the width served is decided by `sizes` below, not by how large
-    // the source is — it only stops the optimizer working from too small a picture.
+    // nothing in transfer: the width served is decided by `sizes` below, not by how large
+    // the source is, it only stops the optimizer working from too small a picture.
     const image = mediaFrom(node.value, "hero");
     if (!image) return null;
     return (
@@ -42,7 +42,7 @@ const converters: JSXConvertersFunction = ({ defaultConverters }) => ({
  * 1440px like every other section on the site.
  *
  * This was `max-w-[42rem]` (a 672px column in a 1440px row, which read as broken), then
- * briefly 60rem. Full width is the client's call, made twice — I flagged that a 1440px
+ * briefly 60rem. Full width is the client's call, made twice, I flagged that a 1440px
  * measure puts roughly 180 characters on a line, which is past what is comfortable to read,
  * and they want it full width anyway. Noted in `docs/migration-tracker.md`; if it ever needs
  * walking back, this one class is the whole change.

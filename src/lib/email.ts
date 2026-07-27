@@ -1,7 +1,7 @@
 /**
  * The one place that talks to Resend.
  *
- * Deliberately plain `fetch` against the REST API rather than the `resend` SDK — the whole
+ * Deliberately plain `fetch` against the REST API rather than the `resend` SDK: the whole
  * surface we need is one POST, and keeping it dependency-free means swapping the relay
  * later (Listmonk on top of SES, a plain SMTP host) is a change to this file only. See
  * `docs/stack.md` for why the relay is the one piece the PRD lets us not self-host.
@@ -50,7 +50,7 @@ export async function sendEmail({
 
   if (!apiKey) {
     console.warn(
-      `[BodyWork] RESEND_API_KEY not set — email NOT sent.\n  to: ${to}\n  subject: ${subject}\n${text}`,
+      `[BodyWork] RESEND_API_KEY not set: email NOT sent.\n  to: ${to}\n  subject: ${subject}\n${text}`,
     );
     return { ok: true, skipped: true };
   }
@@ -83,27 +83,27 @@ const COPY = {
     subject: "Potwierdź zapis do newslettera BODYWORK",
     preheader: "Jeszcze jedno kliknięcie i jesteś na liście.",
     heading: "Potwierdź zapis.",
-    body: "Dostaliśmy zgłoszenie zapisu tego adresu do newslettera BODYWORK. Kliknij przycisk poniżej, żeby to potwierdzić — bez tego nie wyślemy Ci nic więcej.",
+    body: "Dostaliśmy zgłoszenie zapisu tego adresu do newslettera BODYWORK. Kliknij przycisk poniżej, żeby to potwierdzić: bez tego nie wyślemy Ci nic więcej.",
     cta: "Potwierdzam zapis",
     ignore:
-      "Jeśli to nie Ty, po prostu zignoruj tę wiadomość — bez potwierdzenia adres nie trafi na listę.",
+      "Jeśli to nie Ty, po prostu zignoruj tę wiadomość: bez potwierdzenia adres nie trafi na listę.",
     fallback: "Jeśli przycisk nie działa, wklej ten adres w przeglądarkę:",
   },
   en: {
     subject: "Confirm your BODYWORK newsletter signup",
     preheader: "One more click and you're on the list.",
     heading: "Confirm your signup.",
-    body: "We received a request to add this address to the BODYWORK newsletter. Click the button below to confirm — without it we won't send you anything else.",
+    body: "We received a request to add this address to the BODYWORK newsletter. Click the button below to confirm, without it we won't send you anything else.",
     cta: "Confirm signup",
     ignore:
-      "If this wasn't you, just ignore this message — the address won't be added without confirmation.",
+      "If this wasn't you, just ignore this message: the address won't be added without confirmation.",
     fallback: "If the button doesn't work, paste this address into your browser:",
   },
 } as const;
 
 export type EmailLocale = keyof typeof COPY;
 
-/** Escapes text interpolated into the HTML body — the URL is ours, the copy is not user input, but this is cheap. */
+/** Escapes text interpolated into the HTML body: the URL is ours, the copy is not user input, but this is cheap. */
 function escapeHtml(value: string) {
   return value
     .replace(/&/g, "&amp;")

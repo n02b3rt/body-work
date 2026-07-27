@@ -10,7 +10,7 @@ const WORDS_PER_MINUTE = 200
 /** Walk a Lexical tree and add up the text. Cheaper and more robust than rendering it:
  * any node carrying a `text` property contributes, whatever its type.
  *
- * Descends through **every** object value, not just `children` — the field's top level is
+ * Descends through **every** object value, not just `children`: the field's top level is
  * `{ root: { children: [...] } }`, so a walker that only followed `children` stopped at
  * the first hop and always counted zero. */
 function countWords(node: unknown): number {
@@ -103,7 +103,7 @@ export const Posts: CollectionConfig = {
     {
       name: 'author',
       type: 'relationship',
-      // The `authors` collection, not `users` — see the note on Authors: these are
+      // The `authors` collection, not `users`, see the note on Authors: these are
       // trainers whose name appears on an article, not people with panel logins.
       relationTo: 'authors',
       label: 'Autor',
@@ -119,7 +119,7 @@ export const Posts: CollectionConfig = {
       label: 'Kategorie',
       admin: {
         position: 'sidebar',
-        description: 'Wpis może należeć do kilku kategorii — tak jest w obecnym serwisie.',
+        description: 'Wpis może należeć do kilku kategorii: tak jest w obecnym serwisie.',
       },
     },
     {
@@ -129,7 +129,7 @@ export const Posts: CollectionConfig = {
       min: 1,
       admin: {
         position: 'sidebar',
-        description: 'Zostaw puste — policzy się automatycznie z długości treści przy zapisie.',
+        description: 'Zostaw puste: policzy się automatycznie z długości treści przy zapisie.',
       },
     },
     metaFields,

@@ -5,7 +5,7 @@ type FullBleedImageProps = {
   alt: string;
 };
 
-/** Full-viewport-height photo break between sections — matches the scraped
+/** Full-viewport-height photo break between sections: matches the scraped
  * reference's full-bleed "swiper" moments (e.g. between the two statement banners). */
 export function FullBleedImage({ src, alt }: FullBleedImageProps) {
   return (

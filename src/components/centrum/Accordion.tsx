@@ -11,14 +11,14 @@ import { cn } from "@/lib/cn";
 
 export type AccordionCta = { label: string; href: string };
 
-/** A row's panel is either a single body (+ optional photo), or — on the pricing
- * page — a price list with a CTA, a trailing note, and occasionally two named
+/** A row's panel is either a single body (+ optional photo), or: on the pricing
+ * page, a price list with a CTA, a trailing note, and occasionally two named
  * sub-blocks (the two dietitians share one row there). */
 export type AccordionItemData = {
   heading: string;
   body?: string;
   image?: string;
-  /** Fills the panel's other half in place of a photo, at full section-heading size —
+  /** Fills the panel's other half in place of a photo, at full section-heading size,
    * the reference uses this for the pricing page's "Dla naszych klientów masaż – 15%!". */
   panelHeading?: string;
   note?: string;
@@ -30,7 +30,7 @@ type AccordionProps = {
   items: AccordionItemData[];
 };
 
-/** Stack of expandable rows — the reference's "Kiedy warto?" list. Its closed row
+/** Stack of expandable rows: the reference's "Kiedy warto?" list. Its closed row
  * turns navy on hover, and the toggle is a labelled pill from `lg` up but a compact
  * chevron below that. */
 export function Accordion({ items }: AccordionProps) {
@@ -77,7 +77,7 @@ function AccordionRow({
         <Container className="flex items-center justify-between gap-6 py-6 lg:py-8">
           <span className="text-h-menu">{item.heading}</span>
 
-          {/* Pill on desktop, chevron circle below it — as in the reference. */}
+          {/* Pill on desktop, chevron circle below it, as in the reference. */}
           <span
             className={cn(
               buttonClasses("outline"),
@@ -112,7 +112,7 @@ function AccordionRow({
       >
         {/* The panel splits its width in two: copy on the left, and on the right either
          * the image filling its half edge to edge or a section-size heading. It shares
-         * the row header's `Container` so the copy lines up under the row title — on the
+         * the row header's `Container` so the copy lines up under the row title: on the
          * reference both sit at the same 48px page inset, and letting the panel run
          * full-bleed instead left the copy ~228px to the left of its own heading. */}
         <div className="min-h-0">
@@ -136,7 +136,7 @@ function AccordionRow({
                   src={item.image}
                   alt={item.heading}
                   fill
-                  // Half of the capped container, not half the viewport — the panel
+                  // Half of the capped container, not half the viewport: the panel
                   // is inside `Container`, so this cell never exceeds 688px.
                   sizes="(min-width: 1024px) min(50vw, 688px), 100vw"
                   className="object-cover"

@@ -4,7 +4,7 @@ import config from "@payload-config";
 import { confirmationEmail, sendEmail, type EmailLocale } from "@/lib/email";
 
 /**
- * Newsletter signup — step one of a double opt-in.
+ * Newsletter signup: step one of a double opt-in.
  *
  * Nothing is ever mailed to a `confirmed` address from here and nothing is sent without a
  * token, so the worst a bot can do is make us send one confirmation to an address that
@@ -13,14 +13,14 @@ import { confirmationEmail, sendEmail, type EmailLocale } from "@/lib/email";
  * an option.
  *
  * **Every outcome answers the same way.** Whether the address is new, already on the list,
- * or was previously unsubscribed, the response is an identical `{ ok: true }` — otherwise
+ * or was previously unsubscribed, the response is an identical `{ ok: true }`: otherwise
  * this endpoint becomes a way to ask "is this person a BODYWORK customer?".
  *
  * Note this lives at `/api/newsletter`, which `src/proxy.ts` passes through without
  * next-intl. The locale therefore arrives in the body rather than the path.
  */
 
-/** Coarse per-IP limit. In-memory, so it resets on deploy and is per-instance — enough to
+/** Coarse per-IP limit. In-memory, so it resets on deploy and is per-instance: enough to
  *  blunt a script, not a substitute for a WAF rule once Cloudflare is in front of this. */
 const RATE_LIMIT = { windowMs: 60 * 60 * 1000, max: 5 };
 const attempts = new Map<string, number[]>();
@@ -100,7 +100,7 @@ export async function POST(request: Request) {
 
     const current = existing.docs[0];
 
-    // Already on the list — say nothing and send nothing. Re-mailing a confirmed address
+    // Already on the list: say nothing and send nothing. Re-mailing a confirmed address
     // on every form submission is how a signup form turns into a nuisance.
     if (current?.status === "confirmed") return ok();
 
@@ -143,7 +143,7 @@ export async function POST(request: Request) {
 
     const sent = await sendEmail({ to: normalisedEmail, subject, html, text });
     if (!sent.ok) {
-      // The address is stored, so nothing is lost — but the visitor would sit waiting for a
+      // The address is stored, so nothing is lost, but the visitor would sit waiting for a
       // mail that will never arrive, so this one case is worth admitting to.
       console.error("[BodyWork] newsletter confirmation failed to send:", sent.error);
       return Response.json({ ok: false, error: "send-failed" }, { status: 502 });

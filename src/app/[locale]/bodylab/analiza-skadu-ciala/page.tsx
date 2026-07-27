@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return pageMetadata({ locale, path: "/bodylab/analiza-skadu-ciala", title: t("title") });
 }
 
-/** Route slug intentionally missing the "ł" — see BodylabNav. */
+/** Route slug intentionally missing the "ł", see BodylabNav. */
 export default async function BodyCompositionPage() {
   const t = await getTranslations("BodyComposition");
 

@@ -5,16 +5,16 @@ import { defaultSender, sendEmail } from "./email";
  *
  * **Without this, Payload writes emails to the console** (it says so at boot: "No email
  * adapter provided"). That is not cosmetic: password resets and email verification silently
- * go nowhere. Nothing in the panel reports it — the mail simply never arrives, and the
+ * go nowhere. Nothing in the panel reports it: the mail simply never arrives, and the
  * account is stuck.
  *
  * (This does not affect the 62 posts' bylines. `Authors` is deliberately not an auth
- * collection — see its own doc comment — so the 24 authors are credits, not logins.)
+ * collection, see its own doc comment, so the 24 authors are credits, not logins.)
  *
  * Hand-rolled rather than `@payloadcms/email-resend` on purpose: the official adapter would
  * be a second dependency doing what `src/lib/email.ts` already does, and this way the
  * newsletter and the panel share one relay, one API key, and one place to swap providers.
- * The trade-off is that we own the `to`/`html` normalisation below — Payload's message shape
+ * The trade-off is that we own the `to`/`html` normalisation below: Payload's message shape
  * comes from nodemailer, which allows more forms than Resend's JSON API accepts.
  */
 
@@ -53,7 +53,7 @@ export function resendEmailAdapter() {
     sendEmail: async (message: PayloadMessage) => {
       const to = normaliseAddress(message.to);
       if (!to) {
-        console.error("[BodyWork] Payload asked to send mail with no recipient — skipped.");
+        console.error("[BodyWork] Payload asked to send mail with no recipient: skipped.");
         return { ok: false };
       }
 
@@ -72,7 +72,7 @@ export function resendEmailAdapter() {
 
       if (!result.ok) {
         // Payload swallows a thrown error here into a generic failure, so log the reason
-        // before rethrowing — otherwise "reset didn't arrive" has no trail at all.
+        // before rethrowing: otherwise "reset didn't arrive" has no trail at all.
         console.error("[BodyWork] Payload email failed:", result.error);
         throw new Error(result.error);
       }

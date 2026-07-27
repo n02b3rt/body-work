@@ -3,13 +3,13 @@ import type { CollectionConfig } from 'payload'
 import { administrators, isStaff } from '@/access/roles'
 
 /**
- * Newsletter subscribers — **the list lives here, in our own Postgres, not at Resend.**
+ * Newsletter subscribers: **the list lives here, in our own Postgres, not at Resend.**
  *
  * `PRD.md` §9 makes self-hosting the cardinal rule but already exempts the mail relay,
  * which is the right call: outbound mail depends on IP reputation nobody should try to
  * build themselves. So Resend delivers, and this collection owns the data. That keeps the
  * RODO consent record (token, timestamp, IP) somewhere we can actually produce on demand,
- * and turns a later move to Listmonk into an export rather than a migration — Listmonk
+ * and turns a later move to Listmonk into an export rather than a migration: Listmonk
  * would have needed a relay underneath it anyway.
  *
  * `create` is deliberately closed to the API: the only way in is the route handler at
@@ -28,7 +28,7 @@ export const Subscribers: CollectionConfig = {
     defaultColumns: ['email', 'status', 'locale', 'confirmedAt', 'createdAt'],
     group: 'Ustawienia',
     description:
-      'Zapisy do newslettera. Wysyłkę obsługuje Resend, ale lista jest tutaj — status „Potwierdzony” oznacza kliknięcie linku w mailu (wymóg RODO).',
+      'Zapisy do newslettera. Wysyłkę obsługuje Resend, ale lista jest tutaj: status „Potwierdzony” oznacza kliknięcie linku w mailu (wymóg RODO).',
   },
   access: {
     // Personal data: staff only, and no public read even though posts and categories are open.
@@ -73,7 +73,7 @@ export const Subscribers: CollectionConfig = {
         { label: 'English', value: 'en' },
       ],
       admin: {
-        description: 'Język, w którym zapisał się subskrybent — do segmentacji wysyłek.',
+        description: 'Język, w którym zapisał się subskrybent: do segmentacji wysyłek.',
       },
     },
     {
@@ -120,7 +120,7 @@ export const Subscribers: CollectionConfig = {
           },
         },
         {
-          // Consent proof under RODO art. 7(1) — kept alongside the timestamp so the pair
+          // Consent proof under RODO art. 7(1): kept alongside the timestamp so the pair
           // is defensible, not for tracking.
           name: 'consentIp',
           type: 'text',

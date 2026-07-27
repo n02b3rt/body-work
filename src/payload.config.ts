@@ -40,7 +40,7 @@ export default buildConfig({
       supportedTimezones: [{ label: 'Warszawa (CET/CEST)', value: 'Europe/Warsaw' }],
     },
     meta: {
-      titleSuffix: '— BodyWork Panel',
+      titleSuffix: ': BodyWork Panel',
     },
     importMap: {
       baseDir: path.resolve(dirname),
@@ -62,7 +62,7 @@ export default buildConfig({
   collections: [Users, Authors, Categories, Media, Pages, Posts, Subscribers, SiteComponents],
   globals: [SiteSettings, ThemeColors],
   // Password resets and email verification for the author accounts. Without an adapter
-  // Payload only logs them, so they never arrive — see src/lib/payload-email.ts.
+  // Payload only logs them, so they never arrive, see src/lib/payload-email.ts.
   email: resendEmailAdapter(),
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

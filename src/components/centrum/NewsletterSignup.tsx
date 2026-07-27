@@ -32,13 +32,13 @@ export function NewsletterSignup() {
           email,
           locale,
           company,
-          // Which page the signup came from — the section sits on most of them.
+          // Which page the signup came from: the section sits on most of them.
           source: window.location.pathname,
         }),
       });
 
       if (response.ok) {
-        // Success here means "confirmation email sent", not "subscribed" — the copy says so,
+        // Success here means "confirmation email sent", not "subscribed": the copy says so,
         // because the address does not join the list until the link in that mail is clicked.
         setStatus("success");
         return;

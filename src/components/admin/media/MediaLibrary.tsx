@@ -44,7 +44,7 @@ export function MediaLibrary(props: ListViewClientProps) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  // Read straight from localStorage through the store — see `subscribePreferences`. The
+  // Read straight from localStorage through the store, see `subscribePreferences`. The
   // previous version copied these into state inside an effect, which the React Compiler
   // lint rules reject and which also flashed the defaults on every mount.
   const view = useSyncExternalStore(
@@ -112,7 +112,7 @@ export function MediaLibrary(props: ListViewClientProps) {
 
     const run = async () => {
       // Yield before touching state. Calling `load()` straight from the effect body runs
-      // its `setLoading(true)` synchronously, which the React Compiler lint rules reject —
+      // its `setLoading(true)` synchronously, which the React Compiler lint rules reject,
       // `PagesTree` hit the same thing. The flag also closes the unmount race, so a
       // response that lands after the view is gone is dropped instead of applied.
       await Promise.resolve()
@@ -169,7 +169,7 @@ export function MediaLibrary(props: ListViewClientProps) {
         <div>
           <h1 className="bw-media__title">Media</h1>
           <p className="bw-media__lead">
-            Biblioteka plików — siatka, lista i foldery według typu. ALT i slug uzupełniają się z nazwy
+            Biblioteka plików: siatka, lista i foldery według typu. ALT i slug uzupełniają się z nazwy
             pliku.
           </p>
         </div>

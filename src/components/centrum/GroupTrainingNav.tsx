@@ -7,7 +7,7 @@ import { SCHEDULE_URL } from "@/lib/external-links";
 
 /** The group-training section's sticky sub-nav.
  *
- * "Grafik zajęć" points at the eFitness booking calendar on the reference — the
+ * "Grafik zajęć" points at the eFitness booking calendar on the reference: the
  * scraped `/trening-grupowy/grafik-zajec/` page carries no content of its own, only
  * the shared footer, so it is deliberately not built as a route here. */
 export function GroupTrainingNav() {

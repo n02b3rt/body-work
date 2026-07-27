@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { SectionNav } from "./SectionNav";
 
-/** The dietetics section's sticky sub-nav — the two dietitians' pages. */
+/** The dietetics section's sticky sub-nav: the two dietitians' pages. */
 export function DieteticsNav() {
   const t = useTranslations("Nav");
 

@@ -12,5 +12,5 @@ export function CardRowLabel() {
   const index = (rowNumber ?? 0) + 1
   const title = data?.title?.trim()
 
-  return <span>{title ? `Karta ${index} — ${title}` : `Karta ${index}`}</span>
+  return <span>{title ? `Karta ${index}: ${title}` : `Karta ${index}`}</span>
 }

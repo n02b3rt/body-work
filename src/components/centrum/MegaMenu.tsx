@@ -13,12 +13,12 @@ type MegaMenuProps = {
   onClose: () => void;
 };
 
-/** Desktop hamburger panel (from the nav breakpoint up) — a 5-column layout,
+/** Desktop hamburger panel (from the nav breakpoint up), a 5-column layout,
  * distinct from both the header's hover dropdowns and the mobile drawer. Content and
  * hrefs verified directly against scripts/scrape/scraped/home/index.html, not
  * inferred from the hover-dropdown menu: notably "Dietetyka" has no children column
  * here (the reference omits them in this specific panel). "Grafik zajęć" links out to
- * eFitness like the hover dropdown does — the reference points it at an internal page
+ * eFitness like the hover dropdown does: the reference points it at an internal page
  * here, but that page has no content of its own, so this follows the working link.
  *
  * Stays mounted while closed so the close animation has something to run on; it's
@@ -55,7 +55,7 @@ export function MegaMenu({ open, onClose }: MegaMenuProps) {
         { label: t("groupTrainingClasses"), href: "/trening-grupowy/zajecia-grupowe" },
         { label: t("groupTrainingPlan"), href: "/trening-grupowy/plan-zdrowej-zmiany" },
         // The schedule lives on eFitness. The reference points this entry at an internal
-        // page that has no content of its own — see the note on SCHEDULE_URL.
+        // page that has no content of its own, see the note on SCHEDULE_URL.
         { label: t("groupTrainingSchedule"), href: SCHEDULE_URL, external: true },
         { label: t("groupTrainingMedicover"), href: "/trening-grupowy/medicover" },
       ],

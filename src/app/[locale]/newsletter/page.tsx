@@ -6,7 +6,7 @@ import { NoticeLayout } from "@/components/centrum/NoticeLayout";
 import { pageMetadata } from "@/lib/metadata";
 
 /**
- * Where the newsletter emails land — the confirmation click, the unsubscribe click, and the
+ * Where the newsletter emails land: the confirmation click, the unsubscribe click, and the
  * "that link is dead" case. Not a page anyone navigates to on purpose.
  *
  * The unsubscribe button is a plain `<form method="post">` rather than a fetch: this page
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     ...pageMetadata({ locale, path: "/newsletter", title: t("metaTitle") }),
-    // A utility page with no content of its own — keep it out of the index. It is excluded
+    // A utility page with no content of its own: keep it out of the index. It is excluded
     // from `sitemap.ts` for the same reason.
     robots: { index: false, follow: false },
   };
@@ -96,7 +96,7 @@ export default async function NewsletterStatusPage({ params, searchParams }: Pro
   }
 
   // No status, or a token that no longer matches anything: the same message either way,
-  // since "expired" and "never existed" are indistinguishable from here — and telling them
+  // since "expired" and "never existed" are indistinguishable from here, and telling them
   // apart would leak whether an address is on the list.
   return (
     <NoticeLayout code={t("invalidCode")} heading={t("invalidHeading")} body={t("invalidBody")}>

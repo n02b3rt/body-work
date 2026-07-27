@@ -6,7 +6,7 @@ import { localePath, SITE_URL } from "@/lib/metadata";
  * Step two of the double opt-in: the link in the confirmation email lands here.
  *
  * This is the moment consent becomes provable, so it is the moment we write the timestamp.
- * Everything else is redirects — the visitor should end up on a real page in their own
+ * Everything else is redirects: the visitor should end up on a real page in their own
  * language, never looking at JSON.
  *
  * Clicking twice is not an error: an already-confirmed token reports success rather than

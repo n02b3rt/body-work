@@ -2,7 +2,7 @@ import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
-/** Homepage title block — the scraped reference keeps this as plain text on the
+/** Homepage title block: the scraped reference keeps this as plain text on the
  * page background, with the hero video as its own full-bleed section below
  * (see FullBleedVideo), not overlaid behind the text. */
 export function Hero() {

@@ -13,7 +13,7 @@ export const gallerySettings: GroupField = {
   label: 'Parametry galerii',
   admin: {
     condition: (data) => data?.type === 'gallery',
-    description: 'Siatka zdjęć — realizacje, zespół, wnętrza.',
+    description: 'Siatka zdjęć: realizacje, zespół, wnętrza.',
   },
   fields: [
     {

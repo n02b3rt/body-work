@@ -9,7 +9,7 @@ import { cn } from "@/lib/cn";
 export type SectionNavItem = { label: string; href: string; external?: boolean };
 
 type SectionNavProps = {
-  /** Label for the collapsed mobile control — the parent section's own name. */
+  /** Label for the collapsed mobile control: the parent section's own name. */
   sectionLabel: string;
   items: SectionNavItem[];
 };

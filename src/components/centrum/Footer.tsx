@@ -22,7 +22,7 @@ export function Footer() {
 
       </Container>
 
-      {/* Full-bleed divider, matching the header's row divider — the legal-links
+      {/* Full-bleed divider, matching the header's row divider: the legal-links
        * content inside stays at the usual container width. */}
       <div className="border-t border-brand-navy-soft">
         <Container className="flex flex-col gap-4 py-6 sm:flex-row sm:items-center sm:justify-between">

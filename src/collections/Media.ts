@@ -173,7 +173,7 @@ export const Media: CollectionConfig = {
               },
               admin: {
                 description:
-                  'Wymagany dla dostępności i SEO (chyba że dekoracyjny). Uzupełniany z nazwy pliku — sprawdź i popraw.',
+                  'Wymagany dla dostępności i SEO (chyba że dekoracyjny). Uzupełniany z nazwy pliku: sprawdź i popraw.',
               },
             },
             {
@@ -311,7 +311,7 @@ export const Media: CollectionConfig = {
     // `thumb`/`card`/`large`; kept as they are, because `mediaFrom(..., 'card' | 'content' |
     // 'hero')` looks them up by name across the site and 230 existing media rows already
     // have these variants on disk. `mediaThumbUrl` in the library UI was pointed at
-    // `thumbnail` instead. The `admin` flags below come from that branch — they keep the
+    // `thumbnail` instead. The `admin` flags below come from that branch, they keep the
     // generated sizes out of the admin list's columns, filters and grouping.
     displayPreview: true,
     crop: true,

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { routing } from "@/i18n/routing";
 
-/** Public origin. Absolute URLs are required for Open Graph — a relative `og:image` is
+/** Public origin. Absolute URLs are required for Open Graph, a relative `og:image` is
  * ignored by every crawler. */
 export const SITE_URL = (process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000").replace(
   /\/$/,
@@ -14,7 +14,7 @@ export const SITE_NAME = "BODYWORK Centrum";
  * space" shot the homepage leads with. */
 const DEFAULT_OG_IMAGE = "/images/home/friendly-space.webp";
 
-/** Builds the localised path for a route — `pl` is the default locale and carries no
+/** Builds the localised path for a route: `pl` is the default locale and carries no
  * prefix (`localePrefix: "as-needed"`). */
 export function localePath(locale: string, path: string) {
   const clean = path === "/" ? "" : path.replace(/\/$/, "");
@@ -31,13 +31,23 @@ type PageMetadataArgs = {
   image?: string | null;
   type?: "website" | "article";
   publishedTime?: string | null;
+  modifiedTime?: string | null;
+  /** Category name, emitted as `article:section`. */
+  section?: string | null;
   authors?: string[];
+  /**
+   * Drop the `alternates.languages` pair. Set it where a locale's URL exists but serves the
+   * other locale's text: claiming `hreflang="en"` over Polish prose tells search engines
+   * there is a translation when there is not, and the two URLs then compete as duplicates.
+   * The 62 imported posts are in exactly that position until somebody translates them.
+   */
+  singleLanguage?: boolean;
 };
 
 /**
  * One place that builds a page's metadata, so every route gets a distinct title plus the
  * Open Graph and Twitter tags. Before this, all 28 routes and all 62 posts shipped the
- * same `<title>` and no OG tags at all — see the audit in `docs/migration-tracker.md`.
+ * same `<title>` and no OG tags at all, see the audit in `docs/migration-tracker.md`.
  *
  * `alternates.languages` is filled for both locales so crawlers can pair the PL and EN
  * versions of a page instead of treating them as duplicates.
@@ -50,7 +60,10 @@ export function pageMetadata({
   image,
   type = "website",
   publishedTime,
+  modifiedTime,
+  section,
   authors,
+  singleLanguage = false,
 }: PageMetadataArgs): Metadata {
   const url = `${SITE_URL}${localePath(locale, path)}`;
   const ogImage = image
@@ -66,7 +79,16 @@ export function pageMetadata({
   return {
     title,
     ...(description ? { description } : {}),
-    alternates: { canonical: url, languages },
+    alternates: {
+      canonical: url,
+      ...(singleLanguage ? {} : { languages }),
+      // Declared here rather than in the layout, because a page's `generateMetadata`
+      // replaces the layout's whole `alternates` object instead of merging into it. Set
+      // upstream, the feed link vanished from every route that declares a canonical.
+      types: {
+        "application/rss+xml": [{ url: `${SITE_URL}/feed.xml`, title: `${SITE_NAME} Blog` }],
+      },
+    },
     openGraph: {
       type,
       siteName: SITE_NAME,
@@ -76,6 +98,8 @@ export function pageMetadata({
       ...(description ? { description } : {}),
       images: [{ url: ogImage }],
       ...(publishedTime ? { publishedTime } : {}),
+      ...(modifiedTime ? { modifiedTime } : {}),
+      ...(section ? { section } : {}),
       ...(authors?.length ? { authors } : {}),
     },
     twitter: {

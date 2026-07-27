@@ -17,7 +17,7 @@ export const Pages: CollectionConfig = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug', 'updatedAt'],
     group: 'Treści',
-    description: 'Struktura witryny — strony można zagnieżdżać (rodzic → dziecko).',
+    description: 'Struktura witryny: strony można zagnieżdżać (rodzic → dziecko).',
     components: {
       beforeListTable: ['/components/admin/PagesTree#PagesTree'],
     },

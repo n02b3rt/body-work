@@ -19,7 +19,7 @@ export const SiteComponents: CollectionConfig = {
     defaultColumns: ['name', 'type', 'slug', 'updatedAt'],
     listSearchableFields: ['name', 'slug', 'description'],
     description:
-      'Gotowe bloki (przyciski, hero, karuzele, galerie) z własnymi parametrami — do wstawiania na stronach.',
+      'Gotowe bloki (przyciski, hero, karuzele, galerie) z własnymi parametrami: do wstawiania na stronach.',
   },
   access: {
     read: () => true,

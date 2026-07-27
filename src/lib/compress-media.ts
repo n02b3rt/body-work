@@ -37,7 +37,7 @@ function replaceExtension(filename: string, ext: string): string {
 
 /** Longest edge kept on the stored original. Big enough for a full-bleed hero on a 2x
  * display, small enough that a 4000x3000 phone photo can't be served as-is. Downscale
- * only — `withoutEnlargement` leaves anything smaller untouched.
+ * only: `withoutEnlargement` leaves anything smaller untouched.
  *
  * This is the **default**, not a ceiling: the media library's "Maksymalny wymiar" field
  * overrides it per upload, and `'none'` opts out entirely. See `resolveMaxEdge`. */
@@ -48,7 +48,7 @@ function resolveQuality(quality: ImageQuality | null | undefined): number {
 }
 
 function resolveMaxEdge(maxDimension: MaxDimension | null | undefined): number | null {
-  // Unset means "apply the default guard", not "leave it alone" — `'none'` is how an
+  // Unset means "apply the default guard", not "leave it alone": `'none'` is how an
   // opt-out is expressed. The media-library branch returned null for both, which would let
   // any upload that never touched the field through at full size; that is precisely the
   // case MAX_IMAGE_EDGE exists to stop.

@@ -12,7 +12,7 @@
  * re-run doesn't pile up copies.
  *
  * Parsing goes through jsdom rather than regexes on purpose: the page-builder emits class
- * names like `[>ul]:f3s4`, and the `>` inside an attribute breaks any naive tag stripper —
+ * names like `[>ul]:f3s4`, and the `>` inside an attribute breaks any naive tag stripper,
  * CSS soup then leaks into what looks like body text.
  */
 import { randomUUID } from 'crypto'
@@ -32,7 +32,7 @@ type JSDOMCtor = new (html: string, options?: { virtualConsole?: unknown }) => {
 }
 
 /** Parses to a document, with jsdom's CSS warnings silenced. Passed around as a plain
- * factory rather than a constructor — the wrapper isn't newable. */
+ * factory rather than a constructor: the wrapper isn't newable. */
 type ParseHTML = (html: string) => { window: { document: Document } }
 
 const SCRAPE = path.resolve('scripts/scrape/scraped')
@@ -61,7 +61,7 @@ function hashOf(src: string): string | null {
 }
 
 /** The scraped `<picture>` markup sometimes leaves the `<img src>` empty while the
- * sibling `<source srcset>` holds the real file — six posts lost every image to that.
+ * sibling `<source srcset>` holds the real file: six posts lost every image to that.
  * Falls back to the srcset when the img itself carries nothing usable. */
 function imageSourceOf(img: Element): string {
   const src = img.getAttribute('src') ?? ''
@@ -86,7 +86,7 @@ function parseDate(value: string): string | null {
 async function findMediaFile(dir: string, hash: string): Promise<string | null> {
   if (!existsSync(dir)) return null
   const files = await readdir(dir)
-  // Skip the `__<digest>` duplicates the scraper leaves behind — byte-identical copies.
+  // Skip the `__<digest>` duplicates the scraper leaves behind: byte-identical copies.
   const match = files.find((f) => f.startsWith(hash + '.') && !f.includes('__'))
   return match ? path.join(dir, match) : null
 }
@@ -114,7 +114,7 @@ function extractPost(parse: ParseHTML, slug: string, html: string): PostMeta | n
   // breadcrumb, and the author card (its role line would otherwise read as body copy).
   main.querySelectorAll('footer, aside, nav').forEach((el) => el.remove())
 
-  // Author: the card holds three leaf elements — "AUTOR:", the name, then the role.
+  // Author: the card holds three leaf elements: "AUTOR:", the name, then the role.
   // Reading them structurally beats regexing the concatenated text, which produced
   // fragments like "& Jakub Grzęda" as a job title.
   const authorImg = main.querySelector('img[src*="_autors"], source[srcset*="_autors"]')
@@ -151,7 +151,7 @@ function extractPost(parse: ParseHTML, slug: string, html: string): PostMeta | n
       if (marker >= 0 && leaves[marker + 1]) {
         // Two posts don't split name from prose in the source: one has a whole sentence
         // where the name goes, another credits two people. Cutting at the first comma
-        // handles both — "Krzysztof Stępień, nasz kolega i klient…" keeps just the name,
+        // handles both: "Krzysztof Stępień, nasz kolega i klient…" keeps just the name,
         // while "Karol Kikut & Jakub Grzęda" has no comma and stays intact as a joint
         // credit, which is the honest representation given one author per post.
         const raw = leaves[marker + 1]
@@ -179,7 +179,7 @@ function extractPost(parse: ParseHTML, slug: string, html: string): PostMeta | n
   //
   // The length guard matters: on `north-pole-marathon` the "AUTOR:" label sits inside a
   // wrapper that also holds the whole article, and removing it wiped the post's body.
-  // A real author card is a name plus a job title — a few dozen characters.
+  // A real author card is a name plus a job title, a few dozen characters.
   const AUTHOR_CARD_MAX_CHARS = 400
   if (authorCard && (authorCard.textContent ?? '').trim().length <= AUTHOR_CARD_MAX_CHARS) {
     authorCard.remove()
@@ -487,8 +487,8 @@ async function main() {
       created++
     }
     payload.logger.info(
-      `${existing.docs[0] ? 'updated' : 'created'} ${slug} — ${meta.blocks.length} blocks, ` +
-        `${uploaded.size} images, author=${meta.authorName ?? '—'}, cats=${categories.length}`,
+      `${existing.docs[0] ? 'updated' : 'created'} ${slug}: ${meta.blocks.length} blocks, ` +
+        `${uploaded.size} images, author=${meta.authorName ?? ': '}, cats=${categories.length}`,
     )
   }
 

@@ -39,8 +39,8 @@ export function MediaBrowser({
   const router = useRouter()
 
   // Was `window.location.href = …`, which the React Compiler lint rules reject (assigning
-  // to a value it treats as immutable — the same rule that caught `document.cookie` in
-  // PromoBar). `router.push` is also the better behaviour here: it navigates client-side
+  // to a value it treats as immutable: the same rule that caught `document.cookie` in
+  // PromoBar). `router.push` is also the better behaviour here, it navigates client-side
   // inside the admin instead of reloading the whole panel.
   const openDoc = (id: number) => {
     router.push(`${adminRoute}/c/media/${id}`)
@@ -110,8 +110,8 @@ export function MediaBrowser({
                         onDoubleClick={() => openDoc(doc.id)}
                       >
                         <td>{mediaDisplayTitle(doc)}</td>
-                        <td>{doc.isDecorative ? '(dekoracyjny)' : doc.alt || '—'}</td>
-                        <td>{doc.mimeType || '—'}</td>
+                        <td>{doc.isDecorative ? '(dekoracyjny)' : doc.alt || ': '}</td>
+                        <td>{doc.mimeType || ': '}</td>
                         <td>{formatDimensions(doc.width, doc.height)}</td>
                         <td>{formatBytes(doc.filesize)}</td>
                       </tr>
