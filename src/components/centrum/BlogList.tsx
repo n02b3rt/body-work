@@ -213,19 +213,24 @@ export function BlogList({ posts, categories }: BlogListProps) {
       ) : null}
 
       {grid.length > 0 ? (
-        // `lg:` and not the project's `wide:` here on purpose. With `sm:grid-cols-2` and
-        // `wide:grid-cols-3` both on the element, the `sm` rule wins above 1060px and the
-        // grid silently stays at two columns — measured, not assumed. `lg` (1024px) is a
-        // default breakpoint that orders after `sm`, and 1024 vs the reference's 1060 is a
-        // difference no one will see.
-        <Container className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        // Not `Container` here, deliberately. The grid needs a border down its left and
+        // right edges (the reference has them), and `Container`'s own horizontal padding
+        // would sit between that line and the first card's padding — leaving 64px from the
+        // edge line to the text against 32px at the interior dividers. Same width cap,
+        // padding moved onto the cards, so every line has the same gap.
+        //
+        // `lg:` and not the project's `wide:`: with `sm:grid-cols-2` and `wide:grid-cols-3`
+        // both on the element, the `sm` rule wins above 1060px and the grid silently stays
+        // at two columns — measured, not assumed. `lg` (1024px) orders after `sm`, and 1024
+        // against the reference's 1060 is a difference no one will see.
+        <div className="mx-auto grid w-full max-w-[1440px] grid-cols-1 border-x border-brand-navy-soft sm:grid-cols-2 lg:grid-cols-3">
           {grid.map((post) => (
             <article
               key={post.slug}
               // Dividers are the reference's own border-right/border-bottom. Dropping the
               // right border on the last column keeps the line off the container edge —
               // a grid mechanic, which CLAUDE.md allows adapting.
-              className="flex flex-col border-b border-brand-navy-soft py-8 sm:border-r sm:px-6 sm:[&:nth-child(2n)]:border-r-0 lg:px-8 lg:[&:nth-child(2n)]:border-r lg:[&:nth-child(3n)]:border-r-0"
+              className="flex flex-col border-b border-brand-navy-soft px-6 py-8 sm:border-r sm:[&:nth-child(2n)]:border-r-0 lg:px-8 lg:[&:nth-child(2n)]:border-r lg:[&:nth-child(3n)]:border-r-0"
             >
               <Link href={`/blog/${post.slug}`} className="group flex flex-col">
                 {post.image ? (
@@ -267,7 +272,7 @@ export function BlogList({ posts, categories }: BlogListProps) {
               </div>
             </article>
           ))}
-        </Container>
+        </div>
       ) : null}
     </div>
   );
