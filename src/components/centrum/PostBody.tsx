@@ -62,7 +62,13 @@ function buildConverters(): JSXConvertersFunction {
           width={image.width ?? 1200}
           height={image.height ?? 800}
           sizes="(min-width: 1440px) 1376px, (min-width: 1024px) calc(100vw - 4rem), 100vw"
-          className="h-auto w-full"
+          // Never blown up past its own pixels. The body is 1376px wide and **75 of the 150
+          // in-article images are narrower than that**, one of them 196px, so `w-full` alone
+          // was stretching them by up to seven times into mush. The reference does the same
+          // thing (`db w100p ha`, no cap) but its column was half the width, which hid how
+          // bad it was. Centred, so a narrow figure reads as deliberate rather than stranded.
+          className="mx-auto h-auto w-full"
+          style={image.width ? { maxWidth: `${image.width}px` } : undefined}
           {...(image.blurDataURL
             ? { placeholder: "blur" as const, blurDataURL: image.blurDataURL }
             : {})}

@@ -36,7 +36,7 @@ export default async function BlogPage({ params }: PageProps) {
   setRequestLocale(locale);
 
   const t = await getTranslations("Blog");
-  const { cards, categories, gridCount } = await blogListingData();
+  const { cards, categories, gridCount } = await blogListingData(locale);
 
   const initialCount = Math.min(BLOG_PAGE_SIZE, gridCount);
   const nextPageHref =

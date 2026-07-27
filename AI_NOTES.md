@@ -13,6 +13,16 @@
 
 -->
 
+## 2026-07-28: in-article images, author photos verified, and English versions
+
+- **Half the in-article images were being blown up.** Of 150 images inside articles, **75 are narrower than the 1376px body**, the worst 196px, so `w-full` was stretching them up to sevenfold. Each is now capped at its own pixel width and centred. The reference has the identical flaw (`db w100p ha`, no cap); its column is half as wide, which hid it.
+- **Author photos are all correct, which is worth stating because it was asked directly.** Parsed the author block from all 62 reference pages: **48 of 48 portraits match, zero mismatches**, names 60 of 61 (the odd one is `&amp;` against `&`), **zero** portraits unconfirmed by any reference page, and the 14 posts where the reference shows no portrait show none here either.
+- **Native Payload localisation would not go in, and the failure is worth recording.** `localized: true` moves localised columns into a `_locales` table, and the dev schema push asks for confirmation before a destructive change. With no TTY it hangs: twice, ten minutes each. **Zero data loss**: a 1.9MB backup was taken first and 62 posts plus 230 media verified intact afterwards. Adding a *new* collection pushed fine, which confirms it is the column move and not Payload generally.
+- **Delivered a `post-translations` collection instead.** One document per post, editable by a non-technical person, with an explicit Szkic/Gotowe switch. It also **enforces the fallback rule** `docs/i18n.md` has always specified and the code never honoured: `/en/blog/<slug>` used to serve Polish prose under an English URL, and now 404s without a published translation. The English listing shows only translated posts, `generateStaticParams` prerenders only translated English URLs, and "published" additionally requires a body so a title-only translation cannot go live as an empty article.
+- **Verified:** `/en/blog` lists 1, the translated post renders its English title, an untranslated one 404s, Polish untouched at 62.
+- **One post translated end to end as a worked example; the other 61 left alone deliberately.** Roughly 100,000 words of physiotherapy advice, machine-translated with nobody to review it, is a liability rather than a deliverable, and an untranslated post is a supported state here. Said so plainly rather than quietly shipping it.
+- **Watch out:** Docker Desktop hung on `docker exec` during this session, so checking the database that way is unreliable; a short `payload run` script with a `timeout` is the dependable route. And if the localised-fields migration is ever attempted, take a backup first, expect the push to hang, and write the migration by hand.
+
 ## 2026-07-27: every Lighthouse category at 100
 
 - **Done:** closed every item the first Lighthouse pass left open. Performance, accessibility, best practices and SEO all **100** on the homepage, the listing and a post page. LCP 0.6-0.8s, CLS 0, TBT 0ms, server response 0-10ms.

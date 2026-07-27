@@ -61,6 +61,7 @@ Check here before building anything: don't duplicate what exists.
 | Which messages reach the browser | `src/i18n/client-namespaces.ts`, `pnpm check:messages` | **Only 11 of 46 namespaces ship.** `getMessages()` is 188KB; client components need 7.1KB. Add a namespace here when a `"use client"` file starts reading one, or it renders as a key path |
 | UI translation strings | `messages/pl.json`, `messages/en.json` | See `docs/i18n.md` for the next-intl-vs-Payload-localization split |
 | Shared UI primitives | `src/components/ui/` | `Container` (max-width fix), `Button`, `SectionHeading` |
+| English versions of posts | `src/collections/PostTranslations.ts`, `src/lib/post-translation.ts` | A collection rather than `localized: true`, because that migration hangs on an existing table. **No translation means the post 404s in EN**, per `docs/i18n.md` |
 | Blog (listing + post) | `src/app/[locale]/blog/` | Reads Payload's Local API; `BlogList` does the category/search filtering client-side, renders the newest post as the reference's featured card, and prints **no dates** |
 | Editorial worklist | `scripts/content-health.ts` | Read-only. Lists posts without subheadings, images still needing real alt text, and missing categories. Run it to watch the list shrink |
 | Image alt text | `scripts/fix-image-alt-text.ts` | Sets in-article alts to "post title: nearest heading". The reference has **no** alt attributes at all, so there was nothing to import |
