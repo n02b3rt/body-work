@@ -13,6 +13,17 @@
 
 -->
 
+## 2026-07-27: blog audit against the live site, and 188KB of dead payload
+
+- **Done:** weighed both sites with one tool and identical headers. Found that our post document was **heavier than the reference's** (305 KB against 160 KB) and fixed the cause, which was worth more than everything else in the audit.
+- **`getMessages()` returns all 46 namespaces, about 188 KB, and it was all going to the browser.** `NextIntlClientProvider` received the lot, so a blog post shipped the newsletter status copy, the blog filter labels and the trainer biographies. Only **11** namespaces are read inside a `"use client"` file, totalling **7.1 KB**: server components use `getTranslations`, which sends nothing. 96% dead weight, on every page of the site.
+- **Result:** post document 305 KB to **112 KB (-63%)**, listing 363 KB to **170 KB (-53%)**. Post page weight is now **182.8 KB against the reference's 230.4 KB**, having been 375.9 KB.
+- **Guarded, because this fails quietly.** A client component reading an undeclared namespace renders the key path rather than throwing. `src/i18n/client-namespaces.ts` holds the list; `pnpm check:messages` is plain Node (no transpiler, no Payload boot) and compares the list against the source. It caught its own doc-comment example on the first run, hence the comment stripping.
+- **Verified nothing went missing:** eight pages including a post, an archive and the 404 checked for `Namespace.key` artefacts, all zero. Server-rendered copy (Trainers, GroupClasses, ManualTherapy, Pricing) still renders; client copy (category select, search, newsletter) still renders; EN still renders. Copy that should no longer ship no longer does.
+- **Image audit:** all **998** files in `media/` are WebP, no exceptions, average 47 KB. The 230 originals average 73 KB, 8 above 250 KB. Served bytes are **AVIF**, since `next/image` re-encodes. The reference serves WebP plus a couple of stray JPEGs.
+- **Where the listing still loses:** 561.9 KB against the reference's 3605.6 KB is a win, but 392 KB of ours is images and that is nine cards. The window is doing its job; there is not much left to take without cutting quality.
+- **Watch out:** TTFB comparisons in this entry are localhost against a public host, so they are not comparable. Document weight is.
+
 ## 2026-07-27: the health report immediately found a data bug, not an editorial one
 
 - **Done:** the two posts with no category now have the ones the reference gives them. `fix-blog-from-reference.ts` repairs categories as well, making it four fields it restores.

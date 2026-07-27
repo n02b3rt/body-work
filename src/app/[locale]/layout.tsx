@@ -4,6 +4,7 @@ import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { routing } from "@/i18n/routing";
+import { clientMessages } from "@/i18n/client-namespaces";
 import { Header } from "@/components/centrum/Header";
 import { Footer } from "@/components/centrum/Footer";
 import { PromoBar } from "@/components/centrum/PromoBar";
@@ -71,7 +72,11 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
         />
       </head>
       <body className="flex min-h-full flex-col">
-        <NextIntlClientProvider locale={locale} messages={messages}>
+        {/* Only the namespaces a client component actually reads. `getMessages()` returns
+          * all 46, about 188KB, and shipping the lot put the trainer biographies and the
+          * newsletter status copy into every page's payload. See
+          * `src/i18n/client-namespaces.ts`; `pnpm check:messages` guards the list. */}
+        <NextIntlClientProvider locale={locale} messages={clientMessages(messages)}>
           <Header />
           {/* Header is `fixed`, so this reserves its (tallest, unscrolled) height in
            * normal flow: must stay in sync with Header's row1 (65px) + row2 (96px
