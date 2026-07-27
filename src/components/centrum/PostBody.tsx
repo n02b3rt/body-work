@@ -26,7 +26,7 @@ const converters: JSXConvertersFunction = ({ defaultConverters }) => ({
         alt={image.alt}
         width={image.width ?? 1200}
         height={image.height ?? 800}
-        sizes="(min-width: 1024px) 960px, 100vw"
+        sizes="(min-width: 1440px) 1376px, (min-width: 1024px) calc(100vw - 4rem), 100vw"
         className="h-auto w-full"
       />
     );
@@ -34,18 +34,18 @@ const converters: JSXConvertersFunction = ({ defaultConverters }) => ({
 });
 
 /**
- * The measure is 60rem, not the 42rem this used to be.
+ * No measure cap: the article fills its container, which `Container` already holds to
+ * 1440px like every other section on the site.
  *
- * 42rem left the article in a 672px column inside a 1440px container — half the row empty,
- * which is what the client saw as the page being broken. 60rem (960px) is a little wider
- * than the reference's own body column (~886px, being 50% of the row less its padding) and
- * fills the space without running the text to the full 1440px, where a line would be about
- * 180 characters and genuinely hard to read. Left-aligned so it shares an edge with the
- * title and author above it.
+ * This was `max-w-[42rem]` (a 672px column in a 1440px row, which read as broken), then
+ * briefly 60rem. Full width is the client's call, made twice — I flagged that a 1440px
+ * measure puts roughly 180 characters on a line, which is past what is comfortable to read,
+ * and they want it full width anyway. Noted in `docs/migration-tracker.md`; if it ever needs
+ * walking back, this one class is the whole change.
  */
 export function PostBody({ content }: PostBodyProps) {
   return (
-    <div className="blog-prose max-w-[60rem]">
+    <div className="blog-prose">
       <RichText data={content} converters={converters} />
     </div>
   );
