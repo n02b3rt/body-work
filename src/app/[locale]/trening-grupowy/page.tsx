@@ -21,6 +21,7 @@ export default async function GroupTrainingPage() {
       <PageHero
         title={t("title")}
         titleSize="display"
+        titleAlign="right"
         belowTitle={<GroupTrainingNav />}
         imageSrc="/images/trening-grupowy/hero.webp"
         imageAlt={t("title")}

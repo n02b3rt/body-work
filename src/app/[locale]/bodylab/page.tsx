@@ -19,6 +19,7 @@ export default async function BodylabPage() {
       <PageHero
         title={t("title")}
         titleSize="display"
+        titleAlign="right"
         belowTitle={<BodylabNav />}
         imageSrc="/images/bodylab/hero.webp"
         imageAlt={t("title")}

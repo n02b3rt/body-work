@@ -103,7 +103,7 @@ export function MobileNav({ open, onClose, navItems, otherLocale, pathname }: Mo
           ))}
           <li className={cn("py-3", rowClasses)} style={stagger(navItems.length)}>
             <Link
-              href="#kontakt"
+              href="/kontakt"
               onClick={onClose}
               className="block text-partner font-light uppercase tracking-[1px] text-background"
             >

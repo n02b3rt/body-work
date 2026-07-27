@@ -24,3 +24,10 @@ export const FACEBOOK_URL = "https://www.facebook.com/centrumbodywork/?locale=pl
  * if a real gallery page arrives, this is the single line to change.
  */
 export const GALLERY_URL = INSTAGRAM_URL;
+
+/** The centre on Google Maps, and turn-by-turn directions to it. Used by the footer,
+ * the mega-menu's "Mapa dojazdu" and the contact page. */
+export const MAP_URL =
+  "https://www.google.com/maps/place/BODYWORK/@52.41825,16.890763,15z/data=!4m6!3m5!1s0x470444beb9f08a6b:0x9005d9db3042bade!8m2!3d52.4182498!4d16.8907633!16s%2Fg%2F11byvnvxmm";
+export const DIRECTIONS_URL =
+  "https://www.google.com/maps/dir//Kajki+14,+60-545+Poznań/@52.4036757,16.8899891,14z";

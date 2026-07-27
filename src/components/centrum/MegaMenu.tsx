@@ -2,13 +2,11 @@
 
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { SCHEDULE_URL, FACEBOOK_URL, INSTAGRAM_URL } from "@/lib/external-links";
+import { SCHEDULE_URL, FACEBOOK_URL, INSTAGRAM_URL, MAP_URL } from "@/lib/external-links";
 import { Container } from "@/components/ui/Container";
 import { buttonClasses } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
 
-const MAP_URL =
-  "https://www.google.com/maps/place/BODYWORK/@52.41825,16.890763,15z/data=!4m6!3m5!1s0x470444beb9f08a6b:0x9005d9db3042bade!8m2!3d52.4182498!4d16.8907633!16s%2Fg%2F11byvnvxmm";
 
 type MegaMenuProps = {
   open: boolean;
@@ -77,7 +75,7 @@ export function MegaMenu({ open, onClose }: MegaMenuProps) {
     { label: t("pricing"), href: "/cennik" },
     { label: t("massage"), href: "/masaz" },
     { label: t("blog"), href: "/blog" },
-    { label: t("contact"), href: "#kontakt" },
+    { label: t("contact"), href: "/kontakt" },
   ];
 
   // Columns rise into place one after another as the panel opens; on close they all

@@ -38,6 +38,7 @@ export default async function PersonalTrainingPage() {
       <PageHero
         title={t("title")}
         titleSize="display"
+        titleAlign="right"
         belowTitle={<PersonalTrainingNav />}
         imageSrc="/images/trening-personalny/hero.webp"
         imageAlt={t("title")}

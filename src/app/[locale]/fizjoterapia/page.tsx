@@ -36,6 +36,7 @@ export default async function PhysiotherapyPage() {
       <PageHero
         title={t("title")}
         titleSize="display"
+        titleAlign="right"
         belowTitle={<PhysiotherapyNav />}
         imageSrc="/images/fizjoterapia/hero.webp"
         imageAlt={t("title")}

@@ -27,6 +27,7 @@ export default async function DieteticsPage() {
       <PageHero
         title={t("title")}
         titleSize="display"
+        titleAlign="right"
         belowTitle={<DieteticsNav />}
         imageSrc="/images/dietetyka/hero.webp"
         imageAlt={t("title")}
