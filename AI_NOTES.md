@@ -13,6 +13,12 @@
 
 -->
 
+## 2026-07-26 — appearance: colour scheme + component library
+
+- **Done:** New "Wygląd" section. `theme-colors` global — palette tokens (brand/text/surface/state) defined once in `theme-tokens.ts`, drive both the admin fields and `:root { --bw-* }` on the public site (`theme-css.ts`, `get-theme-colors.ts`, wired in `(frontend)/layout.tsx` + `globals.css`); custom `ColorField` (swatch+hex), `ThemePresets` (4 ready palettes), live `ThemePreview`. `site-components` collection — Elementor-style blocks (`button`, `hero`, `carousel`, `gallery`, `cta`, `features`), one settings group per type shown via `admin.condition`, shared parameter helpers (colour/radius/gap/align/aspect ratio) in `fields/component-settings/shared.ts`, live `ComponentPreview` reading the saved palette. Seeded 7 sample components (`pnpm seed:appearance`). Docs in `docs/appearance.md`.
+- **Decisions:** colour params on components pick a palette token by default (stays `var(--bw-*)`) with a custom-HEX escape hatch, so components follow the global theme unless overridden; hero/CTA reference an existing `button` component via `relationship` instead of duplicating button fields; component previews fetch media/linked components over the REST API client-side (fine for admin, not for the eventual public renderer).
+- **Watch out:** no frontend block renderer yet — `site-components` docs are data only, nothing on `Pages` inserts them yet (follow-up: a blocks field). Colour scheme only affects the public site after the global is *saved* (preview is live, site render is per-request). After adding a token or component type: `pnpm generate:importmap` + `pnpm generate:types`.
+
 ## 2026-07-26 — media library explorer + a11y/SEO fields
 
 - **Done:** Media collection expanded (ALT/title/slug/caption/description/tags/decorative, conversion options, `kind` folders); compression accepts format/max-edge/quality; custom list view `MediaLibrary` (grid/list, folders by type, sort/search, details preview). Docs in `docs/media.md`.

@@ -11,8 +11,10 @@ import sharp from 'sharp'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
+import { SiteComponents } from './collections/SiteComponents'
 import { Users } from './collections/Users'
 import { SiteSettings } from './globals/SiteSettings'
+import { ThemeColors } from './globals/ThemeColors'
 import { PAYLOAD_DATETIME_FORMAT } from './lib/format-date'
 
 const filename = fileURLToPath(import.meta.url)
@@ -53,8 +55,8 @@ export default buildConfig({
       },
     },
   },
-  collections: [Users, Media, Pages, Posts],
-  globals: [SiteSettings],
+  collections: [Users, Media, Pages, Posts, SiteComponents],
+  globals: [SiteSettings, ThemeColors],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

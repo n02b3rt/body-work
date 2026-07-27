@@ -10,6 +10,29 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Theme palette from Payload (Wygląd → Schemat kolorów).
+     The --bw-* variables are injected on :root by the frontend layout;
+     the fallbacks keep utilities usable if the global was never saved. */
+  --color-brand: var(--bw-primary, #0f766e);
+  --color-brand-hover: var(--bw-primary-hover, #115e59);
+  --color-brand-alt: var(--bw-secondary, #1e293b);
+  --color-brand-alt-hover: var(--bw-secondary-hover, #0f172a);
+  --color-accent: var(--bw-accent, #f59e0b);
+  --color-heading: var(--bw-text-heading, #0f172a);
+  --color-body: var(--bw-text-body, #334155);
+  --color-muted: var(--bw-text-muted, #64748b);
+  --color-inverted: var(--bw-text-inverted, #ffffff);
+  --color-link: var(--bw-link, #0f766e);
+  --color-link-hover: var(--bw-link-hover, #115e59);
+  --color-page: var(--bw-surface-page, #ffffff);
+  --color-surface: var(--bw-surface, #f8fafc);
+  --color-surface-alt: var(--bw-surface-alt, #f1f5f9);
+  --color-line: var(--bw-border, #e2e8f0);
+  --color-success: var(--bw-success, #16a34a);
+  --color-warning: var(--bw-warning, #d97706);
+  --color-error: var(--bw-error, #dc2626);
+  --color-info: var(--bw-info, #0284c7);
 }
 
 @media (prefers-color-scheme: dark) {
