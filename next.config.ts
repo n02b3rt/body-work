@@ -17,6 +17,12 @@ const nextConfig: NextConfig = {
     // So the site's own photos in `public/images` have to be listed alongside Payload's
     // uploads, or every page's imagery 400s.
     localPatterns: [{ pathname: "/api/media/file/**" }, { pathname: "/images/**" }],
+    // AVIF first, WebP as the fallback. Without this Next only ever answers WebP —
+    // measured: every `/_next/image` response came back `image/webp` even when the browser
+    // advertised AVIF. AVIF is typically 20-30% smaller on photographs, which is what
+    // almost every image on this site is. The cost is a slower first encode per
+    // width/quality pair; results are cached, so it is paid once.
+    formats: ["image/avif", "image/webp"],
   },
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {

@@ -18,7 +18,11 @@ type PostBodyProps = {
 const converters: JSXConvertersFunction = ({ defaultConverters }) => ({
   ...defaultConverters,
   upload: ({ node }) => {
-    const image = mediaFrom(node.value, "content");
+    // `hero` (1920) rather than `content` (1200): the article body is full width now, so its
+    // images occupy up to 1376 CSS px and a 1200px source was being stretched. This costs
+    // nothing in transfer — the width served is decided by `sizes` below, not by how large
+    // the source is — it only stops the optimizer working from too small a picture.
+    const image = mediaFrom(node.value, "hero");
     if (!image) return null;
     return (
       <Image

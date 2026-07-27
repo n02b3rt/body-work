@@ -212,6 +212,37 @@ had loaded. The cost was the markup and the DOM: 62 cards, each carrying two inl
 icons. The document only shrank 13% because the post *data* still ships for client-side
 filtering; that is the deliberate trade.
 
+### Image delivery: what actually cost bytes (2026-07-27)
+
+The stored files were not the problem — uploads are already capped at a 2560px long edge and
+converted to WebP, and four sized variants are generated per image. What was wrong was the
+**`sizes` hint**, which decides the width Next actually serves.
+
+The grid cards said `33vw`. The grid is capped at 1440px, so above that a card is a fixed
+**480px**, not 33vw — at a 1920 viewport `33vw` claims 634px, and on a 2x display Next
+therefore reached for its 1920 candidate. Measured on one photo: **270KB a card** where the
+honest slot needs 99KB.
+
+Three changes, all measured:
+
+| Change | Effect |
+|---|---|
+| `sizes="(min-width: 1440px) 480px, …"` on grid cards, and `1024px` for the three-up breakpoint (it said 1060, but the grid goes three-up at `lg`) | Next picks the 1080 candidate instead of 1920 |
+| `formats: ["image/avif", "image/webp"]` in `next.config.ts` | Every response had been WebP even when the browser advertised AVIF. AVIF is 12-16% smaller here; WebP-only browsers still get WebP — verified |
+| Author portraits ask for `thumbnail` (400px), not `card` (768px) | A 10rem slot needs 320px at 2x |
+
+**First screen of `/blog`, ten images, at 2x: 518KB → 208KB (−59%).**
+
+Also: in-article images now take `hero` (1920) as their source rather than `content` (1200).
+The body went full width, so its images occupy up to 1376 CSS px and a 1200px source was
+being stretched. This costs no transfer — `sizes` decides the served width, not the source —
+it only stops the optimizer working from too small a picture.
+
+**Still on the table:** 46MB across 998 files on disk. That is four variants plus a capped
+original per image and is largely inherent; getting it down means narrower `imageSizes` and
+regenerating all 230 media rows, which is a separate operation. `next/image` was never
+serving those full files to anyone.
+
 ### The blog import took three fields from the wrong place (found 2026-07-27)
 
 `import-blog.ts` read the thumbnail, the blurb and the date out of each **article body**. On

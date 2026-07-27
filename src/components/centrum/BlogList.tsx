@@ -284,7 +284,12 @@ export function BlogList({ posts, categories }: BlogListProps) {
                       src={post.image.url}
                       alt={post.image.alt}
                       fill
-                      sizes="(min-width: 1060px) 33vw, (min-width: 640px) 50vw, 100vw"
+                      // The grid is capped at 1440px, so above that a card is a fixed
+                      // 480px — not 33vw. Saying 33vw overstated the slot by a third at a
+                      // 1920 viewport, which pushed Next to the 1920 candidate on a 2x
+                      // screen: 270KB a card, measured, against 99KB for the honest 480px.
+                      // The breakpoint is 1024px because the grid goes three-up at `lg`.
+                      sizes="(min-width: 1440px) 480px, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                     />
                   </div>

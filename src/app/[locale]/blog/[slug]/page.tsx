@@ -86,8 +86,10 @@ export default async function PostPage({ params }: PostPageProps) {
   if (!post) notFound();
 
   const author = post.author && typeof post.author === "object" ? post.author : null;
-  // 10rem on screen, so ask for the card size rather than the 400px thumbnail.
-  const authorPhoto = author ? mediaFrom(author.photo, "card", author.name) : null;
+  // 10rem on screen — 320px on a 2x display — so the 400px `thumbnail` is the right
+  // source. It was asking for `card` (768px), which caps nothing but makes the optimizer
+  // decode a picture four times larger than anything it can show.
+  const authorPhoto = author ? mediaFrom(author.photo, "thumbnail", author.name) : null;
   const date = formatDate(post.publishedAt);
 
   return (
