@@ -8,6 +8,8 @@ import { pl } from 'payload/i18n/pl'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
+import { Authors } from './collections/Authors'
+import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
@@ -47,7 +49,7 @@ export default buildConfig({
       },
     },
   },
-  collections: [Users, Media, Pages, Posts],
+  collections: [Users, Authors, Categories, Media, Pages, Posts],
   globals: [SiteSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

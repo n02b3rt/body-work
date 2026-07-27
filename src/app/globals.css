@@ -87,3 +87,52 @@ body {
     transform: translateX(-50%);
   }
 }
+
+/* Typography inside a rendered blog article. Payload's Lexical renderer emits plain
+ * semantic tags, so the article's scale lives here rather than in per-node converters. */
+.blog-prose {
+  color: var(--brand-navy);
+  font-size: var(--text-body);
+  line-height: 1.7;
+}
+.blog-prose > * + * {
+  margin-top: 1.5rem;
+}
+.blog-prose h2 {
+  font-size: var(--text-h-menu);
+  line-height: 1.2;
+  margin-top: 3rem;
+}
+.blog-prose h3 {
+  font-size: var(--text-partner);
+  line-height: 1.3;
+  margin-top: 2.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.blog-prose ol,
+.blog-prose ul {
+  padding-left: 1.5rem;
+}
+.blog-prose ol {
+  list-style: decimal;
+}
+.blog-prose ul {
+  list-style: disc;
+}
+.blog-prose li + li {
+  margin-top: 0.5rem;
+}
+.blog-prose a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.blog-prose blockquote {
+  border-left: 1px solid var(--brand-navy-soft);
+  padding-left: 1.5rem;
+  font-style: italic;
+}
+.blog-prose img {
+  height: auto;
+  max-width: 100%;
+}

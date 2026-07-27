@@ -1617,5 +1617,18 @@
     "trainersCta": "Meet the trainers",
     "spaceHeading": "The space.",
     "spaceCta": "See it"
+  },
+  "Blog": {
+    "title": "Blog",
+    "allCategories": "Choose a category",
+    "searchLabel": "Search",
+    "searchPlaceholder": "Search the posts…",
+    "empty": "Sorry, no post matches your criteria.",
+    "noPosts": "There are no posts yet.",
+    "readingTime": "{minutes} min",
+    "readMore": "Read more",
+    "backToBlog": "Back to the blog",
+    "author": "Author",
+    "publishedOn": "Published"
   }
 }

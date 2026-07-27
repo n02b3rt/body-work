@@ -99,8 +99,20 @@ What the pass fixed is recorded in `AI_NOTES.md`; the rows below carry the per-p
 
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
 |---|---|---|---|---|---|
-| `/blog/` (listing) | `/blog/` | — | PL: — / EN: — | — | Not started |
-| `/blog/<slug>/` × 62 posts | `/blog/<slug>/` | — | PL: — / EN: — | — | Not started (template-level; once the template ships, per-post content/translation is tracked separately, not row-by-row here) |
+| `/blog/` (listing) | `/blog/` | New: `BlogList` (category select + search + empty state, filtered client-side as on the reference). Reused: PageHero | PL: done / EN: done | Renders correctly against an empty database; needs re-checking once posts are imported | In progress |
+| `/blog/<slug>/` × 62 posts | `/blog/<slug>/` | Template built: meta line, hero, Lexical body via `RichText`, author block, back link. `.blog-prose` in globals.css carries the article typography | PL: template done / EN: UI strings done, post content is Polish | Template renders; **62 posts not yet imported** | In progress |
+
+### Blog — what the reference actually has (verified 2026-07-27)
+
+| Thing | Finding |
+|---|---|
+| Posts | 62. One (`operacja-koniecznosc-czy-ostatecznosc`) had failed the original scrape with a `ConnectionError` and was re-fetched by hand |
+| Images | **60 of 61 scraped posts carry content images — 194 in total**, 1–12 per post (most often 2). One post has none |
+| Categories | Exactly four: Fizjoterapia, Masaż, Trening, Dietetyka. Posts can carry several (35 posts carry two); 2 posts are uncategorised |
+| Authors | **18**, each with a photo, stored as a separate builder collection. They are trainers/physiotherapists, not CMS users — hence the `Authors` collection rather than a `users` relationship |
+| Card meta | date · reading time ("10 min") · author name |
+| Body markup | A small, clean vocabulary: `p`, `h2`, `h3`, `strong`, `em`, `ol`/`li`, `img`, `a` — plus exactly one `blockquote` and one `table` in the whole corpus |
+| Pagination | None found. The listing appears to render every post and filter client-side |
 
 ## Legal & utility
 

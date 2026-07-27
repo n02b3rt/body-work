@@ -1617,5 +1617,18 @@
     "trainersCta": "Poznaj trenerów",
     "spaceHeading": "Przestrzeń.",
     "spaceCta": "Zobacz"
+  },
+  "Blog": {
+    "title": "Blog",
+    "allCategories": "Wybierz kategorię",
+    "searchLabel": "Szukaj",
+    "searchPlaceholder": "Szukaj we wpisach…",
+    "empty": "Niestety, żaden wpis nie pasuje do Twoich kryteriów.",
+    "noPosts": "Nie ma jeszcze żadnych wpisów.",
+    "readingTime": "{minutes} min",
+    "readMore": "Czytaj dalej",
+    "backToBlog": "Wróć na blog",
+    "author": "Autor",
+    "publishedOn": "Opublikowano"
   }
 }

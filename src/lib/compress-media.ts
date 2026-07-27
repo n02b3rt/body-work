@@ -19,11 +19,23 @@ function replaceExtension(filename: string, ext: string): string {
   return `${base}.${ext}`
 }
 
-async function convertImageToWebp(file: UploadFile): Promise<UploadFile> {
-  if (file.mimetype === 'image/webp') return file
+/** Longest edge kept on the stored original. Big enough for a full-bleed hero on a
+ * 2x display, small enough that a 4000x3000 phone photo can't be served as-is.
+ * Downscale only — `withoutEnlargement` leaves anything smaller untouched. */
+export const MAX_IMAGE_EDGE = 2560
 
+async function convertImageToWebp(file: UploadFile): Promise<UploadFile> {
+  // Note: no early return for files that are already WebP. They still need the resize
+  // pass — otherwise a 4000x3000 WebP sails straight through untouched, which is
+  // exactly the case this is here to prevent.
   const data = await sharp(file.data)
     .rotate()
+    .resize({
+      width: MAX_IMAGE_EDGE,
+      height: MAX_IMAGE_EDGE,
+      fit: 'inside',
+      withoutEnlargement: true,
+    })
     .webp({ quality: 82, effort: 4 })
     .toBuffer()
 

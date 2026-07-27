@@ -58,10 +58,19 @@ export const Media: CollectionConfig = {
     },
   ],
   upload: {
-    mimeTypes: [
-      'image/*',
-      'video/*',
-      'application/pdf',
+    mimeTypes: ['image/*', 'video/*', 'application/pdf'],
+    // Payload generates these with sharp on upload, so the frontend can ask for a size
+    // near what it actually renders instead of pulling the full original. Widths are
+    // matched to the real slots: `thumbnail` for admin lists, `card` for the blog
+    // listing grid, `content` for in-article images, `hero` for full-bleed.
+    // `withoutEnlargement` keeps a small upload from being blown up into a bigger file.
+    imageSizes: [
+      { name: 'thumbnail', width: 400, withoutEnlargement: true, formatOptions: { format: 'webp', options: { quality: 78 } } },
+      { name: 'card', width: 768, withoutEnlargement: true, formatOptions: { format: 'webp', options: { quality: 80 } } },
+      { name: 'content', width: 1200, withoutEnlargement: true, formatOptions: { format: 'webp', options: { quality: 80 } } },
+      { name: 'hero', width: 1920, withoutEnlargement: true, formatOptions: { format: 'webp', options: { quality: 82 } } },
     ],
+    adminThumbnail: 'thumbnail',
+    focalPoint: true,
   },
 }
