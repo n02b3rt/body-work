@@ -13,6 +13,23 @@
 
 -->
 
+## 2026-07-27 — blog listing renders a window of cards instead of all 62
+
+- **Done:** `/blog` now puts 9 cards in the DOM and adds 9 more as the reader scrolls, via an `IntersectionObserver` triggering 600px ahead of the viewport, with a "Pokaż więcej" button and an `aria-live` count beside it so keyboards and observer-less browsers can still reach the rest.
+- **Measured first, and the obvious suspect was innocent.** The images were already lazy — **1 of 62 had loaded** on first paint, and resource timing showed zero image requests. The cost was markup and DOM: 62 cards each carrying two inline SVG icons.
+
+  | | before | after |
+  |---|---|---|
+  | DOM nodes | 1764 | **571** |
+  | page height | 20,039px | **4,972px** |
+  | document transferred | 119KB | 103KB |
+  | raw HTML (dev) | 546KB | 344KB |
+
+- **Decisions:** the full post set stays client-side. Filtering and search run over all 62 as on the reference, and batching the *data* would mean a round trip per keystroke — so this windows the rendering, not the fetching. That is also why the document only shrank 13% while the DOM fell 68%. The window count is stored **next to the filter it belongs to** (`{ key, count }`) and derived during render rather than reset from an effect: an effect both flashes the old list for a frame and trips the React Compiler's set-state-in-effect rule. A side effect worth keeping: clearing a search restores the count you had, instead of collapsing back to 9.
+- **A false alarm that cost real time, and the lesson is worth keeping.** After the change, scrolling to the bottom left the count at 9 and nothing loaded — in two separate tabs. A probe observer attached by hand logged **zero** events, not even the initial callback the spec guarantees on `observe()`, which looked like conclusive evidence of a broken effect. It wasn't: **`window.scrollTo` evaluated through the browser extension does not drive `IntersectionObserver` delivery.** A real scroll (the automation's own scroll action) went 9 → 27 → 61 immediately. The code had been correct the whole time. Written up in `docs/architecture.md`.
+- **Verified with real input:** 9 → 27 → 62 articles across three scrolls, page height growing 4,972 → 9,881 → 20,039, counter and button both disappearing when the list is exhausted, window resetting to 9 when a search narrows to 21 matches and the featured card stepping aside with it. `tsc`, lint, build clean.
+- **Watch out:** `PAGE_SIZE` is 9 because that is three full rows of the desktop grid; on mobile that is already a long scroll, so if it ever feels heavy there, that constant is the whole knob. The two icons are still inlined per card — at 9 cards that is 18 copies rather than 124, so it stopped being worth deduplicating with `<symbol>`/`<use>`, but that is the next thing if the markup ever matters again.
+
 ## 2026-07-27 — post page rebuilt in the reference's order
 
 - **Done:** `/blog/<slug>` now reads title → rule → date + reading time → rule → author → article, which is the reference's own order. Author block is the reference's: 10rem round portrait, `AUTOR:`, name at `text-h-tile`, role beneath. Clock and person icons moved out of `BlogList` into `src/components/centrum/BlogIcons.tsx` so the listing (client) and the post page (server) share one copy — plain SVG, no `"use client"`.

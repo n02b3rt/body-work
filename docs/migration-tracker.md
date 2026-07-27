@@ -154,7 +154,7 @@ Two things about this app's shape made it harder than it looks, both worth knowi
 
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
 |---|---|---|---|---|---|
-| `/blog/` (listing) | `/blog/` | New: `BlogList` — the reference's featured card for the newest post (half-width photo, oversized title, lead, PRZECZYTAJ), then a 3-column grid with its border dividers, reading time and author. Rectangular category select with the reference's own painted chevron, search field filling the row, SZUKAJ button. Reused: PageHero | PL: done / EN: done | Measured in a browser: 3 equal 458.7px columns, divider dropped on every 3rd card, featured photo fills the row, search/category/empty-state/reset all correct, no horizontal overflow. **Mobile not verified in a browser** — the extension would not resize the viewport | Bilingual |
+| `/blog/` (listing) | `/blog/` | New: `BlogList` — the reference's featured card for the newest post (half-width photo, oversized title, lead, PRZECZYTAJ), then a 3-column grid with its border dividers, reading time and author. Rectangular category select with the reference's own painted chevron, search field filling the row, SZUKAJ button. Reused: PageHero | PL: done / EN: done | Measured in a browser: 3 equal 479px columns with edge borders, divider dropped on every 3rd card, featured photo fills the row, search/category/empty-state/reset all correct, no horizontal overflow. Rendering window verified with real scroll input: 9 → 27 → 61 cards, window resets to 9 on filter, counter and button disappear when exhausted. **Mobile not verified in a browser** — the extension would not resize the viewport | Bilingual |
 | `/blog/<slug>/` × 62 posts | `/blog/<slug>/` | Rebuilt 2026-07-27 in the reference's order: title (half width, so 68px type still wraps), rule, date + reading time, rule, author block (10rem round portrait, AUTOR:, name, role), then the article. Lexical body via `RichText`; `.blog-prose` in globals.css carries the article typography | PL: done / EN: UI strings done, **post content is Polish** (62 articles — a translation job for a human, not a machine) | Checked in a real browser: 62 cards, filter (Fizjoterapia 43 / Trening 50 / Dietetyka 4 / Masaż 4) and search both work, empty state matches the reference wording. Six post pages sampled — bodies, inline images and author blocks all render, no failed image loads, no dashboard-host URLs. 0 empty bodies, 0 posts missing an author/date/reading time, 0 CSS leaks | Bilingual |
 
 **No hero image and no lead paragraph on a post page — both were duplicates.**
@@ -188,6 +188,29 @@ the body repeated that paragraph in oversized type. The reference has neither el
 text for `Terms` and `Privacy`. A mistranslated T&C or privacy policy is legal exposure,
 not a copy nit — these need a professional/legal pass before an English version ships.
 Same precedent as the trainer and specialist biographies.
+
+### Why the listing renders a window of cards (2026-07-27)
+
+All 62 posts stay in memory — filtering and search run over the whole set client-side, as on
+the reference, and fetching in batches would mean a round trip per keystroke — but only 9 are
+put in the DOM, growing by 9 as the reader scrolls (`IntersectionObserver`, 600px ahead of
+the viewport, with a "Pokaż więcej" button beside it for keyboards and for anything without
+an observer).
+
+Measured before and after, because the obvious suspect turned out to be innocent:
+
+| | before | after |
+|---|---|---|
+| DOM nodes | 1764 | **571** |
+| page height | 20,039px | **4,972px** |
+| document transferred | 119KB | 103KB |
+| raw HTML (dev) | 546KB | 344KB |
+| blog images actually fetched | **1 of 62** | 1 of 10 |
+
+**The images were never the problem** — `next/image` already defers them, and only one of 62
+had loaded. The cost was the markup and the DOM: 62 cards, each carrying two inline SVG
+icons. The document only shrank 13% because the post *data* still ships for client-side
+filtering; that is the deliberate trade.
 
 ### The blog import took three fields from the wrong place (found 2026-07-27)
 

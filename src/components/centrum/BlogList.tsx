@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/Container";
@@ -26,6 +26,11 @@ type BlogListProps = {
 };
 
 const ALL = "all";
+
+/** Cards rendered before the first scroll, and added per batch after it — three full rows
+ *  of the desktop grid. See the note on `shown` for why this is a rendering window rather
+ *  than server-side pagination. */
+const PAGE_SIZE = 9;
 
 /**
  * Reading time and author. **No date** — the reference prints one on its featured card, but
@@ -99,6 +104,46 @@ export function BlogList({ posts, categories }: BlogListProps) {
   const filtering = category !== ALL || query.trim() !== "";
   const featured = filtering ? null : visible[0];
   const grid = featured ? visible.slice(1) : visible;
+
+  /**
+   * How many cards are actually rendered. The full set stays in memory — filtering and
+   * search run over all 62 posts client-side, as on the reference, and fetching in batches
+   * would mean a round trip per keystroke — but only a window of them is put in the DOM.
+   * That is where the cost was: 62 cards meant 1764 DOM nodes, a 20,000px page and a 119KB
+   * document, while the images were already lazy (1 of 62 had loaded).
+   *
+   * The count is stored next to the filter it belongs to instead of being reset from an
+   * effect: changing the category or the query has to start the window over, and doing that
+   * in an effect both flashes the old list for a frame and trips the React Compiler's
+   * set-state-in-effect rule.
+   */
+  const filterKey = `${category}|${query.trim()}`;
+  const [window_, setWindow] = useState({ key: filterKey, count: PAGE_SIZE });
+  const shown = window_.key === filterKey ? window_.count : PAGE_SIZE;
+
+  const rendered = grid.slice(0, shown);
+  const hasMore = shown < grid.length;
+
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const node = sentinelRef.current;
+    if (!node || !hasMore) return;
+
+    // `rootMargin` reveals the next batch before the sentinel is actually on screen, so the
+    // grid grows ahead of the scroll rather than after a visible gap.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setWindow({ key: filterKey, count: shown + PAGE_SIZE });
+        }
+      },
+      { rootMargin: "600px 0px" },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [filterKey, hasMore, shown]);
 
   const minutesLabel = (minutes: number) => t("readingTime", { minutes });
 
@@ -212,7 +257,7 @@ export function BlogList({ posts, categories }: BlogListProps) {
         </article>
       ) : null}
 
-      {grid.length > 0 ? (
+      {rendered.length > 0 ? (
         // Not `Container` here, deliberately. The grid needs a border down its left and
         // right edges (the reference has them), and `Container`'s own horizontal padding
         // would sit between that line and the first card's padding — leaving 64px from the
@@ -224,7 +269,7 @@ export function BlogList({ posts, categories }: BlogListProps) {
         // at two columns — measured, not assumed. `lg` (1024px) orders after `sm`, and 1024
         // against the reference's 1060 is a difference no one will see.
         <div className="mx-auto grid w-full max-w-[1440px] grid-cols-1 border-x border-brand-navy-soft sm:grid-cols-2 lg:grid-cols-3">
-          {grid.map((post) => (
+          {rendered.map((post) => (
             <article
               key={post.slug}
               // Dividers are the reference's own border-right/border-bottom. Dropping the
@@ -273,6 +318,25 @@ export function BlogList({ posts, categories }: BlogListProps) {
             </article>
           ))}
         </div>
+      ) : null}
+
+      {hasMore ? (
+        <Container className="flex flex-col items-center gap-4 py-12">
+          {/* The observer watches this; the button does the same thing on click. Both are
+            * here on purpose — scroll alone leaves keyboard users and anything without an
+            * IntersectionObserver unable to reach the rest of the list. */}
+          <div ref={sentinelRef} aria-hidden className="h-px w-full" />
+          <button
+            type="button"
+            onClick={() => setWindow({ key: filterKey, count: shown + PAGE_SIZE })}
+            className={buttonClasses("outline")}
+          >
+            {t("loadMore")}
+          </button>
+          <p aria-live="polite" className="text-label text-brand-navy/70">
+            {t("shownCount", { shown: rendered.length, total: grid.length })}
+          </p>
+        </Container>
       ) : null}
     </div>
   );
