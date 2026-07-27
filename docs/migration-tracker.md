@@ -212,6 +212,61 @@ had loaded. The cost was the markup and the DOM: 62 cards, each carrying two inl
 icons. The document only shrank 13% because the post *data* still ships for client-side
 filtering; that is the deliberate trade.
 
+### In-article images, author photos, and English versions (2026-07-28)
+
+**Half the in-article images were being blown up.** Measured: of 150 images inside articles,
+**75 are narrower than the 1376px body**, one of them 196px, so `w-full` was stretching them by
+up to seven times into mush. The reference does exactly the same (`db w100p ha`, no cap) but its
+article column is half the width, which hid how bad it looks. Under the amended 1:1 rule this is
+plainly defective, so each image is now capped at its own pixel width and centred, which makes a
+narrow figure read as deliberate rather than stranded. Nothing is upscaled any more; verified
+caps of 443px, 526px, 768px, 818px, 1026px, 1198px and 1920px on real posts.
+
+**Author photos: verified, all correct.** Parsed the author block from all 62 reference post
+pages and compared name and portrait against ours.
+
+| Check | Result |
+|---|---|
+| Portrait matches the reference | **48 of 48**, zero mismatches |
+| Author name matches | 60 of 61 (the one "mismatch" is `&amp;` against `&`, correctly decoded) |
+| Portraits never confirmed by any reference page | **0** |
+| Posts where the reference shows no portrait | 14, and we show none either |
+
+So nothing was invented and nothing is attached to the wrong person.
+
+### English versions of posts
+
+`docs/i18n.md` settles on Payload field-level localisation for CMS content, and that is still
+the right long-term answer. **Turning it on for the existing table is what does not work here.**
+Adding `localized: true` moves every localised column into a `_locales` table, and the dev-mode
+schema push asks for confirmation before a destructive change. With no TTY it hangs: it did,
+twice, for ten minutes each time. Reverted with **zero data loss** (62 posts, 230 media verified
+intact afterwards, against a 1.9MB backup taken first). Doing it properly needs a written
+migration and a maintenance window, not a dev push.
+
+The same outcome without schema surgery: a **`post-translations` collection**, one document per
+post. An editor opens "Tłumaczenia wpisów", picks a post, writes the English version, and flips
+it from "Szkic" to "Gotowe". No developer involved.
+
+**The fallback rule is now enforced rather than described.** Previously `/en/blog/<slug>` served
+Polish prose under an English URL, which the doc explicitly rules out and which the canonical
+tags were only papering over. Now:
+
+- a post with no published translation **404s** in English
+- the English listing shows only translated posts, so no Polish cards appear on it
+- `generateStaticParams` prerenders an English URL only where a translation exists
+- "published" also requires a body, so a translation with just a title cannot go live as an
+  empty article
+
+Verified: `/en/blog` lists 1 post, `/en/blog/czy-to-na-pewno-rwa-kulszowa` renders its English
+title, `/en/blog/trzy-oblicza-bolu` returns 404, and Polish is untouched at 62 posts.
+
+**One post is fully translated as a worked example** (`scripts/seed-translation-example.ts`), so
+the panel shows an editor what a finished one looks like. **The other 61 article bodies are
+deliberately left alone.** Machine-translating roughly 100,000 words of physiotherapy advice
+that nobody would review is not something to ship quietly, and an untranslated post is a
+supported state here rather than a bug. Happy to translate any batch on request.
+
 ### Every Lighthouse category at 100 (2026-07-27)
 
 Second pass, closing each item the first pass had listed as outstanding.

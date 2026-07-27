@@ -12,6 +12,7 @@ import { Authors } from './collections/Authors'
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
+import { PostTranslations } from './collections/PostTranslations'
 import { Posts } from './collections/Posts'
 import { SiteComponents } from './collections/SiteComponents'
 import { Subscribers } from './collections/Subscribers'
@@ -59,7 +60,17 @@ export default buildConfig({
       },
     },
   },
-  collections: [Users, Authors, Categories, Media, Pages, Posts, Subscribers, SiteComponents],
+  collections: [
+    Users,
+    Authors,
+    Categories,
+    Media,
+    Pages,
+    Posts,
+    PostTranslations,
+    Subscribers,
+    SiteComponents,
+  ],
   globals: [SiteSettings, ThemeColors],
   // Password resets and email verification for the author accounts. Without an adapter
   // Payload only logs them, so they never arrive, see src/lib/payload-email.ts.

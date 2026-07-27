@@ -26,6 +26,7 @@ export interface Config {
     media: Media;
     pages: Page;
     posts: Post;
+    'post-translations': PostTranslation;
     subscribers: Subscriber;
     'site-components': SiteComponent;
     'payload-kv': PayloadKv;
@@ -41,6 +42,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
+    'post-translations': PostTranslationsSelect<false> | PostTranslationsSelect<true>;
     subscribers: SubscribersSelect<false> | SubscribersSelect<true>;
     'site-components': SiteComponentsSelect<false> | SiteComponentsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -378,6 +380,48 @@ export interface Post {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * Angielskie wersje wpisów. Wpis bez gotowego tłumaczenia nie pojawia się na /en, zamiast pokazywać polski tekst pod angielskim adresem.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "post-translations".
+ */
+export interface PostTranslation {
+  id: number;
+  /**
+   * Który wpis tłumaczysz. Jeden wpis ma najwyżej jedno tłumaczenie.
+   */
+  post: number | Post;
+  /**
+   * Dopóki jest szkicem, wpis nie pojawia się w wersji angielskiej. Nic nie zostanie opublikowane przypadkiem.
+   */
+  status: 'draft' | 'published';
+  title: string;
+  /**
+   * Krótki opis na liście wpisów i w wynikach wyszukiwania.
+   */
+  excerpt?: string | null;
+  /**
+   * Pełna treść artykułu po angielsku. Zdjęcia i układ bierze się z wersji polskiej, tu potrzebny jest sam tekst.
+   */
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * Zapisy do newslettera. Wysyłkę obsługuje Resend, ale lista jest tutaj: status „Potwierdzony” oznacza kliknięcie linku w mailu (wymóg RODO).
@@ -846,6 +890,10 @@ export interface PayloadLockedDocument {
         value: number | Post;
       } | null)
     | ({
+        relationTo: 'post-translations';
+        value: number | PostTranslation;
+      } | null)
+    | ({
         relationTo: 'subscribers';
         value: number | Subscriber;
       } | null)
@@ -1070,6 +1118,19 @@ export interface PostsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "post-translations_select".
+ */
+export interface PostTranslationsSelect<T extends boolean = true> {
+  post?: T;
+  status?: T;
+  title?: T;
+  excerpt?: T;
+  content?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

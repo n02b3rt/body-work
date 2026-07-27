@@ -14,6 +14,7 @@ import { ClockIcon } from "@/components/centrum/BlogIcons";
 import { PostCard } from "@/components/centrum/PostCard";
 import { blogPostingJsonLd, breadcrumbJsonLd } from "@/lib/structured-data";
 import { pageMetadata } from "@/lib/metadata";
+import { findTranslation, localisePost, publishedTranslations } from "@/lib/post-translation";
 
 type PostPageProps = { params: Promise<{ slug: string; locale: string }> };
 
@@ -39,9 +40,14 @@ export async function generateStaticParams() {
     where: { _status: { not_equals: "draft" } },
   });
 
+  // English URLs are only prerendered where a published translation exists. Without one the
+  // page 404s, per the fallback rule in docs/i18n.md, so there is nothing to build.
+  const translations = await publishedTranslations();
+
   return routing.locales.flatMap((locale) =>
     posts.docs
       .filter((doc) => doc.slug)
+      .filter((doc) => locale === routing.defaultLocale || translations.has(doc.id))
       .map((doc) => ({ locale, slug: doc.slug as string })),
   );
 }
@@ -71,16 +77,19 @@ export async function generateMetadata({ params }: PostPageProps) {
   const post = result.docs[0];
   if (!post) return {};
 
+  const localised = localisePost(post, locale, await findTranslation(post.id));
+  if (!localised) return {};
+
   const meta = post.meta ?? {};
-  const image = mediaFrom(meta.image ?? post.featuredImage, "hero", post.title);
+  const image = mediaFrom(meta.image ?? post.featuredImage, "hero", localised.title);
   const author = post.author && typeof post.author === "object" ? post.author.name : undefined;
   const metaCategories = (post.categories ?? []).filter((c) => typeof c === "object");
 
   return pageMetadata({
     locale,
     path: `/blog/${slug}`,
-    title: meta.title || post.title,
-    description: meta.description || post.excerpt || undefined,
+    title: meta.title || localised.title,
+    description: meta.description || localised.excerpt || undefined,
     image: image?.url ?? null,
     imageWidth: image?.width ?? null,
     imageHeight: image?.height ?? null,
@@ -89,10 +98,9 @@ export async function generateMetadata({ params }: PostPageProps) {
     modifiedTime: post.updatedAt,
     section: metaCategories[0]?.title,
     authors: author ? [author] : undefined,
-    // The article text is Polish on both /blog/... and /en/blog/..., so advertising an
-    // English alternate would promise a translation that does not exist and leave the two
-    // URLs competing. Drop the pair until the 62 posts are actually translated.
-    singleLanguage: true,
+    // An English alternate is advertised only where a translation actually exists. Claiming
+    // one over Polish prose is what made the two URLs compete before.
+    singleLanguage: !localised.translated && locale === "pl" ? true : false,
   });
 }
 
@@ -126,6 +134,11 @@ export default async function PostPage({ params }: PostPageProps) {
 
   const post = result.docs[0];
   if (!post) notFound();
+
+  // No translation means no English page. Not a Polish page under an English URL, which is
+  // what this served before, and not a half-translated one either. See docs/i18n.md.
+  const localised = localisePost(post, locale, await findTranslation(post.id));
+  if (!localised) notFound();
 
   const author = post.author && typeof post.author === "object" ? post.author : null;
   // 10rem on screen: 320px on a 2x display, so the 400px `thumbnail` is the right
@@ -164,13 +177,13 @@ export default async function PostPage({ params }: PostPageProps) {
     image: mediaFrom(item.featuredImage, "card", item.title),
   }));
 
-  const articleImage = mediaFrom(post.featuredImage, "hero", post.title);
+  const articleImage = mediaFrom(post.featuredImage, "hero", localised.title);
   const jsonLd = [
     blogPostingJsonLd({
       locale,
       slug,
-      title: post.title,
-      description: post.excerpt,
+      title: localised.title,
+      description: localised.excerpt,
       imageUrl: articleImage?.url ?? null,
       publishedAt: post.publishedAt,
       updatedAt: post.updatedAt,
@@ -182,7 +195,7 @@ export default async function PostPage({ params }: PostPageProps) {
       [
         { name: t("breadcrumbHome"), path: "/" },
         { name: t("title"), path: "/blog" },
-        { name: post.title, path: `/blog/${slug}` },
+        { name: localised.title, path: `/blog/${slug}` },
       ],
       locale,
     ),
@@ -201,7 +214,7 @@ export default async function PostPage({ params }: PostPageProps) {
           {/* Half width on desktop, as on the reference, a 1440px-wide line of 68px type
             * is unreadable, and the wrap is part of how the title looks. */}
           <SectionHeading as="h1" className="tracking-[-0.025em] wide:w-1/2">
-            {post.title}
+            {localised.title}
           </SectionHeading>
         </Container>
       </section>
@@ -271,7 +284,7 @@ export default async function PostPage({ params }: PostPageProps) {
           {/* Payload stores Lexical JSON; this renders it with the default converters.
             * `blog-prose` carries the typography for headings, lists and images inside
             * the article, see globals.css. */}
-          {post.content ? <PostBody content={post.content} /> : null}
+          {localised.content ? <PostBody content={localised.content} /> : null}
         </Container>
       </article>
 

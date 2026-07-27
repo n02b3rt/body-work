@@ -62,7 +62,7 @@ export default async function BlogListingPage({ params }: PageProps) {
   if (!Number.isInteger(pageNumber) || pageNumber < 2) notFound();
 
   const t = await getTranslations("Blog");
-  const { cards, categories, gridCount } = await blogListingData();
+  const { cards, categories, gridCount } = await blogListingData(locale);
 
   const initialCount = Math.min(pageNumber * BLOG_PAGE_SIZE, gridCount);
   // Past the end of the list there is nothing to show, so this is a 404 rather than an empty
