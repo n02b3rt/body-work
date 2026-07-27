@@ -2,12 +2,11 @@
 
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { SCHEDULE_URL, FACEBOOK_URL, INSTAGRAM_URL, MAP_URL } from "@/lib/external-links";
 import { Container } from "@/components/ui/Container";
 import { buttonClasses } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
 
-const MAP_URL =
-  "https://www.google.com/maps/place/BODYWORK/@52.41825,16.890763,15z/data=!4m6!3m5!1s0x470444beb9f08a6b:0x9005d9db3042bade!8m2!3d52.4182498!4d16.8907633!16s%2Fg%2F11byvnvxmm";
 
 type MegaMenuProps = {
   open: boolean;
@@ -18,8 +17,9 @@ type MegaMenuProps = {
  * distinct from both the header's hover dropdowns and the mobile drawer. Content and
  * hrefs verified directly against scripts/scrape/scraped/home/index.html, not
  * inferred from the hover-dropdown menu: notably "Dietetyka" has no children column
- * here (the reference omits them in this specific panel) and "Grafik zajęć" points at
- * the internal page here, unlike the hover dropdown's external eFitness link.
+ * here (the reference omits them in this specific panel). "Grafik zajęć" links out to
+ * eFitness like the hover dropdown does — the reference points it at an internal page
+ * here, but that page has no content of its own, so this follows the working link.
  *
  * Stays mounted while closed so the close animation has something to run on; it's
  * height-collapsed, faded and inert in that state. */
@@ -54,7 +54,9 @@ export function MegaMenu({ open, onClose }: MegaMenuProps) {
       links: [
         { label: t("groupTrainingClasses"), href: "/trening-grupowy/zajecia-grupowe" },
         { label: t("groupTrainingPlan"), href: "/trening-grupowy/plan-zdrowej-zmiany" },
-        { label: t("groupTrainingSchedule"), href: "/trening-grupowy/grafik-zajec" },
+        // The schedule lives on eFitness. The reference points this entry at an internal
+        // page that has no content of its own — see the note on SCHEDULE_URL.
+        { label: t("groupTrainingSchedule"), href: SCHEDULE_URL, external: true },
         { label: t("groupTrainingMedicover"), href: "/trening-grupowy/medicover" },
       ],
     },
@@ -73,7 +75,7 @@ export function MegaMenu({ open, onClose }: MegaMenuProps) {
     { label: t("pricing"), href: "/cennik" },
     { label: t("massage"), href: "/masaz" },
     { label: t("blog"), href: "/blog" },
-    { label: t("contact"), href: "#kontakt" },
+    { label: t("contact"), href: "/kontakt" },
   ];
 
   // Columns rise into place one after another as the panel opens; on close they all
@@ -116,13 +118,25 @@ export function MegaMenu({ open, onClose }: MegaMenuProps) {
               <ul className="flex flex-col gap-3">
                 {column.links.map((link) => (
                   <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      onClick={onClose}
-                      className="text-label uppercase tracking-[1px] text-brand-navy hover:opacity-70"
-                    >
-                      {link.label}
-                    </Link>
+                    {link.external ? (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={onClose}
+                        className="text-label uppercase tracking-[1px] text-brand-navy hover:opacity-70"
+                      >
+                        {link.label}
+                      </a>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        onClick={onClose}
+                        className="text-label uppercase tracking-[1px] text-brand-navy hover:opacity-70"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -143,7 +157,7 @@ export function MegaMenu({ open, onClose }: MegaMenuProps) {
 
             <div className="mt-4 flex flex-wrap items-center gap-3">
               <a
-                href="https://www.instagram.com/body_work_centrum/"
+                href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={tHeader("instagramAlt")}
@@ -153,7 +167,7 @@ export function MegaMenu({ open, onClose }: MegaMenuProps) {
                 <img src="/icons/instagram.svg" alt="" className="h-5 w-5" />
               </a>
               <a
-                href="https://www.facebook.com/centrumbodywork/?locale=pl_PL"
+                href={FACEBOOK_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={tHeader("facebookAlt")}

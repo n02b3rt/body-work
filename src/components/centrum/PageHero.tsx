@@ -9,6 +9,11 @@ type PageHeroProps = {
   /** The reference only uses the fit-to-width display size for a section's hub page;
    * its subpages get the ordinary section heading size. */
   titleSize?: "display" | "section";
+  /** Explicit, because it does **not** follow from the size: the reference right-aligns
+   * its hub titles (`ho:tar`) but left-aligns `/kontakt` and its subpage titles, both of
+   * which are otherwise styled the same. Inferring it from `titleSize` got `/kontakt`
+   * wrong. */
+  titleAlign?: "left" | "right";
   /** Slot between the title and the photo — the hub page puts its sticky sub-nav
    * here, whereas subpages render that nav above the title instead. */
   belowTitle?: ReactNode;
@@ -16,7 +21,14 @@ type PageHeroProps = {
   imageAlt?: string;
 };
 
-export function PageHero({ title, titleSize = "section", belowTitle, imageSrc, imageAlt }: PageHeroProps) {
+export function PageHero({
+  title,
+  titleSize = "section",
+  titleAlign = "left",
+  belowTitle,
+  imageSrc,
+  imageAlt,
+}: PageHeroProps) {
   return (
     <>
       <Container className="py-10 lg:py-14">
@@ -29,9 +41,8 @@ export function PageHero({ title, titleSize = "section", belowTitle, imageSrc, i
           size={titleSize}
           uppercase
           className={cn(
-            // Every hub title on the reference carries `ho:tar` — right-aligned from
-            // 1060px up. Its subpage titles and the `/kontakt/` one do not.
-            titleSize === "display" && "wide:text-right",
+            // The reference switches alignment only from 1060px up (`ho:tar`).
+            titleAlign === "right" && "wide:text-right",
             title.includes("\n") && "whitespace-pre-line",
           )}
         >

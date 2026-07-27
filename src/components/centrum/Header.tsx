@@ -305,7 +305,7 @@ export function Header() {
               <a href={ACADEMY_URL} target="_blank" rel="noopener noreferrer" className={buttonClasses("brand")}>
                 {tServices("academy")}
               </a>
-              <Link href="#kontakt" className={buttonClasses("outline")}>
+              <Link href="/kontakt" className={buttonClasses("outline")}>
                 {tNav("contact")}
               </Link>
             </div>

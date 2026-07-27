@@ -8,7 +8,7 @@ export default async function PricingPage() {
 
   return (
     <>
-      <PageHero title={t("title")} titleSize="display" />
+      <PageHero title={t("title")} titleSize="display" titleAlign="right" />
       <Accordion items={t.raw("items") as AccordionItemData[]} />
     </>
   );

@@ -92,7 +92,8 @@ What the pass fixed is recorded in `AI_NOTES.md`; the rows below carry the per-p
 |---|---|---|---|---|---|
 | `/cennik/` | `/cennik/` | Reused: PageHero, Accordion (9 price rows; the component gained `cta`/`note`/`groups` and now `panelHeading` for this page). **No newsletter block** — the reference has none here | PL: done / EN: done | Two-way check plus a dedicated price audit — all 46 distinct figures verified present; re-verified against the live site 2026-07-26 | Bilingual |
 | `/masaz/` | `/masaz/` | — | PL: — / EN: — | — | Not started |
-| `/kontakt/` | `/kontakt/` | — | PL: — / EN: — | — | Not started |
+| `/kontakt/` | `/kontakt/` | Reused: PageHero (display title, **left**-aligned), MeetUsCta. **The reference page has no content of its own** — see the note below | PL: done / EN: done | Composed from copy already verified elsewhere; nothing invented | Bilingual |
+| `/instrukcja/` | `/instrukcja/` | New: none. Reused: PageHero, StatementSection ×8 (3 of them a 3-up bullet row), FullBleedImage ×4, CenteredBand, MediaCardCta ×2. 7 images copied. No newsletter block — the reference has none | PL: done / EN: done | Two-way check vs. the live site: 0 missing headings | Bilingual |
 
 ## Blog
 
@@ -105,7 +106,44 @@ What the pass fixed is recorded in `AI_NOTES.md`; the rows below carry the per-p
 
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
 |---|---|---|---|---|---|
-| `/polityka-prywatnosci/`, `/regulamin/`, `/cookies/` | matching routes | — | PL: — / EN: — | — | Not started |
+| `/regulamin/` | `/regulamin/` | New: `LegalDocument`. Reused: PageHero. 11 sections (§ I–XI), no imagery, no newsletter | PL: done / **EN: text stays Polish** — see below | Two-way check vs. the live site: 0 missing headings | Built (PL) |
+| `/polityka-prywatnosci/` | `/polityka-prywatnosci/` | Reused: PageHero, `LegalDocument`. 12 sections (I–XII) | PL: done / **EN: text stays Polish** — see below | Same check: 0 missing headings | Built (PL) |
+| `/cookies/` | `/cookies/` | — | PL: — / EN: — | — | Not started |
+
+**The two legal documents are deliberately not translated.** `en.json` carries the Polish
+text for `Terms` and `Privacy`. A mistranslated T&C or privacy policy is legal exposure,
+not a copy nit — these need a professional/legal pass before an English version ships.
+Same precedent as the trainer and specialist biographies.
+
+### Deliberate deviations from the reference
+
+Recorded per the amended 1:1 rule in `CLAUDE.md` — the reference is reproduced except
+where it is plainly defective. Content is still verbatim in every case; these are
+styling and link-target changes.
+
+| Where | Reference does | We do | Why |
+|---|---|---|---|
+| `LegalDocument` body | `ho:f7s6`, ~39.5px, its oversized opening-statement size, on every paragraph | `text-body` at 1.7 line-height, measure capped at 42rem | At ~39.5px an 11-section T&C is unreadable and runs to absurd length |
+| `LegalDocument` layout | text in the **right** half of a two-column row, left half empty | one left-aligned column per section | The empty half reads as broken, and the right column put the text directly under the fixed promo pills |
+| `LegalDocument` section headings | ~68px section size | `menu` size, ~34px | At eleven numbered sections, 68px reads as eleven page titles |
+| Gallery buttons (4 places) | link to `/galeria` | link to the Instagram profile (`GALLERY_URL`) | `/galeria` 404s on the live site, is absent from `sitemap.xml` and has no scrape folder — the broken link is upstream |
+| MegaMenu "Grafik zajęć" | links to internal `/trening-grupowy/grafik-zajec` | links out to eFitness | That internal page carries no content of its own; the reference's own header dropdown links out |
+| `/kontakt` content | nothing — its `<main>` holds only the shared footer block; no `<form>`, no map embed | display title + the "Spotkajmy się" invitation | An empty page in the sitemap is a defect. Composed from copy already verified elsewhere (the footer's details, the homepage's invitation) — no new copy written |
+| Nav "Kontakt" | anchors to the footer (`#kontakt`) | goes to `/kontakt` | A real page nothing links to is worse than the anchor. The in-page "book a session" CTA on `/trening-personalny/trening-w-parze` stays an anchor — it is not a nav entry |
+
+**`/kontakt` deliberately has no address/hours block and no map embed.** The footer sits
+directly beneath it with exactly those details, and rendering the same three columns
+twice within one scroll read as a rendering bug. A Google Maps iframe was also left out:
+it sets third-party cookies and there is no consent mechanism yet — revisit when the
+cookies page lands.
+
+**Known trade-off, not a bug:** the fixed promo pills can cover the footer's "Nawiguj"
+button at some scroll positions. Inherent to a fixed promo bar — the reference has the
+same overlap — and both pills are dismissible.
+
+`StatementSection` also gained `whitespace-pre-line`, which is a bug fix rather than a
+deviation: without it the multi-line copy on `/instrukcja` — including its three bullet
+lists — collapsed into run-on paragraphs.
 | `/instrukcja/`, `/test/`, `/podziekowanie/` | TBD | — | — | — | **Confirm with client first** (PRD §13 Phase 0) — may not carry over |
 
 ## Out of scope for Centrum migration

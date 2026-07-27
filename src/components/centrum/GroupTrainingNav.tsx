@@ -2,8 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import { SectionNav } from "./SectionNav";
+import { SCHEDULE_URL } from "@/lib/external-links";
 
-const SCHEDULE_URL = "https://bodywork-poznan.cms.efitness.com.pl/kalendarz-zajec";
 
 /** The group-training section's sticky sub-nav.
  *

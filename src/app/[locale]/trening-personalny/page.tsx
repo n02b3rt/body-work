@@ -12,6 +12,7 @@ import { MediaCardCta } from "@/components/centrum/MediaCardCta";
 import { TestimonialCarousel, type Testimonial } from "@/components/centrum/TestimonialCarousel";
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { PersonalTrainingNav } from "@/components/centrum/PersonalTrainingNav";
+import { GALLERY_URL } from "@/lib/external-links";
 
 const SHOP_ASSESSMENT_URL = "https://bodywork.testowe.eu/zakupy/ocena-funkcjonalna/";
 
@@ -37,6 +38,7 @@ export default async function PersonalTrainingPage() {
       <PageHero
         title={t("title")}
         titleSize="display"
+        titleAlign="right"
         belowTitle={<PersonalTrainingNav />}
         imageSrc="/images/trening-personalny/hero.webp"
         imageAlt={t("title")}
@@ -140,7 +142,8 @@ export default async function PersonalTrainingPage() {
             imageSrc="/images/trening-personalny/przestrzen.webp"
             imageAlt={t("spaceHeading")}
             ctaLabel={t("spaceCta")}
-            ctaHref="/galeria"
+            ctaHref={GALLERY_URL}
+        external
           />
         </Container>
       </div>
