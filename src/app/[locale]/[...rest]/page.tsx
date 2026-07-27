@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
  *
  * Without it, Next resolves an unmatched path against the **root** `not-found`, and this
  * app deliberately has no root layout (`[locale]` and `(payload)` each own their `<html>`)
- * — so visitors got Next's unstyled built-in 404 instead of ours. A `notFound()` raised
+ *, so visitors got Next's unstyled built-in 404 instead of ours. A `notFound()` raised
  * from a page *inside* the segment does resolve to the segment's own boundary, which is
  * what this turns every bad URL into.
  *

@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return pageMetadata({
     locale,
     path: "/",
-    // The homepage's own hero line, and its opening statement as the description —
+    // The homepage's own hero line, and its opening statement as the description,
     // existing copy rather than something written for search engines.
     title: tHero("title"),
     description: tStatements("balancedFitnessBody"),
@@ -71,7 +71,7 @@ export default async function CentrumHomePage() {
       <FullBleedVideo src="/videos/hero.mp4" />
 
       {/* The opening statement's body copy is deliberately oversized on the
-       * reference (`ho:f7s6`, ~40px) — it reads as a statement, not as body text. */}
+       * reference (`ho:f7s6`, ~40px), it reads as a statement, not as body text. */}
       <div className="border-t border-brand-navy-soft bg-background">
         <Container className="py-24 lg:py-32">
           <SectionHeading>{tStatements("balancedFitnessHeading")}</SectionHeading>

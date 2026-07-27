@@ -5,7 +5,7 @@ import { SectionNav } from "./SectionNav";
 
 /** The Bodylab section's sticky sub-nav.
  *
- * `analiza-skadu-ciala` is missing an "ł" on purpose — that is the real slug on the
+ * `analiza-skadu-ciala` is missing an "ł" on purpose, that is the real slug on the
  * reference, confirmed in both its markup and sitemap.xml. */
 export function BodylabNav() {
   const t = useTranslations("Nav");

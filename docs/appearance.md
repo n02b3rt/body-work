@@ -10,7 +10,7 @@ Elementor blocks) editors can configure and reuse.
   surface, state). Each token has a form path (`brand.primary`), a CSS
   variable (`--bw-primary`) and a default hex value.
 - The global `src/globals/ThemeColors.ts` builds its tabs/fields
-  programmatically from that token list — adding a token there is enough to
+  programmatically from that token list, adding a token there is enough to
   get an admin field and a CSS variable.
 - Colour fields use a custom `ColorField` component (swatch + hex input).
   `ThemePresets` applies a full palette in one click (`src/lib/theme-presets.ts`);
@@ -24,7 +24,7 @@ Elementor blocks) editors can configure and reuse.
 ## Components (`site-components` collection)
 
 - One collection, one `type` select (`button`, `hero`, `carousel`, `gallery`,
-  `cta`, `features` — registry in `src/fields/component-settings/index.ts`).
+  `cta`, `features`: registry in `src/fields/component-settings/index.ts`).
   Each type owns a settings group shown only when that type is selected
   (`admin.condition`), so data stays namespaced (`doc.hero.heading`, …).
 - Shared parameter helpers (colour choice, radius, gap, alignment, aspect
@@ -58,7 +58,7 @@ Elementor blocks) editors can configure and reuse.
 - Colour scheme changes only affect the public site after the global is
   saved (the admin preview is live, the site is server-rendered per request).
 - `ComponentPreview` and the hero/CTA button lookups fetch over the REST API
-  client-side — fine for the admin panel, not meant for the public renderer.
+  client-side: fine for the admin panel, not meant for the public renderer.
 - No frontend block renderer yet: `site-components` documents are data only;
   a page builder / block field that inserts them into `Pages` content is a
   follow-up.

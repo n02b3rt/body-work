@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { routing } from "./i18n/routing";
 
-/** The dashboard lives on its own host — see docs/sites.md. */
+/** The dashboard lives on its own host, see docs/sites.md. */
 const DEFAULT_DASHBOARD_HOST = "dash.localhost";
 
 const handleI18n = createMiddleware(routing);
@@ -29,9 +29,9 @@ function isApiPath(pathname: string) {
 /**
  * One proxy doing two jobs, because Next allows only one.
  *
- * Host gating runs first — the dashboard is reachable on `DASHBOARD_HOST` only — and
+ * Host gating runs first: the dashboard is reachable on `DASHBOARD_HOST` only, and
  * everything that isn't Payload's own surface is then handed to next-intl. Delegating
- * that last step is the part that matters: with `localePrefix: "as-needed"` it is the
+ * that last step is the part that matters, with `localePrefix: "as-needed"` it is the
  * i18n middleware that rewrites `/` to `/pl` and negotiates the locale, so skipping it
  * leaves the public site with no locale routing at all.
  */
@@ -60,7 +60,7 @@ export default function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Public hosts get a plain 404 for the admin — not a redirect, which would leak the
+  // Public hosts get a plain 404 for the admin, not a redirect, which would leak the
   // dashboard hostname.
   if (isAdminPath(pathname)) {
     return new NextResponse("Not Found", {

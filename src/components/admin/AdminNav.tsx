@@ -240,7 +240,7 @@ export function AdminNav() {
   const storedRaw = useSyncExternalStore(subscribeOpen, openSnapshot, openServerSnapshot)
   const openMap = useMemo(() => parseStoredOpen(storedRaw), [storedRaw])
 
-  // A branch holding the active route renders open regardless of what's stored — see
+  // A branch holding the active route renders open regardless of what's stored, see
   // the `?? (depth === 0 || hasActive)` fallback in `NavBranchView`. Nothing needs to be
   // written for that, so there is no effect here mirroring it into storage.
   const toggle = useCallback(

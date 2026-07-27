@@ -9,7 +9,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return pageMetadata({ locale, path: "/regulamin", title: t("title") });
 }
 
-/** Standalone legal document — the reference gives it no sub-navigation, no imagery
+/** Standalone legal document: the reference gives it no sub-navigation, no imagery
  * and no newsletter block; the footer follows the last section directly. */
 export default async function TermsPage() {
   const t = await getTranslations("Terms");

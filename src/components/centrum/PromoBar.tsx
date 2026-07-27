@@ -33,7 +33,7 @@ const promos: Promo[] = [
 ];
 
 // `document.cookie` is external mutable state, so it's read through a store rather
-// than mirrored into React state — and only this module ever writes it, so the only
+// than mirrored into React state, and only this module ever writes it, so the only
 // change worth notifying about is our own.
 const listeners = new Set<() => void>();
 
@@ -62,7 +62,7 @@ function isDismissed(cookies: string, name: string) {
 }
 
 /**
- * The reference's standing promo stack — a fixed, dismissible pair of pills in the
+ * The reference's standing promo stack, a fixed, dismissible pair of pills in the
  * bottom-right corner of every page (its `<aside class="pf … z99">`, z-index 121).
  *
  * Dismissal is read on the client rather than from `cookies()` in the layout, which
@@ -79,7 +79,7 @@ export function PromoBar() {
 
   return (
     // The container spans half the viewport height so the pills stack upward from the
-    // bottom edge, and stays click-through — only the pills themselves take pointer
+    // bottom edge, and stays click-through: only the pills themselves take pointer
     // events, exactly as on the reference.
     <aside className="pointer-events-none fixed right-1 bottom-1 z-[121] flex min-h-[50vh] flex-col items-end justify-end wide:right-7 wide:bottom-7">
       {visible.map((promo) => (
@@ -102,7 +102,7 @@ export function PromoBar() {
             aria-label={t("close")}
             className="-mr-4 ml-4 flex shrink-0 cursor-pointer items-center justify-center p-1"
           >
-            {/* Stroked cross, not a `×` glyph — that never sits optically centred. */}
+            {/* Stroked cross, not a `×` glyph, that never sits optically centred. */}
             <svg width="19" height="19" viewBox="0 0 19 19" aria-hidden fill="none">
               <path d="M4 4L15 15M15 4L4 15" stroke="currentColor" strokeWidth="1" />
             </svg>

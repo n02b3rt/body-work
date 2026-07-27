@@ -23,7 +23,7 @@ export const ColorField: TextFieldClientComponent = ({ field, path, readOnly }) 
       <FieldLabel label={field?.label} path={path} required={field?.required} />
       <div className="bw-color-field__row">
         <input
-          aria-label={`${typeof field?.label === 'string' ? field.label : 'Kolor'} — próbnik`}
+          aria-label={`${typeof field?.label === 'string' ? field.label : 'Kolor'}: próbnik`}
           className="bw-color-field__swatch"
           disabled={readOnly}
           onChange={(event) => setValue(event.target.value.toLowerCase())}

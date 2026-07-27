@@ -10,7 +10,7 @@ import { THEME_TOKENS } from '@/lib/theme-tokens'
 
 import { useThemeColorValues } from './use-theme-colors'
 
-/** Palette presets — one click fills every colour field in the global. */
+/** Palette presets: one click fills every colour field in the global. */
 export const ThemePresets: UIFieldClientComponent = () => {
   const [, dispatchFields] = useAllFormFields()
   const currentColors = useThemeColorValues()
@@ -40,7 +40,7 @@ export const ThemePresets: UIFieldClientComponent = () => {
         <h3 className="bw-appearance-block__title">Gotowe palety</h3>
         <p className="bw-appearance-block__lead">
           Kliknij paletę, aby wypełnić wszystkie kolory motywu. Po zastosowaniu
-          zapisz zmiany — dopiero wtedy trafią na stronę.
+          zapisz zmiany: dopiero wtedy trafią na stronę.
         </p>
       </div>
       <ul className="bw-preset-grid">

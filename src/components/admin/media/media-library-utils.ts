@@ -27,7 +27,7 @@ export const SORT_OPTIONS: { value: SortKey; label: string }[] = [
 ]
 
 export function formatBytes(bytes: number | null | undefined): string {
-  if (bytes == null || !Number.isFinite(bytes)) return '—'
+  if (bytes == null || !Number.isFinite(bytes)) return ': '
   if (bytes < 1024) return `${bytes} B`
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
@@ -37,7 +37,7 @@ export function formatDimensions(
   width: number | null | undefined,
   height: number | null | undefined,
 ): string {
-  if (!width || !height) return '—'
+  if (!width || !height) return ': '
   return `${width} × ${height}`
 }
 
@@ -87,7 +87,7 @@ export function persistKey(key: string, value: string): void {
 
 /**
  * The three view preferences (grid/list, details pane, group-by-kind) live in localStorage,
- * which is external mutable state — so components read them through `useSyncExternalStore`
+ * which is external mutable state, so components read them through `useSyncExternalStore`
  * rather than copying them into `useState` inside an effect. The React Compiler lint rules
  * this project runs reject the latter (`react-hooks/set-state-in-effect`), and the store
  * also keeps the server render and the first client render agreed: `getServerSnapshot`

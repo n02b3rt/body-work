@@ -55,7 +55,7 @@ export const ThemePreview: UIFieldClientComponent = () => {
           <div className="bw-theme-preview__card">
             <span className="bw-theme-preview__badge">Nowość</span>
             <strong>Masaż leczniczy</strong>
-            <span className="bw-theme-preview__muted">60 min — od 180 zł</span>
+            <span className="bw-theme-preview__muted">60 min: od 180 zł</span>
           </div>
 
           <div className="bw-theme-preview__states">

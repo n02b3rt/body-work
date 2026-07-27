@@ -1,5 +1,5 @@
 /**
- * Theme colour tokens — single source of truth for the "Schemat kolorów" global
+ * Theme colour tokens: single source of truth for the "Schemat kolorów" global
  * and for the CSS custom properties emitted on the public site.
  *
  * Adding a token here automatically adds the admin field (see
@@ -9,7 +9,7 @@
 export type ThemeTokenGroupName = 'brand' | 'text' | 'surface' | 'state'
 
 export type ThemeColorToken = {
-  /** Field name inside its group — full path is `<group>.<name>`. */
+  /** Field name inside its group: full path is `<group>.<name>`. */
   name: string
   label: string
   /** CSS custom property emitted on `:root` of the public site. */
@@ -30,7 +30,7 @@ export const THEME_TOKEN_GROUPS: ThemeTokenGroup[] = [
   {
     name: 'brand',
     label: 'Marka',
-    description: 'Kolory wiodące — przyciski, akcenty, elementy interaktywne.',
+    description: 'Kolory wiodące: przyciski, akcenty, elementy interaktywne.',
     tokens: [
       {
         name: 'primary',
@@ -41,7 +41,7 @@ export const THEME_TOKEN_GROUPS: ThemeTokenGroup[] = [
       },
       {
         name: 'primaryHover',
-        label: 'Główny — hover',
+        label: 'Główny: hover',
         cssVar: '--bw-primary-hover',
         defaultValue: '#115e59',
       },
@@ -53,7 +53,7 @@ export const THEME_TOKEN_GROUPS: ThemeTokenGroup[] = [
       },
       {
         name: 'secondaryHover',
-        label: 'Dodatkowy — hover',
+        label: 'Dodatkowy: hover',
         cssVar: '--bw-secondary-hover',
         defaultValue: '#0f172a',
       },
@@ -104,7 +104,7 @@ export const THEME_TOKEN_GROUPS: ThemeTokenGroup[] = [
       },
       {
         name: 'linkHover',
-        label: 'Odnośniki — hover',
+        label: 'Odnośniki: hover',
         cssVar: '--bw-link-hover',
         defaultValue: '#115e59',
       },
@@ -183,7 +183,7 @@ export const THEME_TOKEN_GROUPS: ThemeTokenGroup[] = [
 
 export type ThemeTokenPath = `${ThemeTokenGroupName}.${string}`
 
-/** Flat token list with its form path — handy for previews and CSS emitting. */
+/** Flat token list with its form path: handy for previews and CSS emitting. */
 export const THEME_TOKENS: (ThemeColorToken & {
   group: ThemeTokenGroupName
   path: ThemeTokenPath
@@ -199,7 +199,7 @@ export const THEME_TOKENS: (ThemeColorToken & {
 export const THEME_COLOR_OPTIONS = THEME_TOKENS.map((token) => ({
   label: `${
     THEME_TOKEN_GROUPS.find((group) => group.name === token.group)!.label
-  } — ${token.label}`,
+  }: ${token.label}`,
   value: token.path,
 }))
 

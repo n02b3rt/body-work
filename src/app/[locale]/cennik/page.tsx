@@ -9,7 +9,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return pageMetadata({ locale, path: "/cennik", title: t("title") });
 }
 
-/** Standalone page — the pricing list has no sub-navigation of its own. */
+/** Standalone page: the pricing list has no sub-navigation of its own. */
 export default async function PricingPage() {
   const t = await getTranslations("Pricing");
 

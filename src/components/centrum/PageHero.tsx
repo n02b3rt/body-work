@@ -14,7 +14,7 @@ type PageHeroProps = {
    * which are otherwise styled the same. Inferring it from `titleSize` got `/kontakt`
    * wrong. */
   titleAlign?: "left" | "right";
-  /** Slot between the title and the photo — the hub page puts its sticky sub-nav
+  /** Slot between the title and the photo: the hub page puts its sticky sub-nav
    * here, whereas subpages render that nav above the title instead. */
   belowTitle?: ReactNode;
   imageSrc?: string;
@@ -32,7 +32,7 @@ export function PageHero({
   return (
     <>
       <Container className="py-10 lg:py-14">
-        {/* A title may carry its own line breaks — the reference hard-codes a `<br>` in
+        {/* A title may carry its own line breaks: the reference hard-codes a `<br>` in
          * the Plan Zdrowej Zmiany heading to hang the edition date on a second line.
          * Applied only when there is one, because `display` titles set
          * `whitespace-nowrap` and two whitespace utilities would collide. */}

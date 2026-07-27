@@ -2,7 +2,7 @@
  * Exercises the blog write path the admin panel uses: upload an image, create a draft,
  * publish it, confirm the hooks and the public queries behave, then remove it all again.
  *
- * Runs through the Local API, so it needs no credentials — the same code path the panel
+ * Runs through the Local API, so it needs no credentials: the same code path the panel
  * uses server-side.
  *
  *   pnpm payload run scripts/smoke-blog-write.ts
@@ -15,7 +15,7 @@ import config from '@payload-config'
 
 const say = (line: string) => process.stdout.write(line + '\n')
 const check = (label: string, ok: boolean, detail = '') =>
-  say(`${ok ? 'PASS' : 'FAIL'}  ${label}${detail ? '  — ' + detail : ''}`)
+  say(`${ok ? 'PASS' : 'FAIL'}  ${label}${detail ? ': ' + detail : ''}`)
 
 const payload = await getPayload({ config })
 
@@ -72,7 +72,7 @@ try {
   const draft = await payload.create({
     collection: 'posts',
     data: {
-      title: 'Smoke test — wpis kontrolny',
+      title: 'Smoke test: wpis kontrolny',
       content: {
         root: {
           type: 'root',

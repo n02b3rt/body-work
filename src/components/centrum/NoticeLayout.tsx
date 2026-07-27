@@ -3,7 +3,7 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 type NoticeLayoutProps = {
-  /** Rendered at the display size, fitted to the container — "404", "Błąd", "Gotowe". */
+  /** Rendered at the display size, fitted to the container: "404", "Błąd", "Gotowe". */
   code: string;
   heading: string;
   body: string;
@@ -19,7 +19,7 @@ type NoticeLayoutProps = {
  * reference leans on for its page titles, which is what keeps these looking deliberate
  * rather than like a fallback.
  *
- * (Was `ErrorLayout` — renamed once the newsletter opt-in started using it, since "error"
+ * (Was `ErrorLayout`: renamed once the newsletter opt-in started using it, since "error"
  * was the wrong word on a page that says "you're subscribed".)
  */
 export function NoticeLayout({ code, heading, body, children, footnote }: NoticeLayoutProps) {

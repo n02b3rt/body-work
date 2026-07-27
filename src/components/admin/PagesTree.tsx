@@ -99,7 +99,7 @@ export function PagesTree() {
     let cancelled = false
 
     // Every state update sits behind an `await`, so none of them run synchronously in
-    // the effect body — which is what the React Compiler lint rule rejects. The
+    // the effect body, which is what the React Compiler lint rule rejects. The
     // cancelled flag also stops a late response from writing into an unmounted tree.
     void (async () => {
       try {
@@ -142,7 +142,7 @@ export function PagesTree() {
       {loading ? <p className="bw-pages-tree__status">Ładowanie…</p> : null}
       {error ? <p className="bw-pages-tree__status bw-pages-tree__status--error">{error}</p> : null}
       {!loading && !error && tree.length === 0 ? (
-        <p className="bw-pages-tree__status">Brak stron — dodaj pierwszą poniżej.</p>
+        <p className="bw-pages-tree__status">Brak stron: dodaj pierwszą poniżej.</p>
       ) : null}
       {!loading && tree.length > 0 ? (
         <ul className="bw-pages-tree__list bw-pages-tree__list--root">

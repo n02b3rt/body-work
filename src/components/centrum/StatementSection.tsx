@@ -12,11 +12,11 @@ type StatementSectionProps = {
   align?: "center" | "left";
 };
 
-/** Bare heading (+ optional body/CTA) content block — used both as a full-width
+/** Bare heading (+ optional body/CTA) content block: used both as a full-width
  * divider statement and, in a 2-up grid, for the split "what we believe" section.
  *
  * The copy block is pushed to the bottom with `mt-auto` rather than sitting right
- * under the heading: that both opens up the large gap the reference leaves there and
+ * under the heading, that both opens up the large gap the reference leaves there and
  * makes the body text line up across side-by-side columns whose headings wrap to
  * different numbers of lines. Needs the parent grid item to stretch (the default). */
 export function StatementSection({ heading, body, ctaLabel, ctaHref, align = "center" }: StatementSectionProps) {
@@ -33,7 +33,7 @@ export function StatementSection({ heading, body, ctaLabel, ctaHref, align = "ce
       {body || hasCta ? (
         <div className={cn("mt-auto pt-24", align === "center" ? "max-w-2xl" : "max-w-xl")}>
           {/* `whitespace-pre-line` because some of this copy is multi-line in the source
-            * — paragraph breaks, and the bullet lists on /instrukcja. Without it those
+            *: paragraph breaks, and the bullet lists on /instrukcja. Without it those
             * collapse into one run-on paragraph. */}
           {body ? <p className="whitespace-pre-line text-body text-brand-navy">{body}</p> : null}
           {hasCta ? (

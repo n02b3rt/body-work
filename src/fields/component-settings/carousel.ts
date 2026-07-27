@@ -8,7 +8,7 @@ export const carouselSettings: GroupField = {
   label: 'Parametry karuzeli',
   admin: {
     condition: (data) => data?.type === 'carousel',
-    description: 'Przewijane zdjęcia z podpisami — np. galeria gabinetu.',
+    description: 'Przewijane zdjęcia z podpisami: np. galeria gabinetu.',
   },
   fields: [
     {

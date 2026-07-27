@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 /**
- * The reference's `/kontakt` has **no content of its own** — its `<main>` holds nothing
+ * The reference's `/kontakt` has **no content of its own**, its `<main>` holds nothing
  * but the shared footer's contact block, and there is no form (`<form>` appears zero
  * times) and no embedded map. So there is nothing to reproduce here, and this page is
  * composed from copy that already exists and has already been verified elsewhere in the
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
  * twice within one scroll read as a rendering bug rather than a design choice. The
  * footer is the canonical place for those details on every page, this one included.
  *
- * No map embed either — a Google Maps iframe sets third-party cookies, and there is no
+ * No map embed either, a Google Maps iframe sets third-party cookies, and there is no
  * consent mechanism yet (the cookies page is still to come). The footer's "Pokaż na
  * mapie" / "Nawiguj" buttons cover the need without that problem.
  */

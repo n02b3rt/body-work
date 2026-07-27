@@ -7,7 +7,7 @@ import { slugField } from '@/fields/meta'
  * Blog post authors.
  *
  * Separate from `Users` on purpose: the reference has 18 authors, and they are the
- * centre's trainers and physiotherapists — people whose name and photo appear on an
+ * centre's trainers and physiotherapists: people whose name and photo appear on an
  * article, not people who need to log into the CMS. Tying authorship to `Users` would
  * mean creating an account (and a login) for each of them just to attribute a post.
  * A `user` relationship is available for the ones who do also write in the panel.
@@ -22,7 +22,7 @@ export const Authors: CollectionConfig = {
     useAsTitle: 'name',
     defaultColumns: ['name', 'role', 'updatedAt'],
     group: 'Treści',
-    description: 'Autorzy wpisów na blogu — imię, nazwisko, zdjęcie i krótki opis.',
+    description: 'Autorzy wpisów na blogu, imię, nazwisko, zdjęcie i krótki opis.',
   },
   access: {
     read: () => true,
@@ -67,7 +67,7 @@ export const Authors: CollectionConfig = {
       label: 'Powiązane konto',
       admin: {
         position: 'sidebar',
-        description: 'Opcjonalnie — tylko jeśli ten autor ma też konto w panelu.',
+        description: 'Opcjonalnie: tylko jeśli ten autor ma też konto w panelu.',
       },
     },
   ],

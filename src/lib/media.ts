@@ -7,7 +7,7 @@ import type { Media } from "@/payload-types";
  * have no business reaching, and `next/image` rejects it outright as an unconfigured
  * remote host.
  *
- * Stripping the origin turns it into a path — which the browser resolves against
+ * Stripping the origin turns it into a path, which the browser resolves against
  * whatever host served the page, and which `next/image` accepts because
  * `images.localPatterns` in `next.config.ts` allows `/api/media/file/**`.
  */
@@ -26,7 +26,7 @@ export type SizeName = "thumbnail" | "card" | "content" | "hero";
 
 /**
  * Pick a generated size, falling back through smaller ones and finally the original.
- * A size is missing whenever the upload was narrower than its target width — see
+ * A size is missing whenever the upload was narrower than its target width, see
  * `withoutEnlargement` on the Media collection.
  */
 export function mediaFrom(

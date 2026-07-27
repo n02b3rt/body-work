@@ -36,7 +36,7 @@ export const ComponentPreview: UIFieldClientComponent = () => {
         <h3 className="bw-appearance-block__title">Podgląd komponentu</h3>
         <p className="bw-appearance-block__lead">
           {definition?.hint ??
-            'Podgląd odświeża się na bieżąco — kolory pochodzą z zapisanego schematu kolorów.'}
+            'Podgląd odświeża się na bieżąco: kolory pochodzą z zapisanego schematu kolorów.'}
         </p>
       </div>
 

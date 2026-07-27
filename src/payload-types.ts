@@ -101,7 +101,7 @@ export interface User {
    */
   name?: string | null;
   /**
-   * Administrator — pełny dostęp. Moderator — treści i podgląd użytkowników. Redaktor — treści. Klient — bez panelu.
+   * Administrator: pełny dostęp. Moderator: treści i podgląd użytkowników. Redaktor: treści. Klient: bez panelu.
    */
   role: 'administrator' | 'moderator' | 'redaktor' | 'klient';
   updatedAt: string;
@@ -124,7 +124,7 @@ export interface User {
   collection: 'users';
 }
 /**
- * Autorzy wpisów na blogu — imię, nazwisko, zdjęcie i krótki opis.
+ * Autorzy wpisów na blogu, imię, nazwisko, zdjęcie i krótki opis.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "authors".
@@ -143,7 +143,7 @@ export interface Author {
   photo?: (number | null) | Media;
   bio?: string | null;
   /**
-   * Opcjonalnie — tylko jeśli ten autor ma też konto w panelu.
+   * Opcjonalnie: tylko jeśli ten autor ma też konto w panelu.
    */
   user?: (number | null) | User;
   updatedAt: string;
@@ -162,7 +162,7 @@ export interface Media {
    */
   title?: string | null;
   /**
-   * Wymagany dla dostępności i SEO (chyba że dekoracyjny). Uzupełniany z nazwy pliku — sprawdź i popraw.
+   * Wymagany dla dostępności i SEO (chyba że dekoracyjny). Uzupełniany z nazwy pliku: sprawdź i popraw.
    */
   alt?: string | null;
   /**
@@ -264,7 +264,7 @@ export interface Category {
   createdAt: string;
 }
 /**
- * Struktura witryny — strony można zagnieżdżać (rodzic → dziecko).
+ * Struktura witryny: strony można zagnieżdżać (rodzic → dziecko).
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
@@ -352,11 +352,11 @@ export interface Post {
   publishedAt?: string | null;
   author?: (number | null) | Author;
   /**
-   * Wpis może należeć do kilku kategorii — tak jest w obecnym serwisie.
+   * Wpis może należeć do kilku kategorii: tak jest w obecnym serwisie.
    */
   categories?: (number | Category)[] | null;
   /**
-   * Zostaw puste — policzy się automatycznie z długości treści przy zapisie.
+   * Zostaw puste: policzy się automatycznie z długości treści przy zapisie.
    */
   readingMinutes?: number | null;
   /**
@@ -376,7 +376,7 @@ export interface Post {
   _status?: ('draft' | 'published') | null;
 }
 /**
- * Zapisy do newslettera. Wysyłkę obsługuje Resend, ale lista jest tutaj — status „Potwierdzony” oznacza kliknięcie linku w mailu (wymóg RODO).
+ * Zapisy do newslettera. Wysyłkę obsługuje Resend, ale lista jest tutaj: status „Potwierdzony” oznacza kliknięcie linku w mailu (wymóg RODO).
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "subscribers".
@@ -389,7 +389,7 @@ export interface Subscriber {
    */
   status: 'pending' | 'confirmed' | 'unsubscribed';
   /**
-   * Język, w którym zapisał się subskrybent — do segmentacji wysyłek.
+   * Język, w którym zapisał się subskrybent: do segmentacji wysyłek.
    */
   locale: 'pl' | 'en';
   /**
@@ -407,7 +407,7 @@ export interface Subscriber {
   createdAt: string;
 }
 /**
- * Gotowe bloki (przyciski, hero, karuzele, galerie) z własnymi parametrami — do wstawiania na stronach.
+ * Gotowe bloki (przyciski, hero, karuzele, galerie) z własnymi parametrami: do wstawiania na stronach.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-components".
@@ -573,7 +573,7 @@ export interface SiteComponent {
     ctaButton?: (number | null) | SiteComponent;
   };
   /**
-   * Przewijane zdjęcia z podpisami — np. galeria gabinetu.
+   * Przewijane zdjęcia z podpisami: np. galeria gabinetu.
    */
   carousel?: {
     slides?:
@@ -595,7 +595,7 @@ export interface SiteComponent {
     loop?: boolean | null;
   };
   /**
-   * Siatka zdjęć — realizacje, zespół, wnętrza.
+   * Siatka zdjęć: realizacje, zespół, wnętrza.
    */
   gallery?: {
     images?: (number | Media)[] | null;

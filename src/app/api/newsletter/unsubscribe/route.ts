@@ -3,7 +3,7 @@ import config from "@payload-config";
 import { localePath, SITE_URL } from "@/lib/metadata";
 
 /**
- * Unsubscribe — **GET only asks, POST actually does it.**
+ * Unsubscribe: **GET only asks, POST actually does it.**
  *
  * That split is not ceremony. Mail clients, corporate link scanners and spam filters
  * prefetch the URLs in an email, so a link that unsubscribes on GET quietly removes people
@@ -11,7 +11,7 @@ import { localePath, SITE_URL } from "@/lib/metadata";
  * button posts back here.
  *
  * (The one-click header standard, `List-Unsubscribe-Post`, is the exception that allows a
- * POST straight from the mail client. Worth adding to broadcasts when broadcasts exist —
+ * POST straight from the mail client. Worth adding to broadcasts when broadcasts exist,
  * it needs the header pair, not a different handler, so this route already fits it.)
  */
 function statusRedirect(locale: string, status: string, token?: string, code = 302) {
@@ -44,7 +44,7 @@ export async function GET(request: Request) {
 
     if (subscriber.status === "unsubscribed") return statusRedirect(locale, "unsubscribed");
 
-    // Nothing has changed yet — the page this lands on carries the button that does.
+    // Nothing has changed yet: the page this lands on carries the button that does.
     return statusRedirect(locale, "confirm-unsubscribe", token);
   } catch (error) {
     console.error("[BodyWork] unsubscribe lookup failed:", error);

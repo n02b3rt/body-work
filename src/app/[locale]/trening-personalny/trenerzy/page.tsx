@@ -58,7 +58,7 @@ export default async function TrainersPage() {
             <Image src={category.image} alt={category.heading} fill sizes="100vw" className="object-cover" />
           </div>
 
-          {/* Portrait, name, specialisation and bio — one row per trainer, hairline
+          {/* Portrait, name, specialisation and bio: one row per trainer, hairline
            * separated like the reference's list. */}
           <Container className="grid border-l border-t border-brand-navy-soft sm:grid-cols-2 lg:grid-cols-3">
             {category.trainers.map((trainer) => (

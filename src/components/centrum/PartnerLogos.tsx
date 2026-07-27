@@ -5,7 +5,7 @@ type PartnerLogosProps = {
   heading?: string;
 };
 
-// Real logos from the scraped reference (scripts/scrape/scraped/home/media/) — brand
+// Real logos from the scraped reference (scripts/scrape/scraped/home/media/): brand
 // names aren't recoverable from the source, so alt text stays generic until the
 // client identifies them.
 const partners = Array.from({ length: 7 }, (_, index) => ({
@@ -14,7 +14,7 @@ const partners = Array.from({ length: 7 }, (_, index) => ({
 }));
 
 // Duplicated so the marquee (see the `marquee` keyframes in globals.css) can loop
-// seamlessly — a -50% translate lands exactly on the start of the second copy.
+// seamlessly, a -50% translate lands exactly on the start of the second copy.
 const track = [...partners, ...partners];
 
 export function PartnerLogos({ heading }: PartnerLogosProps) {

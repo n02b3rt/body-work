@@ -14,7 +14,7 @@ export type ThemePreset = {
   colors: Partial<Record<ThemeTokenPath, string>>
 }
 
-/** Defaults from the token definitions — the "BodyWork" base palette. */
+/** Defaults from the token definitions: the "BodyWork" base palette. */
 const defaultColors = THEME_TOKENS.reduce<Record<string, string>>((acc, token) => {
   acc[token.path] = token.defaultValue
   return acc
@@ -24,14 +24,14 @@ export const THEME_PRESETS: ThemePreset[] = [
   {
     id: 'bodywork',
     label: 'BodyWork (domyślny)',
-    description: 'Morska zieleń z ciepłym akcentem — spokojny, medyczny charakter.',
+    description: 'Morska zieleń z ciepłym akcentem: spokojny, medyczny charakter.',
     swatches: ['#0f766e', '#f59e0b', '#1e293b', '#f8fafc'],
     colors: defaultColors as Partial<Record<ThemeTokenPath, string>>,
   },
   {
     id: 'sand',
     label: 'Piaskowy',
-    description: 'Ciepłe beże i terakota — miękki, gabinetowy klimat.',
+    description: 'Ciepłe beże i terakota: miękki, gabinetowy klimat.',
     swatches: ['#b45309', '#0f766e', '#78350f', '#fefaf5'],
     colors: {
       'brand.primary': '#b45309',
@@ -59,7 +59,7 @@ export const THEME_PRESETS: ThemePreset[] = [
   {
     id: 'midnight',
     label: 'Nocny',
-    description: 'Ciemne tła z jasnym tekstem — mocny kontrast dla sekcji premium.',
+    description: 'Ciemne tła z jasnym tekstem: mocny kontrast dla sekcji premium.',
     swatches: ['#22d3ee', '#a78bfa', '#0f172a', '#1e293b'],
     colors: {
       'brand.primary': '#22d3ee',
@@ -87,7 +87,7 @@ export const THEME_PRESETS: ThemePreset[] = [
   {
     id: 'rose',
     label: 'Różany',
-    description: 'Stonowany róż i śliwka — dietetyka, masaż, strefa relaksu.',
+    description: 'Stonowany róż i śliwka: dietetyka, masaż, strefa relaksu.',
     swatches: ['#be185d', '#7e22ce', '#4c0519', '#fff5f7'],
     colors: {
       'brand.primary': '#be185d',

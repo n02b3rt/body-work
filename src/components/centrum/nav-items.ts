@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 export type NavChild = { label: string; href: string; external?: boolean };
 export type NavItem = { label: string; href: string; children?: NavChild[] };
 
-/** Menu structure mirrors the scraped reference nav — see docs/scraped-site-map.md. */
+/** Menu structure mirrors the scraped reference nav, see docs/scraped-site-map.md. */
 export function useNavItems(): NavItem[] {
   const t = useTranslations("Nav");
 

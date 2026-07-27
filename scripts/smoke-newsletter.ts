@@ -4,7 +4,7 @@
  * Run with: `pnpm payload run scripts/smoke-newsletter.ts`
  *
  * The HTTP flow is easy to check by hand with curl; what this covers is the part that is
- * not — that the collection's own rules hold. Namely: `create` really is closed to normal
+ * not, that the collection's own rules hold. Namely: `create` really is closed to normal
  * access (the route handler's `overrideAccess` is not decoration), an address can't be
  * added twice, and the status transitions land the timestamps where the RODO consent record
  * needs them.
@@ -19,7 +19,7 @@ const TEST_EMAIL = 'smoke-newsletter@bodywork.invalid'
 let failures = 0
 
 function check(label: string, passed: boolean, detail = '') {
-  console.log(`${passed ? '  ok  ' : '  FAIL'} ${label}${detail ? ` — ${detail}` : ''}`)
+  console.log(`${passed ? '  ok  ' : '  FAIL'} ${label}${detail ? `: ${detail}` : ''}`)
   if (!passed) failures += 1
 }
 
@@ -79,7 +79,7 @@ const confirmed = await payload.update({
 check('status becomes confirmed', confirmed.status === 'confirmed')
 check('confirmedAt is recorded', Boolean(confirmed.confirmedAt))
 
-// 5. Unsubscribing keeps the row — a deleted row would let the same address be re-added
+// 5. Unsubscribing keeps the row, a deleted row would let the same address be re-added
 //    silently, and loses the record that consent was once given and then withdrawn.
 const unsubscribed = await payload.update({
   collection: 'subscribers',
@@ -91,7 +91,7 @@ check('status becomes unsubscribed', unsubscribed.status === 'unsubscribed')
 check('unsubscribedAt is recorded', Boolean(unsubscribed.unsubscribedAt))
 check('confirmedAt survives the unsubscribe', Boolean(unsubscribed.confirmedAt))
 
-// 6. Only confirmed addresses are mailable — the query a future broadcast has to use.
+// 6. Only confirmed addresses are mailable: the query a future broadcast has to use.
 const mailable = await payload.find({
   collection: 'subscribers',
   where: { status: { equals: 'confirmed' } },

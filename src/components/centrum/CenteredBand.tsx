@@ -13,7 +13,7 @@ type CenteredBandProps = {
   children?: ReactNode;
 };
 
-/** Centred statement band with an optional watermark behind it — the section-page
+/** Centred statement band with an optional watermark behind it: the section-page
  * equivalent of the homepage's newsletter block, and the shape the reference reuses
  * for every "here's the idea / here's how to start" moment. */
 export function CenteredBand({ eyebrow, heading, body, backgroundSrc, children }: CenteredBandProps) {

@@ -40,7 +40,7 @@ export default async function PersonalTrainingPage() {
 
   return (
     <>
-      {/* Hub page: the title comes first and the sticky sub-nav sits under it —
+      {/* Hub page: the title comes first and the sticky sub-nav sits under it,
        * the reverse of the subpages, matching the reference's document order. */}
       <PageHero
         title={t("title")}
@@ -64,7 +64,7 @@ export default async function PersonalTrainingPage() {
       />
 
       {/* Three specialisations side by side, each with its copy pushed to the bottom
-       * so the paragraphs line up across columns — as in the reference. */}
+       * so the paragraphs line up across columns, as in the reference. */}
       <div className="border-t border-brand-navy-soft bg-background">
         <Container className="grid lg:grid-cols-3 lg:divide-x lg:divide-brand-navy-soft">
           {specializations.map((block, index) => (

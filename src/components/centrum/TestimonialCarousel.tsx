@@ -29,7 +29,7 @@ export function TestimonialCarousel({ heading, items }: TestimonialCarouselProps
       </Container>
 
       {/* Cards are separated by hairlines (border-r/border-b) rather than being
-       * rounded boxes — matches the reference's testimonial slides. */}
+       * rounded boxes: matches the reference's testimonial slides. */}
       <div className="mt-10 overflow-hidden border-t border-brand-navy-soft" ref={emblaRef}>
         <div className="flex">
           {items.map((item, index) => (

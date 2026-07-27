@@ -16,7 +16,7 @@ type MobileNavProps = {
 /** Full-screen navy drawer for viewports below the nav breakpoint.
  *
  * Stays mounted (rather than returning `null` when closed) so open *and* close can
- * both transition — an unmounted panel has nothing to animate from. While closed
+ * both transition, an unmounted panel has nothing to animate from. While closed
  * it's translated off-screen and made inert so it can't be clicked or tabbed into. */
 export function MobileNav({ open, onClose, navItems, otherLocale, pathname }: MobileNavProps) {
   const tHeader = useTranslations("Header");

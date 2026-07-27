@@ -9,7 +9,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return pageMetadata({ locale, path: "/polityka-prywatnosci", title: t("title") });
 }
 
-/** Same shape as `/regulamin` — see `LegalDocument`. */
+/** Same shape as `/regulamin`, see `LegalDocument`. */
 export default async function PrivacyPage() {
   const t = await getTranslations("Privacy");
 

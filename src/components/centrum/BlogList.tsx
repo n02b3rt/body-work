@@ -23,17 +23,25 @@ export type BlogCategory = { id: string; title: string };
 type BlogListProps = {
   posts: BlogCard[];
   categories: BlogCategory[];
+  /**
+   * Cards rendered on the server. Comes from `?page=N`, so a crawler that follows the "show
+   * more" link reaches every post. With a window of nine and no such link, only 10 of the 62
+   * post URLs appeared anywhere in the HTML.
+   */
+  initialCount?: number;
+  /** `?page=N+1`, or null once everything is already on the page. */
+  nextPageHref?: string | null;
 };
 
 const ALL = "all";
 
-/** Cards rendered before the first scroll, and added per batch after it — three full rows
+/** Cards rendered before the first scroll, and added per batch after it: three full rows
  *  of the desktop grid. See the note on `shown` for why this is a rendering window rather
  *  than server-side pagination. */
 const PAGE_SIZE = 9;
 
 /**
- * Reading time and author. **No date** — the reference prints one on its featured card, but
+ * Reading time and author. **No date**: the reference prints one on its featured card, but
  * the client asked for no dates anywhere on the listing; see `docs/migration-tracker.md`.
  *
  * The two layouts are the reference's own: the featured card sets them side by side with a
@@ -76,16 +84,21 @@ function MetaRow({
 
 /**
  * Listing with the reference's category select and free-text search, both filtering the
- * already-loaded set client-side — which is what the reference does too. At ~60 posts a
+ * already-loaded set client-side, which is what the reference does too. At ~60 posts a
  * round trip per keystroke would be worse, not better.
  *
  * The newest post gets the reference's featured treatment: half-width image, the rest of
  * the row given over to an oversized title and the lead. It steps aside while a filter or a
  * search is active, because a "featured" post that is really just the first match reads as
- * an accident — the reference's own featured card carries an empty `data-category`, so its
+ * an accident: the reference's own featured card carries an empty `data-category`, so its
  * filter hides it too.
  */
-export function BlogList({ posts, categories }: BlogListProps) {
+export function BlogList({
+  posts,
+  categories,
+  initialCount = PAGE_SIZE,
+  nextPageHref = null,
+}: BlogListProps) {
   const t = useTranslations("Blog");
   const [category, setCategory] = useState(ALL);
   const [query, setQuery] = useState("");
@@ -106,9 +119,9 @@ export function BlogList({ posts, categories }: BlogListProps) {
   const grid = featured ? visible.slice(1) : visible;
 
   /**
-   * How many cards are actually rendered. The full set stays in memory — filtering and
+   * How many cards are actually rendered. The full set stays in memory: filtering and
    * search run over all 62 posts client-side, as on the reference, and fetching in batches
-   * would mean a round trip per keystroke — but only a window of them is put in the DOM.
+   * would mean a round trip per keystroke, but only a window of them is put in the DOM.
    * That is where the cost was: 62 cards meant 1764 DOM nodes, a 20,000px page and a 119KB
    * document, while the images were already lazy (1 of 62 had loaded).
    *
@@ -118,7 +131,9 @@ export function BlogList({ posts, categories }: BlogListProps) {
    * set-state-in-effect rule.
    */
   const filterKey = `${category}|${query.trim()}`;
-  const [window_, setWindow] = useState({ key: filterKey, count: PAGE_SIZE });
+  const [window_, setWindow] = useState({ key: filterKey, count: initialCount });
+  // Filtering restarts the window at one page: the server's larger initial count belongs to
+  // the unfiltered list it was rendered for.
   const shown = window_.key === filterKey ? window_.count : PAGE_SIZE;
 
   const rendered = grid.slice(0, shown);
@@ -160,7 +175,7 @@ export function BlogList({ posts, categories }: BlogListProps) {
           <label className="sr-only" htmlFor="blog-category">
             {t("allCategories")}
           </label>
-          {/* Square, not a pill — the reference's select has no border radius, and the
+          {/* Square, not a pill: the reference's select has no border radius, and the
             * native arrow inside a rounded box is what looked broken. */}
           <div className="relative w-full wide:w-auto">
             <select
@@ -260,20 +275,20 @@ export function BlogList({ posts, categories }: BlogListProps) {
       {rendered.length > 0 ? (
         // Not `Container` here, deliberately. The grid needs a border down its left and
         // right edges (the reference has them), and `Container`'s own horizontal padding
-        // would sit between that line and the first card's padding — leaving 64px from the
+        // would sit between that line and the first card's padding: leaving 64px from the
         // edge line to the text against 32px at the interior dividers. Same width cap,
         // padding moved onto the cards, so every line has the same gap.
         //
-        // `lg:` and not the project's `wide:`: with `sm:grid-cols-2` and `wide:grid-cols-3`
+        // `lg:` and not the project's `wide:`, with `sm:grid-cols-2` and `wide:grid-cols-3`
         // both on the element, the `sm` rule wins above 1060px and the grid silently stays
-        // at two columns — measured, not assumed. `lg` (1024px) orders after `sm`, and 1024
+        // at two columns: measured, not assumed. `lg` (1024px) orders after `sm`, and 1024
         // against the reference's 1060 is a difference no one will see.
         <div className="mx-auto grid w-full max-w-[1440px] grid-cols-1 border-x border-brand-navy-soft sm:grid-cols-2 lg:grid-cols-3">
           {rendered.map((post) => (
             <article
               key={post.slug}
               // Dividers are the reference's own border-right/border-bottom. Dropping the
-              // right border on the last column keeps the line off the container edge —
+              // right border on the last column keeps the line off the container edge,
               // a grid mechanic, which CLAUDE.md allows adapting.
               className="flex flex-col border-b border-brand-navy-soft px-6 py-8 sm:border-r sm:[&:nth-child(2n)]:border-r-0 lg:px-8 lg:[&:nth-child(2n)]:border-r lg:[&:nth-child(3n)]:border-r-0"
             >
@@ -285,7 +300,7 @@ export function BlogList({ posts, categories }: BlogListProps) {
                       alt={post.image.alt}
                       fill
                       // The grid is capped at 1440px, so above that a card is a fixed
-                      // 480px — not 33vw. Saying 33vw overstated the slot by a third at a
+                      // 480px, not 33vw. Saying 33vw overstated the slot by a third at a
                       // 1920 viewport, which pushed Next to the 1920 candidate on a 2x
                       // screen: 270KB a card, measured, against 99KB for the honest 480px.
                       // The breakpoint is 1024px because the grid goes three-up at `lg`.
@@ -328,16 +343,23 @@ export function BlogList({ posts, categories }: BlogListProps) {
       {hasMore ? (
         <Container className="flex flex-col items-center gap-4 py-12">
           {/* The observer watches this; the button does the same thing on click. Both are
-            * here on purpose — scroll alone leaves keyboard users and anything without an
+            * here on purpose: scroll alone leaves keyboard users and anything without an
             * IntersectionObserver unable to reach the rest of the list. */}
           <div ref={sentinelRef} aria-hidden className="h-px w-full" />
-          <button
-            type="button"
-            onClick={() => setWindow({ key: filterKey, count: shown + PAGE_SIZE })}
+          {/* A real link, not a button. Without JavaScript, and for a crawler, it navigates
+            * to the next server-rendered page; with JavaScript it grows the window in place
+            * and the URL stays put. `nextPageHref` is null while a filter is active, since
+            * the server pages describe the unfiltered list. */}
+          <a
+            href={nextPageHref ?? "#"}
+            onClick={(event) => {
+              event.preventDefault();
+              setWindow({ key: filterKey, count: shown + PAGE_SIZE });
+            }}
             className={buttonClasses("outline")}
           >
             {t("loadMore")}
-          </button>
+          </a>
           <p aria-live="polite" className="text-label text-brand-navy/70">
             {t("shownCount", { shown: rendered.length, total: grid.length })}
           </p>

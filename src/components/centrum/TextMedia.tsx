@@ -20,7 +20,7 @@ type TextMediaProps = {
   imageAlt: string;
 };
 
-/** Generic heading + copy + CTA + image block — reused across most Centrum content
+/** Generic heading + copy + CTA + image block: reused across most Centrum content
  * sections (see docs/conventions.md's reuse rule) and maps to PRD's "Tekst + media" block. */
 export function TextMedia({
   heading,

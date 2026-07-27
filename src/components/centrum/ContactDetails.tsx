@@ -4,7 +4,7 @@ import { DIRECTIONS_URL, MAP_URL } from "@/lib/external-links";
 
 /** Address / reception / opening hours, with the two map buttons alongside.
  *
- * Extracted from `Footer` so the contact page and the footer can't drift apart — the
+ * Extracted from `Footer` so the contact page and the footer can't drift apart: the
  * reference's own `/kontakt` page has no content of its own beyond this block, so both
  * surfaces are showing the same thing by definition. Reads `Footer.*` message keys,
  * which is where this copy already lives. */

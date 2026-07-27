@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return pageMetadata({ locale, path: "/instrukcja", title: t("title") });
 }
 
-/** "Instrukcja obsługi ciała" — the long-form philosophy page the homepage's two
+/** "Instrukcja obsługi ciała": the long-form philosophy page the homepage's two
  * "Uczymy…" / "Wierzymy…" statements link to. Statement blocks separated by full-bleed
  * photos, then three bullet lists and the trainers/space card pair. */
 export default async function BodyManualPage() {
@@ -92,7 +92,7 @@ export default async function BodyManualPage() {
       <FullBleedImage src="/images/instrukcja/why-us.webp" alt={t("whyHeading")} />
 
       {/* In a `Container`, matching how /fizjoterapia and /trening-personalny place this
-        * same pair — otherwise the headings sit ~170px left of everything above them. */}
+        * same pair: otherwise the headings sit ~170px left of everything above them. */}
       <div className="border-t border-brand-navy-soft bg-background">
         <Container className="grid lg:grid-cols-2 lg:divide-x lg:divide-brand-navy-soft">
           <MediaCardCta

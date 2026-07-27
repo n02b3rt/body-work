@@ -12,7 +12,7 @@ import { MegaMenu } from "./MegaMenu";
 
 const ACADEMY_URL = "https://akademia.body-work.pl";
 // Hysteresis (separate enter/exit thresholds) stops the header flip-flopping when
-// scroll position hovers right at a single boundary — without it, trackpad/momentum
+// scroll position hovers right at a single boundary, without it, trackpad/momentum
 // scrolling near the threshold made the whole header visibly jump and flicker.
 const SCROLL_ENTER = 72;
 const SCROLL_EXIT = 24;
@@ -69,10 +69,10 @@ export function Header() {
 
   // Row 2 (the big wordmark + Akademia/Kontakt) collapses once you scroll past the
   // threshold; row 1's brand slot flip-cards from the tagline to a compact logo at
-  // the same moment — matches the reference's "cube" crossfade. The header is
+  // the same moment: matches the reference's "cube" crossfade. The header is
   // `fixed`, not `sticky`, on purpose: a sticky element that changes its own height
   // pushes the page content underneath it in lockstep with the scroll, which is
-  // what caused the jump/flicker — a fixed header's height changes don't affect
+  // what caused the jump/flicker, a fixed header's height changes don't affect
   // page flow at all, so the shrink is purely visual. `layout.tsx` reserves a
   // matching spacer so content isn't covered on first paint.
   useEffect(() => {
@@ -96,7 +96,7 @@ export function Header() {
     };
   }, [menuOpen]);
 
-  // Escape closes the menu — expected for any overlay panel.
+  // Escape closes the menu: expected for any overlay panel.
   useEffect(() => {
     if (!menuOpen) return;
     function onKeyDown(event: KeyboardEvent) {
@@ -109,7 +109,7 @@ export function Header() {
   return (
     <header className="fixed inset-x-0 top-0 z-40 bg-background">
       {/* The divider spans the full viewport edge-to-edge; the content inside stays
-       * capped at the site's usual container width — matches the reference, which
+       * capped at the site's usual container width: matches the reference, which
        * full-bleeds its background/borders but never its actual content. */}
       <div className="relative border-b border-brand-navy-soft" onMouseLeave={() => setHoveredHref(null)}>
         <Container className="flex h-[65px] items-center justify-between gap-4">
@@ -230,7 +230,7 @@ export function Header() {
         </Container>
 
         {/* Sub-nav: a full-bleed bar hanging under the whole header row, with the
-         * children laid out horizontally — not a floating card under one item. It
+         * children laid out horizontally, not a floating card under one item. It
          * lives here (a sibling of the nav, inside the row's `relative` wrapper) so
          * it can span the viewport while still being aligned to the container, and
          * so moving the pointer from a nav link down into it doesn't close it. */}

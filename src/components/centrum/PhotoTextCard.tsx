@@ -9,17 +9,17 @@ type PhotoTextCardProps = {
   body: ReactNode;
   ctaLabel?: string;
   ctaHref?: string;
-  /** Render the CTA as a plain anchor for an off-site target — matching `MediaCardCta`. */
+  /** Render the CTA as a plain anchor for an off-site target: matching `MediaCardCta`. */
   external?: boolean;
   imageSrc: string;
   imageAlt: string;
 };
 
-/** Big full-width photo with a cream card overlapping its lower-left corner — the
+/** Big full-width photo with a cream card overlapping its lower-left corner: the
  * scraped reference's "Przyjazna przestrzeń" layout, distinct from the generic
  * side-by-side TextMedia block used elsewhere.
  *
- * The card is `absolute`, anchored to the photo's own bottom edge — not pulled up
+ * The card is `absolute`, anchored to the photo's own bottom edge, not pulled up
  * with a negative margin from normal document flow. A negative margin is a fixed
  * guess at the card's height; whenever the real height exceeded that guess (longer
  * translation, narrower viewport wrapping to more lines), the card spilled out
@@ -32,7 +32,7 @@ export function PhotoTextCard({ heading, body, ctaLabel, ctaHref, external, imag
       <div className="relative aspect-[4/5] w-full sm:aspect-[16/9] lg:aspect-[2.2/1]">
         <Image src={imageSrc} alt={imageAlt} fill sizes="100vw" className="object-cover" />
         {/* Wide enough for the heading to stay on one line at its real size
-         * (`ho:f12s5`, ~68px) — the reference's card is ~48% of the viewport. Lifted
+         * (`ho:f12s5`, ~68px): the reference's card is ~48% of the viewport. Lifted
          * off the photo's bottom edge, but still anchored to it so the card can only
          * ever grow upward into the photo, never spill out below it. */}
         <div className="absolute bottom-6 left-4 right-4 sm:bottom-10 sm:right-auto sm:left-6 sm:max-w-2xl lg:bottom-14 lg:left-8 lg:max-w-4xl">

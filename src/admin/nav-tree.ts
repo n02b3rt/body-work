@@ -1,5 +1,5 @@
 /**
- * Admin sidebar tree — single source of truth for Payload custom Nav.
+ * Admin sidebar tree: single source of truth for Payload custom Nav.
  * Leaves with `href` pointing at `/admin/coming-soon` are stubs until features exist.
  *
  * Collection/global URLs use short prefixes `/admin/c/` and `/admin/g/`

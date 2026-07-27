@@ -13,7 +13,7 @@
  * wrong source. On the reference, a post's thumbnail and its listing blurb are separate
  * fields that need not appear in the article at all. The damage, measured:
  *
- * - **0 of 62** thumbnails matched — every post was illustrated by whatever picture happened
+ * - **0 of 62** thumbnails matched: every post was illustrated by whatever picture happened
  *   to come first in its text.
  * - **51 of 62** excerpts differed, and **48 ended mid-sentence**, because the body's first
  *   paragraph was cut to a character budget rather than the real blurb being used.
@@ -117,7 +117,7 @@ function parseListing(): Reference[] {
 
 const payload = await getPayload({ config })
 
-console.log(DRY ? '\nDRY RUN — nothing will be written.' : '\nWRITING to the database.')
+console.log(DRY ? '\nDRY RUN: nothing will be written.' : '\nWRITING to the database.')
 
 const reference = parseListing()
 console.log(`reference cards parsed: ${reference.length}`)

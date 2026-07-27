@@ -79,7 +79,7 @@ export function MediaDetailsPanel({ doc, adminRoute, onClose }: Props) {
         </div>
         <div>
           <dt>ALT</dt>
-          <dd>{doc.isDecorative ? '(dekoracyjny)' : doc.alt || '—'}</dd>
+          <dd>{doc.isDecorative ? '(dekoracyjny)' : doc.alt || ': '}</dd>
         </div>
         <div>
           <dt>Typ</dt>
@@ -87,11 +87,11 @@ export function MediaDetailsPanel({ doc, adminRoute, onClose }: Props) {
         </div>
         <div>
           <dt>Plik</dt>
-          <dd>{doc.filename || '—'}</dd>
+          <dd>{doc.filename || ': '}</dd>
         </div>
         <div>
           <dt>MIME</dt>
-          <dd>{doc.mimeType || '—'}</dd>
+          <dd>{doc.mimeType || ': '}</dd>
         </div>
         <div>
           <dt>Rozmiar</dt>

@@ -43,7 +43,7 @@ export const administratorsAndModerators: Access = ({ req: { user } }) => {
   return role === 'administrator' || role === 'moderator'
 }
 
-/** Admin panel gate — clients never enter /admin */
+/** Admin panel gate: clients never enter /admin */
 export const canAccessAdmin: Access = ({ req: { user } }) => isStaff(user)
 
 export const administratorsField: FieldAccess = ({ req: { user } }) => isAdministrator(user)

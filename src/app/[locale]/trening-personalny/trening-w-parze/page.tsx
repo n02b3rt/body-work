@@ -12,7 +12,7 @@ import { pageMetadata } from "@/lib/metadata";
 
 type Section = { heading: string; body: string };
 
-/** The reference shows a subset of the shared "when is it worth it?" list here —
+/** The reference shows a subset of the shared "when is it worth it?" list here,
  * medical training and pregnancy training are omitted on this page. */
 const REASON_INDEXES = [0, 1, 2, 3, 6, 7];
 

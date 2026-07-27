@@ -1,10 +1,10 @@
-# Stack — BODYWORK ecosystem
+# Stack: BODYWORK ecosystem
 
 > The approved technology list for this project. Written in English.
 
 ## The rule
 
-**Never add, remove, upgrade, or swap a library or service without asking the user first.** Propose it, explain why, wait for a yes — this applies to `npm install`, new Payload plugins, and new infra pieces (self-hosted or SaaS) alike. Everything below was chosen deliberately (see the decisions log in [`architecture.md`](./architecture.md)); don't substitute a "similar" package because it's more familiar.
+**Never add, remove, upgrade, or swap a library or service without asking the user first.** Propose it, explain why, wait for a yes: this applies to `npm install`, new Payload plugins, and new infra pieces (self-hosted or SaaS) alike. Everything below was chosen deliberately (see the decisions log in [`architecture.md`](./architecture.md)); don't substitute a "similar" package because it's more familiar.
 
 This file is the single source of truth for what's approved. If something you need isn't listed here, that's the signal to ask, not to install.
 
@@ -16,10 +16,10 @@ This file is the single source of truth for what's approved. If something you ne
 | React | 19.x | UI |
 | TypeScript | strict | Typing |
 | Payload CMS | 3.x | CMS + admin panel + auth + REST/GraphQL, embedded in Next.js (Local API, no HTTP round-trip) |
-| PostgreSQL | self-hosted (Docker, on the Hetzner VPS) | Database — **not NeonDB**. See "Resolved conflicts" below. |
-| Redis (Valkey) | — | Cache, rate limiting, cart sessions, queues |
+| PostgreSQL | self-hosted (Docker, on the Hetzner VPS) | Database: **not NeonDB**. See "Resolved conflicts" below. |
+| Redis (Valkey) | - | Cache, rate limiting, cart sessions, queues |
 
-No separate ORM (Prisma, Drizzle, etc.) — Payload owns the schema and migrations. See "Resolved conflicts".
+No separate ORM (Prisma, Drizzle, etc.): Payload owns the schema and migrations. See "Resolved conflicts".
 
 ## UI & style
 
@@ -30,7 +30,7 @@ No separate ORM (Prisma, Drizzle, etc.) — Payload owns the schema and migratio
 | Motion (formerly Framer Motion) | Animations (sections, carousels, promo bars) |
 | Embla Carousel | Carousels (news, testimonials, gallery) |
 | next/image + sharp | Images, AVIF/WebP, responsive sizes |
-| next/font | Self-hosted fonts (no Google Fonts CDN — GDPR) |
+| next/font | Self-hosted fonts (no Google Fonts CDN: GDPR) |
 
 ## i18n
 
@@ -47,7 +47,7 @@ Full strategy: [`i18n.md`](./i18n.md).
 |---|---|
 | react-hook-form | Form handling |
 | zod | Validation (forms + API input) |
-| Zustand | Client-side UI state (e.g. cart UI, calendar filters) — price/availability is always re-verified server-side regardless of client state |
+| Zustand | Client-side UI state (e.g. cart UI, calendar filters): price/availability is always re-verified server-side regardless of client state |
 
 ## Payload plugins
 
@@ -64,16 +64,16 @@ Full strategy: [`i18n.md`](./i18n.md).
 
 | Tech | Role |
 |---|---|
-| Biome | Lint + format (PRD target — repo currently has plain ESLint from `create-next-app`; switching is a pending decision, ask first) |
+| Biome | Lint + format (PRD target: repo currently has plain ESLint from `create-next-app`; switching is a pending decision, ask first) |
 | Vitest | Unit tests |
 | Playwright | E2E tests |
 | Lighthouse CI | Performance budgets in CI |
-| pnpm | Package manager (PRD target — repo currently uses npm/`package-lock.json`; switching is a pending decision, ask first) |
+| pnpm | Package manager (PRD target: repo currently uses npm/`package-lock.json`; switching is a pending decision, ask first) |
 | Docker + Compose | Local/prod runtime |
 
 ## Infrastructure (self-hosted first)
 
-Per PRD §9 — "zero abonamentów SaaS tam, gdzie istnieje dojrzała alternatywa open-source": everything below runs on the Hetzner VPS except the payment gateway, SMTP relay, and domains/VPS themselves.
+Per PRD §9: "zero abonamentów SaaS tam, gdzie istnieje dojrzała alternatywa open-source": everything below runs on the Hetzner VPS except the payment gateway, SMTP relay, and domains/VPS themselves.
 
 | Piece | Solution |
 |---|---|
@@ -82,12 +82,12 @@ Per PRD §9 — "zero abonamentów SaaS tam, gdzie istnieje dojrzała alternatyw
 | Reverse proxy / TLS | Caddy or Traefik + Let's Encrypt |
 | Media storage | MinIO / Hetzner Object Storage |
 | Backups | restic → Hetzner Storage Box |
-| Newsletter | **Resend** delivers; the list lives in our own Postgres (`subscribers`). Listmonk deferred — see below |
+| Newsletter | **Resend** delivers; the list lives in our own Postgres (`subscribers`). Listmonk deferred, see below |
 | Analytics | Umami (self-hosted, cookieless) + GTM/GA4/Meta Pixel behind consent |
 | Monitoring | Uptime Kuma |
 | Error tracking | GlitchTip (Sentry-SDK compatible) |
 | CDN/DNS/WAF | Cloudflare Free |
-| Payments | Przelewy24 (paid by necessity — commission only, no subscription) |
+| Payments | Przelewy24 (paid by necessity: commission only, no subscription) |
 | Transactional email | **Resend** (this is the "SMTP relay" the PRD already exempts from self-hosting) |
 
 Full picture: `PRD.md` §7 and §9.
@@ -97,7 +97,7 @@ Full picture: `PRD.md` §7 and §9.
 A stack note floating outside the PRD mentioned NeonDB and Prisma. Checked against `PRD.md` and confirmed with the user:
 
 - **NeonDB → rejected.** `PRD.md` §7/§9/§15 makes self-hosted Postgres on the VPS a load-bearing decision (cost model + the project's "self-hosted first" cardinal rule). A managed Postgres SaaS contradicts that directly. Postgres runs self-hosted, full stop.
-- **Prisma → rejected.** Payload already owns the database schema, migrations, and query layer via its Local API. A second ORM touching the same Postgres instance is redundant and a migration-conflict risk. If a genuinely separate data need shows up later (e.g. a reporting layer outside Payload's collections), raise it as a new proposal — don't reintroduce Prisma by default.
+- **Prisma → rejected.** Payload already owns the database schema, migrations, and query layer via its Local API. A second ORM touching the same Postgres instance is redundant and a migration-conflict risk. If a genuinely separate data need shows up later (e.g. a reporting layer outside Payload's collections), raise it as a new proposal: don't reintroduce Prisma by default.
 
 See [`architecture.md`](./architecture.md) → Key decisions for the dated log entry.
 
@@ -109,13 +109,13 @@ Approved by the user: *"ogólnie będziemy robić to przez bramkę resenda"*.
 Resend does not contradict that, for one reason worth stating plainly: **the PRD already
 exempts the mail relay** ("everything below runs on the Hetzner VPS except the payment
 gateway, SMTP relay, and domains/VPS"). Outbound mail is the one piece where self-hosting
-actively loses — deliverability depends on IP reputation built over years, and a fresh VPS
+actively loses: deliverability depends on IP reputation built over years, and a fresh VPS
 IP lands in spam folders. So the relay was always going to be somebody else's.
 
 What *would* have broken the rule is letting Resend own the subscriber list. It doesn't:
 
 - **The list is a Payload collection (`subscribers`) in our Postgres.** The RODO consent
-  record — confirmation token, timestamp, IP — is therefore ours, which is the only place it
+  record: confirmation token, timestamp, IP, is therefore ours, which is the only place it
   is any use if someone asks us to prove consent.
 - **Listmonk is deferred, not rejected.** It is a list manager and campaign composer; it
   still needs a relay underneath, and that relay would be Resend. So this is the layer
@@ -123,7 +123,7 @@ What *would* have broken the rule is letting Resend own the subscriber list. It 
   because we hold the data.
 - **No SDK.** `src/lib/email.ts` is one `fetch` to `api.resend.com`, so swapping the relay
   (SES, a plain SMTP host, Listmonk's own sender) is a change to one file. **No new
-  dependency was added for any of this** — including Payload's email adapter, which is
+  dependency was added for any of this**: including Payload's email adapter, which is
   hand-rolled in `src/lib/payload-email.ts` rather than pulling `@payloadcms/email-resend`
   to do what `email.ts` already does.
 
@@ -131,7 +131,7 @@ What *would* have broken the rule is letting Resend own the subscriber list. It 
 verify `body-work.pl` in Resend by adding its DKIM and SPF records in Cloudflare, and put
 the API key in `.env` as `RESEND_API_KEY`. Until then Resend will only send from
 `onboarding@resend.dev` to the account owner's own address. **With no key set, mail is
-logged to the server console instead of sent** — deliberate, so the flow is testable in dev
+logged to the server console instead of sent**: deliberate, so the flow is testable in dev
 and a missing key in production is a visible log rather than a 500.
 
-| jsdom | **devDependency only.** Required by Payload's own `convertHTMLToLexical`, which takes a `JSDOM` constructor as an argument rather than bundling a DOM. Used by `scripts/import-blog.ts` to migrate the scraped articles; never imported by the app. Approved 2026-07-27. **Pinned to `^26`** — jsdom 30 pulls an ESM-only transitive dependency that Payload's tsx-based script runner loads via `require()`, which fails with `ERR_REQUIRE_ESM`. |
+| jsdom | **devDependency only.** Required by Payload's own `convertHTMLToLexical`, which takes a `JSDOM` constructor as an argument rather than bundling a DOM. Used by `scripts/import-blog.ts` to migrate the scraped articles; never imported by the app. Approved 2026-07-27. **Pinned to `^26`**: jsdom 30 pulls an ESM-only transitive dependency that Payload's tsx-based script runner loads via `require()`, which fails with `ERR_REQUIRE_ESM`. |

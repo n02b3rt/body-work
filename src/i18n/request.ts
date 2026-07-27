@@ -12,7 +12,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
   return {
     locale,
     messages: (await import(`../../messages/${locale}.json`)).default,
-    // Polish date/time formats, shared with the admin panel — see src/lib/format-date.ts.
+    // Polish date/time formats, shared with the admin panel, see src/lib/format-date.ts.
     formats: intlFormats,
   };
 });

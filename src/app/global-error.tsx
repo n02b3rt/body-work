@@ -5,7 +5,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
 // This file replaces the root layout when it renders, so it has to bring its own document
-// shell, styles and font — nothing above it is available.
+// shell, styles and font: nothing above it is available.
 const fontSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
   subsets: ["latin", "latin-ext"],
@@ -13,7 +13,7 @@ const fontSans = Plus_Jakarta_Sans({
 
 /**
  * Last resort: a failure in the locale layout itself, before any translation provider
- * exists. That rules out `useTranslations`, so the copy here is hard-coded — and Polish,
+ * exists. That rules out `useTranslations`, so the copy here is hard-coded, and Polish,
  * the default locale, because at this point we cannot know which one was requested.
  *
  * Deliberately plain: whatever broke may well be the thing this page would depend on.
@@ -34,7 +34,7 @@ export default function GlobalError({
       <body className="flex min-h-full flex-col bg-background">
         {/* `global-error` can't export metadata (it's a Client Component), so the title
           * comes from React's own <title> support. */}
-        <title>Błąd — BODYWORK Centrum</title>
+        <title>Błąd | BODYWORK Centrum</title>
         <main className="flex flex-1 items-center">
           <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col gap-8 py-16">
@@ -43,7 +43,7 @@ export default function GlobalError({
                 Strona chwilowo nie działa.
               </h1>
               <p className="max-w-[42rem] text-body leading-[1.7] text-brand-navy">
-                Pracujemy nad tym. Spróbuj odświeżyć stronę, a jeśli problem się powtarza — zadzwoń
+                Pracujemy nad tym. Spróbuj odświeżyć stronę, a jeśli problem się powtarza: zadzwoń
                 do recepcji pod{" "}
                 <a href="tel:+48609805660" className="hover:underline">
                   609 805 660

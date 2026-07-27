@@ -65,7 +65,7 @@ export const Users: CollectionConfig = {
       },
       admin: {
         description:
-          'Administrator — pełny dostęp. Moderator — treści i podgląd użytkowników. Redaktor — treści. Klient — bez panelu.',
+          'Administrator: pełny dostęp. Moderator: treści i podgląd użytkowników. Redaktor: treści. Klient: bez panelu.',
       },
     },
   ],
