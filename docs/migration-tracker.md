@@ -212,6 +212,26 @@ had loaded. The cost was the markup and the DOM: 62 cards, each carrying two inl
 icons. The document only shrank 13% because the post *data* still ships for client-side
 filtering; that is the deliberate trade.
 
+### A fourth field the import got from the wrong place (2026-07-27)
+
+`scripts/content-health.ts` was written to list editorial work, and the first thing it found
+was not editorial: **two posts had no category at all**, one of them
+`testy-w-sporcie-twoja-mapa-w-drodze-na-szczyt`, the newest post and the one the listing
+features.
+
+The reference has categories for all 62, in the same `filter` field on the same listing
+metadata that supplied the thumbnails, excerpts and dates. Compared all 62 against it: **60
+matched exactly, 2 were empty.** So this is the same root cause as the earlier three fields,
+just narrower, and `fix-blog-from-reference.ts` now repairs categories too.
+
+The consequences were not cosmetic. With no category a post appears in no archive, emits no
+`article:section`, and shows no category link, so the newest article was absent from the
+cluster it belongs to. After the fix: Trening 52 posts, Fizjoterapia 44, Masaż 4, Dietetyka 4,
+and the featured post carries `article:section` and links to its archive.
+
+Category names are mapped from the reference's own opaque filter ids, which are hard-coded in
+the script rather than derived, because they are hashes in a mirrored page.
+
 ### The two editorial gaps, as far as code can honestly take them (2026-07-27)
 
 Both items previously listed as "left for a human". Post copy was not touched.

@@ -43,6 +43,19 @@ type Reference = {
   excerpt: string | null
   datePublished: string | null
   minutes: number | null
+  /** Category names, resolved from the reference's own filter ids. */
+  categories: string[]
+}
+
+/**
+ * The reference's category ids, read off the filter `<select>` on its listing. Hard-coded
+ * because they are opaque hashes in a mirrored page, not something to derive at runtime.
+ */
+const REFERENCE_CATEGORIES: Record<string, string> = {
+  '84pnUXVxG': 'Fizjoterapia',
+  '84o42ua9K': 'Masaż',
+  '84obvLpkY': 'Trening',
+  '84ua64YcM': 'Dietetyka',
 }
 
 /** The reference mixes precomposed and combining diacritics; NFC makes comparisons honest. */
@@ -102,6 +115,10 @@ function parseListing(): Reference[] {
           excerpt: data.short_description ? normalise(String(data.short_description)) : null,
           datePublished: data.date_published ? String(data.date_published) : null,
           minutes: data.time ? Number(data.time) : null,
+          categories: String(data.filter ?? '')
+            .split(',')
+            .map((id) => REFERENCE_CATEGORIES[id.trim()])
+            .filter((name): name is string => Boolean(name)),
         })
       }
     } catch {
@@ -132,6 +149,14 @@ console.log(`posts in the database : ${posts.docs.length}`)
 
 const byslug = new Map(reference.map((r) => [r.slug, r]))
 
+const categoryDocs = await payload.find({
+  collection: 'categories',
+  limit: 50,
+  depth: 0,
+  overrideAccess: true,
+})
+const categoryIdByName = new Map(categoryDocs.docs.map((doc) => [doc.title, doc.id]))
+
 let imageFixed = 0
 let imageAlready = 0
 let imageMissingFile = 0
@@ -141,6 +166,8 @@ let dateCleared = 0
 let excerptFixed = 0
 let excerptAlready = 0
 let excerptNoSource = 0
+let categoriesFixed = 0
+let categoriesAlready = 0
 const mediaCache = new Map<string, number>()
 
 /** Media filenames lose their extension to WebP on upload, so match on the stem. */
@@ -234,6 +261,29 @@ for (const post of posts.docs) {
     excerptNoSource += 1
   }
 
+  // Categories come from the listing's `filter` field, the same place as everything else
+  // here. The import took them from somewhere that worked for 60 posts and lost two, one of
+  // them the newest post, which the listing features: with no category it appeared in no
+  // archive and emitted no `article:section`.
+  if (ref.categories.length > 0) {
+    const wantedIds = ref.categories
+      .map((name) => categoryIdByName.get(name))
+      .filter((id): id is number => typeof id === 'number')
+      .sort((a, b) => a - b)
+
+    const currentIds = (post.categories ?? [])
+      .map((item) => (typeof item === 'object' && item ? item.id : item))
+      .filter((id): id is number => typeof id === 'number')
+      .sort((a, b) => a - b)
+
+    if (JSON.stringify(wantedIds) !== JSON.stringify(currentIds)) {
+      update.categories = wantedIds
+      categoriesFixed += 1
+    } else {
+      categoriesAlready += 1
+    }
+  }
+
   // The reference leaves one post undated; the import gave it the date it ran on, which
   // then sorted it above everything else. Null is the honest value.
   const wantedDate = ref.datePublished ? new Date(ref.datePublished).toISOString() : null
@@ -266,6 +316,8 @@ console.log(`  thumbnail file missing : ${imageMissingFile}`)
 console.log(`  excerpts rewritten     : ${excerptFixed}`)
 console.log(`  excerpts already ok    : ${excerptAlready}`)
 console.log(`  excerpts with no source: ${excerptNoSource}`)
+console.log(`  categories corrected   : ${categoriesFixed}`)
+console.log(`  categories already ok  : ${categoriesAlready}`)
 console.log(`  dates corrected        : ${dateFixed}`)
 console.log(`  dates cleared to null  : ${dateCleared}`)
 console.log(`  posts with no ref card : ${noReference}`)

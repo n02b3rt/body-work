@@ -13,6 +13,14 @@
 
 -->
 
+## 2026-07-27: the health report immediately found a data bug, not an editorial one
+
+- **Done:** the two posts with no category now have the ones the reference gives them. `fix-blog-from-reference.ts` repairs categories as well, making it four fields it restores.
+- **This is the same mistake as the thumbnails, excerpts and dates**, found three scripts later. The reference keeps categories in the `filter` field of the same listing metadata; the import took them from somewhere that happened to work for 60 posts and dropped 2. Compared all 62: **60 exact, 2 empty, 0 otherwise wrong.**
+- **The cost was real, not cosmetic.** A post with no category appears in no archive, emits no `article:section`, and shows no category link. The post affected was the newest one, which the listing features, so the most prominent article on the blog was missing from its own cluster. After the fix: Trening 52, Fizjoterapia 44, Masaż 4, Dietetyka 4.
+- **Worth noting what happened here:** a script written to hand editorial work to a human found a bug in my own import on its first run. Reports that list "things needing a person" are worth writing partly because they catch the things that did not.
+- **Verified:** `Missing category: 0`; the featured post now appears in `/blog/kategoria/trening`, emits `article:section: Trening`, and links to that archive.
+
 ## 2026-07-27: the two editorial gaps, without touching post copy
 
 - **Done:** in-article alt text now names the section it sits in (102 of 150 images), and `scripts/content-health.ts` turns the rest into a worklist. No article text was edited.
