@@ -212,6 +212,28 @@ had loaded. The cost was the markup and the DOM: 62 cards, each carrying two inl
 icons. The document only shrank 13% because the post *data* still ships for client-side
 filtering; that is the deliberate trade.
 
+### SEO hardening, production ready (2026-07-27)
+
+Everything proposed after the first SEO pass, less one item that turned out to be moot.
+
+| Change | Effect |
+|---|---|
+| **Static generation for post pages and archives** | `generateStaticParams` for both locales plus `revalidate = 3600`. The build went from 67 prerendered pages to **199**. Measured on a production server: a warm post page answers in **~90ms**, an archive in 160ms, the listing in 140ms. Each of those used to open a database connection per request for an article that changes a few times a year |
+| **Blur placeholders** | The reference paints a base64 LQIP as the `background-image` of every `<picture>`. `scripts/import-blur-placeholders.ts` harvests them from the mirror and stores them on Media as `blurDataURL`, so `next/image` gets `placeholder="blur"` without us generating anything. **189 of 230** media rows covered; the rest are pre-existing site imagery the mirror has no placeholder for |
+| **`/en` duplicate content, properly closed** | Removing the `hreflang` pair was not enough: `/en/blog/<slug>` still self-canonicalised while serving Polish. `singleLanguage` now also points the canonical at the default locale, consolidating the signals on one URL |
+| **Sitemap told the truth about freshness** | All 27 static routes reported `lastmod` as the current request time. They now use the route file's own mtime, and posts keep `updatedAt`. Distinct `lastmod` values went from 3 to 88. Posts also stopped advertising an English alternate, which was the same mistake the meta tags had |
+| **`og:image:width` and `og:image:height`** | Declared, so social platforms do not have to fetch the file to lay out a card |
+| **Category archives** | `/blog/kategoria/{fizjoterapia,trening,masaz,dietetyka}`, statically generated, in the sitemap, each with `BreadcrumbList`. **An addition:** the reference filters categories client-side only, so 43 physiotherapy articles were invisible as a group |
+| **Internal links on the same subject** | `BlogTeasers` puts three recent posts from a matching category at the foot of `/fizjoterapia`, `/trening-personalny`, `/trening-grupowy`, `/dietetyka` and `/bodylab`. Post pages link their categories to the archives, so no archive is an orphan. **Also an addition:** nothing on the reference links a service page to an article |
+
+**One proposal was dropped as unnecessary, having been measured.** Regenerating the `card`
+variant at 960px for retina cards would change nothing: the listing sources its cards from
+the `hero` variant (1920px), so with the corrected `sizes` a 2x screen already receives a
+1080px image for a 480px slot. Re-processing 230 media rows would have bought no pixels.
+
+**Left for a human, unchanged:** 15 of the 62 posts have no subheadings, and every image's alt
+text is its post's title. Both are editorial, and post copy is not ours to edit.
+
 ### SEO: what was missing, and what was added (2026-07-27)
 
 An audit of the finished blog found the metadata layer solid (per-page titles, canonicals,

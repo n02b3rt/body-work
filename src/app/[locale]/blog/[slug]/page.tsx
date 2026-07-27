@@ -8,12 +8,43 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buttonClasses } from "@/components/ui/Button";
 import { Link } from "@/i18n/navigation";
 import { mediaFrom } from "@/lib/media";
+import { routing } from "@/i18n/routing";
 import { PostBody } from "@/components/centrum/PostBody";
-import { ClockIcon, PersonIcon } from "@/components/centrum/BlogIcons";
+import { ClockIcon } from "@/components/centrum/BlogIcons";
+import { PostCard } from "@/components/centrum/PostCard";
 import { blogPostingJsonLd, breadcrumbJsonLd } from "@/lib/structured-data";
 import { pageMetadata } from "@/lib/metadata";
 
 type PostPageProps = { params: Promise<{ slug: string; locale: string }> };
+
+/**
+ * Pre-render every published post at build time, for both locales.
+ *
+ * Until now each of the 62 post pages was rendered on demand, so every visit and every
+ * crawler hit opened a database connection to fetch an article that changes a few times a
+ * year. Time to first byte is a ranking input, and this is the cheapest place to win it.
+ *
+ * `revalidate` keeps the CMS usable: a post edited in the panel appears within the hour
+ * without a deploy. A slug that does not exist yet still renders on first request, thanks to
+ * `dynamicParams` defaulting to true, and is cached from then on.
+ */
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  const payload = await getPayload({ config });
+  const posts = await payload.find({
+    collection: "posts",
+    depth: 0,
+    limit: 500,
+    where: { _status: { not_equals: "draft" } },
+  });
+
+  return routing.locales.flatMap((locale) =>
+    posts.docs
+      .filter((doc) => doc.slug)
+      .map((doc) => ({ locale, slug: doc.slug as string })),
+  );
+}
 
 function formatDate(value?: string | null) {
   if (!value) return null;
@@ -51,6 +82,8 @@ export async function generateMetadata({ params }: PostPageProps) {
     title: meta.title || post.title,
     description: meta.description || post.excerpt || undefined,
     image: image?.url ?? null,
+    imageWidth: image?.width ?? null,
+    imageHeight: image?.height ?? null,
     type: "article",
     publishedTime: post.publishedAt,
     modifiedTime: post.updatedAt,
@@ -182,6 +215,20 @@ export default async function PostPage({ params }: PostPageProps) {
                 <span className="ml-1">{t("readingTime", { minutes: post.readingMinutes })}</span>
               </span>
             ) : null}
+            {/* Category links. The reference prints no categories on a post page, but an
+              * archive nobody links to is an orphan, and this is the edge that turns 43
+              * physiotherapy articles into a cluster. Logged as a deliberate addition. */}
+            {categories.map((category) =>
+              category.slug ? (
+                <Link
+                  key={category.id}
+                  href={`/blog/kategoria/${category.slug}`}
+                  className="text-body text-brand-navy underline underline-offset-4 hover:opacity-70"
+                >
+                  {category.title}
+                </Link>
+              ) : null,
+            )}
           </Container>
         </section>
       ) : null}
@@ -197,6 +244,9 @@ export default async function PostPage({ params }: PostPageProps) {
                   fill
                   sizes="160px"
                   className="object-cover"
+                  {...(authorPhoto.blurDataURL
+                    ? { placeholder: "blur" as const, blurDataURL: authorPhoto.blurDataURL }
+                    : {})}
                 />
               </div>
             ) : null}
@@ -229,41 +279,11 @@ export default async function PostPage({ params }: PostPageProps) {
             <h2 className="text-h-menu text-brand-navy">{t("relatedHeading")}</h2>
             <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
               {relatedCards.map((item) => (
-                <article key={item.slug} className="flex flex-col">
-                  <Link href={`/blog/${item.slug}`} className="group flex flex-col">
-                    {item.image ? (
-                      <div className="relative aspect-video w-full overflow-hidden bg-brand-navy/5">
-                        <Image
-                          src={item.image.url}
-                          alt={item.image.alt}
-                          fill
-                          sizes="(min-width: 1440px) 448px, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                        />
-                      </div>
-                    ) : null}
-                    <h3 className="pt-7 text-h-tile text-brand-navy group-hover:opacity-90">
-                      {item.title}
-                    </h3>
-                  </Link>
-
-                  <div className="mt-auto flex items-center justify-between pt-8 text-body text-brand-navy">
-                    {item.readingMinutes ? (
-                      <span className="flex items-center">
-                        <ClockIcon />
-                        <span className="ml-1">
-                          {t("readingTime", { minutes: item.readingMinutes })}
-                        </span>
-                      </span>
-                    ) : null}
-                    {item.authorName ? (
-                      <span className="flex items-center">
-                        <PersonIcon />
-                        <span className="ml-1">{item.authorName}</span>
-                      </span>
-                    ) : null}
-                  </div>
-                </article>
+                <PostCard
+                  key={item.slug}
+                  post={item}
+                  minutesLabel={(minutes) => t("readingTime", { minutes })}
+                />
               ))}
             </div>
           </Container>

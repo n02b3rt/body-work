@@ -14,6 +14,13 @@ type BlogPageProps = {
 /** Cards the server renders per `?page` step. Must match `PAGE_SIZE` in `BlogList`. */
 const PAGE_SIZE = 9;
 
+/**
+ * The listing reads `?page`, so it cannot be fully static, but its content changes only when
+ * a post does. An hour of caching turns repeat visits and crawler passes into cache hits
+ * rather than database queries.
+ */
+export const revalidate = 3600;
+
 export async function generateMetadata({ params }: BlogPageProps) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Blog" });

@@ -13,6 +13,18 @@
 
 -->
 
+## 2026-07-27: SEO hardening, everything from the proposal list
+
+- **Done:** static generation for posts and archives, blur placeholders, the `/en` duplicate properly closed, an honest sitemap, `og:image` dimensions, category archives, and internal links between service pages and articles. The table in `docs/migration-tracker.md` has the detail.
+- **Static generation is the one with a number behind it.** The build went from 67 prerendered pages to **199** (62 posts and 4 archives, both locales). Measured on `pnpm start`: a warm post page answers in **~90ms**, an archive in 160ms, the listing in 140ms. **I have no production before-number**, so I am not claiming a delta; what is certain is the mechanism, since each of those requests used to open a database connection for an article that changes a few times a year.
+- **The blur placeholders came free.** The reference paints a base64 LQIP as the `background-image` of every `<picture>`, so there was no need to generate any with sharp. `scripts/import-blur-placeholders.ts` harvests them out of the mirror and stores them on Media. 189 of 230 covered; the remainder is older site imagery the mirror has no placeholder for.
+- **The `/en` duplicate was only half-fixed last time, and I said it was done.** Removing the `hreflang` pair stopped the false claim, but `/en/blog/<slug>` still self-canonicalised while serving Polish, so 62 near-duplicates were still competing. `singleLanguage` now also points the canonical at the default locale.
+- **A proposal dropped after measuring it, rather than built.** Regenerating the `card` variant at 960px for retina would change nothing: the listing sources cards from the `hero` variant (1920px), so with the corrected `sizes` a 2x screen already gets a 1080px image for a 480px slot. Re-processing 230 media rows would have bought no pixels. Worth remembering before anyone proposes it again.
+- **Two regex traps, same family as before.** `&quot;?` makes only the semicolon optional and demands a literal `&quot`, so the placeholder scan matched **zero** of 63 until it became `(?:&quot;|["'])?`. And slicing a JSX block by index found the first inner `) : null}` rather than the block's own close, which left dangling markup and a parse error. Both caught by `tsc` before anything was committed, but both are the same lesson: bisect the pattern against real input instead of reasoning about it.
+- **`fs/promises.glob` needs Node 22** and this project is pinned to 20.9, so the placeholder script walks directories by hand, like `sitemap.ts` does.
+- **Verified on a production build:** `/en/blog/<slug>` canonicals to the Polish URL; `og:image:width` and `height` present; 61 placeholders in the listing HTML; all four archives 200 and in the sitemap; distinct sitemap `lastmod` values up from 3 to 88; post pages link their categories; all five service pages carry three article links each. `tsc`, lint and build clean.
+- **Watch out:** `revalidate = 3600` means a post edited in the panel takes up to an hour to appear. That is the trade for the TTFB, and it is one constant in each of the three blog routes if it ever needs to be shorter.
+
 ## 2026-07-27: blog SEO, and stripping em-dashes out of the repo
 
 - **Done, SEO:** crawlable pagination, JSON-LD, the `hreflang` lie removed, a listing description, `article:modified_time` and `article:section`, an RSS feed at `/feed.xml`, and a related-posts block. Details and reasoning in `docs/migration-tracker.md`.

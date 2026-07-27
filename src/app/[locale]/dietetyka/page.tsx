@@ -8,6 +8,7 @@ import { PageHero } from "@/components/centrum/PageHero";
 import { StatementSection } from "@/components/centrum/StatementSection";
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { DieteticsNav } from "@/components/centrum/DieteticsNav";
+import { BlogTeasers } from "@/components/centrum/BlogTeasers";
 import { pageMetadata } from "@/lib/metadata";
 
 type Path = { heading: string; body: string; cta: string; href: string };
@@ -93,6 +94,7 @@ export default async function DieteticsPage() {
           </div>
         </Container>
       </section>
+      <BlogTeasers category="dietetyka" />
 
       <NewsletterSignup />
     </>

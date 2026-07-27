@@ -7,6 +7,7 @@ import { Link } from "@/i18n/navigation";
 import { PageHero } from "@/components/centrum/PageHero";
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { BodylabNav } from "@/components/centrum/BodylabNav";
+import { BlogTeasers } from "@/components/centrum/BlogTeasers";
 import { pageMetadata } from "@/lib/metadata";
 
 type Tool = { eyebrow: string; heading: string; body: string; image: string; href?: string };
@@ -85,6 +86,7 @@ export default async function BodylabPage() {
           </Container>
         </section>
       ))}
+      <BlogTeasers category="trening" />
 
       <NewsletterSignup />
     </>
