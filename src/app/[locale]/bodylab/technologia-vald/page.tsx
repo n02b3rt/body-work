@@ -7,8 +7,15 @@ import { PageHero } from "@/components/centrum/PageHero";
 import { StatementSection } from "@/components/centrum/StatementSection";
 import { Accordion, type AccordionItemData } from "@/components/centrum/Accordion";
 import { BodylabNav } from "@/components/centrum/BodylabNav";
+import { pageMetadata } from "@/lib/metadata";
 
 type Block = { heading: string; body: string };
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "ValdTechnology" });
+  return pageMetadata({ locale, path: "/bodylab/technologia-vald", title: t("title") });
+}
 
 export default async function ValdTechnologyPage() {
   const t = await getTranslations("ValdTechnology");

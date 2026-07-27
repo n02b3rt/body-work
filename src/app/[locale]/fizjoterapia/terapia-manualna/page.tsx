@@ -7,6 +7,13 @@ import { CenteredBand } from "@/components/centrum/CenteredBand";
 import { Accordion, type AccordionItemData } from "@/components/centrum/Accordion";
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { PhysiotherapyNav } from "@/components/centrum/PhysiotherapyNav";
+import { pageMetadata } from "@/lib/metadata";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "ManualTherapy" });
+  return pageMetadata({ locale, path: "/fizjoterapia/terapia-manualna", title: t("title") });
+}
 
 export default async function ManualTherapyPage() {
   const t = await getTranslations("ManualTherapy");

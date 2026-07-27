@@ -8,8 +8,15 @@ import { PageHero } from "@/components/centrum/PageHero";
 import { StatementSection } from "@/components/centrum/StatementSection";
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { DieteticsNav } from "@/components/centrum/DieteticsNav";
+import { pageMetadata } from "@/lib/metadata";
 
 type Path = { heading: string; body: string; cta: string; href: string };
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Dietetics" });
+  return pageMetadata({ locale, path: "/dietetyka", title: t("title") });
+}
 
 export default async function DieteticsPage() {
   const t = await getTranslations("Dietetics");

@@ -9,6 +9,7 @@ import { buttonClasses } from "@/components/ui/Button";
 import { Link } from "@/i18n/navigation";
 import { mediaFrom } from "@/lib/media";
 import { PostBody } from "@/components/centrum/PostBody";
+import { pageMetadata } from "@/lib/metadata";
 
 type PostPageProps = { params: Promise<{ slug: string; locale: string }> };
 
@@ -18,6 +19,39 @@ function formatDate(value?: string | null) {
   return Number.isNaN(date.getTime())
     ? null
     : date.toLocaleDateString("pl-PL", { day: "2-digit", month: "2-digit", year: "numeric" });
+}
+
+/**
+ * Per-post metadata. Prefers whatever an editor typed into the SEO `meta` fields, and
+ * falls back to the article's own title, excerpt and featured image — so a post that
+ * nobody has optimised still gets a distinct title and a real share image.
+ */
+export async function generateMetadata({ params }: PostPageProps) {
+  const { slug, locale } = await params;
+  const payload = await getPayload({ config });
+  const result = await payload.find({
+    collection: "posts",
+    depth: 2,
+    limit: 1,
+    where: { and: [{ slug: { equals: slug } }, { _status: { not_equals: "draft" } }] },
+  });
+  const post = result.docs[0];
+  if (!post) return {};
+
+  const meta = post.meta ?? {};
+  const image = mediaFrom(meta.image ?? post.featuredImage, "hero", post.title);
+  const author = post.author && typeof post.author === "object" ? post.author.name : undefined;
+
+  return pageMetadata({
+    locale,
+    path: `/blog/${slug}`,
+    title: meta.title || post.title,
+    description: meta.description || post.excerpt || undefined,
+    image: image?.url ?? null,
+    type: "article",
+    publishedTime: post.publishedAt,
+    authors: author ? [author] : undefined,
+  });
 }
 
 /** No hero image above the article: `featuredImage` is the post's *first body image*,

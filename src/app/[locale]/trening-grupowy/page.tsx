@@ -10,8 +10,15 @@ import { TestimonialCarousel, type Testimonial } from "@/components/centrum/Test
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { GroupTrainingNav } from "@/components/centrum/GroupTrainingNav";
 import { SCHEDULE_URL } from "@/lib/external-links";
+import { pageMetadata } from "@/lib/metadata";
 
 const SHOP_PLAN_URL = "https://bodywork.testowe.eu/zakupy/plan-zdrowej-zmiany/";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "GroupTraining" });
+  return pageMetadata({ locale, path: "/trening-grupowy", title: t("title") });
+}
 
 export default async function GroupTrainingPage() {
   const t = await getTranslations("GroupTraining");

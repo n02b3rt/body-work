@@ -6,6 +6,13 @@ import { StatementSection } from "@/components/centrum/StatementSection";
 import { FullBleedImage } from "@/components/centrum/FullBleedImage";
 import { MediaCardCta } from "@/components/centrum/MediaCardCta";
 import { GALLERY_URL } from "@/lib/external-links";
+import { pageMetadata } from "@/lib/metadata";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "BodyManual" });
+  return pageMetadata({ locale, path: "/instrukcja", title: t("title") });
+}
 
 /** "Instrukcja obsługi ciała" — the long-form philosophy page the homepage's two
  * "Uczymy…" / "Wierzymy…" statements link to. Statement blocks separated by full-bleed

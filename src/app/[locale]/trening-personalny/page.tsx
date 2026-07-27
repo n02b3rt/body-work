@@ -13,10 +13,17 @@ import { TestimonialCarousel, type Testimonial } from "@/components/centrum/Test
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { PersonalTrainingNav } from "@/components/centrum/PersonalTrainingNav";
 import { GALLERY_URL } from "@/lib/external-links";
+import { pageMetadata } from "@/lib/metadata";
 
 const SHOP_ASSESSMENT_URL = "https://bodywork.testowe.eu/zakupy/ocena-funkcjonalna/";
 
 type Block = { heading: string; body: string };
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "PersonalTraining" });
+  return pageMetadata({ locale, path: "/trening-personalny", title: t("title") });
+}
 
 export default async function PersonalTrainingPage() {
   const t = await getTranslations("PersonalTraining");

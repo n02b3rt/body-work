@@ -4,6 +4,13 @@ import config from "@payload-config";
 import { PageHero } from "@/components/centrum/PageHero";
 import { BlogList, type BlogCard, type BlogCategory } from "@/components/centrum/BlogList";
 import { mediaFrom } from "@/lib/media";
+import { pageMetadata } from "@/lib/metadata";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Blog" });
+  return pageMetadata({ locale, path: "/blog", title: t("title") });
+}
 
 /** Blog listing. Posts are read through Payload's Local API — in-process, no HTTP hop. */
 export default async function BlogPage() {

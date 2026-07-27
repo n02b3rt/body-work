@@ -12,10 +12,17 @@ import { TestimonialCarousel, type Testimonial } from "@/components/centrum/Test
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { PhysiotherapyNav } from "@/components/centrum/PhysiotherapyNav";
 import { GALLERY_URL } from "@/lib/external-links";
+import { pageMetadata } from "@/lib/metadata";
 
 const SHOP_PHYSIO_URL = "https://bodywork.testowe.eu/zakupy/fizjoterapia/";
 
 type Section = { heading: string; body: string; image: string };
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Physiotherapy" });
+  return pageMetadata({ locale, path: "/fizjoterapia", title: t("title") });
+}
 
 export default async function PhysiotherapyPage() {
   const t = await getTranslations("Physiotherapy");

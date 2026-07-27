@@ -10,9 +10,16 @@ import { Accordion, type AccordionItemData } from "@/components/centrum/Accordio
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { GroupTrainingNav } from "@/components/centrum/GroupTrainingNav";
 import { SCHEDULE_URL } from "@/lib/external-links";
+import { pageMetadata } from "@/lib/metadata";
 
 
 type Kind = { heading: string; body: string };
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "GroupClasses" });
+  return pageMetadata({ locale, path: "/trening-grupowy/zajecia-grupowe", title: t("title") });
+}
 
 export default async function GroupClassesPage() {
   const t = await getTranslations("GroupClasses");

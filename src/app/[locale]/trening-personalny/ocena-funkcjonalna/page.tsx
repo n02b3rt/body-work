@@ -8,10 +8,17 @@ import { CenteredBand } from "@/components/centrum/CenteredBand";
 import { StatementSection } from "@/components/centrum/StatementSection";
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { PersonalTrainingNav } from "@/components/centrum/PersonalTrainingNav";
+import { pageMetadata } from "@/lib/metadata";
 
 const SHOP_ASSESSMENT_URL = "https://bodywork.testowe.eu/zakupy/ocena-funkcjonalna/";
 
 type Block = { heading: string; body: string };
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "FunctionalAssessment" });
+  return pageMetadata({ locale, path: "/trening-personalny/ocena-funkcjonalna", title: t("title") });
+}
 
 export default async function FunctionalAssessmentPage() {
   const t = await getTranslations("FunctionalAssessment");

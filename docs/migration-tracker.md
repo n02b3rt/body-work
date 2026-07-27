@@ -44,13 +44,17 @@ URL coverage: **27 of 32** content pages built; **62 of 62** blog posts in the d
 
 ### Gaps, worst first
 
+Items 2–5 were fixed on 2026-07-27 and are struck through below. **1 and 6 remain open**:
+the newsletter form still discards addresses (blocked on a decision — own `Subscribers`
+collection or an external service), and the 404 page is still Next's default.
+
 | # | Gap | Why it matters |
 |---|---|---|
 | 1 | **The newsletter form throws the address away.** It calls `preventDefault()` and immediately shows success — there is no request. The reference posts to `/api/newsletter/subscribe.php` | It silently loses real sign-ups *and* tells the visitor it worked. Now that Payload is in place the honest fix is a `Subscribers` collection plus a route handler |
-| 2 | **Every page has the same `<title>`: "BODYWORK Centrum"** — all 27 pages and all 62 posts | Search results and browser tabs are indistinguishable; the worst single SEO defect on the site. Needs `generateMetadata` per route, and per-post for the blog |
-| 3 | **No `sitemap.xml`** (the original has one — it is what this migration was mapped from) | Nothing tells a crawler the 89 URLs exist. Next has a `sitemap.ts` file convention; the blog part can enumerate posts from Payload |
-| 4 | **No `robots.txt`** | No crawl directives, and no pointer to the sitemap |
-| 5 | **No Open Graph tags anywhere** (`og:title`, `og:image`, …) | Every link shared on social or messengers renders as a bare URL. Payload's `meta` fields are already on Posts and Pages and are currently unused |
+| 2 | ~~Every page has the same `<title>`~~ — **fixed 2026-07-27.** Every route has a `generateMetadata` built from its existing title copy; posts prefer their SEO `meta` fields and fall back to the article title. Verified 12/12 distinct titles across a sample | — |
+| 3 | ~~No `sitemap.xml`~~ — **fixed 2026-07-27.** `src/app/sitemap.ts` emits **89 URLs** (27 pages + 62 posts) with `hreflang` pairs for both locales. Static routes are discovered by walking `src/app/[locale]` so the list can't drift; posts come from Payload, and a database outage degrades to the static pages rather than failing the build | — |
+| 4 | ~~No `robots.txt`~~ — **fixed 2026-07-27.** Allows everything except `/admin` and `/api/`, and points at the sitemap | — |
+| 5 | ~~No Open Graph tags~~ — **fixed 2026-07-27.** Seven `og:*` plus four `twitter:*` tags per page, canonical and `hreflang`. A post with a featured image uses it; the rest fall back to a real brand photo. Posts also carry `og:type=article` and `article:published_time` | — |
 | 6 | **The 404 page is Next's default** — no header, footer or branding | A visitor who mistypes a URL lands outside the site |
 
 ### Checked and *not* a gap

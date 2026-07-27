@@ -14,6 +14,21 @@ import { MeetUsCta } from "@/components/centrum/MeetUsCta";
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { PartnerLogos } from "@/components/centrum/PartnerLogos";
 import { GALLERY_URL } from "@/lib/external-links";
+import { pageMetadata } from "@/lib/metadata";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const tHero = await getTranslations({ locale, namespace: "Hero" });
+  const tStatements = await getTranslations({ locale, namespace: "Statements" });
+  return pageMetadata({
+    locale,
+    path: "/",
+    // The homepage's own hero line, and its opening statement as the description —
+    // existing copy rather than something written for search engines.
+    title: tHero("title"),
+    description: tStatements("balancedFitnessBody"),
+  });
+}
 
 export default async function CentrumHomePage() {
   const tFriendlySpace = await getTranslations("FriendlySpace");

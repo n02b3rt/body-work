@@ -8,9 +8,16 @@ import { CenteredBand } from "@/components/centrum/CenteredBand";
 import { Accordion, type AccordionItemData } from "@/components/centrum/Accordion";
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { PhysiotherapyNav } from "@/components/centrum/PhysiotherapyNav";
+import { pageMetadata } from "@/lib/metadata";
 
 type Lead = { name: string; body: string; image: string };
 type Format = { heading: string; price: string; duration: string; href: string };
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "HealthyBelly" });
+  return pageMetadata({ locale, path: "/fizjoterapia/zdrowy-brzuch", title: t("title") });
+}
 
 export default async function HealthyBellyPage() {
   const t = await getTranslations("HealthyBelly");

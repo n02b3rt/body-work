@@ -9,10 +9,17 @@ import { StatementSection } from "@/components/centrum/StatementSection";
 import { TestimonialCarousel, type Testimonial } from "@/components/centrum/TestimonialCarousel";
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { GroupTrainingNav } from "@/components/centrum/GroupTrainingNav";
+import { pageMetadata } from "@/lib/metadata";
 
 const SHOP_PLAN_URL = "https://bodywork.testowe.eu/zakupy/plan-zdrowej-zmiany/";
 
 type Block = { heading: string; body: string };
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "HealthyChangePlan" });
+  return pageMetadata({ locale, path: "/trening-grupowy/plan-zdrowej-zmiany", title: t("title") });
+}
 
 export default async function HealthyChangePlanPage() {
   const t = await getTranslations("HealthyChangePlan");

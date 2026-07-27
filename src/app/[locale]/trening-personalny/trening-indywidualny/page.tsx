@@ -9,10 +9,17 @@ import { TextMedia } from "@/components/centrum/TextMedia";
 import { Accordion, type AccordionItemData } from "@/components/centrum/Accordion";
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { PersonalTrainingNav } from "@/components/centrum/PersonalTrainingNav";
+import { pageMetadata } from "@/lib/metadata";
 
 const SHOP_ASSESSMENT_URL = "https://bodywork.testowe.eu/zakupy/ocena-funkcjonalna/";
 
 type Section = { heading: string; body: string };
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "IndividualTraining" });
+  return pageMetadata({ locale, path: "/trening-personalny/trening-indywidualny", title: t("title") });
+}
 
 export default async function IndividualTrainingPage() {
   const t = await getTranslations("IndividualTraining");
