@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PageHero } from "@/components/centrum/PageHero";
@@ -17,7 +17,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return pageMetadata({ locale, path: "/fizjoterapia/specjalisci", title: t("title") });
 }
 
-export default async function PhysiotherapistsPage() {
+type PageProps = { params: Promise<{ locale: string }> };
+
+export default async function PhysiotherapistsPage({ params }: PageProps) {
+  const { locale } = await params;
+  // Enables static rendering for this route; see the note in [locale]/layout.tsx.
+  setRequestLocale(locale);
   const t = await getTranslations("Physiotherapists");
   const categories = t.raw("categories") as Category[];
 

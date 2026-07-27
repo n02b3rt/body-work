@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Hero } from "@/components/centrum/Hero";
@@ -30,7 +30,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   });
 }
 
-export default async function CentrumHomePage() {
+type PageProps = { params: Promise<{ locale: string }> };
+
+export default async function CentrumHomePage({ params }: PageProps) {
+  const { locale } = await params;
+  // Enables static rendering for this route; see the note in [locale]/layout.tsx.
+  setRequestLocale(locale);
   const tFriendlySpace = await getTranslations("FriendlySpace");
   const tStatements = await getTranslations("Statements");
   const tServices = await getTranslations("Services");

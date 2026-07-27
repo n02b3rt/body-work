@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { PageHero } from "@/components/centrum/PageHero";
 import { Accordion, type AccordionItemData } from "@/components/centrum/Accordion";
 import { pageMetadata } from "@/lib/metadata";
@@ -10,7 +10,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 /** Standalone page: the pricing list has no sub-navigation of its own. */
-export default async function PricingPage() {
+type PageProps = { params: Promise<{ locale: string }> };
+
+export default async function PricingPage({ params }: PageProps) {
+  const { locale } = await params;
+  // Enables static rendering for this route; see the note in [locale]/layout.tsx.
+  setRequestLocale(locale);
   const t = await getTranslations("Pricing");
 
   return (

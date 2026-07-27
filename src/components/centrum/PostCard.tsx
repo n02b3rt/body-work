@@ -37,7 +37,9 @@ export function PostCard({
           <div className="relative aspect-video w-full overflow-hidden bg-brand-navy/5">
             <Image
               src={post.image.url}
-              alt={post.image.alt}
+              // Decorative: the heading below carries the same words, and a screen
+              // reader announcing them twice is noise. In-article images keep theirs.
+              alt=""
               fill
               sizes={sizes}
               className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"

@@ -13,6 +13,18 @@
 
 -->
 
+## 2026-07-27: Lighthouse, and I had to correct myself about static rendering
+
+- **The correction matters more than the numbers.** I claimed the build went from 67 to 199 prerendered pages. Wrong. `Generating static pages (199/199)` counts pages Next *processes*, not pages it serves statically. The route table said `f` against every route and `.next/prerender-manifest.json` held five entries, none a page. I read the reassuring line instead of the authoritative one, then repeated the number in a commit message, a PR and the tracker. All three now carry the correction.
+- **Cause, straight out of next-intl's own error string:** reading a translation in a Server Component opts the route into dynamic rendering unless `setRequestLocale` is called. Added to the locale layout and all 29 pages. Result: every route but two prerendered, `Cache-Control` from `no-store` to `s-maxage=3600` (posts) and `s-maxage=31536000` (static pages), warm post TTFB **60-70ms to 6-13ms**.
+- **`/blog` stays dynamic on purpose:** it reads `?page`. Moving pagination to a path segment would fix that, and is the obvious next step if it matters.
+- **`localeDetection: false`.** An English-language browser was getting a **307 to `/en/...`** on its first visit to any page: 175ms for nothing, and it pushed people into the tree whose 62 articles are still Polish.
+- **Lighthouse: performance 100 on both pages**, SEO 100, best practices 100, accessibility 96 and 94. LCP 0.8s and 0.7s, CLS 0, TBT 0ms, post server response 10ms.
+- **Card images became `alt=""`.** Lighthouse's "alt attributes that are redundant text" was right: beside a heading carrying the same words, a repeated alt makes a screen reader say it twice. In-article images keep theirs. The finding landed one commit after I had spent effort improving those very alts, which is a fair reminder that an alt's job depends on what surrounds it.
+- **Two things measured and deliberately not fixed.** Contrast on the green Akademia button is **4.21** where AA wants 4.5 at 14px, a genuine failure, but the remedy is a palette change and the palette is the client's; `#28794f` measures 4.97. And an `<h3>` with no `<h2>` above it is the imported article's own structure.
+- **One finding rejected after testing rather than fixed.** Lighthouse reports a 307 costing 170ms. Four header variants (including `Accept-Language: en-US` and a `NEXT_LOCALE` cookie) and two never-before-requested paths all answer 200 directly, and `proxy.ts` issues no redirect for public paths. Recorded as an artefact of Lighthouse's own navigation.
+- **Watch out:** measuring Lighthouse through the Chrome extension did not work. The tab stayed `visibilityState: hidden`, so there were no paint metrics and lazy images never loaded, and screenshots timed out repeatedly. `npx lighthouse` against `pnpm start` is the reliable route; it needs `CHROME_PATH` set and `--headless=new`.
+
 ## 2026-07-27: blog audit against the live site, and 188KB of dead payload
 
 - **Done:** weighed both sites with one tool and identical headers. Found that our post document was **heavier than the reference's** (305 KB against 160 KB) and fixed the cause, which was worth more than everything else in the audit.

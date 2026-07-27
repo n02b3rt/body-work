@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/centrum/PageHero";
 import { CenteredBand } from "@/components/centrum/CenteredBand";
@@ -17,7 +17,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 /** "Instrukcja obsługi ciała": the long-form philosophy page the homepage's two
  * "Uczymy…" / "Wierzymy…" statements link to. Statement blocks separated by full-bleed
  * photos, then three bullet lists and the trainers/space card pair. */
-export default async function BodyManualPage() {
+type PageProps = { params: Promise<{ locale: string }> };
+
+export default async function BodyManualPage({ params }: PageProps) {
+  const { locale } = await params;
+  // Enables static rendering for this route; see the note in [locale]/layout.tsx.
+  setRequestLocale(locale);
   const t = await getTranslations("BodyManual");
 
   return (

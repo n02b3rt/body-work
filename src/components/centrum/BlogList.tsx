@@ -262,7 +262,8 @@ export function BlogList({
               <div className="relative aspect-video w-full wide:order-first wide:aspect-auto wide:w-1/2">
                 <Image
                   src={featured.image.url}
-                  alt={featured.image.alt}
+                  // Decorative: the title is right beside it as real text.
+                  alt=""
                   fill
                   priority
                   sizes="(min-width: 1060px) 50vw, 100vw"
@@ -302,7 +303,8 @@ export function BlogList({
                   <div className="relative aspect-video w-full overflow-hidden bg-brand-navy/5">
                     <Image
                       src={post.image.url}
-                      alt={post.image.alt}
+                      // Decorative: the card heading carries the same words.
+                      alt=""
                       fill
                       // The grid is capped at 1440px, so above that a card is a fixed
                       // 480px, not 33vw. Saying 33vw overstated the slot by a third at a

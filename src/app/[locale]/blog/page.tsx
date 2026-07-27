@@ -1,5 +1,5 @@
 import { getPayload } from "payload";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import config from "@payload-config";
 import { PageHero } from "@/components/centrum/PageHero";
 import { BlogList, type BlogCard, type BlogCategory } from "@/components/centrum/BlogList";
@@ -37,6 +37,7 @@ export async function generateMetadata({ params }: BlogPageProps) {
 /** Blog listing. Posts are read through Payload's Local API, in-process, no HTTP hop. */
 export default async function BlogPage({ params, searchParams }: BlogPageProps) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const { page } = await searchParams;
   const pageNumber = Math.max(1, Number.parseInt(page ?? "1", 10) || 1);
   const t = await getTranslations("Blog");

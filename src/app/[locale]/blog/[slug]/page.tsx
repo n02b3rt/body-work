@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { getPayload } from "payload";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import config from "@payload-config";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -113,6 +113,7 @@ export async function generateMetadata({ params }: PostPageProps) {
  */
 export default async function PostPage({ params }: PostPageProps) {
   const { slug, locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("Blog");
   const payload = await getPayload({ config });
 
@@ -240,7 +241,8 @@ export default async function PostPage({ params }: PostPageProps) {
               <div className="relative h-40 w-40 shrink-0 overflow-hidden rounded-full">
                 <Image
                   src={authorPhoto.url}
-                  alt={author.name}
+                  // Decorative: the name is printed next to the portrait.
+                  alt=""
                   fill
                   sizes="160px"
                   className="object-cover"

@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buttonClasses } from "@/components/ui/Button";
@@ -15,7 +15,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 /** Route slug intentionally missing the "ł", see BodylabNav. */
-export default async function BodyCompositionPage() {
+type PageProps = { params: Promise<{ locale: string }> };
+
+export default async function BodyCompositionPage({ params }: PageProps) {
+  const { locale } = await params;
+  // Enables static rendering for this route; see the note in [locale]/layout.tsx.
+  setRequestLocale(locale);
   const t = await getTranslations("BodyComposition");
 
   return (
