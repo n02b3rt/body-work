@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { buttonClasses } from "@/components/ui/Button";
 import { Link } from "@/i18n/navigation";
 import { Chevron, ClockIcon, PersonIcon } from "@/components/centrum/BlogIcons";
+import { BLOG_PAGE_SIZE } from "@/lib/blog-page-size";
 
 export type BlogCard = {
   slug: string;
@@ -37,10 +38,9 @@ type BlogListProps = {
 
 const ALL = "all";
 
-/** Cards rendered before the first scroll, and added per batch after it: three full rows
- *  of the desktop grid. See the note on `shown` for why this is a rendering window rather
- *  than server-side pagination. */
-const PAGE_SIZE = 9;
+/** Cards added per batch after the first scroll: three full rows of the desktop grid. See the
+ *  note on `shown` for why this is a rendering window rather than server-side pagination. */
+const PAGE_SIZE = BLOG_PAGE_SIZE;
 
 /**
  * Reading time and author. **No date**: the reference prints one on its featured card, but

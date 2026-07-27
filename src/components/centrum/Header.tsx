@@ -117,7 +117,7 @@ export function Header() {
             {/* Below the nav breakpoint there's no room for the fixed-width flip
              * slot, so the compact logo stands on its own there. */}
             {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG wordmark, no raster optimization needed */}
-            <img src="/icons/logo.svg" alt={tHeader("logoAlt")} className="h-6 w-auto nav:hidden" />
+            <img src="/icons/logo.svg" width={336} height={46} alt={tHeader("logoAlt")} className="h-6 w-auto nav:hidden" />
             <span className="hidden h-6 w-56 nav:block" style={{ perspective: "400px" }}>
               <span
                 className={cn(
@@ -130,7 +130,7 @@ export function Header() {
                 </span>
                 <span className="absolute inset-0 flex items-center [backface-visibility:hidden] [transform:rotateX(180deg)]">
                   {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG wordmark */}
-                  <img src="/icons/logo.svg" alt="" className="h-6 w-auto" />
+                  <img src="/icons/logo.svg" width={336} height={46} alt="" className="h-6 w-auto" />
                 </span>
               </span>
             </span>
@@ -299,7 +299,7 @@ export function Header() {
           >
             <Link href="/" className="shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG wordmark, no raster optimization needed */}
-              <img src="/icons/logo.svg" alt={tHeader("logoAlt")} className="h-9 w-auto sm:h-11" />
+              <img src="/icons/logo.svg" width={336} height={46} alt={tHeader("logoAlt")} className="h-9 w-auto sm:h-11" />
             </Link>
             <div className="flex items-center gap-3">
               <a href={ACADEMY_URL} target="_blank" rel="noopener noreferrer" className={buttonClasses("brand")}>

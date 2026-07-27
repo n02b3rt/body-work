@@ -41,7 +41,7 @@ export function MobileNav({ open, onClose, navItems, otherLocale, pathname }: Mo
     >
       <div className="flex h-[65px] shrink-0 items-center justify-between px-4">
         {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG wordmark */}
-        <img src="/icons/logo.svg" alt="" className="h-6 w-auto brightness-0 invert" />
+        <img src="/icons/logo.svg" width={336} height={46} alt="" className="h-6 w-auto brightness-0 invert" />
         <button
           type="button"
           onClick={onClose}

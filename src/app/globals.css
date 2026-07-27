@@ -6,7 +6,11 @@
   --brand-navy: #001e3d;
   --brand-navy-soft: rgb(0 30 61 / 0.4);
   --brand-surface: #f9f7f0;
-  --brand-green: #2c8657;
+  /* Darkened from the reference's #2c8657, which measured **4.21** against the cream
+   * button text and needed 4.5 for 14px type under WCAG AA. This measures 4.97. The shift
+   * is small enough to be imperceptible next to the original and it is the only palette
+   * value that failed, so the deviation is logged in docs/migration-tracker.md. */
+  --brand-green: #28794f;
 }
 
 @theme inline {

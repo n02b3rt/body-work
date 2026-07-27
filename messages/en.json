@@ -1664,7 +1664,8 @@
     "categoryCount": "{count, plural, =0 {No posts in this category yet.} one {One post on {category}.} other {# posts on {category}.}}",
     "categoriesHeading": "Categories",
     "fromTheBlog": "From our blog",
-    "moreIn": "More on {category}"
+    "moreIn": "More on {category}",
+    "pageTitle": "Blog, page {page}"
   },
   "Errors": {
     "notFoundCode": "404",
