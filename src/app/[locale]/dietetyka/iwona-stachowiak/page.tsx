@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -18,7 +18,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return pageMetadata({ locale, path: "/dietetyka/iwona-stachowiak", title: t("title") });
 }
 
-export default async function IwonaStachowiakPage() {
+type PageProps = { params: Promise<{ locale: string }> };
+
+export default async function IwonaStachowiakPage({ params }: PageProps) {
+  const { locale } = await params;
+  // Enables static rendering for this route; see the note in [locale]/layout.tsx.
+  setRequestLocale(locale);
   const t = await getTranslations("DietitianIwona");
   const steps = t.raw("steps") as Step[];
 

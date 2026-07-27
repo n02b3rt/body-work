@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -19,7 +19,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return pageMetadata({ locale, path: "/dietetyka", title: t("title") });
 }
 
-export default async function DieteticsPage() {
+type PageProps = { params: Promise<{ locale: string }> };
+
+export default async function DieteticsPage({ params }: PageProps) {
+  const { locale } = await params;
+  // Enables static rendering for this route; see the note in [locale]/layout.tsx.
+  setRequestLocale(locale);
   const t = await getTranslations("Dietetics");
   const tFooter = await getTranslations("Footer");
   const paths = t.raw("paths") as Path[];

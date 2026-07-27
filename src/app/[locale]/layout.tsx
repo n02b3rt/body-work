@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { getMessages, getTranslations } from "next-intl/server";
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { routing } from "@/i18n/routing";
@@ -40,6 +40,11 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
+
+  // Opts this tree into static rendering. Without it, reading any next-intl API in a Server
+  // Component marks the route dynamic, which is why every page in the build was `f` and
+  // every response carried `Cache-Control: no-store`.
+  setRequestLocale(locale);
 
   const messages = await getMessages();
   const themeCss = await getThemeCss();

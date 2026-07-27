@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { PageHero } from "@/components/centrum/PageHero";
 import { MeetUsCta } from "@/components/centrum/MeetUsCta";
 import { pageMetadata } from "@/lib/metadata";
@@ -26,7 +26,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
  * consent mechanism yet (the cookies page is still to come). The footer's "Pokaż na
  * mapie" / "Nawiguj" buttons cover the need without that problem.
  */
-export default async function ContactPage() {
+type PageProps = { params: Promise<{ locale: string }> };
+
+export default async function ContactPage({ params }: PageProps) {
+  const { locale } = await params;
+  // Enables static rendering for this route; see the note in [locale]/layout.tsx.
+  setRequestLocale(locale);
   const t = await getTranslations("Footer");
   const tMeetUs = await getTranslations("MeetUs");
   const phone = t("phone");

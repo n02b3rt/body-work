@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getPayload } from "payload";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import config from "@payload-config";
 import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/centrum/PageHero";
@@ -68,6 +68,7 @@ export async function generateMetadata({ params }: ArchiveProps) {
 
 export default async function CategoryArchive({ params }: ArchiveProps) {
   const { locale, slug } = await params;
+  setRequestLocale(locale);
   const category = await findCategory(slug);
   if (!category) notFound();
 

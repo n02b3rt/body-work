@@ -212,6 +212,66 @@ had loaded. The cost was the markup and the DOM: 62 cards, each carrying two inl
 icons. The document only shrank 13% because the post *data* still ships for client-side
 filtering; that is the deliberate trade.
 
+### Lighthouse, and a correction: nothing was static (2026-07-27)
+
+**Correction first.** An earlier entry claimed the build went from 67 to 199 prerendered pages.
+That was wrong. `Generating static pages (199/199)` counts pages Next *processes* during a
+build, not pages it serves statically. The route table told the truth and I had not read it:
+**every route was `f`**, dynamic, and `.next/prerender-manifest.json` listed five entries, none
+of them a page. Every response carried `Cache-Control: private, no-cache, no-store`.
+
+The cause is documented inside next-intl's own error text: *"Usage of next-intl APIs in Server
+Components currently opts into dynamic rendering ... you can use the `setRequestLocale` API to
+enable static rendering."* Reading a translation on the server marked each route dynamic.
+`setRequestLocale(locale)` now runs in the locale layout and in all 29 pages.
+
+| | Before | After |
+|---|---|---|
+| Prerendered routes | **0** | all but two |
+| Post page `Cache-Control` | `no-store` | `s-maxage=3600, stale-while-revalidate` |
+| Static page `Cache-Control` | `no-store` | `s-maxage=31536000` |
+| Post TTFB, warm | 60-70ms | **6-13ms** |
+| Lighthouse performance | 99 | **100** |
+
+`/blog` and `[...rest]` stay dynamic: the listing reads `?page`, and the catch-all only calls
+`notFound()`. Moving pagination into a path segment would make the listing static too, which is
+the obvious next step if it ever matters.
+
+**`localeDetection` is off.** A browser asking for English got a **307 to `/en/...`** on its
+first visit to any page, which Lighthouse costed at 175ms and which sent people into the tree
+whose 62 articles are still Polish. The EN toggle still works, and the canonicals already
+pointed at the Polish URL for the same reason.
+
+**Card images are now `alt=""`.** Lighthouse flagged "alt attributes that are redundant text":
+on a card the heading beside the image already names the article, so an alt repeating it makes a
+screen reader say the same thing twice. In-article images keep their descriptions.
+
+### Lighthouse scores
+
+| | `/blog` | Post page |
+|---|---|---|
+| Performance | **100** | **100** |
+| Accessibility | 96 | 94 |
+| Best practices | 100 | 100 |
+| SEO | **100** | **100** |
+| FCP / LCP | 0.4s / 0.8s | 0.3s / 0.7s |
+| TBT / CLS | 0ms / **0** | 0ms / **0** |
+| Server response | 180ms | **10ms** |
+
+### What Lighthouse still flags, and why it is left
+
+- **Contrast 4.21 on the green Akademia button** (`#f9f7f0` on `#2c8657`; AA wants 4.5 at 14px).
+  A real WCAG AA failure, but the remedy is a palette change and the palette is the client's.
+  `#28794f` measures 4.97 and is a barely perceptible darkening. **Needs a decision.**
+- **Heading order: an `<h3>` with no `<h2>` above it.** That is the imported article's own
+  structure, and post copy is not ours to edit.
+- **"Avoid multiple page redirects", 170ms.** Not reproducible: four header variants and two
+  cold paths all answer 200 directly, and `src/proxy.ts` issues no redirect for public paths.
+  Recorded as an artefact of Lighthouse's own navigation rather than chased further.
+- Unused and legacy JavaScript, 13-27KiB in one Next chunk; unsized SVG logos; three portrait
+  thumbnails served slightly larger than their rendered box. All small, all framework or asset
+  territory.
+
 ### The blog audit against the live site, and the 188KB nobody had noticed (2026-07-27)
 
 Weighed both sites with the same tool, the same `Accept` header, and the same srcset selection
@@ -310,7 +370,7 @@ Everything proposed after the first SEO pass, less one item that turned out to b
 
 | Change | Effect |
 |---|---|
-| **Static generation for post pages and archives** | `generateStaticParams` for both locales plus `revalidate = 3600`. The build went from 67 prerendered pages to **199**. Measured on a production server: a warm post page answers in **~90ms**, an archive in 160ms, the listing in 140ms. Each of those used to open a database connection per request for an article that changes a few times a year |
+| **Static generation for post pages and archives** | `generateStaticParams` for both locales plus `revalidate = 3600`. **The "199 prerendered pages" claimed here originally was wrong**; see the correction below, nothing was actually static until `setRequestLocale` landed. Measured on a production server: a warm post page answers in **~90ms**, an archive in 160ms, the listing in 140ms. Each of those used to open a database connection per request for an article that changes a few times a year |
 | **Blur placeholders** | The reference paints a base64 LQIP as the `background-image` of every `<picture>`. `scripts/import-blur-placeholders.ts` harvests them from the mirror and stores them on Media as `blurDataURL`, so `next/image` gets `placeholder="blur"` without us generating anything. **189 of 230** media rows covered; the rest are pre-existing site imagery the mirror has no placeholder for |
 | **`/en` duplicate content, properly closed** | Removing the `hreflang` pair was not enough: `/en/blog/<slug>` still self-canonicalised while serving Polish. `singleLanguage` now also points the canonical at the default locale, consolidating the signals on one URL |
 | **Sitemap told the truth about freshness** | All 27 static routes reported `lastmod` as the current request time. They now use the route file's own mtime, and posts keep `updatedAt`. Distinct `lastmod` values went from 3 to 88. Posts also stopped advertising an English alternate, which was the same mistake the meta tags had |
