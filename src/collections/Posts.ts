@@ -6,14 +6,22 @@ import { metaFields, slugField } from '@/fields/meta'
 /** Words per minute for the "N min" label. 200 is the usual figure for prose. */
 const WORDS_PER_MINUTE = 200
 
-/** Walk a Lexical tree and add up the text. Cheaper and more robust than trying to
- * render it: any node carrying a `text` property contributes, whatever its type. */
+/** Walk a Lexical tree and add up the text. Cheaper and more robust than rendering it:
+ * any node carrying a `text` property contributes, whatever its type.
+ *
+ * Descends through **every** object value, not just `children` — the field's top level is
+ * `{ root: { children: [...] } }`, so a walker that only followed `children` stopped at
+ * the first hop and always counted zero. */
 function countWords(node: unknown): number {
-  if (Array.isArray(node)) return node.reduce((sum, child) => sum + countWords(child), 0)
+  if (Array.isArray(node)) return node.reduce((sum: number, child) => sum + countWords(child), 0)
   if (node && typeof node === 'object') {
     const record = node as Record<string, unknown>
-    const own = typeof record.text === 'string' ? record.text.trim().split(/\s+/).filter(Boolean).length : 0
-    return own + countWords(record.children ?? [])
+    const own =
+      typeof record.text === 'string' ? record.text.trim().split(/\s+/).filter(Boolean).length : 0
+    return Object.entries(record).reduce(
+      (sum, [key, value]) => (key === 'text' ? sum : sum + countWords(value)),
+      own,
+    )
   }
   return 0
 }

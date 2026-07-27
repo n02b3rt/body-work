@@ -34,6 +34,32 @@ compiled CSS only, not from a live narrow render.
 
 What the pass fixed is recorded in `AI_NOTES.md`; the rows below carry the per-page detail.
 
+## Audit against the original — 2026-07-27
+
+URL coverage: **27 of 32** content pages built; **62 of 62** blog posts in the database
+(exact match both ways). The 5 unbuilt: `/masaz` and `/cookies` (deferred by the user),
+`/test` and `/podziekowanie` (awaiting a client decision on whether they carry over), and
+`/trening-grupowy/grafik-zajec` (not applicable — outbound eFitness link). `/zakupy/*`
+(10 URLs) stays out of scope as the future shop model.
+
+### Gaps, worst first
+
+| # | Gap | Why it matters |
+|---|---|---|
+| 1 | **The newsletter form throws the address away.** It calls `preventDefault()` and immediately shows success — there is no request. The reference posts to `/api/newsletter/subscribe.php` | It silently loses real sign-ups *and* tells the visitor it worked. Now that Payload is in place the honest fix is a `Subscribers` collection plus a route handler |
+| 2 | **Every page has the same `<title>`: "BODYWORK Centrum"** — all 27 pages and all 62 posts | Search results and browser tabs are indistinguishable; the worst single SEO defect on the site. Needs `generateMetadata` per route, and per-post for the blog |
+| 3 | **No `sitemap.xml`** (the original has one — it is what this migration was mapped from) | Nothing tells a crawler the 89 URLs exist. Next has a `sitemap.ts` file convention; the blog part can enumerate posts from Payload |
+| 4 | **No `robots.txt`** | No crawl directives, and no pointer to the sitemap |
+| 5 | **No Open Graph tags anywhere** (`og:title`, `og:image`, …) | Every link shared on social or messengers renders as a bare URL. Payload's `meta` fields are already on Posts and Pages and are currently unused |
+| 6 | **The 404 page is Next's default** — no header, footer or branding | A visitor who mistypes a URL lands outside the site |
+
+### Checked and *not* a gap
+
+- The reference's post pages have no share buttons, related posts, comments, tags, prev/next navigation or newsletter block — neither do ours. Two earlier "prev/next" and "result count" hits were false positives: ordinary prose (`poprzednich swoich idei`) and a comment inside its filter script.
+- The reference's listing has no pagination; it renders every post and filters client-side, as ours does.
+- Its "POWRÓT" is a `<button>` firing browser history, not a link. Ours is a real `WRÓĆ NA BLOG` link to `/blog`, which survives deep links and shares — a deliberate improvement, not a divergence.
+- All 12 sampled routes resolve under `/en`.
+
 ## Homepage
 
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
