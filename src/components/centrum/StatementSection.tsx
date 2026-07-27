@@ -32,7 +32,10 @@ export function StatementSection({ heading, body, ctaLabel, ctaHref, align = "ce
       <SectionHeading className={align === "center" ? "max-w-3xl" : "max-w-5xl"}>{heading}</SectionHeading>
       {body || hasCta ? (
         <div className={cn("mt-auto pt-24", align === "center" ? "max-w-2xl" : "max-w-xl")}>
-          {body ? <p className="text-body text-brand-navy">{body}</p> : null}
+          {/* `whitespace-pre-line` because some of this copy is multi-line in the source
+            * — paragraph breaks, and the bullet lists on /instrukcja. Without it those
+            * collapse into one run-on paragraph. */}
+          {body ? <p className="whitespace-pre-line text-body text-brand-navy">{body}</p> : null}
           {hasCta ? (
             <Link href={ctaHref!} className={buttonClasses("outline", "mt-10")}>
               {ctaLabel}

@@ -84,22 +84,26 @@ export default async function BodyManualPage() {
 
       <FullBleedImage src="/images/instrukcja/why-us.webp" alt={t("whyHeading")} />
 
-      <div className="grid border-t border-brand-navy-soft lg:grid-cols-2 lg:divide-x lg:divide-brand-navy-soft">
-        <MediaCardCta
-          heading={t("trainersHeading")}
-          imageSrc="/images/instrukcja/trainers.webp"
-          imageAlt={t("trainersHeading")}
-          ctaLabel={t("trainersCta")}
-          ctaHref="/trening-personalny/trenerzy"
-        />
-        <MediaCardCta
-          heading={t("spaceHeading")}
-          imageSrc="/images/instrukcja/space.webp"
-          imageAlt={t("spaceHeading")}
-          ctaLabel={t("spaceCta")}
-          ctaHref={GALLERY_URL}
-          external
-        />
+      {/* In a `Container`, matching how /fizjoterapia and /trening-personalny place this
+        * same pair — otherwise the headings sit ~170px left of everything above them. */}
+      <div className="border-t border-brand-navy-soft bg-background">
+        <Container className="grid lg:grid-cols-2 lg:divide-x lg:divide-brand-navy-soft">
+          <MediaCardCta
+            heading={t("trainersHeading")}
+            imageSrc="/images/instrukcja/trainers.webp"
+            imageAlt={t("trainersHeading")}
+            ctaLabel={t("trainersCta")}
+            ctaHref="/trening-personalny/trenerzy"
+          />
+          <MediaCardCta
+            heading={t("spaceHeading")}
+            imageSrc="/images/instrukcja/space.webp"
+            imageAlt={t("spaceHeading")}
+            ctaLabel={t("spaceCta")}
+            ctaHref={GALLERY_URL}
+            external
+          />
+        </Container>
       </div>
     </>
   );

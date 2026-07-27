@@ -115,11 +115,23 @@ text for `Terms` and `Privacy`. A mistranslated T&C or privacy policy is legal e
 not a copy nit — these need a professional/legal pass before an English version ships.
 Same precedent as the trainer and specialist biographies.
 
-**`LegalDocument` renders its body at `text-statement` (~39.5px desktop) on purpose.** The
-reference really does set `ho:f7s6` on every paragraph of both documents — verified on
-three separate paragraphs. It is a surprising size for a T&C, so it is reproduced rather
-than quietly reduced; if the client wants it smaller, that is a one-line change and a
-deliberate deviation to record here.
+### Deliberate deviations from the reference
+
+Recorded per the amended 1:1 rule in `CLAUDE.md` — the reference is reproduced except
+where it is plainly defective. Content is still verbatim in every case; these are
+styling and link-target changes.
+
+| Where | Reference does | We do | Why |
+|---|---|---|---|
+| `LegalDocument` body | `ho:f7s6`, ~39.5px, its oversized opening-statement size, on every paragraph | `text-body` at 1.7 line-height, measure capped at 42rem | At ~39.5px an 11-section T&C is unreadable and runs to absurd length |
+| `LegalDocument` layout | text in the **right** half of a two-column row, left half empty | one left-aligned column per section | The empty half reads as broken, and the right column put the text directly under the fixed promo pills |
+| `LegalDocument` section headings | ~68px section size | `menu` size, ~34px | At eleven numbered sections, 68px reads as eleven page titles |
+| Gallery buttons (4 places) | link to `/galeria` | link to the Instagram profile (`GALLERY_URL`) | `/galeria` 404s on the live site, is absent from `sitemap.xml` and has no scrape folder — the broken link is upstream |
+| MegaMenu "Grafik zajęć" | links to internal `/trening-grupowy/grafik-zajec` | links out to eFitness | That internal page carries no content of its own; the reference's own header dropdown links out |
+
+`StatementSection` also gained `whitespace-pre-line`, which is a bug fix rather than a
+deviation: without it the multi-line copy on `/instrukcja` — including its three bullet
+lists — collapsed into run-on paragraphs.
 | `/instrukcja/`, `/test/`, `/podziekowanie/` | TBD | — | — | — | **Confirm with client first** (PRD §13 Phase 0) — may not carry over |
 
 ## Out of scope for Centrum migration
