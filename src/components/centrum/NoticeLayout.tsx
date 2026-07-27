@@ -2,8 +2,8 @@ import type { ReactNode } from "react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
-type ErrorLayoutProps = {
-  /** Rendered at the display size, fitted to the container — "404", "Błąd". */
+type NoticeLayoutProps = {
+  /** Rendered at the display size, fitted to the container — "404", "Błąd", "Gotowe". */
   code: string;
   heading: string;
   body: string;
@@ -14,11 +14,15 @@ type ErrorLayoutProps = {
 };
 
 /**
- * Shared shell for the 404 and error pages, so both read as part of the site rather than
- * as a dead end. Uses the same oversized display numeral the reference leans on for its
- * page titles, which is what makes these look deliberate instead of like a fallback.
+ * Shared shell for the pages that are one statement and a way out: the 404, the error
+ * boundary, and the newsletter confirmation. Uses the same oversized display numeral the
+ * reference leans on for its page titles, which is what keeps these looking deliberate
+ * rather than like a fallback.
+ *
+ * (Was `ErrorLayout` — renamed once the newsletter opt-in started using it, since "error"
+ * was the wrong word on a page that says "you're subscribed".)
  */
-export function ErrorLayout({ code, heading, body, children, footnote }: ErrorLayoutProps) {
+export function NoticeLayout({ code, heading, body, children, footnote }: NoticeLayoutProps) {
   return (
     <section className="bg-background">
       <Container className="flex flex-col gap-10 py-16 lg:gap-14 lg:py-24">

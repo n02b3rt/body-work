@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { buttonClasses } from "@/components/ui/Button";
 import { Link } from "@/i18n/navigation";
-import { ErrorLayout } from "@/components/centrum/ErrorLayout";
+import { NoticeLayout } from "@/components/centrum/NoticeLayout";
 
 /**
  * Error boundary for everything under `[locale]` — a rendering failure in any page shows
@@ -29,7 +29,7 @@ export default function LocaleError({
   }, [error]);
 
   return (
-    <ErrorLayout
+    <NoticeLayout
       code={t("errorCode")}
       heading={t("errorHeading")}
       body={t("errorBody")}
@@ -49,6 +49,6 @@ export default function LocaleError({
       <Link href="/" className={buttonClasses("outline")}>
         {t("goHome")}
       </Link>
-    </ErrorLayout>
+    </NoticeLayout>
   );
 }

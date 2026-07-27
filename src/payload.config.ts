@@ -13,8 +13,10 @@ import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
+import { Subscribers } from './collections/Subscribers'
 import { Users } from './collections/Users'
 import { SiteSettings } from './globals/SiteSettings'
+import { resendEmailAdapter } from './lib/payload-email'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -49,8 +51,11 @@ export default buildConfig({
       },
     },
   },
-  collections: [Users, Authors, Categories, Media, Pages, Posts],
+  collections: [Users, Authors, Categories, Media, Pages, Posts, Subscribers],
   globals: [SiteSettings],
+  // Password resets and email verification for the author accounts. Without an adapter
+  // Payload only logs them, so they never arrive — see src/lib/payload-email.ts.
+  email: resendEmailAdapter(),
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

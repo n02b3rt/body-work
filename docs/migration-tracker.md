@@ -44,13 +44,15 @@ URL coverage: **27 of 32** content pages built; **62 of 62** blog posts in the d
 
 ### Gaps, worst first
 
-Items 2–6 were fixed on 2026-07-27 and are struck through below. **Only 1 remains open**:
-the newsletter form still discards addresses, blocked on a decision — own `Subscribers`
-collection or an external service.
+All six items were fixed on 2026-07-27. Item 1 was the last, once the user picked the
+delivery route: *"ogólnie będziemy robić to przez bramkę resenda"*. **Two manual steps are
+still outstanding before newsletter mail physically leaves the building** — verifying
+`body-work.pl` in Resend (DKIM + SPF in Cloudflare) and setting `RESEND_API_KEY`. Neither is
+a code task; see `docs/stack.md`.
 
 | # | Gap | Why it matters |
 |---|---|---|
-| 1 | **The newsletter form throws the address away.** It calls `preventDefault()` and immediately shows success — there is no request. The reference posts to `/api/newsletter/subscribe.php` | It silently loses real sign-ups *and* tells the visitor it worked. Now that Payload is in place the honest fix is a `Subscribers` collection plus a route handler |
+| 1 | ~~The newsletter form throws the address away~~ — **fixed 2026-07-27.** A `subscribers` collection, a double opt-in through `/api/newsletter`, and Resend as the relay. See the note below | — |
 | 2 | ~~Every page has the same `<title>`~~ — **fixed 2026-07-27.** Every route has a `generateMetadata` built from its existing title copy; posts prefer their SEO `meta` fields and fall back to the article title. Verified 12/12 distinct titles across a sample | — |
 | 3 | ~~No `sitemap.xml`~~ — **fixed 2026-07-27.** `src/app/sitemap.ts` emits **89 URLs** (27 pages + 62 posts) with `hreflang` pairs for both locales. Static routes are discovered by walking `src/app/[locale]` so the list can't drift; posts come from Payload, and a database outage degrades to the static pages rather than failing the build | — |
 | 4 | ~~No `robots.txt`~~ — **fixed 2026-07-27.** Allows everything except `/admin` and `/api/`, and points at the sitemap | — |
@@ -187,6 +189,28 @@ text for `Terms` and `Privacy`. A mistranslated T&C or privacy policy is legal e
 not a copy nit — these need a professional/legal pass before an English version ships.
 Same precedent as the trainer and specialist biographies.
 
+### The newsletter, and the one place its copy had to change
+
+The reference posts to `/api/newsletter/subscribe.php` and immediately says "you've been
+added". Ours does a **double opt-in** instead: `POST /api/newsletter` stores the address as
+`pending` and mails a confirmation link; clicking it is what writes `confirmedAt`, and that
+timestamp — with the token and the IP — is the RODO consent record. Single opt-in would let
+anyone subscribe anyone, with nothing to show if challenged.
+
+That forces one copy change, listed in the deviations table below: the old success message
+("Zostałeś pomyślnie dodany do naszego newslettera") would now be a lie, because at that
+moment nothing has been added. It says "check your inbox" instead.
+
+**Still worth a decision from the client:** the consent line under the form reads
+*"równoznaczne z akceptacją regulaminu"* and links to `/regulamin`. Consent to have an email
+address processed belongs in the **privacy policy**, not the terms. Left as the reference has
+it, because fixing it properly means changing the wording, not just the link target — and
+copy is the client's call.
+
+Unsubscribe deliberately splits GET from POST: the link in an email only *asks*, and a button
+on `/newsletter` does the removing. Mail clients and corporate link scanners prefetch URLs,
+so a one-click GET quietly unsubscribes people who never clicked.
+
 ### Deliberate deviations from the reference
 
 Recorded per the amended 1:1 rule in `CLAUDE.md` — the reference is reproduced except
@@ -200,6 +224,7 @@ styling and link-target changes.
 | `LegalDocument` section headings | ~68px section size | `menu` size, ~34px | At eleven numbered sections, 68px reads as eleven page titles |
 | Gallery buttons (4 places) | link to `/galeria` | link to the Instagram profile (`GALLERY_URL`) | `/galeria` 404s on the live site, is absent from `sitemap.xml` and has no scrape folder — the broken link is upstream |
 | MegaMenu "Grafik zajęć" | links to internal `/trening-grupowy/grafik-zajec` | links out to eFitness | That internal page carries no content of its own; the reference's own header dropdown links out |
+| Newsletter success message | "Zostałeś pomyślnie dodany do naszego newslettera" | "Sprawdź skrzynkę — wysłaliśmy Ci link, który potwierdza zapis" | With double opt-in the old wording is simply untrue at that moment: nothing is added until the link is clicked |
 | `/kontakt` content | nothing — its `<main>` holds only the shared footer block; no `<form>`, no map embed | display title + the "Spotkajmy się" invitation | An empty page in the sitemap is a defect. Composed from copy already verified elsewhere (the footer's details, the homepage's invitation) — no new copy written |
 | Nav "Kontakt" | anchors to the footer (`#kontakt`) | goes to `/kontakt` | A real page nothing links to is worse than the anchor. The in-page "book a session" CTA on `/trening-personalny/trening-w-parze` stays an anchor — it is not a nav entry |
 

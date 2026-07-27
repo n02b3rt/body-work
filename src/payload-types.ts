@@ -73,6 +73,7 @@ export interface Config {
     media: Media;
     pages: Page;
     posts: Post;
+    subscribers: Subscriber;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -86,6 +87,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
+    subscribers: SubscribersSelect<false> | SubscribersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -377,6 +379,37 @@ export interface Post {
   _status?: ('draft' | 'published') | null;
 }
 /**
+ * Zapisy do newslettera. Wysyłkę obsługuje Resend, ale lista jest tutaj — status „Potwierdzony” oznacza kliknięcie linku w mailu (wymóg RODO).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscribers".
+ */
+export interface Subscriber {
+  id: number;
+  email: string;
+  /**
+   * Tylko „Potwierdzony” wolno wysyłać. Reszta to brak zgody.
+   */
+  status: 'pending' | 'confirmed' | 'unsubscribed';
+  /**
+   * Język, w którym zapisał się subskrybent — do segmentacji wysyłek.
+   */
+  locale: 'pl' | 'en';
+  /**
+   * Losowy identyfikator z linków potwierdzenia i wypisu.
+   */
+  token: string;
+  confirmedAt?: string | null;
+  unsubscribedAt?: string | null;
+  /**
+   * Strona, z której przyszedł zapis.
+   */
+  source?: string | null;
+  consentIp?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -423,6 +456,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'posts';
         value: number | Post;
+      } | null)
+    | ({
+        relationTo: 'subscribers';
+        value: number | Subscriber;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -630,6 +667,22 @@ export interface PostsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscribers_select".
+ */
+export interface SubscribersSelect<T extends boolean = true> {
+  email?: T;
+  status?: T;
+  locale?: T;
+  token?: T;
+  confirmedAt?: T;
+  unsubscribedAt?: T;
+  source?: T;
+  consentIp?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { buttonClasses } from "@/components/ui/Button";
 import { Link } from "@/i18n/navigation";
-import { ErrorLayout } from "@/components/centrum/ErrorLayout";
+import { NoticeLayout } from "@/components/centrum/NoticeLayout";
 
 /**
  * The 404 every visitor reaches — unmatched URLs arrive here via the `[...rest]`
@@ -40,7 +40,7 @@ export default function NotFound() {
   const phone = tFooter("phone");
 
   return (
-    <ErrorLayout
+    <NoticeLayout
       code={t("notFoundCode")}
       heading={t("notFoundHeading")}
       body={t("notFoundBody")}
@@ -63,6 +63,6 @@ export default function NotFound() {
           {link.label}
         </Link>
       ))}
-    </ErrorLayout>
+    </NoticeLayout>
   );
 }

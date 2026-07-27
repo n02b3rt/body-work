@@ -13,6 +13,11 @@ import { SITE_URL, localePath } from "@/lib/metadata";
  *
  * Dynamic segments (`[slug]`) are skipped here and their real URLs come from the CMS.
  */
+
+/** Real pages that still don't belong in a sitemap. `/newsletter` only ever renders the
+ *  result of clicking a link in an email, and carries `robots: noindex` to match. */
+const EXCLUDED = new Set(["/newsletter"]);
+
 async function staticRoutes(): Promise<string[]> {
   const root = path.join(process.cwd(), "src", "app", "[locale]");
   const found: string[] = [];
@@ -31,7 +36,7 @@ async function staticRoutes(): Promise<string[]> {
   }
 
   await walk(root, "");
-  return found.sort();
+  return found.filter((route) => !EXCLUDED.has(route)).sort();
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
