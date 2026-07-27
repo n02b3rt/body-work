@@ -154,7 +154,7 @@ Two things about this app's shape made it harder than it looks, both worth knowi
 
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
 |---|---|---|---|---|---|
-| `/blog/` (listing) | `/blog/` | New: `BlogList` (category select + search + empty state, filtered client-side as on the reference). Reused: PageHero | PL: done / EN: done | 62 cards render from the database; no dashboard-host URLs leak into the page | Bilingual |
+| `/blog/` (listing) | `/blog/` | New: `BlogList` — the reference's featured card for the newest post (half-width photo, oversized title, lead, PRZECZYTAJ), then a 3-column grid with its border dividers, reading time and author. Rectangular category select with the reference's own painted chevron, search field filling the row, SZUKAJ button. Reused: PageHero | PL: done / EN: done | Measured in a browser: 3 equal 458.7px columns, divider dropped on every 3rd card, featured photo fills the row, search/category/empty-state/reset all correct, no horizontal overflow. **Mobile not verified in a browser** — the extension would not resize the viewport | Bilingual |
 | `/blog/<slug>/` × 62 posts | `/blog/<slug>/` | Template built: meta line, hero, Lexical body via `RichText`, author block, back link. `.blog-prose` in globals.css carries the article typography | PL: done / EN: UI strings done, **post content is Polish** (62 articles — a translation job for a human, not a machine) | Checked in a real browser: 62 cards, filter (Fizjoterapia 43 / Trening 50 / Dietetyka 4 / Masaż 4) and search both work, empty state matches the reference wording. Six post pages sampled — bodies, inline images and author blocks all render, no failed image loads, no dashboard-host URLs. 0 empty bodies, 0 posts missing an author/date/reading time, 0 CSS leaks | Bilingual |
 
 **No hero image and no lead paragraph on a post page — both were duplicates.**
@@ -188,6 +188,34 @@ the body repeated that paragraph in oversized type. The reference has neither el
 text for `Terms` and `Privacy`. A mistranslated T&C or privacy policy is legal exposure,
 not a copy nit — these need a professional/legal pass before an English version ships.
 Same precedent as the trainer and specialist biographies.
+
+### The blog import took three fields from the wrong place (found 2026-07-27)
+
+`import-blog.ts` read the thumbnail, the blurb and the date out of each **article body**. On
+the reference those are separate fields on the listing, and they need not appear in the
+article at all. Measured damage, before the fix:
+
+| Field | State | Why |
+|---|---|---|
+| `featuredImage` | **0 of 62 correct** | Each post showed whatever picture came first in its text. The client spotted this: *"losowo powstawiałeś zdjęcia, które nie są thumbnailami"* |
+| `excerpt` | **51 of 62 wrong, 48 cut mid-sentence** | The body's opening paragraph truncated to a character budget, instead of the real blurb |
+| `publishedAt` | 1 wrong, and it mattered | The one post the reference leaves undated got the date the import ran, so it sorted **above** the genuinely newest post and the listing looked unordered |
+
+The authoritative source turned out to be the listing page itself: every card carries an
+escaped-JSON `data-content` attribute holding `images1[0]` (the thumbnail), plus
+`short_description`, `date_published` and `time`. `scripts/fix-blog-from-reference.ts` reads
+it and repairs all three; it is idempotent, and a second run reports nothing to do.
+
+Two things worth knowing about that data:
+
+- **The reference ships one slug twice** (`odpoczynek-i-sen-utracona-sztuka-zycia`, dated
+  2017-02-06 and 2016-12-11, with different thumbnails). The script keeps the newer, which is
+  the one the reference's own ordering shows first.
+- **Two thumbnails exist only as WebP** even though the metadata names a `.jpg`, so the
+  script falls back through sibling extensions.
+
+The pictures the import wrongly promoted are real in-content images — they stay in Media and
+still render inside the articles. Only the pointer moved.
 
 ### The newsletter, and the one place its copy had to change
 
@@ -225,6 +253,8 @@ styling and link-target changes.
 | Gallery buttons (4 places) | link to `/galeria` | link to the Instagram profile (`GALLERY_URL`) | `/galeria` 404s on the live site, is absent from `sitemap.xml` and has no scrape folder — the broken link is upstream |
 | MegaMenu "Grafik zajęć" | links to internal `/trening-grupowy/grafik-zajec` | links out to eFitness | That internal page carries no content of its own; the reference's own header dropdown links out |
 | Newsletter success message | "Zostałeś pomyślnie dodany do naszego newslettera" | "Sprawdź skrzynkę — wysłaliśmy Ci link, który potwierdza zapis" | With double opt-in the old wording is simply untrue at that moment: nothing is added until the link is clicked |
+| `/blog` listing dates | featured card prints `29.08.2025` | no date anywhere on the listing | Client's instruction: *"Na stronie /blog nie pisz kurwa daty kiedy to było"*. Reading time and author stay. Dates are untouched on the post pages themselves, which is where the instruction did not reach |
+| `/blog` grid breakpoint | 3 columns from 1060px (`ho:`) | 3 columns from 1024px (`lg:`) | `sm:grid-cols-2` beats `wide:grid-cols-3` above 1060px, so the grid silently stayed at two columns — measured. `lg` orders after `sm`; 36px earlier is invisible |
 | `/kontakt` content | nothing — its `<main>` holds only the shared footer block; no `<form>`, no map embed | display title + the "Spotkajmy się" invitation | An empty page in the sitemap is a defect. Composed from copy already verified elsewhere (the footer's details, the homepage's invitation) — no new copy written |
 | Nav "Kontakt" | anchors to the footer (`#kontakt`) | goes to `/kontakt` | A real page nothing links to is worse than the anchor. The in-page "book a session" CTA on `/trening-personalny/trening-w-parze` stays an anchor — it is not a nav entry |
 

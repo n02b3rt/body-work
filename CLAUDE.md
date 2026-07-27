@@ -60,7 +60,8 @@ Check here before building anything — don't duplicate what exists.
 | Bilingual routing (next-intl) | `src/i18n/`, `src/proxy.ts` | `src/proxy.ts` is Next.js 16's renamed `middleware.ts` — see gotcha in `docs/architecture.md` |
 | UI translation strings | `messages/pl.json`, `messages/en.json` | See `docs/i18n.md` for the next-intl-vs-Payload-localization split |
 | Shared UI primitives | `src/components/ui/` | `Container` (max-width fix), `Button`, `SectionHeading` |
-| Blog (listing + post) | `src/app/[locale]/blog/` | Reads Payload's Local API; `BlogList` does the category/search filtering client-side |
+| Blog (listing + post) | `src/app/[locale]/blog/` | Reads Payload's Local API; `BlogList` does the category/search filtering client-side, renders the newest post as the reference's featured card, and prints **no dates** |
+| Repairing imported blog data | `scripts/fix-blog-from-reference.ts` | The import took thumbnail/excerpt/date from the article body — all three were wrong. This reads the listing's own metadata instead. `DRY=1` to preview (**not** `--dry`, see `docs/architecture.md`) |
 | Media sizing / compression | `src/collections/Media.ts`, `src/lib/compress-media.ts` | Uploads are downscaled to a 2560px long edge and converted to WebP; four `imageSizes` (thumbnail/card/content/hero) are generated |
 | Page metadata / SEO | `src/lib/metadata.ts`, each route's `generateMetadata` | One helper builds the title, canonical, `hreflang` pair, Open Graph and Twitter tags. Every route has its own title — they were all identical before |
 | Sitemap + robots | `src/app/sitemap.ts`, `src/app/robots.ts` | The sitemap discovers static routes by walking `src/app/[locale]` and pulls posts from Payload, so it can't drift when a page is added |

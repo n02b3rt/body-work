@@ -29,17 +29,26 @@ export default async function BlogPage() {
     payload.find({ collection: "categories", limit: 50, sort: "title" }),
   ]);
 
-  const cards: BlogCard[] = posts.docs.map((post) => ({
+  // Newest first, with undated posts last. Postgres sorts NULLs *first* on a DESC order, so
+  // relying on the query's `-publishedAt` alone would float a post with no date to the top —
+  // which is exactly what happened to one imported post that the reference leaves undated.
+  const ordered = [...posts.docs].sort((a, b) => {
+    const left = a.publishedAt ? Date.parse(a.publishedAt) : Number.NEGATIVE_INFINITY;
+    const right = b.publishedAt ? Date.parse(b.publishedAt) : Number.NEGATIVE_INFINITY;
+    return right - left;
+  });
+
+  const cards: BlogCard[] = ordered.map((post) => ({
     slug: post.slug ?? String(post.id),
     title: post.title,
     excerpt: post.excerpt,
-    date: post.publishedAt,
     readingMinutes: post.readingMinutes,
     authorName: post.author && typeof post.author === "object" ? post.author.name : null,
     categoryIds: (post.categories ?? [])
       .map((item) => (typeof item === "object" ? String(item.id) : String(item)))
       .filter(Boolean),
-    image: mediaFrom(post.featuredImage, "card", post.title),
+    // `hero` rather than `card`: the newest post is rendered at half the viewport width.
+    image: mediaFrom(post.featuredImage, "hero", post.title),
   }));
 
   const categoryOptions: BlogCategory[] = categories.docs.map((item) => ({

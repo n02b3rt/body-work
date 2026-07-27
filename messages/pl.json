@@ -1646,11 +1646,11 @@
     "title": "Blog",
     "allCategories": "Wybierz kategorię",
     "searchLabel": "Szukaj",
-    "searchPlaceholder": "Szukaj we wpisach…",
+    "searchPlaceholder": "Wyszukaj...",
     "empty": "Niestety, żaden wpis nie pasuje do Twoich kryteriów.",
     "noPosts": "Nie ma jeszcze żadnych wpisów.",
     "readingTime": "{minutes} min",
-    "readMore": "Czytaj dalej",
+    "readMore": "Przeczytaj",
     "backToBlog": "Wróć na blog",
     "author": "Autor",
     "publishedOn": "Opublikowano"

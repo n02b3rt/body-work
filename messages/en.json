@@ -1646,7 +1646,7 @@
     "title": "Blog",
     "allCategories": "Choose a category",
     "searchLabel": "Search",
-    "searchPlaceholder": "Search the posts…",
+    "searchPlaceholder": "Search...",
     "empty": "Sorry, no post matches your criteria.",
     "noPosts": "There are no posts yet.",
     "readingTime": "{minutes} min",

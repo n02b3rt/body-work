@@ -72,6 +72,10 @@ Record deliberate choices so nobody re-litigates them a month later without caus
 
 - **Next.js 16 renamed `middleware.ts` to `proxy.ts`** ("Middleware is now called Proxy... functionality remains the same" — `node_modules/next/dist/docs/01-app/03-api-reference/03-file-conventions/proxy.md`). Same location (`src/` root), same `config.matcher` shape, export `proxy` (named) or default instead of `middleware`. A file named `middleware.ts` still half-works but prints a deprecation warning at build time — if you see that warning, this is why.
 
+- **A custom breakpoint does not automatically beat a smaller built-in one.** `sm:grid-cols-2 wide:grid-cols-3` on the same element renders **two** columns above 1060px — the `sm` rule wins, so the `wide` override never lands. Found on the blog grid, measured with `getComputedStyle` (a probe carrying only `wide:grid-cols-3` gave three columns; adding `sm:grid-cols-2` dropped it back to two). The project's `--breakpoint-wide: 1060px` and `--breakpoint-nav: 1340px` are fine on their own; the trap is pairing one with a *built-in* breakpoint variant for the **same property**. Either stay within the built-ins (`sm:`/`lg:`) for that property, or express every step of it with custom breakpoints. Worth a look wherever `wide:` sits next to `sm:`/`md:`/`lg:`.
+
+- **`payload run` strips extra argv.** `process.argv` inside a script contains only the node binary and Payload's `bin.js`, so a `--dry` style flag silently reads as absent — a "dry run" of `scripts/fix-blog-from-reference.ts` wrote all 62 posts before this was understood. Pass switches as environment variables (`DRY=1 pnpm payload run …`) and print the active mode at startup.
+
 ## Integrations / external dependencies
 
 - **Centrum design reference:** `https://bodywork.testowe.eu` — mirrored by `scripts/scrape/scrape_site.py`; itself a page-builder export, not final design (PRD §6.2) — treat as structural/visual reference only.
