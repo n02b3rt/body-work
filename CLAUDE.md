@@ -61,6 +61,8 @@ Check here before building anything: don't duplicate what exists.
 | UI translation strings | `messages/pl.json`, `messages/en.json` | See `docs/i18n.md` for the next-intl-vs-Payload-localization split |
 | Shared UI primitives | `src/components/ui/` | `Container` (max-width fix), `Button`, `SectionHeading` |
 | Blog (listing + post) | `src/app/[locale]/blog/` | Reads Payload's Local API; `BlogList` does the category/search filtering client-side, renders the newest post as the reference's featured card, and prints **no dates** |
+| Editorial worklist | `scripts/content-health.ts` | Read-only. Lists posts without subheadings, images still needing real alt text, and missing categories. Run it to watch the list shrink |
+| Image alt text | `scripts/fix-image-alt-text.ts` | Sets in-article alts to "post title: nearest heading". The reference has **no** alt attributes at all, so there was nothing to import |
 | Repairing imported blog data | `scripts/fix-blog-from-reference.ts` | The import took thumbnail/excerpt/date from the article body, all three were wrong. This reads the listing's own metadata instead. `DRY=1` to preview (**not** `--dry`, see `docs/architecture.md`) |
 | Media sizing / compression | `src/collections/Media.ts`, `src/lib/compress-media.ts` | Uploads are downscaled to a 2560px long edge and converted to WebP; four `imageSizes` (thumbnail/card/content/hero) are generated |
 | Category archives | `src/app/[locale]/blog/kategoria/[slug]/` | Static, one per category, in the sitemap. An addition: the reference filters client-side only |

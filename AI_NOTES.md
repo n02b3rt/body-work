@@ -13,6 +13,17 @@
 
 -->
 
+## 2026-07-27: the two editorial gaps, without touching post copy
+
+- **Done:** in-article alt text now names the section it sits in (102 of 150 images), and `scripts/content-health.ts` turns the rest into a worklist. No article text was edited.
+- **Checked the mirror before writing anything, and it changed the plan.** All **572** content images on the reference carry **no `alt` attribute at all**, so there was nothing to import. Our "use the post title" fallback was already better than the reference, but with up to six images per article all announcing the same sentence it was useless to a screen-reader user, who cannot tell them apart.
+- **What the alt is now:** `"<post title>: <nearest heading above the image>"`. Every word is the client's own, lifted from the article the image lives in, and it does the job an alt does here, which is to locate the picture rather than describe it. Describing a photograph needs eyes on the photograph. Safe per-media because no media document is used by more than one post (150 in-content images, 150 distinct documents, verified).
+- **The first run produced bad output and I read it before shipping.** Several of their "headings" are whole sentences, so alts ran long; and titles ending in `?` gave `"...ostateczność?: Ponieważ"`. Now clipped at a word boundary and joined with a space after `?` or `!`. Median 41 characters, longest 129, zero collisions.
+- **Subheadings are not a code problem.** Inserting `h2`s is writing in someone else's article. The health script lists the 15 posts instead, longest first, so `anatomia-i-funkcja-miesnia-czworoglowego-uda` (2765 words, no structure) leads.
+- **I nearly reported a gap that was not one.** The first version of the report counted 106 images "labelled only with the post title", but 58 of those are thumbnails, where the article title is exactly the right alt. Separating featured images from in-article ones brought it to the real number: **48**.
+- **The report found something nobody had noticed:** two posts have no category, one of them `testy-w-sporcie-twoja-mapa-w-drodze-na-szczyt`, the newest post and the one the listing features. No category means no archive lists it and no `article:section` is emitted. Ten seconds in the panel.
+- **Verified:** alt statistics as above; report output read in full; `tsc`, lint and build clean.
+
 ## 2026-07-27: SEO hardening, everything from the proposal list
 
 - **Done:** static generation for posts and archives, blur placeholders, the `/en` duplicate properly closed, an honest sitemap, `og:image` dimensions, category archives, and internal links between service pages and articles. The table in `docs/migration-tracker.md` has the detail.
