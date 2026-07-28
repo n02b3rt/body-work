@@ -46,6 +46,16 @@ type PageMetadataArgs = {
    * The 62 imported posts are in exactly that position until somebody translates them.
    */
   singleLanguage?: boolean;
+  /**
+   * Keep the page out of search results, from the document's own `meta.noIndex`.
+   *
+   * The checkbox existed in the panel for a while and **nothing read it**: an editor could tick
+   * "Ukryj przed wyszukiwarkami" and the page carried on being indexed. A control that lies about
+   * what it does is worse than no control, so it is wired through here and honoured in
+   * `src/app/sitemap.ts` as well, since listing a noindex URL in a sitemap sends crawlers
+   * contradictory instructions.
+   */
+  noIndex?: boolean | null;
 };
 
 /**
@@ -70,6 +80,7 @@ export function pageMetadata({
   section,
   authors,
   singleLanguage = false,
+  noIndex = false,
 }: PageMetadataArgs): Metadata {
   // `singleLanguage` means the text exists in one language only, so every locale's URL is
   // serving the same words. Pointing them all at the default locale's URL consolidates the
@@ -91,6 +102,9 @@ export function pageMetadata({
   return {
     title,
     ...(description ? { description } : {}),
+    // `follow` stays on: the point is to keep this page out of the index, not to strand the
+    // pages it links to.
+    ...(noIndex ? { robots: { index: false, follow: true } } : {}),
     alternates: {
       canonical: url,
       ...(singleLanguage ? {} : { languages }),

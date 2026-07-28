@@ -232,6 +232,45 @@ and then editing the excerpt would silently stop affecting search results.
 What was actually wrong was the panel: `Tytuł SEO` explained itself and the other two did not, so
 an empty group read as an oversight. All three now say what happens when left blank.
 
+### The SEO panel now shows what it will produce, and noindex actually works (2026-07-28)
+
+The client asked a second time why the SEO fields are blank, which settles it: explaining the
+fallback in a field description does not work, because an empty box reads as an oversight no matter
+how well it is captioned.
+
+**The fields stay empty on purpose and that has not changed.** They are overrides. Writing the
+title and excerpt into them would give an editor two places to keep in step, and editing the
+excerpt would silently stop affecting search results. What was missing was any sign of the result.
+
+**"Podgląd w wyszukiwarce"** now sits at the top of the Metadane group: a live search-result
+snippet built from the same fallbacks the public site uses, plus which field each line came from,
+a character count, and a warning past roughly where Google truncates. Under the two text fields,
+a one-line hint prints the value a blank field will inherit and disappears once anything is typed.
+`admin.placeholder` in Payload is a static string, so it cannot show the document's own title.
+
+The fallbacks were checked against `src/app/[locale]/blog/[slug]/page.tsx` rather than assumed:
+`meta.title || localised.title` and `meta.description || localised.excerpt`. The preview would be
+worse than useless if it disagreed with the page.
+
+**And it turned up a real bug.** `meta.noIndex` was a **dead checkbox**: nothing anywhere read it,
+so an editor could tick "Ukryj przed wyszukiwarkami" and the post carried on being indexed. A
+control that lies about what it does is worse than no control. It is now honoured in
+`pageMetadata` (as `index: false, follow: true`, since the point is to unlist the page rather than
+strand what it links to) and in `src/app/sitemap.ts`, because listing a noindex URL in a sitemap
+hands crawlers two contradictory instructions.
+
+Verified live: ticking it put `<meta name="robots" content="noindex, follow">` in the head and
+dropped the post from the sitemap; unticking restored both.
+
+**Scope, stated plainly:** this covers blog posts. **No route reads the `pages` collection** yet,
+so a Page document's Metadane group, `noIndex` included, is not read by anything. The Centrum
+pages are static routes carrying their own metadata.
+
+**Not verified visually:** there is no admin account on this install, so the three components have
+never been seen rendered. That is why they are read-only and why the hints go through
+`admin.components.afterInput` rather than replacing the inputs: a component that only reads cannot
+break saving, validation or versioning.
+
 ### Blur placeholders were a fifth of the listing's HTML (2026-07-28)
 
 `/blog` filters client-side, so **every** post's data is serialised into the page. A
