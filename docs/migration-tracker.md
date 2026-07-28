@@ -232,6 +232,50 @@ and then editing the excerpt would silently stop affecting search results.
 What was actually wrong was the panel: `Tytuł SEO` explained itself and the other two did not, so
 an empty group read as an oversight. All three now say what happens when left blank.
 
+### The width ladder had no rung for the widths we actually render (2026-07-28)
+
+The client asked whether a browser is still dragging down a 3000px file. It is not, and has not
+been: `sizes` tells the browser the rendered box and it picks from `srcset`, so the 720px slot on
+a post pulled **48.6KB** at 1x while the stored 2560px original (310KB) was never requested.
+
+But the measurement turned up a real leak next to it. Next's default width ladder is
+640/750/828/1080/1200/1920/2048/3840 and **none of those match this site's own display sizes**, so
+browsers were rounding **up** to the next rung and paying for pixels nobody sees. A 720px slot on
+a 2x screen needs 1440 wide, the nearest candidate was 1920, and it downloaded **202.7KB** where
+the 1200 rung is 96.8KB.
+
+`imageSizes` in `next.config.ts` now carries the exact 1x and 2x widths of the ladder in
+`src/lib/image-display.ts`: **480 and 1376** for 1x, **960 and 1440** for 2x. Measured on that
+same image, 1440 delivers **122.4KB instead of 202.7KB**.
+
+Three widths were deliberately left out. **2752** (1376 at 2x) because uploads are capped at
+2560, so the optimizer would clamp the request straight back down and return identical bytes.
+**720 and 1024** at 1x because 750 and 1080 already cover them to within 5%, which does not earn
+another candidate in every `srcset` on the site.
+
+They belong in `imageSizes` and not `deviceSizes` because Next filters candidates for `vw`-based
+images against `deviceSizes[0]`, and dropping that floor from 640 to 480 would pull tiny widths
+into every card grid. Both lists are merged for fixed-px `sizes` like ours, so nothing is lost.
+
+Measured across **all 150 in-article images**, not a sample:
+
+| | before | after | saved |
+|---|---|---|---|
+| 1x screen | 3212.7KB | 2858.5KB | **354.3KB (11%)**, 70 images changed |
+| 2x screen | 6288.9KB | 5609.9KB | **679.0KB (11%)**, 74 images changed |
+
+The cost is three more candidates per `srcset`: **+1541 bytes raw per post page, +106 gzipped**.
+Nothing about the images themselves changes, so there is no visual difference to check.
+
+An earlier sample of 14 posts showed only 6% and none of the 720px slots, which is why the
+distribution was worked out from the database instead: 70 images land on 480, 37 on 720, 32 on
+1024, and 11 keep their own width. The 37 on 720 are where the 40% saving lands.
+
+**Not done, because it trades sharpness:** at the 1440 rung, quality 70 gives 96.3KB against
+122.4KB at the default 75, another 21%. AVIF at 70 is usually indistinguishable on photographs,
+but the client's complaint that started this work was images looking soft, so cutting quality is
+their call to make and not one to slip in quietly.
+
 ### Image width syncs between Polish and English (2026-07-28)
 
 A translation renders a picture at the width the Polish version chose, so the two languages
