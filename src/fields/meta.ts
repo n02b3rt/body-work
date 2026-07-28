@@ -8,7 +8,8 @@ export const metaFields: Field = {
   type: 'group',
   label: 'Metadane',
   admin: {
-    description: 'Tytuł i opis widoczne w wyszukiwarkach oraz przy udostępnianiu w mediach społecznościowych.',
+    description:
+      'Tytuł i opis widoczne w wyszukiwarkach oraz przy udostępnianiu w mediach społecznościowych. Wszystkie pola są opcjonalne: puste znaczy „użyj tego, co już jest w dokumencie”, a nie „brak opisu”.',
   },
   fields: [
     {
@@ -20,15 +21,25 @@ export const metaFields: Field = {
       },
     },
     {
+      // Every hint here earns its place: an empty SEO group looks like an oversight, and a
+      // blank field with no explanation is what prompts "why is the SEO not filled in".
       name: 'description',
       type: 'textarea',
       label: 'Opis SEO',
+      admin: {
+        description:
+          'Jeśli puste, użyta zostanie zajawka wpisu. Wypełnij tylko wtedy, gdy w wyszukiwarce ma się pokazać coś innego niż zajawka.',
+      },
     },
     {
       name: 'image',
       type: 'upload',
       relationTo: 'media',
       label: 'Obraz OG',
+      admin: {
+        description:
+          'Jeśli puste, użyte zostanie zdjęcie główne wpisu. Przydaje się, gdy miniatura dobrze wygląda na liście, ale źle w kafelku na Facebooku.',
+      },
     },
     {
       name: 'noIndex',

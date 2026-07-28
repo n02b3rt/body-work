@@ -212,6 +212,26 @@ had loaded. The cost was the markup and the DOM: 62 cards, each carrying two inl
 icons. The document only shrank 13% because the post *data* still ships for client-side
 filtering; that is the deliberate trade.
 
+### The empty SEO fields are deliberate, and not a fifth import bug (2026-07-28)
+
+Asked why the posts' SEO title, description and OG image are blank in the panel. They are, on
+all 62, and this one is by design rather than another field the import fetched from the wrong
+place.
+
+`generateMetadata` falls back: SEO title to the post title, SEO description to the excerpt, OG
+image to the featured image. So a post nobody has optimised still ships a distinct title, a real
+description and a real share image.
+
+**Checked whether the reference has something we failed to import, and it does not.** Its
+listing metadata carries a `meta_description` per post, and on **62 of 62 it is byte-identical
+to `short_description`**, which is already imported as the excerpt (one is empty). Verified on a
+post page: our `<meta name="description">` and the reference's are the same text. Copying
+`meta_description` into `meta.description` would duplicate identical text into a second field,
+and then editing the excerpt would silently stop affecting search results.
+
+What was actually wrong was the panel: `Tytuł SEO` explained itself and the other two did not, so
+an empty group read as an oversight. All three now say what happens when left blank.
+
 ### In-article images, author photos, and English versions (2026-07-28)
 
 **Half the in-article images were being blown up.** Measured: of 150 images inside articles,

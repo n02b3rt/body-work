@@ -13,6 +13,13 @@
 
 -->
 
+## 2026-07-28: the empty SEO fields, and a correction about the translations
+
+- **The blank SEO fields are deliberate.** All 62 posts have empty `meta.title`, `meta.description` and `meta.image`, and `generateMetadata` falls back to the post title, the excerpt and the featured image. A post nobody has optimised still ships a distinct title, a real description and a real share image.
+- **Checked whether this was a fifth "import took it from the wrong place" bug. It is not.** The reference's listing metadata has `meta_description` per post, and on **62 of 62 it is byte-identical to `short_description`**, which is already imported as the excerpt. Verified on a post page that our rendered `<meta name="description">` matches the reference's exactly. Importing it into `meta.description` would duplicate identical text and then decouple the excerpt from search results.
+- **What was genuinely wrong was the panel copy.** `Tytuł SEO` carried a hint explaining that blank means "use the document title"; the description and OG image fields carried none, so the empty group read as an oversight. All three explain themselves now.
+- **Correction for the record: English versions exist for 1 post, not all of them.** `post-translations` holds exactly one document. The mechanism and the one-click editing are in place for all 62, but 61 bodies are still Polish-only, deliberately and for the reasons in `docs/i18n.md`.
+
 ## 2026-07-28: English editing, one click from the post
 
 - **Done:** a panel at the top of every blog post in the admin, showing whether an English version exists and whether it is actually live, with a button that opens the translation or starts a new one already pointed at that post. The client's ask was to edit English "like editing the content", and hunting for the right document among sixty is not that.

@@ -310,14 +310,20 @@ export interface Page {
       }[]
     | null;
   /**
-   * Tytuł i opis widoczne w wyszukiwarkach oraz przy udostępnianiu w mediach społecznościowych.
+   * Tytuł i opis widoczne w wyszukiwarkach oraz przy udostępnianiu w mediach społecznościowych. Wszystkie pola są opcjonalne: puste znaczy „użyj tego, co już jest w dokumencie”, a nie „brak opisu”.
    */
   meta?: {
     /**
      * Jeśli puste, użyty zostanie tytuł dokumentu.
      */
     title?: string | null;
+    /**
+     * Jeśli puste, użyta zostanie zajawka wpisu. Wypełnij tylko wtedy, gdy w wyszukiwarce ma się pokazać coś innego niż zajawka.
+     */
     description?: string | null;
+    /**
+     * Jeśli puste, użyte zostanie zdjęcie główne wpisu. Przydaje się, gdy miniatura dobrze wygląda na liście, ale źle w kafelku na Facebooku.
+     */
     image?: (number | null) | Media;
     noIndex?: boolean | null;
   };
@@ -366,14 +372,20 @@ export interface Post {
    */
   readingMinutes?: number | null;
   /**
-   * Tytuł i opis widoczne w wyszukiwarkach oraz przy udostępnianiu w mediach społecznościowych.
+   * Tytuł i opis widoczne w wyszukiwarkach oraz przy udostępnianiu w mediach społecznościowych. Wszystkie pola są opcjonalne: puste znaczy „użyj tego, co już jest w dokumencie”, a nie „brak opisu”.
    */
   meta?: {
     /**
      * Jeśli puste, użyty zostanie tytuł dokumentu.
      */
     title?: string | null;
+    /**
+     * Jeśli puste, użyta zostanie zajawka wpisu. Wypełnij tylko wtedy, gdy w wyszukiwarce ma się pokazać coś innego niż zajawka.
+     */
     description?: string | null;
+    /**
+     * Jeśli puste, użyte zostanie zdjęcie główne wpisu. Przydaje się, gdy miniatura dobrze wygląda na liście, ale źle w kafelku na Facebooku.
+     */
     image?: (number | null) | Media;
     noIndex?: boolean | null;
   };
