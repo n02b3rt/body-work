@@ -13,6 +13,12 @@
 
 -->
 
+## 2026-07-28: two homepage faults that only show on a real phone
+
+- **Done:** `PhotoTextCard`'s cream card was `absolute` at every width, anchored to the photo's bottom so it could only grow upward. At 360 CSS px its content is taller than the 4:5 photo, so it grew straight out of the top of the section and over the carousel above. Below `sm` the photo and card are now **stacked**; the overlay returns from `sm` up. And `TestimonialCarousel` slides were `flex-[0_0_85%]` (15% of the next one sliced off the right edge) with `justify-between` on a column whose height comes from the tallest slide, so a 69-character quote was flung apart inside a box sized for a 617-character one. Now full width and grouped/centred below `sm`, `justify-between` from `sm` up.
+- **Measured:** card top equals photo bottom at 485 and 529, overlaps at 669/1049/1469. Slides 485x506, 335x710, 262x930. Page overflow 0px at 485, 529, 669, 769, 1049, 1369, 1889.
+- **Watch out, this is the real lesson:** neither fault was a page-level overflow, so a `scrollWidth` sweep never saw them, and both live below the **485px floor headless Chrome will not go under**. When checking RWD here, reason explicitly about 360px: a fixed `aspect-ratio` meeting content that outgrows it, and any `justify-between` whose correctness depends on how many carousel slides are visible, are the two shapes that bite.
+
 ## 2026-07-28: homepage RWD, media weight, lazy loading, structured data
 
 - **Done:** service grid goes two-up at `wide` (1060) instead of `sm` (640), which was the one real overflow (7px at a 629 viewport, labels spilling their tiles). Hero video re-encoded without its unused audio track: **8388KB down to 734KB on a phone** and 1736KB on desktop, via 720px and 1280px VP9/h264 pairs picked by `media` on the `<source>`, plus a 17KB poster. **First-load transfer at a 489px viewport: 1305KB, from roughly 9MB.** Every `sizes` on the page replaced with a measured number. Blur placeholders for the 18 static home images (3.4KB of JSON) and a lazy, poster-first video. SEO: a 151-character meta description in place of 307 characters of on-page copy, a 1200x630 JPEG OG image with declared dimensions, and `WebSite` + `Service` `ItemList` JSON-LD.

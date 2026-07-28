@@ -232,6 +232,45 @@ and then editing the excerpt would silently stop affecting search results.
 What was actually wrong was the panel: `Tytuł SEO` explained itself and the other two did not, so
 an empty group read as an oversight. All three now say what happens when left blank.
 
+### Two things that only break on a real phone (2026-07-28)
+
+Both reported with screenshots from an actual handset, and both are below the 485px floor that
+headless Chrome will render, which is why the earlier nine-width sweep did not catch them. Neither
+was a page-level overflow: `scrollWidth` equalled `clientWidth` throughout. They were an element
+escaping its own section and a flex rule that only misbehaves at one slide per view.
+
+**"Przyjazna przestrzeń" was climbing out of the top of its section.** The card was `absolute`,
+anchored to the photo's bottom edge so it could only grow upward, which the component's own comment
+called structurally safe. It is safe *downward*. At 360 CSS px the card's content is far taller than
+a 4:5 photo, so it grew up and out: the heading ended up above the photo entirely, over the news
+carousel above it.
+
+Anchoring cannot fix that, because at that width the card genuinely needs more height than the photo
+has. So below `sm` the photo and the card are simply **stacked**, and the overlay comes back from
+`sm` up where it fits. Measured: at 485 and 529 the card's top equals the photo's bottom and
+`overlaps` is false; at 669, 1049 and 1469 it overlaps as designed.
+
+**The testimonial slides were 85% wide with their content flung apart.** Two separate faults in one
+class list:
+
+- `flex-[0_0_85%]` left 15% of the next slide hanging off the right edge as a sliced column
+- `justify-between` on a flex column whose height comes from the **tallest** slide in the track. The
+  homepage's longest testimonial is 617 characters and its shortest 69, a ninefold spread, so a
+  short quote got its quote mark at the very top, its text floating in the middle and its name
+  pinned far below. That is the "strangely large padding".
+
+Now full width below `sm` with the three parts grouped and centred, and `justify-between` kept from
+`sm` up where several slides share a row and their heights are close. Measured: 485x506 at a 485
+viewport, 335x710 at 669, 262x930 at 1049. The box is still as tall as the longest quote, because
+that is how a flex track works, but nothing floats apart inside it.
+
+Overflow re-checked after both changes: **0px at 485, 529, 669, 769, 1049, 1369 and 1889.**
+
+**The lesson for next time:** a nine-width sweep that only reaches down to 485 is not a phone test.
+The two faults here were a fixed aspect ratio meeting content that outgrows it, and a `justify`
+rule whose correctness depends on how many slides are visible. Both are things to reason about at
+360px even when nothing can render it.
+
 ### The homepage: RWD, media weight, lazy loading and structured data (2026-07-28)
 
 Four separate jobs on `/`, all measured rather than eyeballed.
