@@ -13,6 +13,12 @@
 
 -->
 
+## 2026-07-28: the accordion's desktop pill was showing on phones
+
+- **Done:** the "DOWIEDZ SIĘ WIĘCEJ" pill was rendering at every width, so on a phone it sat beside the mobile chevron and squeezed the row title to 145px, at which point long names wrapped and ran across the button. The show/hide moved to a wrapper span. Measured after: at 485px the title is 303px on one line, the pill is `display: none` and the chevron shows; at 1169px the pill shows and the chevron is `none`. Title also gained `break-words`.
+- **The trap, remember this one:** `cn` in this project is a plain `join`, **not** `tailwind-merge`. Conflicting utilities all reach the class attribute and the stylesheet order decides. `buttonClasses` starts with `inline-flex`, so an unprefixed `hidden` added next to it **loses**. Put the responsive display on a wrapper with no competing display utility. Checked the whole codebase: this was the only case, because every other `hidden` is paired with a *prefixed* counterpart (`nav:block`, `wide:grid`), and prefixed utilities are emitted after unprefixed ones so they win in range.
+- **Revises the earlier note:** yesterday's 32px accordion overflow was a symptom of this, not an independent bug. The invisible-by-intention pill was eating 228px. `min-w-0` was still the right fix for the flex behaviour, but the pill was the cause.
+
 ## 2026-07-28: the page could be dragged sideways on a phone
 
 - **Done:** two real causes of horizontal overflow, both in shared components, so this was never just `/masaz`. The closed mobile nav drawer is `fixed inset-0` at `translate-x-full`, and a fixed element is not clipped by ancestor overflow, so it added scrollable width (`scrollWidth` 517 against `clientWidth` 485); fixed with `overflow-x: clip` on `html`. And the accordion row title is a flex item with the default `min-width: auto`, so a long name refused to shrink and pushed the `shrink-0` chevron 32px out of `Container`; fixed with `min-w-0`. After both, `scrollWidth === clientWidth` on eight of nine pages checked, and `/blog`'s residual is entirely the off-screen drawer (everything involved starts at x>=501).

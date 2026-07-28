@@ -92,17 +92,29 @@ function AccordionRow({
         <Container className="flex items-center justify-between gap-6 py-6 lg:py-8">
           {/* `min-w-0`: a flex item defaults to `min-width: auto`, so a long row title refused to
             * shrink and pushed the `shrink-0` chevron clean out of the container. Measured at a
-            * 485px viewport: the chevron sat at x=485 with 32px hanging past the edge. */}
-          <span className="min-w-0 text-h-menu">{item.heading}</span>
+            * 485px viewport: the chevron sat at x=485 with 32px hanging past the edge.
+            *
+            * `break-words` with it, because `min-w-0` alone lets a single long word spill out of
+            * the shrunken box instead of wrapping inside it. */}
+          <span className="min-w-0 break-words text-h-menu">{item.heading}</span>
 
-          {/* Pill on desktop, chevron circle below it, as in the reference. */}
-          <span
-            className={cn(
-              buttonClasses("outline"),
-              "hidden shrink-0 border-current bg-transparent text-current group-hover:bg-transparent group-hover:text-current lg:inline-flex",
-            )}
-          >
-            {open ? t("showLess") : t("learnMore")}
+          {/* Pill on desktop, chevron circle below it, as in the reference.
+            *
+            * The show/hide lives on a **wrapper**, and that is load-bearing. `buttonClasses` starts
+            * with `inline-flex`, and `cn` here is a plain join rather than tailwind-merge, so a
+            * `hidden` sitting beside it in the same class list loses to it in the stylesheet. The
+            * pill was therefore showing at every width: measured at a 485px viewport it rendered
+            * `display: flex`, 228px wide, alongside the mobile chevron, squeezing the row title to
+            * 145px so long names wrapped and spilled across the button. */}
+          <span className="hidden shrink-0 lg:block">
+            <span
+              className={cn(
+                buttonClasses("outline"),
+                "border-current bg-transparent text-current group-hover:bg-transparent group-hover:text-current",
+              )}
+            >
+              {open ? t("showLess") : t("learnMore")}
+            </span>
           </span>
           <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-current lg:hidden">
             <svg
