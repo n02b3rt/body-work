@@ -2,10 +2,23 @@ import { RichText } from "@payloadcms/richtext-lexical/react";
 import type { JSXConvertersFunction } from "@payloadcms/richtext-lexical/react";
 import Image from "next/image";
 import { mediaFrom } from "@/lib/media";
-import { resolveDisplayWidth } from "@/lib/image-display";
+import {
+  collectDisplaySizes,
+  resolveDisplayWidth,
+  takeSyncedSize,
+  type DisplaySizeMap,
+} from "@/lib/image-display";
 
 type PostBodyProps = {
   content: Parameters<typeof RichText>[0]["data"];
+  /**
+   * The Polish body, when rendering a translation.
+   *
+   * Image widths are chosen on the Polish version and the translation follows, so the two
+   * languages cannot end up disagreeing about how big a photograph is. Only where the
+   * translation puts a *different* file in that slot does it keep its own choice.
+   */
+  syncSizesFrom?: Parameters<typeof RichText>[0]["data"] | null;
 };
 
 /**
@@ -15,7 +28,7 @@ type PostBodyProps = {
  * goes, and that counter has to start fresh for every post. Shared at module scope it would
  * leak the first article's structure into the next one.
  */
-function buildConverters(): JSXConvertersFunction {
+function buildConverters(syncedSizes: DisplaySizeMap | null): JSXConvertersFunction {
   /** The level the article's own first heading used, whatever it happened to be. */
   let topLevel: number | null = null;
 
@@ -63,7 +76,12 @@ function buildConverters(): JSXConvertersFunction {
        * and `auto` aims for double the displayed width so a photograph stays sharp on a 2x
        * screen. See src/lib/image-display.ts.
        */
-      const chosen = (node.fields as { displaySize?: string } | undefined)?.displaySize;
+      const value = node.value as { id?: number } | number | undefined;
+      const mediaId = typeof value === "number" ? value : (value?.id ?? null);
+
+      // The Polish version's choice wins where it is the same file; otherwise this node's own.
+      const own = (node.fields as { displaySize?: string } | undefined)?.displaySize;
+      const chosen = takeSyncedSize(syncedSizes, mediaId) ?? own;
       const displayWidth = resolveDisplayWidth(chosen, image.width);
 
       return (
@@ -97,10 +115,14 @@ function buildConverters(): JSXConvertersFunction {
  * want it full width anyway. Noted in `docs/migration-tracker.md`; if it ever needs walking
  * back, this one class is the whole change.
  */
-export function PostBody({ content }: PostBodyProps) {
+export function PostBody({ content, syncSizesFrom }: PostBodyProps) {
+  // Built per render, because both the heading counter and the size queues are consumed as the
+  // tree is walked and must start fresh for each article.
+  const syncedSizes = syncSizesFrom ? collectDisplaySizes(syncSizesFrom) : null;
+
   return (
     <div className="blog-prose">
-      <RichText data={content} converters={buildConverters()} />
+      <RichText data={content} converters={buildConverters(syncedSizes)} />
     </div>
   );
 }
