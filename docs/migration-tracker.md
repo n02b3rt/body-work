@@ -36,8 +36,8 @@ What the pass fixed is recorded in `AI_NOTES.md`; the rows below carry the per-p
 
 ## Audit against the original: 2026-07-27
 
-URL coverage: **27 of 32** content pages built; **62 of 62** blog posts in the database
-(exact match both ways). The 5 unbuilt: `/masaz` and `/cookies` (deferred by the user),
+URL coverage: **28 of 32** content pages built; **62 of 62** blog posts in the database
+(exact match both ways). The 4 unbuilt: `/cookies` (deferred by the user),
 `/test` and `/podziekowanie` (awaiting a client decision on whether they carry over), and
 `/trening-grupowy/grafik-zajec` (not applicable: outbound eFitness link). `/zakupy/*`
 (10 URLs) stays out of scope as the future shop model.
@@ -146,7 +146,7 @@ Two things about this app's shape made it harder than it looks, both worth knowi
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
 |---|---|---|---|---|---|
 | `/cennik/` | `/cennik/` | Reused: PageHero, Accordion (9 price rows; the component gained `cta`/`note`/`groups` and now `panelHeading` for this page). **No newsletter block**: the reference has none here | PL: done / EN: done | Two-way check plus a dedicated price audit, all 46 distinct figures verified present; re-verified against the live site 2026-07-26 | Bilingual |
-| `/masaz/` | `/masaz/` | - | PL:: / EN:: | - | Not started |
+| `/masaz/` | `/masaz/` | Built 2026-07-28. Hero, intro band, four treatment panels (all text-left / image-right, **no alternation**: the reference gives all four identical wrapper classes), team accordion of three therapists, testimonial carousel, contact block with the brand watermark. **The reference's six WooCommerce buttons are deliberately gone**, see the note below | PL: done / EN: done | Compared block by block against the mirror: **53 of 54** non-shop content chunks present, 10 of 10 content images, bios carry the reference's own paragraph breaks. The one gap is `ZAMKNIJ`, which our accordion renders only when a row is open (React) where the reference ships both labels and toggles in CSS | Bilingual |
 | `/kontakt/` | `/kontakt/` | Reused: PageHero (display title, **left**-aligned), MeetUsCta. **The reference page has no content of its own**, see the note below | PL: done / EN: done | Composed from copy already verified elsewhere; nothing invented | Bilingual |
 | `/instrukcja/` | `/instrukcja/` | New: none. Reused: PageHero, StatementSection ×8 (3 of them a 3-up bullet row), FullBleedImage ×4, CenteredBand, MediaCardCta ×2. 7 images copied. No newsletter block: the reference has none | PL: done / EN: done | Two-way check vs. the live site: 0 missing headings | Bilingual |
 
@@ -231,6 +231,82 @@ and then editing the excerpt would silently stop affecting search results.
 
 What was actually wrong was the panel: `Tytuł SEO` explained itself and the other two did not, so
 an empty group read as an oversight. All three now say what happens when left blank.
+
+### The massage section, and Centrum losing its e-commerce (2026-07-28)
+
+`/masaz` is built, and it is the page where the reference sells things. Centrum is not getting a
+shop (the client's call: that belongs on Akademia), so the selling is gone.
+
+**Six buttons removed:** one `UMÓW SIĘ` under the intro band and five `KUP TERAZ` across the four
+treatment panels, including the two Kobido variants with their durations. All six were JS-driven
+WooCommerce add-to-cart handlers with **no `href` at all**, so there was no destination to preserve
+even if we wanted one. Nothing replaces them, because the section directly below already tells a
+visitor how to book: call reception, and the phone number is right there.
+
+**The client believed massage was the only page with e-commerce. It was not.** Seven more buy or
+sign-up buttons were already built into the site, all pointing at the old WordPress shop:
+
+| Page | Button |
+|---|---|
+| `/fizjoterapia` | `bandSignUp` to `/zakupy/fizjoterapia/` |
+| `/trening-grupowy` | `planSignUp` to `/zakupy/plan-zdrowej-zmiany/` |
+| `/trening-grupowy/plan-zdrowej-zmiany` | `bandCta` and `detailsCta`, same target |
+| `/trening-personalny` | `assessmentCta`, "Kup teraz 169,-" |
+| `/trening-personalny/ocena-funkcjonalna` | `bandCta` to `/zakupy/ocena-funkcjonalna/` |
+| `/trening-personalny/trening-indywidualny` | `assessmentSignUp`, same target |
+| `/fizjoterapia/zdrowy-brzuch` | two `formats[].href` shop links on the pricing cards |
+
+All are gone, along with the ten message keys they used, and `Format` lost its `href`. Every one of
+them sat beside either an internal link or copy that still stands on its own, so nothing is
+stranded. **One casualty worth knowing:** the personal-training page's button carried the price
+("Kup teraz 169,-"), so that figure is no longer on that page. It is on `/cennik`.
+
+`GroupTraining.bandCta` deliberately survives: it labels a different, non-shop button on the same
+page. Verified: zero mentions of `zakupy`, `kup teraz`, `SHOP_` or `add-to-cart` anywhere in `src`
+or `messages`, and zero in the rendered HTML of all ten affected pages.
+
+#### Building the page
+
+The structure maps onto components that already existed, which is the point of the reuse rule:
+`PageHero`, `CenteredBand`, `TextMedia`, `Accordion`, `TestimonialCarousel`, `NewsletterSignup`.
+
+**The four treatment panels do not alternate.** Every one has the text column first and the
+photograph second. That came from the reference's own markup, where all four carry identical
+wrapper classes (`ul:w2-2 ho:w1-2` on the text column), not from a screenshot. Worth writing down,
+because most other section pages here *do* alternate and copying that pattern would have been the
+obvious mistake.
+
+Copy was extracted from the mirror programmatically rather than retyped, so the Polish is verbatim.
+The therapists' specialities are a line above each bio, matching the reference's single `<p>` with
+`<br>` pairs inside it; `PanelText` already renders `whitespace-pre-line`, so the breaks survive.
+English is a real translation, shape-checked key path by key path against the Polish.
+
+The ten content images were copied from the mirror **capped at 2560px wide**, the same limit the
+Media collection applies to uploads. Earlier sections copied theirs untouched, which is why
+`fizjoterapia/hub-zespol.webp` is 6048px and 1.1MB; nothing on this site renders wider than 1376
+CSS px, so that is dead weight.
+
+#### Verified against the original
+
+Compared block by block against the served mirror, case-insensitively (the reference bakes
+uppercase into its markup; this project stores natural case and applies `text-transform`, which
+every other section page already does).
+
+- **53 of 54** non-shop content chunks present, so 98.1% coverage
+- **10 of 10** content images
+- the four removed shop buttons account for the rest
+- the two strings on our page only are a form placeholder attribute and the newsletter's
+  off-screen `aria-hidden` honeypot label, both fine
+
+Two things the comparison caught that a screenshot would not have. The therapists' bios were
+merged into one blob on the first pass, where the reference breaks two of the three into separate
+paragraphs; fixed, and the paragraph counts now match across both locales. And the accordion's
+open-state label read `Zwiń` where the reference says `ZAMKNIJ` on **every** accordion it has
+(6 on fizjoterapia, 9 on cennik, 13 on zajecia-grupowe), paired with `DOWIEDZ SIĘ WIĘCEJ` which
+already matched. That was a pre-existing, site-wide one-word deviation, now `Zamknij` / `Close`.
+
+`ZAMKNIJ` still reads as absent from our HTML, and that one is not a defect: our accordion renders
+the open-state label only when a row is open, where the reference ships both and toggles in CSS.
 
 ### Post tiles are cropped to 16:9 before they are served (2026-07-28)
 

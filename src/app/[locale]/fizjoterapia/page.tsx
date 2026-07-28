@@ -15,8 +15,6 @@ import { BlogTeasers } from "@/components/centrum/BlogTeasers";
 import { GALLERY_URL } from "@/lib/external-links";
 import { pageMetadata } from "@/lib/metadata";
 
-const SHOP_PHYSIO_URL = "https://bodywork.testowe.eu/zakupy/fizjoterapia/";
-
 type Section = { heading: string; body: string; image: string };
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
@@ -61,9 +59,6 @@ export default async function PhysiotherapyPage({ params }: PageProps) {
         body={<p>{t("bandBody")}</p>}
         backgroundSrc="/images/fizjoterapia/hub-mark.webp"
       >
-        <a href={SHOP_PHYSIO_URL} target="_blank" rel="noopener noreferrer" className={buttonClasses("outline")}>
-          {t("bandSignUp")}
-        </a>
         <Link href="/cennik" className={buttonClasses("outline")}>
           {t("bandPricing")}
         </Link>

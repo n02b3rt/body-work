@@ -81,7 +81,7 @@
     "healthProcessBody": "To dynamiczna równowaga wielu elementów: ciała, genetyki, psychiki, relacji społecznych, odporności na stres, regeneracji oraz jakości odżywiania. To świadome podejście do profilaktyki — regularne monitorowanie parametrów funkcjonalnych, badania kontrolne i szybka reakcja na sygnały ostrzegawcze. Wymaga zaangażowania, uważności i mądrych wyborów.",
     "learnMore": "Dowiedz się więcej",
     "joinBodywork": "Dołącz do Bodywork.",
-    "showLess": "Zwiń"
+    "showLess": "Zamknij"
   },
   "Services": {
     "personalTraining": "Trening personalny",
@@ -232,7 +232,6 @@
     "assessmentHeading": "Sprawdź swoją sprawność.",
     "assessmentBody1": "Pierwsze spotkanie z trenerem to tzw. ocena sprawności. Podczas kilku prostych ćwiczeń trener sprawdza co działa dobrze, a nad czym należy popracować podczas treningów.",
     "assessmentBody2": "Pamiętaj – ta ocena jest dla Ciebie i dla trenera. Pomaga zbudować plan treningowy i weryfikować postępy.",
-    "assessmentCta": "Kup teraz 169,-",
     "testimonialsHeading": "Opinie:",
     "testimonials": [
       {
@@ -318,7 +317,6 @@
     "title": "Trening indywidualny.",
     "assessmentHeading": "Sprawdź swoją sprawność!",
     "assessmentBody": "Pierwsze spotkanie z trenerem to tzw. ocena sprawności. Podczas kilku prostych ćwiczeń trener sprawdza co działa dobrze, a nad czym należy popracować podczas treningów. Pamiętaj – ta ocena jest dla Ciebie i dla trenera. Pomaga zbudować plan treningowy i weryfikować postępy. Teraz możesz nabyć ocenę funkcjonalną w specjalnej promocyjnej cenie.",
-    "assessmentSignUp": "Zapisz się",
     "assessmentMore": "Więcej informacji",
     "sections": [
       {
@@ -380,7 +378,6 @@
     "bandEyebrow": "Ocena funkcjonalna",
     "bandHeading": "Sprawdź swoją sprawność!",
     "bandBody": "Pierwsze spotkanie z trenerem to tzw. ocena sprawności. Podczas kilku prostych ćwiczeń trener sprawdza co działa dobrze, a nad czym należy popracować podczas treningów. Pamiętaj – ta ocena jest dla Ciebie i dla trenera. Pomaga zbudować plan treningowy i weryfikować postępy.",
-    "bandCta": "Kup teraz 169,-",
     "whatHeading": "Czym jest ocena funkcjonalna?",
     "whatBody": "Podczas spotkania trener posługuje się tzw. kartą oceny, czyli protokołem określającym poszczególne obszary Twojej sprawności fizycznej. Trener opisuje dane ćwiczenie i prosi Cię o jego wykonanie. Ćwiczenia są dobrane w taki sposób, aby zweryfikować szereg elementów mówiących o poziomie Twojej sprawności – jakie są Twoje zakresy ruchu i mobilność stawowa, zdolności motoryczne i koordynacyjne, siła, moc, wytrzymałość itp. Każde ćwiczenie oceniane jest w skali 0-3 (gdzie 0 – podczas ćwiczenia występuje ból, 3 – pełna zdolność prawidłowego wykonania ćwiczenia). Po przeprowadzeniu oceny powstaje „mapa” Twoich mocnych i słabych stron. Jest to znakomity punkt wyjściowy do ustalenia planu treningowego lub wskazania jakiego typu aktywności fizyczne są dla Ciebie najbardziej korzystne. W Centrum BODYWORK ocena funkcjonalna jest również pierwszym treningiem. Można zatem kontynuować pracę z trenerem na bazie przygotowanego planu treningowego lub wykorzystać ocenę dla własnej wiedzy i potrzeb.",
     "blocks": [
@@ -552,7 +549,6 @@
     "bandEyebrow": "Poznaj nasz system fizjoterapii",
     "bandHeading": "Fizjoterapia, która przywraca sprawność!",
     "bandBody": "Czy wyobrażasz sobie życie, w którym ciało jest Twoim sprzymierzeńcem, zamiast sprawiać Ci problemy? Nasz organizm to genialny mechanizm, który potrafi się samoregulować – wystarczy tylko trochę mu w tym pomóc! Będąc sprawnym możesz realizować swoje marzenia, od zwykłych spacerów po podróże i uprawianie sportu. W naszym Centrum stosujemy nowoczesne metody fizjoterapii, łącząc je z odpowiednio dobranymi ćwiczeniami i zbilansowaną dietą. Współpraca z naszymi terapeutami to proces poszukiwania przyczyny dysfunkcji, skutecznej terapii i utrwalania jej efektów w codziennym życiu. Naszym nadrzędnym celem jest pomoc w odzyskaniu zdrowia i sprawności tak szybko, jak to możliwe, aby każdy pacjent mógł wrócić do aktywności, cieszyć się swobodnym ruchem i prowadzić pełne, satysfakcjonujące życie.",
-    "bandSignUp": "Zapisz się",
     "bandPricing": "Cennik",
     "sections": [
       {
@@ -810,17 +806,14 @@
       {
         "heading": "Konsultacja USG + Trening",
         "price": "Koszt: 395,-",
-        "duration": "Czas: 1,5h",
-        "href": "https://bodywork.testowe.eu/zakupy/zdrowy-brzuch-konsultacja-usg-trening/"
+        "duration": "Czas: 1,5h"
       },
       {
         "heading": "Pakiet 8 spotkań",
         "price": "Koszt: 2.000,-",
-        "duration": "Czas: 1,5h",
-        "href": "https://bodywork.testowe.eu/zakupy/zdrowy-brzuch-pakiet-8-spotkan/"
+        "duration": "Czas: 1,5h"
       }
     ],
-    "formatCta": "Zapisz się",
     "leadEyebrow": "Poznaj nasz autorski, 2-miesięczny program.",
     "leadBody": "Specjalistyczny program dla osób z zaburzeniami pracy mięśni brzucha, dna miednicy i przepony. Proces terapii opiera się na nowoczesnej diagnostyce USG oraz ocenie fizjoterapeuty."
   },
@@ -918,7 +911,6 @@
     "planHeading": "Plan Zdrowej Zmiany.",
     "planBody": "Nasz autorski, 6-tygodniowy program, który pomoże Ci rozpocząć aktywny i zdrowy styl życia. Pod okiem doświadczonych trenerów, fizjoterapeutów i dietetyków będziesz trenować, uczyć się i otrzymywać wsparcie na każdym kroku. Program łączy ćwiczenia, edukację i motywację – wszystko po to, aby wzmocnić ciało, poprawić kondycję, koordynację i sylwetkę, a jednocześnie zdobyć pewność siebie i radość z ruchu. To nie tylko trening – to świetna zabawa w grupie 12 uczestników, praktyczna wiedza o zdrowym odżywianiu i regeneracji oraz fundament do trwałej zmiany stylu życia. Po 6 tygodniach poczujesz różnicę – Twoje ciało będzie silniejsze, sprawniejsze, a Ty pełen energii i endorfin!",
     "planMore": "Dowiedz się więcej",
-    "planSignUp": "Zapisz się!",
     "testimonialsHeading": "Opinie:",
     "testimonials": [
       {
@@ -1048,7 +1040,6 @@
     "title": "Plan Zdrowej Zmiany",
     "bandHeading": "Popraw sylwetkę w 6 tygodni!",
     "bandBody": "„Plan zdrowej zmiany” to profesjonalny program motywujący do rozpoczęcia aktywnego i zdrowego stylu życia. Przez 6 tygodni będziemy Cię prowadzić, szkolić, trenować i wspierać w każdym możliwym aspekcie. Dlaczego 6 tygodni? Ponieważ jest to wystarczająco długo, aby zobaczyć już znaczne efekty w swoim ciele – na poziomie wyglądu, sprawności, siły i kondycji fizycznej. Jednocześnie jest to na tyle krótko, iż „bez większego bólu” można przejść przez cały program i się po prostu nie zniechęcić. Sam program to nie tylko praca i wysiłek fizyczny. To przede wszystkim ogrom dobrej zabawy i współpracy z grupą 12 uczestników. Treningi i spotkania będą się odbywać pod okiem naszych doświadczonych trenerów, fizjoterapeutów i dietetyków, którzy przez cały czas będą Cię wspierać i motywować.",
-    "bandCta": "Zapisz się",
     "goalHeading": "Cel projektu.",
     "goalBody": "Głównym celem programu jest rozpoczęcie trwałej przemiany w Twoim życiu. Chcemy zachęcić Cię do uprawiania sportu, właściwego odżywiania, odpowiedniej regeneracji i generalnie zdrowego stylu życia. Oprócz programu treningowego projekt będzie mieć charakter edukacyjny. W praktyce dowiesz się jak dbać o swoje ciało, aby służyło Ci przez wiele lat w zdrowiu i sprawności. Okres 6 tygodni to jedynie dobry początek tego co czeka Cię później – staniesz się sprawniejszy, szczęśliwszy i pewniejszy siebie. Wystarczy tylko zacząć!",
     "resultsHeading": "Co osiągniesz po ukończeniu programu?",
@@ -1072,7 +1063,6 @@
     "forWhoBody": "● Wszystkie osoby, które są relatywnie mało aktywne fizycznie i chciałyby w mądry, zrównoważony sposób rozpocząć proces przemiany ● Osoby, które pragną zredukować poziom tkanki tłuszczowej lub zwiększyć masę mięśniową ● Osoby, które chciałyby być poprowadzone przez grupę specjalistów, tak, aby nie popełniać błędów i dzięki temu osiągnąć najlepsze rezultaty w jak najkrótszym czasie ● Minimalny wiek uczestnictwa to 14 lat",
     "detailsHeading": "Szczegóły organizacyjne:",
     "detailsBody": "● Cena uczestnictwa w projekcie 895 zł ● Liczba uczestników w grupie: min 8, max 12 osób ● Termin projektu: od 18.05.2026 r. do 29.06.2026 r. ● Spotkanie organizacyjne 11.05.2026 r. ● Harmonogram treningów: pon 20:30, śr 20:30, pt 19:30",
-    "detailsCta": "Zapisz się",
     "includedHeading": "W cenie projektu otrzymujesz:",
     "includedBody": "● Indywidualną ocenę funkcjonalną na początku projektu ● 2 pomiary składu ciała – na początku i na końcu ● Indywidualne wskazówki żywieniowe przygotowane po spotkaniu z dietetykiem ● 18 treningów w grupie maksymalnie 12 osób ● 3 wykłady o charakterze edukacyjnym ● Stałą opiekę i wsparcie naszego zespołu – w każdej chwili trwania projektu",
     "testimonialsHeading": "Opinie:",
@@ -1162,6 +1152,88 @@
     ],
     "howToHeading": "Jak skorzystać z naszych usług?",
     "howToBody": "Zadzwoń pod nr 609 805 660 i umów się na wizytę z jedną z naszych dietetyczek. Pracownicy recepcji udzielą Ci wszelkich dodatkowych, niezbędnych informacji.",
+    "howToCall": "Zadzwoń",
+    "howToEmail": "info@body-work.pl"
+  },
+  "Massage": {
+    "title": "Masaż",
+    "bandEyebrow": "Masaż w BODYWORK",
+    "bandHeading": "Doświadcz kompleksowego odprężenia i regeneracji.",
+    "bandBody": "Masaż klasyczny, relaksacyjny, sportowy oraz Kobido to popularne rodzaje masażu, oferujące różnorodne korzyści dla Twojego zdrowia i samopoczucia. Nasz zespół masażystów indywidualnie dobiera techniki i metody, dostosowując się do Twoich potrzeb i oczekiwań.",
+    "sections": [
+      {
+        "heading": "Masaż klasyczny.",
+        "body": "Masaż klasyczny, znany również jako masaż szwedzki ma na celu pobudzenie tkanek, krążenia krwi, limfy oraz zmniejszenie napięcia mięśniowego. Podczas sesji masażysta wykonuje różnego rodzaju techniki, takie jak głaskanie, ugniatanie, rozcieranie, wibracje, oklepywanie. Masaż klasyczny może być stosowany zarówno w celach relaksacyjnych, jak i leczniczych. Terapeutycznie stosowany jest w celu zmniejszenia dolegliwości bólowych, zarówno w stanach przewlekłych, jak i po kontuzjach. Może być również stosowany prewencyjnie. Relaksacyjne właściwości masażu klasycznego mają za to pozytywny wpływ na dobre samopoczucie i redukcję stresu, stwarzając przestrzeń na odprężenie organizmu.",
+        "image": "/images/masaz/klasyczny.webp"
+      },
+      {
+        "heading": "Masaż sportowy.",
+        "body": "Masaż sportowy polega na głębokiej stymulacji mięśni oraz pobudzeniu krążenia krwi, co przyspiesza regenerację tkanek mięśniowych, zmniejsza ryzyko urazów oraz łagodzi ból mięśniowy. Wpływa również na poprawę elastyczności, zwiększając zakres ruchu i zmniejszając napięcie mięśniowe. Masaż sportowy stosowany jest często po treningu, w celu zapewnienia efektywnej regeneracji i zmniejszenia napięć, lub przykurczów. Z powodzeniem wykorzystywany jest również przed ćwiczeniami w celu lepszego przygotowania organizmu do wysiłku. Masaż sportowy jest zalecany dla osób aktywnych fizycznie, zarówno amatorów, jak i profesjonalistów. Wspiera efektywność wysiłku fizycznego, niwelując dolegliwości bólowe oraz zapobiegając potencjalnym urazom.",
+        "image": "/images/masaz/sportowy.webp"
+      },
+      {
+        "heading": "Masaż relaksacyjny.",
+        "body": "Masaż relaksacyjny to typ masażu klasycznego, który bazuje na podobnych technikach, jednak charakteryzuje się mniejszą intensywnością. W trakcie sesji masażu relaksacyjnego, dochodzi do stymulacji krążenia krwi, zwiększenia elastyczności mięśni oraz wywołania uczucia odprężenia. Co z kolei pozwala się zrelaksować, złagodzić napięcie i stres, a przy tym poprawić samopoczucie i jakość życia.",
+        "image": "/images/masaz/relaksacyjny.webp"
+      },
+      {
+        "heading": "Masaż Kobido.",
+        "body": "Masaż Kobido to japońska technika masażu twarzy, która nazywana jest również „niechirurgicznym liftingiem”. Łączy intensywne, precyzyjne ruchy z elementami drenażu limfatycznego, akupresury oraz technik liftingujących. Regularne stosowanie masażu Kobido wpływa na poprawę jędrności i elastyczności skóry, wygładzenie zmarszczek oraz redukcję napięcia mięśniowego w obrębie twarzy, szyi i karku. Dzięki głębokiej stymulacji tkanek, Kobido nie tylko poprawia wygląd, ale także działa relaksująco – wycisza układ nerwowy i wspomaga naturalne procesy regeneracyjne organizmu. Masaż ten polecany jest osobom, które chcą zadbać o naturalne odmłodzenie, odprężenie i zdrowy wygląd skóry – bez ingerencji medycyny estetycznej.",
+        "image": "/images/masaz/kobido.webp"
+      }
+    ],
+    "teamEyebrow": "Nasz zespół",
+    "teamHeading": "Masażyści BODYWORK to wykwalifikowany zespół specjalizujący się w różnych technikach masażu.",
+    "teamBody": "Ich misją jest poprawa zdrowia i samopoczucia naszych klientów poprzez profesjonalną i skuteczną terapię masażem.",
+    "people": [
+      {
+        "name": "Przemysław Górski",
+        "role": "MASAŻ KLASYCZNY / SPORTOWY / RELAKSACYJNY",
+        "body": "Absolwent Akademii Wychowania Fizycznego w Poznaniu na kierunku Wychowanie Fizyczne z gimnastyką korekcyjno – kompensacyjną. Masażysta z wieloletnim doświadczeniem, nauczyciel, wykładowca, trener medyczny i funkcjonalny, instruktor lekkiej atletyki i pływania. Od zawsze związany z aktywnością fizyczną.\n\nPodczas zabiegów łączy różne techniki masażu by osiągnąć jak najlepszy efekt u każdego klienta. Stosuje między innymi masaż sportowy jako uzupełnienie treningu czy element odnowy biologicznej i regeneracji. Doskonale zna i rozumie potrzeby ludzi aktywnych. Pracuje z osobami po przebytych urazach i kontuzjach wspomagając ich w procesie powrotu do zdrowia i pełnej sprawności. Na co dzień pracuje również z klientami szukającymi odprężenia i redukcji stresu, wykonując zabiegi masażu relaksacyjnego.",
+        "image": "/images/masaz/przemyslaw-gorski.webp"
+      },
+      {
+        "name": "Filip Deskur",
+        "role": "MASAŻ KLASYCZNY / SPORTOWY / RELAKSACYJNY",
+        "body": "Fizjoterapeuta, technik masażysta. Łączy różnorodne techniki w celu osiągnięcia jak najlepszego efektu. Wykonuje masaż sportowy, który wspomaga odnowę biologiczną i wpływa na funkcjonalność układu mięśniowego. W swojej praktyce stosuje globalne spojrzenie na ciało. Wykonuje również masaże relaksacyjne w celu wyciszenia i odprężenia.",
+        "image": "/images/masaz/filip-deskur.webp"
+      },
+      {
+        "name": "Wiktoria Wysocka",
+        "role": "MASAŻ KOBIDO / KLASYCZNY / RELAKSACYJNY",
+        "body": "Studentka IV roku fizjoterapii oraz technik masażysta, co pozwala jej łączyć praktyczną wiedzę z masażu z szerokim podejściem do zdrowia i funkcjonowania ciała. Wykonuje różne techniki masażu, zarówno relaksacyjne, jak i terapeutyczne.\n\nSzczególne miejsce w jej praktyce zajmuje masaż Kobido – japoński rytuał liftingujący, który działa nie tylko na skórę, ale też głęboko odpręża i poprawia samopoczucie. Dzięki połączeniu wiedzy z zakresu anatomii, fizjologii i terapii manualnej, każdy masaż będzie dopasowany do Twoich potrzeb.",
+        "image": "/images/masaz/wiktoria-wysocka.webp"
+      }
+    ],
+    "testimonialsHeading": "Opinie klientów:",
+    "testimonials": [
+      {
+        "quote": "Świetna atmosfera. Cudowna recepcja. Profesjonalne wsparcie trenerskie. Jest bardzo ok. Dodatkowo fantastyczne masaże kobido/fizjoterapeutyczne/relaksacyjne - Wiktoria wie co robi. Polecam!",
+        "name": "CEZARY WYTYCH"
+      },
+      {
+        "quote": "Jestem bardzo zadowolony z masażu Kobido. Masaż był bardzo odprężający i relaksujący, szczególnie po stresującym dniu. Wiktoria bardzo profesjonalnie prowadzi całą sesję, przez co pomimo pierwszej wizyty od razu mogłem poczuć się komfortowo. Na pewno skorzystam ponownie!",
+        "name": "KONRAD WIECZOREK"
+      },
+      {
+        "quote": "Po operacjach brzucha trafiłam do Natalii na masaż wisceralny. Na początku szukałam ulgi i ją dostałam (mniej zrostów, większa lekkość w ciele). Choć z perspektywy czasu równie ważnie było dla mnie to, że Natalia spojrzała szerzej i podsunęła tropy, co warto sprawdzić dalej. Poszłam za tym (konsultacje u dietetyka i gastroenterologa, badania, etc.) , dzięki czemu finalnie udało się nazwać problem i wdrożyć leczenie. Okazało się to początkiem procesu, który realnie przełożył się na lepszą jakość życia. W dodatku w miłej atmosferze i poczuciu, że jestem w dobrych rękach.",
+        "name": "MAGDA PODOLSKA"
+      },
+      {
+        "quote": "Bardzo polecam masaże w Bodywork. Korzystałam zarówno z masaży u Filipa i Wiktorii. Bardzo profesjonalne podejście, z troską o aktualne dolegliwości i potrzeby. Za każdym razem wychodziłam zrelaksowana i rozluźniona. Po całym dniu pracy siedzącej to najlepsze co można zrobić dla swojego ciała!",
+        "name": "WERONIKA DOBROŚ"
+      },
+      {
+        "quote": "Serdecznie polecam masaże u Wiktorii Wysockiej! Dokładnie wie kiedy docisnąć, kiedy odpuścić i jak dopasować intensywność do aktualnych potrzeb ciała. Po masażu czułam się lżejsza, w końcu mogłam odetchnąć pełną piersią i na drugi dzień obudziłam się bez bólu, na pewno będę wracać, serdecznie polecam - Wiktoria słucha i rozumie. Naprawdę świetna specjalistka 💗",
+        "name": "MAJA ŻURAKOWSKA"
+      },
+      {
+        "quote": "Bardzo polecam masaż twarzy Kobido u pani Wiktorii. Bardzo relaksujący zabieg w ciepłej i komfortowej atmosferze. Po wizycie czułam się bardzo odprężona. Z całego serca polecam 🥰",
+        "name": "KAROLINA L."
+      }
+    ],
+    "howToHeading": "Jak skorzystać z naszych usług?",
+    "howToBody": "Zapraszamy do bezpośredniego kontaktu pod nr 609 805 660. Pracownicy recepcji udzielą Ci wszelkich dodatkowych, niezbędnych informacji oraz zaproponują dogodny termin masażu. Klienci, którzy korzystają już z usług naszego Centrum otrzymują rabat -15%.",
     "howToCall": "Zadzwoń",
     "howToEmail": "info@body-work.pl"
   },

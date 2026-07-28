@@ -13,6 +13,14 @@
 
 -->
 
+## 2026-07-28: the massage page, and Centrum has no e-commerce any more
+
+- **Done:** `/masaz` built and bilingual (152 static pages, up from 150). Hero, intro band, four treatment panels, three-therapist accordion, testimonial carousel, contact block with the brand watermark, newsletter. **All e-commerce is out of Centrum**: the reference's six WooCommerce buttons on this page (one `UMÓW SIĘ`, five `KUP TERAZ`, all JS add-to-cart handlers with no `href`), plus **seven more that were already built** on `/fizjoterapia`, `/trening-grupowy`, `/trening-grupowy/plan-zdrowej-zmiany`, `/trening-personalny`, `/trening-personalny/ocena-funkcjonalna`, `/trening-personalny/trening-indywidualny` and `/fizjoterapia/zdrowy-brzuch`, plus the ten message keys they used. Accordion close label corrected site-wide to `Zamknij` / `Close`.
+- **Decisions:** the four treatment panels **do not alternate**, taken from the reference's own wrapper classes (`ul:w2-2 ho:w1-2` identical on all four), not from a screenshot; most other section pages here do alternate, so this is the trap. Nothing replaces the removed buttons, because the section below already says how to book. `GroupTraining.bandCta` survives, it labels a different non-shop button. Images copied at a 2560px cap, matching the Media collection, rather than verbatim like earlier sections (`fizjoterapia/hub-zespol.webp` is 6048px and 1.1MB).
+- **Verified:** block-by-block against the served mirror, **53 of 54** non-shop chunks and 10 of 10 images. Zero shop references left in `src`, `messages`, or the rendered HTML of all ten affected pages. PL/EN key paths identical (1067).
+- **Watch out:** the comparison caught two things a screenshot could not, so do it this way next time. The therapists' bios have paragraph breaks in the reference (one `<p>` with `<br>` pairs) and were merged on the first pass. And the mirror's own copy is uppercase in the markup while this project stores natural case, so **compare case-insensitively or you get 16 false gaps**. Also: headless Chrome will not trigger the mirror's lazy-loaded images even with a 16000px window, so its lower sections screenshot as blur placeholders; the mirror serves from `scripts/scrape/scraped` on port 8765.
+- **Left open:** the price "169,-" disappeared with the personal-training buy button; it is on `/cennik`. `/zakupy/*` (10 URLs) remains out of scope as the future Akademia shop model.
+
 ## 2026-07-28: post tiles are cropped to 16:9 before they are served
 
 - **Done:** new `cardWide` size (960x540, `fit: cover`) generated on upload, and every 16:9 tile asks for it: listing grid, category archives, "read next", service-page teasers. `scripts/backfill-image-sizes.ts` filled it in for 218 existing media (12 too small, 0 failures). **All 62 tiles at 480 CSS px on 2x: 1440.8KB to 1092.4KB, saved 348.4KB (24%)**; the 12 portrait ones alone went 352.9KB to 172.2KB, **51% off**, best case 69.8KB to 20.0KB.
