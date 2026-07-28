@@ -274,7 +274,11 @@ No video on this page, and the images were already reasonable. Measured first-lo
 `MediaCardCta`'s `sizes` was the one overstatement: `(min-width: 1060px) 50vw, 100vw` against a slot
 that measures 389px at 485, 557 at 669 and 396 at 1049. Plain `100vw` overstated it by a fifth on a
 phone and `50vw` by a third at 1049, because the container padding and the card's own `p-8`/`lg:p-12`
-come off. Now `(min-width: 1440px) 592px, (min-width: 1060px) calc(50vw - 96px), calc(100vw - 64px)`.
+come off.
+
+> **Superseded on 2026-07-29** by the `/fizjoterapia` pass, which found the replacement still wrong
+> between 1024 and 1059: it put the two-up branch at `wide` (1060) while both calling pages lay the
+> cards out with `lg:grid-cols-2` (1024). See that section for the measured value now in the file.
 
 `PageHero` and the full-bleed `sprawnosc.webp` band were both confirmed genuinely full width at 485,
 669, 1049 and 1469, so their `100vw` stays.
@@ -311,6 +315,101 @@ its own key so this change stays inside the task.
 Verified: description 157 characters, canonical present, `og:image` the 1200x630 JPEG with `alt`,
 and **three JSON-LD blocks, all valid JSON**: `HealthAndBeautyBusiness`, `Service` with 3 variants
 and `areaServed` Poznań, and a 2-level `BreadcrumbList`.
+
+### /fizjoterapia: RWD, media, lazy loading and structured data (2026-07-29)
+
+The same four jobs again. Unlike the two pages before it, **this one had no layout break at all**:
+`scrollWidth` equals `clientWidth` at 360, 390, 414, 480, 540, 600, 639, 640, 700, 768, 834, 900,
+1023, 1024, 1059, 1060, 1200, 1366, 1440, 1600 and 1920, with no unclipped element past the right
+edge at any of them, and the same holds with an equipment row expanded. The faults were all in what
+the page *fetches*, not how it lays out.
+
+#### Measuring below 500px without a phone
+
+Worth writing down, because the previous two sessions each hit this and worked around it differently.
+**Headless Chrome clamps its layout viewport at 500px** (`--window-size=360` still reports
+`clientWidth` 500), and the Chrome extension's `resize_window` leaves the page laying out at ~980
+regardless. Neither can show you a 360px phone.
+
+What does work: a scratch page served from `public/` that iframes the route at an exact width. An
+iframe gets its own layout viewport, so media queries evaluate against *its* width — verified with a
+control page that reports `matchMedia('(min-width:640px)')` false at an iframe width of 360. Being
+same-origin, the harness reads `contentDocument` and measures from the outside, and
+`--dump-dom` carries the result back out. Two things to know if this gets rebuilt: the extension's
+JS runs in a sandboxed, opaque-origin world that cannot touch a child frame (and hangs the renderer
+if you try), so drive it with headless Chrome instead; and **headless force-loads lazy images**, so
+any `loading="lazy"` measurement taken there is meaningless — that one has to come from a headed
+browser.
+
+#### Media
+
+Nothing here was pulling megabytes. The whole page at 360px is **111KB of images**, and first paint
+fetches exactly two of the eighteen: the hero and the 2KB watermark. Confirmed in a headed browser at
+a 477px viewport: sixteen images still unloaded at `scrollY` 0.
+
+Two `sizes` were wrong, both understated as overdraws rather than layout faults:
+
+- **`Accordion` ended in a bare `100vw`.** A `sizes` written only in viewport units makes Next build
+  the srcset from `deviceSizes` alone, and its smallest entry is 640, so a 343px slot on a phone was
+  handed a 640px file. Naming a pixel length lets it reach `imageSizes`: **640 → 384 at 360 and
+  390px**, 828 → 750 at 1024 and above.
+- **`MediaCardCta` put its two-up branch at 1060 while the grid goes two-up at 1024.** Between those
+  the slot halves to 376px and the old value was still claiming `calc(100vw - 64px)`: **a 960px file
+  for a 376px hole**. Now `(min-width: 1440px) 592px, (min-width: 1024px) calc(50vw - 128px),
+  (min-width: 640px) calc(100vw - 112px), calc(100vw - 96px)`, measured at 249px/360, 513/640,
+  376/1024, 592/1920. This fixes `/trening-personalny` too, which has the same `lg:grid-cols-2`.
+
+No source file was re-encoded. `hub-zespol.webp` is 6048px and 1148KB on disk, but every byte the
+browser sees comes through `next/image`, so shrinking the source would change the repo and not one
+delivered request. Left alone deliberately.
+
+#### Lazy loading with blur placeholders
+
+`generate-blur-placeholders.mjs` gained `public/images/fizjoterapia` **and**
+`public/images/fizjoterapia/sprzet` — the script does not recurse, which is now said in its comment.
+The map is 70 entries, 11.1KB.
+
+`Accordion` is a **client** component, so it cannot call `blurProps`: importing the server-only map
+would ship all 11KB to every page that renders an accordion. It takes an `imageBlur` string on
+`AccordionItemData` instead, resolved by the page with `blurFor()` — the same shape as the
+homepage's `posterBlur`. Verified in the HTML: all six equipment photos carry a placeholder and
+`loading="lazy"`, and the hero carries a placeholder plus its `rel="preload"` (which is how Next 16
+implements `priority`).
+
+`CenteredBand`'s watermark and the newsletter background keep no placeholder: both deliver ~2KB.
+
+#### SEO
+
+Same gap as the last two routes: `pageMetadata` was called with a title only, so there was no
+`description`, `og:description` or `twitter:description`. `metaDescription` is 150 characters (PL)
+and 156 (EN), and every fact in it is on the page — the three sub-therapies, the equipment named in
+"Metody pracy", and the footer's Poznań address.
+
+Two JSON-LD blocks on top of the sitewide business: a **`Service`** with a three-entry
+`hasOfferCatalog`, and a two-level **`BreadcrumbList`**.
+
+**The catalogue deliberately omits `/fizjoterapia/specjalisci`**, which is the sub-nav's fourth
+entry. It lists the people, not a therapy, and an `OfferCatalog` entry for it would say the centre
+sells "specialists".
+
+**No `FAQPage` for the equipment accordion.** It is the obvious-looking win and it would be wrong:
+the rows are device names (USG, EPTE, COMPEX), not questions, and marking up a non-FAQ as one is
+what manual actions are for.
+
+Verified in both locales: description present and mirrored into `og:`/`twitter:`, canonical set,
+`hreflang` pair emitted, and three JSON-LD blocks that all parse —
+`HealthAndBeautyBusiness`, `Service` with 3 catalogue entries and `areaServed` Poznań, and the
+breadcrumb trail.
+
+#### Left measured but not fixed
+
+- **The floating "Akademia" CTA collides with the promo pills.** `Header` pins it bottom-centre below
+  `wide`, `PromoBar` pins its pills bottom-right, and from ~640 to 1059 the pills are wide enough to
+  cover it. Visible on this page at 834 and 1024. Both are sitewide, so this is not a `/fizjoterapia`
+  fix; it needs its own pass across every route.
+- **"WIĘCEJ O FIZJOTERAPIA"** in `BlogTeasers` — `Blog.moreIn` interpolates the category name in the
+  nominative where Polish needs the locative ("o fizjoterapii"). Ours, not the reference's, and it is
+  wrong on all five service pages that carry the block.
 
 ### Two things that only break on a real phone (2026-07-28)
 
