@@ -232,6 +232,79 @@ and then editing the excerpt would silently stop affecting search results.
 What was actually wrong was the panel: `Tytuł SEO` explained itself and the other two did not, so
 an empty group read as an oversight. All three now say what happens when left blank.
 
+### Post tiles are cropped to 16:9 before they are served (2026-07-28)
+
+The blog tile is 16:9 with `object-cover`. A portrait photograph put in one downloads its **full
+height** and lets the browser throw most of it away. Measured across the featured images: **17 of
+62 are portrait or square, discarding an average of 51% of their bytes**, the worst 63%. `sizes`
+cannot help, because the wasted pixels are height.
+
+A new `cardWide` size (960x540, `fit: cover`) is generated on upload, and every 16:9 tile asks for
+it: the listing grid, the category archives, the "read next" block and the service-page teasers.
+
+**Measured, all 62 tiles at 480 CSS px on a 2x screen:**
+
+| | before | after | saved |
+|---|---|---|---|
+| 12 portrait tiles | 352.9KB | 172.2KB | **180.7KB (51%)** |
+| 14 landscape tiles | 240.1KB | 224.2KB | 15.9KB (7%) |
+| all 62 | 1440.8KB | 1092.4KB | **348.4KB (24%)** |
+
+Best single case, a 1920x2560 photograph: 69.8KB to 20.0KB. Four landscape tiles came out 100 to
+200 bytes *larger*, which is one extra encoding generation showing up as noise.
+
+**No visual change at all**, and that is verified rather than asserted: `object-cover` centres its
+crop and so does `fit: cover`, so the pre-crop is the same picture the browser was already
+producing. Compared pixel for pixel against a centred browser-side crop, RMSE came out at 1.6 to
+1.7 on a 0-255 scale, which is WebP re-encoding noise.
+
+**960x540, not 768x432.** The widest 16:9 tile on the site is the grid's 480 CSS px, which a 2x
+screen needs 960 device pixels to fill. The first attempt at 768 would have served a soft tile in
+order to fix a heavy one.
+
+**The featured card is excluded** and keeps the uncropped `hero`: on desktop it is `aspect-auto` at
+half the viewport width, not a 16:9 tile. Since `visible[0]` is the only card that can ever be
+featured, `blogListingData` gives index 0 the hero and everything else the crop, rather than
+serialising two images for all 62. When a filter is active there is no featured card and that one
+renders as a tile with an uncropped image, which costs a few kilobytes on exactly one card.
+
+`cardWide` is deliberately **not** in `mediaFrom`'s fallback order, so a cropped tile can never
+stand in for an in-article or hero image. It also carries a `generateImageName`, because a source
+that is already 16:9 makes `card` (768 wide) come out 768x432 too and the two would fight over one
+filename.
+
+#### The backfill, and the approach that had to be thrown away
+
+230 media predate the size, and the obvious move is to hand each file back to Payload's own upload
+pipeline so it regenerates everything. **Tried on one document first, which is the only reason this
+is a footnote instead of an incident.** Payload treated the incoming file as a name collision and
+renamed *everything*: `88Sn9tiZS.webp` became `88Sn9tiZS-1.webp` along with all four variants, and
+the stored original was deleted. The bytes did not survive either, 68572 in and 66808 out, so it
+would also have added a lossy generation to every image in the library.
+
+That document was repaired: files renamed back and `filename` plus every `sizes.*` entry restored
+to match the pre-change dump, verified field by field. The pixels lost to the one extra encode are
+not recoverable, but the mirror holds a copy one generation *cleaner* than what was stored
+(58596 bytes against 68572, our own import having made it bigger), so nothing of value went.
+
+`scripts/backfill-image-sizes.ts` instead produces the crop with sharp and registers it with
+`payload.update`, which does accept writes to the generated `sizes` group. That was probed on one
+document before anything relied on it. No file is renamed and no original is re-encoded. 218
+written, 12 too small to bother, 0 failures. `DRY=1` to preview, `ONLY=<id>` for one document,
+`FORCE=1` to redo.
+
+#### Worth a decision: two tiles are badly centred, today
+
+Looking at all 17 portrait crops as a contact sheet, two are poor, and **both are poor on the live
+site already** for the reason above:
+
+- one lifting photograph has the man's **head cropped off** above the frame
+- an infographic of organ icons loses its top and bottom rows, so the grid reads as broken
+
+`fit: cover` with sharp's `attention` strategy would keep faces in frame, and Payload's focal point
+(already enabled) would fix them one by one. Both change how images are cropped across the site,
+which is a visual decision rather than a defect fix, so it is not taken here.
+
 ### The SEO panel now shows what it will produce, and noindex actually works (2026-07-28)
 
 The client asked a second time why the SEO fields are blank, which settles it: explaining the

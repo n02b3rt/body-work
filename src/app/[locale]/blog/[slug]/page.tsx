@@ -176,7 +176,8 @@ export default async function PostPage({ params }: PostPageProps) {
     title: item.title,
     readingMinutes: item.readingMinutes,
     authorName: item.author && typeof item.author === "object" ? item.author.name : null,
-    image: mediaFrom(item.featuredImage, "card", item.title),
+    // A 16:9 tile: `card` kept the source aspect, so a portrait was cropped by the browser.
+    image: mediaFrom(item.featuredImage, "cardWide", item.title),
   }));
 
   const articleImage = mediaFrom(post.featuredImage, "hero", localised.title);
