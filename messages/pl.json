@@ -104,7 +104,15 @@
   },
   "Carousel": {
     "previous": "Poprzedni",
-    "next": "Następny"
+    "next": "Następny",
+    "goTo": "Przejdź do slajdu {index}"
+  },
+  "Gallery": {
+    "enlarge": "Powiększ zdjęcie {name}",
+    "lightbox": "Powiększone zdjęcie",
+    "previous": "Poprzednie zdjęcie",
+    "next": "Następne zdjęcie",
+    "close": "Zamknij"
   },
   "Testimonials": {
     "heading": "Poznaj opinie naszych klientów:",

@@ -6,6 +6,7 @@ import {
 
 import { isAdministrator, isModerator, staff } from '@/access/roles'
 import { metaFields, slugField } from '@/fields/meta'
+import { pageLayoutField } from '@/fields/page-layout'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -43,9 +44,33 @@ export const Pages: CollectionConfig = {
     },
     slugField('title'),
     {
-      name: 'content',
-      type: 'richText',
-      label: 'Treść',
+      // Unnamed tabs: presentation only, so this adds no columns and the
+      // existing `content` field keeps its path.
+      type: 'tabs',
+      tabs: [
+        {
+          label: 'Układ strony',
+          description:
+            'Kreator stron: ułóż stronę z komponentów zdefiniowanych w Zarządzanie → Wygląd → Komponenty.',
+          fields: [pageLayoutField],
+        },
+        {
+          label: 'Treść tekstowa',
+          description:
+            'Zwykły tekst pod sekcjami. Zostaw puste, jeśli cała strona jest zbudowana w kreatorze.',
+          fields: [
+            {
+              name: 'content',
+              type: 'richText',
+              label: 'Treść',
+            },
+          ],
+        },
+        {
+          label: 'SEO',
+          fields: [metaFields],
+        },
+      ],
     },
     createParentField('pages', {
       label: 'Strona nadrzędna',
@@ -60,6 +85,5 @@ export const Pages: CollectionConfig = {
         position: 'sidebar',
       },
     }),
-    metaFields,
   ],
 }

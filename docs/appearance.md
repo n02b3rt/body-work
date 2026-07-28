@@ -59,8 +59,14 @@ Elementor blocks) editors can configure and reuse.
   saved (the admin preview is live, the site is server-rendered per request).
 - `ComponentPreview` and the hero/CTA button lookups fetch over the REST API
   client-side: fine for the admin panel, not meant for the public renderer.
-- No frontend block renderer yet: `site-components` documents are data only;
-  a page builder / block field that inserts them into `Pages` content is a
-  follow-up.
+- **Components are placed on pages by the page builder**, see
+  [`page-builder.md`](./page-builder.md). `pages.layout` holds one row per
+  placement (component + that page's width/spacing/background), the builder UI
+  lives in `src/components/admin/builder/`, and `src/components/page-blocks/`
+  renders it on the public site. Adding a component type here means adding a
+  renderer there too, or the section renders as nothing.
+- The pure parameter readers now live in `src/lib/component-values.ts` so the
+  previews and the public renderer share one source; `previews/helpers.ts`
+  re-exports them and overrides only `sectionHeight`.
 - After adding a component type or admin field component, run
   `pnpm generate:importmap`; after field/schema changes, `pnpm generate:types`.

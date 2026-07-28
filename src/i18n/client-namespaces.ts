@@ -19,6 +19,7 @@ export const CLIENT_NAMESPACES = [
   "Carousel",
   "Errors",
   "Footer",
+  "Gallery",
   "Header",
   "Nav",
   "News",
