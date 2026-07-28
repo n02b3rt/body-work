@@ -18,6 +18,55 @@ function absolute(url: string) {
 }
 
 /**
+ * One service the centre provides, with the variants it breaks down into.
+ *
+ * For a section hub such as `/trening-personalny`, where the page is about a single service and
+ * links to its sub-pages. `provider` points at the sitewide business by `@id` rather than repeating
+ * its address, and `areaServed` is the city from the footer.
+ *
+ * `hasOfferCatalog` rather than `offers`: there are no prices in the markup and inventing them, or
+ * declaring an `Offer` without one, would be a claim the page does not make. The catalogue names
+ * what is available and links to it, which is what the page actually says.
+ */
+export function serviceJsonLd(
+  locale: string,
+  service: {
+    name: string;
+    description: string;
+    path: string;
+    city: string;
+    variants: { name: string; path: string }[];
+  },
+): Thing {
+  const url = `${SITE_URL}${localePath(locale, service.path)}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${url}#service`,
+    name: service.name,
+    description: service.description,
+    url,
+    serviceType: service.name,
+    provider: { "@id": `${SITE_URL}/#business` },
+    areaServed: { "@type": "City", name: service.city },
+    ...(service.variants.length
+      ? {
+          hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: service.name,
+            itemListElement: service.variants.map((variant) => ({
+              "@type": "Service",
+              name: variant.name,
+              url: `${SITE_URL}${localePath(locale, variant.path)}`,
+            })),
+          },
+        }
+      : {}),
+  };
+}
+
+/**
  * The homepage's own graph: the site as a `WebSite`, and what the centre offers as an `ItemList`
  * of `Service` entries pointing at the section pages.
  *

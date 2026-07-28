@@ -232,6 +232,86 @@ and then editing the excerpt would silently stop affecting search results.
 What was actually wrong was the panel: `Tytuł SEO` explained itself and the other two did not, so
 an empty group read as an oversight. All three now say what happens when left blank.
 
+### /trening-personalny: RWD, media, lazy loading and structured data (2026-07-29)
+
+The same four jobs as the homepage, and the one real layout break here was the same *shape* of bug
+as the service grid's: a grid that changes column count at one breakpoint while the type scales at
+another.
+
+#### The heading that could never fit
+
+Swept eight widths. Seven were clean; **at 1049 the page was 75px wider than the viewport**, and the
+culprit was a specialisation heading.
+
+The three-up specialisations grid went three-up at `lg` (1024), while `SectionHeading`'s `section`
+size jumps from 39.5px straight to 67.7px at `wide` (1060). Between those the columns are narrow and
+the type is already large. Worse, the arithmetic says it never fits: at 67.7px the word
+"funkcjonalny." needs roughly 396px, and a third of the capped 1440 container is at most 378px, so
+**the heading overflows its column at every desktop width**, not just in that band.
+
+**The reference gives this block three type steps**, `ul:f7s4 hg:f9s4 eo:f12s5`, so 39.5px, then
+50.8px, then 67.7px only at a genuinely wide viewport. Our scale has two steps and no middle. Rather
+than re-scale `section` sitewide, `StatementSection` gained a `compactHeading` prop that holds the
+heading at 39.5px, which is what the reference's base step is, and the specialisations grid uses it.
+The grid also moved to `wide:grid-cols-3` so the column count and the rest of the type scale change
+together, matching the reference's own `ho:w1-3`.
+
+Two-up columns are unaffected and deliberately left alone: at roughly 656px they hold 67.7px fine,
+which is why the homepage's split statement block never showed this.
+
+After the fix: `scrollWidth` equals `clientWidth` at 485, 669, 1009, 1049, 1219, 1469 and 1889, and
+the same holds on the homepage, which shares `StatementSection`.
+
+#### Media
+
+No video on this page, and the images were already reasonable. Measured first-load transfer:
+
+| | total | images |
+|---|---|---|
+| 485px viewport | **539KB** | 125KB |
+| 1469px viewport | 606KB | 298KB |
+
+`MediaCardCta`'s `sizes` was the one overstatement: `(min-width: 1060px) 50vw, 100vw` against a slot
+that measures 389px at 485, 557 at 669 and 396 at 1049. Plain `100vw` overstated it by a fifth on a
+phone and `50vw` by a third at 1049, because the container padding and the card's own `p-8`/`lg:p-12`
+come off. Now `(min-width: 1440px) 592px, (min-width: 1060px) calc(50vw - 96px), calc(100vw - 64px)`.
+
+`PageHero` and the full-bleed `sprawnosc.webp` band were both confirmed genuinely full width at 485,
+669, 1049 and 1469, so their `100vw` stays.
+
+#### Lazy loading with blur placeholders
+
+`scripts/generate-blur-placeholders.mjs` gained `public/images/trening-personalny`, taking the map
+to **45 entries, 167 bytes each, 9.6KB of JSON**. Placeholders are now on `PageHero` (which also
+keeps `priority`, being the first paint), `MediaCardCta`, `TextMedia` and the 668KB `sprawnosc.webp`
+band. `CenteredBand`'s watermark deliberately has none: it is under 40KB and arrives before a blur
+would help, and that is now written down in the component.
+
+#### SEO
+
+**The route shipped no description at all**, because `pageMetadata` was called with a title only, so
+there was no `description`, `og:description` or `twitter:description` either. `metaDescription` is
+157 characters and every fact in it comes from the page: the three specialisations, the intro
+statement about integrated training and physiotherapy, and the footer's Poznań address.
+
+Two JSON-LD blocks added on top of the sitewide business:
+
+- a **`Service`** naming the three variants the hub links to, with `provider` pointing at the
+  business by `@id` and `areaServed` read from the footer's city
+- a **`BreadcrumbList`**, home then this page
+
+`hasOfferCatalog` rather than `offers`: there are no prices in the markup, so an `Offer` would be a
+claim the page does not make. The catalogue names what is available and links to it, which is what
+the page actually says.
+
+"Strona główna" moved from the Blog namespace to `common.breadcrumbHome`, since a second page now
+needs it and reaching into another page's namespace for a shared label is a smell. The blog keeps
+its own key so this change stays inside the task.
+
+Verified: description 157 characters, canonical present, `og:image` the 1200x630 JPEG with `alt`,
+and **three JSON-LD blocks, all valid JSON**: `HealthAndBeautyBusiness`, `Service` with 3 variants
+and `areaServed` Poznań, and a 2-level `BreadcrumbList`.
+
 ### Two things that only break on a real phone (2026-07-28)
 
 Both reported with screenshots from an actual handset, and both are below the 485px floor that
