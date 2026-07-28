@@ -13,6 +13,15 @@
 
 -->
 
+## 2026-07-28: the translated post lost its photograph
+
+- **My bug, spotted by the client.** The English version of `czy-to-na-pewno-rwa-kulszowa` had no image. The Polish body is nine paragraphs with an `upload` node after the fifth; I wrote the translation as a fresh tree of nine paragraphs and nothing else, so the photograph simply was not there.
+- **It also contradicted my own field description**, which told editors that "zdjęcia i układ bierze się z wersji polskiej". Nothing in the code did that.
+- **Fixed at the source rather than just in the one document.** A `beforeValidate` hook on `post-translations` copies the linked post's content into a new translation when the field is still empty, so a translation opens as the Polish body, images and layout included, and translating becomes overwriting text in place. The field description now describes that instead of promising it.
+- **The example was rebuilt by cloning the tree** and replacing only text-bearing blocks, and the script now **fails loudly** if the paragraph count does not line up, instead of silently dropping or duplicating one.
+- **Verified:** the English node structure is identical to the Polish, `upload` included and in the same position, and both pages render one in-body image.
+- **Watch out:** the clone approach assumes translations correspond block for block with the original. That holds for a translation and it is what the hook sets up, but anyone restructuring an article in English will need to place images themselves.
+
 ## 2026-07-28: the empty SEO fields, and a correction about the translations
 
 - **The blank SEO fields are deliberate.** All 62 posts have empty `meta.title`, `meta.description` and `meta.image`, and `generateMetadata` falls back to the post title, the excerpt and the featured image. A post nobody has optimised still ships a distinct title, a real description and a real share image.

@@ -286,6 +286,14 @@ says whether an English version exists and whether it is live, with a button tha
 translation or starts a new one. Nobody has to find the right document among sixty.
 `src/components/admin/EnglishVersionPanel.tsx`, wired as a `ui` field on Posts.
 
+**A translation starts as a copy of the Polish body, images and all.** The first one written
+here did not, and the article's photograph vanished from the English version: the Polish body has
+an `upload` node after the fifth paragraph and the English one was nine paragraphs and nothing
+else. A `beforeValidate` hook on the collection now copies the Polish content into a new
+translation, so an editor overwrites text in place and never has to re-insert a picture. The
+example was rebuilt the same way, by cloning the tree and swapping only the text blocks, and it
+fails loudly if the number of paragraphs does not line up rather than quietly dropping one.
+
 **One post is fully translated as a worked example** (`scripts/seed-translation-example.ts`), so
 the panel shows an editor what a finished one looks like. **The other 61 article bodies are
 deliberately left alone.** Machine-translating roughly 100,000 words of physiotherapy advice
