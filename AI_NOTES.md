@@ -13,6 +13,12 @@
 
 -->
 
+## 2026-07-28: the SEO panel shows its output, and noindex stopped being decorative
+
+- **Done:** "Podgląd w wyszukiwarce" (`SeoPreview`) at the top of the Metadane group renders a live search snippet from the same fallbacks the public site uses, with the source of each line, a character count and a truncation warning. `SeoHints` prints the inherited value under the two text fields via `admin.components.afterInput`, vanishing once anything is typed. **`meta.noIndex` was dead**: nothing read it, so ticking "Ukryj przed wyszukiwarkami" left the post indexed. Now honoured in `pageMetadata` and `src/app/sitemap.ts`.
+- **Decisions:** the fields stay empty by design, they are overrides; filling them would give an editor two places to keep in step and make excerpt edits stop affecting search results. So show the result, do not duplicate the data. `noIndex` emits `index: false, follow: true`, unlisting the page without stranding what it links to, and the sitemap drops those docs because a noindex URL in a sitemap is a contradictory instruction. `afterInput` rather than replacing the inputs, since a read-only component cannot break saving.
+- **Watch out:** **no route reads the `pages` collection**, so a Page document's Metadane group, `noIndex` included, is read by nothing; Centrum pages are static routes with their own metadata. There is still **no admin account**, so these three components have never been seen rendered, which is exactly why none of them writes. `admin.placeholder` is a static string in Payload and cannot show the document's title, hence the hints. The preview's fallback order was checked against the post route (`meta.title || localised.title`, `meta.description || localised.excerpt`); if that route changes, change the preview with it.
+
 ## 2026-07-28: blur placeholders trimmed to the first paint, and three dead ends
 
 - **Done:** `withFirstPaintPlaceholders` keeps a card's `blurDataURL` only when the first paint shows that card. `/blog` serialised all 62 posts (client-side filtering), so 61 placeholders shipped to paint ten cards: **20.7KB gzipped, 39% of the document**, on the critical path and barely compressible. `/blog` gzipped HTML is now **36.3KB, down from 53.1KB**. Archives measured and left alone, 3KB there.

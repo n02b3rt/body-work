@@ -98,6 +98,8 @@ export async function generateMetadata({ params }: PostPageProps) {
     modifiedTime: post.updatedAt,
     section: metaCategories[0]?.title,
     authors: author ? [author] : undefined,
+    // The panel's "Ukryj przed wyszukiwarkami" checkbox, which nothing used to read.
+    noIndex: meta.noIndex,
     // An English alternate is advertised only where a translation actually exists. Claiming
     // one over Polish prose is what made the two URLs compete before.
     singleLanguage: !localised.translated && locale === "pl" ? true : false,
