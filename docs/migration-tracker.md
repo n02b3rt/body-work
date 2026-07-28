@@ -232,6 +232,56 @@ and then editing the excerpt would silently stop affecting search results.
 What was actually wrong was the panel: `Tytuł SEO` explained itself and the other two did not, so
 an empty group read as an oversight. All three now say what happens when left blank.
 
+### Blur placeholders were a fifth of the listing's HTML (2026-07-28)
+
+`/blog` filters client-side, so **every** post's data is serialised into the page. A
+`blurDataURL` is a base64 data URI of a few hundred characters, and 61 of them were shipping to
+paint ten cards: **28.1KB of the raw HTML and 20.7KB gzipped, 39% of the document**. Base64 is
+close to incompressible, so gzip does not rescue it, and unlike an image it sits on the critical
+path.
+
+`withFirstPaintPlaceholders` in `src/lib/blog-listing.ts` keeps them only for cards the first
+paint actually shows: the featured card, which is the LCP candidate, plus the grid rows that
+render on the server. Deeper pages keep more, because more of the grid is server-rendered.
+
+| | raw | gzipped |
+|---|---|---|
+| `/blog` before | 183.7KB | 53.1KB |
+| `/blog` after | 159.2KB | **36.3KB** |
+
+Everything below the fold is lazily loaded into a container that already carries a tinted
+background, and by the time it scrolls into view the browser has had the network to itself. A
+filtered listing can pull a later card into view with no placeholder; it fades in without a blur
+rather than breaking.
+
+Category archives were measured and left alone: four cards and 3KB of placeholders, all near the
+top of the page, so there is nothing to win.
+
+**Counting note:** each placeholder appears **twice** in the HTML, once in the serialised props
+and once as the rendered SVG blur filter. 13 placeheld images on page two read as 26 occurrences.
+
+### Three image optimisations that were measured and rejected (2026-07-28)
+
+Worth recording so nobody spends the afternoon on them again. All three were plausible and all
+three are dead.
+
+**AVIF encoder effort buys nothing.** Next encodes AVIF at `quality: requested - 20, effort: 3`
+(so `q=75` is really quality 55), and sharp supports effort up to 9. Effort does not change
+quality, only how hard the encoder searches, so it looked like free bytes. Measured on a 1440px
+encode: effort 3 gives 123053 B, effort 9 gives **124805 B**, slightly *larger*, and encode time
+goes from 200ms to 6.6s.
+
+**Feeding the optimizer the original instead of the `hero` variant is worse.** One image
+suggested a 7.7% saving at 960px, which turned out not to be representative. Across all 150
+in-article images at their real slot widths: hero source 5.58MB, original source 5.66MB, so
+**1.4% larger**, smaller in only 12 of 150. The visual difference between the two is a mean RMSE
+of 1.84 on a 0-255 scale, which is nothing.
+
+**There are no duplicate-width variants on disk.** `withoutEnlargement` produces variants named
+at the source's own width, which looks like it should leave `hero` and `content` as byte-identical
+copies of a small original. Checked all 998 files in `media/`: **zero** duplicates. Payload does
+not write a variant that would not be a resize.
+
 ### The width ladder had no rung for the widths we actually render (2026-07-28)
 
 The client asked whether a browser is still dragging down a 3000px file. It is not, and has not

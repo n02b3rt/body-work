@@ -2,7 +2,11 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { PageHero } from "@/components/centrum/PageHero";
 import { BlogList } from "@/components/centrum/BlogList";
 import { localePath, pageMetadata } from "@/lib/metadata";
-import { BLOG_PAGE_SIZE, blogListingData } from "@/lib/blog-listing";
+import {
+  BLOG_PAGE_SIZE,
+  blogListingData,
+  withFirstPaintPlaceholders,
+} from "@/lib/blog-listing";
 
 /**
  * Page one of the listing.
@@ -46,7 +50,9 @@ export default async function BlogPage({ params }: PageProps) {
     <>
       <PageHero title={t("title")} titleSize="display" titleAlign="right" />
       <BlogList
-        posts={cards}
+        // The featured card plus the grid rows that paint, and nothing beyond them, carry a
+        // blur placeholder. It was a fifth of this page's gzipped HTML.
+        posts={withFirstPaintPlaceholders(cards, 1 + initialCount)}
         categories={categories}
         initialCount={initialCount}
         nextPageHref={nextPageHref}

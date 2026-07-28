@@ -13,6 +13,13 @@
 
 -->
 
+## 2026-07-28: blur placeholders trimmed to the first paint, and three dead ends
+
+- **Done:** `withFirstPaintPlaceholders` keeps a card's `blurDataURL` only when the first paint shows that card. `/blog` serialised all 62 posts (client-side filtering), so 61 placeholders shipped to paint ten cards: **20.7KB gzipped, 39% of the document**, on the critical path and barely compressible. `/blog` gzipped HTML is now **36.3KB, down from 53.1KB**. Archives measured and left alone, 3KB there.
+- **Decisions:** the featured card is the LCP candidate so it keeps its placeholder; below-the-fold cards land in a container that already has a tinted background, so losing the blur costs nothing real. A filtered listing can surface a card with no placeholder, which fades in plainly rather than breaking, and that is the right trade for a fifth of the page.
+- **Measured and rejected, do not retry:** AVIF encoder **effort** (3 vs 9 is 123053 vs 124805 bytes, effort 9 is *larger* and 33x slower); feeding the optimizer the **original** instead of the `hero` variant (1.4% larger across all 150 images, better on only 12, visual difference mean RMSE 1.84/255); **duplicate-width variants on disk** (zero of 998 files).
+- **Watch out:** each placeholder appears **twice** in the HTML, serialised props plus the rendered SVG blur filter, so occurrence counts are double the image count. `/blog` Performance is **92**, and the limiter is not images: the LCP element is the `<h1>` with TTFB 458ms, load 0ms and **render delay 2937ms**, while `font-display` and render-blocking both pass. Separate investigation. Still open on images: **17 of 62 featured images are portrait or square** and discard ~51% of their downloaded pixels to `object-cover` in the 16:9 card, which needs a pre-cropped variant and a look at 17 focal points.
+
 ## 2026-07-28: the srcset ladder now matches the widths we render
 
 - **Done:** `imageSizes` in `next.config.ts` gained 480, 960, 1376 and 1440, the exact 1x and 2x widths of the display ladder in `src/lib/image-display.ts`. Browsers had no matching rung and were rounding up: a 720px slot at 2x wanted 1440, took 1920, and cost 202.7KB where 1440 costs 122.4KB. Measured across all 150 in-article images: **354KB saved at 1x, 679KB at 2x, both 11%**, for +106 gzipped bytes per page.
