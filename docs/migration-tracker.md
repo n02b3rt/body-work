@@ -232,6 +232,42 @@ and then editing the excerpt would silently stop affecting search results.
 What was actually wrong was the panel: `Tytuł SEO` explained itself and the other two did not, so
 an empty group read as an oversight. All three now say what happens when left blank.
 
+### The accordion's desktop pill was showing on phones too (2026-07-28)
+
+Reported with a screenshot of `/masaz`: the therapists' names wrapping onto two lines and running
+straight across the "DOWIEDZ SIĘ WIĘCEJ" button.
+
+**Root cause, and it is a trap worth remembering.** `cn` in this project is a plain
+`classes.filter(Boolean).join(" ")`, **not** `tailwind-merge`, so conflicting utilities both reach
+the class attribute and the stylesheet's own order decides which wins. `buttonClasses` starts with
+`inline-flex`; the pill added `hidden ... lg:inline-flex` beside it; and the unprefixed
+`inline-flex` beat the unprefixed `hidden`.
+
+So the pill rendered at **every** width. Measured at a 485px viewport: `display: flex`, 228px wide,
+sitting next to the mobile chevron and squeezing the row title down to 145px, at which point long
+Polish names wrapped and spilled over the button.
+
+The show/hide now lives on a **wrapper** span with no competing display utility, which makes it
+order-independent. Measured after the fix:
+
+| | 485px | 1169px |
+|---|---|---|
+| row title | 303px, one line | 303px |
+| pill | `display: none` | `display: block`, 228px |
+| chevron | visible, 32px | `display: none` |
+
+The title also gained `break-words`, because `min-w-0` on its own lets a single long word spill out
+of the shrunken box rather than wrapping inside it.
+
+**This also revises yesterday's note about the 32px overflow.** That was a symptom of the same bug:
+the invisible-by-intention pill was taking 228px, so the title's min-content plus the chevron could
+not fit. `min-w-0` was the right fix for the flex behaviour, but the pill was the actual cause.
+
+Checked the rest of the codebase for the same collision: this was the only case. Every other
+`hidden` is paired with a **prefixed** counterpart (`nav:block`, `wide:grid`, `wide:hidden`), and a
+prefixed utility is emitted after the unprefixed ones, so those win in their own range. The trap
+only bites when two **unprefixed** display utilities meet in one `cn` call.
+
 ### The page could be dragged sideways on a phone (2026-07-28)
 
 Reported as "something goes out of alignment on phones", and it was real, though not where it
