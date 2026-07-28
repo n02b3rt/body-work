@@ -232,6 +232,30 @@ and then editing the excerpt would silently stop affecting search results.
 What was actually wrong was the panel: `Tytuł SEO` explained itself and the other two did not, so
 an empty group read as an oversight. All three now say what happens when left blank.
 
+### Image width is now an editor's choice, and the paragraph gaps never worked (2026-07-28)
+
+**A display width per image, chosen in the panel.** The upload node carries a `Szerokość na
+stronie` select (`UploadFeature` with a per-collection field), so an editor picks Mała 480,
+Średnia 720, Duża 1024 or Pełna szerokość. Nothing is ever stretched past the file's own
+resolution, so picking a size larger than the file changes nothing.
+
+**"Automatycznie" is the default and works it out from the file.** It takes the largest step that
+fits inside **half** the file's width, because doubling the displayed width is what a 2x screen
+needs to look sharp. The tablecloth photograph the client flagged is 1024x702 and was rendering
+at 1024px, so on a retina display it had one device pixel per two it needed. It now renders at
+480px and is crisp. Across all 150 in-article images: **106 are now sharp at 2x**, 70 land on
+480px, 37 on 720px, 32 on 1024px, and 11 keep their own width because even 480 would upscale
+them. The remaining 44 cannot be fixed at any size; the pixels are not in the files.
+
+**The paragraph spacing rule had never applied.** `.blog-prose > * + *` requires direct children,
+and Payload's `RichText` wraps the body in its own `.payload-richtext` div, so every article's
+paragraphs were grandchildren and the 1.5rem gap matched nothing. Articles rendered as one
+unbroken block of text. This is worth flagging because it was mistaken for a content problem:
+the "15 posts with no subheadings look like a wall of text" note is partly this bug.
+
+Images also get 3rem above and below, as descendant selectors so the wrapper cannot break them
+again, which fixes the photograph sitting flush against the text on both sides.
+
 ### In-article images, author photos, and English versions (2026-07-28)
 
 **Half the in-article images were being blown up.** Measured: of 150 images inside articles,

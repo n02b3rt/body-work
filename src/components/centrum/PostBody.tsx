@@ -2,6 +2,7 @@ import { RichText } from "@payloadcms/richtext-lexical/react";
 import type { JSXConvertersFunction } from "@payloadcms/richtext-lexical/react";
 import Image from "next/image";
 import { mediaFrom } from "@/lib/media";
+import { resolveDisplayWidth } from "@/lib/image-display";
 
 type PostBodyProps = {
   content: Parameters<typeof RichText>[0]["data"];
@@ -55,20 +56,28 @@ function buildConverters(): JSXConvertersFunction {
       const image = mediaFrom(node.value, "hero");
       if (!image) return null;
 
+      /**
+       * Width comes from the editor's choice on the upload node, or is worked out from the file
+       * when they left it alone. Two things it guarantees: nothing is ever stretched past its own
+       * pixels (which had left 75 of the 150 in-article images mushy, one of them by sevenfold),
+       * and `auto` aims for double the displayed width so a photograph stays sharp on a 2x
+       * screen. See src/lib/image-display.ts.
+       */
+      const chosen = (node.fields as { displaySize?: string } | undefined)?.displaySize;
+      const displayWidth = resolveDisplayWidth(chosen, image.width);
+
       return (
         <Image
           src={image.url}
           alt={image.alt}
           width={image.width ?? 1200}
           height={image.height ?? 800}
-          sizes="(min-width: 1440px) 1376px, (min-width: 1024px) calc(100vw - 4rem), 100vw"
-          // Never blown up past its own pixels. The body is 1376px wide and **75 of the 150
-          // in-article images are narrower than that**, one of them 196px, so `w-full` alone
-          // was stretching them by up to seven times into mush. The reference does the same
-          // thing (`db w100p ha`, no cap) but its column was half the width, which hid how
-          // bad it was. Centred, so a narrow figure reads as deliberate rather than stranded.
+          // The rendered box is known, so tell the optimizer that rather than the container.
+          sizes={displayWidth ? `${displayWidth}px` : "(min-width: 1440px) 1376px, 100vw"}
+          // Centred, so an image narrower than the column reads as deliberate rather than
+          // stranded against the left edge.
           className="mx-auto h-auto w-full"
-          style={image.width ? { maxWidth: `${image.width}px` } : undefined}
+          style={displayWidth ? { maxWidth: `${displayWidth}px` } : undefined}
           {...(image.blurDataURL
             ? { placeholder: "blur" as const, blurDataURL: image.blurDataURL }
             : {})}

@@ -1,6 +1,6 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { lexicalEditor, UploadFeature } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { en } from 'payload/i18n/en'
@@ -20,6 +20,7 @@ import { Users } from './collections/Users'
 import { SiteSettings } from './globals/SiteSettings'
 import { ThemeColors } from './globals/ThemeColors'
 import { PAYLOAD_DATETIME_FORMAT } from './lib/format-date'
+import { IMAGE_DISPLAY_OPTIONS } from './lib/image-display'
 import { resendEmailAdapter } from './lib/payload-email'
 
 const filename = fileURLToPath(import.meta.url)
@@ -75,7 +76,37 @@ export default buildConfig({
   // Password resets and email verification for the author accounts. Without an adapter
   // Payload only logs them, so they never arrive, see src/lib/payload-email.ts.
   email: resendEmailAdapter(),
-  editor: lexicalEditor(),
+  /**
+   * The upload node carries a display size, so an editor decides how wide a picture renders
+   * instead of every image filling the column.
+   *
+   * "Automatycznie" is the default and works the size out from the file: it aims for double the
+   * displayed width, which is what a 2x screen needs to look sharp. See `src/lib/image-display.ts`.
+   */
+  editor: lexicalEditor({
+    features: ({ defaultFeatures }) => [
+      ...defaultFeatures,
+      UploadFeature({
+        collections: {
+          media: {
+            fields: [
+              {
+                name: 'displaySize',
+                type: 'select',
+                label: 'Szerokość na stronie',
+                defaultValue: 'auto',
+                options: IMAGE_DISPLAY_OPTIONS.map((option) => ({ ...option })),
+                admin: {
+                  description:
+                    'Zdjęcie nigdy nie jest rozciągane ponad własną rozdzielczość, więc wybór większy niż plik nic nie zmieni. Jeśli obraz wygląda na rozmyty, wybierz mniejszą szerokość.',
+                },
+              },
+            ],
+          },
+        },
+      }),
+    ],
+  }),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),

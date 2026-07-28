@@ -13,6 +13,17 @@
 
 -->
 
+## 2026-07-28: per-image width in the CMS, and a CSS rule that never matched
+
+- **Done:** the upload node now carries a `Szerokość na stronie` select (Mała 480 / Średnia 720 / Duża 1024 / Pełna, plus Automatycznie), image margins, and a fix for paragraph spacing that turned out to have never worked.
+- **The pixelation had a cause that no re-encoding fixes.** The tablecloth photograph is 1024x702 and was rendering at 1024 CSS px, so a 2x display got one device pixel for every two it wanted. `Automatycznie` takes the largest step inside **half** the file's width, which puts it at 480px and crisp. Across the 150 in-article images: **106 now sharp at 2x**, 70 at 480, 37 at 720, 32 at 1024, and 11 keeping their own width because even 480 would upscale them. The other 44 are unfixable at any size.
+- **A chosen size still never upscales.** Pick "Pełna szerokość" for a 400px file and it renders at 400px, because upscaling is what made these mushy to begin with.
+- **`.blog-prose > * + *` had never matched anything.** Payload's `RichText` wraps the body in `.payload-richtext`, so the paragraphs are grandchildren of `.blog-prose` and the 1.5rem gap applied to nothing at all. Every article rendered as one unbroken block. Both levels are covered now.
+- **That partly explains an earlier conclusion of mine.** I recorded "15 posts have no subheadings, so they read as a wall of text" as purely editorial. Some of that wall was this CSS bug. The subheadings are still missing, but the diagnosis was incomplete.
+- **Image margins are descendant selectors** (`.blog-prose img`), not child ones, precisely so the wrapper cannot silently break them the way it broke the paragraph rule.
+- **Verified in the served stylesheet and HTML:** `.blog-prose>*+*,.blog-prose>.payload-richtext>*+*{margin-top:1.5rem}`, `.blog-prose img{...margin-top:3rem;margin-bottom:3rem}`, the tablecloth at `max-width:480px` with `sizes="480px"`, and two images in one post rendering at different widths.
+- **Watch out:** the select lives on the Lexical upload node, so it is per insertion rather than per media file. The same picture used in two articles can render at different widths, which is the point, but it also means changing it in one place does not change the other.
+
 ## 2026-07-28: the translated post lost its photograph
 
 - **My bug, spotted by the client.** The English version of `czy-to-na-pewno-rwa-kulszowa` had no image. The Polish body is nine paragraphs with an `upload` node after the fifth; I wrote the translation as a fresh tree of nine paragraphs and nothing else, so the photograph simply was not there.

@@ -131,7 +131,13 @@ body {
   font-size: var(--text-body);
   line-height: 1.7;
 }
-.blog-prose > * + * {
+/* Payload's `RichText` wraps the body in its own `.payload-richtext` div, so the article's
+ * paragraphs are grandchildren of `.blog-prose`, not children. This rule was written as
+ * `.blog-prose > * + *` and therefore never matched anything: every article rendered as one
+ * unbroken block of text with no gaps between paragraphs. Both levels are covered now, so it
+ * keeps working whether or not that wrapper is there. */
+.blog-prose > * + *,
+.blog-prose > .payload-richtext > * + * {
   margin-top: 1.5rem;
 }
 .blog-prose h2 {
@@ -171,4 +177,15 @@ body {
 .blog-prose img {
   height: auto;
   max-width: 100%;
+}
+/* An image wants more room than the 1.5rem between two paragraphs, or it reads as wedged
+ * between them: which is exactly how the tablecloth photograph looked, touching the text above
+ * and below. Descendant selectors on purpose, so the `.payload-richtext` wrapper does not
+ * matter. `!important` is not needed because these come after the spacing rule above. */
+.blog-prose img {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+.blog-prose img + * {
+  margin-top: 0;
 }
