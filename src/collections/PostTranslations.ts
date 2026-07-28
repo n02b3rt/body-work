@@ -33,7 +33,7 @@ export const PostTranslations: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'post', 'status', 'updatedAt'],
+    defaultColumns: ['post', 'title', 'status', 'updatedAt'],
     group: 'Treści',
     description:
       'Angielskie wersje wpisów. Wpis bez gotowego tłumaczenia nie pojawia się na /en, zamiast pokazywać polski tekst pod angielskim adresem.',
