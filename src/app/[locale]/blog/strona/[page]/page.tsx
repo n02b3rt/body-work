@@ -6,7 +6,11 @@ import { PageHero } from "@/components/centrum/PageHero";
 import { BlogList } from "@/components/centrum/BlogList";
 import { routing } from "@/i18n/routing";
 import { localePath, pageMetadata } from "@/lib/metadata";
-import { BLOG_PAGE_SIZE, blogListingData } from "@/lib/blog-listing";
+import {
+  BLOG_PAGE_SIZE,
+  blogListingData,
+  withFirstPaintPlaceholders,
+} from "@/lib/blog-listing";
 
 /**
  * Page two onwards of the listing, at `/blog/strona/2`.
@@ -78,7 +82,9 @@ export default async function BlogListingPage({ params }: PageProps) {
     <>
       <PageHero title={t("title")} titleSize="display" titleAlign="right" />
       <BlogList
-        posts={cards}
+        // Every card this page paints keeps its blur placeholder; the rest do not need one.
+        // Deeper pages legitimately carry more, because more of the grid is server-rendered.
+        posts={withFirstPaintPlaceholders(cards, 1 + initialCount)}
         categories={categories}
         initialCount={initialCount}
         nextPageHref={nextPageHref}
