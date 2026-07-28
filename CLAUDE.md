@@ -71,6 +71,8 @@ Check here before building anything: don't duplicate what exists.
 | Shared post card | `src/components/centrum/PostCard.tsx` | Used by the archives and the "read next" block. The listing keeps its own copy, which carries the grid divider borders |
 | Blog teasers on service pages | `src/components/centrum/BlogTeasers.tsx` | Three posts from a matching category at the foot of five service pages |
 | Image placeholders (LQIP) | `scripts/import-blur-placeholders.ts`, `blurDataURL` on Media | Harvested from the mirror's own `<picture>` backgrounds. 189/230 covered |
+| Image placeholders for static pages | `scripts/generate-blur-placeholders.mjs`, `src/lib/static-blur.ts` | The blog's come from Payload; the marketing pages have no CMS, so theirs are generated into `static-blur.json` (18 entries, 3.4KB). **Server components only:** a client component takes the string as a prop, see `FullBleedVideo` |
+| Hero video encodes | `scripts/optimize-hero-video.mjs`, `public/videos/` | 720px and 1280px VP9/h264 pairs plus a poster, no audio. **8388KB down to 734KB on a phone.** `hero-source.mp4` is the gitignored input |
 | Structured data (JSON-LD) | `src/lib/structured-data.ts` | `HealthAndBeautyBusiness` sitewide, `BlogPosting` + `BreadcrumbList` per post. Rendered via `dangerouslySetInnerHTML`, which is the documented App Router way |
 | RSS feed | `src/app/feed.xml/route.ts` | Polish only, deliberately. Lives outside `[locale]` so no locale prefix is negotiated onto it |
 | Page metadata / SEO | `src/lib/metadata.ts`, each route's `generateMetadata` | One helper builds the title, canonical, `hreflang` pair, Open Graph and Twitter tags. Every route has its own title, they were all identical before |

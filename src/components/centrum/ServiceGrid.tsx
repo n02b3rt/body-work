@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
+import { blurProps } from "@/lib/static-blur";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buttonClasses } from "@/components/ui/Button";
@@ -18,7 +19,12 @@ export function ServiceGrid({ heading, ctaLabel, items }: ServiceGridProps) {
     <section className="border-t border-brand-navy-soft bg-background">
       <Container className="py-16 lg:py-24">
         <SectionHeading className="mb-16">{heading}</SectionHeading>
-        <div className="grid border-l border-t border-brand-navy-soft sm:grid-cols-2">
+        {/* Two-up from `wide` (1060px), not from `sm`. The reference's own tile carries
+          * `ul:w2-2 ho:w1-2`, and its media-query bands stop at 1059, so `ho` is 1060 and up.
+          * Going two-up at 640 made each tile 289px wide while the label renders at 39.5px, so
+          * "Fizjoterapia" needed 252px in a 225px box and spilled out: measured, and it also
+          * pushed the page 7px wider than the viewport. */}
+        <div className="grid border-l border-t border-brand-navy-soft wide:grid-cols-2">
           {items.map((item) => (
             <ServiceTile key={item.href} ctaLabel={ctaLabel} {...item} />
           ))}
@@ -34,7 +40,18 @@ function ServiceTile({ label, href, image, ctaLabel }: ServiceTileData & { ctaLa
   return (
     <div className="flex flex-col border-b border-r border-brand-navy-soft p-8">
       <div className="relative aspect-[2/1] w-full overflow-hidden">
-        <Image src={image} alt={label} fill sizes="(min-width: 640px) 50vw, 100vw" className="object-cover" />
+        <Image
+          src={image}
+          alt={label}
+          fill
+          /* Measured, not guessed: a tile renders 391px at a 489 viewport, 437 at 1069, and 623
+           * from 1440 up, where `Container`'s cap fixes it. The 96px comes off for the container
+           * padding plus the tile's own `p-8` on both sides; plain `100vw` overstated the slot by
+           * a quarter. */
+          sizes="(min-width: 1440px) 624px, (min-width: 1060px) calc(50vw - 96px), calc(100vw - 96px)"
+          className="object-cover"
+          {...blurProps(image)}
+        />
       </div>
       <SectionHeading as="h3" size="tile" uppercase className="mt-8">
         {label}

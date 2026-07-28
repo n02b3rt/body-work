@@ -10,9 +10,17 @@ export const SITE_URL = (process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost
 
 export const SITE_NAME = "BODYWORK Centrum";
 
-/** Falls back to a real brand photo rather than a generated card: this is the "friendly
- * space" shot the homepage leads with. */
-const DEFAULT_OG_IMAGE = "/images/home/friendly-space.webp";
+/**
+ * Falls back to a real brand photo rather than a generated card: this is the "friendly space" shot
+ * the homepage leads with, cropped to the 1200x630 every platform documents.
+ *
+ * **JPEG, not the WebP original.** Facebook, LinkedIn and X all state 1200x630, and some scrapers
+ * still refuse WebP outright; an unrendered card costs more than 96KB does. Regenerate with the
+ * one-liner in `docs/migration-tracker.md` if the source photo ever changes.
+ */
+const DEFAULT_OG_IMAGE = "/images/og-default.jpg";
+const DEFAULT_OG_WIDTH = 1200;
+const DEFAULT_OG_HEIGHT = 630;
 
 /** Builds the localised path for a route: `pl` is the default locale and carries no
  * prefix (`localePrefix: "as-needed"`). */
@@ -89,11 +97,17 @@ export function pageMetadata({
   const canonicalLocale = singleLanguage ? routing.defaultLocale : locale;
   const url = `${SITE_URL}${localePath(canonicalLocale, path)}`;
   const pageUrl = `${SITE_URL}${localePath(locale, path)}`;
+  const usingDefaultImage = !image;
   const ogImage = image
     ? image.startsWith("http")
       ? image
       : `${SITE_URL}${image}`
     : `${SITE_URL}${DEFAULT_OG_IMAGE}`;
+
+  // Declaring the size lets a scraper lay the card out without fetching the file first, and the
+  // default's dimensions are known, so there is no reason to leave them off.
+  const ogWidth = usingDefaultImage ? DEFAULT_OG_WIDTH : imageWidth;
+  const ogHeight = usingDefaultImage ? DEFAULT_OG_HEIGHT : imageHeight;
 
   const languages = Object.fromEntries(
     routing.locales.map((code) => [code, `${SITE_URL}${localePath(code, path)}`]),
@@ -126,8 +140,9 @@ export function pageMetadata({
       images: [
         {
           url: ogImage,
-          ...(imageWidth ? { width: imageWidth } : {}),
-          ...(imageHeight ? { height: imageHeight } : {}),
+          ...(ogWidth ? { width: ogWidth } : {}),
+          ...(ogHeight ? { height: ogHeight } : {}),
+          ...(title ? { alt: title } : {}),
         },
       ],
       ...(publishedTime ? { publishedTime } : {}),

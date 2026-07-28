@@ -232,6 +232,120 @@ and then editing the excerpt would silently stop affecting search results.
 What was actually wrong was the panel: `Tytuł SEO` explained itself and the other two did not, so
 an empty group read as an oversight. All three now say what happens when left blank.
 
+### The homepage: RWD, media weight, lazy loading and structured data (2026-07-28)
+
+Four separate jobs on `/`, all measured rather than eyeballed.
+
+#### The one real layout break
+
+Swept nine viewport widths for horizontal overflow. Eight were clean; **at 629px the page was 7px
+wider than the viewport**, and the cause was the service grid.
+
+It went two-up at `sm` (640px), which made each tile 289px wide while the label renders at 39.5px,
+so the single word "Fizjoterapia" needed 252px in a 225px box and spilled out. "Akademia
+szkoleniowa" was 64px over.
+
+**The reference goes two-up at 1060, not 640.** Its own tile carries `ul:w2-2 ho:w1-2`, and its
+stylesheet's media bands stop at 1059 (`640-779`, `780-919`, `920-1059`), so `ho` is 1060 and up.
+Changed to `wide:grid-cols-2`, which is this project's 1060 token. After it, `scrollWidth` equals
+`clientWidth` at 489, 629, 669, 769, 1029, 1069, 1329, 1469 and 1889.
+
+**A measurement trap worth knowing:** the grid was flipping to two-up at a *reported* 629px because
+media queries evaluate against the full viewport while `clientWidth` excludes the scrollbar gutter.
+629 + 15 = 644, which is over 640.
+
+Two smaller findings left alone, both measured: the mobile drawer's list is 24px wider than its box
+(inside `overflow-y-auto`, so it scrolls internally and never touches the page), and a mega-menu
+link is 14px over its column between 1340 and 1360 (inside `overflow-hidden`).
+
+#### Media weight: 9MB down to 1.3MB on a phone
+
+The homepage was pulling **8388KB of video** plus 1.4MB of images. The video was 1280x720 h264 at
+3459 kb/s **with an audio track** that the muted, decorative player never used.
+
+| | before | after |
+|---|---|---|
+| video, phone | 8388KB | **734KB** |
+| video, desktop | 8388KB | 1736KB |
+| first-load transfer, 489px viewport | ~9MB | **1305KB** |
+| first-load transfer, 1469px viewport | ~9MB | 2586KB |
+
+`scripts/optimize-hero-video.mjs` produces the four encodes and the poster, using the
+`@ffmpeg-installer/ffmpeg` binary `compress-media.ts` already depends on, so nothing was added to
+the stack. Audio stripped, CRF-based bitrates, `+faststart` so playback can begin before the file
+finishes:
+
+- 1280px VP9 1736KB and h264 2800KB
+- 720px VP9 733KB and h264 836KB, picked by `media="(max-width: 640px)"` on the `<source>`
+- poster 17KB WebP
+
+The original footage is kept as `public/videos/hero-source.mp4` and gitignored: it is only an input
+to the script. Net effect on the repository is **3.85MB smaller**, since the 8.4MB file it replaces
+was tracked.
+
+#### Every `sizes` is now a measured number
+
+Each image's rendered width was read out of the live page at 489, 1069, 1469 and 1889 rather than
+guessed:
+
+| image | rendered | was | now |
+|---|---|---|---|
+| service tile | 391 / 437 / 623 / 623 | `(min-width: 640px) 50vw, 100vw` | `(min-width: 1440px) 624px, (min-width: 1060px) calc(50vw - 96px), calc(100vw - 96px)` |
+| team | 457 / 471 / 656 / 656 | `(min-width: 1024px) 50vw, 100vw` | `(min-width: 1440px) 656px, (min-width: 1024px) calc(50vw - 40px), calc(100vw - 32px)` |
+| friendly-space, movement-tool, newsletter-bg | full width at all four | `100vw` | unchanged, confirmed honest |
+| partner logos | 180 at all four | `180px` | unchanged, confirmed honest |
+
+The 96px on a tile is the container padding plus the tile's own `p-8` on both sides. Plain `50vw`
+claimed 944px for the team photo at a 1889 viewport, a third more than it uses.
+
+#### Lazy loading with blur placeholders
+
+The blog gets its `blurDataURL` from Payload. The marketing pages have no CMS, so
+`scripts/generate-blur-placeholders.mjs` renders each `public/images/home` file to a 16px-wide WebP
+at quality 30 and writes `src/lib/static-blur.json`: **18 entries, 195 bytes each, 3.4KB total**.
+
+`src/lib/static-blur.ts` exposes `blurFor` and a spreadable `blurProps`, and is **for server
+components only**. `FullBleedVideo` is a client component, so the homepage reads the poster's
+placeholder on the server and hands it over as a prop; importing the map there would have shipped
+all 3.4KB to every visitor.
+
+The video now behaves like a lazy image: `preload="none"`, the poster paints first with its blur
+underneath, and an `IntersectionObserver` with `rootMargin: "100% 0px"` attaches the sources one
+viewport ahead. `prefers-reduced-motion` and `navigator.connection.saveData` both leave the poster
+in place and fetch no video at all.
+
+**Stated plainly:** the video section is second on the page, so on a phone it is inside that
+one-viewport margin immediately and still loads on first paint. The lazy attach is what protects
+everything further down; at a 489px viewport all eighteen images together came to 169KB.
+
+#### SEO
+
+Already in place before this and left alone: canonical, `hreflang` for both locales, the RSS
+alternate, Open Graph and Twitter tags, and a sitewide `HealthAndBeautyBusiness`.
+
+What changed:
+
+- **The meta description was 307 characters**, being `Statements.balancedFitnessBody`, on-page copy
+  doing metadata's job. Google truncates around 155, so it was cut mid-sentence.
+  `Hero.metaDescription` is 151 and every fact in it comes from the page: the six services, the
+  balanced-fitness statement, the footer's Poznań address.
+- **The default Open Graph image was a 2100x1300 WebP.** Facebook, LinkedIn and X all document
+  1200x630, and some scrapers still refuse WebP outright. Now `public/images/og-default.jpg`, 96KB,
+  with `og:image:width`, `og:image:height` and `og:image:alt` declared so a scraper can lay the card
+  out without fetching the file.
+- **`WebSite` and an `ItemList` of six `Service` entries**, both hanging off the business by `@id`
+  so a crawler does not read them as separate organisations. Verified: two JSON-LD blocks on the
+  page, both valid JSON, types `HealthAndBeautyBusiness` and `WebSite` + `ItemList`.
+
+**No `SearchAction`.** The sitelinks searchbox needs a URL that takes a query string, and the only
+search here is the blog's client-side filter, so declaring one would be a claim that does not hold.
+
+Regenerating the OG card after the source photo changes:
+
+```
+node -e "const s=require('sharp');s('public/images/home/friendly-space.webp').resize(1200,630,{fit:'cover'}).jpeg({quality:82,mozjpeg:true}).toFile('public/images/og-default.jpg')"
+```
+
 ### The accordion's desktop pill was showing on phones too (2026-07-28)
 
 Reported with a screenshot of `/masaz`: the therapists' names wrapping onto two lines and running
