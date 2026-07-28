@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
+import { blurProps } from "@/lib/static-blur";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buttonClasses } from "@/components/ui/Button";
@@ -71,7 +72,17 @@ export function TextMedia({
         * min-height also sets how tall the row gets, which is what opens up the gap
         * between the heading and the copy in the `split` layout. */}
       <div className="relative aspect-video w-full overflow-hidden lg:aspect-auto lg:min-h-[540px]">
-        <Image src={imageSrc} alt={imageAlt} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+        <Image
+          src={imageSrc}
+          alt={imageAlt}
+          fill
+          /* Measured, not guessed: this cell renders 457px at a 489 viewport, 471 at 1069, and
+           * 656 from 1440 up, where `Container`'s cap makes it a fixed width rather than half the
+           * viewport. Plain `50vw` claimed 944px at a 1889 viewport, a third more than it uses. */
+          sizes="(min-width: 1440px) 656px, (min-width: 1024px) calc(50vw - 40px), calc(100vw - 32px)"
+          className="object-cover"
+          {...blurProps(imageSrc)}
+        />
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
+import { blurProps } from "@/lib/static-blur";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buttonClasses } from "@/components/ui/Button";
 import { Link } from "@/i18n/navigation";
@@ -30,7 +31,15 @@ export function PhotoTextCard({ heading, body, ctaLabel, ctaHref, external, imag
   return (
     <section className="border-t border-brand-navy-soft bg-background">
       <div className="relative aspect-[4/5] w-full sm:aspect-[16/9] lg:aspect-[2.2/1]">
-        <Image src={imageSrc} alt={imageAlt} fill sizes="100vw" className="object-cover" />
+        {/* Measured full-bleed at every width (489, 1069, 1469, 1889), so `100vw` is honest. */}
+        <Image
+          src={imageSrc}
+          alt={imageAlt}
+          fill
+          sizes="100vw"
+          className="object-cover"
+          {...blurProps(imageSrc)}
+        />
         {/* Wide enough for the heading to stay on one line at its real size
          * (`ho:f12s5`, ~68px): the reference's card is ~48% of the viewport. Lifted
          * off the photo's bottom edge, but still anchored to it so the card can only
