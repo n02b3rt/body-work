@@ -232,6 +232,45 @@ and then editing the excerpt would silently stop affecting search results.
 What was actually wrong was the panel: `Tytuł SEO` explained itself and the other two did not, so
 an empty group read as an oversight. All three now say what happens when left blank.
 
+### The page could be dragged sideways on a phone (2026-07-28)
+
+Reported as "something goes out of alignment on phones", and it was real, though not where it
+looked. **Two separate causes, and one of them was my own measurement.**
+
+**The page had genuine horizontal overflow.** The mobile nav drawer is `fixed inset-0` and, when
+closed, sits off-screen at `translate-x-full`. A fixed element is not clipped by any ancestor's
+overflow, so it added scrollable width to the document: measured at a 485px viewport,
+`scrollWidth` was **517 against a `clientWidth` of 485**. On a phone that means the whole page can
+be dragged sideways into dead space. Fixed with `overflow-x: clip` on `html`.
+
+`clip` rather than `hidden`: `hidden` on the root turns the viewport into a scroll container, which
+is what breaks `position: sticky` descendants. This site's header is `fixed` so either would have
+worked, but `clip` refuses the scroll without creating a container.
+
+**The accordion row header overflowed inside the visible area.** The row title is a flex item and
+flex items default to `min-width: auto`, so a long name refused to shrink and pushed the
+`shrink-0` chevron clean out of `Container`: measured at x=485 with 32px hanging past the edge.
+`min-w-0` on the title fixes it.
+
+**It was not only `/masaz`.** Checked nine pages: the overflow was on all of them, because both
+causes are in shared components. After the fix, `scrollWidth` equals `clientWidth` on the homepage,
+`/masaz`, `/fizjoterapia`, `/cennik`, `/kontakt`, `/trening-grupowy`, `/bodylab` and `/dietetyka`.
+`/blog` still reports 509 against 485, but every element involved starts at x=501 or beyond, so it
+is the off-screen drawer being measured rather than anything a visitor can see, and `clip` stops it
+being reachable.
+
+**A correction worth recording, because it cost time.** The first pass "found" the whole page
+overflowing, with headings and buttons sliced down the right edge. That was an artefact: headless
+Chrome refuses to go below roughly a **485px viewport**, so `--window-size=390` renders at 485 and
+paints it onto a 390px canvas. Everything looked cut because the screenshot was narrower than the
+layout, not because the layout was broken. Measure `scrollWidth` against `clientWidth` from inside
+the page; do not infer overflow from the edge of a screenshot.
+
+The measurement itself was done by temporarily injecting a script into the layout that writes its
+findings to a `data-probe` attribute, read back with `--dump-dom`. Worth knowing, because headless
+Chrome cannot otherwise run script for you, and the browser extension cannot resize a window below
+Chrome's own minimum.
+
 ### Three client-requested tweaks on the massage page (2026-07-28)
 
 All three are deviations from the reference, asked for after looking at the built page, and all

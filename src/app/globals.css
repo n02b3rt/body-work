@@ -105,6 +105,18 @@
  * without any JS width compensation. */
 html {
   scrollbar-gutter: stable;
+
+  /* The mobile nav drawer is `fixed inset-0` and, when closed, sits off-screen at
+   * `translate-x-full`. A fixed element is not clipped by any ancestor's overflow, so it added
+   * horizontal scrollable area to the document: measured at a 485px viewport, `scrollWidth` was
+   * 517 against a `clientWidth` of 485. On a phone that means the whole page can be dragged
+   * sideways into dead space, which is what "it goes out of alignment on phones" turned out to be.
+   *
+   * `clip` and not `hidden` on purpose: `overflow: hidden` on the root turns the viewport into a
+   * scroll container, which is what breaks `position: sticky` descendants. This site's header is
+   * `fixed` so it would have survived either way, but `clip` refuses the scroll without creating a
+   * container, so nothing added later can trip over it. */
+  overflow-x: clip;
 }
 
 body {
