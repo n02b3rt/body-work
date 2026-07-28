@@ -10,13 +10,28 @@ type CenteredBandProps = {
   body?: ReactNode;
   /** Faint brand mark sitting behind the block. */
   backgroundSrc?: string;
+  /**
+   * Lets the heading use the whole container instead of the usual four-column measure.
+   *
+   * The cap keeps a short statement from stretching into a thin line, but a long one, like the
+   * massage team's sentence, then wraps onto four cramped rows. Off by default so no existing
+   * band moves.
+   */
+  headingWide?: boolean;
   children?: ReactNode;
 };
 
 /** Centred statement band with an optional watermark behind it: the section-page
  * equivalent of the homepage's newsletter block, and the shape the reference reuses
  * for every "here's the idea / here's how to start" moment. */
-export function CenteredBand({ eyebrow, heading, body, backgroundSrc, children }: CenteredBandProps) {
+export function CenteredBand({
+  eyebrow,
+  heading,
+  body,
+  backgroundSrc,
+  headingWide = false,
+  children,
+}: CenteredBandProps) {
   return (
     <section className="relative overflow-hidden border-t border-brand-navy-soft bg-background py-20 lg:py-28">
       {backgroundSrc ? (
@@ -24,7 +39,7 @@ export function CenteredBand({ eyebrow, heading, body, backgroundSrc, children }
       ) : null}
       <Container className="relative z-10 flex flex-col items-center gap-10 text-center">
         {eyebrow ? <p className="text-body uppercase text-brand-navy">{eyebrow}</p> : null}
-        <SectionHeading size="hero" className="max-w-4xl">
+        <SectionHeading size="hero" className={headingWide ? undefined : "max-w-4xl"}>
           {heading}
         </SectionHeading>
         {body ? <div className="max-w-3xl text-body text-brand-navy">{body}</div> : null}

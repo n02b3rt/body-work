@@ -232,6 +232,34 @@ and then editing the excerpt would silently stop affecting search results.
 What was actually wrong was the panel: `Tytuł SEO` explained itself and the other two did not, so
 an empty group read as an oversight. All three now say what happens when left blank.
 
+### Three client-requested tweaks on the massage page (2026-07-28)
+
+All three are deviations from the reference, asked for after looking at the built page, and all
+three are opt-in props so no other page moves.
+
+**The treatment photographs no longer touch the section hairlines.** `TextMedia` gained
+`imageInset`, which adds `py-6 lg:py-10`. Four of these panels stack on `/masaz` and the reference
+lets each photo bleed into the rules above and below it, which reads as cramped when repeated.
+Worth knowing for anyone touching this: the padding has to sit on a **wrapper**, because an
+absolutely positioned child (`fill`) resolves `inset: 0` against its containing block's *padding
+box*, so padding on the positioned element itself moves nothing at all.
+
+**The team statement uses the whole container.** `CenteredBand` gained `headingWide`, which drops
+the usual `max-w-4xl`. That cap stops a short statement stretching into a thin line, but the
+massage team's sentence is long and was wrapping onto four cramped rows; it is three full-width
+rows now.
+
+**Every therapist row opens to the same height.** `Accordion` gained `squareMedia`, which pins the
+panel photo to `lg:aspect-square`. Before it, a row was only as tall as its own copy, so Filip
+Deskur's one-paragraph bio gave a much shorter panel than Przemysław Górski's two, and
+`object-cover` cropped the shorter one's portrait harder. **This is what the reference does**, its
+panel media carries `ratio1-1`, so it is closer to the original rather than further from it.
+
+Measured rather than eyeballed: with every row forced open, the three portraits come out **681,
+680 and 681 px** tall, identical to a rounding pixel. `/fizjoterapia/specjalisci` is the other
+people accordion and has exactly the same problem; it can take the same flag when somebody looks
+at it.
+
 ### The massage section, and Centrum losing its e-commerce (2026-07-28)
 
 `/masaz` is built, and it is the page where the reference sells things. Centrum is not getting a

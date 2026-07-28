@@ -80,6 +80,9 @@ export default async function MassagePage({ params }: PageProps) {
           body={section.body}
           imagePosition="right"
           headingUppercase
+          // Client's call: four of these panels stack here, and the photographs running straight
+          // into the hairlines above and below read as cramped.
+          imageInset
           imageSrc={section.image}
           imageAlt={section.heading}
         />
@@ -89,8 +92,11 @@ export default async function MassagePage({ params }: PageProps) {
         eyebrow={t("teamEyebrow")}
         heading={t("teamHeading")}
         body={<p>{t("teamBody")}</p>}
+        // A long sentence: capped at the usual measure it wraps onto four cramped rows.
+        headingWide
       />
-      <Accordion items={teamRows} />
+      {/* Square portraits, so a shorter bio does not crop its own subject's head. */}
+      <Accordion items={teamRows} squareMedia />
 
       <TestimonialCarousel
         heading={t("testimonialsHeading")}
