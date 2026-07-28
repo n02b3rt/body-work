@@ -65,6 +65,18 @@ export const Posts: CollectionConfig = {
   },
   fields: [
     {
+      // Shows whether this post has an English version and links straight to it, so nobody has
+      // to find the right document in a list of sixty. See EnglishVersionPanel for why the
+      // translation lives in its own collection rather than behind a locale switcher.
+      name: 'englishVersion',
+      type: 'ui',
+      admin: {
+        components: {
+          Field: '/components/admin/EnglishVersionPanel#EnglishVersionPanel',
+        },
+      },
+    },
+    {
       name: 'title',
       type: 'text',
       label: 'Tytuł',

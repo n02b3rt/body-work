@@ -13,6 +13,15 @@
 
 -->
 
+## 2026-07-28: English editing, one click from the post
+
+- **Done:** a panel at the top of every blog post in the admin, showing whether an English version exists and whether it is actually live, with a button that opens the translation or starts a new one already pointed at that post. The client's ask was to edit English "like editing the content", and hunting for the right document among sixty is not that.
+- **Three states, and the third one matters:** none, draft, and "marked published but has no body". That last one exists because `isPublished` requires content as well as the flag, so a title-only translation cannot go live as an empty article, and the panel says so rather than claiming it is live.
+- **Read-only by design.** Creating goes through Payload's own create view, so validation, permissions and versioning behave normally instead of being reimplemented in a widget.
+- **The React Compiler caught me again**, same rule as `PromoBar`, `AdminNav`, `PagesTree` and `MediaLibrary`: an early `if (!id) setState(...)` in the effect body. The branch was redundant anyway, since the render already returns null without an id.
+- **Not verified, and worth being clear about:** the panel could not be seen rendered. Every admin route answers 200 but there is still **no user account in this database**, so the panel text is absent from the HTML because what comes back is the login screen. Creating an account means handling a password, which is not mine to do. The component typechecks, lints, builds and is registered in the import map; the visual check needs someone to log in.
+- **The real locale switcher is still the better UX and still blocked** on the same thing: `localized: true` moves columns into a `_locales` table and the dev schema push hangs waiting for confirmation. That needs a written migration and a maintenance window, not another attempt at a dev push.
+
 ## 2026-07-28: in-article images, author photos verified, and English versions
 
 - **Half the in-article images were being blown up.** Of 150 images inside articles, **75 are narrower than the 1376px body**, the worst 196px, so `w-full` was stretching them up to sevenfold. Each is now capped at its own pixel width and centred. The reference has the identical flaw (`db w100p ha`, no cap); its column is half as wide, which hid it.

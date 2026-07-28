@@ -261,6 +261,11 @@ tags were only papering over. Now:
 Verified: `/en/blog` lists 1 post, `/en/blog/czy-to-na-pewno-rwa-kulszowa` renders its English
 title, `/en/blog/trzy-oblicza-bolu` returns 404, and Polish is untouched at 62 posts.
 
+**Editing it is one click from the post.** A panel at the top of every blog post in the admin
+says whether an English version exists and whether it is live, with a button that opens the
+translation or starts a new one. Nobody has to find the right document among sixty.
+`src/components/admin/EnglishVersionPanel.tsx`, wired as a `ui` field on Posts.
+
 **One post is fully translated as a worked example** (`scripts/seed-translation-example.ts`), so
 the panel shows an editor what a finished one looks like. **The other 61 article bodies are
 deliberately left alone.** Machine-translating roughly 100,000 words of physiotherapy advice
