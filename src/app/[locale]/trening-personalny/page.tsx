@@ -16,8 +16,6 @@ import { BlogTeasers } from "@/components/centrum/BlogTeasers";
 import { GALLERY_URL } from "@/lib/external-links";
 import { pageMetadata } from "@/lib/metadata";
 
-const SHOP_ASSESSMENT_URL = "https://bodywork.testowe.eu/zakupy/ocena-funkcjonalna/";
-
 type Block = { heading: string; body: string };
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
@@ -111,14 +109,6 @@ export default async function PersonalTrainingPage({ params }: PageProps) {
             <p>{t("assessmentBody1")}</p>
             <p className="mt-6">{t("assessmentBody2")}</p>
           </div>
-          <a
-            href={SHOP_ASSESSMENT_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={buttonClasses("outline")}
-          >
-            {t("assessmentCta")}
-          </a>
         </Container>
       </section>
 
