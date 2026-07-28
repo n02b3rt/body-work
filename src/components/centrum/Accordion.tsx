@@ -28,12 +28,24 @@ export type AccordionItemData = {
 
 type AccordionProps = {
   items: AccordionItemData[];
+  /**
+   * Pins each panel's photo to a square, so every row opens to the same height.
+   *
+   * Without it the row is only as tall as its own copy, so somebody who wrote less about
+   * themselves gets their portrait cropped harder than the person above them: heads included.
+   * The reference does exactly this, its panel media carries `ratio1-1`.
+   *
+   * Off by default: the pricing and equipment accordions have no photo to square up, and the
+   * other people list, `/fizjoterapia/specjalisci`, has the same problem and can take the same
+   * flag when somebody looks at it.
+   */
+  squareMedia?: boolean;
 };
 
 /** Stack of expandable rows: the reference's "Kiedy warto?" list. Its closed row
  * turns navy on hover, and the toggle is a labelled pill from `lg` up but a compact
  * chevron below that. */
-export function Accordion({ items }: AccordionProps) {
+export function Accordion({ items, squareMedia = false }: AccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
@@ -42,6 +54,7 @@ export function Accordion({ items }: AccordionProps) {
         <AccordionRow
           key={item.heading}
           item={item}
+          squareMedia={squareMedia}
           open={openIndex === index}
           onToggle={() => setOpenIndex((current) => (current === index ? null : index))}
         />
@@ -54,10 +67,12 @@ function AccordionRow({
   item,
   open,
   onToggle,
+  squareMedia,
 }: {
   item: AccordionItemData;
   open: boolean;
   onToggle: () => void;
+  squareMedia: boolean;
 }) {
   const t = useTranslations("Statements");
   const panelId = useId();
@@ -131,7 +146,12 @@ function AccordionRow({
               ))}
             </div>
             {item.image ? (
-              <div className="relative min-h-[18rem] w-full lg:min-h-full">
+              <div
+                className={cn(
+                  "relative min-h-[18rem] w-full",
+                  squareMedia ? "lg:aspect-square lg:min-h-0" : "lg:min-h-full",
+                )}
+              >
                 <Image
                   src={item.image}
                   alt={item.heading}
