@@ -13,6 +13,12 @@
 
 -->
 
+## 2026-07-28: the srcset ladder now matches the widths we render
+
+- **Done:** `imageSizes` in `next.config.ts` gained 480, 960, 1376 and 1440, the exact 1x and 2x widths of the display ladder in `src/lib/image-display.ts`. Browsers had no matching rung and were rounding up: a 720px slot at 2x wanted 1440, took 1920, and cost 202.7KB where 1440 costs 122.4KB. Measured across all 150 in-article images: **354KB saved at 1x, 679KB at 2x, both 11%**, for +106 gzipped bytes per page.
+- **Decisions:** `imageSizes`, not `deviceSizes`, because Next filters `vw`-based candidates against `deviceSizes[0]` and lowering that floor to 480 would pull tiny widths into every card grid; both lists merge for fixed-px `sizes`. Skipped 2752 (uploads cap at 2560, so the optimizer clamps it back and returns identical bytes) and 720/1024 at 1x (750 and 1080 are within 5%). Left quality at 75: dropping to 70 saves another 21% but trades the sharpness the client asked for, so it is their call.
+- **Watch out:** a browser was never pulling the stored 2560px original, `sizes` already prevented that, so do not go looking for that bug. Sampling misleads here: 14 posts showed 6% and contained no 720px slots at all, and the true distribution (70 at 480, 37 at 720, 32 at 1024) had to come from the database. `curl -o /dev/null` fails from Python `subprocess` on Windows without a shell (`error on write`), which reads as a zero-byte response, so write to a real file when measuring.
+
 ## 2026-07-28: image width syncs across locales
 
 - **Done:** a translation renders each picture at the width the Polish version chose, unless it uses a different file there, in which case that file keeps its own size. The client's rule, implemented as asked.
