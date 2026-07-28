@@ -90,7 +90,10 @@ function AccordionRow({
         )}
       >
         <Container className="flex items-center justify-between gap-6 py-6 lg:py-8">
-          <span className="text-h-menu">{item.heading}</span>
+          {/* `min-w-0`: a flex item defaults to `min-width: auto`, so a long row title refused to
+            * shrink and pushed the `shrink-0` chevron clean out of the container. Measured at a
+            * 485px viewport: the chevron sat at x=485 with 32px hanging past the edge. */}
+          <span className="min-w-0 text-h-menu">{item.heading}</span>
 
           {/* Pill on desktop, chevron circle below it, as in the reference. */}
           <span
