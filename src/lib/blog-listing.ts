@@ -44,7 +44,7 @@ export async function blogListingData(locale: string = routing.defaultLocale) {
     return right - left;
   });
 
-  const cards: BlogCard[] = ordered.map((post) => {
+  const cards: BlogCard[] = ordered.map((post, index) => {
     const translation = translations?.get(post.id);
     return {
     slug: post.slug ?? String(post.id),
@@ -55,9 +55,21 @@ export async function blogListingData(locale: string = routing.defaultLocale) {
     categoryIds: (post.categories ?? [])
       .map((item) => (typeof item === "object" ? String(item.id) : String(item)))
       .filter(Boolean),
-    // `hero` rather than `card`: the newest post renders at half the viewport width, and a
-    // larger source costs nothing in transfer because `sizes` decides the width served.
-    image: mediaFrom(post.featuredImage, "hero", translation?.title ?? post.title),
+    /**
+     * The first card is the only one that can become the featured card, and that one is **not**
+     * a 16:9 tile: on desktop it is `aspect-auto` at half the viewport width, so it needs the
+     * uncropped `hero`. Every other card is a 16:9 tile, where a portrait photograph used to
+     * download its full height only for the browser to crop most of it away.
+     *
+     * When a filter or search is active there is no featured card and this one renders as a
+     * tile with an uncropped image. That costs a few kilobytes on exactly one card, which is
+     * cheaper than serialising two images for all 62.
+     */
+    image: mediaFrom(
+      post.featuredImage,
+      index === 0 ? "hero" : "cardWide",
+      translation?.title ?? post.title,
+    ),
     };
   });
 
