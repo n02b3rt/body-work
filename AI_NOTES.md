@@ -13,6 +13,12 @@
 
 -->
 
+## 2026-07-29: Kokpit → Aktualizacje (package version checker)
+
+- **Done:** Real admin view at `/admin/updates` (was a coming-soon stub). Lists every direct dep and devDep from `package.json` with declared range, installed version (from `node_modules`), and npm `latest`. Badge when an update is available. Runtime vs Dev sections; updates sorted first.
+- **Decisions:** Administrator only (ops concern, not editorial). No one-click upgrade — informational only, stack rule still requires asking before changing packages. No new deps: native `fetch` to registry.npmjs.org with 1h revalidate + concurrency 8. Minimal major.minor.patch comparator instead of adding `semver`.
+- **Watch out:** `pnpm install --prod` drops devDeps from `node_modules`, so those show "niedostępna" for installed but still get a latest from npm. Path resolution is `process.cwd()` + `node_modules/<name>`. npm `latest` can jump major (e.g. typescript 5 → 7); the panel does not filter by declared range, it only compares installed vs latest.
+
 ## 2026-07-28: blur placeholders trimmed to the first paint, and three dead ends
 
 - **Done:** `withFirstPaintPlaceholders` keeps a card's `blurDataURL` only when the first paint shows that card. `/blog` serialised all 62 posts (client-side filtering), so 61 placeholders shipped to paint ten cards: **20.7KB gzipped, 39% of the document**, on the critical path and barely compressible. `/blog` gzipped HTML is now **36.3KB, down from 53.1KB**. Archives measured and left alone, 3KB there.

@@ -58,6 +58,13 @@ export default buildConfig({
             title: 'W przygotowaniu',
           },
         },
+        updates: {
+          Component: '/components/admin/UpdatesView#UpdatesView',
+          path: '/updates',
+          meta: {
+            title: 'Aktualizacje',
+          },
+        },
       },
     },
   },
