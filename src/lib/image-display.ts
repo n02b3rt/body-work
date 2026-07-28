@@ -74,3 +74,70 @@ export function resolveDisplayWidth(
   if (!intrinsicWidth) return requested;
   return Math.min(requested, intrinsicWidth);
 }
+
+/**
+ * The display size chosen for each image in a body, keyed by media id.
+ *
+ * A list per id rather than a single value, because the same file can legitimately appear twice
+ * in one article at different widths, and the reader of this map consumes the entries in order.
+ */
+export type DisplaySizeMap = Map<number, string[]>;
+
+type BodyNode = {
+  type?: string;
+  value?: unknown;
+  fields?: { displaySize?: string } | null;
+  children?: BodyNode[];
+};
+
+function mediaIdOf(node: BodyNode): number | null {
+  const value = node.value as { id?: number } | number | undefined;
+  const id = typeof value === "number" ? value : value?.id;
+  return typeof id === "number" ? id : null;
+}
+
+/** Walks a Lexical body and collects each upload node's chosen size, in document order. */
+export function collectDisplaySizes(content: unknown): DisplaySizeMap {
+  const found: DisplaySizeMap = new Map();
+  const root = (content as { root?: BodyNode } | undefined)?.root;
+  if (!root) return found;
+
+  const walk = (node: BodyNode) => {
+    if (node.type === "upload") {
+      const id = mediaIdOf(node);
+      if (id !== null) {
+        const list = found.get(id) ?? [];
+        list.push(node.fields?.displaySize ?? "auto");
+        found.set(id, list);
+      }
+    }
+    for (const child of node.children ?? []) walk(child);
+  };
+
+  walk(root);
+  return found;
+}
+
+/**
+ * Takes the size the Polish body chose for this image, when it is the same image.
+ *
+ * The client's rule: a translation should render a picture at the width the Polish version uses,
+ * so changing it in one place does not leave the two languages disagreeing. But if the English
+ * version puts a *different* file in that slot, that file has its own size and keeps it.
+ *
+ * Matching is by media id rather than by position, so reordering paragraphs in the translation
+ * does not shuffle the sizes. Entries are consumed as they are used, which keeps the pairing
+ * right when one file appears more than once.
+ */
+export function takeSyncedSize(
+  sizes: DisplaySizeMap | null,
+  mediaId: number | null,
+): string | null {
+  if (!sizes || mediaId === null) return null;
+
+  const queue = sizes.get(mediaId);
+  if (!queue || queue.length === 0) return null;
+
+  // Shift so a second use of the same file gets the second choice, not the first again.
+  return queue.shift() ?? null;
+}

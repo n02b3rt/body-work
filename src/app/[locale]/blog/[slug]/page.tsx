@@ -284,7 +284,13 @@ export default async function PostPage({ params }: PostPageProps) {
           {/* Payload stores Lexical JSON; this renders it with the default converters.
             * `blog-prose` carries the typography for headings, lists and images inside
             * the article, see globals.css. */}
-          {localised.content ? <PostBody content={localised.content} /> : null}
+          {localised.content ? (
+            <PostBody
+              content={localised.content}
+              // Only when this is a translation: image widths follow the Polish version.
+              syncSizesFrom={localised.translated ? post.content : null}
+            />
+          ) : null}
         </Container>
       </article>
 

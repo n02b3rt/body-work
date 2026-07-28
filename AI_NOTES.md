@@ -13,6 +13,15 @@
 
 -->
 
+## 2026-07-28: image width syncs across locales
+
+- **Done:** a translation renders each picture at the width the Polish version chose, unless it uses a different file there, in which case that file keeps its own size. The client's rule, implemented as asked.
+- **Matched by media id rather than by position**, so reordering paragraphs in a translation does not shuffle sizes. Where one file appears twice at different widths the entries pair up in document order, which a simple id lookup would have got wrong.
+- **One direction only.** Polish is the source of truth; changing a size on a translation never affects the Polish page. That matches the rest of the design, where a translation starts as a copy of the Polish body and text is the thing an editor changes.
+- **Verified live for the positive case:** setting the Polish image to `Duża` made the English page render at 1024px while the translation's own field still said `auto`. Then reset, and both pages are back to 480px.
+- **The negative case cost me time on a bad fixture.** I swapped the translation's upload node to a different file by writing `value` as a raw id. The node survived, Payload populated it on read, both media documents had URLs and all four size variants, and yet the image did not render on the page. Rather than keep debugging a throwaway, I reset the data and proved the branch with `scripts/smoke-image-display.ts`: 12 checks over the pure functions, covering the different-file case, the repeated-file case, and that no choice ever upscales. Worth flagging that writing rich-text upload nodes by hand is not reliable; go through the admin or expect surprises.
+- **Watch out:** the sync happens at render time, not on save. The translation's stored `displaySize` stays whatever it was; the Polish choice simply wins when both point at the same file. That means nothing to migrate, and turning the behaviour off is one prop on `PostBody`.
+
 ## 2026-07-28: per-image width in the CMS, and a CSS rule that never matched
 
 - **Done:** the upload node now carries a `Szerokość na stronie` select (Mała 480 / Średnia 720 / Duża 1024 / Pełna, plus Automatycznie), image margins, and a fix for paragraph spacing that turned out to have never worked.

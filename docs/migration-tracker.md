@@ -232,6 +232,26 @@ and then editing the excerpt would silently stop affecting search results.
 What was actually wrong was the panel: `Tytuł SEO` explained itself and the other two did not, so
 an empty group read as an oversight. All three now say what happens when left blank.
 
+### Image width syncs between Polish and English (2026-07-28)
+
+A translation renders a picture at the width the Polish version chose, so the two languages
+cannot end up disagreeing about how big a photograph is. **Unless the translation puts a
+different file in that slot**, in which case that file keeps its own size, which is the client's
+own rule and the sensible one.
+
+Matching is **by media id, not by position**, so reordering paragraphs in a translation does not
+shuffle the sizes. Where the same file appears twice in one article at different widths, the
+entries pair up in document order rather than the first choice winning both times.
+
+Polish is the source of truth in one direction only. Changing a size on a translation never
+affects the Polish page, which matches the rest of the design: a translation starts as a copy of
+the Polish body and text is what an editor changes.
+
+Verified both ways: setting the Polish image to `Duża` made the English page render at 1024px
+while its own field still said `auto`, and `scripts/smoke-image-display.ts` covers the rules with
+12 checks, including the different-file case, the repeated-file case, and that no choice ever
+upscales.
+
 ### Image width is now an editor's choice, and the paragraph gaps never worked (2026-07-28)
 
 **A display width per image, chosen in the panel.** The upload node carries a `Szerokość na
