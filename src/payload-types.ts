@@ -415,7 +415,7 @@ export interface PostTranslation {
    */
   excerpt?: string | null;
   /**
-   * Pełna treść artykułu po angielsku. Zdjęcia i układ bierze się z wersji polskiej, tu potrzebny jest sam tekst.
+   * Startuje jako kopia polskiej treści, razem ze zdjęciami i układem. Nadpisz sam tekst, zdjęć nie trzeba wstawiać od nowa ani ruszać.
    */
   content?: {
     root: {
