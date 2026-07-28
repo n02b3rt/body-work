@@ -267,7 +267,8 @@
     "teamHeading": "Zespół.",
     "teamCta": "Poznaj trenerów",
     "spaceHeading": "Przestrzeń.",
-    "spaceCta": "Zobacz"
+    "spaceCta": "Zobacz",
+    "metaDescription": "Trening personalny w Poznaniu: medyczny, funkcjonalny i motoryczny. Indywidualnie dobrany plan, oparty na zintegrowanym podejściu do treningu i fizjoterapii."
   },
   "TrainingReasons": {
     "heading": "Kiedy warto?",
@@ -1581,7 +1582,8 @@
   },
   "common": {
     "loading": "Ładowanie…",
-    "error": "Coś poszło nie tak"
+    "error": "Coś poszło nie tak",
+    "breadcrumbHome": "Strona główna"
   },
   "Terms": {
     "title": "REGULAMIN SKLEPU INTERNETOWEGO ORAZ SERWISU INTERNETOWEGO",

@@ -18,8 +18,12 @@ import fs from 'node:fs'
 import path from 'node:path'
 import sharp from 'sharp'
 
-/** Only where placeholders are actually wanted: keeps the map small and the diff readable. */
-const DIRS = ['public/images/home']
+/**
+ * One directory per page section that has been through the optimisation pass. Adding a directory
+ * here is what opts its images in; keeping the list explicit keeps the map small and the diff
+ * readable, and stops 196 files' worth of base64 landing in the repo for no reason.
+ */
+const DIRS = ['public/images/home', 'public/images/trening-personalny']
 const OUT = 'src/lib/static-blur.json'
 const WIDTH = 16
 const QUALITY = 30

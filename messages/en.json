@@ -267,7 +267,8 @@
     "teamHeading": "Team.",
     "teamCta": "Meet the trainers",
     "spaceHeading": "Space.",
-    "spaceCta": "See it"
+    "spaceCta": "See it",
+    "metaDescription": "Personal training in Poznań: medical, functional and motor. An individually matched plan, built on an integrated approach to training and physiotherapy."
   },
   "TrainingReasons": {
     "heading": "When is it worth it?",
@@ -1581,7 +1582,8 @@
   },
   "common": {
     "loading": "Loading…",
-    "error": "Something went wrong"
+    "error": "Something went wrong",
+    "breadcrumbHome": "Home"
   },
   "Terms": {
     "title": "REGULAMIN SKLEPU INTERNETOWEGO ORAZ SERWISU INTERNETOWEGO",

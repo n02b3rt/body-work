@@ -34,6 +34,8 @@ export function CenteredBand({
 }: CenteredBandProps) {
   return (
     <section className="relative overflow-hidden border-t border-brand-navy-soft bg-background py-20 lg:py-28">
+      {/* A faint watermark, so deliberately no blur placeholder: it weighs under 40KB and arrives
+        * before a blur would help. Full-bleed at every measured width, so `100vw` is honest. */}
       {backgroundSrc ? (
         <Image src={backgroundSrc} alt="" fill sizes="100vw" className="object-cover" />
       ) : null}
