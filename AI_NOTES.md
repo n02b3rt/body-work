@@ -13,6 +13,13 @@
 
 -->
 
+## 2026-07-29: /trening-grupowy RWD, media, lazy loading, structured data
+
+- **Done:** nothing to fix on RWD. Eleven widths swept (485 to 1889), `scrollWidth` equals `clientWidth` at all of them and nothing overflows its own box, because this page is built entirely from components already measured and corrected on the homepage and `/trening-personalny`, and it has no multi-column statement grid. Extended the blur map to `public/images/trening-grupowy` (81 entries, 16.6KB). Added the missing meta description plus `Service` and `BreadcrumbList` JSON-LD.
+- **Measured:** first-load transfer 476KB at a 485 viewport with 67KB of images, 396KB at 1469 with 109KB. 12 blur placeholders in the served HTML, hero eager via `priority`, the two `TextMedia` photos `loading="lazy"` with placeholders.
+- **Watch out:** counting blurred images from the live page after a few seconds reports **zero**, because `next/image` drops the placeholder once the real file decodes. Check the served HTML for `data:image/webp;base64,` instead. Also, `pnpm build` reported "Failed to type check" once here purely because a running `pnpm start` held `.next` while it was being rewritten; killing the server first made it pass unchanged.
+- **Not a bug, checked:** the PL/EN key-path counts differ by four, all `Blog.categoryLocative.*`. Polish locative forms for the blog-teaser heading; English declines nothing, `BlogTeasers` guards with `t.has()`, and it is documented there.
+
 ## 2026-07-29: /trening-personalny RWD, media, lazy loading, structured data
 
 - **Done:** the one real break was a specialisation heading overflowing its column, pushing the page 75px past the viewport at 1049. The three-up grid switched at `lg` (1024) while `SectionHeading`'s `section` size jumps 39.5px to 67.7px at `wide` (1060), and at 67.7px the word "funkcjonalny." needs ~396px against a maximum 378px column, so it never fit at any desktop width. `StatementSection` gained `compactHeading` (holds 39.5px, the reference's base step) and the grid moved to `wide:grid-cols-3`. `MediaCardCta`'s `sizes` corrected to measured numbers. Blur placeholders extended to this section (map now 45 entries, 9.6KB). Meta description added where the route had none, plus `Service` and `BreadcrumbList` JSON-LD.

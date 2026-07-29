@@ -232,6 +232,59 @@ and then editing the excerpt would silently stop affecting search results.
 What was actually wrong was the panel: `Tytuł SEO` explained itself and the other two did not, so
 an empty group read as an oversight. All three now say what happens when left blank.
 
+### /trening-grupowy: RWD, media, lazy loading and structured data (2026-07-29)
+
+**No layout breaks to fix.** Swept eleven widths (485, 529, 589, 669, 769, 1009, 1049, 1219, 1469,
+1889) and `scrollWidth` equalled `clientWidth` at every one, with nothing overflowing its own box
+either. That is the shared-component work from the previous two pages paying off: this page is built
+entirely from `PageHero`, `CenteredBand`, `TextMedia`, `TestimonialCarousel`, `BlogTeasers` and
+`NewsletterSignup`, all of which were measured and corrected already. It has no multi-column
+statement grid, which is the shape that broke the other two.
+
+#### Media and lazy loading
+
+The page uses **217KB of images** out of the 1.22MB in its folder, and no video. Measured first-load
+transfer:
+
+| | total | images |
+|---|---|---|
+| 485px viewport | **476KB** | 67KB |
+| 1469px viewport | 396KB | 109KB |
+
+The only work needed was extending `scripts/generate-blur-placeholders.mjs` to
+`public/images/trening-grupowy`, taking the map to **81 entries, 160 bytes each, 16.6KB of JSON**.
+
+Verified in the served HTML rather than after load: **12 blur placeholders**, with the hero eager
+(it carries `priority`) and `hub-zajecia` and `hub-plan` both `loading="lazy"` with a placeholder
+under them.
+
+**A measurement note:** counting blurred images from the page after three seconds reports zero,
+because `next/image` drops the placeholder once the real file decodes. Check the served HTML for
+`data:image/webp;base64,` instead.
+
+#### SEO
+
+**The route shipped no description**, same as `/trening-personalny`: `pageMetadata` was called with a
+title only. The new one is 136 characters and every fact is on the page: the lead statement names
+Poznań and multi-plane movement, the band offers a free first class, and the sub-pages are group
+classes, the Healthy Change Plan and Medicover.
+
+Added a `Service` with those three as its catalogue and a two-level `BreadcrumbList`, both hanging
+off the sitewide business by `@id`. `grafik-zajec` is deliberately not among the variants: it is an
+outbound eFitness link, not a route here.
+
+Verified: description 136 characters, canonical present, `og:image` the 1200x630 JPEG with `alt`, and
+**three JSON-LD blocks, all valid JSON**: `HealthAndBeautyBusiness`, `Service` with the three named
+variants and `areaServed` Poznań, and the breadcrumb trail.
+
+#### A mismatch that turned out to be correct
+
+The PL/EN key-path check came back uneven, 1076 against 1072, and the four extra keys are
+`Blog.categoryLocative.*`. That is **deliberate**: they hold Polish locative forms
+(fizjoterapii, masażu, treningu, dietetyce) for the blog-teaser heading, English declines nothing,
+and `BlogTeasers` guards the lookup with `t.has()` before falling back to the category title. It is
+documented in that component. Left alone.
+
 ### /trening-personalny: RWD, media, lazy loading and structured data (2026-07-29)
 
 The same four jobs as the homepage, and the one real layout break here was the same *shape* of bug

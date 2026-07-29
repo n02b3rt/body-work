@@ -12,11 +12,18 @@ import { GroupTrainingNav } from "@/components/centrum/GroupTrainingNav";
 import { BlogTeasers } from "@/components/centrum/BlogTeasers";
 import { SCHEDULE_URL } from "@/lib/external-links";
 import { pageMetadata } from "@/lib/metadata";
+import { breadcrumbJsonLd, serviceJsonLd } from "@/lib/structured-data";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "GroupTraining" });
-  return pageMetadata({ locale, path: "/trening-grupowy", title: t("title") });
+  return pageMetadata({
+    locale,
+    path: "/trening-grupowy",
+    title: t("title"),
+    // The route shipped no description at all before this, so no `og:description` either.
+    description: t("metaDescription"),
+  });
 }
 
 type PageProps = { params: Promise<{ locale: string }> };
@@ -26,9 +33,51 @@ export default async function GroupTrainingPage({ params }: PageProps) {
   // Enables static rendering for this route; see the note in [locale]/layout.tsx.
   setRequestLocale(locale);
   const t = await getTranslations("GroupTraining");
+  const tNav = await getTranslations("Nav");
+  const tCommon = await getTranslations("common");
+  const tFooter = await getTranslations("Footer");
+
+  /** Only the three that are pages here. `grafik-zajec` is an outbound eFitness link, not a route. */
+  const variants = [
+    { name: tNav("groupTrainingClasses"), path: "/trening-grupowy/zajecia-grupowe" },
+    { name: tNav("groupTrainingPlan"), path: "/trening-grupowy/plan-zdrowej-zmiany" },
+    { name: tNav("groupTrainingMedicover"), path: "/trening-grupowy/medicover" },
+  ];
 
   return (
     <>
+      {/* A `Service` naming the three sub-pages, plus the trail back to the homepage. Both hang
+        * off the sitewide business by `@id`; see `src/lib/structured-data.ts` for why the
+        * catalogue carries no `Offer`. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            serviceJsonLd(locale, {
+              name: t("title"),
+              description: t("metaDescription"),
+              path: "/trening-grupowy",
+              city: tFooter("addressLine3").replace(/^[0-9-]+\s*/, "").split(",")[0],
+              variants,
+            }),
+          ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd(
+              [
+                { name: tCommon("breadcrumbHome"), path: "/" },
+                { name: t("title"), path: "/trening-grupowy" },
+              ],
+              locale,
+            ),
+          ),
+        }}
+      />
+
       <PageHero
         title={t("title")}
         titleSize="display"
