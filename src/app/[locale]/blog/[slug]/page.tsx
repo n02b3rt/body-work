@@ -98,6 +98,8 @@ export async function generateMetadata({ params }: PostPageProps) {
     modifiedTime: post.updatedAt,
     section: metaCategories[0]?.title,
     authors: author ? [author] : undefined,
+    // The panel's "Ukryj przed wyszukiwarkami" checkbox, which nothing used to read.
+    noIndex: meta.noIndex,
     // An English alternate is advertised only where a translation actually exists. Claiming
     // one over Polish prose is what made the two URLs compete before.
     singleLanguage: !localised.translated && locale === "pl" ? true : false,
@@ -174,7 +176,8 @@ export default async function PostPage({ params }: PostPageProps) {
     title: item.title,
     readingMinutes: item.readingMinutes,
     authorName: item.author && typeof item.author === "object" ? item.author.name : null,
-    image: mediaFrom(item.featuredImage, "card", item.title),
+    // A 16:9 tile: `card` kept the source aspect, so a portrait was cropped by the browser.
+    image: mediaFrom(item.featuredImage, "cardWide", item.title),
   }));
 
   const articleImage = mediaFrom(post.featuredImage, "hero", localised.title);

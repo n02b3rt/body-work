@@ -63,7 +63,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       where: { _status: { not_equals: "draft" } },
     });
     posts = result.docs
-      .filter((doc) => doc.slug)
+      // Listing a noindex URL here would hand crawlers two contradictory instructions.
+      .filter((doc) => doc.slug && !doc.meta?.noIndex)
       .map((doc) => ({ slug: doc.slug as string, updatedAt: doc.updatedAt }));
 
     // Category archives are generated from the CMS too, so they belong here rather than in

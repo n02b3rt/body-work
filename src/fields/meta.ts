@@ -13,6 +13,20 @@ export const metaFields: Field = {
   },
   fields: [
     {
+      // The descriptions below were the first answer to "why is the SEO not filled in", and they
+      // were not enough: an empty box still reads as an oversight however well it is captioned.
+      // So the group now leads with the result. See `SeoPreview` for why the values are not
+      // simply written into the fields.
+      name: 'seoPreview',
+      type: 'ui',
+      label: 'Podgląd w wyszukiwarce',
+      admin: {
+        components: {
+          Field: '/components/admin/SeoPreview#SeoPreview',
+        },
+      },
+    },
+    {
       name: 'aiAssist',
       type: 'ui',
       admin: {
@@ -27,6 +41,11 @@ export const metaFields: Field = {
       label: 'Tytuł SEO',
       admin: {
         description: 'Jeśli puste, użyty zostanie tytuł dokumentu.',
+        components: {
+          // Prints the inherited title under the input. `admin.placeholder` is a static string
+          // in Payload, so it cannot show the document's own title.
+          afterInput: ['/components/admin/SeoHints#SeoTitleHint'],
+        },
       },
     },
     {
@@ -38,6 +57,9 @@ export const metaFields: Field = {
       admin: {
         description:
           'Jeśli puste, użyta zostanie zajawka wpisu. Wypełnij tylko wtedy, gdy w wyszukiwarce ma się pokazać coś innego niż zajawka.',
+        components: {
+          afterInput: ['/components/admin/SeoHints#SeoDescriptionHint'],
+        },
       },
     },
     {

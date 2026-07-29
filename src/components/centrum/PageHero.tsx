@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
+import { blurProps } from "@/lib/static-blur";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { cn } from "@/lib/cn";
@@ -52,7 +53,18 @@ export function PageHero({
       {belowTitle}
       {imageSrc ? (
         <div className="relative aspect-[4/3] w-full sm:aspect-[16/9] lg:aspect-[2.4/1]">
-          <Image src={imageSrc} alt={imageAlt ?? ""} fill priority sizes="100vw" className="object-cover" />
+          {/* `priority` because this is the page's first paint, and `100vw` is honest: it was
+            * measured full-bleed at 485, 669, 1049 and 1469. The blur placeholder covers the
+            * gap before a large hero photograph decodes. */}
+          <Image
+            src={imageSrc}
+            alt={imageAlt ?? ""}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+            {...blurProps(imageSrc)}
+          />
         </div>
       ) : null}
     </>

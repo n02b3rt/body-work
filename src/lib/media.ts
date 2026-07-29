@@ -22,7 +22,12 @@ export function mediaPath(url?: string | null): string | null {
   }
 }
 
-export type SizeName = "thumbnail" | "card" | "content" | "hero";
+/**
+ * `cardWide` is the 16:9 crop for post tiles. It is **not** in the fallback order below,
+ * because a cropped tile must never stand in for an in-article or hero image: ask for it by
+ * name, and a document without one falls through to the uncropped sizes.
+ */
+export type SizeName = "thumbnail" | "card" | "cardWide" | "content" | "hero";
 
 /**
  * Pick a generated size, falling back through smaller ones and finally the original.

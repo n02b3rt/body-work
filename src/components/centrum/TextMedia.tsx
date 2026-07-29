@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
+import { blurProps } from "@/lib/static-blur";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buttonClasses } from "@/components/ui/Button";
@@ -16,6 +17,14 @@ type TextMediaProps = {
   /** `split` pins the heading to the top and the copy/CTA to the bottom of the
    * column (the reference's "Zespół" layout); `center` groups them together. */
   textLayout?: "center" | "split";
+  /**
+   * Holds the photo off the section hairlines instead of letting it run into them.
+   *
+   * The reference lets the image bleed to the top and bottom rules, and on `/masaz`, where four
+   * of these panels stack, the client asked for a little air. Off by default so no existing page
+   * moves; see `docs/migration-tracker.md`.
+   */
+  imageInset?: boolean;
   imageSrc: string;
   imageAlt: string;
 };
@@ -30,6 +39,7 @@ export function TextMedia({
   imagePosition = "right",
   headingUppercase = false,
   textLayout = "center",
+  imageInset = false,
   imageSrc,
   imageAlt,
 }: TextMediaProps) {
@@ -53,12 +63,27 @@ export function TextMedia({
   );
 
   const imageBlock = (
-    // No `self-center`: in the stretch grid the photo fills the row height, matching
-    // the reference where it spans the whole section next to the text column. Its
-    // min-height also sets how tall the row gets, which is what opens up the gap
-    // between the heading and the copy in the `split` layout.
-    <div className="relative aspect-video w-full overflow-hidden lg:aspect-auto lg:min-h-[540px]">
-      <Image src={imageSrc} alt={imageAlt} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+    // The padding has to live on a wrapper, not on the positioned element below: an absolutely
+    // positioned child (`fill`) resolves `inset: 0` against its containing block's **padding
+    // box**, so padding on that same element would move nothing at all.
+    <div className={cn("flex", imageInset && "py-6 lg:py-10")}>
+      {/* No `self-center`: in the stretch grid the photo fills the row height, matching
+        * the reference where it spans the whole section next to the text column. Its
+        * min-height also sets how tall the row gets, which is what opens up the gap
+        * between the heading and the copy in the `split` layout. */}
+      <div className="relative aspect-video w-full overflow-hidden lg:aspect-auto lg:min-h-[540px]">
+        <Image
+          src={imageSrc}
+          alt={imageAlt}
+          fill
+          /* Measured, not guessed: this cell renders 457px at a 489 viewport, 471 at 1069, and
+           * 656 from 1440 up, where `Container`'s cap makes it a fixed width rather than half the
+           * viewport. Plain `50vw` claimed 944px at a 1889 viewport, a third more than it uses. */
+          sizes="(min-width: 1440px) 656px, (min-width: 1024px) calc(50vw - 40px), calc(100vw - 32px)"
+          className="object-cover"
+          {...blurProps(imageSrc)}
+        />
+      </div>
     </div>
   );
 

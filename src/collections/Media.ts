@@ -31,9 +31,15 @@ function readCompressOptions(data: Record<string, unknown> | undefined) {
   }
 }
 
-const compressOnUpload: CollectionBeforeOperationHook = async ({ req, operation }) => {
+const compressOnUpload: CollectionBeforeOperationHook = async ({ context, req, operation }) => {
   if (operation !== 'create' && operation !== 'update') return
   if (!req.file?.data) return
+
+  // `scripts/backfill-image-sizes.ts` re-feeds a file that is already stored in order to make
+  // Payload generate a newly added size. Re-compressing it there would add a second lossy
+  // generation to every image in the library for no reason at all, so that script asks to be
+  // let through untouched. Nothing in the admin sets this.
+  if (context?.skipCompression) return
 
   const options = readCompressOptions(req.data as Record<string, unknown> | undefined)
 
@@ -355,6 +361,31 @@ export const Media: CollectionConfig = {
         width: 768,
         withoutEnlargement: true,
         formatOptions: { format: 'webp', options: { quality: 80 } },
+        admin: { disableGroupBy: true, disableListColumn: true, disableListFilter: true },
+      },
+      {
+        // The blog grid's tile is 16:9 with `object-cover`, and a portrait photograph put in it
+        // downloads its full height only to have most of it cropped away by the browser.
+        // Measured: **17 of 62 featured images are portrait or square, discarding an average of
+        // 51% of their bytes**, the worst of them 63%. `sizes` cannot help, because the wasted
+        // pixels are height, so the crop has to happen before the file is served.
+        //
+        // Both dimensions are set, which is what makes Payload crop rather than scale, and it
+        // positions the crop using the document's focal point when one is set.
+        name: 'cardWide',
+        // 960x540 and not 768x432: the widest 16:9 tile on the site is the listing grid's 480 CSS
+        // px, which a 2x screen needs 960 device pixels to fill. 768 would have been serving a
+        // soft tile to fix a heavy one.
+        width: 960,
+        height: 540,
+        fit: 'cover',
+        withoutEnlargement: true,
+        formatOptions: { format: 'webp', options: { quality: 80 } },
+        // Named rather than left to Payload's `<base>-<width>x<height>` convention, because a
+        // source that is already 16:9 makes `card` (768 wide) come out 768x432 as well and the
+        // two would fight over one filename. `scripts/backfill-image-sizes.ts` writes the same
+        // name, so a backfilled file and a freshly uploaded one agree.
+        generateImageName: ({ originalName, extension }) => `${originalName}-card16x9.${extension}`,
         admin: { disableGroupBy: true, disableListColumn: true, disableListFilter: true },
       },
       {

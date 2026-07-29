@@ -90,7 +90,8 @@ export default async function CategoryArchive({ params }: ArchiveProps) {
     title: post.title,
     readingMinutes: post.readingMinutes,
     authorName: post.author && typeof post.author === "object" ? post.author.name : null,
-    image: mediaFrom(post.featuredImage, "hero", post.title),
+    // A 16:9 tile, so the pre-cropped size rather than the full-height original.
+    image: mediaFrom(post.featuredImage, "cardWide", post.title),
   }));
 
   const breadcrumbs = breadcrumbJsonLd(
