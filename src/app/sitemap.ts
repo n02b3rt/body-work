@@ -4,6 +4,7 @@ import type { MetadataRoute } from "next";
 import { getPayload } from "payload";
 import config from "@payload-config";
 import { routing } from "@/i18n/routing";
+import { listPublishedPages } from "@/lib/cms-page";
 import { SITE_URL, localePath } from "@/lib/metadata";
 
 /**
@@ -51,6 +52,12 @@ async function staticRoutes(): Promise<StaticRoute[]> {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const routes = await staticRoutes();
+
+  // Pages built in the admin page builder. The filesystem walk cannot see them,
+  // and a published page missing from the sitemap is the kind of gap this file
+  // exists to close. `noIndex` pages are left out: listing a page we ask
+  // crawlers to skip is a contradiction.
+  const cmsPages = (await listPublishedPages()).filter((page) => !page.noIndex);
 
   let posts: { slug: string; updatedAt: string }[] = [];
   let categories: string[] = [];
@@ -114,6 +121,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...routes
       .filter((item) => item.route !== "/")
       .map((item) => entry(item.route, item.lastModified)),
+    // Polish only, like the pages themselves, so no `hreflang` pair.
+    ...cmsPages.map((page) => entry(page.path, new Date(page.updatedAt), 0.6, false)),
     ...categories.map((slug) => entry(`/blog/kategoria/${slug}`, newest, 0.6, false)),
     ...posts.map((post) =>
       entry(`/blog/${post.slug}`, new Date(post.updatedAt), 0.5, false),

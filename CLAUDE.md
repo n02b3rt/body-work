@@ -31,6 +31,8 @@ Don't grep for context that's already written down. Find the topic below, read t
 | Naming, folders, git convention, code style, healthy-growth rules | `docs/conventions.md` |
 | What's in the scraped Centrum mirror and which URL maps to which folder | `docs/scraped-site-map.md` |
 | Page-by-page migration status (built? bilingual? visually verified?) | `docs/migration-tracker.md` |
+| The page builder: section model, builder UI, public renderer | `docs/page-builder.md` |
+| **Several agents working at once**: worktrees, one DB/port each, who owns which files | `docs/parallel-agents.md` |
 
 Domain-specific critical decisions and gotchas live inside the relevant `docs/<topic>.md` file (its own "Decisions"/"Gotchas" section), not dumped into this file or into one giant notes file. See `docs/conventions.md` for the pattern.
 
@@ -46,6 +48,7 @@ Working with a coding agent other than Claude Code? Read `AGENTS.md`: same rules
 - **Ask before touching the stack.** Installing, removing, upgrading, or swapping any library/service requires telling the user first, see `docs/stack.md` for what's already approved and why.
 - **No AI/tool authorship anywhere**, not in commits, PRs, code, comments, or docs.
 - **Git:** feature branches (`feat/`, `fix/`, `refactor/`, `chore/`), never non-trivial commits straight to `main`. Full convention: `docs/conventions.md`.
+- **If another agent may be working at the same time, read `docs/parallel-agents.md` first.** Own worktree, own database, own port; never `docker compose down -v` (it drops every agent's data); never hand-edit the generated `src/payload-types.ts` / `importMap.js`; rebase onto `main` the moment someone else's PR lands.
 - **Keep the docs current.** Definition of done = code works + the relevant `docs/*.md` updated + (larger tasks) an `AI_NOTES.md` entry + commit. A feature isn't finished until the map reflects it.
 
 ---
@@ -92,9 +95,15 @@ Check here before building anything: don't duplicate what exists.
 | Media library (admin) | `src/collections/Media.ts`, `src/components/admin/media/`, `docs/media.md` | Explorer (grid/list/folders), a11y/SEO fields, conversion options |
 | Site settings (global) | `src/globals/SiteSettings.ts` | Brand identity, contact, default SEO |
 | Appearance: colour scheme (admin + site) | `src/globals/ThemeColors.ts`, `src/lib/theme-tokens.ts`, `src/lib/theme-css.ts`, `docs/appearance.md` | Global palette → `--bw-*` CSS vars on the public site; presets + live preview in admin |
-| Appearance: components (admin) | `src/collections/SiteComponents.ts`, `src/fields/component-settings/`, `src/components/admin/appearance/`, `docs/appearance.md` | Elementor-style blocks (button, hero, carousel, gallery, CTA, feature cards) with live preview |
+| Appearance: saved compositions (admin) | `src/collections/SiteComponents.ts`, `src/components/admin/builder/ComponentBuilder.tsx`, `docs/appearance.md` | Editor's own arrangements of elements („zdjęcie + tekst”), placed on pages via the `savedComponent` element |
+| Element library (page builder widgets) | `src/fields/elements/`, `src/lib/element-catalog.ts`, `docs/page-builder.md` | 16 blocks (heading, text, image, buttons, icon list, columns, divider, spacer, gallery, carousel, video, hero, CTA, cards, accordion, saved). Each carries the shared `style` group: padding/margin, border, radius, shadow, width, alignment, per-breakpoint visibility |
+| Page builder (Strony → Nowa strona) | `src/fields/page-layout.ts`, `src/components/admin/builder/`, `docs/page-builder.md` | `pages.layout` = ordered **sections** (width/spacing/background/anchor), each holding a tree of elements. Custom Field component: library + canvas + inspector; the inspector is Payload's own `RenderFields`, so rich text/uploads/conditions come free |
+| Page builder: public renderer | `src/components/page-blocks/PageSections.tsx`, `src/components/elements/`, `src/lib/cms-page.ts` | **The same element components render the builder canvas and the site.** The catch-all serves a published page, else 404s as before. **Reads need `depth: 3`**; CMS pages are PL-only and 404 in EN per `docs/i18n.md` |
+| Element parameter readers (shared) | `src/lib/component-values.ts`, `src/lib/component-styles.ts`, `src/lib/element-styles.ts`, `src/lib/page-sections.ts` | One source for the canvas **and** the site. Element layout CSS lives in `src/styles/elements.css`, imported by `globals.css` *and* `(payload)/custom.css`; responsiveness is **container queries**, so the canvas's phone preview is honest |
 | Shared CMS fields | `src/fields/` | SEO meta, slug helpers |
-| Admin UI extras | `src/components/admin/` | WelcomeDashboard, PagesTree, AdminNav, ComingSoonView, media/* |
+| Admin UI extras | `src/components/admin/` | WelcomeDashboard, PagesTree, AdminNav, ComingSoonView, UpdatesView, media/* |
+| Admin AI (Gemini) | `src/lib/ai/`, `src/app/api/admin/ai/`, `src/components/admin/ai/`, `docs/admin-ai.md` | Assistive AI on dash only: ALT, SEO, EN draft, post draft, library blurbs, help chat. `GEMINI_API_KEY` |
+| Admin: package updates | `src/components/admin/UpdatesView.tsx`, `UpdatesPanel.tsx`, `LibrariesView.tsx`, `LibrariesPanel.tsx`, `package-report-ui.tsx`, `src/lib/package-updates.ts`, `src/app/api/admin/package-updates/` | Kokpit → Aktualizacje = only outdated; Zarządzanie → Biblioteki = full list + npm/site/repo links; 24h cache |
 | Admin nav tree | `src/admin/nav-tree.ts` | Nested sidebar structure (custom Nav; stubs → `/admin/coming-soon`) |
 | Frontend i18n | `messages/`, `src/i18n/` | next-intl (default `pl`) |
 | Date/time display (PL) | `src/lib/format-date.ts` | `formatDatePl`, `formatDateTimePl`; Payload `admin.dateFormat`; next-intl `formats` |

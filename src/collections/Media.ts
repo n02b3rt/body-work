@@ -152,6 +152,15 @@ export const Media: CollectionConfig = {
   },
   fields: [
     {
+      name: 'aiAssist',
+      type: 'ui',
+      admin: {
+        components: {
+          Field: '/components/admin/ai/MediaAiPanel#MediaAiPanel',
+        },
+      },
+    },
+    {
       name: 'blurDataURL',
       type: 'textarea',
       label: 'Placeholder (LQIP)',

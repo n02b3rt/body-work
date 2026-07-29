@@ -19,6 +19,10 @@ export const CLIENT_NAMESPACES = [
   "Carousel",
   "Errors",
   "Footer",
+  // Not read by any client component any more: the page-builder gallery and
+  // carousel take their labels as props, because the same components render
+  // inside the admin panel, which has no next-intl provider. `Carousel` stays,
+  // the hand-built carousels on the coded pages still read it.
   "Header",
   "Nav",
   "News",

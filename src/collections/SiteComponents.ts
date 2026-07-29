@@ -1,25 +1,44 @@
 import type { CollectionConfig } from 'payload'
 
 import { isAdministrator, isModerator, staff } from '@/access/roles'
-import {
-  COMPONENT_TYPE_OPTIONS,
-  componentSettingsGroups,
-} from '@/fields/component-settings'
+import { elementsField } from '@/fields/elements'
 import { slugField } from '@/fields/meta'
 
+/**
+ * Saved compositions — an editor's own building blocks.
+ *
+ * This collection used to hold *the* components: one document per configured
+ * hero, button or gallery, with a `type` select deciding which parameter group
+ * showed. That job moved into the element library, where a widget is configured
+ * where it is placed.
+ *
+ * What is left is the thing the library cannot express: "a two-column row with
+ * a photograph on the left and a heading, a paragraph and a button on the
+ * right", saved under a name and dropped into any page as one item. Pages
+ * reference it (the `savedComponent` element), so editing it here updates every
+ * page that uses it.
+ */
 export const SiteComponents: CollectionConfig = {
   slug: 'site-components',
   labels: {
     singular: 'Komponent',
     plural: 'Komponenty',
   },
+  /**
+   * Postgres caps identifiers at 63 characters, and a composition nests
+   * `blocks → columns → column → blocks → element → style → colour → token`.
+   * Five characters saved on the table prefix is what keeps the deepest enum
+   * name inside the limit; the element blocks carry short `dbName`s for the
+   * same reason.
+   */
+  dbName: 'components',
   admin: {
     group: 'Wygląd',
     useAsTitle: 'name',
-    defaultColumns: ['name', 'type', 'slug', 'updatedAt'],
+    defaultColumns: ['name', 'category', 'slug', 'updatedAt'],
     listSearchableFields: ['name', 'slug', 'description'],
     description:
-      'Gotowe bloki (przyciski, hero, karuzele, galerie) z własnymi parametrami: do wstawiania na stronach.',
+      'Własne złożenia elementów (sekcje, karty, bannery) do wstawiania w kreatorze stron i wpisów.',
   },
   access: {
     read: () => true,
@@ -37,33 +56,37 @@ export const SiteComponents: CollectionConfig = {
       label: 'Nazwa',
       required: true,
       admin: {
-        description: 'Nazwa robocza widoczna tylko w panelu.',
+        description: 'Pod tą nazwą komponent pojawi się w bibliotece kreatora.',
       },
     },
     {
-      name: 'type',
+      name: 'category',
       type: 'select',
-      label: 'Typ komponentu',
-      required: true,
+      label: 'Kategoria',
+      defaultValue: 'section',
       index: true,
-      defaultValue: 'button',
-      options: COMPONENT_TYPE_OPTIONS,
+      options: [
+        { label: 'Sekcja', value: 'section' },
+        { label: 'Nagłówek strony', value: 'header' },
+        { label: 'Karta / kafelek', value: 'card' },
+        { label: 'Wezwanie do działania', value: 'cta' },
+        { label: 'Inne', value: 'other' },
+      ],
       admin: {
-        description: 'Typ decyduje o dostępnych parametrach poniżej.',
+        description: 'Porządkuje listę w bibliotece kreatora.',
       },
     },
-    {
-      name: 'preview',
-      type: 'ui',
+    elementsField({
+      label: 'Złożenie',
       admin: {
+        description: 'Zawartość układasz na kanwie poniżej.',
         components: {
-          Field: '/components/admin/appearance/ComponentPreview#ComponentPreview',
+          Field: '/components/admin/builder/ComponentBuilder#ComponentBuilder',
         },
       },
-    },
-    ...componentSettingsGroups,
+    }),
     slugField('name', {
-      description: 'Identyfikator używany przy wstawianiu komponentu na stronę.',
+      description: 'Identyfikator komponentu, przydatny przy odwołaniach.',
     }),
     {
       name: 'description',

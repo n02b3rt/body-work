@@ -1,11 +1,16 @@
 "use client";
 
-import type { EmblaCarouselType } from "embla-carousel";
+import type { UseEmblaCarouselType } from "embla-carousel-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/cn";
 
+/** Taken from the hook's own return type: `embla-carousel` is only a transitive
+ * dependency, so importing from it directly fails to resolve under pnpm's
+ * strict `node_modules`. */
+type EmblaApi = UseEmblaCarouselType[1];
+
 type CarouselArrowsProps = {
-  api?: EmblaCarouselType;
+  api?: EmblaApi;
   className?: string;
 };
 

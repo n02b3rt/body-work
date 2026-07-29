@@ -77,6 +77,15 @@ export const Posts: CollectionConfig = {
       },
     },
     {
+      name: 'aiDraft',
+      type: 'ui',
+      admin: {
+        components: {
+          Field: '/components/admin/ai/PostDraftAiPanel#PostDraftAiPanel',
+        },
+      },
+    },
+    {
       name: 'title',
       type: 'text',
       label: 'Tytuł',

@@ -2,7 +2,7 @@
 
 import type { Media } from '@/payload-types'
 import type { ListViewClientProps } from 'payload'
-import { useConfig } from '@payloadcms/ui'
+import { Gutter, useConfig } from '@payloadcms/ui'
 import Link from 'next/link'
 import React, { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from 'react'
 
@@ -164,22 +164,32 @@ export function MediaLibrary(props: ListViewClientProps) {
   }
 
   return (
-    <div className="bw-media">
+    // Same horizontal inset as DefaultListView (Payload `--gutter-h`). Custom
+    // list views replace that shell entirely, so without Gutter content sits
+    // flush against the panel edges.
+    <Gutter className="bw-media collection-list__wrap">
       <header className="bw-media__header">
-        <div>
+        <div className="bw-media__header-text">
           <h1 className="bw-media__title">Media</h1>
           <p className="bw-media__lead">
-            Biblioteka plików: siatka, lista i foldery według typu. ALT i slug uzupełniają się z nazwy
-            pliku.
+            Biblioteka plików: siatka, lista i foldery według typu. ALT i slug
+            uzupełniają się z nazwy pliku.
           </p>
         </div>
         <div className="bw-media__header-actions">
           {hasCreatePermission ? (
-            <Link className="bw-media__btn bw-media__btn--primary" href={createHref}>
+            <Link
+              className="bw-media__btn bw-media__btn--primary"
+              href={createHref}
+            >
               Prześlij plik
             </Link>
           ) : null}
-          <button type="button" className="bw-media__btn" onClick={() => void load()}>
+          <button
+            type="button"
+            className="bw-media__btn"
+            onClick={() => void load()}
+          >
             Odśwież
           </button>
         </div>
@@ -195,8 +205,8 @@ export function MediaLibrary(props: ListViewClientProps) {
               setPage(1)
             }}
           >
-            Wszystkie
-            <span>{kind === 'all' ? totalDocs : ''}</span>
+            <span>Wszystkie</span>
+            {kind === 'all' && totalDocs > 0 ? <span>{totalDocs}</span> : null}
           </button>
           {KIND_FOLDER_ORDER.map((k) => (
             <button
@@ -208,124 +218,136 @@ export function MediaLibrary(props: ListViewClientProps) {
                 setPage(1)
               }}
             >
-              {KIND_LABELS[k]}
+              <span>{KIND_LABELS[k]}</span>
             </button>
           ))}
         </nav>
 
         <div className="bw-media__main">
           <div className="bw-media__toolbar">
-            <form className="bw-media__search" onSubmit={submitSearch}>
-              <input
-                type="search"
-                value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
-                placeholder="Szukaj tytułu, pliku, ALT…"
-                aria-label="Szukaj w mediach"
-              />
-              <button type="submit" className="bw-media__btn">
-                Szukaj
-              </button>
-            </form>
+            <div className="bw-media__toolbar-primary">
+              <form className="bw-media__search" onSubmit={submitSearch}>
+                <input
+                  type="search"
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                  placeholder="Szukaj tytułu, pliku, ALT…"
+                  aria-label="Szukaj w mediach"
+                />
+                <button type="submit" className="bw-media__btn">
+                  Szukaj
+                </button>
+              </form>
 
-            <label className="bw-media__select">
-              <span>Sortowanie</span>
-              <select
-                value={sort}
-                onChange={(e) => {
-                  setSort(e.target.value as SortKey)
-                  setPage(1)
-                }}
-              >
-                {SORT_OPTIONS.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-            </label>
+              <label className="bw-media__select">
+                <span>Sortowanie</span>
+                <select
+                  value={sort}
+                  onChange={(e) => {
+                    setSort(e.target.value as SortKey)
+                    setPage(1)
+                  }}
+                >
+                  {SORT_OPTIONS.map((opt) => (
+                    <option key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
 
-            <div className="bw-media__toggles" role="group" aria-label="Widok">
-              <button
-                type="button"
-                className={`bw-media__icon-btn${view === 'grid' ? ' is-active' : ''}`}
-                onClick={() => changeView('grid')}
-                aria-pressed={view === 'grid'}
-              >
-                Siatka
-              </button>
-              <button
-                type="button"
-                className={`bw-media__icon-btn${view === 'list' ? ' is-active' : ''}`}
-                onClick={() => changeView('list')}
-                aria-pressed={view === 'list'}
-              >
-                Lista
-              </button>
-              <button
-                type="button"
-                className={`bw-media__icon-btn${groupByKind ? ' is-active' : ''}`}
-                onClick={toggleGroup}
-                aria-pressed={groupByKind}
-              >
-                Grupuj
-              </button>
-              <button
-                type="button"
-                className={`bw-media__icon-btn${showDetails ? ' is-active' : ''}`}
-                onClick={toggleDetails}
-                aria-pressed={showDetails}
-              >
-                Szczegóły
-              </button>
+            <div className="bw-media__toolbar-secondary">
+              <div className="bw-media__toggles" role="group" aria-label="Widok">
+                <button
+                  type="button"
+                  className={`bw-media__icon-btn${view === 'grid' ? ' is-active' : ''}`}
+                  onClick={() => changeView('grid')}
+                  aria-pressed={view === 'grid'}
+                >
+                  Siatka
+                </button>
+                <button
+                  type="button"
+                  className={`bw-media__icon-btn${view === 'list' ? ' is-active' : ''}`}
+                  onClick={() => changeView('list')}
+                  aria-pressed={view === 'list'}
+                >
+                  Lista
+                </button>
+                <button
+                  type="button"
+                  className={`bw-media__icon-btn${groupByKind ? ' is-active' : ''}`}
+                  onClick={toggleGroup}
+                  aria-pressed={groupByKind}
+                >
+                  Grupuj
+                </button>
+                <button
+                  type="button"
+                  className={`bw-media__icon-btn${showDetails ? ' is-active' : ''}`}
+                  onClick={toggleDetails}
+                  aria-pressed={showDetails}
+                >
+                  Szczegóły
+                </button>
+              </div>
             </div>
           </div>
 
           {loading ? <p className="bw-media__status">Ładowanie…</p> : null}
-          {error ? <p className="bw-media__status bw-media__status--error">{error}</p> : null}
+          {error ? (
+            <p className="bw-media__status bw-media__status--error">{error}</p>
+          ) : null}
           {!loading && !error && docs.length === 0 ? (
             <p className="bw-media__status">
               Brak plików.{' '}
-              {hasCreatePermission ? <Link href={createHref}>Prześlij pierwszy plik</Link> : null}
+              {hasCreatePermission ? (
+                <Link href={createHref}>Prześlij pierwszy plik</Link>
+              ) : null}
             </p>
           ) : null}
 
           {!loading && docs.length > 0 ? (
-            <MediaBrowser
-              groups={grouped}
-              view={view}
-              showGroupTitles={groupByKind && kind === 'all'}
-              selectedId={selectedId}
-              adminRoute={adminRoute}
-              onSelect={setSelectedId}
-            />
+            <div className="bw-media__browser">
+              <MediaBrowser
+                groups={grouped}
+                view={view}
+                showGroupTitles={groupByKind && kind === 'all'}
+                selectedId={selectedId}
+                adminRoute={adminRoute}
+                onSelect={setSelectedId}
+              />
+            </div>
           ) : null}
 
-          {totalPages > 1 ? (
-            <div className="bw-media__pager">
-              <button
-                type="button"
-                className="bw-media__btn"
-                disabled={page <= 1}
-                onClick={() => setPage((p) => Math.max(1, p - 1))}
-              >
-                Poprzednia
-              </button>
-              <span>
-                Strona {page} / {totalPages} · {totalDocs} plików
-              </span>
-              <button
-                type="button"
-                className="bw-media__btn"
-                disabled={page >= totalPages}
-                onClick={() => setPage((p) => p + 1)}
-              >
-                Następna
-              </button>
-            </div>
-          ) : (
-            <p className="bw-media__pager-meta">{totalDocs} plików</p>
-          )}
+          <div className="bw-media__footer">
+            {totalPages > 1 ? (
+              <div className="bw-media__pager">
+                <button
+                  type="button"
+                  className="bw-media__btn"
+                  disabled={page <= 1}
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                >
+                  Poprzednia
+                </button>
+                <span>
+                  Strona {page} / {totalPages} · {totalDocs} plików
+                </span>
+                <button
+                  type="button"
+                  className="bw-media__btn"
+                  disabled={page >= totalPages}
+                  onClick={() => setPage((p) => p + 1)}
+                >
+                  Następna
+                </button>
+              </div>
+            ) : (
+              <p className="bw-media__pager-meta">{totalDocs} plików</p>
+            )}
+          </div>
         </div>
 
         {showDetails ? (
@@ -338,6 +360,6 @@ export function MediaLibrary(props: ListViewClientProps) {
           />
         ) : null}
       </div>
-    </div>
+    </Gutter>
   )
 }
