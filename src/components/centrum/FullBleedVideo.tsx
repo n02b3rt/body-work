@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 type FullBleedVideoProps = {
   /** Base path without an extension: `.webm` is offered first, `.mp4` as the fallback. */
@@ -17,6 +17,13 @@ type FullBleedVideoProps = {
    */
   posterBlur?: string;
 };
+
+/** Client-only gate so browser extensions that inject into `<video>` (e.g. Video
+ * Speed Controller's `vsc-controller` wrapper) cannot rewrite SSR HTML before
+ * React hydrates and trigger a recoverable mismatch. */
+const subscribe = () => () => {};
+const getClientSnapshot = () => true;
+const getServerSnapshot = () => false;
 
 /**
  * Full-viewport-height video break: the scraped reference's hero video sits in its own section
@@ -36,11 +43,14 @@ type FullBleedVideoProps = {
  * inputs to only in the case of the original footage.
  */
 export function FullBleedVideo({ src, poster, posterAlt, posterBlur }: FullBleedVideoProps) {
+  const mounted = useSyncExternalStore(subscribe, getClientSnapshot, getServerSnapshot);
   const sectionRef = useRef<HTMLElement>(null);
   const [load, setLoad] = useState(false);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
+    if (!mounted) return;
+
     // Someone who has asked for less motion gets the still, and no video bytes.
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
@@ -71,7 +81,7 @@ export function FullBleedVideo({ src, poster, posterAlt, posterBlur }: FullBleed
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, []);
+  }, [mounted]);
 
   return (
     <section ref={sectionRef} className="relative h-[70vh] w-full overflow-hidden sm:h-screen">
@@ -87,7 +97,7 @@ export function FullBleedVideo({ src, poster, posterAlt, posterBlur }: FullBleed
         {...(posterBlur ? { placeholder: "blur" as const, blurDataURL: posterBlur } : {})}
       />
 
-      {load ? (
+      {mounted && load ? (
         <video
           className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
             ready ? "opacity-100" : "opacity-0"
