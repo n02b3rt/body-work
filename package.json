@@ -12,6 +12,7 @@
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
     "seed:appearance": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/appearance-samples.ts",
+    "smoke:builder": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/smoke-page-builder.ts",
     "check:messages": "node scripts/check-client-messages.mjs"
   },
   "dependencies": {

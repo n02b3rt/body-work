@@ -105,7 +105,15 @@
   },
   "Carousel": {
     "previous": "Previous",
-    "next": "Next"
+    "next": "Next",
+    "goTo": "Go to slide {index}"
+  },
+  "Gallery": {
+    "enlarge": "Enlarge photo {name}",
+    "lightbox": "Enlarged photo",
+    "previous": "Previous photo",
+    "next": "Next photo",
+    "close": "Close"
   },
   "Testimonials": {
     "heading": "Hear from our clients:",

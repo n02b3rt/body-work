@@ -31,6 +31,7 @@ Don't grep for context that's already written down. Find the topic below, read t
 | Naming, folders, git convention, code style, healthy-growth rules | `docs/conventions.md` |
 | What's in the scraped Centrum mirror and which URL maps to which folder | `docs/scraped-site-map.md` |
 | Page-by-page migration status (built? bilingual? visually verified?) | `docs/migration-tracker.md` |
+| The page builder: section model, builder UI, public renderer | `docs/page-builder.md` |
 
 Domain-specific critical decisions and gotchas live inside the relevant `docs/<topic>.md` file (its own "Decisions"/"Gotchas" section), not dumped into this file or into one giant notes file. See `docs/conventions.md` for the pattern.
 
@@ -93,6 +94,9 @@ Check here before building anything: don't duplicate what exists.
 | Site settings (global) | `src/globals/SiteSettings.ts` | Brand identity, contact, default SEO |
 | Appearance: colour scheme (admin + site) | `src/globals/ThemeColors.ts`, `src/lib/theme-tokens.ts`, `src/lib/theme-css.ts`, `docs/appearance.md` | Global palette → `--bw-*` CSS vars on the public site; presets + live preview in admin |
 | Appearance: components (admin) | `src/collections/SiteComponents.ts`, `src/fields/component-settings/`, `src/components/admin/appearance/`, `docs/appearance.md` | Elementor-style blocks (button, hero, carousel, gallery, CTA, feature cards) with live preview |
+| Page builder (Strony → Nowa strona) | `src/fields/page-layout.ts`, `src/components/admin/builder/`, `docs/page-builder.md` | `pages.layout` = ordered **placements** of `site-components`, each with its own width/spacing/background/anchor. Custom Field component: library + canvas + inspector, driven by Payload's own row actions |
+| Page builder: public renderer | `src/components/page-blocks/`, `src/lib/cms-page.ts`, `src/app/[locale]/[...rest]/page.tsx` | The catch-all serves a published page, else 404s as before. **Reads need `depth: 2`**; CMS pages are PL-only and 404 in EN per `docs/i18n.md` |
+| Component parameter readers (shared) | `src/lib/component-values.ts`, `src/lib/component-styles.ts`, `src/lib/page-sections.ts` | One source for admin previews **and** the public blocks, so a block looks the same in the builder as on the site |
 | Shared CMS fields | `src/fields/` | SEO meta, slug helpers |
 | Admin UI extras | `src/components/admin/` | WelcomeDashboard, PagesTree, AdminNav, ComingSoonView, UpdatesView, media/* |
 | Admin AI (Gemini) | `src/lib/ai/`, `src/app/api/admin/ai/`, `src/components/admin/ai/`, `docs/admin-ai.md` | Assistive AI on dash only: ALT, SEO, EN draft, post draft, library blurbs, help chat. `GEMINI_API_KEY` |

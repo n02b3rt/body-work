@@ -1,4 +1,6 @@
 import { MediaLibrary as MediaLibrary_8659d128761945db0b62396b345bcc93 } from '../../../components/admin/media/MediaLibrary'
+import { ColorField as ColorField_2fe2c2255ff1cccd98d0cc3e581d1db8 } from '../../../components/admin/appearance/ColorField'
+import { PageBuilder as PageBuilder_44433c7076ca514180097fd9687b12e2 } from '../../../components/admin/builder/PageBuilder'
 import { RscEntryLexicalCell as RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { RscEntryLexicalField as RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { LexicalDiffComponent as LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
@@ -28,7 +30,6 @@ import { SeoDescriptionHint as SeoDescriptionHint_263fb429da337552c7d817d7e71194
 import { PagesTree as PagesTree_7990337d403f447a1405b14fe8e7425c } from '../../../components/admin/PagesTree'
 import { EnglishVersionPanel as EnglishVersionPanel_9be0790d6e40b03fbb5de9196ceb6202 } from '../../../components/admin/EnglishVersionPanel'
 import { ComponentPreview as ComponentPreview_0d3fcce78cd722fd2865fc7a2c620077 } from '../../../components/admin/appearance/ComponentPreview'
-import { ColorField as ColorField_2fe2c2255ff1cccd98d0cc3e581d1db8 } from '../../../components/admin/appearance/ColorField'
 import { SlideRowLabel as SlideRowLabel_eb81802ffb260073b488880077373e9c } from '../../../components/admin/appearance/SlideRowLabel'
 import { CardRowLabel as CardRowLabel_dc3af6e709460ed2bbb693a1f560c19b } from '../../../components/admin/appearance/CardRowLabel'
 import { ThemePresets as ThemePresets_64cf45a400a14d456e754563c7254423 } from '../../../components/admin/appearance/ThemePresets'
@@ -47,6 +48,8 @@ import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } f
 /** @type import('payload').ImportMap */
 export const importMap = {
   "/components/admin/media/MediaLibrary#MediaLibrary": MediaLibrary_8659d128761945db0b62396b345bcc93,
+  "/components/admin/appearance/ColorField#ColorField": ColorField_2fe2c2255ff1cccd98d0cc3e581d1db8,
+  "/components/admin/builder/PageBuilder#PageBuilder": PageBuilder_44433c7076ca514180097fd9687b12e2,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalField": RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#LexicalDiffComponent": LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e,
@@ -76,7 +79,6 @@ export const importMap = {
   "/components/admin/PagesTree#PagesTree": PagesTree_7990337d403f447a1405b14fe8e7425c,
   "/components/admin/EnglishVersionPanel#EnglishVersionPanel": EnglishVersionPanel_9be0790d6e40b03fbb5de9196ceb6202,
   "/components/admin/appearance/ComponentPreview#ComponentPreview": ComponentPreview_0d3fcce78cd722fd2865fc7a2c620077,
-  "/components/admin/appearance/ColorField#ColorField": ColorField_2fe2c2255ff1cccd98d0cc3e581d1db8,
   "/components/admin/appearance/SlideRowLabel#SlideRowLabel": SlideRowLabel_eb81802ffb260073b488880077373e9c,
   "/components/admin/appearance/CardRowLabel#CardRowLabel": CardRowLabel_dc3af6e709460ed2bbb693a1f560c19b,
   "/components/admin/appearance/ThemePresets#ThemePresets": ThemePresets_64cf45a400a14d456e754563c7254423,

@@ -290,6 +290,57 @@ export interface Page {
    * Fragment adresu URL (bez ukośników).
    */
   slug: string;
+  /**
+   * Ułóż stronę z gotowych komponentów. Komponenty dodajesz i edytujesz w Zarządzanie → Wygląd → Komponenty.
+   */
+  layout?:
+    | {
+        /**
+         * Który komponent z biblioteki wyświetlić w tym miejscu.
+         */
+        component: number | SiteComponent;
+        width?: ('full' | 'container' | 'narrow') | null;
+        spacing?: ('none' | 'sm' | 'md' | 'lg') | null;
+        background?: {
+          token?:
+            | (
+                | 'brand.primary'
+                | 'brand.primaryHover'
+                | 'brand.secondary'
+                | 'brand.secondaryHover'
+                | 'brand.accent'
+                | 'text.heading'
+                | 'text.body'
+                | 'text.muted'
+                | 'text.inverted'
+                | 'text.link'
+                | 'text.linkHover'
+                | 'surface.page'
+                | 'surface.surface'
+                | 'surface.surfaceAlt'
+                | 'surface.border'
+                | 'surface.overlay'
+                | 'state.success'
+                | 'state.warning'
+                | 'state.error'
+                | 'state.info'
+                | 'custom'
+                | 'none'
+              )
+            | null;
+          custom?: string | null;
+        };
+        /**
+         * Pozwala linkować do tej sekcji, np. „cennik” → /strona#cennik.
+         */
+        anchor?: string | null;
+        /**
+         * Sekcja zostaje na stronie, ale nie jest publikowana.
+         */
+        hidden?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
   content?: {
     root: {
       type: string;
@@ -305,6 +356,24 @@ export interface Page {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Tytuł i opis widoczne w wyszukiwarkach oraz przy udostępnianiu w mediach społecznościowych. Wszystkie pola są opcjonalne: puste znaczy „użyj tego, co już jest w dokumencie”, a nie „brak opisu”.
+   */
+  meta?: {
+    /**
+     * Jeśli puste, użyty zostanie tytuł dokumentu.
+     */
+    title?: string | null;
+    /**
+     * Jeśli puste, użyta zostanie zajawka wpisu. Wypełnij tylko wtedy, gdy w wyszukiwarce ma się pokazać coś innego niż zajawka.
+     */
+    description?: string | null;
+    /**
+     * Jeśli puste, użyte zostanie zdjęcie główne wpisu. Przydaje się, gdy miniatura dobrze wygląda na liście, ale źle w kafelku na Facebooku.
+     */
+    image?: (number | null) | Media;
+    noIndex?: boolean | null;
+  };
   /**
    * Ustaw, aby umieścić stronę w drzewie pod inną stroną.
    */
@@ -317,162 +386,9 @@ export interface Page {
         id?: string | null;
       }[]
     | null;
-  /**
-   * Tytuł i opis widoczne w wyszukiwarkach oraz przy udostępnianiu w mediach społecznościowych. Wszystkie pola są opcjonalne: puste znaczy „użyj tego, co już jest w dokumencie”, a nie „brak opisu”.
-   */
-  meta?: {
-    /**
-     * Jeśli puste, użyty zostanie tytuł dokumentu.
-     */
-    title?: string | null;
-    /**
-     * Jeśli puste, użyta zostanie zajawka wpisu. Wypełnij tylko wtedy, gdy w wyszukiwarce ma się pokazać coś innego niż zajawka.
-     */
-    description?: string | null;
-    /**
-     * Jeśli puste, użyte zostanie zdjęcie główne wpisu. Przydaje się, gdy miniatura dobrze wygląda na liście, ale źle w kafelku na Facebooku.
-     */
-    image?: (number | null) | Media;
-    noIndex?: boolean | null;
-  };
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
-}
-/**
- * Wpisy na blog.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
- */
-export interface Post {
-  id: number;
-  title: string;
-  /**
-   * Fragment adresu URL (bez ukośników).
-   */
-  slug: string;
-  excerpt?: string | null;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  featuredImage?: (number | null) | Media;
-  publishedAt?: string | null;
-  author?: (number | null) | Author;
-  /**
-   * Wpis może należeć do kilku kategorii: tak jest w obecnym serwisie.
-   */
-  categories?: (number | Category)[] | null;
-  /**
-   * Zostaw puste: policzy się automatycznie z długości treści przy zapisie.
-   */
-  readingMinutes?: number | null;
-  /**
-   * Tytuł i opis widoczne w wyszukiwarkach oraz przy udostępnianiu w mediach społecznościowych. Wszystkie pola są opcjonalne: puste znaczy „użyj tego, co już jest w dokumencie”, a nie „brak opisu”.
-   */
-  meta?: {
-    /**
-     * Jeśli puste, użyty zostanie tytuł dokumentu.
-     */
-    title?: string | null;
-    /**
-     * Jeśli puste, użyta zostanie zajawka wpisu. Wypełnij tylko wtedy, gdy w wyszukiwarce ma się pokazać coś innego niż zajawka.
-     */
-    description?: string | null;
-    /**
-     * Jeśli puste, użyte zostanie zdjęcie główne wpisu. Przydaje się, gdy miniatura dobrze wygląda na liście, ale źle w kafelku na Facebooku.
-     */
-    image?: (number | null) | Media;
-    noIndex?: boolean | null;
-  };
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * Angielskie wersje wpisów. Wpis bez gotowego tłumaczenia nie pojawia się na /en, zamiast pokazywać polski tekst pod angielskim adresem.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "post-translations".
- */
-export interface PostTranslation {
-  id: number;
-  /**
-   * Który wpis tłumaczysz. Jeden wpis ma najwyżej jedno tłumaczenie.
-   */
-  post: number | Post;
-  /**
-   * Dopóki jest szkicem, wpis nie pojawia się w wersji angielskiej. Nic nie zostanie opublikowane przypadkiem.
-   */
-  status: 'draft' | 'published';
-  title: string;
-  /**
-   * Krótki opis na liście wpisów i w wynikach wyszukiwania.
-   */
-  excerpt?: string | null;
-  /**
-   * Startuje jako kopia polskiej treści, razem ze zdjęciami i układem. Nadpisz sam tekst, zdjęć nie trzeba wstawiać od nowa ani ruszać.
-   */
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * Zapisy do newslettera. Wysyłkę obsługuje Resend, ale lista jest tutaj: status „Potwierdzony” oznacza kliknięcie linku w mailu (wymóg RODO).
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "subscribers".
- */
-export interface Subscriber {
-  id: number;
-  email: string;
-  /**
-   * Tylko „Potwierdzony” wolno wysyłać. Reszta to brak zgody.
-   */
-  status: 'pending' | 'confirmed' | 'unsubscribed';
-  /**
-   * Język, w którym zapisał się subskrybent: do segmentacji wysyłek.
-   */
-  locale: 'pl' | 'en';
-  /**
-   * Losowy identyfikator z linków potwierdzenia i wypisu.
-   */
-  token: string;
-  confirmedAt?: string | null;
-  unsubscribedAt?: string | null;
-  /**
-   * Strona, z której przyszedł zapis.
-   */
-  source?: string | null;
-  consentIp?: string | null;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * Gotowe bloki (przyciski, hero, karuzele, galerie) z własnymi parametrami: do wstawiania na stronach.
@@ -862,6 +778,141 @@ export interface SiteComponent {
   createdAt: string;
 }
 /**
+ * Wpisy na blog.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: number;
+  title: string;
+  /**
+   * Fragment adresu URL (bez ukośników).
+   */
+  slug: string;
+  excerpt?: string | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  featuredImage?: (number | null) | Media;
+  publishedAt?: string | null;
+  author?: (number | null) | Author;
+  /**
+   * Wpis może należeć do kilku kategorii: tak jest w obecnym serwisie.
+   */
+  categories?: (number | Category)[] | null;
+  /**
+   * Zostaw puste: policzy się automatycznie z długości treści przy zapisie.
+   */
+  readingMinutes?: number | null;
+  /**
+   * Tytuł i opis widoczne w wyszukiwarkach oraz przy udostępnianiu w mediach społecznościowych. Wszystkie pola są opcjonalne: puste znaczy „użyj tego, co już jest w dokumencie”, a nie „brak opisu”.
+   */
+  meta?: {
+    /**
+     * Jeśli puste, użyty zostanie tytuł dokumentu.
+     */
+    title?: string | null;
+    /**
+     * Jeśli puste, użyta zostanie zajawka wpisu. Wypełnij tylko wtedy, gdy w wyszukiwarce ma się pokazać coś innego niż zajawka.
+     */
+    description?: string | null;
+    /**
+     * Jeśli puste, użyte zostanie zdjęcie główne wpisu. Przydaje się, gdy miniatura dobrze wygląda na liście, ale źle w kafelku na Facebooku.
+     */
+    image?: (number | null) | Media;
+    noIndex?: boolean | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * Angielskie wersje wpisów. Wpis bez gotowego tłumaczenia nie pojawia się na /en, zamiast pokazywać polski tekst pod angielskim adresem.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "post-translations".
+ */
+export interface PostTranslation {
+  id: number;
+  /**
+   * Który wpis tłumaczysz. Jeden wpis ma najwyżej jedno tłumaczenie.
+   */
+  post: number | Post;
+  /**
+   * Dopóki jest szkicem, wpis nie pojawia się w wersji angielskiej. Nic nie zostanie opublikowane przypadkiem.
+   */
+  status: 'draft' | 'published';
+  title: string;
+  /**
+   * Krótki opis na liście wpisów i w wynikach wyszukiwania.
+   */
+  excerpt?: string | null;
+  /**
+   * Startuje jako kopia polskiej treści, razem ze zdjęciami i układem. Nadpisz sam tekst, zdjęć nie trzeba wstawiać od nowa ani ruszać.
+   */
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Zapisy do newslettera. Wysyłkę obsługuje Resend, ale lista jest tutaj: status „Potwierdzony” oznacza kliknięcie linku w mailu (wymóg RODO).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscribers".
+ */
+export interface Subscriber {
+  id: number;
+  email: string;
+  /**
+   * Tylko „Potwierdzony” wolno wysyłać. Reszta to brak zgody.
+   */
+  status: 'pending' | 'confirmed' | 'unsubscribed';
+  /**
+   * Język, w którym zapisał się subskrybent: do segmentacji wysyłek.
+   */
+  locale: 'pl' | 'en';
+  /**
+   * Losowy identyfikator z linków potwierdzenia i wypisu.
+   */
+  token: string;
+  confirmedAt?: string | null;
+  unsubscribedAt?: string | null;
+  /**
+   * Strona, z której przyszedł zapis.
+   */
+  source?: string | null;
+  consentIp?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -1101,7 +1152,31 @@ export interface MediaSelect<T extends boolean = true> {
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  layout?:
+    | T
+    | {
+        component?: T;
+        width?: T;
+        spacing?: T;
+        background?:
+          | T
+          | {
+              token?: T;
+              custom?: T;
+            };
+        anchor?: T;
+        hidden?: T;
+        id?: T;
+      };
   content?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+        noIndex?: T;
+      };
   parent?: T;
   breadcrumbs?:
     | T
@@ -1110,14 +1185,6 @@ export interface PagesSelect<T extends boolean = true> {
         url?: T;
         label?: T;
         id?: T;
-      };
-  meta?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        image?: T;
-        noIndex?: T;
       };
   updatedAt?: T;
   createdAt?: T;
