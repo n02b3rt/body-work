@@ -45,20 +45,6 @@ Zwróć JSON:
 }`
 }
 
-export function libraryBlurbUserPrompt(input: {
-  name: string
-  kind: 'runtime' | 'dev'
-  npmDescription: string | null
-}): string {
-  return `Pakiet npm w projekcie BodyWork (Next.js 16 + Payload CMS + Postgres).
-Nazwa: ${input.name}
-Rodzaj: ${input.kind}
-Opis z npm: ${input.npmDescription || '(brak)'}
-
-Napisz JEDNO krótkie zdanie po polsku: do czego ten pakiet służy w tym projekcie (nie kopiuj angielskiego opisu 1:1).
-Zwróć JSON: { "blurb": string }`
-}
-
 export function translatePostUserPrompt(input: {
   title: string
   excerpt?: string | null

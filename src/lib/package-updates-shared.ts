@@ -163,3 +163,25 @@ export function normalizeHomepageUrl(input: unknown): string | null {
 export function rowsWithUpdates(rows: PackageUpdateRow[]): PackageUpdateRow[] {
   return rows.filter((r) => r.status === 'update-available')
 }
+
+/**
+ * Link to release notes for a specific version.
+ * Prefer GitHub Releases (`/releases/tag/vX.Y.Z`) when the package points at github.com;
+ * otherwise a Google search for "name version".
+ */
+export function releaseNotesUrl(
+  name: string,
+  version: string,
+  repository: string | null,
+): string {
+  const ver = version.trim().replace(/^v/i, '')
+  if (repository && /github\.com/i.test(repository)) {
+    const base = repository.replace(/\/$/, '')
+    // Most GitHub projects tag with a leading "v"; a few do not — Releases still
+    // resolves the common case and the tag page is the best single URL we can build
+    // without probing the API.
+    return `${base}/releases/tag/v${ver}`
+  }
+  const q = encodeURIComponent(`${name} ${ver}`)
+  return `https://www.google.com/search?q=${q}`
+}

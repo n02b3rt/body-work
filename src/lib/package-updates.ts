@@ -12,7 +12,6 @@ import {
   type PackageKind,
   type PackageUpdateRow,
   type PackageUpdatesReport,
-  type PackageUpdateStatus,
 } from '@/lib/package-updates-shared'
 
 export type {
@@ -32,6 +31,7 @@ export {
   npmPackageUrl,
   PACKAGE_UPDATES_CACHE_TTL_MS,
   PACKAGE_UPDATES_CACHE_VERSION,
+  releaseNotesUrl,
   resolveStatus,
   rowsWithUpdates,
 } from '@/lib/package-updates-shared'
@@ -175,15 +175,8 @@ async function mapPool<T, R>(
   return results
 }
 
-function statusRank(status: PackageUpdateStatus): number {
-  if (status === 'update-available') return 0
-  if (status === 'unknown') return 1
-  return 2
-}
-
+/** Alphabetical only — status highlighting belongs in the Updates view filter, not sort order. */
 function sortRows(a: PackageUpdateRow, b: PackageUpdateRow): number {
-  const byStatus = statusRank(a.status) - statusRank(b.status)
-  if (byStatus !== 0) return byStatus
   return a.name.localeCompare(b.name)
 }
 

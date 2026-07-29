@@ -390,7 +390,10 @@
 /* —— Package updates (Kokpit → Aktualizacje) —— */
 
 .bw-updates {
+  box-sizing: border-box;
+  width: 100%;
   max-width: 72rem;
+  min-width: 0;
   padding: 1.5rem 0 2.5rem;
 }
 
@@ -505,6 +508,7 @@
 
 /* Outer frame only — row separators are on cells so edges stay square. */
 .bw-updates__table-wrap {
+  max-width: 100%;
   overflow-x: auto;
   border: 1px solid var(--theme-elevation-150);
   border-radius: 4px;
@@ -513,7 +517,7 @@
 
 .bw-updates__table {
   width: 100%;
-  min-width: 28rem;
+  max-width: 100%;
   table-layout: fixed;
   border-collapse: separate;
   border-spacing: 0;
@@ -525,16 +529,33 @@
 }
 
 .bw-updates__col-version {
-  width: 8.5rem;
+  width: 7rem;
 }
 
+.bw-updates__col-ver {
+  width: 7rem;
+}
+
+/* 3×1.5rem icons + gaps + cell padding — keep tight so the name column breathes */
 .bw-updates__col-links {
-  width: 6.5rem;
+  width: 5.75rem;
+}
+
+.bw-updates__col-release {
+  width: 7.5rem;
+}
+
+.bw-updates__table--updates {
+  min-width: 36rem;
+}
+
+.bw-updates__table--libraries {
+  min-width: 0;
 }
 
 .bw-updates__table th,
 .bw-updates__table td {
-  padding: 0.65rem 0.85rem;
+  padding: 0.55rem 0.65rem;
   text-align: left;
   vertical-align: middle;
   border: 0;
@@ -557,19 +578,17 @@
   border-bottom: none;
 }
 
-.bw-updates__row--update {
-  background: color-mix(in srgb, var(--theme-warning-500, #d4a017) 8%, transparent);
-}
-
 .bw-updates__name {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
   min-width: 0;
+  overflow: hidden;
 }
 
 .bw-updates__name code {
   font-weight: 600;
+  overflow-wrap: anywhere;
   word-break: break-word;
 }
 
@@ -580,14 +599,19 @@
 .bw-updates__version {
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .bw-updates__version code {
   word-break: normal;
 }
 
+.bw-updates__th-links,
 .bw-updates__links-cell {
+  text-align: right;
   white-space: nowrap;
+  overflow: hidden;
 }
 
 .bw-updates__muted {
@@ -604,29 +628,21 @@
   line-height: 1.5;
 }
 
-.bw-updates__desc {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  font-size: 0.8rem;
-  font-weight: 400;
-  color: var(--theme-elevation-600);
-  line-height: 1.35;
-}
-
 .bw-updates__links {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  justify-content: flex-end;
+  gap: 0.15rem;
+  max-width: 100%;
 }
 
 .bw-updates__icon-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.75rem;
-  height: 1.75rem;
+  flex: 0 0 auto;
+  width: 1.5rem;
+  height: 1.5rem;
   border-radius: 4px;
   color: var(--theme-elevation-700);
   text-decoration: none;
@@ -652,6 +668,11 @@
 
 .bw-updates__ext-link:hover {
   color: var(--theme-elevation-900, inherit);
+}
+
+.bw-updates__release-link {
+  font-size: 0.8rem;
+  margin-left: 0.15rem;
 }
 
 /* —— Media library explorer —— */
@@ -1396,11 +1417,6 @@
 .bw-ai__list {
   margin: 0.25rem 0 0;
   padding-left: 1.25rem;
-}
-
-.bw-updates__desc--pl {
-  color: var(--theme-elevation-800);
-  font-weight: 500;
 }
 
 .bw-builder__ai {

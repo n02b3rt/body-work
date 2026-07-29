@@ -13,6 +13,19 @@
 
 -->
 
+## 2026-07-29: Biblioteki — inventory only (no update-check chrome)
+
+- **Done:** Zarządzanie → Biblioteki no longer shows package counts, „sprawdzono / auto 24h”, or **Sprawdź teraz**. Just runtime/dev tables: name, installed version, icon links. Update checking stays only on Kokpit → Aktualizacje.
+- **Also earlier same day:** removed AI blurbs from this tab; tightened icon column (no horizontal overflow).
+- **Decisions:** Libraries reads the shared package report for versions/links only; it does not own the scheduler.
+- **Watch out:** Stale `.data/package-blurbs.json` is harmless leftover if present; safe to delete by hand.
+
+## 2026-07-29: Aktualizacje vs Biblioteki — distinct columns
+
+- **Done:** Kokpit → Aktualizacje shows only outdated packages with **zadeklarowana / zainstalowana / najnowsza** plus a single release-notes link (GitHub `releases/tag/vX` when the npm repo is GitHub, else Google search for `name version`). Zarządzanie → Biblioteki is pure inventory: installed version, npm/site/GitHub icon links — **no orange update highlighting**, no latest column, no update counts in the toolbar.
+- **Decisions:** Shared report + cache stay one file; views diverge only in the table UI (`package-report-ui` modes). `releaseNotesUrl` lives in `package-updates-shared` (client-safe). Sort is alphabetical; status no longer reorders rows.
+- **Watch out:** GitHub tag URLs assume a `v` prefix (the common case). Packages without Releases may 404 on that URL — still better than inventing a non-GitHub path.
+
 ## 2026-07-29: Admin sidebar — larger type/icons, no stub dots, hover/active motion
 
 - **Done:** Dashboard nav is easier to read (≈15px labels, 20px icons) with calm hover/active fill, `+`/`−` expand marks, and short expand fade. Removed the `·` stub markers and any left active bar. Settings uses a real gear; the rest of the glyph set was redrawn for clarity.

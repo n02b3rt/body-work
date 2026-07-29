@@ -21,6 +21,7 @@ type Props = {
 
 /**
  * Kokpit → Aktualizacje: only packages with a newer npm release.
+ * Columns: declared / installed / latest + release-notes link (GitHub or Google).
  */
 export function UpdatesPanel({ initialReport }: Props) {
   const [report, setReport] = useState(initialReport)
@@ -86,8 +87,8 @@ export function UpdatesPanel({ initialReport }: Props) {
       {updateRows.length === 0 ? (
         <p className="bw-updates__empty">
           Brak dostępnych aktualizacji — wszystkie sprawdzone biblioteki są na
-          najnowszej wersji (albo nie udało się ich porównać). Pełną listę z
-          linkami znajdziesz w{' '}
+          najnowszej wersji (albo nie udało się ich porównać). Pełną listę
+          bibliotek znajdziesz w{' '}
           <Link className="bw-updates__ext-link" href="/admin/libraries">
             Zarządzanie → Biblioteki
           </Link>

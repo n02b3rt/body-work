@@ -6,7 +6,6 @@ Assistive AI inside the Payload admin on the dashboard host only. Never runs on 
 
 - Media ALT / caption suggestions (vision)
 - SEO title, meta description, and post excerpt
-- PL blurbs for packages on Zarządzanie → Biblioteki
 - English draft for a Polish post
 - Blog post draft from a short brief
 - Page-builder section suggestions
@@ -25,14 +24,10 @@ Pattern: **Propose → preview → Insert / Discard**. Nothing is written silent
 | Client | [`src/lib/ai/gemini.ts`](../src/lib/ai/gemini.ts) — plain `fetch`, no npm SDK |
 | Tasks | [`src/lib/ai/tasks.ts`](../src/lib/ai/tasks.ts) |
 | API | `POST /api/admin/ai` with `{ task, ... }` |
-| Auth | Payload session; editorial tasks = staff; library blurbs = administrator |
+| Auth | Payload session; staff roles |
 
 Without the key, endpoints return **503** and the UI shows that AI is unavailable.
 
 ## Privacy
 
 Free-tier Gemini may use prompts to improve Google's products. Do not send passwords, API keys, or customer PII. Editorial copy is a conscious trade-off of the free tier; a paid Gemini tier later can stop training on prompts.
-
-## Cache
-
-Polish package blurbs live in `.data/package-blurbs.json` (gitignored via `.data/`), separate from the npm version report cache.
