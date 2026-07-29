@@ -28,7 +28,7 @@ Don't grep for context that's already written down. Find the topic below, read t
 | The four domains, host-based routing, shared vs. site-specific components | `docs/sites.md` |
 | Approved libraries/infra + **the "ask before installing" rule** | `docs/stack.md` |
 | Bilingual (PL/EN) strategy: next-intl vs. Payload localization | `docs/i18n.md` |
-| Naming, folders, git convention, code style, healthy-growth rules | `docs/conventions.md` |
+| Naming, folders, git convention, code style, **admin UI copy tone**, healthy-growth rules | `docs/conventions.md` |
 | What's in the scraped Centrum mirror and which URL maps to which folder | `docs/scraped-site-map.md` |
 | Page-by-page migration status (built? bilingual? visually verified?) | `docs/migration-tracker.md` |
 | The page builder: section model, builder UI, public renderer | `docs/page-builder.md` |
@@ -47,6 +47,7 @@ Working with a coding agent other than Claude Code? Read `AGENTS.md`: same rules
   **Where the reference is plainly defective, fix it instead of reproducing it** (user's call, 2026-07-27: *"na oryginale też mogą rzeczy się rozjeżdżać bądź być do dupy, więc ogarnij to tak żeby było zajebiście"*). That covers broken links, unreadable type sizes, layouts that leave content colliding or stranded: the things a visitor would read as a bug. It is **not** a licence to redesign: the copy stays verbatim, the palette and imagery stay as they are, and every deviation gets one line in `docs/migration-tracker.md` saying what was changed and why. Two worked examples live in `LegalDocument` (body size, column layout, heading scale) and `external-links.ts` (the dead `/galeria` target). If a change is a matter of taste rather than a defect, keep the reference and ask.
 - **Ask before touching the stack.** Installing, removing, upgrading, or swapping any library/service requires telling the user first, see `docs/stack.md` for what's already approved and why.
 - **No AI/tool authorship anywhere**, not in commits, PRs, code, comments, or docs.
+- **Admin UI copy is short and dry.** Section leads, field `description`s, card hints: one line that names the thing, not a tutorial. Full rule + good/bad examples: `docs/conventions.md` → *Admin UI copy*.
 - **Git:** feature branches (`feat/`, `fix/`, `refactor/`, `chore/`), never non-trivial commits straight to `main`. Full convention: `docs/conventions.md`.
 - **If another agent may be working at the same time, read `docs/parallel-agents.md` first.** Own worktree, own database, own port; never `docker compose down -v` (it drops every agent's data); never hand-edit the generated `src/payload-types.ts` / `importMap.js`; rebase onto `main` the moment someone else's PR lands.
 - **Keep the docs current.** Definition of done = code works + the relevant `docs/*.md` updated + (larger tasks) an `AI_NOTES.md` entry + commit. A feature isn't finished until the map reflects it.

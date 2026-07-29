@@ -13,6 +13,12 @@
 
 -->
 
+## 2026-07-29: Admin UI copy tone (no tutorial prose)
+
+- **Done:** Documented how dashboard labels, section leads, and field descriptions must read: one short line, name the thing, no patronizing walkthroughs. Lives in `docs/conventions.md` (*Admin UI copy*); pointers in `CLAUDE.md` and `AGENTS.md`.
+- **Decisions:** Prefer omitting a description over restating the label. Behavioural docs go in `docs/*.md`, not in the editor-facing string.
+- **Watch out:** Existing admin copy is still full of long AI-ish leads (media, builders, many `admin.description`s). Fix opportunistically when touching a screen; no mass rewrite in this change.
+
 ## 2026-07-29: Biblioteki — inventory only (no update-check chrome)
 
 - **Done:** Zarządzanie → Biblioteki no longer shows package counts, „sprawdzono / auto 24h”, or **Sprawdź teraz**. Just runtime/dev tables: name, installed version, icon links. Update checking stays only on Kokpit → Aktualizacje.
