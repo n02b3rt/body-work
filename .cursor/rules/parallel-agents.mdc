@@ -1,0 +1,26 @@
+---
+description: Guardrails for working on this repo while other AI agents work on it at the same time
+alwaysApply: true
+---
+
+Several agents work on this repo at once, each in its own git worktree, with its own
+Postgres database and its own dev port. Full reasoning: `docs/parallel-agents.md`.
+
+- **Check `.agent-scope`** in this worktree root. It states which folders this session
+  owns. Do not edit files outside them — report the need instead of making the change.
+- **Never run `docker compose down -v`.** A single volume holds every agent's database;
+  that command destroys all of them, not just yours.
+- **Never hand-edit generated files**: `src/payload-types.ts` and
+  `src/app/(payload)/admin/importMap.js`. Regenerate with `pnpm generate:types` and
+  `pnpm generate:importmap`.
+- **Payload schema changes** (`src/collections/`, `src/fields/`) are single-agent work.
+  If another worktree's `.agent-scope` claims them, stop and say so.
+- **Stack changes need the user's approval** — see `docs/stack.md`. That includes
+  anything that would touch `pnpm-lock.yaml`.
+- **`pnpm build` reserves a 4 GB heap.** Do not start one while another slot is
+  building.
+- **Branch names carry the slot letter**: `feat/a-…`, `fix/b-…`. Never commit to `main`.
+- When a PR lands in `main`, run `/post-merge-sync` before continuing. Rebase within
+  the hour, not the day.
+
+The rest of the project's rules are in `AGENTS.md` and `CLAUDE.md`; read both.
