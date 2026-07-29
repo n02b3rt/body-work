@@ -38,7 +38,8 @@
   },
   "Hero": {
     "title": "YOUR BODY. YOUR FRIEND.",
-    "subtitle": "A fit body is freedom — the strength to fully express yourself in life and in sport!"
+    "subtitle": "A fit body is freedom, the strength to fully express yourself in life and in sport!",
+    "metaDescription": "Personal training, physiotherapy, nutrition and massage in Poznań. Balanced fitness that supports your health and your return to activity after injury."
   },
   "News": {
     "heading": "News",
@@ -81,7 +82,7 @@
     "healthProcessBody": "It's a dynamic balance of many elements: body, genetics, mind, social relationships, resilience to stress, recovery and the quality of what you eat. It's a conscious approach to prevention — regularly monitoring functional parameters, check-ups, and reacting quickly to warning signs. It takes commitment, attention and smart choices.",
     "learnMore": "Learn more",
     "joinBodywork": "Join Bodywork.",
-    "showLess": "Show less"
+    "showLess": "Close"
   },
   "Services": {
     "personalTraining": "Personal training",
@@ -232,7 +233,6 @@
     "assessmentHeading": "Check your fitness.",
     "assessmentBody1": "Your first meeting with a trainer is a functional assessment. Through a few simple exercises, the trainer checks what's already working well and what needs attention in your training.",
     "assessmentBody2": "Remember — this assessment is for you as much as for the trainer. It helps build your training plan and track your progress.",
-    "assessmentCta": "Buy now 169 PLN",
     "testimonialsHeading": "Reviews:",
     "testimonials": [
       {
@@ -267,7 +267,8 @@
     "teamHeading": "Team.",
     "teamCta": "Meet the trainers",
     "spaceHeading": "Space.",
-    "spaceCta": "See it"
+    "spaceCta": "See it",
+    "metaDescription": "Personal training in Poznań: medical, functional and motor. An individually matched plan, built on an integrated approach to training and physiotherapy."
   },
   "TrainingReasons": {
     "heading": "When is it worth it?",
@@ -318,7 +319,6 @@
     "title": "Individual training.",
     "assessmentHeading": "Check your fitness!",
     "assessmentBody": "Your first meeting with a trainer is a functional assessment. Through a few simple exercises, the trainer checks what's already working well and what needs attention in your training. Remember — this assessment is for you as much as for the trainer. It helps build your training plan and track your progress. Right now you can get a functional assessment at a special price.",
-    "assessmentSignUp": "Sign up",
     "assessmentMore": "More information",
     "sections": [
       {
@@ -380,7 +380,6 @@
     "bandEyebrow": "Functional assessment",
     "bandHeading": "Check your fitness!",
     "bandBody": "Your first meeting with a trainer is a functional assessment. Through a few simple exercises, the trainer checks what's already working well and what needs attention in your training. Remember — this assessment is for you as much as for the trainer. It helps build your training plan and track your progress.",
-    "bandCta": "Buy now 169 PLN",
     "whatHeading": "What is a functional assessment?",
     "whatBody": "During the meeting the trainer uses an assessment card — a protocol covering the individual areas of your physical ability. The trainer describes an exercise and asks you to perform it. The exercises are chosen to verify a range of elements that describe your level of fitness: your ranges of motion and joint mobility, motor and coordination abilities, strength, power, endurance and so on. Each exercise is scored 0–3 (0 meaning pain during the exercise, 3 meaning full ability to perform it correctly). The assessment produces a map of your strengths and weaknesses. It's an excellent starting point for setting a training plan, or for identifying which kinds of physical activity suit you best. At Centrum BODYWORK the functional assessment is also your first training session, so you can either continue working with the trainer on the basis of the plan, or use the assessment for your own knowledge and purposes.",
     "blocks": [
@@ -552,7 +551,6 @@
     "bandEyebrow": "Our approach to physiotherapy",
     "bandHeading": "Physiotherapy that restores your ability!",
     "bandBody": "Can you imagine a life in which your body is your ally instead of causing you trouble? Our organism is a brilliant mechanism able to self-regulate — it just needs a little help. Being physically able means freedom, and that is what we work towards with you.",
-    "bandSignUp": "Sign up",
     "bandPricing": "Pricing",
     "sections": [
       {
@@ -810,17 +808,14 @@
       {
         "heading": "Ultrasound consultation + training",
         "price": "Cost: 395 PLN",
-        "duration": "Duration: 1.5h",
-        "href": "https://bodywork.testowe.eu/zakupy/zdrowy-brzuch-konsultacja-usg-trening/"
+        "duration": "Duration: 1.5h"
       },
       {
         "heading": "Package of 8 sessions",
         "price": "Cost: 2,000 PLN",
-        "duration": "Duration: 1.5h",
-        "href": "https://bodywork.testowe.eu/zakupy/zdrowy-brzuch-pakiet-8-spotkan/"
+        "duration": "Duration: 1.5h"
       }
     ],
-    "formatCta": "Sign up",
     "leadEyebrow": "Our own two-month programme.",
     "leadBody": "A specialist programme for people with dysfunction of the abdominal, pelvic-floor and diaphragm muscles. The therapy process is based on modern ultrasound diagnostics and a physiotherapist’s assessment."
   },
@@ -918,7 +913,6 @@
     "planHeading": "Healthy Change Plan.",
     "planBody": "Nasz autorski, 6-tygodniowy program, który pomoże Ci rozpocząć aktywny i zdrowy styl życia. Pod okiem doświadczonych trenerów, fizjoterapeutów i dietetyków będziesz trenować, uczyć się i otrzymywać wsparcie na każdym kroku. Program łączy ćwiczenia, edukację i motywację – wszystko po to, aby wzmocnić ciało, poprawić kondycję, koordynację i sylwetkę, a jednocześnie zdobyć pewność siebie i radość z ruchu. To nie tylko trening – to świetna zabawa w grupie 12 uczestników, praktyczna wiedza o zdrowym odżywianiu i regeneracji oraz fundament do trwałej zmiany stylu życia. Po 6 tygodniach poczujesz różnicę – Twoje ciało będzie silniejsze, sprawniejsze, a Ty pełen energii i endorfin!",
     "planMore": "Learn more",
-    "planSignUp": "Sign up!",
     "testimonialsHeading": "Reviews:",
     "testimonials": [
       {
@@ -1048,7 +1042,6 @@
     "title": "Healthy Change Plan",
     "bandHeading": "Improve your shape in 6 weeks!",
     "bandBody": "„Plan zdrowej zmiany” to profesjonalny program motywujący do rozpoczęcia aktywnego i zdrowego stylu życia. Przez 6 tygodni będziemy Cię prowadzić, szkolić, trenować i wspierać w każdym możliwym aspekcie. Dlaczego 6 tygodni? Ponieważ jest to wystarczająco długo, aby zobaczyć już znaczne efekty w swoim ciele – na poziomie wyglądu, sprawności, siły i kondycji fizycznej. Jednocześnie jest to na tyle krótko, iż „bez większego bólu” można przejść przez cały program i się po prostu nie zniechęcić. Sam program to nie tylko praca i wysiłek fizyczny. To przede wszystkim ogrom dobrej zabawy i współpracy z grupą 12 uczestników. Treningi i spotkania będą się odbywać pod okiem naszych doświadczonych trenerów, fizjoterapeutów i dietetyków, którzy przez cały czas będą Cię wspierać i motywować.",
-    "bandCta": "Sign up",
     "goalHeading": "The goal.",
     "goalBody": "Głównym celem programu jest rozpoczęcie trwałej przemiany w Twoim życiu. Chcemy zachęcić Cię do uprawiania sportu, właściwego odżywiania, odpowiedniej regeneracji i generalnie zdrowego stylu życia. Oprócz programu treningowego projekt będzie mieć charakter edukacyjny. W praktyce dowiesz się jak dbać o swoje ciało, aby służyło Ci przez wiele lat w zdrowiu i sprawności. Okres 6 tygodni to jedynie dobry początek tego co czeka Cię później – staniesz się sprawniejszy, szczęśliwszy i pewniejszy siebie. Wystarczy tylko zacząć!",
     "resultsHeading": "What you'll gain by the end of the programme?",
@@ -1072,7 +1065,6 @@
     "forWhoBody": "● Wszystkie osoby, które są relatywnie mało aktywne fizycznie i chciałyby w mądry, zrównoważony sposób rozpocząć proces przemiany ● Osoby, które pragną zredukować poziom tkanki tłuszczowej lub zwiększyć masę mięśniową ● Osoby, które chciałyby być poprowadzone przez grupę specjalistów, tak, aby nie popełniać błędów i dzięki temu osiągnąć najlepsze rezultaty w jak najkrótszym czasie ● Minimalny wiek uczestnictwa to 14 lat",
     "detailsHeading": "Practical details:",
     "detailsBody": "● Cena uczestnictwa w projekcie 895 zł ● Liczba uczestników w grupie: min 8, max 12 osób ● Termin projektu: od 18.05.2026 r. do 29.06.2026 r. ● Spotkanie organizacyjne 11.05.2026 r. ● Harmonogram treningów: pon 20:30, śr 20:30, pt 19:30",
-    "detailsCta": "Sign up",
     "includedHeading": "The price includes:",
     "includedBody": "● Indywidualną ocenę funkcjonalną na początku projektu ● 2 pomiary składu ciała – na początku i na końcu ● Indywidualne wskazówki żywieniowe przygotowane po spotkaniu z dietetykiem ● 18 treningów w grupie maksymalnie 12 osób ● 3 wykłady o charakterze edukacyjnym ● Stałą opiekę i wsparcie naszego zespołu – w każdej chwili trwania projektu",
     "testimonialsHeading": "Reviews:",
@@ -1162,6 +1154,88 @@
     ],
     "howToHeading": "How do I book a consultation?",
     "howToBody": "Zadzwoń pod nr 609 805 660 i umów się na wizytę z jedną z naszych dietetyczek. Pracownicy recepcji udzielą Ci wszelkich dodatkowych, niezbędnych informacji.",
+    "howToCall": "Call us",
+    "howToEmail": "info@body-work.pl"
+  },
+  "Massage": {
+    "title": "Massage",
+    "bandEyebrow": "Massage at BODYWORK",
+    "bandHeading": "Experience complete relief and recovery.",
+    "bandBody": "Classic, relaxation and sports massage, along with Kobido, are popular kinds of massage, each offering different benefits for your health and wellbeing. Our team of therapists chooses the techniques and methods for you individually, adapting to your needs and expectations.",
+    "sections": [
+      {
+        "heading": "Classic massage.",
+        "body": "Classic massage, also known as Swedish massage, aims to stimulate the tissues, blood and lymph circulation, and to reduce muscle tension. During a session the therapist works through a range of techniques: effleurage, kneading, friction, vibration and tapotement. Classic massage can be used both for relaxation and for treatment. Therapeutically it is applied to reduce pain, in chronic conditions as much as after an injury, and it also works as a preventive measure. The relaxing qualities of classic massage, in turn, have a positive effect on wellbeing and on reducing stress, creating room for the body to unwind.",
+        "image": "/images/masaz/klasyczny.webp"
+      },
+      {
+        "heading": "Sports massage.",
+        "body": "Sports massage works by stimulating the muscles deeply and boosting blood circulation, which speeds up the recovery of muscle tissue, lowers the risk of injury and eases muscle soreness. It also improves flexibility, increasing the range of movement and reducing muscle tension. Sports massage is often used after training, to make recovery effective and to release tension or contractures. It works just as well before exercise, preparing the body for effort. Sports massage is recommended for physically active people, amateurs and professionals alike. It supports the effectiveness of physical effort while relieving pain and preventing potential injuries.",
+        "image": "/images/masaz/sportowy.webp"
+      },
+      {
+        "heading": "Relaxation massage.",
+        "body": "Relaxation massage is a form of classic massage built on similar techniques, but noticeably gentler in intensity. During a relaxation massage session the blood circulation is stimulated, the muscles gain elasticity and a feeling of release sets in. That in turn lets you relax, eases tension and stress, and improves both wellbeing and quality of life.",
+        "image": "/images/masaz/relaksacyjny.webp"
+      },
+      {
+        "heading": "Kobido massage.",
+        "body": "Kobido is a Japanese facial massage technique, also known as the „non-surgical lift”. It combines intense, precise movements with elements of lymphatic drainage, acupressure and lifting techniques. Used regularly, Kobido improves the firmness and elasticity of the skin, smooths wrinkles and reduces muscle tension around the face, neck and nape. Thanks to the deep stimulation of the tissues, Kobido not only improves how you look but also has a calming effect: it quiets the nervous system and supports the body’s natural regenerative processes. This massage is recommended for anyone who wants natural rejuvenation, release and healthy-looking skin, without turning to aesthetic medicine.",
+        "image": "/images/masaz/kobido.webp"
+      }
+    ],
+    "teamEyebrow": "Our team",
+    "teamHeading": "The BODYWORK massage therapists are a qualified team specialising in a range of massage techniques.",
+    "teamBody": "Their mission is to improve the health and wellbeing of our clients through professional, effective massage therapy.",
+    "people": [
+      {
+        "name": "Przemysław Górski",
+        "role": "CLASSIC / SPORTS / RELAXATION MASSAGE",
+        "body": "A graduate of the Academy of Physical Education in Poznań, in physical education with corrective and compensatory gymnastics. A massage therapist with many years of experience, a teacher, lecturer, medical and functional trainer, and an instructor in athletics and swimming. Physical activity has been part of his life for as long as he can remember.\n\nDuring a treatment he combines different massage techniques to get the best possible result for each client. Among others he uses sports massage, as a complement to training or as part of biological renewal and recovery. He knows and understands the needs of active people thoroughly. He works with people recovering from injuries, supporting them on the way back to health and full fitness. Day to day he also works with clients looking for release and stress relief, giving relaxation massage treatments.",
+        "image": "/images/masaz/przemyslaw-gorski.webp"
+      },
+      {
+        "name": "Filip Deskur",
+        "role": "CLASSIC / SPORTS / RELAXATION MASSAGE",
+        "body": "A physiotherapist and qualified massage therapist. He combines a variety of techniques to reach the best possible result. He gives sports massage, which supports biological renewal and improves how the muscular system functions. In his practice he takes a whole-body view. He also gives relaxation massage, for quiet and release.",
+        "image": "/images/masaz/filip-deskur.webp"
+      },
+      {
+        "name": "Wiktoria Wysocka",
+        "role": "KOBIDO / CLASSIC / RELAXATION MASSAGE",
+        "body": "A fourth-year physiotherapy student and qualified massage therapist, which lets her combine practical massage skills with a broad view of health and how the body works. She gives a range of massage techniques, both relaxing and therapeutic.\n\nKobido holds a special place in her practice: the Japanese lifting ritual that works not only on the skin but also releases deeply and lifts how you feel. Combining knowledge of anatomy, physiology and manual therapy, every massage is matched to your needs.",
+        "image": "/images/masaz/wiktoria-wysocka.webp"
+      }
+    ],
+    "testimonialsHeading": "What our clients say:",
+    "testimonials": [
+      {
+        "quote": "A great atmosphere. A wonderful reception desk. Professional support from the trainers. It is very much all right. On top of that, fantastic Kobido, physiotherapeutic and relaxation massages: Wiktoria knows what she is doing. Recommended!",
+        "name": "CEZARY WYTYCH"
+      },
+      {
+        "quote": "I am very pleased with the Kobido massage. It was deeply calming and relaxing, especially after a stressful day. Wiktoria runs the whole session very professionally, so even on a first visit I felt comfortable straight away. I will certainly come back!",
+        "name": "KONRAD WIECZOREK"
+      },
+      {
+        "quote": "After abdominal surgery I came to Natalia for visceral massage. At first I was looking for relief and I got it (fewer adhesions, more lightness in the body). Looking back, it mattered just as much that Natalia took a wider view and pointed me towards what was worth checking next. I followed that up (consultations with a dietitian and a gastroenterologist, tests and so on), and in the end we were able to name the problem and start treatment. It turned out to be the beginning of a process that genuinely translated into a better quality of life. All of it in a pleasant atmosphere, and with the feeling of being in good hands.",
+        "name": "MAGDA PODOLSKA"
+      },
+      {
+        "quote": "I highly recommend the massages at Bodywork. I have seen both Filip and Wiktoria. A very professional approach, with care for the complaints and needs of the moment. Every time I left relaxed and loosened up. After a whole day of sitting at work, it is the best thing you can do for your body!",
+        "name": "WERONIKA DOBROŚ"
+      },
+      {
+        "quote": "I wholeheartedly recommend massages with Wiktoria Wysocka! She knows exactly when to press and when to ease off, and how to match the intensity to what the body needs right now. After the massage I felt lighter, I could finally breathe deeply, and the next day I woke up without pain. I will definitely be back, and I recommend her warmly: Wiktoria listens and understands. A genuinely excellent specialist 💗",
+        "name": "MAJA ŻURAKOWSKA"
+      },
+      {
+        "quote": "I highly recommend the Kobido facial massage with Wiktoria. A deeply relaxing treatment in a warm, comfortable atmosphere. I felt very much at ease after the visit. I recommend it with all my heart 🥰",
+        "name": "KAROLINA L."
+      }
+    ],
+    "howToHeading": "How do I book a massage?",
+    "howToBody": "Please get in touch with us directly on 609 805 660. The reception team will give you any further information you need and suggest a convenient time for your massage. Clients who already use our Centre receive a 15% discount.",
     "howToCall": "Call us",
     "howToEmail": "info@body-work.pl"
   },
@@ -1508,7 +1582,8 @@
   },
   "common": {
     "loading": "Loading…",
-    "error": "Something went wrong"
+    "error": "Something went wrong",
+    "breadcrumbHome": "Home"
   },
   "Terms": {
     "title": "REGULAMIN SKLEPU INTERNETOWEGO ORAZ SERWISU INTERNETOWEGO",

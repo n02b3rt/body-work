@@ -18,6 +18,105 @@ function absolute(url: string) {
 }
 
 /**
+ * One service the centre provides, with the variants it breaks down into.
+ *
+ * For a section hub such as `/trening-personalny`, where the page is about a single service and
+ * links to its sub-pages. `provider` points at the sitewide business by `@id` rather than repeating
+ * its address, and `areaServed` is the city from the footer.
+ *
+ * `hasOfferCatalog` rather than `offers`: there are no prices in the markup and inventing them, or
+ * declaring an `Offer` without one, would be a claim the page does not make. The catalogue names
+ * what is available and links to it, which is what the page actually says.
+ */
+export function serviceJsonLd(
+  locale: string,
+  service: {
+    name: string;
+    description: string;
+    path: string;
+    city: string;
+    variants: { name: string; path: string }[];
+  },
+): Thing {
+  const url = `${SITE_URL}${localePath(locale, service.path)}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${url}#service`,
+    name: service.name,
+    description: service.description,
+    url,
+    serviceType: service.name,
+    provider: { "@id": `${SITE_URL}/#business` },
+    areaServed: { "@type": "City", name: service.city },
+    ...(service.variants.length
+      ? {
+          hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: service.name,
+            itemListElement: service.variants.map((variant) => ({
+              "@type": "Service",
+              name: variant.name,
+              url: `${SITE_URL}${localePath(locale, variant.path)}`,
+            })),
+          },
+        }
+      : {}),
+  };
+}
+
+/**
+ * The homepage's own graph: the site as a `WebSite`, and what the centre offers as an `ItemList`
+ * of `Service` entries pointing at the section pages.
+ *
+ * Both hang off the sitewide `HealthAndBeautyBusiness` by `@id` rather than repeating its address
+ * and hours, which is what stops a crawler reading them as two different businesses.
+ *
+ * **No `potentialAction`/`SearchAction`.** The sitelinks searchbox needs a URL that accepts a query
+ * string, and this site's only search is the blog's client-side filter. Declaring one would be a
+ * claim that does not hold.
+ */
+export function homepageJsonLd(
+  locale: string,
+  services: { label: string; href: string }[],
+): Thing {
+  const businessId = `${SITE_URL}/#business`;
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        url: SITE_URL,
+        name: SITE_NAME,
+        inLanguage: locale === "pl" ? "pl-PL" : "en-GB",
+        publisher: { "@id": businessId },
+      },
+      {
+        "@type": "ItemList",
+        "@id": `${SITE_URL}${localePath(locale, "/")}#services`,
+        name: SITE_NAME,
+        itemListElement: services.map((service, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
+            "@type": "Service",
+            name: service.label,
+            // Section pages are internal; the academy is a separate host.
+            url: service.href.startsWith("http")
+              ? service.href
+              : `${SITE_URL}${localePath(locale, service.href)}`,
+            provider: { "@id": businessId },
+          },
+        })),
+      },
+    ],
+  };
+}
+
+/**
  * The business itself. Values mirror the footer's own strings so there is one source of
  * truth: change the address in `messages/*.json` and this follows.
  *

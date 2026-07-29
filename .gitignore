@@ -52,3 +52,6 @@ scripts/scrape/scraped/
 scripts/scrape/scrape_run.log
 scripts/scrape/__pycache__/
 *.pyc
+
+# Original hero footage: only an input for scripts/optimize-hero-video.mjs
+public/videos/hero-source.mp4

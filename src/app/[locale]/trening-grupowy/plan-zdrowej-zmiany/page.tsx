@@ -11,8 +11,6 @@ import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { GroupTrainingNav } from "@/components/centrum/GroupTrainingNav";
 import { pageMetadata } from "@/lib/metadata";
 
-const SHOP_PLAN_URL = "https://bodywork.testowe.eu/zakupy/plan-zdrowej-zmiany/";
-
 type Block = { heading: string; body: string };
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
@@ -45,11 +43,7 @@ export default async function HealthyChangePlanPage({ params }: PageProps) {
         heading={t("bandHeading")}
         body={<p>{t("bandBody")}</p>}
         backgroundSrc="/images/trening-grupowy/plan-mark.webp"
-      >
-        <a href={SHOP_PLAN_URL} target="_blank" rel="noopener noreferrer" className={buttonClasses("outline")}>
-          {t("bandCta")}
-        </a>
-      </CenteredBand>
+      />
 
       <section className="border-t border-brand-navy-soft bg-background">
         <Container className="grid gap-10 py-16 lg:grid-cols-2 lg:gap-16 lg:py-24">
@@ -99,9 +93,6 @@ export default async function HealthyChangePlanPage({ params }: PageProps) {
         <Container className="flex flex-col items-start gap-10 py-16 lg:py-24">
           <SectionHeading>{t("detailsHeading")}</SectionHeading>
           <p className="max-w-3xl text-body text-brand-navy">{t("detailsBody")}</p>
-          <a href={SHOP_PLAN_URL} target="_blank" rel="noopener noreferrer" className={buttonClasses("outline")}>
-            {t("detailsCta")}
-          </a>
         </Container>
       </section>
 

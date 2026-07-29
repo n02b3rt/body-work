@@ -10,8 +10,6 @@ import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { PersonalTrainingNav } from "@/components/centrum/PersonalTrainingNav";
 import { pageMetadata } from "@/lib/metadata";
 
-const SHOP_ASSESSMENT_URL = "https://bodywork.testowe.eu/zakupy/ocena-funkcjonalna/";
-
 type Block = { heading: string; body: string };
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
@@ -41,11 +39,7 @@ export default async function FunctionalAssessmentPage({ params }: PageProps) {
         heading={t("bandHeading")}
         body={<p>{t("bandBody")}</p>}
         backgroundSrc="/images/trening-personalny/ocena-mark.webp"
-      >
-        <a href={SHOP_ASSESSMENT_URL} target="_blank" rel="noopener noreferrer" className={buttonClasses("outline")}>
-          {t("bandCta")}
-        </a>
-      </CenteredBand>
+      />
 
       <section className="border-t border-brand-navy-soft bg-background">
         <Container className="flex flex-col items-start gap-10 py-16 lg:py-24">

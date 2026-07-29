@@ -61,6 +61,8 @@ export function NewsletterSignup() {
 
   return (
     <section className="relative overflow-hidden border-t border-brand-navy-soft bg-background py-20 lg:py-28">
+      {/* Full-bleed at every measured width, and a faint watermark rather than a photograph, so
+        * it needs no placeholder: the 9KB it weighs arrives faster than a blur would help. */}
       <Image src="/images/home/newsletter-bg.webp" alt="" fill sizes="100vw" className="object-cover" />
       <Container className="relative z-10 flex flex-col items-center gap-14 text-center">
         <SectionHeading size="hero">
