@@ -291,14 +291,5649 @@ export interface Page {
    */
   slug: string;
   /**
-   * Ułóż stronę z gotowych komponentów. Komponenty dodajesz i edytujesz w Zarządzanie → Wygląd → Komponenty.
+   * Ułóż stronę z elementów. Powtarzalne złożenia zapisujesz w Zarządzanie → Wygląd → Komponenty.
    */
   layout?:
     | {
         /**
-         * Który komponent z biblioteki wyświetlić w tym miejscu.
+         * Tylko dla porządku w kreatorze, nie pojawia się na stronie.
          */
-        component: number | SiteComponent;
+        name?: string | null;
+        /**
+         * Zawartość układasz na kanwie kreatora.
+         */
+        content?:
+          | (
+              | {
+                  text?: string | null;
+                  level?: ('h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6') | null;
+                  size?: ('sm' | 'md' | 'lg' | 'xl') | null;
+                  color?: {
+                    token?:
+                      | (
+                          | 'brand.primary'
+                          | 'brand.primaryHover'
+                          | 'brand.secondary'
+                          | 'brand.secondaryHover'
+                          | 'brand.accent'
+                          | 'text.heading'
+                          | 'text.body'
+                          | 'text.muted'
+                          | 'text.inverted'
+                          | 'text.link'
+                          | 'text.linkHover'
+                          | 'surface.page'
+                          | 'surface.surface'
+                          | 'surface.surfaceAlt'
+                          | 'surface.border'
+                          | 'surface.overlay'
+                          | 'state.success'
+                          | 'state.warning'
+                          | 'state.error'
+                          | 'state.info'
+                          | 'custom'
+                          | 'none'
+                        )
+                      | null;
+                    custom?: string | null;
+                  };
+                  style?: {
+                    align?: ('left' | 'center' | 'right') | null;
+                    width?: ('auto' | 'full' | 'custom') | null;
+                    customWidth?: number | null;
+                    /**
+                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                     */
+                    padding?: {
+                      top?: number | null;
+                      right?: number | null;
+                      bottom?: number | null;
+                      left?: number | null;
+                    };
+                    /**
+                     * Odstęp od sąsiednich elementów.
+                     */
+                    margin?: {
+                      top?: number | null;
+                      bottom?: number | null;
+                    };
+                    background?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    textColor?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                    border?: {
+                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                      width?: number | null;
+                      color?: {
+                        token?:
+                          | (
+                              | 'brand.primary'
+                              | 'brand.primaryHover'
+                              | 'brand.secondary'
+                              | 'brand.secondaryHover'
+                              | 'brand.accent'
+                              | 'text.heading'
+                              | 'text.body'
+                              | 'text.muted'
+                              | 'text.inverted'
+                              | 'text.link'
+                              | 'text.linkHover'
+                              | 'surface.page'
+                              | 'surface.surface'
+                              | 'surface.surfaceAlt'
+                              | 'surface.border'
+                              | 'surface.overlay'
+                              | 'state.success'
+                              | 'state.warning'
+                              | 'state.error'
+                              | 'state.info'
+                              | 'custom'
+                              | 'none'
+                            )
+                          | null;
+                        custom?: string | null;
+                      };
+                    };
+                    /**
+                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                     */
+                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                    anchorId?: string | null;
+                    cssClass?: string | null;
+                  };
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'heading';
+                }
+              | {
+                  content?: {
+                    root: {
+                      type: string;
+                      children: {
+                        type: any;
+                        version: number;
+                        [k: string]: unknown;
+                      }[];
+                      direction: ('ltr' | 'rtl') | null;
+                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                      indent: number;
+                      version: number;
+                    };
+                    [k: string]: unknown;
+                  } | null;
+                  /**
+                   * Trzyma tekst przy ~68 znakach w wierszu, czyli w wygodnej do czytania kolumnie.
+                   */
+                  measure?: boolean | null;
+                  style?: {
+                    align?: ('left' | 'center' | 'right') | null;
+                    width?: ('auto' | 'full' | 'custom') | null;
+                    customWidth?: number | null;
+                    /**
+                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                     */
+                    padding?: {
+                      top?: number | null;
+                      right?: number | null;
+                      bottom?: number | null;
+                      left?: number | null;
+                    };
+                    /**
+                     * Odstęp od sąsiednich elementów.
+                     */
+                    margin?: {
+                      top?: number | null;
+                      bottom?: number | null;
+                    };
+                    background?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    textColor?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                    border?: {
+                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                      width?: number | null;
+                      color?: {
+                        token?:
+                          | (
+                              | 'brand.primary'
+                              | 'brand.primaryHover'
+                              | 'brand.secondary'
+                              | 'brand.secondaryHover'
+                              | 'brand.accent'
+                              | 'text.heading'
+                              | 'text.body'
+                              | 'text.muted'
+                              | 'text.inverted'
+                              | 'text.link'
+                              | 'text.linkHover'
+                              | 'surface.page'
+                              | 'surface.surface'
+                              | 'surface.surfaceAlt'
+                              | 'surface.border'
+                              | 'surface.overlay'
+                              | 'state.success'
+                              | 'state.warning'
+                              | 'state.error'
+                              | 'state.info'
+                              | 'custom'
+                              | 'none'
+                            )
+                          | null;
+                        custom?: string | null;
+                      };
+                    };
+                    /**
+                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                     */
+                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                    anchorId?: string | null;
+                    cssClass?: string | null;
+                  };
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'text';
+                }
+              | {
+                  image?: (number | null) | Media;
+                  caption?: string | null;
+                  aspectRatio?: ('auto' | '16-9' | '21-9' | '4-3' | '1-1' | '3-4') | null;
+                  radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                  fit?: ('cover' | 'contain') | null;
+                  href?: string | null;
+                  newTab?: boolean | null;
+                  style?: {
+                    align?: ('left' | 'center' | 'right') | null;
+                    width?: ('auto' | 'full' | 'custom') | null;
+                    customWidth?: number | null;
+                    /**
+                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                     */
+                    padding?: {
+                      top?: number | null;
+                      right?: number | null;
+                      bottom?: number | null;
+                      left?: number | null;
+                    };
+                    /**
+                     * Odstęp od sąsiednich elementów.
+                     */
+                    margin?: {
+                      top?: number | null;
+                      bottom?: number | null;
+                    };
+                    background?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    textColor?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                    border?: {
+                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                      width?: number | null;
+                      color?: {
+                        token?:
+                          | (
+                              | 'brand.primary'
+                              | 'brand.primaryHover'
+                              | 'brand.secondary'
+                              | 'brand.secondaryHover'
+                              | 'brand.accent'
+                              | 'text.heading'
+                              | 'text.body'
+                              | 'text.muted'
+                              | 'text.inverted'
+                              | 'text.link'
+                              | 'text.linkHover'
+                              | 'surface.page'
+                              | 'surface.surface'
+                              | 'surface.surfaceAlt'
+                              | 'surface.border'
+                              | 'surface.overlay'
+                              | 'state.success'
+                              | 'state.warning'
+                              | 'state.error'
+                              | 'state.info'
+                              | 'custom'
+                              | 'none'
+                            )
+                          | null;
+                        custom?: string | null;
+                      };
+                    };
+                    /**
+                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                     */
+                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                    anchorId?: string | null;
+                    cssClass?: string | null;
+                  };
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'image';
+                }
+              | {
+                  items?:
+                    | {
+                        label?: string | null;
+                        variant?: ('solid' | 'outline' | 'link') | null;
+                        href?: string | null;
+                        newTab?: boolean | null;
+                        size?: ('sm' | 'md' | 'lg') | null;
+                        radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                        background?: {
+                          token?:
+                            | (
+                                | 'brand.primary'
+                                | 'brand.primaryHover'
+                                | 'brand.secondary'
+                                | 'brand.secondaryHover'
+                                | 'brand.accent'
+                                | 'text.heading'
+                                | 'text.body'
+                                | 'text.muted'
+                                | 'text.inverted'
+                                | 'text.link'
+                                | 'text.linkHover'
+                                | 'surface.page'
+                                | 'surface.surface'
+                                | 'surface.surfaceAlt'
+                                | 'surface.border'
+                                | 'surface.overlay'
+                                | 'state.success'
+                                | 'state.warning'
+                                | 'state.error'
+                                | 'state.info'
+                                | 'custom'
+                                | 'none'
+                              )
+                            | null;
+                          custom?: string | null;
+                        };
+                        textColor?: {
+                          token?:
+                            | (
+                                | 'brand.primary'
+                                | 'brand.primaryHover'
+                                | 'brand.secondary'
+                                | 'brand.secondaryHover'
+                                | 'brand.accent'
+                                | 'text.heading'
+                                | 'text.body'
+                                | 'text.muted'
+                                | 'text.inverted'
+                                | 'text.link'
+                                | 'text.linkHover'
+                                | 'surface.page'
+                                | 'surface.surface'
+                                | 'surface.surfaceAlt'
+                                | 'surface.border'
+                                | 'surface.overlay'
+                                | 'state.success'
+                                | 'state.warning'
+                                | 'state.error'
+                                | 'state.info'
+                                | 'custom'
+                                | 'none'
+                              )
+                            | null;
+                          custom?: string | null;
+                        };
+                        borderColor?: {
+                          token?:
+                            | (
+                                | 'brand.primary'
+                                | 'brand.primaryHover'
+                                | 'brand.secondary'
+                                | 'brand.secondaryHover'
+                                | 'brand.accent'
+                                | 'text.heading'
+                                | 'text.body'
+                                | 'text.muted'
+                                | 'text.inverted'
+                                | 'text.link'
+                                | 'text.linkHover'
+                                | 'surface.page'
+                                | 'surface.surface'
+                                | 'surface.surfaceAlt'
+                                | 'surface.border'
+                                | 'surface.overlay'
+                                | 'state.success'
+                                | 'state.warning'
+                                | 'state.error'
+                                | 'state.info'
+                                | 'custom'
+                                | 'none'
+                              )
+                            | null;
+                          custom?: string | null;
+                        };
+                        fullWidth?: boolean | null;
+                        id?: string | null;
+                      }[]
+                    | null;
+                  gap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+                  align?: ('left' | 'center' | 'right') | null;
+                  style?: {
+                    align?: ('left' | 'center' | 'right') | null;
+                    width?: ('auto' | 'full' | 'custom') | null;
+                    customWidth?: number | null;
+                    /**
+                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                     */
+                    padding?: {
+                      top?: number | null;
+                      right?: number | null;
+                      bottom?: number | null;
+                      left?: number | null;
+                    };
+                    /**
+                     * Odstęp od sąsiednich elementów.
+                     */
+                    margin?: {
+                      top?: number | null;
+                      bottom?: number | null;
+                    };
+                    background?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    textColor?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                    border?: {
+                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                      width?: number | null;
+                      color?: {
+                        token?:
+                          | (
+                              | 'brand.primary'
+                              | 'brand.primaryHover'
+                              | 'brand.secondary'
+                              | 'brand.secondaryHover'
+                              | 'brand.accent'
+                              | 'text.heading'
+                              | 'text.body'
+                              | 'text.muted'
+                              | 'text.inverted'
+                              | 'text.link'
+                              | 'text.linkHover'
+                              | 'surface.page'
+                              | 'surface.surface'
+                              | 'surface.surfaceAlt'
+                              | 'surface.border'
+                              | 'surface.overlay'
+                              | 'state.success'
+                              | 'state.warning'
+                              | 'state.error'
+                              | 'state.info'
+                              | 'custom'
+                              | 'none'
+                            )
+                          | null;
+                        custom?: string | null;
+                      };
+                    };
+                    /**
+                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                     */
+                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                    anchorId?: string | null;
+                    cssClass?: string | null;
+                  };
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'buttons';
+                }
+              | {
+                  items?:
+                    | {
+                        icon?:
+                          | (
+                              | 'check'
+                              | 'star'
+                              | 'heart'
+                              | 'sparkle'
+                              | 'shield'
+                              | 'phone'
+                              | 'mail'
+                              | 'clock'
+                              | 'pin'
+                              | 'calendar'
+                              | 'user'
+                              | 'arrow'
+                              | 'quote'
+                              | 'plus'
+                              | 'dot'
+                              | 'none'
+                            )
+                          | null;
+                        text?: string | null;
+                        href?: string | null;
+                        newTab?: boolean | null;
+                        id?: string | null;
+                      }[]
+                    | null;
+                  columns?: ('1' | '2' | '3' | '4') | null;
+                  gap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+                  iconColor?: {
+                    token?:
+                      | (
+                          | 'brand.primary'
+                          | 'brand.primaryHover'
+                          | 'brand.secondary'
+                          | 'brand.secondaryHover'
+                          | 'brand.accent'
+                          | 'text.heading'
+                          | 'text.body'
+                          | 'text.muted'
+                          | 'text.inverted'
+                          | 'text.link'
+                          | 'text.linkHover'
+                          | 'surface.page'
+                          | 'surface.surface'
+                          | 'surface.surfaceAlt'
+                          | 'surface.border'
+                          | 'surface.overlay'
+                          | 'state.success'
+                          | 'state.warning'
+                          | 'state.error'
+                          | 'state.info'
+                          | 'custom'
+                          | 'none'
+                        )
+                      | null;
+                    custom?: string | null;
+                  };
+                  style?: {
+                    align?: ('left' | 'center' | 'right') | null;
+                    width?: ('auto' | 'full' | 'custom') | null;
+                    customWidth?: number | null;
+                    /**
+                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                     */
+                    padding?: {
+                      top?: number | null;
+                      right?: number | null;
+                      bottom?: number | null;
+                      left?: number | null;
+                    };
+                    /**
+                     * Odstęp od sąsiednich elementów.
+                     */
+                    margin?: {
+                      top?: number | null;
+                      bottom?: number | null;
+                    };
+                    background?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    textColor?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                    border?: {
+                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                      width?: number | null;
+                      color?: {
+                        token?:
+                          | (
+                              | 'brand.primary'
+                              | 'brand.primaryHover'
+                              | 'brand.secondary'
+                              | 'brand.secondaryHover'
+                              | 'brand.accent'
+                              | 'text.heading'
+                              | 'text.body'
+                              | 'text.muted'
+                              | 'text.inverted'
+                              | 'text.link'
+                              | 'text.linkHover'
+                              | 'surface.page'
+                              | 'surface.surface'
+                              | 'surface.surfaceAlt'
+                              | 'surface.border'
+                              | 'surface.overlay'
+                              | 'state.success'
+                              | 'state.warning'
+                              | 'state.error'
+                              | 'state.info'
+                              | 'custom'
+                              | 'none'
+                            )
+                          | null;
+                        custom?: string | null;
+                      };
+                    };
+                    /**
+                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                     */
+                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                    anchorId?: string | null;
+                    cssClass?: string | null;
+                  };
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'iconList';
+                }
+              | {
+                  gap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+                  stackOn?: ('mobile' | 'tablet' | 'never') | null;
+                  verticalAlign?: ('start' | 'center' | 'end' | 'stretch') | null;
+                  columns?:
+                    | {
+                        weight?: ('1' | '1.5' | '2' | '3' | 'auto') | null;
+                        verticalAlign?: ('inherit' | 'start' | 'center' | 'end') | null;
+                        /**
+                         * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                         */
+                        padding?: {
+                          top?: number | null;
+                          right?: number | null;
+                          bottom?: number | null;
+                          left?: number | null;
+                        };
+                        background?: {
+                          token?:
+                            | (
+                                | 'brand.primary'
+                                | 'brand.primaryHover'
+                                | 'brand.secondary'
+                                | 'brand.secondaryHover'
+                                | 'brand.accent'
+                                | 'text.heading'
+                                | 'text.body'
+                                | 'text.muted'
+                                | 'text.inverted'
+                                | 'text.link'
+                                | 'text.linkHover'
+                                | 'surface.page'
+                                | 'surface.surface'
+                                | 'surface.surfaceAlt'
+                                | 'surface.border'
+                                | 'surface.overlay'
+                                | 'state.success'
+                                | 'state.warning'
+                                | 'state.error'
+                                | 'state.info'
+                                | 'custom'
+                                | 'none'
+                              )
+                            | null;
+                          custom?: string | null;
+                        };
+                        radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                        border?: {
+                          style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                          width?: number | null;
+                          color?: {
+                            token?:
+                              | (
+                                  | 'brand.primary'
+                                  | 'brand.primaryHover'
+                                  | 'brand.secondary'
+                                  | 'brand.secondaryHover'
+                                  | 'brand.accent'
+                                  | 'text.heading'
+                                  | 'text.body'
+                                  | 'text.muted'
+                                  | 'text.inverted'
+                                  | 'text.link'
+                                  | 'text.linkHover'
+                                  | 'surface.page'
+                                  | 'surface.surface'
+                                  | 'surface.surfaceAlt'
+                                  | 'surface.border'
+                                  | 'surface.overlay'
+                                  | 'state.success'
+                                  | 'state.warning'
+                                  | 'state.error'
+                                  | 'state.info'
+                                  | 'custom'
+                                  | 'none'
+                                )
+                              | null;
+                            custom?: string | null;
+                          };
+                        };
+                        /**
+                         * Zawartość układasz na kanwie kreatora.
+                         */
+                        content?:
+                          | (
+                              | {
+                                  text?: string | null;
+                                  level?: ('h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6') | null;
+                                  size?: ('sm' | 'md' | 'lg' | 'xl') | null;
+                                  color?: {
+                                    token?:
+                                      | (
+                                          | 'brand.primary'
+                                          | 'brand.primaryHover'
+                                          | 'brand.secondary'
+                                          | 'brand.secondaryHover'
+                                          | 'brand.accent'
+                                          | 'text.heading'
+                                          | 'text.body'
+                                          | 'text.muted'
+                                          | 'text.inverted'
+                                          | 'text.link'
+                                          | 'text.linkHover'
+                                          | 'surface.page'
+                                          | 'surface.surface'
+                                          | 'surface.surfaceAlt'
+                                          | 'surface.border'
+                                          | 'surface.overlay'
+                                          | 'state.success'
+                                          | 'state.warning'
+                                          | 'state.error'
+                                          | 'state.info'
+                                          | 'custom'
+                                          | 'none'
+                                        )
+                                      | null;
+                                    custom?: string | null;
+                                  };
+                                  style?: {
+                                    align?: ('left' | 'center' | 'right') | null;
+                                    width?: ('auto' | 'full' | 'custom') | null;
+                                    customWidth?: number | null;
+                                    /**
+                                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                                     */
+                                    padding?: {
+                                      top?: number | null;
+                                      right?: number | null;
+                                      bottom?: number | null;
+                                      left?: number | null;
+                                    };
+                                    /**
+                                     * Odstęp od sąsiednich elementów.
+                                     */
+                                    margin?: {
+                                      top?: number | null;
+                                      bottom?: number | null;
+                                    };
+                                    background?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    textColor?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                                    border?: {
+                                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                      width?: number | null;
+                                      color?: {
+                                        token?:
+                                          | (
+                                              | 'brand.primary'
+                                              | 'brand.primaryHover'
+                                              | 'brand.secondary'
+                                              | 'brand.secondaryHover'
+                                              | 'brand.accent'
+                                              | 'text.heading'
+                                              | 'text.body'
+                                              | 'text.muted'
+                                              | 'text.inverted'
+                                              | 'text.link'
+                                              | 'text.linkHover'
+                                              | 'surface.page'
+                                              | 'surface.surface'
+                                              | 'surface.surfaceAlt'
+                                              | 'surface.border'
+                                              | 'surface.overlay'
+                                              | 'state.success'
+                                              | 'state.warning'
+                                              | 'state.error'
+                                              | 'state.info'
+                                              | 'custom'
+                                              | 'none'
+                                            )
+                                          | null;
+                                        custom?: string | null;
+                                      };
+                                    };
+                                    /**
+                                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                                     */
+                                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                                    anchorId?: string | null;
+                                    cssClass?: string | null;
+                                  };
+                                  id?: string | null;
+                                  blockName?: string | null;
+                                  blockType: 'heading';
+                                }
+                              | {
+                                  content?: {
+                                    root: {
+                                      type: string;
+                                      children: {
+                                        type: any;
+                                        version: number;
+                                        [k: string]: unknown;
+                                      }[];
+                                      direction: ('ltr' | 'rtl') | null;
+                                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                      indent: number;
+                                      version: number;
+                                    };
+                                    [k: string]: unknown;
+                                  } | null;
+                                  /**
+                                   * Trzyma tekst przy ~68 znakach w wierszu, czyli w wygodnej do czytania kolumnie.
+                                   */
+                                  measure?: boolean | null;
+                                  style?: {
+                                    align?: ('left' | 'center' | 'right') | null;
+                                    width?: ('auto' | 'full' | 'custom') | null;
+                                    customWidth?: number | null;
+                                    /**
+                                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                                     */
+                                    padding?: {
+                                      top?: number | null;
+                                      right?: number | null;
+                                      bottom?: number | null;
+                                      left?: number | null;
+                                    };
+                                    /**
+                                     * Odstęp od sąsiednich elementów.
+                                     */
+                                    margin?: {
+                                      top?: number | null;
+                                      bottom?: number | null;
+                                    };
+                                    background?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    textColor?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                                    border?: {
+                                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                      width?: number | null;
+                                      color?: {
+                                        token?:
+                                          | (
+                                              | 'brand.primary'
+                                              | 'brand.primaryHover'
+                                              | 'brand.secondary'
+                                              | 'brand.secondaryHover'
+                                              | 'brand.accent'
+                                              | 'text.heading'
+                                              | 'text.body'
+                                              | 'text.muted'
+                                              | 'text.inverted'
+                                              | 'text.link'
+                                              | 'text.linkHover'
+                                              | 'surface.page'
+                                              | 'surface.surface'
+                                              | 'surface.surfaceAlt'
+                                              | 'surface.border'
+                                              | 'surface.overlay'
+                                              | 'state.success'
+                                              | 'state.warning'
+                                              | 'state.error'
+                                              | 'state.info'
+                                              | 'custom'
+                                              | 'none'
+                                            )
+                                          | null;
+                                        custom?: string | null;
+                                      };
+                                    };
+                                    /**
+                                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                                     */
+                                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                                    anchorId?: string | null;
+                                    cssClass?: string | null;
+                                  };
+                                  id?: string | null;
+                                  blockName?: string | null;
+                                  blockType: 'text';
+                                }
+                              | {
+                                  image?: (number | null) | Media;
+                                  caption?: string | null;
+                                  aspectRatio?: ('auto' | '16-9' | '21-9' | '4-3' | '1-1' | '3-4') | null;
+                                  radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                  fit?: ('cover' | 'contain') | null;
+                                  href?: string | null;
+                                  newTab?: boolean | null;
+                                  style?: {
+                                    align?: ('left' | 'center' | 'right') | null;
+                                    width?: ('auto' | 'full' | 'custom') | null;
+                                    customWidth?: number | null;
+                                    /**
+                                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                                     */
+                                    padding?: {
+                                      top?: number | null;
+                                      right?: number | null;
+                                      bottom?: number | null;
+                                      left?: number | null;
+                                    };
+                                    /**
+                                     * Odstęp od sąsiednich elementów.
+                                     */
+                                    margin?: {
+                                      top?: number | null;
+                                      bottom?: number | null;
+                                    };
+                                    background?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    textColor?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                                    border?: {
+                                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                      width?: number | null;
+                                      color?: {
+                                        token?:
+                                          | (
+                                              | 'brand.primary'
+                                              | 'brand.primaryHover'
+                                              | 'brand.secondary'
+                                              | 'brand.secondaryHover'
+                                              | 'brand.accent'
+                                              | 'text.heading'
+                                              | 'text.body'
+                                              | 'text.muted'
+                                              | 'text.inverted'
+                                              | 'text.link'
+                                              | 'text.linkHover'
+                                              | 'surface.page'
+                                              | 'surface.surface'
+                                              | 'surface.surfaceAlt'
+                                              | 'surface.border'
+                                              | 'surface.overlay'
+                                              | 'state.success'
+                                              | 'state.warning'
+                                              | 'state.error'
+                                              | 'state.info'
+                                              | 'custom'
+                                              | 'none'
+                                            )
+                                          | null;
+                                        custom?: string | null;
+                                      };
+                                    };
+                                    /**
+                                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                                     */
+                                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                                    anchorId?: string | null;
+                                    cssClass?: string | null;
+                                  };
+                                  id?: string | null;
+                                  blockName?: string | null;
+                                  blockType: 'image';
+                                }
+                              | {
+                                  items?:
+                                    | {
+                                        label?: string | null;
+                                        variant?: ('solid' | 'outline' | 'link') | null;
+                                        href?: string | null;
+                                        newTab?: boolean | null;
+                                        size?: ('sm' | 'md' | 'lg') | null;
+                                        radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                        background?: {
+                                          token?:
+                                            | (
+                                                | 'brand.primary'
+                                                | 'brand.primaryHover'
+                                                | 'brand.secondary'
+                                                | 'brand.secondaryHover'
+                                                | 'brand.accent'
+                                                | 'text.heading'
+                                                | 'text.body'
+                                                | 'text.muted'
+                                                | 'text.inverted'
+                                                | 'text.link'
+                                                | 'text.linkHover'
+                                                | 'surface.page'
+                                                | 'surface.surface'
+                                                | 'surface.surfaceAlt'
+                                                | 'surface.border'
+                                                | 'surface.overlay'
+                                                | 'state.success'
+                                                | 'state.warning'
+                                                | 'state.error'
+                                                | 'state.info'
+                                                | 'custom'
+                                                | 'none'
+                                              )
+                                            | null;
+                                          custom?: string | null;
+                                        };
+                                        textColor?: {
+                                          token?:
+                                            | (
+                                                | 'brand.primary'
+                                                | 'brand.primaryHover'
+                                                | 'brand.secondary'
+                                                | 'brand.secondaryHover'
+                                                | 'brand.accent'
+                                                | 'text.heading'
+                                                | 'text.body'
+                                                | 'text.muted'
+                                                | 'text.inverted'
+                                                | 'text.link'
+                                                | 'text.linkHover'
+                                                | 'surface.page'
+                                                | 'surface.surface'
+                                                | 'surface.surfaceAlt'
+                                                | 'surface.border'
+                                                | 'surface.overlay'
+                                                | 'state.success'
+                                                | 'state.warning'
+                                                | 'state.error'
+                                                | 'state.info'
+                                                | 'custom'
+                                                | 'none'
+                                              )
+                                            | null;
+                                          custom?: string | null;
+                                        };
+                                        borderColor?: {
+                                          token?:
+                                            | (
+                                                | 'brand.primary'
+                                                | 'brand.primaryHover'
+                                                | 'brand.secondary'
+                                                | 'brand.secondaryHover'
+                                                | 'brand.accent'
+                                                | 'text.heading'
+                                                | 'text.body'
+                                                | 'text.muted'
+                                                | 'text.inverted'
+                                                | 'text.link'
+                                                | 'text.linkHover'
+                                                | 'surface.page'
+                                                | 'surface.surface'
+                                                | 'surface.surfaceAlt'
+                                                | 'surface.border'
+                                                | 'surface.overlay'
+                                                | 'state.success'
+                                                | 'state.warning'
+                                                | 'state.error'
+                                                | 'state.info'
+                                                | 'custom'
+                                                | 'none'
+                                              )
+                                            | null;
+                                          custom?: string | null;
+                                        };
+                                        fullWidth?: boolean | null;
+                                        id?: string | null;
+                                      }[]
+                                    | null;
+                                  gap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+                                  align?: ('left' | 'center' | 'right') | null;
+                                  style?: {
+                                    align?: ('left' | 'center' | 'right') | null;
+                                    width?: ('auto' | 'full' | 'custom') | null;
+                                    customWidth?: number | null;
+                                    /**
+                                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                                     */
+                                    padding?: {
+                                      top?: number | null;
+                                      right?: number | null;
+                                      bottom?: number | null;
+                                      left?: number | null;
+                                    };
+                                    /**
+                                     * Odstęp od sąsiednich elementów.
+                                     */
+                                    margin?: {
+                                      top?: number | null;
+                                      bottom?: number | null;
+                                    };
+                                    background?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    textColor?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                                    border?: {
+                                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                      width?: number | null;
+                                      color?: {
+                                        token?:
+                                          | (
+                                              | 'brand.primary'
+                                              | 'brand.primaryHover'
+                                              | 'brand.secondary'
+                                              | 'brand.secondaryHover'
+                                              | 'brand.accent'
+                                              | 'text.heading'
+                                              | 'text.body'
+                                              | 'text.muted'
+                                              | 'text.inverted'
+                                              | 'text.link'
+                                              | 'text.linkHover'
+                                              | 'surface.page'
+                                              | 'surface.surface'
+                                              | 'surface.surfaceAlt'
+                                              | 'surface.border'
+                                              | 'surface.overlay'
+                                              | 'state.success'
+                                              | 'state.warning'
+                                              | 'state.error'
+                                              | 'state.info'
+                                              | 'custom'
+                                              | 'none'
+                                            )
+                                          | null;
+                                        custom?: string | null;
+                                      };
+                                    };
+                                    /**
+                                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                                     */
+                                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                                    anchorId?: string | null;
+                                    cssClass?: string | null;
+                                  };
+                                  id?: string | null;
+                                  blockName?: string | null;
+                                  blockType: 'buttons';
+                                }
+                              | {
+                                  items?:
+                                    | {
+                                        icon?:
+                                          | (
+                                              | 'check'
+                                              | 'star'
+                                              | 'heart'
+                                              | 'sparkle'
+                                              | 'shield'
+                                              | 'phone'
+                                              | 'mail'
+                                              | 'clock'
+                                              | 'pin'
+                                              | 'calendar'
+                                              | 'user'
+                                              | 'arrow'
+                                              | 'quote'
+                                              | 'plus'
+                                              | 'dot'
+                                              | 'none'
+                                            )
+                                          | null;
+                                        text?: string | null;
+                                        href?: string | null;
+                                        newTab?: boolean | null;
+                                        id?: string | null;
+                                      }[]
+                                    | null;
+                                  columns?: ('1' | '2' | '3' | '4') | null;
+                                  gap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+                                  iconColor?: {
+                                    token?:
+                                      | (
+                                          | 'brand.primary'
+                                          | 'brand.primaryHover'
+                                          | 'brand.secondary'
+                                          | 'brand.secondaryHover'
+                                          | 'brand.accent'
+                                          | 'text.heading'
+                                          | 'text.body'
+                                          | 'text.muted'
+                                          | 'text.inverted'
+                                          | 'text.link'
+                                          | 'text.linkHover'
+                                          | 'surface.page'
+                                          | 'surface.surface'
+                                          | 'surface.surfaceAlt'
+                                          | 'surface.border'
+                                          | 'surface.overlay'
+                                          | 'state.success'
+                                          | 'state.warning'
+                                          | 'state.error'
+                                          | 'state.info'
+                                          | 'custom'
+                                          | 'none'
+                                        )
+                                      | null;
+                                    custom?: string | null;
+                                  };
+                                  style?: {
+                                    align?: ('left' | 'center' | 'right') | null;
+                                    width?: ('auto' | 'full' | 'custom') | null;
+                                    customWidth?: number | null;
+                                    /**
+                                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                                     */
+                                    padding?: {
+                                      top?: number | null;
+                                      right?: number | null;
+                                      bottom?: number | null;
+                                      left?: number | null;
+                                    };
+                                    /**
+                                     * Odstęp od sąsiednich elementów.
+                                     */
+                                    margin?: {
+                                      top?: number | null;
+                                      bottom?: number | null;
+                                    };
+                                    background?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    textColor?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                                    border?: {
+                                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                      width?: number | null;
+                                      color?: {
+                                        token?:
+                                          | (
+                                              | 'brand.primary'
+                                              | 'brand.primaryHover'
+                                              | 'brand.secondary'
+                                              | 'brand.secondaryHover'
+                                              | 'brand.accent'
+                                              | 'text.heading'
+                                              | 'text.body'
+                                              | 'text.muted'
+                                              | 'text.inverted'
+                                              | 'text.link'
+                                              | 'text.linkHover'
+                                              | 'surface.page'
+                                              | 'surface.surface'
+                                              | 'surface.surfaceAlt'
+                                              | 'surface.border'
+                                              | 'surface.overlay'
+                                              | 'state.success'
+                                              | 'state.warning'
+                                              | 'state.error'
+                                              | 'state.info'
+                                              | 'custom'
+                                              | 'none'
+                                            )
+                                          | null;
+                                        custom?: string | null;
+                                      };
+                                    };
+                                    /**
+                                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                                     */
+                                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                                    anchorId?: string | null;
+                                    cssClass?: string | null;
+                                  };
+                                  id?: string | null;
+                                  blockName?: string | null;
+                                  blockType: 'iconList';
+                                }
+                              | {
+                                  thickness?: number | null;
+                                  widthPercent?: number | null;
+                                  lineStyle?: ('solid' | 'dashed' | 'dotted') | null;
+                                  color?: {
+                                    token?:
+                                      | (
+                                          | 'brand.primary'
+                                          | 'brand.primaryHover'
+                                          | 'brand.secondary'
+                                          | 'brand.secondaryHover'
+                                          | 'brand.accent'
+                                          | 'text.heading'
+                                          | 'text.body'
+                                          | 'text.muted'
+                                          | 'text.inverted'
+                                          | 'text.link'
+                                          | 'text.linkHover'
+                                          | 'surface.page'
+                                          | 'surface.surface'
+                                          | 'surface.surfaceAlt'
+                                          | 'surface.border'
+                                          | 'surface.overlay'
+                                          | 'state.success'
+                                          | 'state.warning'
+                                          | 'state.error'
+                                          | 'state.info'
+                                          | 'custom'
+                                          | 'none'
+                                        )
+                                      | null;
+                                    custom?: string | null;
+                                  };
+                                  style?: {
+                                    align?: ('left' | 'center' | 'right') | null;
+                                    width?: ('auto' | 'full' | 'custom') | null;
+                                    customWidth?: number | null;
+                                    /**
+                                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                                     */
+                                    padding?: {
+                                      top?: number | null;
+                                      right?: number | null;
+                                      bottom?: number | null;
+                                      left?: number | null;
+                                    };
+                                    /**
+                                     * Odstęp od sąsiednich elementów.
+                                     */
+                                    margin?: {
+                                      top?: number | null;
+                                      bottom?: number | null;
+                                    };
+                                    background?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    textColor?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                                    border?: {
+                                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                      width?: number | null;
+                                      color?: {
+                                        token?:
+                                          | (
+                                              | 'brand.primary'
+                                              | 'brand.primaryHover'
+                                              | 'brand.secondary'
+                                              | 'brand.secondaryHover'
+                                              | 'brand.accent'
+                                              | 'text.heading'
+                                              | 'text.body'
+                                              | 'text.muted'
+                                              | 'text.inverted'
+                                              | 'text.link'
+                                              | 'text.linkHover'
+                                              | 'surface.page'
+                                              | 'surface.surface'
+                                              | 'surface.surfaceAlt'
+                                              | 'surface.border'
+                                              | 'surface.overlay'
+                                              | 'state.success'
+                                              | 'state.warning'
+                                              | 'state.error'
+                                              | 'state.info'
+                                              | 'custom'
+                                              | 'none'
+                                            )
+                                          | null;
+                                        custom?: string | null;
+                                      };
+                                    };
+                                    /**
+                                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                                     */
+                                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                                    anchorId?: string | null;
+                                    cssClass?: string | null;
+                                  };
+                                  id?: string | null;
+                                  blockName?: string | null;
+                                  blockType: 'divider';
+                                }
+                              | {
+                                  height?: number | null;
+                                  /**
+                                   * Zostaw puste, aby użyć tej samej wartości.
+                                   */
+                                  heightMobile?: number | null;
+                                  style?: {
+                                    align?: ('left' | 'center' | 'right') | null;
+                                    width?: ('auto' | 'full' | 'custom') | null;
+                                    customWidth?: number | null;
+                                    /**
+                                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                                     */
+                                    padding?: {
+                                      top?: number | null;
+                                      right?: number | null;
+                                      bottom?: number | null;
+                                      left?: number | null;
+                                    };
+                                    /**
+                                     * Odstęp od sąsiednich elementów.
+                                     */
+                                    margin?: {
+                                      top?: number | null;
+                                      bottom?: number | null;
+                                    };
+                                    background?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    textColor?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                                    border?: {
+                                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                      width?: number | null;
+                                      color?: {
+                                        token?:
+                                          | (
+                                              | 'brand.primary'
+                                              | 'brand.primaryHover'
+                                              | 'brand.secondary'
+                                              | 'brand.secondaryHover'
+                                              | 'brand.accent'
+                                              | 'text.heading'
+                                              | 'text.body'
+                                              | 'text.muted'
+                                              | 'text.inverted'
+                                              | 'text.link'
+                                              | 'text.linkHover'
+                                              | 'surface.page'
+                                              | 'surface.surface'
+                                              | 'surface.surfaceAlt'
+                                              | 'surface.border'
+                                              | 'surface.overlay'
+                                              | 'state.success'
+                                              | 'state.warning'
+                                              | 'state.error'
+                                              | 'state.info'
+                                              | 'custom'
+                                              | 'none'
+                                            )
+                                          | null;
+                                        custom?: string | null;
+                                      };
+                                    };
+                                    /**
+                                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                                     */
+                                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                                    anchorId?: string | null;
+                                    cssClass?: string | null;
+                                  };
+                                  id?: string | null;
+                                  blockName?: string | null;
+                                  blockType: 'spacer';
+                                }
+                              | {
+                                  images?: (number | Media)[] | null;
+                                  columns?: ('1' | '2' | '3' | '4') | null;
+                                  gap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+                                  aspectRatio?: ('auto' | '16-9' | '21-9' | '4-3' | '1-1' | '3-4') | null;
+                                  radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                  lightbox?: boolean | null;
+                                  showCaptions?: boolean | null;
+                                  style?: {
+                                    align?: ('left' | 'center' | 'right') | null;
+                                    width?: ('auto' | 'full' | 'custom') | null;
+                                    customWidth?: number | null;
+                                    /**
+                                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                                     */
+                                    padding?: {
+                                      top?: number | null;
+                                      right?: number | null;
+                                      bottom?: number | null;
+                                      left?: number | null;
+                                    };
+                                    /**
+                                     * Odstęp od sąsiednich elementów.
+                                     */
+                                    margin?: {
+                                      top?: number | null;
+                                      bottom?: number | null;
+                                    };
+                                    background?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    textColor?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                                    border?: {
+                                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                      width?: number | null;
+                                      color?: {
+                                        token?:
+                                          | (
+                                              | 'brand.primary'
+                                              | 'brand.primaryHover'
+                                              | 'brand.secondary'
+                                              | 'brand.secondaryHover'
+                                              | 'brand.accent'
+                                              | 'text.heading'
+                                              | 'text.body'
+                                              | 'text.muted'
+                                              | 'text.inverted'
+                                              | 'text.link'
+                                              | 'text.linkHover'
+                                              | 'surface.page'
+                                              | 'surface.surface'
+                                              | 'surface.surfaceAlt'
+                                              | 'surface.border'
+                                              | 'surface.overlay'
+                                              | 'state.success'
+                                              | 'state.warning'
+                                              | 'state.error'
+                                              | 'state.info'
+                                              | 'custom'
+                                              | 'none'
+                                            )
+                                          | null;
+                                        custom?: string | null;
+                                      };
+                                    };
+                                    /**
+                                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                                     */
+                                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                                    anchorId?: string | null;
+                                    cssClass?: string | null;
+                                  };
+                                  id?: string | null;
+                                  blockName?: string | null;
+                                  blockType: 'gallery';
+                                }
+                              | {
+                                  slides?:
+                                    | {
+                                        image?: (number | null) | Media;
+                                        caption?: string | null;
+                                        href?: string | null;
+                                        newTab?: boolean | null;
+                                        id?: string | null;
+                                      }[]
+                                    | null;
+                                  slidesPerView?: number | null;
+                                  gap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+                                  aspectRatio?: ('auto' | '16-9' | '21-9' | '4-3' | '1-1' | '3-4') | null;
+                                  radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                  autoplay?: boolean | null;
+                                  interval?: number | null;
+                                  loop?: boolean | null;
+                                  showArrows?: boolean | null;
+                                  showDots?: boolean | null;
+                                  style?: {
+                                    align?: ('left' | 'center' | 'right') | null;
+                                    width?: ('auto' | 'full' | 'custom') | null;
+                                    customWidth?: number | null;
+                                    /**
+                                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                                     */
+                                    padding?: {
+                                      top?: number | null;
+                                      right?: number | null;
+                                      bottom?: number | null;
+                                      left?: number | null;
+                                    };
+                                    /**
+                                     * Odstęp od sąsiednich elementów.
+                                     */
+                                    margin?: {
+                                      top?: number | null;
+                                      bottom?: number | null;
+                                    };
+                                    background?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    textColor?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                                    border?: {
+                                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                      width?: number | null;
+                                      color?: {
+                                        token?:
+                                          | (
+                                              | 'brand.primary'
+                                              | 'brand.primaryHover'
+                                              | 'brand.secondary'
+                                              | 'brand.secondaryHover'
+                                              | 'brand.accent'
+                                              | 'text.heading'
+                                              | 'text.body'
+                                              | 'text.muted'
+                                              | 'text.inverted'
+                                              | 'text.link'
+                                              | 'text.linkHover'
+                                              | 'surface.page'
+                                              | 'surface.surface'
+                                              | 'surface.surfaceAlt'
+                                              | 'surface.border'
+                                              | 'surface.overlay'
+                                              | 'state.success'
+                                              | 'state.warning'
+                                              | 'state.error'
+                                              | 'state.info'
+                                              | 'custom'
+                                              | 'none'
+                                            )
+                                          | null;
+                                        custom?: string | null;
+                                      };
+                                    };
+                                    /**
+                                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                                     */
+                                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                                    anchorId?: string | null;
+                                    cssClass?: string | null;
+                                  };
+                                  id?: string | null;
+                                  blockName?: string | null;
+                                  blockType: 'carousel';
+                                }
+                              | {
+                                  source?: ('file' | 'youtube' | 'vimeo') | null;
+                                  file?: (number | null) | Media;
+                                  /**
+                                   * Wklej pełny adres, np. https://www.youtube.com/watch?v=…
+                                   */
+                                  url?: string | null;
+                                  poster?: (number | null) | Media;
+                                  aspectRatio?: ('auto' | '16-9' | '21-9' | '4-3' | '1-1' | '3-4') | null;
+                                  radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                  controls?: boolean | null;
+                                  autoplay?: boolean | null;
+                                  loop?: boolean | null;
+                                  /**
+                                   * Przeglądarki odtwarzają automatycznie tylko wyciszone filmy.
+                                   */
+                                  muted?: boolean | null;
+                                  style?: {
+                                    align?: ('left' | 'center' | 'right') | null;
+                                    width?: ('auto' | 'full' | 'custom') | null;
+                                    customWidth?: number | null;
+                                    /**
+                                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                                     */
+                                    padding?: {
+                                      top?: number | null;
+                                      right?: number | null;
+                                      bottom?: number | null;
+                                      left?: number | null;
+                                    };
+                                    /**
+                                     * Odstęp od sąsiednich elementów.
+                                     */
+                                    margin?: {
+                                      top?: number | null;
+                                      bottom?: number | null;
+                                    };
+                                    background?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    textColor?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                                    border?: {
+                                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                      width?: number | null;
+                                      color?: {
+                                        token?:
+                                          | (
+                                              | 'brand.primary'
+                                              | 'brand.primaryHover'
+                                              | 'brand.secondary'
+                                              | 'brand.secondaryHover'
+                                              | 'brand.accent'
+                                              | 'text.heading'
+                                              | 'text.body'
+                                              | 'text.muted'
+                                              | 'text.inverted'
+                                              | 'text.link'
+                                              | 'text.linkHover'
+                                              | 'surface.page'
+                                              | 'surface.surface'
+                                              | 'surface.surfaceAlt'
+                                              | 'surface.border'
+                                              | 'surface.overlay'
+                                              | 'state.success'
+                                              | 'state.warning'
+                                              | 'state.error'
+                                              | 'state.info'
+                                              | 'custom'
+                                              | 'none'
+                                            )
+                                          | null;
+                                        custom?: string | null;
+                                      };
+                                    };
+                                    /**
+                                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                                     */
+                                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                                    anchorId?: string | null;
+                                    cssClass?: string | null;
+                                  };
+                                  id?: string | null;
+                                  blockName?: string | null;
+                                  blockType: 'video';
+                                }
+                              | {
+                                  image?: (number | null) | Media;
+                                  heading?: string | null;
+                                  subheading?: string | null;
+                                  height?: ('sm' | 'md' | 'lg' | 'screen') | null;
+                                  align?: ('left' | 'center' | 'right') | null;
+                                  /**
+                                   * Kolor nakładki pochodzi z palety (Tła → Przyciemnienie zdjęć).
+                                   */
+                                  overlayOpacity?: number | null;
+                                  radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                  textColor?: {
+                                    token?:
+                                      | (
+                                          | 'brand.primary'
+                                          | 'brand.primaryHover'
+                                          | 'brand.secondary'
+                                          | 'brand.secondaryHover'
+                                          | 'brand.accent'
+                                          | 'text.heading'
+                                          | 'text.body'
+                                          | 'text.muted'
+                                          | 'text.inverted'
+                                          | 'text.link'
+                                          | 'text.linkHover'
+                                          | 'surface.page'
+                                          | 'surface.surface'
+                                          | 'surface.surfaceAlt'
+                                          | 'surface.border'
+                                          | 'surface.overlay'
+                                          | 'state.success'
+                                          | 'state.warning'
+                                          | 'state.error'
+                                          | 'state.info'
+                                          | 'custom'
+                                          | 'none'
+                                        )
+                                      | null;
+                                    custom?: string | null;
+                                  };
+                                  buttons?:
+                                    | {
+                                        label?: string | null;
+                                        variant?: ('solid' | 'outline' | 'link') | null;
+                                        href?: string | null;
+                                        newTab?: boolean | null;
+                                        size?: ('sm' | 'md' | 'lg') | null;
+                                        radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                        background?: {
+                                          token?:
+                                            | (
+                                                | 'brand.primary'
+                                                | 'brand.primaryHover'
+                                                | 'brand.secondary'
+                                                | 'brand.secondaryHover'
+                                                | 'brand.accent'
+                                                | 'text.heading'
+                                                | 'text.body'
+                                                | 'text.muted'
+                                                | 'text.inverted'
+                                                | 'text.link'
+                                                | 'text.linkHover'
+                                                | 'surface.page'
+                                                | 'surface.surface'
+                                                | 'surface.surfaceAlt'
+                                                | 'surface.border'
+                                                | 'surface.overlay'
+                                                | 'state.success'
+                                                | 'state.warning'
+                                                | 'state.error'
+                                                | 'state.info'
+                                                | 'custom'
+                                                | 'none'
+                                              )
+                                            | null;
+                                          custom?: string | null;
+                                        };
+                                        textColor?: {
+                                          token?:
+                                            | (
+                                                | 'brand.primary'
+                                                | 'brand.primaryHover'
+                                                | 'brand.secondary'
+                                                | 'brand.secondaryHover'
+                                                | 'brand.accent'
+                                                | 'text.heading'
+                                                | 'text.body'
+                                                | 'text.muted'
+                                                | 'text.inverted'
+                                                | 'text.link'
+                                                | 'text.linkHover'
+                                                | 'surface.page'
+                                                | 'surface.surface'
+                                                | 'surface.surfaceAlt'
+                                                | 'surface.border'
+                                                | 'surface.overlay'
+                                                | 'state.success'
+                                                | 'state.warning'
+                                                | 'state.error'
+                                                | 'state.info'
+                                                | 'custom'
+                                                | 'none'
+                                              )
+                                            | null;
+                                          custom?: string | null;
+                                        };
+                                        borderColor?: {
+                                          token?:
+                                            | (
+                                                | 'brand.primary'
+                                                | 'brand.primaryHover'
+                                                | 'brand.secondary'
+                                                | 'brand.secondaryHover'
+                                                | 'brand.accent'
+                                                | 'text.heading'
+                                                | 'text.body'
+                                                | 'text.muted'
+                                                | 'text.inverted'
+                                                | 'text.link'
+                                                | 'text.linkHover'
+                                                | 'surface.page'
+                                                | 'surface.surface'
+                                                | 'surface.surfaceAlt'
+                                                | 'surface.border'
+                                                | 'surface.overlay'
+                                                | 'state.success'
+                                                | 'state.warning'
+                                                | 'state.error'
+                                                | 'state.info'
+                                                | 'custom'
+                                                | 'none'
+                                              )
+                                            | null;
+                                          custom?: string | null;
+                                        };
+                                        fullWidth?: boolean | null;
+                                        id?: string | null;
+                                      }[]
+                                    | null;
+                                  style?: {
+                                    align?: ('left' | 'center' | 'right') | null;
+                                    width?: ('auto' | 'full' | 'custom') | null;
+                                    customWidth?: number | null;
+                                    /**
+                                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                                     */
+                                    padding?: {
+                                      top?: number | null;
+                                      right?: number | null;
+                                      bottom?: number | null;
+                                      left?: number | null;
+                                    };
+                                    /**
+                                     * Odstęp od sąsiednich elementów.
+                                     */
+                                    margin?: {
+                                      top?: number | null;
+                                      bottom?: number | null;
+                                    };
+                                    background?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    textColor?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                                    border?: {
+                                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                      width?: number | null;
+                                      color?: {
+                                        token?:
+                                          | (
+                                              | 'brand.primary'
+                                              | 'brand.primaryHover'
+                                              | 'brand.secondary'
+                                              | 'brand.secondaryHover'
+                                              | 'brand.accent'
+                                              | 'text.heading'
+                                              | 'text.body'
+                                              | 'text.muted'
+                                              | 'text.inverted'
+                                              | 'text.link'
+                                              | 'text.linkHover'
+                                              | 'surface.page'
+                                              | 'surface.surface'
+                                              | 'surface.surfaceAlt'
+                                              | 'surface.border'
+                                              | 'surface.overlay'
+                                              | 'state.success'
+                                              | 'state.warning'
+                                              | 'state.error'
+                                              | 'state.info'
+                                              | 'custom'
+                                              | 'none'
+                                            )
+                                          | null;
+                                        custom?: string | null;
+                                      };
+                                    };
+                                    /**
+                                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                                     */
+                                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                                    anchorId?: string | null;
+                                    cssClass?: string | null;
+                                  };
+                                  id?: string | null;
+                                  blockName?: string | null;
+                                  blockType: 'hero';
+                                }
+                              | {
+                                  heading?: string | null;
+                                  text?: string | null;
+                                  buttons?:
+                                    | {
+                                        label?: string | null;
+                                        variant?: ('solid' | 'outline' | 'link') | null;
+                                        href?: string | null;
+                                        newTab?: boolean | null;
+                                        size?: ('sm' | 'md' | 'lg') | null;
+                                        radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                        background?: {
+                                          token?:
+                                            | (
+                                                | 'brand.primary'
+                                                | 'brand.primaryHover'
+                                                | 'brand.secondary'
+                                                | 'brand.secondaryHover'
+                                                | 'brand.accent'
+                                                | 'text.heading'
+                                                | 'text.body'
+                                                | 'text.muted'
+                                                | 'text.inverted'
+                                                | 'text.link'
+                                                | 'text.linkHover'
+                                                | 'surface.page'
+                                                | 'surface.surface'
+                                                | 'surface.surfaceAlt'
+                                                | 'surface.border'
+                                                | 'surface.overlay'
+                                                | 'state.success'
+                                                | 'state.warning'
+                                                | 'state.error'
+                                                | 'state.info'
+                                                | 'custom'
+                                                | 'none'
+                                              )
+                                            | null;
+                                          custom?: string | null;
+                                        };
+                                        textColor?: {
+                                          token?:
+                                            | (
+                                                | 'brand.primary'
+                                                | 'brand.primaryHover'
+                                                | 'brand.secondary'
+                                                | 'brand.secondaryHover'
+                                                | 'brand.accent'
+                                                | 'text.heading'
+                                                | 'text.body'
+                                                | 'text.muted'
+                                                | 'text.inverted'
+                                                | 'text.link'
+                                                | 'text.linkHover'
+                                                | 'surface.page'
+                                                | 'surface.surface'
+                                                | 'surface.surfaceAlt'
+                                                | 'surface.border'
+                                                | 'surface.overlay'
+                                                | 'state.success'
+                                                | 'state.warning'
+                                                | 'state.error'
+                                                | 'state.info'
+                                                | 'custom'
+                                                | 'none'
+                                              )
+                                            | null;
+                                          custom?: string | null;
+                                        };
+                                        borderColor?: {
+                                          token?:
+                                            | (
+                                                | 'brand.primary'
+                                                | 'brand.primaryHover'
+                                                | 'brand.secondary'
+                                                | 'brand.secondaryHover'
+                                                | 'brand.accent'
+                                                | 'text.heading'
+                                                | 'text.body'
+                                                | 'text.muted'
+                                                | 'text.inverted'
+                                                | 'text.link'
+                                                | 'text.linkHover'
+                                                | 'surface.page'
+                                                | 'surface.surface'
+                                                | 'surface.surfaceAlt'
+                                                | 'surface.border'
+                                                | 'surface.overlay'
+                                                | 'state.success'
+                                                | 'state.warning'
+                                                | 'state.error'
+                                                | 'state.info'
+                                                | 'custom'
+                                                | 'none'
+                                              )
+                                            | null;
+                                          custom?: string | null;
+                                        };
+                                        fullWidth?: boolean | null;
+                                        id?: string | null;
+                                      }[]
+                                    | null;
+                                  align?: ('left' | 'center' | 'right') | null;
+                                  padding?: ('sm' | 'md' | 'lg') | null;
+                                  background?: {
+                                    token?:
+                                      | (
+                                          | 'brand.primary'
+                                          | 'brand.primaryHover'
+                                          | 'brand.secondary'
+                                          | 'brand.secondaryHover'
+                                          | 'brand.accent'
+                                          | 'text.heading'
+                                          | 'text.body'
+                                          | 'text.muted'
+                                          | 'text.inverted'
+                                          | 'text.link'
+                                          | 'text.linkHover'
+                                          | 'surface.page'
+                                          | 'surface.surface'
+                                          | 'surface.surfaceAlt'
+                                          | 'surface.border'
+                                          | 'surface.overlay'
+                                          | 'state.success'
+                                          | 'state.warning'
+                                          | 'state.error'
+                                          | 'state.info'
+                                          | 'custom'
+                                          | 'none'
+                                        )
+                                      | null;
+                                    custom?: string | null;
+                                  };
+                                  textColor?: {
+                                    token?:
+                                      | (
+                                          | 'brand.primary'
+                                          | 'brand.primaryHover'
+                                          | 'brand.secondary'
+                                          | 'brand.secondaryHover'
+                                          | 'brand.accent'
+                                          | 'text.heading'
+                                          | 'text.body'
+                                          | 'text.muted'
+                                          | 'text.inverted'
+                                          | 'text.link'
+                                          | 'text.linkHover'
+                                          | 'surface.page'
+                                          | 'surface.surface'
+                                          | 'surface.surfaceAlt'
+                                          | 'surface.border'
+                                          | 'surface.overlay'
+                                          | 'state.success'
+                                          | 'state.warning'
+                                          | 'state.error'
+                                          | 'state.info'
+                                          | 'custom'
+                                          | 'none'
+                                        )
+                                      | null;
+                                    custom?: string | null;
+                                  };
+                                  radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                  style?: {
+                                    align?: ('left' | 'center' | 'right') | null;
+                                    width?: ('auto' | 'full' | 'custom') | null;
+                                    customWidth?: number | null;
+                                    /**
+                                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                                     */
+                                    padding?: {
+                                      top?: number | null;
+                                      right?: number | null;
+                                      bottom?: number | null;
+                                      left?: number | null;
+                                    };
+                                    /**
+                                     * Odstęp od sąsiednich elementów.
+                                     */
+                                    margin?: {
+                                      top?: number | null;
+                                      bottom?: number | null;
+                                    };
+                                    background?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    textColor?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                                    border?: {
+                                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                      width?: number | null;
+                                      color?: {
+                                        token?:
+                                          | (
+                                              | 'brand.primary'
+                                              | 'brand.primaryHover'
+                                              | 'brand.secondary'
+                                              | 'brand.secondaryHover'
+                                              | 'brand.accent'
+                                              | 'text.heading'
+                                              | 'text.body'
+                                              | 'text.muted'
+                                              | 'text.inverted'
+                                              | 'text.link'
+                                              | 'text.linkHover'
+                                              | 'surface.page'
+                                              | 'surface.surface'
+                                              | 'surface.surfaceAlt'
+                                              | 'surface.border'
+                                              | 'surface.overlay'
+                                              | 'state.success'
+                                              | 'state.warning'
+                                              | 'state.error'
+                                              | 'state.info'
+                                              | 'custom'
+                                              | 'none'
+                                            )
+                                          | null;
+                                        custom?: string | null;
+                                      };
+                                    };
+                                    /**
+                                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                                     */
+                                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                                    anchorId?: string | null;
+                                    cssClass?: string | null;
+                                  };
+                                  id?: string | null;
+                                  blockName?: string | null;
+                                  blockType: 'cta';
+                                }
+                              | {
+                                  items?:
+                                    | {
+                                        title?: string | null;
+                                        text?: string | null;
+                                        icon?:
+                                          | (
+                                              | 'check'
+                                              | 'star'
+                                              | 'heart'
+                                              | 'sparkle'
+                                              | 'shield'
+                                              | 'phone'
+                                              | 'mail'
+                                              | 'clock'
+                                              | 'pin'
+                                              | 'calendar'
+                                              | 'user'
+                                              | 'arrow'
+                                              | 'quote'
+                                              | 'plus'
+                                              | 'dot'
+                                              | 'none'
+                                            )
+                                          | null;
+                                        image?: (number | null) | Media;
+                                        href?: string | null;
+                                        newTab?: boolean | null;
+                                        id?: string | null;
+                                      }[]
+                                    | null;
+                                  columns?: ('1' | '2' | '3' | '4') | null;
+                                  gap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+                                  cardAlign?: ('left' | 'center' | 'right') | null;
+                                  radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                  cardBackground?: {
+                                    token?:
+                                      | (
+                                          | 'brand.primary'
+                                          | 'brand.primaryHover'
+                                          | 'brand.secondary'
+                                          | 'brand.secondaryHover'
+                                          | 'brand.accent'
+                                          | 'text.heading'
+                                          | 'text.body'
+                                          | 'text.muted'
+                                          | 'text.inverted'
+                                          | 'text.link'
+                                          | 'text.linkHover'
+                                          | 'surface.page'
+                                          | 'surface.surface'
+                                          | 'surface.surfaceAlt'
+                                          | 'surface.border'
+                                          | 'surface.overlay'
+                                          | 'state.success'
+                                          | 'state.warning'
+                                          | 'state.error'
+                                          | 'state.info'
+                                          | 'custom'
+                                          | 'none'
+                                        )
+                                      | null;
+                                    custom?: string | null;
+                                  };
+                                  cardBorder?: {
+                                    token?:
+                                      | (
+                                          | 'brand.primary'
+                                          | 'brand.primaryHover'
+                                          | 'brand.secondary'
+                                          | 'brand.secondaryHover'
+                                          | 'brand.accent'
+                                          | 'text.heading'
+                                          | 'text.body'
+                                          | 'text.muted'
+                                          | 'text.inverted'
+                                          | 'text.link'
+                                          | 'text.linkHover'
+                                          | 'surface.page'
+                                          | 'surface.surface'
+                                          | 'surface.surfaceAlt'
+                                          | 'surface.border'
+                                          | 'surface.overlay'
+                                          | 'state.success'
+                                          | 'state.warning'
+                                          | 'state.error'
+                                          | 'state.info'
+                                          | 'custom'
+                                          | 'none'
+                                        )
+                                      | null;
+                                    custom?: string | null;
+                                  };
+                                  titleColor?: {
+                                    token?:
+                                      | (
+                                          | 'brand.primary'
+                                          | 'brand.primaryHover'
+                                          | 'brand.secondary'
+                                          | 'brand.secondaryHover'
+                                          | 'brand.accent'
+                                          | 'text.heading'
+                                          | 'text.body'
+                                          | 'text.muted'
+                                          | 'text.inverted'
+                                          | 'text.link'
+                                          | 'text.linkHover'
+                                          | 'surface.page'
+                                          | 'surface.surface'
+                                          | 'surface.surfaceAlt'
+                                          | 'surface.border'
+                                          | 'surface.overlay'
+                                          | 'state.success'
+                                          | 'state.warning'
+                                          | 'state.error'
+                                          | 'state.info'
+                                          | 'custom'
+                                          | 'none'
+                                        )
+                                      | null;
+                                    custom?: string | null;
+                                  };
+                                  iconColor?: {
+                                    token?:
+                                      | (
+                                          | 'brand.primary'
+                                          | 'brand.primaryHover'
+                                          | 'brand.secondary'
+                                          | 'brand.secondaryHover'
+                                          | 'brand.accent'
+                                          | 'text.heading'
+                                          | 'text.body'
+                                          | 'text.muted'
+                                          | 'text.inverted'
+                                          | 'text.link'
+                                          | 'text.linkHover'
+                                          | 'surface.page'
+                                          | 'surface.surface'
+                                          | 'surface.surfaceAlt'
+                                          | 'surface.border'
+                                          | 'surface.overlay'
+                                          | 'state.success'
+                                          | 'state.warning'
+                                          | 'state.error'
+                                          | 'state.info'
+                                          | 'custom'
+                                          | 'none'
+                                        )
+                                      | null;
+                                    custom?: string | null;
+                                  };
+                                  style?: {
+                                    align?: ('left' | 'center' | 'right') | null;
+                                    width?: ('auto' | 'full' | 'custom') | null;
+                                    customWidth?: number | null;
+                                    /**
+                                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                                     */
+                                    padding?: {
+                                      top?: number | null;
+                                      right?: number | null;
+                                      bottom?: number | null;
+                                      left?: number | null;
+                                    };
+                                    /**
+                                     * Odstęp od sąsiednich elementów.
+                                     */
+                                    margin?: {
+                                      top?: number | null;
+                                      bottom?: number | null;
+                                    };
+                                    background?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    textColor?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                                    border?: {
+                                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                      width?: number | null;
+                                      color?: {
+                                        token?:
+                                          | (
+                                              | 'brand.primary'
+                                              | 'brand.primaryHover'
+                                              | 'brand.secondary'
+                                              | 'brand.secondaryHover'
+                                              | 'brand.accent'
+                                              | 'text.heading'
+                                              | 'text.body'
+                                              | 'text.muted'
+                                              | 'text.inverted'
+                                              | 'text.link'
+                                              | 'text.linkHover'
+                                              | 'surface.page'
+                                              | 'surface.surface'
+                                              | 'surface.surfaceAlt'
+                                              | 'surface.border'
+                                              | 'surface.overlay'
+                                              | 'state.success'
+                                              | 'state.warning'
+                                              | 'state.error'
+                                              | 'state.info'
+                                              | 'custom'
+                                              | 'none'
+                                            )
+                                          | null;
+                                        custom?: string | null;
+                                      };
+                                    };
+                                    /**
+                                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                                     */
+                                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                                    anchorId?: string | null;
+                                    cssClass?: string | null;
+                                  };
+                                  id?: string | null;
+                                  blockName?: string | null;
+                                  blockType: 'features';
+                                }
+                              | {
+                                  items?:
+                                    | {
+                                        title?: string | null;
+                                        content?: {
+                                          root: {
+                                            type: string;
+                                            children: {
+                                              type: any;
+                                              version: number;
+                                              [k: string]: unknown;
+                                            }[];
+                                            direction: ('ltr' | 'rtl') | null;
+                                            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                            indent: number;
+                                            version: number;
+                                          };
+                                          [k: string]: unknown;
+                                        } | null;
+                                        id?: string | null;
+                                      }[]
+                                    | null;
+                                  allowMultiple?: boolean | null;
+                                  openFirst?: boolean | null;
+                                  radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                  titleColor?: {
+                                    token?:
+                                      | (
+                                          | 'brand.primary'
+                                          | 'brand.primaryHover'
+                                          | 'brand.secondary'
+                                          | 'brand.secondaryHover'
+                                          | 'brand.accent'
+                                          | 'text.heading'
+                                          | 'text.body'
+                                          | 'text.muted'
+                                          | 'text.inverted'
+                                          | 'text.link'
+                                          | 'text.linkHover'
+                                          | 'surface.page'
+                                          | 'surface.surface'
+                                          | 'surface.surfaceAlt'
+                                          | 'surface.border'
+                                          | 'surface.overlay'
+                                          | 'state.success'
+                                          | 'state.warning'
+                                          | 'state.error'
+                                          | 'state.info'
+                                          | 'custom'
+                                          | 'none'
+                                        )
+                                      | null;
+                                    custom?: string | null;
+                                  };
+                                  borderColor?: {
+                                    token?:
+                                      | (
+                                          | 'brand.primary'
+                                          | 'brand.primaryHover'
+                                          | 'brand.secondary'
+                                          | 'brand.secondaryHover'
+                                          | 'brand.accent'
+                                          | 'text.heading'
+                                          | 'text.body'
+                                          | 'text.muted'
+                                          | 'text.inverted'
+                                          | 'text.link'
+                                          | 'text.linkHover'
+                                          | 'surface.page'
+                                          | 'surface.surface'
+                                          | 'surface.surfaceAlt'
+                                          | 'surface.border'
+                                          | 'surface.overlay'
+                                          | 'state.success'
+                                          | 'state.warning'
+                                          | 'state.error'
+                                          | 'state.info'
+                                          | 'custom'
+                                          | 'none'
+                                        )
+                                      | null;
+                                    custom?: string | null;
+                                  };
+                                  style?: {
+                                    align?: ('left' | 'center' | 'right') | null;
+                                    width?: ('auto' | 'full' | 'custom') | null;
+                                    customWidth?: number | null;
+                                    /**
+                                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                                     */
+                                    padding?: {
+                                      top?: number | null;
+                                      right?: number | null;
+                                      bottom?: number | null;
+                                      left?: number | null;
+                                    };
+                                    /**
+                                     * Odstęp od sąsiednich elementów.
+                                     */
+                                    margin?: {
+                                      top?: number | null;
+                                      bottom?: number | null;
+                                    };
+                                    background?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    textColor?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                                    border?: {
+                                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                      width?: number | null;
+                                      color?: {
+                                        token?:
+                                          | (
+                                              | 'brand.primary'
+                                              | 'brand.primaryHover'
+                                              | 'brand.secondary'
+                                              | 'brand.secondaryHover'
+                                              | 'brand.accent'
+                                              | 'text.heading'
+                                              | 'text.body'
+                                              | 'text.muted'
+                                              | 'text.inverted'
+                                              | 'text.link'
+                                              | 'text.linkHover'
+                                              | 'surface.page'
+                                              | 'surface.surface'
+                                              | 'surface.surfaceAlt'
+                                              | 'surface.border'
+                                              | 'surface.overlay'
+                                              | 'state.success'
+                                              | 'state.warning'
+                                              | 'state.error'
+                                              | 'state.info'
+                                              | 'custom'
+                                              | 'none'
+                                            )
+                                          | null;
+                                        custom?: string | null;
+                                      };
+                                    };
+                                    /**
+                                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                                     */
+                                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                                    anchorId?: string | null;
+                                    cssClass?: string | null;
+                                  };
+                                  id?: string | null;
+                                  blockName?: string | null;
+                                  blockType: 'accordion';
+                                }
+                              | {
+                                  /**
+                                   * Złożenie z Wygląd → Komponenty. Zmiana tam aktualizuje każdą stronę, która go używa.
+                                   */
+                                  component?: (number | null) | SiteComponent;
+                                  style?: {
+                                    align?: ('left' | 'center' | 'right') | null;
+                                    width?: ('auto' | 'full' | 'custom') | null;
+                                    customWidth?: number | null;
+                                    /**
+                                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                                     */
+                                    padding?: {
+                                      top?: number | null;
+                                      right?: number | null;
+                                      bottom?: number | null;
+                                      left?: number | null;
+                                    };
+                                    /**
+                                     * Odstęp od sąsiednich elementów.
+                                     */
+                                    margin?: {
+                                      top?: number | null;
+                                      bottom?: number | null;
+                                    };
+                                    background?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    textColor?: {
+                                      token?:
+                                        | (
+                                            | 'brand.primary'
+                                            | 'brand.primaryHover'
+                                            | 'brand.secondary'
+                                            | 'brand.secondaryHover'
+                                            | 'brand.accent'
+                                            | 'text.heading'
+                                            | 'text.body'
+                                            | 'text.muted'
+                                            | 'text.inverted'
+                                            | 'text.link'
+                                            | 'text.linkHover'
+                                            | 'surface.page'
+                                            | 'surface.surface'
+                                            | 'surface.surfaceAlt'
+                                            | 'surface.border'
+                                            | 'surface.overlay'
+                                            | 'state.success'
+                                            | 'state.warning'
+                                            | 'state.error'
+                                            | 'state.info'
+                                            | 'custom'
+                                            | 'none'
+                                          )
+                                        | null;
+                                      custom?: string | null;
+                                    };
+                                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                                    border?: {
+                                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                      width?: number | null;
+                                      color?: {
+                                        token?:
+                                          | (
+                                              | 'brand.primary'
+                                              | 'brand.primaryHover'
+                                              | 'brand.secondary'
+                                              | 'brand.secondaryHover'
+                                              | 'brand.accent'
+                                              | 'text.heading'
+                                              | 'text.body'
+                                              | 'text.muted'
+                                              | 'text.inverted'
+                                              | 'text.link'
+                                              | 'text.linkHover'
+                                              | 'surface.page'
+                                              | 'surface.surface'
+                                              | 'surface.surfaceAlt'
+                                              | 'surface.border'
+                                              | 'surface.overlay'
+                                              | 'state.success'
+                                              | 'state.warning'
+                                              | 'state.error'
+                                              | 'state.info'
+                                              | 'custom'
+                                              | 'none'
+                                            )
+                                          | null;
+                                        custom?: string | null;
+                                      };
+                                    };
+                                    /**
+                                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                                     */
+                                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                                    anchorId?: string | null;
+                                    cssClass?: string | null;
+                                  };
+                                  id?: string | null;
+                                  blockName?: string | null;
+                                  blockType: 'savedComponent';
+                                }
+                            )[]
+                          | null;
+                        id?: string | null;
+                      }[]
+                    | null;
+                  style?: {
+                    align?: ('left' | 'center' | 'right') | null;
+                    width?: ('auto' | 'full' | 'custom') | null;
+                    customWidth?: number | null;
+                    /**
+                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                     */
+                    padding?: {
+                      top?: number | null;
+                      right?: number | null;
+                      bottom?: number | null;
+                      left?: number | null;
+                    };
+                    /**
+                     * Odstęp od sąsiednich elementów.
+                     */
+                    margin?: {
+                      top?: number | null;
+                      bottom?: number | null;
+                    };
+                    background?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    textColor?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                    border?: {
+                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                      width?: number | null;
+                      color?: {
+                        token?:
+                          | (
+                              | 'brand.primary'
+                              | 'brand.primaryHover'
+                              | 'brand.secondary'
+                              | 'brand.secondaryHover'
+                              | 'brand.accent'
+                              | 'text.heading'
+                              | 'text.body'
+                              | 'text.muted'
+                              | 'text.inverted'
+                              | 'text.link'
+                              | 'text.linkHover'
+                              | 'surface.page'
+                              | 'surface.surface'
+                              | 'surface.surfaceAlt'
+                              | 'surface.border'
+                              | 'surface.overlay'
+                              | 'state.success'
+                              | 'state.warning'
+                              | 'state.error'
+                              | 'state.info'
+                              | 'custom'
+                              | 'none'
+                            )
+                          | null;
+                        custom?: string | null;
+                      };
+                    };
+                    /**
+                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                     */
+                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                    anchorId?: string | null;
+                    cssClass?: string | null;
+                  };
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'columns';
+                }
+              | {
+                  thickness?: number | null;
+                  widthPercent?: number | null;
+                  lineStyle?: ('solid' | 'dashed' | 'dotted') | null;
+                  color?: {
+                    token?:
+                      | (
+                          | 'brand.primary'
+                          | 'brand.primaryHover'
+                          | 'brand.secondary'
+                          | 'brand.secondaryHover'
+                          | 'brand.accent'
+                          | 'text.heading'
+                          | 'text.body'
+                          | 'text.muted'
+                          | 'text.inverted'
+                          | 'text.link'
+                          | 'text.linkHover'
+                          | 'surface.page'
+                          | 'surface.surface'
+                          | 'surface.surfaceAlt'
+                          | 'surface.border'
+                          | 'surface.overlay'
+                          | 'state.success'
+                          | 'state.warning'
+                          | 'state.error'
+                          | 'state.info'
+                          | 'custom'
+                          | 'none'
+                        )
+                      | null;
+                    custom?: string | null;
+                  };
+                  style?: {
+                    align?: ('left' | 'center' | 'right') | null;
+                    width?: ('auto' | 'full' | 'custom') | null;
+                    customWidth?: number | null;
+                    /**
+                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                     */
+                    padding?: {
+                      top?: number | null;
+                      right?: number | null;
+                      bottom?: number | null;
+                      left?: number | null;
+                    };
+                    /**
+                     * Odstęp od sąsiednich elementów.
+                     */
+                    margin?: {
+                      top?: number | null;
+                      bottom?: number | null;
+                    };
+                    background?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    textColor?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                    border?: {
+                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                      width?: number | null;
+                      color?: {
+                        token?:
+                          | (
+                              | 'brand.primary'
+                              | 'brand.primaryHover'
+                              | 'brand.secondary'
+                              | 'brand.secondaryHover'
+                              | 'brand.accent'
+                              | 'text.heading'
+                              | 'text.body'
+                              | 'text.muted'
+                              | 'text.inverted'
+                              | 'text.link'
+                              | 'text.linkHover'
+                              | 'surface.page'
+                              | 'surface.surface'
+                              | 'surface.surfaceAlt'
+                              | 'surface.border'
+                              | 'surface.overlay'
+                              | 'state.success'
+                              | 'state.warning'
+                              | 'state.error'
+                              | 'state.info'
+                              | 'custom'
+                              | 'none'
+                            )
+                          | null;
+                        custom?: string | null;
+                      };
+                    };
+                    /**
+                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                     */
+                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                    anchorId?: string | null;
+                    cssClass?: string | null;
+                  };
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'divider';
+                }
+              | {
+                  height?: number | null;
+                  /**
+                   * Zostaw puste, aby użyć tej samej wartości.
+                   */
+                  heightMobile?: number | null;
+                  style?: {
+                    align?: ('left' | 'center' | 'right') | null;
+                    width?: ('auto' | 'full' | 'custom') | null;
+                    customWidth?: number | null;
+                    /**
+                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                     */
+                    padding?: {
+                      top?: number | null;
+                      right?: number | null;
+                      bottom?: number | null;
+                      left?: number | null;
+                    };
+                    /**
+                     * Odstęp od sąsiednich elementów.
+                     */
+                    margin?: {
+                      top?: number | null;
+                      bottom?: number | null;
+                    };
+                    background?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    textColor?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                    border?: {
+                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                      width?: number | null;
+                      color?: {
+                        token?:
+                          | (
+                              | 'brand.primary'
+                              | 'brand.primaryHover'
+                              | 'brand.secondary'
+                              | 'brand.secondaryHover'
+                              | 'brand.accent'
+                              | 'text.heading'
+                              | 'text.body'
+                              | 'text.muted'
+                              | 'text.inverted'
+                              | 'text.link'
+                              | 'text.linkHover'
+                              | 'surface.page'
+                              | 'surface.surface'
+                              | 'surface.surfaceAlt'
+                              | 'surface.border'
+                              | 'surface.overlay'
+                              | 'state.success'
+                              | 'state.warning'
+                              | 'state.error'
+                              | 'state.info'
+                              | 'custom'
+                              | 'none'
+                            )
+                          | null;
+                        custom?: string | null;
+                      };
+                    };
+                    /**
+                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                     */
+                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                    anchorId?: string | null;
+                    cssClass?: string | null;
+                  };
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'spacer';
+                }
+              | {
+                  images?: (number | Media)[] | null;
+                  columns?: ('1' | '2' | '3' | '4') | null;
+                  gap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+                  aspectRatio?: ('auto' | '16-9' | '21-9' | '4-3' | '1-1' | '3-4') | null;
+                  radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                  lightbox?: boolean | null;
+                  showCaptions?: boolean | null;
+                  style?: {
+                    align?: ('left' | 'center' | 'right') | null;
+                    width?: ('auto' | 'full' | 'custom') | null;
+                    customWidth?: number | null;
+                    /**
+                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                     */
+                    padding?: {
+                      top?: number | null;
+                      right?: number | null;
+                      bottom?: number | null;
+                      left?: number | null;
+                    };
+                    /**
+                     * Odstęp od sąsiednich elementów.
+                     */
+                    margin?: {
+                      top?: number | null;
+                      bottom?: number | null;
+                    };
+                    background?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    textColor?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                    border?: {
+                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                      width?: number | null;
+                      color?: {
+                        token?:
+                          | (
+                              | 'brand.primary'
+                              | 'brand.primaryHover'
+                              | 'brand.secondary'
+                              | 'brand.secondaryHover'
+                              | 'brand.accent'
+                              | 'text.heading'
+                              | 'text.body'
+                              | 'text.muted'
+                              | 'text.inverted'
+                              | 'text.link'
+                              | 'text.linkHover'
+                              | 'surface.page'
+                              | 'surface.surface'
+                              | 'surface.surfaceAlt'
+                              | 'surface.border'
+                              | 'surface.overlay'
+                              | 'state.success'
+                              | 'state.warning'
+                              | 'state.error'
+                              | 'state.info'
+                              | 'custom'
+                              | 'none'
+                            )
+                          | null;
+                        custom?: string | null;
+                      };
+                    };
+                    /**
+                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                     */
+                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                    anchorId?: string | null;
+                    cssClass?: string | null;
+                  };
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'gallery';
+                }
+              | {
+                  slides?:
+                    | {
+                        image?: (number | null) | Media;
+                        caption?: string | null;
+                        href?: string | null;
+                        newTab?: boolean | null;
+                        id?: string | null;
+                      }[]
+                    | null;
+                  slidesPerView?: number | null;
+                  gap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+                  aspectRatio?: ('auto' | '16-9' | '21-9' | '4-3' | '1-1' | '3-4') | null;
+                  radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                  autoplay?: boolean | null;
+                  interval?: number | null;
+                  loop?: boolean | null;
+                  showArrows?: boolean | null;
+                  showDots?: boolean | null;
+                  style?: {
+                    align?: ('left' | 'center' | 'right') | null;
+                    width?: ('auto' | 'full' | 'custom') | null;
+                    customWidth?: number | null;
+                    /**
+                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                     */
+                    padding?: {
+                      top?: number | null;
+                      right?: number | null;
+                      bottom?: number | null;
+                      left?: number | null;
+                    };
+                    /**
+                     * Odstęp od sąsiednich elementów.
+                     */
+                    margin?: {
+                      top?: number | null;
+                      bottom?: number | null;
+                    };
+                    background?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    textColor?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                    border?: {
+                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                      width?: number | null;
+                      color?: {
+                        token?:
+                          | (
+                              | 'brand.primary'
+                              | 'brand.primaryHover'
+                              | 'brand.secondary'
+                              | 'brand.secondaryHover'
+                              | 'brand.accent'
+                              | 'text.heading'
+                              | 'text.body'
+                              | 'text.muted'
+                              | 'text.inverted'
+                              | 'text.link'
+                              | 'text.linkHover'
+                              | 'surface.page'
+                              | 'surface.surface'
+                              | 'surface.surfaceAlt'
+                              | 'surface.border'
+                              | 'surface.overlay'
+                              | 'state.success'
+                              | 'state.warning'
+                              | 'state.error'
+                              | 'state.info'
+                              | 'custom'
+                              | 'none'
+                            )
+                          | null;
+                        custom?: string | null;
+                      };
+                    };
+                    /**
+                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                     */
+                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                    anchorId?: string | null;
+                    cssClass?: string | null;
+                  };
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'carousel';
+                }
+              | {
+                  source?: ('file' | 'youtube' | 'vimeo') | null;
+                  file?: (number | null) | Media;
+                  /**
+                   * Wklej pełny adres, np. https://www.youtube.com/watch?v=…
+                   */
+                  url?: string | null;
+                  poster?: (number | null) | Media;
+                  aspectRatio?: ('auto' | '16-9' | '21-9' | '4-3' | '1-1' | '3-4') | null;
+                  radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                  controls?: boolean | null;
+                  autoplay?: boolean | null;
+                  loop?: boolean | null;
+                  /**
+                   * Przeglądarki odtwarzają automatycznie tylko wyciszone filmy.
+                   */
+                  muted?: boolean | null;
+                  style?: {
+                    align?: ('left' | 'center' | 'right') | null;
+                    width?: ('auto' | 'full' | 'custom') | null;
+                    customWidth?: number | null;
+                    /**
+                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                     */
+                    padding?: {
+                      top?: number | null;
+                      right?: number | null;
+                      bottom?: number | null;
+                      left?: number | null;
+                    };
+                    /**
+                     * Odstęp od sąsiednich elementów.
+                     */
+                    margin?: {
+                      top?: number | null;
+                      bottom?: number | null;
+                    };
+                    background?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    textColor?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                    border?: {
+                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                      width?: number | null;
+                      color?: {
+                        token?:
+                          | (
+                              | 'brand.primary'
+                              | 'brand.primaryHover'
+                              | 'brand.secondary'
+                              | 'brand.secondaryHover'
+                              | 'brand.accent'
+                              | 'text.heading'
+                              | 'text.body'
+                              | 'text.muted'
+                              | 'text.inverted'
+                              | 'text.link'
+                              | 'text.linkHover'
+                              | 'surface.page'
+                              | 'surface.surface'
+                              | 'surface.surfaceAlt'
+                              | 'surface.border'
+                              | 'surface.overlay'
+                              | 'state.success'
+                              | 'state.warning'
+                              | 'state.error'
+                              | 'state.info'
+                              | 'custom'
+                              | 'none'
+                            )
+                          | null;
+                        custom?: string | null;
+                      };
+                    };
+                    /**
+                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                     */
+                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                    anchorId?: string | null;
+                    cssClass?: string | null;
+                  };
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'video';
+                }
+              | {
+                  image?: (number | null) | Media;
+                  heading?: string | null;
+                  subheading?: string | null;
+                  height?: ('sm' | 'md' | 'lg' | 'screen') | null;
+                  align?: ('left' | 'center' | 'right') | null;
+                  /**
+                   * Kolor nakładki pochodzi z palety (Tła → Przyciemnienie zdjęć).
+                   */
+                  overlayOpacity?: number | null;
+                  radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                  textColor?: {
+                    token?:
+                      | (
+                          | 'brand.primary'
+                          | 'brand.primaryHover'
+                          | 'brand.secondary'
+                          | 'brand.secondaryHover'
+                          | 'brand.accent'
+                          | 'text.heading'
+                          | 'text.body'
+                          | 'text.muted'
+                          | 'text.inverted'
+                          | 'text.link'
+                          | 'text.linkHover'
+                          | 'surface.page'
+                          | 'surface.surface'
+                          | 'surface.surfaceAlt'
+                          | 'surface.border'
+                          | 'surface.overlay'
+                          | 'state.success'
+                          | 'state.warning'
+                          | 'state.error'
+                          | 'state.info'
+                          | 'custom'
+                          | 'none'
+                        )
+                      | null;
+                    custom?: string | null;
+                  };
+                  buttons?:
+                    | {
+                        label?: string | null;
+                        variant?: ('solid' | 'outline' | 'link') | null;
+                        href?: string | null;
+                        newTab?: boolean | null;
+                        size?: ('sm' | 'md' | 'lg') | null;
+                        radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                        background?: {
+                          token?:
+                            | (
+                                | 'brand.primary'
+                                | 'brand.primaryHover'
+                                | 'brand.secondary'
+                                | 'brand.secondaryHover'
+                                | 'brand.accent'
+                                | 'text.heading'
+                                | 'text.body'
+                                | 'text.muted'
+                                | 'text.inverted'
+                                | 'text.link'
+                                | 'text.linkHover'
+                                | 'surface.page'
+                                | 'surface.surface'
+                                | 'surface.surfaceAlt'
+                                | 'surface.border'
+                                | 'surface.overlay'
+                                | 'state.success'
+                                | 'state.warning'
+                                | 'state.error'
+                                | 'state.info'
+                                | 'custom'
+                                | 'none'
+                              )
+                            | null;
+                          custom?: string | null;
+                        };
+                        textColor?: {
+                          token?:
+                            | (
+                                | 'brand.primary'
+                                | 'brand.primaryHover'
+                                | 'brand.secondary'
+                                | 'brand.secondaryHover'
+                                | 'brand.accent'
+                                | 'text.heading'
+                                | 'text.body'
+                                | 'text.muted'
+                                | 'text.inverted'
+                                | 'text.link'
+                                | 'text.linkHover'
+                                | 'surface.page'
+                                | 'surface.surface'
+                                | 'surface.surfaceAlt'
+                                | 'surface.border'
+                                | 'surface.overlay'
+                                | 'state.success'
+                                | 'state.warning'
+                                | 'state.error'
+                                | 'state.info'
+                                | 'custom'
+                                | 'none'
+                              )
+                            | null;
+                          custom?: string | null;
+                        };
+                        borderColor?: {
+                          token?:
+                            | (
+                                | 'brand.primary'
+                                | 'brand.primaryHover'
+                                | 'brand.secondary'
+                                | 'brand.secondaryHover'
+                                | 'brand.accent'
+                                | 'text.heading'
+                                | 'text.body'
+                                | 'text.muted'
+                                | 'text.inverted'
+                                | 'text.link'
+                                | 'text.linkHover'
+                                | 'surface.page'
+                                | 'surface.surface'
+                                | 'surface.surfaceAlt'
+                                | 'surface.border'
+                                | 'surface.overlay'
+                                | 'state.success'
+                                | 'state.warning'
+                                | 'state.error'
+                                | 'state.info'
+                                | 'custom'
+                                | 'none'
+                              )
+                            | null;
+                          custom?: string | null;
+                        };
+                        fullWidth?: boolean | null;
+                        id?: string | null;
+                      }[]
+                    | null;
+                  style?: {
+                    align?: ('left' | 'center' | 'right') | null;
+                    width?: ('auto' | 'full' | 'custom') | null;
+                    customWidth?: number | null;
+                    /**
+                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                     */
+                    padding?: {
+                      top?: number | null;
+                      right?: number | null;
+                      bottom?: number | null;
+                      left?: number | null;
+                    };
+                    /**
+                     * Odstęp od sąsiednich elementów.
+                     */
+                    margin?: {
+                      top?: number | null;
+                      bottom?: number | null;
+                    };
+                    background?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    textColor?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                    border?: {
+                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                      width?: number | null;
+                      color?: {
+                        token?:
+                          | (
+                              | 'brand.primary'
+                              | 'brand.primaryHover'
+                              | 'brand.secondary'
+                              | 'brand.secondaryHover'
+                              | 'brand.accent'
+                              | 'text.heading'
+                              | 'text.body'
+                              | 'text.muted'
+                              | 'text.inverted'
+                              | 'text.link'
+                              | 'text.linkHover'
+                              | 'surface.page'
+                              | 'surface.surface'
+                              | 'surface.surfaceAlt'
+                              | 'surface.border'
+                              | 'surface.overlay'
+                              | 'state.success'
+                              | 'state.warning'
+                              | 'state.error'
+                              | 'state.info'
+                              | 'custom'
+                              | 'none'
+                            )
+                          | null;
+                        custom?: string | null;
+                      };
+                    };
+                    /**
+                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                     */
+                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                    anchorId?: string | null;
+                    cssClass?: string | null;
+                  };
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'hero';
+                }
+              | {
+                  heading?: string | null;
+                  text?: string | null;
+                  buttons?:
+                    | {
+                        label?: string | null;
+                        variant?: ('solid' | 'outline' | 'link') | null;
+                        href?: string | null;
+                        newTab?: boolean | null;
+                        size?: ('sm' | 'md' | 'lg') | null;
+                        radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                        background?: {
+                          token?:
+                            | (
+                                | 'brand.primary'
+                                | 'brand.primaryHover'
+                                | 'brand.secondary'
+                                | 'brand.secondaryHover'
+                                | 'brand.accent'
+                                | 'text.heading'
+                                | 'text.body'
+                                | 'text.muted'
+                                | 'text.inverted'
+                                | 'text.link'
+                                | 'text.linkHover'
+                                | 'surface.page'
+                                | 'surface.surface'
+                                | 'surface.surfaceAlt'
+                                | 'surface.border'
+                                | 'surface.overlay'
+                                | 'state.success'
+                                | 'state.warning'
+                                | 'state.error'
+                                | 'state.info'
+                                | 'custom'
+                                | 'none'
+                              )
+                            | null;
+                          custom?: string | null;
+                        };
+                        textColor?: {
+                          token?:
+                            | (
+                                | 'brand.primary'
+                                | 'brand.primaryHover'
+                                | 'brand.secondary'
+                                | 'brand.secondaryHover'
+                                | 'brand.accent'
+                                | 'text.heading'
+                                | 'text.body'
+                                | 'text.muted'
+                                | 'text.inverted'
+                                | 'text.link'
+                                | 'text.linkHover'
+                                | 'surface.page'
+                                | 'surface.surface'
+                                | 'surface.surfaceAlt'
+                                | 'surface.border'
+                                | 'surface.overlay'
+                                | 'state.success'
+                                | 'state.warning'
+                                | 'state.error'
+                                | 'state.info'
+                                | 'custom'
+                                | 'none'
+                              )
+                            | null;
+                          custom?: string | null;
+                        };
+                        borderColor?: {
+                          token?:
+                            | (
+                                | 'brand.primary'
+                                | 'brand.primaryHover'
+                                | 'brand.secondary'
+                                | 'brand.secondaryHover'
+                                | 'brand.accent'
+                                | 'text.heading'
+                                | 'text.body'
+                                | 'text.muted'
+                                | 'text.inverted'
+                                | 'text.link'
+                                | 'text.linkHover'
+                                | 'surface.page'
+                                | 'surface.surface'
+                                | 'surface.surfaceAlt'
+                                | 'surface.border'
+                                | 'surface.overlay'
+                                | 'state.success'
+                                | 'state.warning'
+                                | 'state.error'
+                                | 'state.info'
+                                | 'custom'
+                                | 'none'
+                              )
+                            | null;
+                          custom?: string | null;
+                        };
+                        fullWidth?: boolean | null;
+                        id?: string | null;
+                      }[]
+                    | null;
+                  align?: ('left' | 'center' | 'right') | null;
+                  padding?: ('sm' | 'md' | 'lg') | null;
+                  background?: {
+                    token?:
+                      | (
+                          | 'brand.primary'
+                          | 'brand.primaryHover'
+                          | 'brand.secondary'
+                          | 'brand.secondaryHover'
+                          | 'brand.accent'
+                          | 'text.heading'
+                          | 'text.body'
+                          | 'text.muted'
+                          | 'text.inverted'
+                          | 'text.link'
+                          | 'text.linkHover'
+                          | 'surface.page'
+                          | 'surface.surface'
+                          | 'surface.surfaceAlt'
+                          | 'surface.border'
+                          | 'surface.overlay'
+                          | 'state.success'
+                          | 'state.warning'
+                          | 'state.error'
+                          | 'state.info'
+                          | 'custom'
+                          | 'none'
+                        )
+                      | null;
+                    custom?: string | null;
+                  };
+                  textColor?: {
+                    token?:
+                      | (
+                          | 'brand.primary'
+                          | 'brand.primaryHover'
+                          | 'brand.secondary'
+                          | 'brand.secondaryHover'
+                          | 'brand.accent'
+                          | 'text.heading'
+                          | 'text.body'
+                          | 'text.muted'
+                          | 'text.inverted'
+                          | 'text.link'
+                          | 'text.linkHover'
+                          | 'surface.page'
+                          | 'surface.surface'
+                          | 'surface.surfaceAlt'
+                          | 'surface.border'
+                          | 'surface.overlay'
+                          | 'state.success'
+                          | 'state.warning'
+                          | 'state.error'
+                          | 'state.info'
+                          | 'custom'
+                          | 'none'
+                        )
+                      | null;
+                    custom?: string | null;
+                  };
+                  radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                  style?: {
+                    align?: ('left' | 'center' | 'right') | null;
+                    width?: ('auto' | 'full' | 'custom') | null;
+                    customWidth?: number | null;
+                    /**
+                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                     */
+                    padding?: {
+                      top?: number | null;
+                      right?: number | null;
+                      bottom?: number | null;
+                      left?: number | null;
+                    };
+                    /**
+                     * Odstęp od sąsiednich elementów.
+                     */
+                    margin?: {
+                      top?: number | null;
+                      bottom?: number | null;
+                    };
+                    background?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    textColor?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                    border?: {
+                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                      width?: number | null;
+                      color?: {
+                        token?:
+                          | (
+                              | 'brand.primary'
+                              | 'brand.primaryHover'
+                              | 'brand.secondary'
+                              | 'brand.secondaryHover'
+                              | 'brand.accent'
+                              | 'text.heading'
+                              | 'text.body'
+                              | 'text.muted'
+                              | 'text.inverted'
+                              | 'text.link'
+                              | 'text.linkHover'
+                              | 'surface.page'
+                              | 'surface.surface'
+                              | 'surface.surfaceAlt'
+                              | 'surface.border'
+                              | 'surface.overlay'
+                              | 'state.success'
+                              | 'state.warning'
+                              | 'state.error'
+                              | 'state.info'
+                              | 'custom'
+                              | 'none'
+                            )
+                          | null;
+                        custom?: string | null;
+                      };
+                    };
+                    /**
+                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                     */
+                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                    anchorId?: string | null;
+                    cssClass?: string | null;
+                  };
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'cta';
+                }
+              | {
+                  items?:
+                    | {
+                        title?: string | null;
+                        text?: string | null;
+                        icon?:
+                          | (
+                              | 'check'
+                              | 'star'
+                              | 'heart'
+                              | 'sparkle'
+                              | 'shield'
+                              | 'phone'
+                              | 'mail'
+                              | 'clock'
+                              | 'pin'
+                              | 'calendar'
+                              | 'user'
+                              | 'arrow'
+                              | 'quote'
+                              | 'plus'
+                              | 'dot'
+                              | 'none'
+                            )
+                          | null;
+                        image?: (number | null) | Media;
+                        href?: string | null;
+                        newTab?: boolean | null;
+                        id?: string | null;
+                      }[]
+                    | null;
+                  columns?: ('1' | '2' | '3' | '4') | null;
+                  gap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+                  cardAlign?: ('left' | 'center' | 'right') | null;
+                  radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                  cardBackground?: {
+                    token?:
+                      | (
+                          | 'brand.primary'
+                          | 'brand.primaryHover'
+                          | 'brand.secondary'
+                          | 'brand.secondaryHover'
+                          | 'brand.accent'
+                          | 'text.heading'
+                          | 'text.body'
+                          | 'text.muted'
+                          | 'text.inverted'
+                          | 'text.link'
+                          | 'text.linkHover'
+                          | 'surface.page'
+                          | 'surface.surface'
+                          | 'surface.surfaceAlt'
+                          | 'surface.border'
+                          | 'surface.overlay'
+                          | 'state.success'
+                          | 'state.warning'
+                          | 'state.error'
+                          | 'state.info'
+                          | 'custom'
+                          | 'none'
+                        )
+                      | null;
+                    custom?: string | null;
+                  };
+                  cardBorder?: {
+                    token?:
+                      | (
+                          | 'brand.primary'
+                          | 'brand.primaryHover'
+                          | 'brand.secondary'
+                          | 'brand.secondaryHover'
+                          | 'brand.accent'
+                          | 'text.heading'
+                          | 'text.body'
+                          | 'text.muted'
+                          | 'text.inverted'
+                          | 'text.link'
+                          | 'text.linkHover'
+                          | 'surface.page'
+                          | 'surface.surface'
+                          | 'surface.surfaceAlt'
+                          | 'surface.border'
+                          | 'surface.overlay'
+                          | 'state.success'
+                          | 'state.warning'
+                          | 'state.error'
+                          | 'state.info'
+                          | 'custom'
+                          | 'none'
+                        )
+                      | null;
+                    custom?: string | null;
+                  };
+                  titleColor?: {
+                    token?:
+                      | (
+                          | 'brand.primary'
+                          | 'brand.primaryHover'
+                          | 'brand.secondary'
+                          | 'brand.secondaryHover'
+                          | 'brand.accent'
+                          | 'text.heading'
+                          | 'text.body'
+                          | 'text.muted'
+                          | 'text.inverted'
+                          | 'text.link'
+                          | 'text.linkHover'
+                          | 'surface.page'
+                          | 'surface.surface'
+                          | 'surface.surfaceAlt'
+                          | 'surface.border'
+                          | 'surface.overlay'
+                          | 'state.success'
+                          | 'state.warning'
+                          | 'state.error'
+                          | 'state.info'
+                          | 'custom'
+                          | 'none'
+                        )
+                      | null;
+                    custom?: string | null;
+                  };
+                  iconColor?: {
+                    token?:
+                      | (
+                          | 'brand.primary'
+                          | 'brand.primaryHover'
+                          | 'brand.secondary'
+                          | 'brand.secondaryHover'
+                          | 'brand.accent'
+                          | 'text.heading'
+                          | 'text.body'
+                          | 'text.muted'
+                          | 'text.inverted'
+                          | 'text.link'
+                          | 'text.linkHover'
+                          | 'surface.page'
+                          | 'surface.surface'
+                          | 'surface.surfaceAlt'
+                          | 'surface.border'
+                          | 'surface.overlay'
+                          | 'state.success'
+                          | 'state.warning'
+                          | 'state.error'
+                          | 'state.info'
+                          | 'custom'
+                          | 'none'
+                        )
+                      | null;
+                    custom?: string | null;
+                  };
+                  style?: {
+                    align?: ('left' | 'center' | 'right') | null;
+                    width?: ('auto' | 'full' | 'custom') | null;
+                    customWidth?: number | null;
+                    /**
+                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                     */
+                    padding?: {
+                      top?: number | null;
+                      right?: number | null;
+                      bottom?: number | null;
+                      left?: number | null;
+                    };
+                    /**
+                     * Odstęp od sąsiednich elementów.
+                     */
+                    margin?: {
+                      top?: number | null;
+                      bottom?: number | null;
+                    };
+                    background?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    textColor?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                    border?: {
+                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                      width?: number | null;
+                      color?: {
+                        token?:
+                          | (
+                              | 'brand.primary'
+                              | 'brand.primaryHover'
+                              | 'brand.secondary'
+                              | 'brand.secondaryHover'
+                              | 'brand.accent'
+                              | 'text.heading'
+                              | 'text.body'
+                              | 'text.muted'
+                              | 'text.inverted'
+                              | 'text.link'
+                              | 'text.linkHover'
+                              | 'surface.page'
+                              | 'surface.surface'
+                              | 'surface.surfaceAlt'
+                              | 'surface.border'
+                              | 'surface.overlay'
+                              | 'state.success'
+                              | 'state.warning'
+                              | 'state.error'
+                              | 'state.info'
+                              | 'custom'
+                              | 'none'
+                            )
+                          | null;
+                        custom?: string | null;
+                      };
+                    };
+                    /**
+                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                     */
+                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                    anchorId?: string | null;
+                    cssClass?: string | null;
+                  };
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'features';
+                }
+              | {
+                  items?:
+                    | {
+                        title?: string | null;
+                        content?: {
+                          root: {
+                            type: string;
+                            children: {
+                              type: any;
+                              version: number;
+                              [k: string]: unknown;
+                            }[];
+                            direction: ('ltr' | 'rtl') | null;
+                            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                            indent: number;
+                            version: number;
+                          };
+                          [k: string]: unknown;
+                        } | null;
+                        id?: string | null;
+                      }[]
+                    | null;
+                  allowMultiple?: boolean | null;
+                  openFirst?: boolean | null;
+                  radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                  titleColor?: {
+                    token?:
+                      | (
+                          | 'brand.primary'
+                          | 'brand.primaryHover'
+                          | 'brand.secondary'
+                          | 'brand.secondaryHover'
+                          | 'brand.accent'
+                          | 'text.heading'
+                          | 'text.body'
+                          | 'text.muted'
+                          | 'text.inverted'
+                          | 'text.link'
+                          | 'text.linkHover'
+                          | 'surface.page'
+                          | 'surface.surface'
+                          | 'surface.surfaceAlt'
+                          | 'surface.border'
+                          | 'surface.overlay'
+                          | 'state.success'
+                          | 'state.warning'
+                          | 'state.error'
+                          | 'state.info'
+                          | 'custom'
+                          | 'none'
+                        )
+                      | null;
+                    custom?: string | null;
+                  };
+                  borderColor?: {
+                    token?:
+                      | (
+                          | 'brand.primary'
+                          | 'brand.primaryHover'
+                          | 'brand.secondary'
+                          | 'brand.secondaryHover'
+                          | 'brand.accent'
+                          | 'text.heading'
+                          | 'text.body'
+                          | 'text.muted'
+                          | 'text.inverted'
+                          | 'text.link'
+                          | 'text.linkHover'
+                          | 'surface.page'
+                          | 'surface.surface'
+                          | 'surface.surfaceAlt'
+                          | 'surface.border'
+                          | 'surface.overlay'
+                          | 'state.success'
+                          | 'state.warning'
+                          | 'state.error'
+                          | 'state.info'
+                          | 'custom'
+                          | 'none'
+                        )
+                      | null;
+                    custom?: string | null;
+                  };
+                  style?: {
+                    align?: ('left' | 'center' | 'right') | null;
+                    width?: ('auto' | 'full' | 'custom') | null;
+                    customWidth?: number | null;
+                    /**
+                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                     */
+                    padding?: {
+                      top?: number | null;
+                      right?: number | null;
+                      bottom?: number | null;
+                      left?: number | null;
+                    };
+                    /**
+                     * Odstęp od sąsiednich elementów.
+                     */
+                    margin?: {
+                      top?: number | null;
+                      bottom?: number | null;
+                    };
+                    background?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    textColor?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                    border?: {
+                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                      width?: number | null;
+                      color?: {
+                        token?:
+                          | (
+                              | 'brand.primary'
+                              | 'brand.primaryHover'
+                              | 'brand.secondary'
+                              | 'brand.secondaryHover'
+                              | 'brand.accent'
+                              | 'text.heading'
+                              | 'text.body'
+                              | 'text.muted'
+                              | 'text.inverted'
+                              | 'text.link'
+                              | 'text.linkHover'
+                              | 'surface.page'
+                              | 'surface.surface'
+                              | 'surface.surfaceAlt'
+                              | 'surface.border'
+                              | 'surface.overlay'
+                              | 'state.success'
+                              | 'state.warning'
+                              | 'state.error'
+                              | 'state.info'
+                              | 'custom'
+                              | 'none'
+                            )
+                          | null;
+                        custom?: string | null;
+                      };
+                    };
+                    /**
+                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                     */
+                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                    anchorId?: string | null;
+                    cssClass?: string | null;
+                  };
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'accordion';
+                }
+              | {
+                  /**
+                   * Złożenie z Wygląd → Komponenty. Zmiana tam aktualizuje każdą stronę, która go używa.
+                   */
+                  component?: (number | null) | SiteComponent;
+                  style?: {
+                    align?: ('left' | 'center' | 'right') | null;
+                    width?: ('auto' | 'full' | 'custom') | null;
+                    customWidth?: number | null;
+                    /**
+                     * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                     */
+                    padding?: {
+                      top?: number | null;
+                      right?: number | null;
+                      bottom?: number | null;
+                      left?: number | null;
+                    };
+                    /**
+                     * Odstęp od sąsiednich elementów.
+                     */
+                    margin?: {
+                      top?: number | null;
+                      bottom?: number | null;
+                    };
+                    background?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    textColor?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                    radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                    shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                    border?: {
+                      style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                      width?: number | null;
+                      color?: {
+                        token?:
+                          | (
+                              | 'brand.primary'
+                              | 'brand.primaryHover'
+                              | 'brand.secondary'
+                              | 'brand.secondaryHover'
+                              | 'brand.accent'
+                              | 'text.heading'
+                              | 'text.body'
+                              | 'text.muted'
+                              | 'text.inverted'
+                              | 'text.link'
+                              | 'text.linkHover'
+                              | 'surface.page'
+                              | 'surface.surface'
+                              | 'surface.surfaceAlt'
+                              | 'surface.border'
+                              | 'surface.overlay'
+                              | 'state.success'
+                              | 'state.warning'
+                              | 'state.error'
+                              | 'state.info'
+                              | 'custom'
+                              | 'none'
+                            )
+                          | null;
+                        custom?: string | null;
+                      };
+                    };
+                    /**
+                     * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                     */
+                    hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                    anchorId?: string | null;
+                    cssClass?: string | null;
+                  };
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'savedComponent';
+                }
+            )[]
+          | null;
         width?: ('full' | 'container' | 'narrow') | null;
         spacing?: ('none' | 'sm' | 'md' | 'lg') | null;
         background?: {
@@ -391,7 +6026,7 @@ export interface Page {
   _status?: ('draft' | 'published') | null;
 }
 /**
- * Gotowe bloki (przyciski, hero, karuzele, galerie) z własnymi parametrami: do wstawiania na stronach.
+ * Własne złożenia elementów (sekcje, karty, bannery) do wstawiania w kreatorze stron i wpisów.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-components".
@@ -399,375 +6034,5650 @@ export interface Page {
 export interface SiteComponent {
   id: number;
   /**
-   * Nazwa robocza widoczna tylko w panelu.
+   * Pod tą nazwą komponent pojawi się w bibliotece kreatora.
    */
   name: string;
   /**
-   * Typ decyduje o dostępnych parametrach poniżej.
+   * Porządkuje listę w bibliotece kreatora.
    */
-  type: 'button' | 'hero' | 'carousel' | 'gallery' | 'cta' | 'features';
+  category?: ('section' | 'header' | 'card' | 'cta' | 'other') | null;
   /**
-   * Napis, odnośnik i wygląd przycisku.
+   * Zawartość układasz na kanwie poniżej.
    */
-  button?: {
-    label?: string | null;
-    href?: string | null;
-    newTab?: boolean | null;
-    variant?: ('solid' | 'outline' | 'ghost' | 'link') | null;
-    size?: ('sm' | 'md' | 'lg') | null;
-    radius?: ('none' | 'sm' | 'md' | 'lg' | 'full') | null;
-    fullWidth?: boolean | null;
-    background?: {
-      token?:
-        | (
-            | 'brand.primary'
-            | 'brand.primaryHover'
-            | 'brand.secondary'
-            | 'brand.secondaryHover'
-            | 'brand.accent'
-            | 'text.heading'
-            | 'text.body'
-            | 'text.muted'
-            | 'text.inverted'
-            | 'text.link'
-            | 'text.linkHover'
-            | 'surface.page'
-            | 'surface.surface'
-            | 'surface.surfaceAlt'
-            | 'surface.border'
-            | 'surface.overlay'
-            | 'state.success'
-            | 'state.warning'
-            | 'state.error'
-            | 'state.info'
-            | 'custom'
-            | 'none'
-          )
-        | null;
-      custom?: string | null;
-    };
-    textColor?: {
-      token?:
-        | (
-            | 'brand.primary'
-            | 'brand.primaryHover'
-            | 'brand.secondary'
-            | 'brand.secondaryHover'
-            | 'brand.accent'
-            | 'text.heading'
-            | 'text.body'
-            | 'text.muted'
-            | 'text.inverted'
-            | 'text.link'
-            | 'text.linkHover'
-            | 'surface.page'
-            | 'surface.surface'
-            | 'surface.surfaceAlt'
-            | 'surface.border'
-            | 'surface.overlay'
-            | 'state.success'
-            | 'state.warning'
-            | 'state.error'
-            | 'state.info'
-            | 'custom'
-            | 'none'
-          )
-        | null;
-      custom?: string | null;
-    };
-    /**
-     * Używane przy stylu „obramowany”.
-     */
-    borderColor?: {
-      token?:
-        | (
-            | 'brand.primary'
-            | 'brand.primaryHover'
-            | 'brand.secondary'
-            | 'brand.secondaryHover'
-            | 'brand.accent'
-            | 'text.heading'
-            | 'text.body'
-            | 'text.muted'
-            | 'text.inverted'
-            | 'text.link'
-            | 'text.linkHover'
-            | 'surface.page'
-            | 'surface.surface'
-            | 'surface.surfaceAlt'
-            | 'surface.border'
-            | 'surface.overlay'
-            | 'state.success'
-            | 'state.warning'
-            | 'state.error'
-            | 'state.info'
-            | 'custom'
-            | 'none'
-          )
-        | null;
-      custom?: string | null;
-    };
-  };
+  content?:
+    | (
+        | {
+            text?: string | null;
+            level?: ('h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6') | null;
+            size?: ('sm' | 'md' | 'lg' | 'xl') | null;
+            color?: {
+              token?:
+                | (
+                    | 'brand.primary'
+                    | 'brand.primaryHover'
+                    | 'brand.secondary'
+                    | 'brand.secondaryHover'
+                    | 'brand.accent'
+                    | 'text.heading'
+                    | 'text.body'
+                    | 'text.muted'
+                    | 'text.inverted'
+                    | 'text.link'
+                    | 'text.linkHover'
+                    | 'surface.page'
+                    | 'surface.surface'
+                    | 'surface.surfaceAlt'
+                    | 'surface.border'
+                    | 'surface.overlay'
+                    | 'state.success'
+                    | 'state.warning'
+                    | 'state.error'
+                    | 'state.info'
+                    | 'custom'
+                    | 'none'
+                  )
+                | null;
+              custom?: string | null;
+            };
+            style?: {
+              align?: ('left' | 'center' | 'right') | null;
+              width?: ('auto' | 'full' | 'custom') | null;
+              customWidth?: number | null;
+              /**
+               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+               */
+              padding?: {
+                top?: number | null;
+                right?: number | null;
+                bottom?: number | null;
+                left?: number | null;
+              };
+              /**
+               * Odstęp od sąsiednich elementów.
+               */
+              margin?: {
+                top?: number | null;
+                bottom?: number | null;
+              };
+              background?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              textColor?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+              border?: {
+                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                width?: number | null;
+                color?: {
+                  token?:
+                    | (
+                        | 'brand.primary'
+                        | 'brand.primaryHover'
+                        | 'brand.secondary'
+                        | 'brand.secondaryHover'
+                        | 'brand.accent'
+                        | 'text.heading'
+                        | 'text.body'
+                        | 'text.muted'
+                        | 'text.inverted'
+                        | 'text.link'
+                        | 'text.linkHover'
+                        | 'surface.page'
+                        | 'surface.surface'
+                        | 'surface.surfaceAlt'
+                        | 'surface.border'
+                        | 'surface.overlay'
+                        | 'state.success'
+                        | 'state.warning'
+                        | 'state.error'
+                        | 'state.info'
+                        | 'custom'
+                        | 'none'
+                      )
+                    | null;
+                  custom?: string | null;
+                };
+              };
+              /**
+               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+               */
+              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+              anchorId?: string | null;
+              cssClass?: string | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'heading';
+          }
+        | {
+            content?: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            } | null;
+            /**
+             * Trzyma tekst przy ~68 znakach w wierszu, czyli w wygodnej do czytania kolumnie.
+             */
+            measure?: boolean | null;
+            style?: {
+              align?: ('left' | 'center' | 'right') | null;
+              width?: ('auto' | 'full' | 'custom') | null;
+              customWidth?: number | null;
+              /**
+               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+               */
+              padding?: {
+                top?: number | null;
+                right?: number | null;
+                bottom?: number | null;
+                left?: number | null;
+              };
+              /**
+               * Odstęp od sąsiednich elementów.
+               */
+              margin?: {
+                top?: number | null;
+                bottom?: number | null;
+              };
+              background?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              textColor?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+              border?: {
+                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                width?: number | null;
+                color?: {
+                  token?:
+                    | (
+                        | 'brand.primary'
+                        | 'brand.primaryHover'
+                        | 'brand.secondary'
+                        | 'brand.secondaryHover'
+                        | 'brand.accent'
+                        | 'text.heading'
+                        | 'text.body'
+                        | 'text.muted'
+                        | 'text.inverted'
+                        | 'text.link'
+                        | 'text.linkHover'
+                        | 'surface.page'
+                        | 'surface.surface'
+                        | 'surface.surfaceAlt'
+                        | 'surface.border'
+                        | 'surface.overlay'
+                        | 'state.success'
+                        | 'state.warning'
+                        | 'state.error'
+                        | 'state.info'
+                        | 'custom'
+                        | 'none'
+                      )
+                    | null;
+                  custom?: string | null;
+                };
+              };
+              /**
+               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+               */
+              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+              anchorId?: string | null;
+              cssClass?: string | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'text';
+          }
+        | {
+            image?: (number | null) | Media;
+            caption?: string | null;
+            aspectRatio?: ('auto' | '16-9' | '21-9' | '4-3' | '1-1' | '3-4') | null;
+            radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+            fit?: ('cover' | 'contain') | null;
+            href?: string | null;
+            newTab?: boolean | null;
+            style?: {
+              align?: ('left' | 'center' | 'right') | null;
+              width?: ('auto' | 'full' | 'custom') | null;
+              customWidth?: number | null;
+              /**
+               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+               */
+              padding?: {
+                top?: number | null;
+                right?: number | null;
+                bottom?: number | null;
+                left?: number | null;
+              };
+              /**
+               * Odstęp od sąsiednich elementów.
+               */
+              margin?: {
+                top?: number | null;
+                bottom?: number | null;
+              };
+              background?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              textColor?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+              border?: {
+                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                width?: number | null;
+                color?: {
+                  token?:
+                    | (
+                        | 'brand.primary'
+                        | 'brand.primaryHover'
+                        | 'brand.secondary'
+                        | 'brand.secondaryHover'
+                        | 'brand.accent'
+                        | 'text.heading'
+                        | 'text.body'
+                        | 'text.muted'
+                        | 'text.inverted'
+                        | 'text.link'
+                        | 'text.linkHover'
+                        | 'surface.page'
+                        | 'surface.surface'
+                        | 'surface.surfaceAlt'
+                        | 'surface.border'
+                        | 'surface.overlay'
+                        | 'state.success'
+                        | 'state.warning'
+                        | 'state.error'
+                        | 'state.info'
+                        | 'custom'
+                        | 'none'
+                      )
+                    | null;
+                  custom?: string | null;
+                };
+              };
+              /**
+               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+               */
+              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+              anchorId?: string | null;
+              cssClass?: string | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'image';
+          }
+        | {
+            items?:
+              | {
+                  label?: string | null;
+                  variant?: ('solid' | 'outline' | 'link') | null;
+                  href?: string | null;
+                  newTab?: boolean | null;
+                  size?: ('sm' | 'md' | 'lg') | null;
+                  radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                  background?: {
+                    token?:
+                      | (
+                          | 'brand.primary'
+                          | 'brand.primaryHover'
+                          | 'brand.secondary'
+                          | 'brand.secondaryHover'
+                          | 'brand.accent'
+                          | 'text.heading'
+                          | 'text.body'
+                          | 'text.muted'
+                          | 'text.inverted'
+                          | 'text.link'
+                          | 'text.linkHover'
+                          | 'surface.page'
+                          | 'surface.surface'
+                          | 'surface.surfaceAlt'
+                          | 'surface.border'
+                          | 'surface.overlay'
+                          | 'state.success'
+                          | 'state.warning'
+                          | 'state.error'
+                          | 'state.info'
+                          | 'custom'
+                          | 'none'
+                        )
+                      | null;
+                    custom?: string | null;
+                  };
+                  textColor?: {
+                    token?:
+                      | (
+                          | 'brand.primary'
+                          | 'brand.primaryHover'
+                          | 'brand.secondary'
+                          | 'brand.secondaryHover'
+                          | 'brand.accent'
+                          | 'text.heading'
+                          | 'text.body'
+                          | 'text.muted'
+                          | 'text.inverted'
+                          | 'text.link'
+                          | 'text.linkHover'
+                          | 'surface.page'
+                          | 'surface.surface'
+                          | 'surface.surfaceAlt'
+                          | 'surface.border'
+                          | 'surface.overlay'
+                          | 'state.success'
+                          | 'state.warning'
+                          | 'state.error'
+                          | 'state.info'
+                          | 'custom'
+                          | 'none'
+                        )
+                      | null;
+                    custom?: string | null;
+                  };
+                  borderColor?: {
+                    token?:
+                      | (
+                          | 'brand.primary'
+                          | 'brand.primaryHover'
+                          | 'brand.secondary'
+                          | 'brand.secondaryHover'
+                          | 'brand.accent'
+                          | 'text.heading'
+                          | 'text.body'
+                          | 'text.muted'
+                          | 'text.inverted'
+                          | 'text.link'
+                          | 'text.linkHover'
+                          | 'surface.page'
+                          | 'surface.surface'
+                          | 'surface.surfaceAlt'
+                          | 'surface.border'
+                          | 'surface.overlay'
+                          | 'state.success'
+                          | 'state.warning'
+                          | 'state.error'
+                          | 'state.info'
+                          | 'custom'
+                          | 'none'
+                        )
+                      | null;
+                    custom?: string | null;
+                  };
+                  fullWidth?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            gap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+            align?: ('left' | 'center' | 'right') | null;
+            style?: {
+              align?: ('left' | 'center' | 'right') | null;
+              width?: ('auto' | 'full' | 'custom') | null;
+              customWidth?: number | null;
+              /**
+               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+               */
+              padding?: {
+                top?: number | null;
+                right?: number | null;
+                bottom?: number | null;
+                left?: number | null;
+              };
+              /**
+               * Odstęp od sąsiednich elementów.
+               */
+              margin?: {
+                top?: number | null;
+                bottom?: number | null;
+              };
+              background?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              textColor?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+              border?: {
+                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                width?: number | null;
+                color?: {
+                  token?:
+                    | (
+                        | 'brand.primary'
+                        | 'brand.primaryHover'
+                        | 'brand.secondary'
+                        | 'brand.secondaryHover'
+                        | 'brand.accent'
+                        | 'text.heading'
+                        | 'text.body'
+                        | 'text.muted'
+                        | 'text.inverted'
+                        | 'text.link'
+                        | 'text.linkHover'
+                        | 'surface.page'
+                        | 'surface.surface'
+                        | 'surface.surfaceAlt'
+                        | 'surface.border'
+                        | 'surface.overlay'
+                        | 'state.success'
+                        | 'state.warning'
+                        | 'state.error'
+                        | 'state.info'
+                        | 'custom'
+                        | 'none'
+                      )
+                    | null;
+                  custom?: string | null;
+                };
+              };
+              /**
+               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+               */
+              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+              anchorId?: string | null;
+              cssClass?: string | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'buttons';
+          }
+        | {
+            items?:
+              | {
+                  icon?:
+                    | (
+                        | 'check'
+                        | 'star'
+                        | 'heart'
+                        | 'sparkle'
+                        | 'shield'
+                        | 'phone'
+                        | 'mail'
+                        | 'clock'
+                        | 'pin'
+                        | 'calendar'
+                        | 'user'
+                        | 'arrow'
+                        | 'quote'
+                        | 'plus'
+                        | 'dot'
+                        | 'none'
+                      )
+                    | null;
+                  text?: string | null;
+                  href?: string | null;
+                  newTab?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            columns?: ('1' | '2' | '3' | '4') | null;
+            gap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+            iconColor?: {
+              token?:
+                | (
+                    | 'brand.primary'
+                    | 'brand.primaryHover'
+                    | 'brand.secondary'
+                    | 'brand.secondaryHover'
+                    | 'brand.accent'
+                    | 'text.heading'
+                    | 'text.body'
+                    | 'text.muted'
+                    | 'text.inverted'
+                    | 'text.link'
+                    | 'text.linkHover'
+                    | 'surface.page'
+                    | 'surface.surface'
+                    | 'surface.surfaceAlt'
+                    | 'surface.border'
+                    | 'surface.overlay'
+                    | 'state.success'
+                    | 'state.warning'
+                    | 'state.error'
+                    | 'state.info'
+                    | 'custom'
+                    | 'none'
+                  )
+                | null;
+              custom?: string | null;
+            };
+            style?: {
+              align?: ('left' | 'center' | 'right') | null;
+              width?: ('auto' | 'full' | 'custom') | null;
+              customWidth?: number | null;
+              /**
+               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+               */
+              padding?: {
+                top?: number | null;
+                right?: number | null;
+                bottom?: number | null;
+                left?: number | null;
+              };
+              /**
+               * Odstęp od sąsiednich elementów.
+               */
+              margin?: {
+                top?: number | null;
+                bottom?: number | null;
+              };
+              background?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              textColor?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+              border?: {
+                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                width?: number | null;
+                color?: {
+                  token?:
+                    | (
+                        | 'brand.primary'
+                        | 'brand.primaryHover'
+                        | 'brand.secondary'
+                        | 'brand.secondaryHover'
+                        | 'brand.accent'
+                        | 'text.heading'
+                        | 'text.body'
+                        | 'text.muted'
+                        | 'text.inverted'
+                        | 'text.link'
+                        | 'text.linkHover'
+                        | 'surface.page'
+                        | 'surface.surface'
+                        | 'surface.surfaceAlt'
+                        | 'surface.border'
+                        | 'surface.overlay'
+                        | 'state.success'
+                        | 'state.warning'
+                        | 'state.error'
+                        | 'state.info'
+                        | 'custom'
+                        | 'none'
+                      )
+                    | null;
+                  custom?: string | null;
+                };
+              };
+              /**
+               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+               */
+              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+              anchorId?: string | null;
+              cssClass?: string | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'iconList';
+          }
+        | {
+            gap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+            stackOn?: ('mobile' | 'tablet' | 'never') | null;
+            verticalAlign?: ('start' | 'center' | 'end' | 'stretch') | null;
+            columns?:
+              | {
+                  weight?: ('1' | '1.5' | '2' | '3' | 'auto') | null;
+                  verticalAlign?: ('inherit' | 'start' | 'center' | 'end') | null;
+                  /**
+                   * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                   */
+                  padding?: {
+                    top?: number | null;
+                    right?: number | null;
+                    bottom?: number | null;
+                    left?: number | null;
+                  };
+                  background?: {
+                    token?:
+                      | (
+                          | 'brand.primary'
+                          | 'brand.primaryHover'
+                          | 'brand.secondary'
+                          | 'brand.secondaryHover'
+                          | 'brand.accent'
+                          | 'text.heading'
+                          | 'text.body'
+                          | 'text.muted'
+                          | 'text.inverted'
+                          | 'text.link'
+                          | 'text.linkHover'
+                          | 'surface.page'
+                          | 'surface.surface'
+                          | 'surface.surfaceAlt'
+                          | 'surface.border'
+                          | 'surface.overlay'
+                          | 'state.success'
+                          | 'state.warning'
+                          | 'state.error'
+                          | 'state.info'
+                          | 'custom'
+                          | 'none'
+                        )
+                      | null;
+                    custom?: string | null;
+                  };
+                  radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                  border?: {
+                    style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                    width?: number | null;
+                    color?: {
+                      token?:
+                        | (
+                            | 'brand.primary'
+                            | 'brand.primaryHover'
+                            | 'brand.secondary'
+                            | 'brand.secondaryHover'
+                            | 'brand.accent'
+                            | 'text.heading'
+                            | 'text.body'
+                            | 'text.muted'
+                            | 'text.inverted'
+                            | 'text.link'
+                            | 'text.linkHover'
+                            | 'surface.page'
+                            | 'surface.surface'
+                            | 'surface.surfaceAlt'
+                            | 'surface.border'
+                            | 'surface.overlay'
+                            | 'state.success'
+                            | 'state.warning'
+                            | 'state.error'
+                            | 'state.info'
+                            | 'custom'
+                            | 'none'
+                          )
+                        | null;
+                      custom?: string | null;
+                    };
+                  };
+                  /**
+                   * Zawartość układasz na kanwie kreatora.
+                   */
+                  content?:
+                    | (
+                        | {
+                            text?: string | null;
+                            level?: ('h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6') | null;
+                            size?: ('sm' | 'md' | 'lg' | 'xl') | null;
+                            color?: {
+                              token?:
+                                | (
+                                    | 'brand.primary'
+                                    | 'brand.primaryHover'
+                                    | 'brand.secondary'
+                                    | 'brand.secondaryHover'
+                                    | 'brand.accent'
+                                    | 'text.heading'
+                                    | 'text.body'
+                                    | 'text.muted'
+                                    | 'text.inverted'
+                                    | 'text.link'
+                                    | 'text.linkHover'
+                                    | 'surface.page'
+                                    | 'surface.surface'
+                                    | 'surface.surfaceAlt'
+                                    | 'surface.border'
+                                    | 'surface.overlay'
+                                    | 'state.success'
+                                    | 'state.warning'
+                                    | 'state.error'
+                                    | 'state.info'
+                                    | 'custom'
+                                    | 'none'
+                                  )
+                                | null;
+                              custom?: string | null;
+                            };
+                            style?: {
+                              align?: ('left' | 'center' | 'right') | null;
+                              width?: ('auto' | 'full' | 'custom') | null;
+                              customWidth?: number | null;
+                              /**
+                               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                               */
+                              padding?: {
+                                top?: number | null;
+                                right?: number | null;
+                                bottom?: number | null;
+                                left?: number | null;
+                              };
+                              /**
+                               * Odstęp od sąsiednich elementów.
+                               */
+                              margin?: {
+                                top?: number | null;
+                                bottom?: number | null;
+                              };
+                              background?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              textColor?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                              border?: {
+                                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                width?: number | null;
+                                color?: {
+                                  token?:
+                                    | (
+                                        | 'brand.primary'
+                                        | 'brand.primaryHover'
+                                        | 'brand.secondary'
+                                        | 'brand.secondaryHover'
+                                        | 'brand.accent'
+                                        | 'text.heading'
+                                        | 'text.body'
+                                        | 'text.muted'
+                                        | 'text.inverted'
+                                        | 'text.link'
+                                        | 'text.linkHover'
+                                        | 'surface.page'
+                                        | 'surface.surface'
+                                        | 'surface.surfaceAlt'
+                                        | 'surface.border'
+                                        | 'surface.overlay'
+                                        | 'state.success'
+                                        | 'state.warning'
+                                        | 'state.error'
+                                        | 'state.info'
+                                        | 'custom'
+                                        | 'none'
+                                      )
+                                    | null;
+                                  custom?: string | null;
+                                };
+                              };
+                              /**
+                               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                               */
+                              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                              anchorId?: string | null;
+                              cssClass?: string | null;
+                            };
+                            id?: string | null;
+                            blockName?: string | null;
+                            blockType: 'heading';
+                          }
+                        | {
+                            content?: {
+                              root: {
+                                type: string;
+                                children: {
+                                  type: any;
+                                  version: number;
+                                  [k: string]: unknown;
+                                }[];
+                                direction: ('ltr' | 'rtl') | null;
+                                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                indent: number;
+                                version: number;
+                              };
+                              [k: string]: unknown;
+                            } | null;
+                            /**
+                             * Trzyma tekst przy ~68 znakach w wierszu, czyli w wygodnej do czytania kolumnie.
+                             */
+                            measure?: boolean | null;
+                            style?: {
+                              align?: ('left' | 'center' | 'right') | null;
+                              width?: ('auto' | 'full' | 'custom') | null;
+                              customWidth?: number | null;
+                              /**
+                               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                               */
+                              padding?: {
+                                top?: number | null;
+                                right?: number | null;
+                                bottom?: number | null;
+                                left?: number | null;
+                              };
+                              /**
+                               * Odstęp od sąsiednich elementów.
+                               */
+                              margin?: {
+                                top?: number | null;
+                                bottom?: number | null;
+                              };
+                              background?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              textColor?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                              border?: {
+                                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                width?: number | null;
+                                color?: {
+                                  token?:
+                                    | (
+                                        | 'brand.primary'
+                                        | 'brand.primaryHover'
+                                        | 'brand.secondary'
+                                        | 'brand.secondaryHover'
+                                        | 'brand.accent'
+                                        | 'text.heading'
+                                        | 'text.body'
+                                        | 'text.muted'
+                                        | 'text.inverted'
+                                        | 'text.link'
+                                        | 'text.linkHover'
+                                        | 'surface.page'
+                                        | 'surface.surface'
+                                        | 'surface.surfaceAlt'
+                                        | 'surface.border'
+                                        | 'surface.overlay'
+                                        | 'state.success'
+                                        | 'state.warning'
+                                        | 'state.error'
+                                        | 'state.info'
+                                        | 'custom'
+                                        | 'none'
+                                      )
+                                    | null;
+                                  custom?: string | null;
+                                };
+                              };
+                              /**
+                               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                               */
+                              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                              anchorId?: string | null;
+                              cssClass?: string | null;
+                            };
+                            id?: string | null;
+                            blockName?: string | null;
+                            blockType: 'text';
+                          }
+                        | {
+                            image?: (number | null) | Media;
+                            caption?: string | null;
+                            aspectRatio?: ('auto' | '16-9' | '21-9' | '4-3' | '1-1' | '3-4') | null;
+                            radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                            fit?: ('cover' | 'contain') | null;
+                            href?: string | null;
+                            newTab?: boolean | null;
+                            style?: {
+                              align?: ('left' | 'center' | 'right') | null;
+                              width?: ('auto' | 'full' | 'custom') | null;
+                              customWidth?: number | null;
+                              /**
+                               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                               */
+                              padding?: {
+                                top?: number | null;
+                                right?: number | null;
+                                bottom?: number | null;
+                                left?: number | null;
+                              };
+                              /**
+                               * Odstęp od sąsiednich elementów.
+                               */
+                              margin?: {
+                                top?: number | null;
+                                bottom?: number | null;
+                              };
+                              background?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              textColor?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                              border?: {
+                                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                width?: number | null;
+                                color?: {
+                                  token?:
+                                    | (
+                                        | 'brand.primary'
+                                        | 'brand.primaryHover'
+                                        | 'brand.secondary'
+                                        | 'brand.secondaryHover'
+                                        | 'brand.accent'
+                                        | 'text.heading'
+                                        | 'text.body'
+                                        | 'text.muted'
+                                        | 'text.inverted'
+                                        | 'text.link'
+                                        | 'text.linkHover'
+                                        | 'surface.page'
+                                        | 'surface.surface'
+                                        | 'surface.surfaceAlt'
+                                        | 'surface.border'
+                                        | 'surface.overlay'
+                                        | 'state.success'
+                                        | 'state.warning'
+                                        | 'state.error'
+                                        | 'state.info'
+                                        | 'custom'
+                                        | 'none'
+                                      )
+                                    | null;
+                                  custom?: string | null;
+                                };
+                              };
+                              /**
+                               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                               */
+                              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                              anchorId?: string | null;
+                              cssClass?: string | null;
+                            };
+                            id?: string | null;
+                            blockName?: string | null;
+                            blockType: 'image';
+                          }
+                        | {
+                            items?:
+                              | {
+                                  label?: string | null;
+                                  variant?: ('solid' | 'outline' | 'link') | null;
+                                  href?: string | null;
+                                  newTab?: boolean | null;
+                                  size?: ('sm' | 'md' | 'lg') | null;
+                                  radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                  background?: {
+                                    token?:
+                                      | (
+                                          | 'brand.primary'
+                                          | 'brand.primaryHover'
+                                          | 'brand.secondary'
+                                          | 'brand.secondaryHover'
+                                          | 'brand.accent'
+                                          | 'text.heading'
+                                          | 'text.body'
+                                          | 'text.muted'
+                                          | 'text.inverted'
+                                          | 'text.link'
+                                          | 'text.linkHover'
+                                          | 'surface.page'
+                                          | 'surface.surface'
+                                          | 'surface.surfaceAlt'
+                                          | 'surface.border'
+                                          | 'surface.overlay'
+                                          | 'state.success'
+                                          | 'state.warning'
+                                          | 'state.error'
+                                          | 'state.info'
+                                          | 'custom'
+                                          | 'none'
+                                        )
+                                      | null;
+                                    custom?: string | null;
+                                  };
+                                  textColor?: {
+                                    token?:
+                                      | (
+                                          | 'brand.primary'
+                                          | 'brand.primaryHover'
+                                          | 'brand.secondary'
+                                          | 'brand.secondaryHover'
+                                          | 'brand.accent'
+                                          | 'text.heading'
+                                          | 'text.body'
+                                          | 'text.muted'
+                                          | 'text.inverted'
+                                          | 'text.link'
+                                          | 'text.linkHover'
+                                          | 'surface.page'
+                                          | 'surface.surface'
+                                          | 'surface.surfaceAlt'
+                                          | 'surface.border'
+                                          | 'surface.overlay'
+                                          | 'state.success'
+                                          | 'state.warning'
+                                          | 'state.error'
+                                          | 'state.info'
+                                          | 'custom'
+                                          | 'none'
+                                        )
+                                      | null;
+                                    custom?: string | null;
+                                  };
+                                  borderColor?: {
+                                    token?:
+                                      | (
+                                          | 'brand.primary'
+                                          | 'brand.primaryHover'
+                                          | 'brand.secondary'
+                                          | 'brand.secondaryHover'
+                                          | 'brand.accent'
+                                          | 'text.heading'
+                                          | 'text.body'
+                                          | 'text.muted'
+                                          | 'text.inverted'
+                                          | 'text.link'
+                                          | 'text.linkHover'
+                                          | 'surface.page'
+                                          | 'surface.surface'
+                                          | 'surface.surfaceAlt'
+                                          | 'surface.border'
+                                          | 'surface.overlay'
+                                          | 'state.success'
+                                          | 'state.warning'
+                                          | 'state.error'
+                                          | 'state.info'
+                                          | 'custom'
+                                          | 'none'
+                                        )
+                                      | null;
+                                    custom?: string | null;
+                                  };
+                                  fullWidth?: boolean | null;
+                                  id?: string | null;
+                                }[]
+                              | null;
+                            gap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+                            align?: ('left' | 'center' | 'right') | null;
+                            style?: {
+                              align?: ('left' | 'center' | 'right') | null;
+                              width?: ('auto' | 'full' | 'custom') | null;
+                              customWidth?: number | null;
+                              /**
+                               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                               */
+                              padding?: {
+                                top?: number | null;
+                                right?: number | null;
+                                bottom?: number | null;
+                                left?: number | null;
+                              };
+                              /**
+                               * Odstęp od sąsiednich elementów.
+                               */
+                              margin?: {
+                                top?: number | null;
+                                bottom?: number | null;
+                              };
+                              background?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              textColor?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                              border?: {
+                                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                width?: number | null;
+                                color?: {
+                                  token?:
+                                    | (
+                                        | 'brand.primary'
+                                        | 'brand.primaryHover'
+                                        | 'brand.secondary'
+                                        | 'brand.secondaryHover'
+                                        | 'brand.accent'
+                                        | 'text.heading'
+                                        | 'text.body'
+                                        | 'text.muted'
+                                        | 'text.inverted'
+                                        | 'text.link'
+                                        | 'text.linkHover'
+                                        | 'surface.page'
+                                        | 'surface.surface'
+                                        | 'surface.surfaceAlt'
+                                        | 'surface.border'
+                                        | 'surface.overlay'
+                                        | 'state.success'
+                                        | 'state.warning'
+                                        | 'state.error'
+                                        | 'state.info'
+                                        | 'custom'
+                                        | 'none'
+                                      )
+                                    | null;
+                                  custom?: string | null;
+                                };
+                              };
+                              /**
+                               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                               */
+                              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                              anchorId?: string | null;
+                              cssClass?: string | null;
+                            };
+                            id?: string | null;
+                            blockName?: string | null;
+                            blockType: 'buttons';
+                          }
+                        | {
+                            items?:
+                              | {
+                                  icon?:
+                                    | (
+                                        | 'check'
+                                        | 'star'
+                                        | 'heart'
+                                        | 'sparkle'
+                                        | 'shield'
+                                        | 'phone'
+                                        | 'mail'
+                                        | 'clock'
+                                        | 'pin'
+                                        | 'calendar'
+                                        | 'user'
+                                        | 'arrow'
+                                        | 'quote'
+                                        | 'plus'
+                                        | 'dot'
+                                        | 'none'
+                                      )
+                                    | null;
+                                  text?: string | null;
+                                  href?: string | null;
+                                  newTab?: boolean | null;
+                                  id?: string | null;
+                                }[]
+                              | null;
+                            columns?: ('1' | '2' | '3' | '4') | null;
+                            gap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+                            iconColor?: {
+                              token?:
+                                | (
+                                    | 'brand.primary'
+                                    | 'brand.primaryHover'
+                                    | 'brand.secondary'
+                                    | 'brand.secondaryHover'
+                                    | 'brand.accent'
+                                    | 'text.heading'
+                                    | 'text.body'
+                                    | 'text.muted'
+                                    | 'text.inverted'
+                                    | 'text.link'
+                                    | 'text.linkHover'
+                                    | 'surface.page'
+                                    | 'surface.surface'
+                                    | 'surface.surfaceAlt'
+                                    | 'surface.border'
+                                    | 'surface.overlay'
+                                    | 'state.success'
+                                    | 'state.warning'
+                                    | 'state.error'
+                                    | 'state.info'
+                                    | 'custom'
+                                    | 'none'
+                                  )
+                                | null;
+                              custom?: string | null;
+                            };
+                            style?: {
+                              align?: ('left' | 'center' | 'right') | null;
+                              width?: ('auto' | 'full' | 'custom') | null;
+                              customWidth?: number | null;
+                              /**
+                               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                               */
+                              padding?: {
+                                top?: number | null;
+                                right?: number | null;
+                                bottom?: number | null;
+                                left?: number | null;
+                              };
+                              /**
+                               * Odstęp od sąsiednich elementów.
+                               */
+                              margin?: {
+                                top?: number | null;
+                                bottom?: number | null;
+                              };
+                              background?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              textColor?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                              border?: {
+                                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                width?: number | null;
+                                color?: {
+                                  token?:
+                                    | (
+                                        | 'brand.primary'
+                                        | 'brand.primaryHover'
+                                        | 'brand.secondary'
+                                        | 'brand.secondaryHover'
+                                        | 'brand.accent'
+                                        | 'text.heading'
+                                        | 'text.body'
+                                        | 'text.muted'
+                                        | 'text.inverted'
+                                        | 'text.link'
+                                        | 'text.linkHover'
+                                        | 'surface.page'
+                                        | 'surface.surface'
+                                        | 'surface.surfaceAlt'
+                                        | 'surface.border'
+                                        | 'surface.overlay'
+                                        | 'state.success'
+                                        | 'state.warning'
+                                        | 'state.error'
+                                        | 'state.info'
+                                        | 'custom'
+                                        | 'none'
+                                      )
+                                    | null;
+                                  custom?: string | null;
+                                };
+                              };
+                              /**
+                               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                               */
+                              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                              anchorId?: string | null;
+                              cssClass?: string | null;
+                            };
+                            id?: string | null;
+                            blockName?: string | null;
+                            blockType: 'iconList';
+                          }
+                        | {
+                            thickness?: number | null;
+                            widthPercent?: number | null;
+                            lineStyle?: ('solid' | 'dashed' | 'dotted') | null;
+                            color?: {
+                              token?:
+                                | (
+                                    | 'brand.primary'
+                                    | 'brand.primaryHover'
+                                    | 'brand.secondary'
+                                    | 'brand.secondaryHover'
+                                    | 'brand.accent'
+                                    | 'text.heading'
+                                    | 'text.body'
+                                    | 'text.muted'
+                                    | 'text.inverted'
+                                    | 'text.link'
+                                    | 'text.linkHover'
+                                    | 'surface.page'
+                                    | 'surface.surface'
+                                    | 'surface.surfaceAlt'
+                                    | 'surface.border'
+                                    | 'surface.overlay'
+                                    | 'state.success'
+                                    | 'state.warning'
+                                    | 'state.error'
+                                    | 'state.info'
+                                    | 'custom'
+                                    | 'none'
+                                  )
+                                | null;
+                              custom?: string | null;
+                            };
+                            style?: {
+                              align?: ('left' | 'center' | 'right') | null;
+                              width?: ('auto' | 'full' | 'custom') | null;
+                              customWidth?: number | null;
+                              /**
+                               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                               */
+                              padding?: {
+                                top?: number | null;
+                                right?: number | null;
+                                bottom?: number | null;
+                                left?: number | null;
+                              };
+                              /**
+                               * Odstęp od sąsiednich elementów.
+                               */
+                              margin?: {
+                                top?: number | null;
+                                bottom?: number | null;
+                              };
+                              background?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              textColor?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                              border?: {
+                                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                width?: number | null;
+                                color?: {
+                                  token?:
+                                    | (
+                                        | 'brand.primary'
+                                        | 'brand.primaryHover'
+                                        | 'brand.secondary'
+                                        | 'brand.secondaryHover'
+                                        | 'brand.accent'
+                                        | 'text.heading'
+                                        | 'text.body'
+                                        | 'text.muted'
+                                        | 'text.inverted'
+                                        | 'text.link'
+                                        | 'text.linkHover'
+                                        | 'surface.page'
+                                        | 'surface.surface'
+                                        | 'surface.surfaceAlt'
+                                        | 'surface.border'
+                                        | 'surface.overlay'
+                                        | 'state.success'
+                                        | 'state.warning'
+                                        | 'state.error'
+                                        | 'state.info'
+                                        | 'custom'
+                                        | 'none'
+                                      )
+                                    | null;
+                                  custom?: string | null;
+                                };
+                              };
+                              /**
+                               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                               */
+                              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                              anchorId?: string | null;
+                              cssClass?: string | null;
+                            };
+                            id?: string | null;
+                            blockName?: string | null;
+                            blockType: 'divider';
+                          }
+                        | {
+                            height?: number | null;
+                            /**
+                             * Zostaw puste, aby użyć tej samej wartości.
+                             */
+                            heightMobile?: number | null;
+                            style?: {
+                              align?: ('left' | 'center' | 'right') | null;
+                              width?: ('auto' | 'full' | 'custom') | null;
+                              customWidth?: number | null;
+                              /**
+                               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                               */
+                              padding?: {
+                                top?: number | null;
+                                right?: number | null;
+                                bottom?: number | null;
+                                left?: number | null;
+                              };
+                              /**
+                               * Odstęp od sąsiednich elementów.
+                               */
+                              margin?: {
+                                top?: number | null;
+                                bottom?: number | null;
+                              };
+                              background?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              textColor?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                              border?: {
+                                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                width?: number | null;
+                                color?: {
+                                  token?:
+                                    | (
+                                        | 'brand.primary'
+                                        | 'brand.primaryHover'
+                                        | 'brand.secondary'
+                                        | 'brand.secondaryHover'
+                                        | 'brand.accent'
+                                        | 'text.heading'
+                                        | 'text.body'
+                                        | 'text.muted'
+                                        | 'text.inverted'
+                                        | 'text.link'
+                                        | 'text.linkHover'
+                                        | 'surface.page'
+                                        | 'surface.surface'
+                                        | 'surface.surfaceAlt'
+                                        | 'surface.border'
+                                        | 'surface.overlay'
+                                        | 'state.success'
+                                        | 'state.warning'
+                                        | 'state.error'
+                                        | 'state.info'
+                                        | 'custom'
+                                        | 'none'
+                                      )
+                                    | null;
+                                  custom?: string | null;
+                                };
+                              };
+                              /**
+                               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                               */
+                              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                              anchorId?: string | null;
+                              cssClass?: string | null;
+                            };
+                            id?: string | null;
+                            blockName?: string | null;
+                            blockType: 'spacer';
+                          }
+                        | {
+                            images?: (number | Media)[] | null;
+                            columns?: ('1' | '2' | '3' | '4') | null;
+                            gap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+                            aspectRatio?: ('auto' | '16-9' | '21-9' | '4-3' | '1-1' | '3-4') | null;
+                            radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                            lightbox?: boolean | null;
+                            showCaptions?: boolean | null;
+                            style?: {
+                              align?: ('left' | 'center' | 'right') | null;
+                              width?: ('auto' | 'full' | 'custom') | null;
+                              customWidth?: number | null;
+                              /**
+                               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                               */
+                              padding?: {
+                                top?: number | null;
+                                right?: number | null;
+                                bottom?: number | null;
+                                left?: number | null;
+                              };
+                              /**
+                               * Odstęp od sąsiednich elementów.
+                               */
+                              margin?: {
+                                top?: number | null;
+                                bottom?: number | null;
+                              };
+                              background?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              textColor?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                              border?: {
+                                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                width?: number | null;
+                                color?: {
+                                  token?:
+                                    | (
+                                        | 'brand.primary'
+                                        | 'brand.primaryHover'
+                                        | 'brand.secondary'
+                                        | 'brand.secondaryHover'
+                                        | 'brand.accent'
+                                        | 'text.heading'
+                                        | 'text.body'
+                                        | 'text.muted'
+                                        | 'text.inverted'
+                                        | 'text.link'
+                                        | 'text.linkHover'
+                                        | 'surface.page'
+                                        | 'surface.surface'
+                                        | 'surface.surfaceAlt'
+                                        | 'surface.border'
+                                        | 'surface.overlay'
+                                        | 'state.success'
+                                        | 'state.warning'
+                                        | 'state.error'
+                                        | 'state.info'
+                                        | 'custom'
+                                        | 'none'
+                                      )
+                                    | null;
+                                  custom?: string | null;
+                                };
+                              };
+                              /**
+                               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                               */
+                              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                              anchorId?: string | null;
+                              cssClass?: string | null;
+                            };
+                            id?: string | null;
+                            blockName?: string | null;
+                            blockType: 'gallery';
+                          }
+                        | {
+                            slides?:
+                              | {
+                                  image?: (number | null) | Media;
+                                  caption?: string | null;
+                                  href?: string | null;
+                                  newTab?: boolean | null;
+                                  id?: string | null;
+                                }[]
+                              | null;
+                            slidesPerView?: number | null;
+                            gap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+                            aspectRatio?: ('auto' | '16-9' | '21-9' | '4-3' | '1-1' | '3-4') | null;
+                            radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                            autoplay?: boolean | null;
+                            interval?: number | null;
+                            loop?: boolean | null;
+                            showArrows?: boolean | null;
+                            showDots?: boolean | null;
+                            style?: {
+                              align?: ('left' | 'center' | 'right') | null;
+                              width?: ('auto' | 'full' | 'custom') | null;
+                              customWidth?: number | null;
+                              /**
+                               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                               */
+                              padding?: {
+                                top?: number | null;
+                                right?: number | null;
+                                bottom?: number | null;
+                                left?: number | null;
+                              };
+                              /**
+                               * Odstęp od sąsiednich elementów.
+                               */
+                              margin?: {
+                                top?: number | null;
+                                bottom?: number | null;
+                              };
+                              background?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              textColor?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                              border?: {
+                                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                width?: number | null;
+                                color?: {
+                                  token?:
+                                    | (
+                                        | 'brand.primary'
+                                        | 'brand.primaryHover'
+                                        | 'brand.secondary'
+                                        | 'brand.secondaryHover'
+                                        | 'brand.accent'
+                                        | 'text.heading'
+                                        | 'text.body'
+                                        | 'text.muted'
+                                        | 'text.inverted'
+                                        | 'text.link'
+                                        | 'text.linkHover'
+                                        | 'surface.page'
+                                        | 'surface.surface'
+                                        | 'surface.surfaceAlt'
+                                        | 'surface.border'
+                                        | 'surface.overlay'
+                                        | 'state.success'
+                                        | 'state.warning'
+                                        | 'state.error'
+                                        | 'state.info'
+                                        | 'custom'
+                                        | 'none'
+                                      )
+                                    | null;
+                                  custom?: string | null;
+                                };
+                              };
+                              /**
+                               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                               */
+                              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                              anchorId?: string | null;
+                              cssClass?: string | null;
+                            };
+                            id?: string | null;
+                            blockName?: string | null;
+                            blockType: 'carousel';
+                          }
+                        | {
+                            source?: ('file' | 'youtube' | 'vimeo') | null;
+                            file?: (number | null) | Media;
+                            /**
+                             * Wklej pełny adres, np. https://www.youtube.com/watch?v=…
+                             */
+                            url?: string | null;
+                            poster?: (number | null) | Media;
+                            aspectRatio?: ('auto' | '16-9' | '21-9' | '4-3' | '1-1' | '3-4') | null;
+                            radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                            controls?: boolean | null;
+                            autoplay?: boolean | null;
+                            loop?: boolean | null;
+                            /**
+                             * Przeglądarki odtwarzają automatycznie tylko wyciszone filmy.
+                             */
+                            muted?: boolean | null;
+                            style?: {
+                              align?: ('left' | 'center' | 'right') | null;
+                              width?: ('auto' | 'full' | 'custom') | null;
+                              customWidth?: number | null;
+                              /**
+                               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                               */
+                              padding?: {
+                                top?: number | null;
+                                right?: number | null;
+                                bottom?: number | null;
+                                left?: number | null;
+                              };
+                              /**
+                               * Odstęp od sąsiednich elementów.
+                               */
+                              margin?: {
+                                top?: number | null;
+                                bottom?: number | null;
+                              };
+                              background?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              textColor?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                              border?: {
+                                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                width?: number | null;
+                                color?: {
+                                  token?:
+                                    | (
+                                        | 'brand.primary'
+                                        | 'brand.primaryHover'
+                                        | 'brand.secondary'
+                                        | 'brand.secondaryHover'
+                                        | 'brand.accent'
+                                        | 'text.heading'
+                                        | 'text.body'
+                                        | 'text.muted'
+                                        | 'text.inverted'
+                                        | 'text.link'
+                                        | 'text.linkHover'
+                                        | 'surface.page'
+                                        | 'surface.surface'
+                                        | 'surface.surfaceAlt'
+                                        | 'surface.border'
+                                        | 'surface.overlay'
+                                        | 'state.success'
+                                        | 'state.warning'
+                                        | 'state.error'
+                                        | 'state.info'
+                                        | 'custom'
+                                        | 'none'
+                                      )
+                                    | null;
+                                  custom?: string | null;
+                                };
+                              };
+                              /**
+                               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                               */
+                              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                              anchorId?: string | null;
+                              cssClass?: string | null;
+                            };
+                            id?: string | null;
+                            blockName?: string | null;
+                            blockType: 'video';
+                          }
+                        | {
+                            image?: (number | null) | Media;
+                            heading?: string | null;
+                            subheading?: string | null;
+                            height?: ('sm' | 'md' | 'lg' | 'screen') | null;
+                            align?: ('left' | 'center' | 'right') | null;
+                            /**
+                             * Kolor nakładki pochodzi z palety (Tła → Przyciemnienie zdjęć).
+                             */
+                            overlayOpacity?: number | null;
+                            radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                            textColor?: {
+                              token?:
+                                | (
+                                    | 'brand.primary'
+                                    | 'brand.primaryHover'
+                                    | 'brand.secondary'
+                                    | 'brand.secondaryHover'
+                                    | 'brand.accent'
+                                    | 'text.heading'
+                                    | 'text.body'
+                                    | 'text.muted'
+                                    | 'text.inverted'
+                                    | 'text.link'
+                                    | 'text.linkHover'
+                                    | 'surface.page'
+                                    | 'surface.surface'
+                                    | 'surface.surfaceAlt'
+                                    | 'surface.border'
+                                    | 'surface.overlay'
+                                    | 'state.success'
+                                    | 'state.warning'
+                                    | 'state.error'
+                                    | 'state.info'
+                                    | 'custom'
+                                    | 'none'
+                                  )
+                                | null;
+                              custom?: string | null;
+                            };
+                            buttons?:
+                              | {
+                                  label?: string | null;
+                                  variant?: ('solid' | 'outline' | 'link') | null;
+                                  href?: string | null;
+                                  newTab?: boolean | null;
+                                  size?: ('sm' | 'md' | 'lg') | null;
+                                  radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                  background?: {
+                                    token?:
+                                      | (
+                                          | 'brand.primary'
+                                          | 'brand.primaryHover'
+                                          | 'brand.secondary'
+                                          | 'brand.secondaryHover'
+                                          | 'brand.accent'
+                                          | 'text.heading'
+                                          | 'text.body'
+                                          | 'text.muted'
+                                          | 'text.inverted'
+                                          | 'text.link'
+                                          | 'text.linkHover'
+                                          | 'surface.page'
+                                          | 'surface.surface'
+                                          | 'surface.surfaceAlt'
+                                          | 'surface.border'
+                                          | 'surface.overlay'
+                                          | 'state.success'
+                                          | 'state.warning'
+                                          | 'state.error'
+                                          | 'state.info'
+                                          | 'custom'
+                                          | 'none'
+                                        )
+                                      | null;
+                                    custom?: string | null;
+                                  };
+                                  textColor?: {
+                                    token?:
+                                      | (
+                                          | 'brand.primary'
+                                          | 'brand.primaryHover'
+                                          | 'brand.secondary'
+                                          | 'brand.secondaryHover'
+                                          | 'brand.accent'
+                                          | 'text.heading'
+                                          | 'text.body'
+                                          | 'text.muted'
+                                          | 'text.inverted'
+                                          | 'text.link'
+                                          | 'text.linkHover'
+                                          | 'surface.page'
+                                          | 'surface.surface'
+                                          | 'surface.surfaceAlt'
+                                          | 'surface.border'
+                                          | 'surface.overlay'
+                                          | 'state.success'
+                                          | 'state.warning'
+                                          | 'state.error'
+                                          | 'state.info'
+                                          | 'custom'
+                                          | 'none'
+                                        )
+                                      | null;
+                                    custom?: string | null;
+                                  };
+                                  borderColor?: {
+                                    token?:
+                                      | (
+                                          | 'brand.primary'
+                                          | 'brand.primaryHover'
+                                          | 'brand.secondary'
+                                          | 'brand.secondaryHover'
+                                          | 'brand.accent'
+                                          | 'text.heading'
+                                          | 'text.body'
+                                          | 'text.muted'
+                                          | 'text.inverted'
+                                          | 'text.link'
+                                          | 'text.linkHover'
+                                          | 'surface.page'
+                                          | 'surface.surface'
+                                          | 'surface.surfaceAlt'
+                                          | 'surface.border'
+                                          | 'surface.overlay'
+                                          | 'state.success'
+                                          | 'state.warning'
+                                          | 'state.error'
+                                          | 'state.info'
+                                          | 'custom'
+                                          | 'none'
+                                        )
+                                      | null;
+                                    custom?: string | null;
+                                  };
+                                  fullWidth?: boolean | null;
+                                  id?: string | null;
+                                }[]
+                              | null;
+                            style?: {
+                              align?: ('left' | 'center' | 'right') | null;
+                              width?: ('auto' | 'full' | 'custom') | null;
+                              customWidth?: number | null;
+                              /**
+                               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                               */
+                              padding?: {
+                                top?: number | null;
+                                right?: number | null;
+                                bottom?: number | null;
+                                left?: number | null;
+                              };
+                              /**
+                               * Odstęp od sąsiednich elementów.
+                               */
+                              margin?: {
+                                top?: number | null;
+                                bottom?: number | null;
+                              };
+                              background?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              textColor?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                              border?: {
+                                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                width?: number | null;
+                                color?: {
+                                  token?:
+                                    | (
+                                        | 'brand.primary'
+                                        | 'brand.primaryHover'
+                                        | 'brand.secondary'
+                                        | 'brand.secondaryHover'
+                                        | 'brand.accent'
+                                        | 'text.heading'
+                                        | 'text.body'
+                                        | 'text.muted'
+                                        | 'text.inverted'
+                                        | 'text.link'
+                                        | 'text.linkHover'
+                                        | 'surface.page'
+                                        | 'surface.surface'
+                                        | 'surface.surfaceAlt'
+                                        | 'surface.border'
+                                        | 'surface.overlay'
+                                        | 'state.success'
+                                        | 'state.warning'
+                                        | 'state.error'
+                                        | 'state.info'
+                                        | 'custom'
+                                        | 'none'
+                                      )
+                                    | null;
+                                  custom?: string | null;
+                                };
+                              };
+                              /**
+                               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                               */
+                              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                              anchorId?: string | null;
+                              cssClass?: string | null;
+                            };
+                            id?: string | null;
+                            blockName?: string | null;
+                            blockType: 'hero';
+                          }
+                        | {
+                            heading?: string | null;
+                            text?: string | null;
+                            buttons?:
+                              | {
+                                  label?: string | null;
+                                  variant?: ('solid' | 'outline' | 'link') | null;
+                                  href?: string | null;
+                                  newTab?: boolean | null;
+                                  size?: ('sm' | 'md' | 'lg') | null;
+                                  radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                                  background?: {
+                                    token?:
+                                      | (
+                                          | 'brand.primary'
+                                          | 'brand.primaryHover'
+                                          | 'brand.secondary'
+                                          | 'brand.secondaryHover'
+                                          | 'brand.accent'
+                                          | 'text.heading'
+                                          | 'text.body'
+                                          | 'text.muted'
+                                          | 'text.inverted'
+                                          | 'text.link'
+                                          | 'text.linkHover'
+                                          | 'surface.page'
+                                          | 'surface.surface'
+                                          | 'surface.surfaceAlt'
+                                          | 'surface.border'
+                                          | 'surface.overlay'
+                                          | 'state.success'
+                                          | 'state.warning'
+                                          | 'state.error'
+                                          | 'state.info'
+                                          | 'custom'
+                                          | 'none'
+                                        )
+                                      | null;
+                                    custom?: string | null;
+                                  };
+                                  textColor?: {
+                                    token?:
+                                      | (
+                                          | 'brand.primary'
+                                          | 'brand.primaryHover'
+                                          | 'brand.secondary'
+                                          | 'brand.secondaryHover'
+                                          | 'brand.accent'
+                                          | 'text.heading'
+                                          | 'text.body'
+                                          | 'text.muted'
+                                          | 'text.inverted'
+                                          | 'text.link'
+                                          | 'text.linkHover'
+                                          | 'surface.page'
+                                          | 'surface.surface'
+                                          | 'surface.surfaceAlt'
+                                          | 'surface.border'
+                                          | 'surface.overlay'
+                                          | 'state.success'
+                                          | 'state.warning'
+                                          | 'state.error'
+                                          | 'state.info'
+                                          | 'custom'
+                                          | 'none'
+                                        )
+                                      | null;
+                                    custom?: string | null;
+                                  };
+                                  borderColor?: {
+                                    token?:
+                                      | (
+                                          | 'brand.primary'
+                                          | 'brand.primaryHover'
+                                          | 'brand.secondary'
+                                          | 'brand.secondaryHover'
+                                          | 'brand.accent'
+                                          | 'text.heading'
+                                          | 'text.body'
+                                          | 'text.muted'
+                                          | 'text.inverted'
+                                          | 'text.link'
+                                          | 'text.linkHover'
+                                          | 'surface.page'
+                                          | 'surface.surface'
+                                          | 'surface.surfaceAlt'
+                                          | 'surface.border'
+                                          | 'surface.overlay'
+                                          | 'state.success'
+                                          | 'state.warning'
+                                          | 'state.error'
+                                          | 'state.info'
+                                          | 'custom'
+                                          | 'none'
+                                        )
+                                      | null;
+                                    custom?: string | null;
+                                  };
+                                  fullWidth?: boolean | null;
+                                  id?: string | null;
+                                }[]
+                              | null;
+                            align?: ('left' | 'center' | 'right') | null;
+                            padding?: ('sm' | 'md' | 'lg') | null;
+                            background?: {
+                              token?:
+                                | (
+                                    | 'brand.primary'
+                                    | 'brand.primaryHover'
+                                    | 'brand.secondary'
+                                    | 'brand.secondaryHover'
+                                    | 'brand.accent'
+                                    | 'text.heading'
+                                    | 'text.body'
+                                    | 'text.muted'
+                                    | 'text.inverted'
+                                    | 'text.link'
+                                    | 'text.linkHover'
+                                    | 'surface.page'
+                                    | 'surface.surface'
+                                    | 'surface.surfaceAlt'
+                                    | 'surface.border'
+                                    | 'surface.overlay'
+                                    | 'state.success'
+                                    | 'state.warning'
+                                    | 'state.error'
+                                    | 'state.info'
+                                    | 'custom'
+                                    | 'none'
+                                  )
+                                | null;
+                              custom?: string | null;
+                            };
+                            textColor?: {
+                              token?:
+                                | (
+                                    | 'brand.primary'
+                                    | 'brand.primaryHover'
+                                    | 'brand.secondary'
+                                    | 'brand.secondaryHover'
+                                    | 'brand.accent'
+                                    | 'text.heading'
+                                    | 'text.body'
+                                    | 'text.muted'
+                                    | 'text.inverted'
+                                    | 'text.link'
+                                    | 'text.linkHover'
+                                    | 'surface.page'
+                                    | 'surface.surface'
+                                    | 'surface.surfaceAlt'
+                                    | 'surface.border'
+                                    | 'surface.overlay'
+                                    | 'state.success'
+                                    | 'state.warning'
+                                    | 'state.error'
+                                    | 'state.info'
+                                    | 'custom'
+                                    | 'none'
+                                  )
+                                | null;
+                              custom?: string | null;
+                            };
+                            radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                            style?: {
+                              align?: ('left' | 'center' | 'right') | null;
+                              width?: ('auto' | 'full' | 'custom') | null;
+                              customWidth?: number | null;
+                              /**
+                               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                               */
+                              padding?: {
+                                top?: number | null;
+                                right?: number | null;
+                                bottom?: number | null;
+                                left?: number | null;
+                              };
+                              /**
+                               * Odstęp od sąsiednich elementów.
+                               */
+                              margin?: {
+                                top?: number | null;
+                                bottom?: number | null;
+                              };
+                              background?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              textColor?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                              border?: {
+                                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                width?: number | null;
+                                color?: {
+                                  token?:
+                                    | (
+                                        | 'brand.primary'
+                                        | 'brand.primaryHover'
+                                        | 'brand.secondary'
+                                        | 'brand.secondaryHover'
+                                        | 'brand.accent'
+                                        | 'text.heading'
+                                        | 'text.body'
+                                        | 'text.muted'
+                                        | 'text.inverted'
+                                        | 'text.link'
+                                        | 'text.linkHover'
+                                        | 'surface.page'
+                                        | 'surface.surface'
+                                        | 'surface.surfaceAlt'
+                                        | 'surface.border'
+                                        | 'surface.overlay'
+                                        | 'state.success'
+                                        | 'state.warning'
+                                        | 'state.error'
+                                        | 'state.info'
+                                        | 'custom'
+                                        | 'none'
+                                      )
+                                    | null;
+                                  custom?: string | null;
+                                };
+                              };
+                              /**
+                               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                               */
+                              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                              anchorId?: string | null;
+                              cssClass?: string | null;
+                            };
+                            id?: string | null;
+                            blockName?: string | null;
+                            blockType: 'cta';
+                          }
+                        | {
+                            items?:
+                              | {
+                                  title?: string | null;
+                                  text?: string | null;
+                                  icon?:
+                                    | (
+                                        | 'check'
+                                        | 'star'
+                                        | 'heart'
+                                        | 'sparkle'
+                                        | 'shield'
+                                        | 'phone'
+                                        | 'mail'
+                                        | 'clock'
+                                        | 'pin'
+                                        | 'calendar'
+                                        | 'user'
+                                        | 'arrow'
+                                        | 'quote'
+                                        | 'plus'
+                                        | 'dot'
+                                        | 'none'
+                                      )
+                                    | null;
+                                  image?: (number | null) | Media;
+                                  href?: string | null;
+                                  newTab?: boolean | null;
+                                  id?: string | null;
+                                }[]
+                              | null;
+                            columns?: ('1' | '2' | '3' | '4') | null;
+                            gap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+                            cardAlign?: ('left' | 'center' | 'right') | null;
+                            radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                            cardBackground?: {
+                              token?:
+                                | (
+                                    | 'brand.primary'
+                                    | 'brand.primaryHover'
+                                    | 'brand.secondary'
+                                    | 'brand.secondaryHover'
+                                    | 'brand.accent'
+                                    | 'text.heading'
+                                    | 'text.body'
+                                    | 'text.muted'
+                                    | 'text.inverted'
+                                    | 'text.link'
+                                    | 'text.linkHover'
+                                    | 'surface.page'
+                                    | 'surface.surface'
+                                    | 'surface.surfaceAlt'
+                                    | 'surface.border'
+                                    | 'surface.overlay'
+                                    | 'state.success'
+                                    | 'state.warning'
+                                    | 'state.error'
+                                    | 'state.info'
+                                    | 'custom'
+                                    | 'none'
+                                  )
+                                | null;
+                              custom?: string | null;
+                            };
+                            cardBorder?: {
+                              token?:
+                                | (
+                                    | 'brand.primary'
+                                    | 'brand.primaryHover'
+                                    | 'brand.secondary'
+                                    | 'brand.secondaryHover'
+                                    | 'brand.accent'
+                                    | 'text.heading'
+                                    | 'text.body'
+                                    | 'text.muted'
+                                    | 'text.inverted'
+                                    | 'text.link'
+                                    | 'text.linkHover'
+                                    | 'surface.page'
+                                    | 'surface.surface'
+                                    | 'surface.surfaceAlt'
+                                    | 'surface.border'
+                                    | 'surface.overlay'
+                                    | 'state.success'
+                                    | 'state.warning'
+                                    | 'state.error'
+                                    | 'state.info'
+                                    | 'custom'
+                                    | 'none'
+                                  )
+                                | null;
+                              custom?: string | null;
+                            };
+                            titleColor?: {
+                              token?:
+                                | (
+                                    | 'brand.primary'
+                                    | 'brand.primaryHover'
+                                    | 'brand.secondary'
+                                    | 'brand.secondaryHover'
+                                    | 'brand.accent'
+                                    | 'text.heading'
+                                    | 'text.body'
+                                    | 'text.muted'
+                                    | 'text.inverted'
+                                    | 'text.link'
+                                    | 'text.linkHover'
+                                    | 'surface.page'
+                                    | 'surface.surface'
+                                    | 'surface.surfaceAlt'
+                                    | 'surface.border'
+                                    | 'surface.overlay'
+                                    | 'state.success'
+                                    | 'state.warning'
+                                    | 'state.error'
+                                    | 'state.info'
+                                    | 'custom'
+                                    | 'none'
+                                  )
+                                | null;
+                              custom?: string | null;
+                            };
+                            iconColor?: {
+                              token?:
+                                | (
+                                    | 'brand.primary'
+                                    | 'brand.primaryHover'
+                                    | 'brand.secondary'
+                                    | 'brand.secondaryHover'
+                                    | 'brand.accent'
+                                    | 'text.heading'
+                                    | 'text.body'
+                                    | 'text.muted'
+                                    | 'text.inverted'
+                                    | 'text.link'
+                                    | 'text.linkHover'
+                                    | 'surface.page'
+                                    | 'surface.surface'
+                                    | 'surface.surfaceAlt'
+                                    | 'surface.border'
+                                    | 'surface.overlay'
+                                    | 'state.success'
+                                    | 'state.warning'
+                                    | 'state.error'
+                                    | 'state.info'
+                                    | 'custom'
+                                    | 'none'
+                                  )
+                                | null;
+                              custom?: string | null;
+                            };
+                            style?: {
+                              align?: ('left' | 'center' | 'right') | null;
+                              width?: ('auto' | 'full' | 'custom') | null;
+                              customWidth?: number | null;
+                              /**
+                               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                               */
+                              padding?: {
+                                top?: number | null;
+                                right?: number | null;
+                                bottom?: number | null;
+                                left?: number | null;
+                              };
+                              /**
+                               * Odstęp od sąsiednich elementów.
+                               */
+                              margin?: {
+                                top?: number | null;
+                                bottom?: number | null;
+                              };
+                              background?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              textColor?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                              border?: {
+                                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                width?: number | null;
+                                color?: {
+                                  token?:
+                                    | (
+                                        | 'brand.primary'
+                                        | 'brand.primaryHover'
+                                        | 'brand.secondary'
+                                        | 'brand.secondaryHover'
+                                        | 'brand.accent'
+                                        | 'text.heading'
+                                        | 'text.body'
+                                        | 'text.muted'
+                                        | 'text.inverted'
+                                        | 'text.link'
+                                        | 'text.linkHover'
+                                        | 'surface.page'
+                                        | 'surface.surface'
+                                        | 'surface.surfaceAlt'
+                                        | 'surface.border'
+                                        | 'surface.overlay'
+                                        | 'state.success'
+                                        | 'state.warning'
+                                        | 'state.error'
+                                        | 'state.info'
+                                        | 'custom'
+                                        | 'none'
+                                      )
+                                    | null;
+                                  custom?: string | null;
+                                };
+                              };
+                              /**
+                               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                               */
+                              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                              anchorId?: string | null;
+                              cssClass?: string | null;
+                            };
+                            id?: string | null;
+                            blockName?: string | null;
+                            blockType: 'features';
+                          }
+                        | {
+                            items?:
+                              | {
+                                  title?: string | null;
+                                  content?: {
+                                    root: {
+                                      type: string;
+                                      children: {
+                                        type: any;
+                                        version: number;
+                                        [k: string]: unknown;
+                                      }[];
+                                      direction: ('ltr' | 'rtl') | null;
+                                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                      indent: number;
+                                      version: number;
+                                    };
+                                    [k: string]: unknown;
+                                  } | null;
+                                  id?: string | null;
+                                }[]
+                              | null;
+                            allowMultiple?: boolean | null;
+                            openFirst?: boolean | null;
+                            radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                            titleColor?: {
+                              token?:
+                                | (
+                                    | 'brand.primary'
+                                    | 'brand.primaryHover'
+                                    | 'brand.secondary'
+                                    | 'brand.secondaryHover'
+                                    | 'brand.accent'
+                                    | 'text.heading'
+                                    | 'text.body'
+                                    | 'text.muted'
+                                    | 'text.inverted'
+                                    | 'text.link'
+                                    | 'text.linkHover'
+                                    | 'surface.page'
+                                    | 'surface.surface'
+                                    | 'surface.surfaceAlt'
+                                    | 'surface.border'
+                                    | 'surface.overlay'
+                                    | 'state.success'
+                                    | 'state.warning'
+                                    | 'state.error'
+                                    | 'state.info'
+                                    | 'custom'
+                                    | 'none'
+                                  )
+                                | null;
+                              custom?: string | null;
+                            };
+                            borderColor?: {
+                              token?:
+                                | (
+                                    | 'brand.primary'
+                                    | 'brand.primaryHover'
+                                    | 'brand.secondary'
+                                    | 'brand.secondaryHover'
+                                    | 'brand.accent'
+                                    | 'text.heading'
+                                    | 'text.body'
+                                    | 'text.muted'
+                                    | 'text.inverted'
+                                    | 'text.link'
+                                    | 'text.linkHover'
+                                    | 'surface.page'
+                                    | 'surface.surface'
+                                    | 'surface.surfaceAlt'
+                                    | 'surface.border'
+                                    | 'surface.overlay'
+                                    | 'state.success'
+                                    | 'state.warning'
+                                    | 'state.error'
+                                    | 'state.info'
+                                    | 'custom'
+                                    | 'none'
+                                  )
+                                | null;
+                              custom?: string | null;
+                            };
+                            style?: {
+                              align?: ('left' | 'center' | 'right') | null;
+                              width?: ('auto' | 'full' | 'custom') | null;
+                              customWidth?: number | null;
+                              /**
+                               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                               */
+                              padding?: {
+                                top?: number | null;
+                                right?: number | null;
+                                bottom?: number | null;
+                                left?: number | null;
+                              };
+                              /**
+                               * Odstęp od sąsiednich elementów.
+                               */
+                              margin?: {
+                                top?: number | null;
+                                bottom?: number | null;
+                              };
+                              background?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              textColor?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                              border?: {
+                                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                width?: number | null;
+                                color?: {
+                                  token?:
+                                    | (
+                                        | 'brand.primary'
+                                        | 'brand.primaryHover'
+                                        | 'brand.secondary'
+                                        | 'brand.secondaryHover'
+                                        | 'brand.accent'
+                                        | 'text.heading'
+                                        | 'text.body'
+                                        | 'text.muted'
+                                        | 'text.inverted'
+                                        | 'text.link'
+                                        | 'text.linkHover'
+                                        | 'surface.page'
+                                        | 'surface.surface'
+                                        | 'surface.surfaceAlt'
+                                        | 'surface.border'
+                                        | 'surface.overlay'
+                                        | 'state.success'
+                                        | 'state.warning'
+                                        | 'state.error'
+                                        | 'state.info'
+                                        | 'custom'
+                                        | 'none'
+                                      )
+                                    | null;
+                                  custom?: string | null;
+                                };
+                              };
+                              /**
+                               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                               */
+                              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                              anchorId?: string | null;
+                              cssClass?: string | null;
+                            };
+                            id?: string | null;
+                            blockName?: string | null;
+                            blockType: 'accordion';
+                          }
+                        | {
+                            /**
+                             * Złożenie z Wygląd → Komponenty. Zmiana tam aktualizuje każdą stronę, która go używa.
+                             */
+                            component?: (number | null) | SiteComponent;
+                            style?: {
+                              align?: ('left' | 'center' | 'right') | null;
+                              width?: ('auto' | 'full' | 'custom') | null;
+                              customWidth?: number | null;
+                              /**
+                               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+                               */
+                              padding?: {
+                                top?: number | null;
+                                right?: number | null;
+                                bottom?: number | null;
+                                left?: number | null;
+                              };
+                              /**
+                               * Odstęp od sąsiednich elementów.
+                               */
+                              margin?: {
+                                top?: number | null;
+                                bottom?: number | null;
+                              };
+                              background?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              textColor?: {
+                                token?:
+                                  | (
+                                      | 'brand.primary'
+                                      | 'brand.primaryHover'
+                                      | 'brand.secondary'
+                                      | 'brand.secondaryHover'
+                                      | 'brand.accent'
+                                      | 'text.heading'
+                                      | 'text.body'
+                                      | 'text.muted'
+                                      | 'text.inverted'
+                                      | 'text.link'
+                                      | 'text.linkHover'
+                                      | 'surface.page'
+                                      | 'surface.surface'
+                                      | 'surface.surfaceAlt'
+                                      | 'surface.border'
+                                      | 'surface.overlay'
+                                      | 'state.success'
+                                      | 'state.warning'
+                                      | 'state.error'
+                                      | 'state.info'
+                                      | 'custom'
+                                      | 'none'
+                                    )
+                                  | null;
+                                custom?: string | null;
+                              };
+                              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+                              border?: {
+                                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                                width?: number | null;
+                                color?: {
+                                  token?:
+                                    | (
+                                        | 'brand.primary'
+                                        | 'brand.primaryHover'
+                                        | 'brand.secondary'
+                                        | 'brand.secondaryHover'
+                                        | 'brand.accent'
+                                        | 'text.heading'
+                                        | 'text.body'
+                                        | 'text.muted'
+                                        | 'text.inverted'
+                                        | 'text.link'
+                                        | 'text.linkHover'
+                                        | 'surface.page'
+                                        | 'surface.surface'
+                                        | 'surface.surfaceAlt'
+                                        | 'surface.border'
+                                        | 'surface.overlay'
+                                        | 'state.success'
+                                        | 'state.warning'
+                                        | 'state.error'
+                                        | 'state.info'
+                                        | 'custom'
+                                        | 'none'
+                                      )
+                                    | null;
+                                  custom?: string | null;
+                                };
+                              };
+                              /**
+                               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+                               */
+                              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+                              anchorId?: string | null;
+                              cssClass?: string | null;
+                            };
+                            id?: string | null;
+                            blockName?: string | null;
+                            blockType: 'savedComponent';
+                          }
+                      )[]
+                    | null;
+                  id?: string | null;
+                }[]
+              | null;
+            style?: {
+              align?: ('left' | 'center' | 'right') | null;
+              width?: ('auto' | 'full' | 'custom') | null;
+              customWidth?: number | null;
+              /**
+               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+               */
+              padding?: {
+                top?: number | null;
+                right?: number | null;
+                bottom?: number | null;
+                left?: number | null;
+              };
+              /**
+               * Odstęp od sąsiednich elementów.
+               */
+              margin?: {
+                top?: number | null;
+                bottom?: number | null;
+              };
+              background?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              textColor?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+              border?: {
+                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                width?: number | null;
+                color?: {
+                  token?:
+                    | (
+                        | 'brand.primary'
+                        | 'brand.primaryHover'
+                        | 'brand.secondary'
+                        | 'brand.secondaryHover'
+                        | 'brand.accent'
+                        | 'text.heading'
+                        | 'text.body'
+                        | 'text.muted'
+                        | 'text.inverted'
+                        | 'text.link'
+                        | 'text.linkHover'
+                        | 'surface.page'
+                        | 'surface.surface'
+                        | 'surface.surfaceAlt'
+                        | 'surface.border'
+                        | 'surface.overlay'
+                        | 'state.success'
+                        | 'state.warning'
+                        | 'state.error'
+                        | 'state.info'
+                        | 'custom'
+                        | 'none'
+                      )
+                    | null;
+                  custom?: string | null;
+                };
+              };
+              /**
+               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+               */
+              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+              anchorId?: string | null;
+              cssClass?: string | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'columns';
+          }
+        | {
+            thickness?: number | null;
+            widthPercent?: number | null;
+            lineStyle?: ('solid' | 'dashed' | 'dotted') | null;
+            color?: {
+              token?:
+                | (
+                    | 'brand.primary'
+                    | 'brand.primaryHover'
+                    | 'brand.secondary'
+                    | 'brand.secondaryHover'
+                    | 'brand.accent'
+                    | 'text.heading'
+                    | 'text.body'
+                    | 'text.muted'
+                    | 'text.inverted'
+                    | 'text.link'
+                    | 'text.linkHover'
+                    | 'surface.page'
+                    | 'surface.surface'
+                    | 'surface.surfaceAlt'
+                    | 'surface.border'
+                    | 'surface.overlay'
+                    | 'state.success'
+                    | 'state.warning'
+                    | 'state.error'
+                    | 'state.info'
+                    | 'custom'
+                    | 'none'
+                  )
+                | null;
+              custom?: string | null;
+            };
+            style?: {
+              align?: ('left' | 'center' | 'right') | null;
+              width?: ('auto' | 'full' | 'custom') | null;
+              customWidth?: number | null;
+              /**
+               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+               */
+              padding?: {
+                top?: number | null;
+                right?: number | null;
+                bottom?: number | null;
+                left?: number | null;
+              };
+              /**
+               * Odstęp od sąsiednich elementów.
+               */
+              margin?: {
+                top?: number | null;
+                bottom?: number | null;
+              };
+              background?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              textColor?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+              border?: {
+                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                width?: number | null;
+                color?: {
+                  token?:
+                    | (
+                        | 'brand.primary'
+                        | 'brand.primaryHover'
+                        | 'brand.secondary'
+                        | 'brand.secondaryHover'
+                        | 'brand.accent'
+                        | 'text.heading'
+                        | 'text.body'
+                        | 'text.muted'
+                        | 'text.inverted'
+                        | 'text.link'
+                        | 'text.linkHover'
+                        | 'surface.page'
+                        | 'surface.surface'
+                        | 'surface.surfaceAlt'
+                        | 'surface.border'
+                        | 'surface.overlay'
+                        | 'state.success'
+                        | 'state.warning'
+                        | 'state.error'
+                        | 'state.info'
+                        | 'custom'
+                        | 'none'
+                      )
+                    | null;
+                  custom?: string | null;
+                };
+              };
+              /**
+               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+               */
+              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+              anchorId?: string | null;
+              cssClass?: string | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'divider';
+          }
+        | {
+            height?: number | null;
+            /**
+             * Zostaw puste, aby użyć tej samej wartości.
+             */
+            heightMobile?: number | null;
+            style?: {
+              align?: ('left' | 'center' | 'right') | null;
+              width?: ('auto' | 'full' | 'custom') | null;
+              customWidth?: number | null;
+              /**
+               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+               */
+              padding?: {
+                top?: number | null;
+                right?: number | null;
+                bottom?: number | null;
+                left?: number | null;
+              };
+              /**
+               * Odstęp od sąsiednich elementów.
+               */
+              margin?: {
+                top?: number | null;
+                bottom?: number | null;
+              };
+              background?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              textColor?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+              border?: {
+                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                width?: number | null;
+                color?: {
+                  token?:
+                    | (
+                        | 'brand.primary'
+                        | 'brand.primaryHover'
+                        | 'brand.secondary'
+                        | 'brand.secondaryHover'
+                        | 'brand.accent'
+                        | 'text.heading'
+                        | 'text.body'
+                        | 'text.muted'
+                        | 'text.inverted'
+                        | 'text.link'
+                        | 'text.linkHover'
+                        | 'surface.page'
+                        | 'surface.surface'
+                        | 'surface.surfaceAlt'
+                        | 'surface.border'
+                        | 'surface.overlay'
+                        | 'state.success'
+                        | 'state.warning'
+                        | 'state.error'
+                        | 'state.info'
+                        | 'custom'
+                        | 'none'
+                      )
+                    | null;
+                  custom?: string | null;
+                };
+              };
+              /**
+               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+               */
+              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+              anchorId?: string | null;
+              cssClass?: string | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'spacer';
+          }
+        | {
+            images?: (number | Media)[] | null;
+            columns?: ('1' | '2' | '3' | '4') | null;
+            gap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+            aspectRatio?: ('auto' | '16-9' | '21-9' | '4-3' | '1-1' | '3-4') | null;
+            radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+            lightbox?: boolean | null;
+            showCaptions?: boolean | null;
+            style?: {
+              align?: ('left' | 'center' | 'right') | null;
+              width?: ('auto' | 'full' | 'custom') | null;
+              customWidth?: number | null;
+              /**
+               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+               */
+              padding?: {
+                top?: number | null;
+                right?: number | null;
+                bottom?: number | null;
+                left?: number | null;
+              };
+              /**
+               * Odstęp od sąsiednich elementów.
+               */
+              margin?: {
+                top?: number | null;
+                bottom?: number | null;
+              };
+              background?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              textColor?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+              border?: {
+                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                width?: number | null;
+                color?: {
+                  token?:
+                    | (
+                        | 'brand.primary'
+                        | 'brand.primaryHover'
+                        | 'brand.secondary'
+                        | 'brand.secondaryHover'
+                        | 'brand.accent'
+                        | 'text.heading'
+                        | 'text.body'
+                        | 'text.muted'
+                        | 'text.inverted'
+                        | 'text.link'
+                        | 'text.linkHover'
+                        | 'surface.page'
+                        | 'surface.surface'
+                        | 'surface.surfaceAlt'
+                        | 'surface.border'
+                        | 'surface.overlay'
+                        | 'state.success'
+                        | 'state.warning'
+                        | 'state.error'
+                        | 'state.info'
+                        | 'custom'
+                        | 'none'
+                      )
+                    | null;
+                  custom?: string | null;
+                };
+              };
+              /**
+               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+               */
+              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+              anchorId?: string | null;
+              cssClass?: string | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'gallery';
+          }
+        | {
+            slides?:
+              | {
+                  image?: (number | null) | Media;
+                  caption?: string | null;
+                  href?: string | null;
+                  newTab?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            slidesPerView?: number | null;
+            gap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+            aspectRatio?: ('auto' | '16-9' | '21-9' | '4-3' | '1-1' | '3-4') | null;
+            radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+            autoplay?: boolean | null;
+            interval?: number | null;
+            loop?: boolean | null;
+            showArrows?: boolean | null;
+            showDots?: boolean | null;
+            style?: {
+              align?: ('left' | 'center' | 'right') | null;
+              width?: ('auto' | 'full' | 'custom') | null;
+              customWidth?: number | null;
+              /**
+               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+               */
+              padding?: {
+                top?: number | null;
+                right?: number | null;
+                bottom?: number | null;
+                left?: number | null;
+              };
+              /**
+               * Odstęp od sąsiednich elementów.
+               */
+              margin?: {
+                top?: number | null;
+                bottom?: number | null;
+              };
+              background?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              textColor?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+              border?: {
+                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                width?: number | null;
+                color?: {
+                  token?:
+                    | (
+                        | 'brand.primary'
+                        | 'brand.primaryHover'
+                        | 'brand.secondary'
+                        | 'brand.secondaryHover'
+                        | 'brand.accent'
+                        | 'text.heading'
+                        | 'text.body'
+                        | 'text.muted'
+                        | 'text.inverted'
+                        | 'text.link'
+                        | 'text.linkHover'
+                        | 'surface.page'
+                        | 'surface.surface'
+                        | 'surface.surfaceAlt'
+                        | 'surface.border'
+                        | 'surface.overlay'
+                        | 'state.success'
+                        | 'state.warning'
+                        | 'state.error'
+                        | 'state.info'
+                        | 'custom'
+                        | 'none'
+                      )
+                    | null;
+                  custom?: string | null;
+                };
+              };
+              /**
+               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+               */
+              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+              anchorId?: string | null;
+              cssClass?: string | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'carousel';
+          }
+        | {
+            source?: ('file' | 'youtube' | 'vimeo') | null;
+            file?: (number | null) | Media;
+            /**
+             * Wklej pełny adres, np. https://www.youtube.com/watch?v=…
+             */
+            url?: string | null;
+            poster?: (number | null) | Media;
+            aspectRatio?: ('auto' | '16-9' | '21-9' | '4-3' | '1-1' | '3-4') | null;
+            radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+            controls?: boolean | null;
+            autoplay?: boolean | null;
+            loop?: boolean | null;
+            /**
+             * Przeglądarki odtwarzają automatycznie tylko wyciszone filmy.
+             */
+            muted?: boolean | null;
+            style?: {
+              align?: ('left' | 'center' | 'right') | null;
+              width?: ('auto' | 'full' | 'custom') | null;
+              customWidth?: number | null;
+              /**
+               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+               */
+              padding?: {
+                top?: number | null;
+                right?: number | null;
+                bottom?: number | null;
+                left?: number | null;
+              };
+              /**
+               * Odstęp od sąsiednich elementów.
+               */
+              margin?: {
+                top?: number | null;
+                bottom?: number | null;
+              };
+              background?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              textColor?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+              border?: {
+                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                width?: number | null;
+                color?: {
+                  token?:
+                    | (
+                        | 'brand.primary'
+                        | 'brand.primaryHover'
+                        | 'brand.secondary'
+                        | 'brand.secondaryHover'
+                        | 'brand.accent'
+                        | 'text.heading'
+                        | 'text.body'
+                        | 'text.muted'
+                        | 'text.inverted'
+                        | 'text.link'
+                        | 'text.linkHover'
+                        | 'surface.page'
+                        | 'surface.surface'
+                        | 'surface.surfaceAlt'
+                        | 'surface.border'
+                        | 'surface.overlay'
+                        | 'state.success'
+                        | 'state.warning'
+                        | 'state.error'
+                        | 'state.info'
+                        | 'custom'
+                        | 'none'
+                      )
+                    | null;
+                  custom?: string | null;
+                };
+              };
+              /**
+               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+               */
+              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+              anchorId?: string | null;
+              cssClass?: string | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'video';
+          }
+        | {
+            image?: (number | null) | Media;
+            heading?: string | null;
+            subheading?: string | null;
+            height?: ('sm' | 'md' | 'lg' | 'screen') | null;
+            align?: ('left' | 'center' | 'right') | null;
+            /**
+             * Kolor nakładki pochodzi z palety (Tła → Przyciemnienie zdjęć).
+             */
+            overlayOpacity?: number | null;
+            radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+            textColor?: {
+              token?:
+                | (
+                    | 'brand.primary'
+                    | 'brand.primaryHover'
+                    | 'brand.secondary'
+                    | 'brand.secondaryHover'
+                    | 'brand.accent'
+                    | 'text.heading'
+                    | 'text.body'
+                    | 'text.muted'
+                    | 'text.inverted'
+                    | 'text.link'
+                    | 'text.linkHover'
+                    | 'surface.page'
+                    | 'surface.surface'
+                    | 'surface.surfaceAlt'
+                    | 'surface.border'
+                    | 'surface.overlay'
+                    | 'state.success'
+                    | 'state.warning'
+                    | 'state.error'
+                    | 'state.info'
+                    | 'custom'
+                    | 'none'
+                  )
+                | null;
+              custom?: string | null;
+            };
+            buttons?:
+              | {
+                  label?: string | null;
+                  variant?: ('solid' | 'outline' | 'link') | null;
+                  href?: string | null;
+                  newTab?: boolean | null;
+                  size?: ('sm' | 'md' | 'lg') | null;
+                  radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                  background?: {
+                    token?:
+                      | (
+                          | 'brand.primary'
+                          | 'brand.primaryHover'
+                          | 'brand.secondary'
+                          | 'brand.secondaryHover'
+                          | 'brand.accent'
+                          | 'text.heading'
+                          | 'text.body'
+                          | 'text.muted'
+                          | 'text.inverted'
+                          | 'text.link'
+                          | 'text.linkHover'
+                          | 'surface.page'
+                          | 'surface.surface'
+                          | 'surface.surfaceAlt'
+                          | 'surface.border'
+                          | 'surface.overlay'
+                          | 'state.success'
+                          | 'state.warning'
+                          | 'state.error'
+                          | 'state.info'
+                          | 'custom'
+                          | 'none'
+                        )
+                      | null;
+                    custom?: string | null;
+                  };
+                  textColor?: {
+                    token?:
+                      | (
+                          | 'brand.primary'
+                          | 'brand.primaryHover'
+                          | 'brand.secondary'
+                          | 'brand.secondaryHover'
+                          | 'brand.accent'
+                          | 'text.heading'
+                          | 'text.body'
+                          | 'text.muted'
+                          | 'text.inverted'
+                          | 'text.link'
+                          | 'text.linkHover'
+                          | 'surface.page'
+                          | 'surface.surface'
+                          | 'surface.surfaceAlt'
+                          | 'surface.border'
+                          | 'surface.overlay'
+                          | 'state.success'
+                          | 'state.warning'
+                          | 'state.error'
+                          | 'state.info'
+                          | 'custom'
+                          | 'none'
+                        )
+                      | null;
+                    custom?: string | null;
+                  };
+                  borderColor?: {
+                    token?:
+                      | (
+                          | 'brand.primary'
+                          | 'brand.primaryHover'
+                          | 'brand.secondary'
+                          | 'brand.secondaryHover'
+                          | 'brand.accent'
+                          | 'text.heading'
+                          | 'text.body'
+                          | 'text.muted'
+                          | 'text.inverted'
+                          | 'text.link'
+                          | 'text.linkHover'
+                          | 'surface.page'
+                          | 'surface.surface'
+                          | 'surface.surfaceAlt'
+                          | 'surface.border'
+                          | 'surface.overlay'
+                          | 'state.success'
+                          | 'state.warning'
+                          | 'state.error'
+                          | 'state.info'
+                          | 'custom'
+                          | 'none'
+                        )
+                      | null;
+                    custom?: string | null;
+                  };
+                  fullWidth?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            style?: {
+              align?: ('left' | 'center' | 'right') | null;
+              width?: ('auto' | 'full' | 'custom') | null;
+              customWidth?: number | null;
+              /**
+               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+               */
+              padding?: {
+                top?: number | null;
+                right?: number | null;
+                bottom?: number | null;
+                left?: number | null;
+              };
+              /**
+               * Odstęp od sąsiednich elementów.
+               */
+              margin?: {
+                top?: number | null;
+                bottom?: number | null;
+              };
+              background?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              textColor?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+              border?: {
+                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                width?: number | null;
+                color?: {
+                  token?:
+                    | (
+                        | 'brand.primary'
+                        | 'brand.primaryHover'
+                        | 'brand.secondary'
+                        | 'brand.secondaryHover'
+                        | 'brand.accent'
+                        | 'text.heading'
+                        | 'text.body'
+                        | 'text.muted'
+                        | 'text.inverted'
+                        | 'text.link'
+                        | 'text.linkHover'
+                        | 'surface.page'
+                        | 'surface.surface'
+                        | 'surface.surfaceAlt'
+                        | 'surface.border'
+                        | 'surface.overlay'
+                        | 'state.success'
+                        | 'state.warning'
+                        | 'state.error'
+                        | 'state.info'
+                        | 'custom'
+                        | 'none'
+                      )
+                    | null;
+                  custom?: string | null;
+                };
+              };
+              /**
+               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+               */
+              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+              anchorId?: string | null;
+              cssClass?: string | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hero';
+          }
+        | {
+            heading?: string | null;
+            text?: string | null;
+            buttons?:
+              | {
+                  label?: string | null;
+                  variant?: ('solid' | 'outline' | 'link') | null;
+                  href?: string | null;
+                  newTab?: boolean | null;
+                  size?: ('sm' | 'md' | 'lg') | null;
+                  radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+                  background?: {
+                    token?:
+                      | (
+                          | 'brand.primary'
+                          | 'brand.primaryHover'
+                          | 'brand.secondary'
+                          | 'brand.secondaryHover'
+                          | 'brand.accent'
+                          | 'text.heading'
+                          | 'text.body'
+                          | 'text.muted'
+                          | 'text.inverted'
+                          | 'text.link'
+                          | 'text.linkHover'
+                          | 'surface.page'
+                          | 'surface.surface'
+                          | 'surface.surfaceAlt'
+                          | 'surface.border'
+                          | 'surface.overlay'
+                          | 'state.success'
+                          | 'state.warning'
+                          | 'state.error'
+                          | 'state.info'
+                          | 'custom'
+                          | 'none'
+                        )
+                      | null;
+                    custom?: string | null;
+                  };
+                  textColor?: {
+                    token?:
+                      | (
+                          | 'brand.primary'
+                          | 'brand.primaryHover'
+                          | 'brand.secondary'
+                          | 'brand.secondaryHover'
+                          | 'brand.accent'
+                          | 'text.heading'
+                          | 'text.body'
+                          | 'text.muted'
+                          | 'text.inverted'
+                          | 'text.link'
+                          | 'text.linkHover'
+                          | 'surface.page'
+                          | 'surface.surface'
+                          | 'surface.surfaceAlt'
+                          | 'surface.border'
+                          | 'surface.overlay'
+                          | 'state.success'
+                          | 'state.warning'
+                          | 'state.error'
+                          | 'state.info'
+                          | 'custom'
+                          | 'none'
+                        )
+                      | null;
+                    custom?: string | null;
+                  };
+                  borderColor?: {
+                    token?:
+                      | (
+                          | 'brand.primary'
+                          | 'brand.primaryHover'
+                          | 'brand.secondary'
+                          | 'brand.secondaryHover'
+                          | 'brand.accent'
+                          | 'text.heading'
+                          | 'text.body'
+                          | 'text.muted'
+                          | 'text.inverted'
+                          | 'text.link'
+                          | 'text.linkHover'
+                          | 'surface.page'
+                          | 'surface.surface'
+                          | 'surface.surfaceAlt'
+                          | 'surface.border'
+                          | 'surface.overlay'
+                          | 'state.success'
+                          | 'state.warning'
+                          | 'state.error'
+                          | 'state.info'
+                          | 'custom'
+                          | 'none'
+                        )
+                      | null;
+                    custom?: string | null;
+                  };
+                  fullWidth?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            align?: ('left' | 'center' | 'right') | null;
+            padding?: ('sm' | 'md' | 'lg') | null;
+            background?: {
+              token?:
+                | (
+                    | 'brand.primary'
+                    | 'brand.primaryHover'
+                    | 'brand.secondary'
+                    | 'brand.secondaryHover'
+                    | 'brand.accent'
+                    | 'text.heading'
+                    | 'text.body'
+                    | 'text.muted'
+                    | 'text.inverted'
+                    | 'text.link'
+                    | 'text.linkHover'
+                    | 'surface.page'
+                    | 'surface.surface'
+                    | 'surface.surfaceAlt'
+                    | 'surface.border'
+                    | 'surface.overlay'
+                    | 'state.success'
+                    | 'state.warning'
+                    | 'state.error'
+                    | 'state.info'
+                    | 'custom'
+                    | 'none'
+                  )
+                | null;
+              custom?: string | null;
+            };
+            textColor?: {
+              token?:
+                | (
+                    | 'brand.primary'
+                    | 'brand.primaryHover'
+                    | 'brand.secondary'
+                    | 'brand.secondaryHover'
+                    | 'brand.accent'
+                    | 'text.heading'
+                    | 'text.body'
+                    | 'text.muted'
+                    | 'text.inverted'
+                    | 'text.link'
+                    | 'text.linkHover'
+                    | 'surface.page'
+                    | 'surface.surface'
+                    | 'surface.surfaceAlt'
+                    | 'surface.border'
+                    | 'surface.overlay'
+                    | 'state.success'
+                    | 'state.warning'
+                    | 'state.error'
+                    | 'state.info'
+                    | 'custom'
+                    | 'none'
+                  )
+                | null;
+              custom?: string | null;
+            };
+            radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+            style?: {
+              align?: ('left' | 'center' | 'right') | null;
+              width?: ('auto' | 'full' | 'custom') | null;
+              customWidth?: number | null;
+              /**
+               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+               */
+              padding?: {
+                top?: number | null;
+                right?: number | null;
+                bottom?: number | null;
+                left?: number | null;
+              };
+              /**
+               * Odstęp od sąsiednich elementów.
+               */
+              margin?: {
+                top?: number | null;
+                bottom?: number | null;
+              };
+              background?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              textColor?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+              border?: {
+                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                width?: number | null;
+                color?: {
+                  token?:
+                    | (
+                        | 'brand.primary'
+                        | 'brand.primaryHover'
+                        | 'brand.secondary'
+                        | 'brand.secondaryHover'
+                        | 'brand.accent'
+                        | 'text.heading'
+                        | 'text.body'
+                        | 'text.muted'
+                        | 'text.inverted'
+                        | 'text.link'
+                        | 'text.linkHover'
+                        | 'surface.page'
+                        | 'surface.surface'
+                        | 'surface.surfaceAlt'
+                        | 'surface.border'
+                        | 'surface.overlay'
+                        | 'state.success'
+                        | 'state.warning'
+                        | 'state.error'
+                        | 'state.info'
+                        | 'custom'
+                        | 'none'
+                      )
+                    | null;
+                  custom?: string | null;
+                };
+              };
+              /**
+               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+               */
+              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+              anchorId?: string | null;
+              cssClass?: string | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'cta';
+          }
+        | {
+            items?:
+              | {
+                  title?: string | null;
+                  text?: string | null;
+                  icon?:
+                    | (
+                        | 'check'
+                        | 'star'
+                        | 'heart'
+                        | 'sparkle'
+                        | 'shield'
+                        | 'phone'
+                        | 'mail'
+                        | 'clock'
+                        | 'pin'
+                        | 'calendar'
+                        | 'user'
+                        | 'arrow'
+                        | 'quote'
+                        | 'plus'
+                        | 'dot'
+                        | 'none'
+                      )
+                    | null;
+                  image?: (number | null) | Media;
+                  href?: string | null;
+                  newTab?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            columns?: ('1' | '2' | '3' | '4') | null;
+            gap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+            cardAlign?: ('left' | 'center' | 'right') | null;
+            radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+            cardBackground?: {
+              token?:
+                | (
+                    | 'brand.primary'
+                    | 'brand.primaryHover'
+                    | 'brand.secondary'
+                    | 'brand.secondaryHover'
+                    | 'brand.accent'
+                    | 'text.heading'
+                    | 'text.body'
+                    | 'text.muted'
+                    | 'text.inverted'
+                    | 'text.link'
+                    | 'text.linkHover'
+                    | 'surface.page'
+                    | 'surface.surface'
+                    | 'surface.surfaceAlt'
+                    | 'surface.border'
+                    | 'surface.overlay'
+                    | 'state.success'
+                    | 'state.warning'
+                    | 'state.error'
+                    | 'state.info'
+                    | 'custom'
+                    | 'none'
+                  )
+                | null;
+              custom?: string | null;
+            };
+            cardBorder?: {
+              token?:
+                | (
+                    | 'brand.primary'
+                    | 'brand.primaryHover'
+                    | 'brand.secondary'
+                    | 'brand.secondaryHover'
+                    | 'brand.accent'
+                    | 'text.heading'
+                    | 'text.body'
+                    | 'text.muted'
+                    | 'text.inverted'
+                    | 'text.link'
+                    | 'text.linkHover'
+                    | 'surface.page'
+                    | 'surface.surface'
+                    | 'surface.surfaceAlt'
+                    | 'surface.border'
+                    | 'surface.overlay'
+                    | 'state.success'
+                    | 'state.warning'
+                    | 'state.error'
+                    | 'state.info'
+                    | 'custom'
+                    | 'none'
+                  )
+                | null;
+              custom?: string | null;
+            };
+            titleColor?: {
+              token?:
+                | (
+                    | 'brand.primary'
+                    | 'brand.primaryHover'
+                    | 'brand.secondary'
+                    | 'brand.secondaryHover'
+                    | 'brand.accent'
+                    | 'text.heading'
+                    | 'text.body'
+                    | 'text.muted'
+                    | 'text.inverted'
+                    | 'text.link'
+                    | 'text.linkHover'
+                    | 'surface.page'
+                    | 'surface.surface'
+                    | 'surface.surfaceAlt'
+                    | 'surface.border'
+                    | 'surface.overlay'
+                    | 'state.success'
+                    | 'state.warning'
+                    | 'state.error'
+                    | 'state.info'
+                    | 'custom'
+                    | 'none'
+                  )
+                | null;
+              custom?: string | null;
+            };
+            iconColor?: {
+              token?:
+                | (
+                    | 'brand.primary'
+                    | 'brand.primaryHover'
+                    | 'brand.secondary'
+                    | 'brand.secondaryHover'
+                    | 'brand.accent'
+                    | 'text.heading'
+                    | 'text.body'
+                    | 'text.muted'
+                    | 'text.inverted'
+                    | 'text.link'
+                    | 'text.linkHover'
+                    | 'surface.page'
+                    | 'surface.surface'
+                    | 'surface.surfaceAlt'
+                    | 'surface.border'
+                    | 'surface.overlay'
+                    | 'state.success'
+                    | 'state.warning'
+                    | 'state.error'
+                    | 'state.info'
+                    | 'custom'
+                    | 'none'
+                  )
+                | null;
+              custom?: string | null;
+            };
+            style?: {
+              align?: ('left' | 'center' | 'right') | null;
+              width?: ('auto' | 'full' | 'custom') | null;
+              customWidth?: number | null;
+              /**
+               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+               */
+              padding?: {
+                top?: number | null;
+                right?: number | null;
+                bottom?: number | null;
+                left?: number | null;
+              };
+              /**
+               * Odstęp od sąsiednich elementów.
+               */
+              margin?: {
+                top?: number | null;
+                bottom?: number | null;
+              };
+              background?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              textColor?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+              border?: {
+                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                width?: number | null;
+                color?: {
+                  token?:
+                    | (
+                        | 'brand.primary'
+                        | 'brand.primaryHover'
+                        | 'brand.secondary'
+                        | 'brand.secondaryHover'
+                        | 'brand.accent'
+                        | 'text.heading'
+                        | 'text.body'
+                        | 'text.muted'
+                        | 'text.inverted'
+                        | 'text.link'
+                        | 'text.linkHover'
+                        | 'surface.page'
+                        | 'surface.surface'
+                        | 'surface.surfaceAlt'
+                        | 'surface.border'
+                        | 'surface.overlay'
+                        | 'state.success'
+                        | 'state.warning'
+                        | 'state.error'
+                        | 'state.info'
+                        | 'custom'
+                        | 'none'
+                      )
+                    | null;
+                  custom?: string | null;
+                };
+              };
+              /**
+               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+               */
+              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+              anchorId?: string | null;
+              cssClass?: string | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'features';
+          }
+        | {
+            items?:
+              | {
+                  title?: string | null;
+                  content?: {
+                    root: {
+                      type: string;
+                      children: {
+                        type: any;
+                        version: number;
+                        [k: string]: unknown;
+                      }[];
+                      direction: ('ltr' | 'rtl') | null;
+                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                      indent: number;
+                      version: number;
+                    };
+                    [k: string]: unknown;
+                  } | null;
+                  id?: string | null;
+                }[]
+              | null;
+            allowMultiple?: boolean | null;
+            openFirst?: boolean | null;
+            radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+            titleColor?: {
+              token?:
+                | (
+                    | 'brand.primary'
+                    | 'brand.primaryHover'
+                    | 'brand.secondary'
+                    | 'brand.secondaryHover'
+                    | 'brand.accent'
+                    | 'text.heading'
+                    | 'text.body'
+                    | 'text.muted'
+                    | 'text.inverted'
+                    | 'text.link'
+                    | 'text.linkHover'
+                    | 'surface.page'
+                    | 'surface.surface'
+                    | 'surface.surfaceAlt'
+                    | 'surface.border'
+                    | 'surface.overlay'
+                    | 'state.success'
+                    | 'state.warning'
+                    | 'state.error'
+                    | 'state.info'
+                    | 'custom'
+                    | 'none'
+                  )
+                | null;
+              custom?: string | null;
+            };
+            borderColor?: {
+              token?:
+                | (
+                    | 'brand.primary'
+                    | 'brand.primaryHover'
+                    | 'brand.secondary'
+                    | 'brand.secondaryHover'
+                    | 'brand.accent'
+                    | 'text.heading'
+                    | 'text.body'
+                    | 'text.muted'
+                    | 'text.inverted'
+                    | 'text.link'
+                    | 'text.linkHover'
+                    | 'surface.page'
+                    | 'surface.surface'
+                    | 'surface.surfaceAlt'
+                    | 'surface.border'
+                    | 'surface.overlay'
+                    | 'state.success'
+                    | 'state.warning'
+                    | 'state.error'
+                    | 'state.info'
+                    | 'custom'
+                    | 'none'
+                  )
+                | null;
+              custom?: string | null;
+            };
+            style?: {
+              align?: ('left' | 'center' | 'right') | null;
+              width?: ('auto' | 'full' | 'custom') | null;
+              customWidth?: number | null;
+              /**
+               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+               */
+              padding?: {
+                top?: number | null;
+                right?: number | null;
+                bottom?: number | null;
+                left?: number | null;
+              };
+              /**
+               * Odstęp od sąsiednich elementów.
+               */
+              margin?: {
+                top?: number | null;
+                bottom?: number | null;
+              };
+              background?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              textColor?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+              border?: {
+                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                width?: number | null;
+                color?: {
+                  token?:
+                    | (
+                        | 'brand.primary'
+                        | 'brand.primaryHover'
+                        | 'brand.secondary'
+                        | 'brand.secondaryHover'
+                        | 'brand.accent'
+                        | 'text.heading'
+                        | 'text.body'
+                        | 'text.muted'
+                        | 'text.inverted'
+                        | 'text.link'
+                        | 'text.linkHover'
+                        | 'surface.page'
+                        | 'surface.surface'
+                        | 'surface.surfaceAlt'
+                        | 'surface.border'
+                        | 'surface.overlay'
+                        | 'state.success'
+                        | 'state.warning'
+                        | 'state.error'
+                        | 'state.info'
+                        | 'custom'
+                        | 'none'
+                      )
+                    | null;
+                  custom?: string | null;
+                };
+              };
+              /**
+               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+               */
+              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+              anchorId?: string | null;
+              cssClass?: string | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'accordion';
+          }
+        | {
+            /**
+             * Złożenie z Wygląd → Komponenty. Zmiana tam aktualizuje każdą stronę, która go używa.
+             */
+            component?: (number | null) | SiteComponent;
+            style?: {
+              align?: ('left' | 'center' | 'right') | null;
+              width?: ('auto' | 'full' | 'custom') | null;
+              customWidth?: number | null;
+              /**
+               * Odstęp wewnątrz elementu, od jego krawędzi do treści.
+               */
+              padding?: {
+                top?: number | null;
+                right?: number | null;
+                bottom?: number | null;
+                left?: number | null;
+              };
+              /**
+               * Odstęp od sąsiednich elementów.
+               */
+              margin?: {
+                top?: number | null;
+                bottom?: number | null;
+              };
+              background?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              textColor?: {
+                token?:
+                  | (
+                      | 'brand.primary'
+                      | 'brand.primaryHover'
+                      | 'brand.secondary'
+                      | 'brand.secondaryHover'
+                      | 'brand.accent'
+                      | 'text.heading'
+                      | 'text.body'
+                      | 'text.muted'
+                      | 'text.inverted'
+                      | 'text.link'
+                      | 'text.linkHover'
+                      | 'surface.page'
+                      | 'surface.surface'
+                      | 'surface.surfaceAlt'
+                      | 'surface.border'
+                      | 'surface.overlay'
+                      | 'state.success'
+                      | 'state.warning'
+                      | 'state.error'
+                      | 'state.info'
+                      | 'custom'
+                      | 'none'
+                    )
+                  | null;
+                custom?: string | null;
+              };
+              radius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+              shadow?: ('none' | 'sm' | 'md' | 'lg') | null;
+              border?: {
+                style?: ('none' | 'solid' | 'dashed' | 'dotted') | null;
+                width?: number | null;
+                color?: {
+                  token?:
+                    | (
+                        | 'brand.primary'
+                        | 'brand.primaryHover'
+                        | 'brand.secondary'
+                        | 'brand.secondaryHover'
+                        | 'brand.accent'
+                        | 'text.heading'
+                        | 'text.body'
+                        | 'text.muted'
+                        | 'text.inverted'
+                        | 'text.link'
+                        | 'text.linkHover'
+                        | 'surface.page'
+                        | 'surface.surface'
+                        | 'surface.surfaceAlt'
+                        | 'surface.border'
+                        | 'surface.overlay'
+                        | 'state.success'
+                        | 'state.warning'
+                        | 'state.error'
+                        | 'state.info'
+                        | 'custom'
+                        | 'none'
+                      )
+                    | null;
+                  custom?: string | null;
+                };
+              };
+              /**
+               * Element zostaje w układzie, ale nie wyświetla się na wybranych ekranach.
+               */
+              hideOn?: ('mobile' | 'tablet' | 'desktop')[] | null;
+              anchorId?: string | null;
+              cssClass?: string | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'savedComponent';
+          }
+      )[]
+    | null;
   /**
-   * Duże zdjęcie z nagłówkiem, opisem i wezwaniem do działania.
-   */
-  hero?: {
-    image?: (number | null) | Media;
-    heading?: string | null;
-    subheading?: string | null;
-    height?: ('sm' | 'md' | 'lg' | 'screen') | null;
-    align?: ('left' | 'center' | 'right') | null;
-    /**
-     * Kolor nakładki pochodzi z palety (Tła → Przyciemnienie zdjęć).
-     */
-    overlayOpacity?: number | null;
-    radius?: ('none' | 'sm' | 'md' | 'lg' | 'full') | null;
-    textColor?: {
-      token?:
-        | (
-            | 'brand.primary'
-            | 'brand.primaryHover'
-            | 'brand.secondary'
-            | 'brand.secondaryHover'
-            | 'brand.accent'
-            | 'text.heading'
-            | 'text.body'
-            | 'text.muted'
-            | 'text.inverted'
-            | 'text.link'
-            | 'text.linkHover'
-            | 'surface.page'
-            | 'surface.surface'
-            | 'surface.surfaceAlt'
-            | 'surface.border'
-            | 'surface.overlay'
-            | 'state.success'
-            | 'state.warning'
-            | 'state.error'
-            | 'state.info'
-            | 'custom'
-            | 'none'
-          )
-        | null;
-      custom?: string | null;
-    };
-    /**
-     * Wskaż istniejący komponent typu „Przycisk”.
-     */
-    ctaButton?: (number | null) | SiteComponent;
-  };
-  /**
-   * Przewijane zdjęcia z podpisami: np. galeria gabinetu.
-   */
-  carousel?: {
-    slides?:
-      | {
-          image: number | Media;
-          caption?: string | null;
-          href?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-    slidesPerView?: ('1' | '2' | '3') | null;
-    aspectRatio?: ('16-9' | '21-9' | '4-3' | '1-1' | '3-4') | null;
-    radius?: ('none' | 'sm' | 'md' | 'lg' | 'full') | null;
-    gap?: ('none' | 'sm' | 'md' | 'lg') | null;
-    autoplay?: boolean | null;
-    interval?: number | null;
-    showArrows?: boolean | null;
-    showDots?: boolean | null;
-    loop?: boolean | null;
-  };
-  /**
-   * Siatka zdjęć: realizacje, zespół, wnętrza.
-   */
-  gallery?: {
-    images?: (number | Media)[] | null;
-    columns?: ('1' | '2' | '3' | '4') | null;
-    gap?: ('none' | 'sm' | 'md' | 'lg') | null;
-    aspectRatio?: ('16-9' | '21-9' | '4-3' | '1-1' | '3-4') | null;
-    radius?: ('none' | 'sm' | 'md' | 'lg' | 'full') | null;
-    lightbox?: boolean | null;
-    /**
-     * Podpis pobierany jest z pola „Podpis” w bibliotece mediów.
-     */
-    showCaptions?: boolean | null;
-  };
-  /**
-   * Wyróżniony pasek z zachętą do kontaktu lub rezerwacji.
-   */
-  cta?: {
-    heading?: string | null;
-    text?: string | null;
-    align?: ('left' | 'center' | 'right') | null;
-    padding?: ('sm' | 'md' | 'lg') | null;
-    background?: {
-      token?:
-        | (
-            | 'brand.primary'
-            | 'brand.primaryHover'
-            | 'brand.secondary'
-            | 'brand.secondaryHover'
-            | 'brand.accent'
-            | 'text.heading'
-            | 'text.body'
-            | 'text.muted'
-            | 'text.inverted'
-            | 'text.link'
-            | 'text.linkHover'
-            | 'surface.page'
-            | 'surface.surface'
-            | 'surface.surfaceAlt'
-            | 'surface.border'
-            | 'surface.overlay'
-            | 'state.success'
-            | 'state.warning'
-            | 'state.error'
-            | 'state.info'
-            | 'custom'
-            | 'none'
-          )
-        | null;
-      custom?: string | null;
-    };
-    textColor?: {
-      token?:
-        | (
-            | 'brand.primary'
-            | 'brand.primaryHover'
-            | 'brand.secondary'
-            | 'brand.secondaryHover'
-            | 'brand.accent'
-            | 'text.heading'
-            | 'text.body'
-            | 'text.muted'
-            | 'text.inverted'
-            | 'text.link'
-            | 'text.linkHover'
-            | 'surface.page'
-            | 'surface.surface'
-            | 'surface.surfaceAlt'
-            | 'surface.border'
-            | 'surface.overlay'
-            | 'state.success'
-            | 'state.warning'
-            | 'state.error'
-            | 'state.info'
-            | 'custom'
-            | 'none'
-          )
-        | null;
-      custom?: string | null;
-    };
-    radius?: ('none' | 'sm' | 'md' | 'lg' | 'full') | null;
-    button?: (number | null) | SiteComponent;
-  };
-  /**
-   * Zestaw kart z ikoną/zdjęciem, tytułem i krótkim opisem.
-   */
-  features?: {
-    items?:
-      | {
-          title: string;
-          text?: string | null;
-          image?: (number | null) | Media;
-          href?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-    columns?: ('1' | '2' | '3' | '4') | null;
-    gap?: ('none' | 'sm' | 'md' | 'lg') | null;
-    cardBackground?: {
-      token?:
-        | (
-            | 'brand.primary'
-            | 'brand.primaryHover'
-            | 'brand.secondary'
-            | 'brand.secondaryHover'
-            | 'brand.accent'
-            | 'text.heading'
-            | 'text.body'
-            | 'text.muted'
-            | 'text.inverted'
-            | 'text.link'
-            | 'text.linkHover'
-            | 'surface.page'
-            | 'surface.surface'
-            | 'surface.surfaceAlt'
-            | 'surface.border'
-            | 'surface.overlay'
-            | 'state.success'
-            | 'state.warning'
-            | 'state.error'
-            | 'state.info'
-            | 'custom'
-            | 'none'
-          )
-        | null;
-      custom?: string | null;
-    };
-    cardBorder?: {
-      token?:
-        | (
-            | 'brand.primary'
-            | 'brand.primaryHover'
-            | 'brand.secondary'
-            | 'brand.secondaryHover'
-            | 'brand.accent'
-            | 'text.heading'
-            | 'text.body'
-            | 'text.muted'
-            | 'text.inverted'
-            | 'text.link'
-            | 'text.linkHover'
-            | 'surface.page'
-            | 'surface.surface'
-            | 'surface.surfaceAlt'
-            | 'surface.border'
-            | 'surface.overlay'
-            | 'state.success'
-            | 'state.warning'
-            | 'state.error'
-            | 'state.info'
-            | 'custom'
-            | 'none'
-          )
-        | null;
-      custom?: string | null;
-    };
-    titleColor?: {
-      token?:
-        | (
-            | 'brand.primary'
-            | 'brand.primaryHover'
-            | 'brand.secondary'
-            | 'brand.secondaryHover'
-            | 'brand.accent'
-            | 'text.heading'
-            | 'text.body'
-            | 'text.muted'
-            | 'text.inverted'
-            | 'text.link'
-            | 'text.linkHover'
-            | 'surface.page'
-            | 'surface.surface'
-            | 'surface.surfaceAlt'
-            | 'surface.border'
-            | 'surface.overlay'
-            | 'state.success'
-            | 'state.warning'
-            | 'state.error'
-            | 'state.info'
-            | 'custom'
-            | 'none'
-          )
-        | null;
-      custom?: string | null;
-    };
-    radius?: ('none' | 'sm' | 'md' | 'lg' | 'full') | null;
-  };
-  /**
-   * Identyfikator używany przy wstawianiu komponentu na stronę.
+   * Identyfikator komponentu, przydatny przy odwołaniach.
    */
   slug: string;
   /**
@@ -1155,7 +12065,2318 @@ export interface PagesSelect<T extends boolean = true> {
   layout?:
     | T
     | {
-        component?: T;
+        name?: T;
+        content?:
+          | T
+          | {
+              heading?:
+                | T
+                | {
+                    text?: T;
+                    level?: T;
+                    size?: T;
+                    color?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    style?:
+                      | T
+                      | {
+                          align?: T;
+                          width?: T;
+                          customWidth?: T;
+                          padding?:
+                            | T
+                            | {
+                                top?: T;
+                                right?: T;
+                                bottom?: T;
+                                left?: T;
+                              };
+                          margin?:
+                            | T
+                            | {
+                                top?: T;
+                                bottom?: T;
+                              };
+                          background?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          textColor?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          radius?: T;
+                          shadow?: T;
+                          border?:
+                            | T
+                            | {
+                                style?: T;
+                                width?: T;
+                                color?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                              };
+                          hideOn?: T;
+                          anchorId?: T;
+                          cssClass?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              text?:
+                | T
+                | {
+                    content?: T;
+                    measure?: T;
+                    style?:
+                      | T
+                      | {
+                          align?: T;
+                          width?: T;
+                          customWidth?: T;
+                          padding?:
+                            | T
+                            | {
+                                top?: T;
+                                right?: T;
+                                bottom?: T;
+                                left?: T;
+                              };
+                          margin?:
+                            | T
+                            | {
+                                top?: T;
+                                bottom?: T;
+                              };
+                          background?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          textColor?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          radius?: T;
+                          shadow?: T;
+                          border?:
+                            | T
+                            | {
+                                style?: T;
+                                width?: T;
+                                color?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                              };
+                          hideOn?: T;
+                          anchorId?: T;
+                          cssClass?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              image?:
+                | T
+                | {
+                    image?: T;
+                    caption?: T;
+                    aspectRatio?: T;
+                    radius?: T;
+                    fit?: T;
+                    href?: T;
+                    newTab?: T;
+                    style?:
+                      | T
+                      | {
+                          align?: T;
+                          width?: T;
+                          customWidth?: T;
+                          padding?:
+                            | T
+                            | {
+                                top?: T;
+                                right?: T;
+                                bottom?: T;
+                                left?: T;
+                              };
+                          margin?:
+                            | T
+                            | {
+                                top?: T;
+                                bottom?: T;
+                              };
+                          background?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          textColor?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          radius?: T;
+                          shadow?: T;
+                          border?:
+                            | T
+                            | {
+                                style?: T;
+                                width?: T;
+                                color?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                              };
+                          hideOn?: T;
+                          anchorId?: T;
+                          cssClass?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              buttons?:
+                | T
+                | {
+                    items?:
+                      | T
+                      | {
+                          label?: T;
+                          variant?: T;
+                          href?: T;
+                          newTab?: T;
+                          size?: T;
+                          radius?: T;
+                          background?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          textColor?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          borderColor?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          fullWidth?: T;
+                          id?: T;
+                        };
+                    gap?: T;
+                    align?: T;
+                    style?:
+                      | T
+                      | {
+                          align?: T;
+                          width?: T;
+                          customWidth?: T;
+                          padding?:
+                            | T
+                            | {
+                                top?: T;
+                                right?: T;
+                                bottom?: T;
+                                left?: T;
+                              };
+                          margin?:
+                            | T
+                            | {
+                                top?: T;
+                                bottom?: T;
+                              };
+                          background?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          textColor?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          radius?: T;
+                          shadow?: T;
+                          border?:
+                            | T
+                            | {
+                                style?: T;
+                                width?: T;
+                                color?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                              };
+                          hideOn?: T;
+                          anchorId?: T;
+                          cssClass?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              iconList?:
+                | T
+                | {
+                    items?:
+                      | T
+                      | {
+                          icon?: T;
+                          text?: T;
+                          href?: T;
+                          newTab?: T;
+                          id?: T;
+                        };
+                    columns?: T;
+                    gap?: T;
+                    iconColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    style?:
+                      | T
+                      | {
+                          align?: T;
+                          width?: T;
+                          customWidth?: T;
+                          padding?:
+                            | T
+                            | {
+                                top?: T;
+                                right?: T;
+                                bottom?: T;
+                                left?: T;
+                              };
+                          margin?:
+                            | T
+                            | {
+                                top?: T;
+                                bottom?: T;
+                              };
+                          background?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          textColor?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          radius?: T;
+                          shadow?: T;
+                          border?:
+                            | T
+                            | {
+                                style?: T;
+                                width?: T;
+                                color?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                              };
+                          hideOn?: T;
+                          anchorId?: T;
+                          cssClass?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              columns?:
+                | T
+                | {
+                    gap?: T;
+                    stackOn?: T;
+                    verticalAlign?: T;
+                    columns?:
+                      | T
+                      | {
+                          weight?: T;
+                          verticalAlign?: T;
+                          padding?:
+                            | T
+                            | {
+                                top?: T;
+                                right?: T;
+                                bottom?: T;
+                                left?: T;
+                              };
+                          background?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          radius?: T;
+                          border?:
+                            | T
+                            | {
+                                style?: T;
+                                width?: T;
+                                color?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                              };
+                          content?:
+                            | T
+                            | {
+                                heading?:
+                                  | T
+                                  | {
+                                      text?: T;
+                                      level?: T;
+                                      size?: T;
+                                      color?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      style?:
+                                        | T
+                                        | {
+                                            align?: T;
+                                            width?: T;
+                                            customWidth?: T;
+                                            padding?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  right?: T;
+                                                  bottom?: T;
+                                                  left?: T;
+                                                };
+                                            margin?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  bottom?: T;
+                                                };
+                                            background?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            textColor?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            radius?: T;
+                                            shadow?: T;
+                                            border?:
+                                              | T
+                                              | {
+                                                  style?: T;
+                                                  width?: T;
+                                                  color?:
+                                                    | T
+                                                    | {
+                                                        token?: T;
+                                                        custom?: T;
+                                                      };
+                                                };
+                                            hideOn?: T;
+                                            anchorId?: T;
+                                            cssClass?: T;
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                                text?:
+                                  | T
+                                  | {
+                                      content?: T;
+                                      measure?: T;
+                                      style?:
+                                        | T
+                                        | {
+                                            align?: T;
+                                            width?: T;
+                                            customWidth?: T;
+                                            padding?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  right?: T;
+                                                  bottom?: T;
+                                                  left?: T;
+                                                };
+                                            margin?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  bottom?: T;
+                                                };
+                                            background?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            textColor?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            radius?: T;
+                                            shadow?: T;
+                                            border?:
+                                              | T
+                                              | {
+                                                  style?: T;
+                                                  width?: T;
+                                                  color?:
+                                                    | T
+                                                    | {
+                                                        token?: T;
+                                                        custom?: T;
+                                                      };
+                                                };
+                                            hideOn?: T;
+                                            anchorId?: T;
+                                            cssClass?: T;
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                                image?:
+                                  | T
+                                  | {
+                                      image?: T;
+                                      caption?: T;
+                                      aspectRatio?: T;
+                                      radius?: T;
+                                      fit?: T;
+                                      href?: T;
+                                      newTab?: T;
+                                      style?:
+                                        | T
+                                        | {
+                                            align?: T;
+                                            width?: T;
+                                            customWidth?: T;
+                                            padding?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  right?: T;
+                                                  bottom?: T;
+                                                  left?: T;
+                                                };
+                                            margin?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  bottom?: T;
+                                                };
+                                            background?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            textColor?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            radius?: T;
+                                            shadow?: T;
+                                            border?:
+                                              | T
+                                              | {
+                                                  style?: T;
+                                                  width?: T;
+                                                  color?:
+                                                    | T
+                                                    | {
+                                                        token?: T;
+                                                        custom?: T;
+                                                      };
+                                                };
+                                            hideOn?: T;
+                                            anchorId?: T;
+                                            cssClass?: T;
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                                buttons?:
+                                  | T
+                                  | {
+                                      items?:
+                                        | T
+                                        | {
+                                            label?: T;
+                                            variant?: T;
+                                            href?: T;
+                                            newTab?: T;
+                                            size?: T;
+                                            radius?: T;
+                                            background?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            textColor?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            borderColor?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            fullWidth?: T;
+                                            id?: T;
+                                          };
+                                      gap?: T;
+                                      align?: T;
+                                      style?:
+                                        | T
+                                        | {
+                                            align?: T;
+                                            width?: T;
+                                            customWidth?: T;
+                                            padding?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  right?: T;
+                                                  bottom?: T;
+                                                  left?: T;
+                                                };
+                                            margin?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  bottom?: T;
+                                                };
+                                            background?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            textColor?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            radius?: T;
+                                            shadow?: T;
+                                            border?:
+                                              | T
+                                              | {
+                                                  style?: T;
+                                                  width?: T;
+                                                  color?:
+                                                    | T
+                                                    | {
+                                                        token?: T;
+                                                        custom?: T;
+                                                      };
+                                                };
+                                            hideOn?: T;
+                                            anchorId?: T;
+                                            cssClass?: T;
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                                iconList?:
+                                  | T
+                                  | {
+                                      items?:
+                                        | T
+                                        | {
+                                            icon?: T;
+                                            text?: T;
+                                            href?: T;
+                                            newTab?: T;
+                                            id?: T;
+                                          };
+                                      columns?: T;
+                                      gap?: T;
+                                      iconColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      style?:
+                                        | T
+                                        | {
+                                            align?: T;
+                                            width?: T;
+                                            customWidth?: T;
+                                            padding?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  right?: T;
+                                                  bottom?: T;
+                                                  left?: T;
+                                                };
+                                            margin?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  bottom?: T;
+                                                };
+                                            background?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            textColor?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            radius?: T;
+                                            shadow?: T;
+                                            border?:
+                                              | T
+                                              | {
+                                                  style?: T;
+                                                  width?: T;
+                                                  color?:
+                                                    | T
+                                                    | {
+                                                        token?: T;
+                                                        custom?: T;
+                                                      };
+                                                };
+                                            hideOn?: T;
+                                            anchorId?: T;
+                                            cssClass?: T;
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                                divider?:
+                                  | T
+                                  | {
+                                      thickness?: T;
+                                      widthPercent?: T;
+                                      lineStyle?: T;
+                                      color?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      style?:
+                                        | T
+                                        | {
+                                            align?: T;
+                                            width?: T;
+                                            customWidth?: T;
+                                            padding?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  right?: T;
+                                                  bottom?: T;
+                                                  left?: T;
+                                                };
+                                            margin?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  bottom?: T;
+                                                };
+                                            background?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            textColor?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            radius?: T;
+                                            shadow?: T;
+                                            border?:
+                                              | T
+                                              | {
+                                                  style?: T;
+                                                  width?: T;
+                                                  color?:
+                                                    | T
+                                                    | {
+                                                        token?: T;
+                                                        custom?: T;
+                                                      };
+                                                };
+                                            hideOn?: T;
+                                            anchorId?: T;
+                                            cssClass?: T;
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                                spacer?:
+                                  | T
+                                  | {
+                                      height?: T;
+                                      heightMobile?: T;
+                                      style?:
+                                        | T
+                                        | {
+                                            align?: T;
+                                            width?: T;
+                                            customWidth?: T;
+                                            padding?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  right?: T;
+                                                  bottom?: T;
+                                                  left?: T;
+                                                };
+                                            margin?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  bottom?: T;
+                                                };
+                                            background?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            textColor?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            radius?: T;
+                                            shadow?: T;
+                                            border?:
+                                              | T
+                                              | {
+                                                  style?: T;
+                                                  width?: T;
+                                                  color?:
+                                                    | T
+                                                    | {
+                                                        token?: T;
+                                                        custom?: T;
+                                                      };
+                                                };
+                                            hideOn?: T;
+                                            anchorId?: T;
+                                            cssClass?: T;
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                                gallery?:
+                                  | T
+                                  | {
+                                      images?: T;
+                                      columns?: T;
+                                      gap?: T;
+                                      aspectRatio?: T;
+                                      radius?: T;
+                                      lightbox?: T;
+                                      showCaptions?: T;
+                                      style?:
+                                        | T
+                                        | {
+                                            align?: T;
+                                            width?: T;
+                                            customWidth?: T;
+                                            padding?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  right?: T;
+                                                  bottom?: T;
+                                                  left?: T;
+                                                };
+                                            margin?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  bottom?: T;
+                                                };
+                                            background?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            textColor?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            radius?: T;
+                                            shadow?: T;
+                                            border?:
+                                              | T
+                                              | {
+                                                  style?: T;
+                                                  width?: T;
+                                                  color?:
+                                                    | T
+                                                    | {
+                                                        token?: T;
+                                                        custom?: T;
+                                                      };
+                                                };
+                                            hideOn?: T;
+                                            anchorId?: T;
+                                            cssClass?: T;
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                                carousel?:
+                                  | T
+                                  | {
+                                      slides?:
+                                        | T
+                                        | {
+                                            image?: T;
+                                            caption?: T;
+                                            href?: T;
+                                            newTab?: T;
+                                            id?: T;
+                                          };
+                                      slidesPerView?: T;
+                                      gap?: T;
+                                      aspectRatio?: T;
+                                      radius?: T;
+                                      autoplay?: T;
+                                      interval?: T;
+                                      loop?: T;
+                                      showArrows?: T;
+                                      showDots?: T;
+                                      style?:
+                                        | T
+                                        | {
+                                            align?: T;
+                                            width?: T;
+                                            customWidth?: T;
+                                            padding?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  right?: T;
+                                                  bottom?: T;
+                                                  left?: T;
+                                                };
+                                            margin?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  bottom?: T;
+                                                };
+                                            background?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            textColor?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            radius?: T;
+                                            shadow?: T;
+                                            border?:
+                                              | T
+                                              | {
+                                                  style?: T;
+                                                  width?: T;
+                                                  color?:
+                                                    | T
+                                                    | {
+                                                        token?: T;
+                                                        custom?: T;
+                                                      };
+                                                };
+                                            hideOn?: T;
+                                            anchorId?: T;
+                                            cssClass?: T;
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                                video?:
+                                  | T
+                                  | {
+                                      source?: T;
+                                      file?: T;
+                                      url?: T;
+                                      poster?: T;
+                                      aspectRatio?: T;
+                                      radius?: T;
+                                      controls?: T;
+                                      autoplay?: T;
+                                      loop?: T;
+                                      muted?: T;
+                                      style?:
+                                        | T
+                                        | {
+                                            align?: T;
+                                            width?: T;
+                                            customWidth?: T;
+                                            padding?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  right?: T;
+                                                  bottom?: T;
+                                                  left?: T;
+                                                };
+                                            margin?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  bottom?: T;
+                                                };
+                                            background?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            textColor?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            radius?: T;
+                                            shadow?: T;
+                                            border?:
+                                              | T
+                                              | {
+                                                  style?: T;
+                                                  width?: T;
+                                                  color?:
+                                                    | T
+                                                    | {
+                                                        token?: T;
+                                                        custom?: T;
+                                                      };
+                                                };
+                                            hideOn?: T;
+                                            anchorId?: T;
+                                            cssClass?: T;
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                                hero?:
+                                  | T
+                                  | {
+                                      image?: T;
+                                      heading?: T;
+                                      subheading?: T;
+                                      height?: T;
+                                      align?: T;
+                                      overlayOpacity?: T;
+                                      radius?: T;
+                                      textColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      buttons?:
+                                        | T
+                                        | {
+                                            label?: T;
+                                            variant?: T;
+                                            href?: T;
+                                            newTab?: T;
+                                            size?: T;
+                                            radius?: T;
+                                            background?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            textColor?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            borderColor?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            fullWidth?: T;
+                                            id?: T;
+                                          };
+                                      style?:
+                                        | T
+                                        | {
+                                            align?: T;
+                                            width?: T;
+                                            customWidth?: T;
+                                            padding?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  right?: T;
+                                                  bottom?: T;
+                                                  left?: T;
+                                                };
+                                            margin?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  bottom?: T;
+                                                };
+                                            background?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            textColor?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            radius?: T;
+                                            shadow?: T;
+                                            border?:
+                                              | T
+                                              | {
+                                                  style?: T;
+                                                  width?: T;
+                                                  color?:
+                                                    | T
+                                                    | {
+                                                        token?: T;
+                                                        custom?: T;
+                                                      };
+                                                };
+                                            hideOn?: T;
+                                            anchorId?: T;
+                                            cssClass?: T;
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                                cta?:
+                                  | T
+                                  | {
+                                      heading?: T;
+                                      text?: T;
+                                      buttons?:
+                                        | T
+                                        | {
+                                            label?: T;
+                                            variant?: T;
+                                            href?: T;
+                                            newTab?: T;
+                                            size?: T;
+                                            radius?: T;
+                                            background?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            textColor?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            borderColor?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            fullWidth?: T;
+                                            id?: T;
+                                          };
+                                      align?: T;
+                                      padding?: T;
+                                      background?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      textColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      radius?: T;
+                                      style?:
+                                        | T
+                                        | {
+                                            align?: T;
+                                            width?: T;
+                                            customWidth?: T;
+                                            padding?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  right?: T;
+                                                  bottom?: T;
+                                                  left?: T;
+                                                };
+                                            margin?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  bottom?: T;
+                                                };
+                                            background?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            textColor?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            radius?: T;
+                                            shadow?: T;
+                                            border?:
+                                              | T
+                                              | {
+                                                  style?: T;
+                                                  width?: T;
+                                                  color?:
+                                                    | T
+                                                    | {
+                                                        token?: T;
+                                                        custom?: T;
+                                                      };
+                                                };
+                                            hideOn?: T;
+                                            anchorId?: T;
+                                            cssClass?: T;
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                                features?:
+                                  | T
+                                  | {
+                                      items?:
+                                        | T
+                                        | {
+                                            title?: T;
+                                            text?: T;
+                                            icon?: T;
+                                            image?: T;
+                                            href?: T;
+                                            newTab?: T;
+                                            id?: T;
+                                          };
+                                      columns?: T;
+                                      gap?: T;
+                                      cardAlign?: T;
+                                      radius?: T;
+                                      cardBackground?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      cardBorder?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      titleColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      iconColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      style?:
+                                        | T
+                                        | {
+                                            align?: T;
+                                            width?: T;
+                                            customWidth?: T;
+                                            padding?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  right?: T;
+                                                  bottom?: T;
+                                                  left?: T;
+                                                };
+                                            margin?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  bottom?: T;
+                                                };
+                                            background?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            textColor?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            radius?: T;
+                                            shadow?: T;
+                                            border?:
+                                              | T
+                                              | {
+                                                  style?: T;
+                                                  width?: T;
+                                                  color?:
+                                                    | T
+                                                    | {
+                                                        token?: T;
+                                                        custom?: T;
+                                                      };
+                                                };
+                                            hideOn?: T;
+                                            anchorId?: T;
+                                            cssClass?: T;
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                                accordion?:
+                                  | T
+                                  | {
+                                      items?:
+                                        | T
+                                        | {
+                                            title?: T;
+                                            content?: T;
+                                            id?: T;
+                                          };
+                                      allowMultiple?: T;
+                                      openFirst?: T;
+                                      radius?: T;
+                                      titleColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      borderColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      style?:
+                                        | T
+                                        | {
+                                            align?: T;
+                                            width?: T;
+                                            customWidth?: T;
+                                            padding?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  right?: T;
+                                                  bottom?: T;
+                                                  left?: T;
+                                                };
+                                            margin?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  bottom?: T;
+                                                };
+                                            background?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            textColor?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            radius?: T;
+                                            shadow?: T;
+                                            border?:
+                                              | T
+                                              | {
+                                                  style?: T;
+                                                  width?: T;
+                                                  color?:
+                                                    | T
+                                                    | {
+                                                        token?: T;
+                                                        custom?: T;
+                                                      };
+                                                };
+                                            hideOn?: T;
+                                            anchorId?: T;
+                                            cssClass?: T;
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                                savedComponent?:
+                                  | T
+                                  | {
+                                      component?: T;
+                                      style?:
+                                        | T
+                                        | {
+                                            align?: T;
+                                            width?: T;
+                                            customWidth?: T;
+                                            padding?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  right?: T;
+                                                  bottom?: T;
+                                                  left?: T;
+                                                };
+                                            margin?:
+                                              | T
+                                              | {
+                                                  top?: T;
+                                                  bottom?: T;
+                                                };
+                                            background?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            textColor?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                            radius?: T;
+                                            shadow?: T;
+                                            border?:
+                                              | T
+                                              | {
+                                                  style?: T;
+                                                  width?: T;
+                                                  color?:
+                                                    | T
+                                                    | {
+                                                        token?: T;
+                                                        custom?: T;
+                                                      };
+                                                };
+                                            hideOn?: T;
+                                            anchorId?: T;
+                                            cssClass?: T;
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                              };
+                          id?: T;
+                        };
+                    style?:
+                      | T
+                      | {
+                          align?: T;
+                          width?: T;
+                          customWidth?: T;
+                          padding?:
+                            | T
+                            | {
+                                top?: T;
+                                right?: T;
+                                bottom?: T;
+                                left?: T;
+                              };
+                          margin?:
+                            | T
+                            | {
+                                top?: T;
+                                bottom?: T;
+                              };
+                          background?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          textColor?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          radius?: T;
+                          shadow?: T;
+                          border?:
+                            | T
+                            | {
+                                style?: T;
+                                width?: T;
+                                color?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                              };
+                          hideOn?: T;
+                          anchorId?: T;
+                          cssClass?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              divider?:
+                | T
+                | {
+                    thickness?: T;
+                    widthPercent?: T;
+                    lineStyle?: T;
+                    color?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    style?:
+                      | T
+                      | {
+                          align?: T;
+                          width?: T;
+                          customWidth?: T;
+                          padding?:
+                            | T
+                            | {
+                                top?: T;
+                                right?: T;
+                                bottom?: T;
+                                left?: T;
+                              };
+                          margin?:
+                            | T
+                            | {
+                                top?: T;
+                                bottom?: T;
+                              };
+                          background?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          textColor?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          radius?: T;
+                          shadow?: T;
+                          border?:
+                            | T
+                            | {
+                                style?: T;
+                                width?: T;
+                                color?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                              };
+                          hideOn?: T;
+                          anchorId?: T;
+                          cssClass?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              spacer?:
+                | T
+                | {
+                    height?: T;
+                    heightMobile?: T;
+                    style?:
+                      | T
+                      | {
+                          align?: T;
+                          width?: T;
+                          customWidth?: T;
+                          padding?:
+                            | T
+                            | {
+                                top?: T;
+                                right?: T;
+                                bottom?: T;
+                                left?: T;
+                              };
+                          margin?:
+                            | T
+                            | {
+                                top?: T;
+                                bottom?: T;
+                              };
+                          background?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          textColor?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          radius?: T;
+                          shadow?: T;
+                          border?:
+                            | T
+                            | {
+                                style?: T;
+                                width?: T;
+                                color?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                              };
+                          hideOn?: T;
+                          anchorId?: T;
+                          cssClass?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              gallery?:
+                | T
+                | {
+                    images?: T;
+                    columns?: T;
+                    gap?: T;
+                    aspectRatio?: T;
+                    radius?: T;
+                    lightbox?: T;
+                    showCaptions?: T;
+                    style?:
+                      | T
+                      | {
+                          align?: T;
+                          width?: T;
+                          customWidth?: T;
+                          padding?:
+                            | T
+                            | {
+                                top?: T;
+                                right?: T;
+                                bottom?: T;
+                                left?: T;
+                              };
+                          margin?:
+                            | T
+                            | {
+                                top?: T;
+                                bottom?: T;
+                              };
+                          background?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          textColor?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          radius?: T;
+                          shadow?: T;
+                          border?:
+                            | T
+                            | {
+                                style?: T;
+                                width?: T;
+                                color?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                              };
+                          hideOn?: T;
+                          anchorId?: T;
+                          cssClass?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              carousel?:
+                | T
+                | {
+                    slides?:
+                      | T
+                      | {
+                          image?: T;
+                          caption?: T;
+                          href?: T;
+                          newTab?: T;
+                          id?: T;
+                        };
+                    slidesPerView?: T;
+                    gap?: T;
+                    aspectRatio?: T;
+                    radius?: T;
+                    autoplay?: T;
+                    interval?: T;
+                    loop?: T;
+                    showArrows?: T;
+                    showDots?: T;
+                    style?:
+                      | T
+                      | {
+                          align?: T;
+                          width?: T;
+                          customWidth?: T;
+                          padding?:
+                            | T
+                            | {
+                                top?: T;
+                                right?: T;
+                                bottom?: T;
+                                left?: T;
+                              };
+                          margin?:
+                            | T
+                            | {
+                                top?: T;
+                                bottom?: T;
+                              };
+                          background?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          textColor?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          radius?: T;
+                          shadow?: T;
+                          border?:
+                            | T
+                            | {
+                                style?: T;
+                                width?: T;
+                                color?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                              };
+                          hideOn?: T;
+                          anchorId?: T;
+                          cssClass?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              video?:
+                | T
+                | {
+                    source?: T;
+                    file?: T;
+                    url?: T;
+                    poster?: T;
+                    aspectRatio?: T;
+                    radius?: T;
+                    controls?: T;
+                    autoplay?: T;
+                    loop?: T;
+                    muted?: T;
+                    style?:
+                      | T
+                      | {
+                          align?: T;
+                          width?: T;
+                          customWidth?: T;
+                          padding?:
+                            | T
+                            | {
+                                top?: T;
+                                right?: T;
+                                bottom?: T;
+                                left?: T;
+                              };
+                          margin?:
+                            | T
+                            | {
+                                top?: T;
+                                bottom?: T;
+                              };
+                          background?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          textColor?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          radius?: T;
+                          shadow?: T;
+                          border?:
+                            | T
+                            | {
+                                style?: T;
+                                width?: T;
+                                color?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                              };
+                          hideOn?: T;
+                          anchorId?: T;
+                          cssClass?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              hero?:
+                | T
+                | {
+                    image?: T;
+                    heading?: T;
+                    subheading?: T;
+                    height?: T;
+                    align?: T;
+                    overlayOpacity?: T;
+                    radius?: T;
+                    textColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    buttons?:
+                      | T
+                      | {
+                          label?: T;
+                          variant?: T;
+                          href?: T;
+                          newTab?: T;
+                          size?: T;
+                          radius?: T;
+                          background?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          textColor?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          borderColor?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          fullWidth?: T;
+                          id?: T;
+                        };
+                    style?:
+                      | T
+                      | {
+                          align?: T;
+                          width?: T;
+                          customWidth?: T;
+                          padding?:
+                            | T
+                            | {
+                                top?: T;
+                                right?: T;
+                                bottom?: T;
+                                left?: T;
+                              };
+                          margin?:
+                            | T
+                            | {
+                                top?: T;
+                                bottom?: T;
+                              };
+                          background?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          textColor?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          radius?: T;
+                          shadow?: T;
+                          border?:
+                            | T
+                            | {
+                                style?: T;
+                                width?: T;
+                                color?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                              };
+                          hideOn?: T;
+                          anchorId?: T;
+                          cssClass?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              cta?:
+                | T
+                | {
+                    heading?: T;
+                    text?: T;
+                    buttons?:
+                      | T
+                      | {
+                          label?: T;
+                          variant?: T;
+                          href?: T;
+                          newTab?: T;
+                          size?: T;
+                          radius?: T;
+                          background?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          textColor?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          borderColor?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          fullWidth?: T;
+                          id?: T;
+                        };
+                    align?: T;
+                    padding?: T;
+                    background?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    textColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    radius?: T;
+                    style?:
+                      | T
+                      | {
+                          align?: T;
+                          width?: T;
+                          customWidth?: T;
+                          padding?:
+                            | T
+                            | {
+                                top?: T;
+                                right?: T;
+                                bottom?: T;
+                                left?: T;
+                              };
+                          margin?:
+                            | T
+                            | {
+                                top?: T;
+                                bottom?: T;
+                              };
+                          background?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          textColor?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          radius?: T;
+                          shadow?: T;
+                          border?:
+                            | T
+                            | {
+                                style?: T;
+                                width?: T;
+                                color?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                              };
+                          hideOn?: T;
+                          anchorId?: T;
+                          cssClass?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              features?:
+                | T
+                | {
+                    items?:
+                      | T
+                      | {
+                          title?: T;
+                          text?: T;
+                          icon?: T;
+                          image?: T;
+                          href?: T;
+                          newTab?: T;
+                          id?: T;
+                        };
+                    columns?: T;
+                    gap?: T;
+                    cardAlign?: T;
+                    radius?: T;
+                    cardBackground?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    cardBorder?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    titleColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    iconColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    style?:
+                      | T
+                      | {
+                          align?: T;
+                          width?: T;
+                          customWidth?: T;
+                          padding?:
+                            | T
+                            | {
+                                top?: T;
+                                right?: T;
+                                bottom?: T;
+                                left?: T;
+                              };
+                          margin?:
+                            | T
+                            | {
+                                top?: T;
+                                bottom?: T;
+                              };
+                          background?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          textColor?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          radius?: T;
+                          shadow?: T;
+                          border?:
+                            | T
+                            | {
+                                style?: T;
+                                width?: T;
+                                color?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                              };
+                          hideOn?: T;
+                          anchorId?: T;
+                          cssClass?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              accordion?:
+                | T
+                | {
+                    items?:
+                      | T
+                      | {
+                          title?: T;
+                          content?: T;
+                          id?: T;
+                        };
+                    allowMultiple?: T;
+                    openFirst?: T;
+                    radius?: T;
+                    titleColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    borderColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    style?:
+                      | T
+                      | {
+                          align?: T;
+                          width?: T;
+                          customWidth?: T;
+                          padding?:
+                            | T
+                            | {
+                                top?: T;
+                                right?: T;
+                                bottom?: T;
+                                left?: T;
+                              };
+                          margin?:
+                            | T
+                            | {
+                                top?: T;
+                                bottom?: T;
+                              };
+                          background?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          textColor?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          radius?: T;
+                          shadow?: T;
+                          border?:
+                            | T
+                            | {
+                                style?: T;
+                                width?: T;
+                                color?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                              };
+                          hideOn?: T;
+                          anchorId?: T;
+                          cssClass?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              savedComponent?:
+                | T
+                | {
+                    component?: T;
+                    style?:
+                      | T
+                      | {
+                          align?: T;
+                          width?: T;
+                          customWidth?: T;
+                          padding?:
+                            | T
+                            | {
+                                top?: T;
+                                right?: T;
+                                bottom?: T;
+                                left?: T;
+                              };
+                          margin?:
+                            | T
+                            | {
+                                top?: T;
+                                bottom?: T;
+                              };
+                          background?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          textColor?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                          radius?: T;
+                          shadow?: T;
+                          border?:
+                            | T
+                            | {
+                                style?: T;
+                                width?: T;
+                                color?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                              };
+                          hideOn?: T;
+                          anchorId?: T;
+                          cssClass?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+            };
         width?: T;
         spacing?: T;
         background?:
@@ -1251,141 +14472,2317 @@ export interface SubscribersSelect<T extends boolean = true> {
  */
 export interface SiteComponentsSelect<T extends boolean = true> {
   name?: T;
-  type?: T;
-  button?:
+  category?: T;
+  content?:
     | T
     | {
-        label?: T;
-        href?: T;
-        newTab?: T;
-        variant?: T;
-        size?: T;
-        radius?: T;
-        fullWidth?: T;
-        background?:
+        heading?:
           | T
           | {
-              token?: T;
-              custom?: T;
+              text?: T;
+              level?: T;
+              size?: T;
+              color?:
+                | T
+                | {
+                    token?: T;
+                    custom?: T;
+                  };
+              style?:
+                | T
+                | {
+                    align?: T;
+                    width?: T;
+                    customWidth?: T;
+                    padding?:
+                      | T
+                      | {
+                          top?: T;
+                          right?: T;
+                          bottom?: T;
+                          left?: T;
+                        };
+                    margin?:
+                      | T
+                      | {
+                          top?: T;
+                          bottom?: T;
+                        };
+                    background?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    textColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    radius?: T;
+                    shadow?: T;
+                    border?:
+                      | T
+                      | {
+                          style?: T;
+                          width?: T;
+                          color?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                        };
+                    hideOn?: T;
+                    anchorId?: T;
+                    cssClass?: T;
+                  };
+              id?: T;
+              blockName?: T;
             };
-        textColor?:
+        text?:
           | T
           | {
-              token?: T;
-              custom?: T;
+              content?: T;
+              measure?: T;
+              style?:
+                | T
+                | {
+                    align?: T;
+                    width?: T;
+                    customWidth?: T;
+                    padding?:
+                      | T
+                      | {
+                          top?: T;
+                          right?: T;
+                          bottom?: T;
+                          left?: T;
+                        };
+                    margin?:
+                      | T
+                      | {
+                          top?: T;
+                          bottom?: T;
+                        };
+                    background?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    textColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    radius?: T;
+                    shadow?: T;
+                    border?:
+                      | T
+                      | {
+                          style?: T;
+                          width?: T;
+                          color?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                        };
+                    hideOn?: T;
+                    anchorId?: T;
+                    cssClass?: T;
+                  };
+              id?: T;
+              blockName?: T;
             };
-        borderColor?:
-          | T
-          | {
-              token?: T;
-              custom?: T;
-            };
-      };
-  hero?:
-    | T
-    | {
-        image?: T;
-        heading?: T;
-        subheading?: T;
-        height?: T;
-        align?: T;
-        overlayOpacity?: T;
-        radius?: T;
-        textColor?:
-          | T
-          | {
-              token?: T;
-              custom?: T;
-            };
-        ctaButton?: T;
-      };
-  carousel?:
-    | T
-    | {
-        slides?:
+        image?:
           | T
           | {
               image?: T;
               caption?: T;
+              aspectRatio?: T;
+              radius?: T;
+              fit?: T;
               href?: T;
+              newTab?: T;
+              style?:
+                | T
+                | {
+                    align?: T;
+                    width?: T;
+                    customWidth?: T;
+                    padding?:
+                      | T
+                      | {
+                          top?: T;
+                          right?: T;
+                          bottom?: T;
+                          left?: T;
+                        };
+                    margin?:
+                      | T
+                      | {
+                          top?: T;
+                          bottom?: T;
+                        };
+                    background?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    textColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    radius?: T;
+                    shadow?: T;
+                    border?:
+                      | T
+                      | {
+                          style?: T;
+                          width?: T;
+                          color?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                        };
+                    hideOn?: T;
+                    anchorId?: T;
+                    cssClass?: T;
+                  };
               id?: T;
+              blockName?: T;
             };
-        slidesPerView?: T;
-        aspectRatio?: T;
-        radius?: T;
-        gap?: T;
-        autoplay?: T;
-        interval?: T;
-        showArrows?: T;
-        showDots?: T;
-        loop?: T;
-      };
-  gallery?:
-    | T
-    | {
-        images?: T;
-        columns?: T;
-        gap?: T;
-        aspectRatio?: T;
-        radius?: T;
-        lightbox?: T;
-        showCaptions?: T;
-      };
-  cta?:
-    | T
-    | {
-        heading?: T;
-        text?: T;
-        align?: T;
-        padding?: T;
-        background?:
+        buttons?:
           | T
           | {
-              token?: T;
-              custom?: T;
+              items?:
+                | T
+                | {
+                    label?: T;
+                    variant?: T;
+                    href?: T;
+                    newTab?: T;
+                    size?: T;
+                    radius?: T;
+                    background?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    textColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    borderColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    fullWidth?: T;
+                    id?: T;
+                  };
+              gap?: T;
+              align?: T;
+              style?:
+                | T
+                | {
+                    align?: T;
+                    width?: T;
+                    customWidth?: T;
+                    padding?:
+                      | T
+                      | {
+                          top?: T;
+                          right?: T;
+                          bottom?: T;
+                          left?: T;
+                        };
+                    margin?:
+                      | T
+                      | {
+                          top?: T;
+                          bottom?: T;
+                        };
+                    background?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    textColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    radius?: T;
+                    shadow?: T;
+                    border?:
+                      | T
+                      | {
+                          style?: T;
+                          width?: T;
+                          color?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                        };
+                    hideOn?: T;
+                    anchorId?: T;
+                    cssClass?: T;
+                  };
+              id?: T;
+              blockName?: T;
             };
-        textColor?:
+        iconList?:
           | T
           | {
-              token?: T;
-              custom?: T;
+              items?:
+                | T
+                | {
+                    icon?: T;
+                    text?: T;
+                    href?: T;
+                    newTab?: T;
+                    id?: T;
+                  };
+              columns?: T;
+              gap?: T;
+              iconColor?:
+                | T
+                | {
+                    token?: T;
+                    custom?: T;
+                  };
+              style?:
+                | T
+                | {
+                    align?: T;
+                    width?: T;
+                    customWidth?: T;
+                    padding?:
+                      | T
+                      | {
+                          top?: T;
+                          right?: T;
+                          bottom?: T;
+                          left?: T;
+                        };
+                    margin?:
+                      | T
+                      | {
+                          top?: T;
+                          bottom?: T;
+                        };
+                    background?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    textColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    radius?: T;
+                    shadow?: T;
+                    border?:
+                      | T
+                      | {
+                          style?: T;
+                          width?: T;
+                          color?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                        };
+                    hideOn?: T;
+                    anchorId?: T;
+                    cssClass?: T;
+                  };
+              id?: T;
+              blockName?: T;
             };
-        radius?: T;
-        button?: T;
-      };
-  features?:
-    | T
-    | {
-        items?:
+        columns?:
           | T
           | {
-              title?: T;
-              text?: T;
+              gap?: T;
+              stackOn?: T;
+              verticalAlign?: T;
+              columns?:
+                | T
+                | {
+                    weight?: T;
+                    verticalAlign?: T;
+                    padding?:
+                      | T
+                      | {
+                          top?: T;
+                          right?: T;
+                          bottom?: T;
+                          left?: T;
+                        };
+                    background?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    radius?: T;
+                    border?:
+                      | T
+                      | {
+                          style?: T;
+                          width?: T;
+                          color?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                        };
+                    content?:
+                      | T
+                      | {
+                          heading?:
+                            | T
+                            | {
+                                text?: T;
+                                level?: T;
+                                size?: T;
+                                color?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                                style?:
+                                  | T
+                                  | {
+                                      align?: T;
+                                      width?: T;
+                                      customWidth?: T;
+                                      padding?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            right?: T;
+                                            bottom?: T;
+                                            left?: T;
+                                          };
+                                      margin?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            bottom?: T;
+                                          };
+                                      background?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      textColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      radius?: T;
+                                      shadow?: T;
+                                      border?:
+                                        | T
+                                        | {
+                                            style?: T;
+                                            width?: T;
+                                            color?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                          };
+                                      hideOn?: T;
+                                      anchorId?: T;
+                                      cssClass?: T;
+                                    };
+                                id?: T;
+                                blockName?: T;
+                              };
+                          text?:
+                            | T
+                            | {
+                                content?: T;
+                                measure?: T;
+                                style?:
+                                  | T
+                                  | {
+                                      align?: T;
+                                      width?: T;
+                                      customWidth?: T;
+                                      padding?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            right?: T;
+                                            bottom?: T;
+                                            left?: T;
+                                          };
+                                      margin?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            bottom?: T;
+                                          };
+                                      background?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      textColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      radius?: T;
+                                      shadow?: T;
+                                      border?:
+                                        | T
+                                        | {
+                                            style?: T;
+                                            width?: T;
+                                            color?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                          };
+                                      hideOn?: T;
+                                      anchorId?: T;
+                                      cssClass?: T;
+                                    };
+                                id?: T;
+                                blockName?: T;
+                              };
+                          image?:
+                            | T
+                            | {
+                                image?: T;
+                                caption?: T;
+                                aspectRatio?: T;
+                                radius?: T;
+                                fit?: T;
+                                href?: T;
+                                newTab?: T;
+                                style?:
+                                  | T
+                                  | {
+                                      align?: T;
+                                      width?: T;
+                                      customWidth?: T;
+                                      padding?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            right?: T;
+                                            bottom?: T;
+                                            left?: T;
+                                          };
+                                      margin?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            bottom?: T;
+                                          };
+                                      background?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      textColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      radius?: T;
+                                      shadow?: T;
+                                      border?:
+                                        | T
+                                        | {
+                                            style?: T;
+                                            width?: T;
+                                            color?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                          };
+                                      hideOn?: T;
+                                      anchorId?: T;
+                                      cssClass?: T;
+                                    };
+                                id?: T;
+                                blockName?: T;
+                              };
+                          buttons?:
+                            | T
+                            | {
+                                items?:
+                                  | T
+                                  | {
+                                      label?: T;
+                                      variant?: T;
+                                      href?: T;
+                                      newTab?: T;
+                                      size?: T;
+                                      radius?: T;
+                                      background?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      textColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      borderColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      fullWidth?: T;
+                                      id?: T;
+                                    };
+                                gap?: T;
+                                align?: T;
+                                style?:
+                                  | T
+                                  | {
+                                      align?: T;
+                                      width?: T;
+                                      customWidth?: T;
+                                      padding?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            right?: T;
+                                            bottom?: T;
+                                            left?: T;
+                                          };
+                                      margin?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            bottom?: T;
+                                          };
+                                      background?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      textColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      radius?: T;
+                                      shadow?: T;
+                                      border?:
+                                        | T
+                                        | {
+                                            style?: T;
+                                            width?: T;
+                                            color?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                          };
+                                      hideOn?: T;
+                                      anchorId?: T;
+                                      cssClass?: T;
+                                    };
+                                id?: T;
+                                blockName?: T;
+                              };
+                          iconList?:
+                            | T
+                            | {
+                                items?:
+                                  | T
+                                  | {
+                                      icon?: T;
+                                      text?: T;
+                                      href?: T;
+                                      newTab?: T;
+                                      id?: T;
+                                    };
+                                columns?: T;
+                                gap?: T;
+                                iconColor?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                                style?:
+                                  | T
+                                  | {
+                                      align?: T;
+                                      width?: T;
+                                      customWidth?: T;
+                                      padding?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            right?: T;
+                                            bottom?: T;
+                                            left?: T;
+                                          };
+                                      margin?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            bottom?: T;
+                                          };
+                                      background?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      textColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      radius?: T;
+                                      shadow?: T;
+                                      border?:
+                                        | T
+                                        | {
+                                            style?: T;
+                                            width?: T;
+                                            color?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                          };
+                                      hideOn?: T;
+                                      anchorId?: T;
+                                      cssClass?: T;
+                                    };
+                                id?: T;
+                                blockName?: T;
+                              };
+                          divider?:
+                            | T
+                            | {
+                                thickness?: T;
+                                widthPercent?: T;
+                                lineStyle?: T;
+                                color?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                                style?:
+                                  | T
+                                  | {
+                                      align?: T;
+                                      width?: T;
+                                      customWidth?: T;
+                                      padding?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            right?: T;
+                                            bottom?: T;
+                                            left?: T;
+                                          };
+                                      margin?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            bottom?: T;
+                                          };
+                                      background?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      textColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      radius?: T;
+                                      shadow?: T;
+                                      border?:
+                                        | T
+                                        | {
+                                            style?: T;
+                                            width?: T;
+                                            color?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                          };
+                                      hideOn?: T;
+                                      anchorId?: T;
+                                      cssClass?: T;
+                                    };
+                                id?: T;
+                                blockName?: T;
+                              };
+                          spacer?:
+                            | T
+                            | {
+                                height?: T;
+                                heightMobile?: T;
+                                style?:
+                                  | T
+                                  | {
+                                      align?: T;
+                                      width?: T;
+                                      customWidth?: T;
+                                      padding?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            right?: T;
+                                            bottom?: T;
+                                            left?: T;
+                                          };
+                                      margin?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            bottom?: T;
+                                          };
+                                      background?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      textColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      radius?: T;
+                                      shadow?: T;
+                                      border?:
+                                        | T
+                                        | {
+                                            style?: T;
+                                            width?: T;
+                                            color?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                          };
+                                      hideOn?: T;
+                                      anchorId?: T;
+                                      cssClass?: T;
+                                    };
+                                id?: T;
+                                blockName?: T;
+                              };
+                          gallery?:
+                            | T
+                            | {
+                                images?: T;
+                                columns?: T;
+                                gap?: T;
+                                aspectRatio?: T;
+                                radius?: T;
+                                lightbox?: T;
+                                showCaptions?: T;
+                                style?:
+                                  | T
+                                  | {
+                                      align?: T;
+                                      width?: T;
+                                      customWidth?: T;
+                                      padding?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            right?: T;
+                                            bottom?: T;
+                                            left?: T;
+                                          };
+                                      margin?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            bottom?: T;
+                                          };
+                                      background?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      textColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      radius?: T;
+                                      shadow?: T;
+                                      border?:
+                                        | T
+                                        | {
+                                            style?: T;
+                                            width?: T;
+                                            color?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                          };
+                                      hideOn?: T;
+                                      anchorId?: T;
+                                      cssClass?: T;
+                                    };
+                                id?: T;
+                                blockName?: T;
+                              };
+                          carousel?:
+                            | T
+                            | {
+                                slides?:
+                                  | T
+                                  | {
+                                      image?: T;
+                                      caption?: T;
+                                      href?: T;
+                                      newTab?: T;
+                                      id?: T;
+                                    };
+                                slidesPerView?: T;
+                                gap?: T;
+                                aspectRatio?: T;
+                                radius?: T;
+                                autoplay?: T;
+                                interval?: T;
+                                loop?: T;
+                                showArrows?: T;
+                                showDots?: T;
+                                style?:
+                                  | T
+                                  | {
+                                      align?: T;
+                                      width?: T;
+                                      customWidth?: T;
+                                      padding?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            right?: T;
+                                            bottom?: T;
+                                            left?: T;
+                                          };
+                                      margin?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            bottom?: T;
+                                          };
+                                      background?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      textColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      radius?: T;
+                                      shadow?: T;
+                                      border?:
+                                        | T
+                                        | {
+                                            style?: T;
+                                            width?: T;
+                                            color?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                          };
+                                      hideOn?: T;
+                                      anchorId?: T;
+                                      cssClass?: T;
+                                    };
+                                id?: T;
+                                blockName?: T;
+                              };
+                          video?:
+                            | T
+                            | {
+                                source?: T;
+                                file?: T;
+                                url?: T;
+                                poster?: T;
+                                aspectRatio?: T;
+                                radius?: T;
+                                controls?: T;
+                                autoplay?: T;
+                                loop?: T;
+                                muted?: T;
+                                style?:
+                                  | T
+                                  | {
+                                      align?: T;
+                                      width?: T;
+                                      customWidth?: T;
+                                      padding?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            right?: T;
+                                            bottom?: T;
+                                            left?: T;
+                                          };
+                                      margin?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            bottom?: T;
+                                          };
+                                      background?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      textColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      radius?: T;
+                                      shadow?: T;
+                                      border?:
+                                        | T
+                                        | {
+                                            style?: T;
+                                            width?: T;
+                                            color?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                          };
+                                      hideOn?: T;
+                                      anchorId?: T;
+                                      cssClass?: T;
+                                    };
+                                id?: T;
+                                blockName?: T;
+                              };
+                          hero?:
+                            | T
+                            | {
+                                image?: T;
+                                heading?: T;
+                                subheading?: T;
+                                height?: T;
+                                align?: T;
+                                overlayOpacity?: T;
+                                radius?: T;
+                                textColor?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                                buttons?:
+                                  | T
+                                  | {
+                                      label?: T;
+                                      variant?: T;
+                                      href?: T;
+                                      newTab?: T;
+                                      size?: T;
+                                      radius?: T;
+                                      background?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      textColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      borderColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      fullWidth?: T;
+                                      id?: T;
+                                    };
+                                style?:
+                                  | T
+                                  | {
+                                      align?: T;
+                                      width?: T;
+                                      customWidth?: T;
+                                      padding?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            right?: T;
+                                            bottom?: T;
+                                            left?: T;
+                                          };
+                                      margin?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            bottom?: T;
+                                          };
+                                      background?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      textColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      radius?: T;
+                                      shadow?: T;
+                                      border?:
+                                        | T
+                                        | {
+                                            style?: T;
+                                            width?: T;
+                                            color?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                          };
+                                      hideOn?: T;
+                                      anchorId?: T;
+                                      cssClass?: T;
+                                    };
+                                id?: T;
+                                blockName?: T;
+                              };
+                          cta?:
+                            | T
+                            | {
+                                heading?: T;
+                                text?: T;
+                                buttons?:
+                                  | T
+                                  | {
+                                      label?: T;
+                                      variant?: T;
+                                      href?: T;
+                                      newTab?: T;
+                                      size?: T;
+                                      radius?: T;
+                                      background?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      textColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      borderColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      fullWidth?: T;
+                                      id?: T;
+                                    };
+                                align?: T;
+                                padding?: T;
+                                background?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                                textColor?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                                radius?: T;
+                                style?:
+                                  | T
+                                  | {
+                                      align?: T;
+                                      width?: T;
+                                      customWidth?: T;
+                                      padding?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            right?: T;
+                                            bottom?: T;
+                                            left?: T;
+                                          };
+                                      margin?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            bottom?: T;
+                                          };
+                                      background?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      textColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      radius?: T;
+                                      shadow?: T;
+                                      border?:
+                                        | T
+                                        | {
+                                            style?: T;
+                                            width?: T;
+                                            color?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                          };
+                                      hideOn?: T;
+                                      anchorId?: T;
+                                      cssClass?: T;
+                                    };
+                                id?: T;
+                                blockName?: T;
+                              };
+                          features?:
+                            | T
+                            | {
+                                items?:
+                                  | T
+                                  | {
+                                      title?: T;
+                                      text?: T;
+                                      icon?: T;
+                                      image?: T;
+                                      href?: T;
+                                      newTab?: T;
+                                      id?: T;
+                                    };
+                                columns?: T;
+                                gap?: T;
+                                cardAlign?: T;
+                                radius?: T;
+                                cardBackground?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                                cardBorder?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                                titleColor?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                                iconColor?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                                style?:
+                                  | T
+                                  | {
+                                      align?: T;
+                                      width?: T;
+                                      customWidth?: T;
+                                      padding?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            right?: T;
+                                            bottom?: T;
+                                            left?: T;
+                                          };
+                                      margin?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            bottom?: T;
+                                          };
+                                      background?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      textColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      radius?: T;
+                                      shadow?: T;
+                                      border?:
+                                        | T
+                                        | {
+                                            style?: T;
+                                            width?: T;
+                                            color?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                          };
+                                      hideOn?: T;
+                                      anchorId?: T;
+                                      cssClass?: T;
+                                    };
+                                id?: T;
+                                blockName?: T;
+                              };
+                          accordion?:
+                            | T
+                            | {
+                                items?:
+                                  | T
+                                  | {
+                                      title?: T;
+                                      content?: T;
+                                      id?: T;
+                                    };
+                                allowMultiple?: T;
+                                openFirst?: T;
+                                radius?: T;
+                                titleColor?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                                borderColor?:
+                                  | T
+                                  | {
+                                      token?: T;
+                                      custom?: T;
+                                    };
+                                style?:
+                                  | T
+                                  | {
+                                      align?: T;
+                                      width?: T;
+                                      customWidth?: T;
+                                      padding?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            right?: T;
+                                            bottom?: T;
+                                            left?: T;
+                                          };
+                                      margin?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            bottom?: T;
+                                          };
+                                      background?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      textColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      radius?: T;
+                                      shadow?: T;
+                                      border?:
+                                        | T
+                                        | {
+                                            style?: T;
+                                            width?: T;
+                                            color?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                          };
+                                      hideOn?: T;
+                                      anchorId?: T;
+                                      cssClass?: T;
+                                    };
+                                id?: T;
+                                blockName?: T;
+                              };
+                          savedComponent?:
+                            | T
+                            | {
+                                component?: T;
+                                style?:
+                                  | T
+                                  | {
+                                      align?: T;
+                                      width?: T;
+                                      customWidth?: T;
+                                      padding?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            right?: T;
+                                            bottom?: T;
+                                            left?: T;
+                                          };
+                                      margin?:
+                                        | T
+                                        | {
+                                            top?: T;
+                                            bottom?: T;
+                                          };
+                                      background?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      textColor?:
+                                        | T
+                                        | {
+                                            token?: T;
+                                            custom?: T;
+                                          };
+                                      radius?: T;
+                                      shadow?: T;
+                                      border?:
+                                        | T
+                                        | {
+                                            style?: T;
+                                            width?: T;
+                                            color?:
+                                              | T
+                                              | {
+                                                  token?: T;
+                                                  custom?: T;
+                                                };
+                                          };
+                                      hideOn?: T;
+                                      anchorId?: T;
+                                      cssClass?: T;
+                                    };
+                                id?: T;
+                                blockName?: T;
+                              };
+                        };
+                    id?: T;
+                  };
+              style?:
+                | T
+                | {
+                    align?: T;
+                    width?: T;
+                    customWidth?: T;
+                    padding?:
+                      | T
+                      | {
+                          top?: T;
+                          right?: T;
+                          bottom?: T;
+                          left?: T;
+                        };
+                    margin?:
+                      | T
+                      | {
+                          top?: T;
+                          bottom?: T;
+                        };
+                    background?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    textColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    radius?: T;
+                    shadow?: T;
+                    border?:
+                      | T
+                      | {
+                          style?: T;
+                          width?: T;
+                          color?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                        };
+                    hideOn?: T;
+                    anchorId?: T;
+                    cssClass?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        divider?:
+          | T
+          | {
+              thickness?: T;
+              widthPercent?: T;
+              lineStyle?: T;
+              color?:
+                | T
+                | {
+                    token?: T;
+                    custom?: T;
+                  };
+              style?:
+                | T
+                | {
+                    align?: T;
+                    width?: T;
+                    customWidth?: T;
+                    padding?:
+                      | T
+                      | {
+                          top?: T;
+                          right?: T;
+                          bottom?: T;
+                          left?: T;
+                        };
+                    margin?:
+                      | T
+                      | {
+                          top?: T;
+                          bottom?: T;
+                        };
+                    background?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    textColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    radius?: T;
+                    shadow?: T;
+                    border?:
+                      | T
+                      | {
+                          style?: T;
+                          width?: T;
+                          color?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                        };
+                    hideOn?: T;
+                    anchorId?: T;
+                    cssClass?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        spacer?:
+          | T
+          | {
+              height?: T;
+              heightMobile?: T;
+              style?:
+                | T
+                | {
+                    align?: T;
+                    width?: T;
+                    customWidth?: T;
+                    padding?:
+                      | T
+                      | {
+                          top?: T;
+                          right?: T;
+                          bottom?: T;
+                          left?: T;
+                        };
+                    margin?:
+                      | T
+                      | {
+                          top?: T;
+                          bottom?: T;
+                        };
+                    background?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    textColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    radius?: T;
+                    shadow?: T;
+                    border?:
+                      | T
+                      | {
+                          style?: T;
+                          width?: T;
+                          color?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                        };
+                    hideOn?: T;
+                    anchorId?: T;
+                    cssClass?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        gallery?:
+          | T
+          | {
+              images?: T;
+              columns?: T;
+              gap?: T;
+              aspectRatio?: T;
+              radius?: T;
+              lightbox?: T;
+              showCaptions?: T;
+              style?:
+                | T
+                | {
+                    align?: T;
+                    width?: T;
+                    customWidth?: T;
+                    padding?:
+                      | T
+                      | {
+                          top?: T;
+                          right?: T;
+                          bottom?: T;
+                          left?: T;
+                        };
+                    margin?:
+                      | T
+                      | {
+                          top?: T;
+                          bottom?: T;
+                        };
+                    background?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    textColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    radius?: T;
+                    shadow?: T;
+                    border?:
+                      | T
+                      | {
+                          style?: T;
+                          width?: T;
+                          color?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                        };
+                    hideOn?: T;
+                    anchorId?: T;
+                    cssClass?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        carousel?:
+          | T
+          | {
+              slides?:
+                | T
+                | {
+                    image?: T;
+                    caption?: T;
+                    href?: T;
+                    newTab?: T;
+                    id?: T;
+                  };
+              slidesPerView?: T;
+              gap?: T;
+              aspectRatio?: T;
+              radius?: T;
+              autoplay?: T;
+              interval?: T;
+              loop?: T;
+              showArrows?: T;
+              showDots?: T;
+              style?:
+                | T
+                | {
+                    align?: T;
+                    width?: T;
+                    customWidth?: T;
+                    padding?:
+                      | T
+                      | {
+                          top?: T;
+                          right?: T;
+                          bottom?: T;
+                          left?: T;
+                        };
+                    margin?:
+                      | T
+                      | {
+                          top?: T;
+                          bottom?: T;
+                        };
+                    background?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    textColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    radius?: T;
+                    shadow?: T;
+                    border?:
+                      | T
+                      | {
+                          style?: T;
+                          width?: T;
+                          color?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                        };
+                    hideOn?: T;
+                    anchorId?: T;
+                    cssClass?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        video?:
+          | T
+          | {
+              source?: T;
+              file?: T;
+              url?: T;
+              poster?: T;
+              aspectRatio?: T;
+              radius?: T;
+              controls?: T;
+              autoplay?: T;
+              loop?: T;
+              muted?: T;
+              style?:
+                | T
+                | {
+                    align?: T;
+                    width?: T;
+                    customWidth?: T;
+                    padding?:
+                      | T
+                      | {
+                          top?: T;
+                          right?: T;
+                          bottom?: T;
+                          left?: T;
+                        };
+                    margin?:
+                      | T
+                      | {
+                          top?: T;
+                          bottom?: T;
+                        };
+                    background?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    textColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    radius?: T;
+                    shadow?: T;
+                    border?:
+                      | T
+                      | {
+                          style?: T;
+                          width?: T;
+                          color?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                        };
+                    hideOn?: T;
+                    anchorId?: T;
+                    cssClass?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        hero?:
+          | T
+          | {
               image?: T;
-              href?: T;
+              heading?: T;
+              subheading?: T;
+              height?: T;
+              align?: T;
+              overlayOpacity?: T;
+              radius?: T;
+              textColor?:
+                | T
+                | {
+                    token?: T;
+                    custom?: T;
+                  };
+              buttons?:
+                | T
+                | {
+                    label?: T;
+                    variant?: T;
+                    href?: T;
+                    newTab?: T;
+                    size?: T;
+                    radius?: T;
+                    background?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    textColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    borderColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    fullWidth?: T;
+                    id?: T;
+                  };
+              style?:
+                | T
+                | {
+                    align?: T;
+                    width?: T;
+                    customWidth?: T;
+                    padding?:
+                      | T
+                      | {
+                          top?: T;
+                          right?: T;
+                          bottom?: T;
+                          left?: T;
+                        };
+                    margin?:
+                      | T
+                      | {
+                          top?: T;
+                          bottom?: T;
+                        };
+                    background?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    textColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    radius?: T;
+                    shadow?: T;
+                    border?:
+                      | T
+                      | {
+                          style?: T;
+                          width?: T;
+                          color?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                        };
+                    hideOn?: T;
+                    anchorId?: T;
+                    cssClass?: T;
+                  };
               id?: T;
+              blockName?: T;
             };
-        columns?: T;
-        gap?: T;
-        cardBackground?:
+        cta?:
           | T
           | {
-              token?: T;
-              custom?: T;
+              heading?: T;
+              text?: T;
+              buttons?:
+                | T
+                | {
+                    label?: T;
+                    variant?: T;
+                    href?: T;
+                    newTab?: T;
+                    size?: T;
+                    radius?: T;
+                    background?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    textColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    borderColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    fullWidth?: T;
+                    id?: T;
+                  };
+              align?: T;
+              padding?: T;
+              background?:
+                | T
+                | {
+                    token?: T;
+                    custom?: T;
+                  };
+              textColor?:
+                | T
+                | {
+                    token?: T;
+                    custom?: T;
+                  };
+              radius?: T;
+              style?:
+                | T
+                | {
+                    align?: T;
+                    width?: T;
+                    customWidth?: T;
+                    padding?:
+                      | T
+                      | {
+                          top?: T;
+                          right?: T;
+                          bottom?: T;
+                          left?: T;
+                        };
+                    margin?:
+                      | T
+                      | {
+                          top?: T;
+                          bottom?: T;
+                        };
+                    background?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    textColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    radius?: T;
+                    shadow?: T;
+                    border?:
+                      | T
+                      | {
+                          style?: T;
+                          width?: T;
+                          color?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                        };
+                    hideOn?: T;
+                    anchorId?: T;
+                    cssClass?: T;
+                  };
+              id?: T;
+              blockName?: T;
             };
-        cardBorder?:
+        features?:
           | T
           | {
-              token?: T;
-              custom?: T;
+              items?:
+                | T
+                | {
+                    title?: T;
+                    text?: T;
+                    icon?: T;
+                    image?: T;
+                    href?: T;
+                    newTab?: T;
+                    id?: T;
+                  };
+              columns?: T;
+              gap?: T;
+              cardAlign?: T;
+              radius?: T;
+              cardBackground?:
+                | T
+                | {
+                    token?: T;
+                    custom?: T;
+                  };
+              cardBorder?:
+                | T
+                | {
+                    token?: T;
+                    custom?: T;
+                  };
+              titleColor?:
+                | T
+                | {
+                    token?: T;
+                    custom?: T;
+                  };
+              iconColor?:
+                | T
+                | {
+                    token?: T;
+                    custom?: T;
+                  };
+              style?:
+                | T
+                | {
+                    align?: T;
+                    width?: T;
+                    customWidth?: T;
+                    padding?:
+                      | T
+                      | {
+                          top?: T;
+                          right?: T;
+                          bottom?: T;
+                          left?: T;
+                        };
+                    margin?:
+                      | T
+                      | {
+                          top?: T;
+                          bottom?: T;
+                        };
+                    background?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    textColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    radius?: T;
+                    shadow?: T;
+                    border?:
+                      | T
+                      | {
+                          style?: T;
+                          width?: T;
+                          color?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                        };
+                    hideOn?: T;
+                    anchorId?: T;
+                    cssClass?: T;
+                  };
+              id?: T;
+              blockName?: T;
             };
-        titleColor?:
+        accordion?:
           | T
           | {
-              token?: T;
-              custom?: T;
+              items?:
+                | T
+                | {
+                    title?: T;
+                    content?: T;
+                    id?: T;
+                  };
+              allowMultiple?: T;
+              openFirst?: T;
+              radius?: T;
+              titleColor?:
+                | T
+                | {
+                    token?: T;
+                    custom?: T;
+                  };
+              borderColor?:
+                | T
+                | {
+                    token?: T;
+                    custom?: T;
+                  };
+              style?:
+                | T
+                | {
+                    align?: T;
+                    width?: T;
+                    customWidth?: T;
+                    padding?:
+                      | T
+                      | {
+                          top?: T;
+                          right?: T;
+                          bottom?: T;
+                          left?: T;
+                        };
+                    margin?:
+                      | T
+                      | {
+                          top?: T;
+                          bottom?: T;
+                        };
+                    background?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    textColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    radius?: T;
+                    shadow?: T;
+                    border?:
+                      | T
+                      | {
+                          style?: T;
+                          width?: T;
+                          color?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                        };
+                    hideOn?: T;
+                    anchorId?: T;
+                    cssClass?: T;
+                  };
+              id?: T;
+              blockName?: T;
             };
-        radius?: T;
+        savedComponent?:
+          | T
+          | {
+              component?: T;
+              style?:
+                | T
+                | {
+                    align?: T;
+                    width?: T;
+                    customWidth?: T;
+                    padding?:
+                      | T
+                      | {
+                          top?: T;
+                          right?: T;
+                          bottom?: T;
+                          left?: T;
+                        };
+                    margin?:
+                      | T
+                      | {
+                          top?: T;
+                          bottom?: T;
+                        };
+                    background?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    textColor?:
+                      | T
+                      | {
+                          token?: T;
+                          custom?: T;
+                        };
+                    radius?: T;
+                    shadow?: T;
+                    border?:
+                      | T
+                      | {
+                          style?: T;
+                          width?: T;
+                          color?:
+                            | T
+                            | {
+                                token?: T;
+                                custom?: T;
+                              };
+                        };
+                    hideOn?: T;
+                    anchorId?: T;
+                    cssClass?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
       };
   slug?: T;
   description?: T;

@@ -30,7 +30,7 @@ Status: all 22 Centrum pages are built and bilingual against the scraper mirror 
 | UI primitives | Container (the max-width fix), Button, SectionHeading | `src/components/ui/` |
 | Centrum components | Header, Footer, Hero, PromoBar, and the other section blocks | `src/components/centrum/` |
 | Payload CMS | Admin UI, REST/GraphQL, auth, uploads | `src/app/(payload)/`, `src/payload.config.ts`, `src/collections/`, `src/globals/` |
-| Admin shell / nav | Custom nested sidebar + coming-soon stubs + package updates view | `src/admin/nav-tree.ts`, `src/components/admin/AdminNav.tsx`, `ComingSoonView.tsx`, `UpdatesView.tsx`, `src/lib/package-updates.ts` |
+| Admin shell / nav | Custom nested sidebar + package updates/libraries views | `src/admin/nav-tree.ts`, `src/components/admin/AdminNav.tsx`, `ComingSoonView.tsx`, `UpdatesView.tsx`, `LibrariesView.tsx`, `src/lib/package-updates.ts`, `src/app/api/admin/package-updates/` |
 | Media library | Upload a11y/SEO fields, conversion, explorer UI | `src/collections/Media.ts`, `src/components/admin/media/`, `docs/media.md` |
 | Access / roles | RBAC helpers | `src/access/` |
 | PostgreSQL | CMS data store (local Docker; same on Hetzner VPS) | `docker-compose.yml` (dev) |

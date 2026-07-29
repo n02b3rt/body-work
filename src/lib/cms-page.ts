@@ -32,8 +32,11 @@ export function pagePath(page: Pick<Page, "breadcrumbs" | "slug">): string {
  *
  * `_status` is filtered explicitly: with drafts enabled the collection's own
  * table holds the draft too, so leaving it out would publish unfinished pages.
- * `depth: 2` resolves the component on each section (depth 1) and the media and
- * linked buttons inside it (depth 2).
+ *
+ * `depth: 3` because population counts relationship hops, not field nesting: an
+ * upload inside a section's elements is one hop, a `savedComponent` is one and
+ * its own pictures are two. Three leaves room for a composition that embeds
+ * another one. Below that, photographs render as bare ids.
  */
 export async function findPublishedPage(path: string): Promise<CmsPage | null> {
   const segments = path.split("/").filter(Boolean);
@@ -44,7 +47,7 @@ export async function findPublishedPage(path: string): Promise<CmsPage | null> {
     const payload = await getPayload({ config });
     const result = await payload.find({
       collection: "pages",
-      depth: 2,
+      depth: 3,
       limit: 1,
       where: {
         and: [{ slug: { equals: slug } }, { _status: { not_equals: "draft" } }],

@@ -1,10 +1,17 @@
 /**
- * The page builder's data model: an ordered list of sections, each one a
- * placement of a component from "Wygląd → Komponenty".
+ * The page builder's data model: an ordered list of sections, each holding its
+ * own tree of elements.
  *
- * The overrides live on the *placement*, not on the component, so the same
- * component can sit on a dark full-bleed band on one page and inside a narrow
- * column on another without being duplicated in the component library.
+ * A section is the band across the page — width, vertical spacing, background,
+ * anchor. What is *in* it comes from the element library
+ * (`src/fields/elements/`), configured per placement: a heading here can be
+ * centred and a heading there left-aligned without either of them being a
+ * separate saved thing.
+ *
+ * Sections used to be placements of a `site-components` document. That
+ * collection now holds **saved compositions**, reachable through the
+ * `savedComponent` element, which keeps the "edit once, updates everywhere"
+ * behaviour for the layouts that actually need it.
  *
  * The array is edited through `PageBuilder`, a custom Field component. Payload's
  * stock array UI still works if that component is ever removed: no data here
@@ -13,7 +20,8 @@
 
 import type { ArrayField } from 'payload'
 
-import { colorChoice } from './component-settings/shared'
+import { elementsField } from './elements'
+import { colorChoice } from './elements/shared'
 import { SECTION_SPACING_OPTIONS, SECTION_WIDTH_OPTIONS } from '@/lib/page-sections'
 
 export const pageLayoutField: ArrayField = {
@@ -23,22 +31,21 @@ export const pageLayoutField: ArrayField = {
   labels: { singular: 'Sekcja', plural: 'Sekcje' },
   admin: {
     description:
-      'Ułóż stronę z gotowych komponentów. Komponenty dodajesz i edytujesz w Zarządzanie → Wygląd → Komponenty.',
+      'Ułóż stronę z elementów. Powtarzalne złożenia zapisujesz w Zarządzanie → Wygląd → Komponenty.',
     components: {
       Field: '/components/admin/builder/PageBuilder#PageBuilder',
     },
   },
   fields: [
     {
-      name: 'component',
-      type: 'relationship',
-      relationTo: 'site-components',
-      label: 'Komponent',
-      required: true,
+      name: 'name',
+      type: 'text',
+      label: 'Nazwa sekcji',
       admin: {
-        description: 'Który komponent z biblioteki wyświetlić w tym miejscu.',
+        description: 'Tylko dla porządku w kreatorze, nie pojawia się na stronie.',
       },
     },
+    elementsField(),
     {
       type: 'row',
       fields: [

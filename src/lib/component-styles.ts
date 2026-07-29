@@ -9,7 +9,25 @@ export const RADIUS_VALUES = {
   sm: '4px',
   md: '10px',
   lg: '20px',
+  xl: '32px',
   full: '999px',
+} as const
+
+export const SHADOW_VALUES = {
+  none: 'none',
+  sm: '0 1px 2px rgb(0 0 0 / 0.08)',
+  md: '0 8px 24px rgb(0 0 0 / 0.10)',
+  lg: '0 20px 45px rgb(0 0 0 / 0.16)',
+} as const
+
+/** Spacing scale shared by paddings, margins and gaps set on an element. */
+export const SPACE_VALUES = {
+  none: '0',
+  xs: '0.25rem',
+  sm: '0.5rem',
+  md: '1rem',
+  lg: '2rem',
+  xl: '3.5rem',
 } as const
 
 export const BUTTON_SIZE_VALUES = {
@@ -41,6 +59,8 @@ export const ASPECT_RATIO_VALUES = {
 } as const
 
 export type RadiusKey = keyof typeof RADIUS_VALUES
+export type ShadowKey = keyof typeof SHADOW_VALUES
+export type SpaceKey = keyof typeof SPACE_VALUES
 export type ButtonSizeKey = keyof typeof BUTTON_SIZE_VALUES
 export type SectionHeightKey = keyof typeof SECTION_HEIGHT_VALUES
 export type GapKey = keyof typeof GAP_VALUES
