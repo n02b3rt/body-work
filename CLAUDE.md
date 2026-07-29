@@ -32,7 +32,7 @@ Don't grep for context that's already written down. Find the topic below, read t
 | What's in the scraped Centrum mirror and which URL maps to which folder | `docs/scraped-site-map.md` |
 | Page-by-page migration status (built? bilingual? visually verified?) | `docs/migration-tracker.md` |
 | The page builder: section model, builder UI, public renderer | `docs/page-builder.md` |
-| **Several agents working at once**: worktrees, one DB/port each, who owns which files | `docs/parallel-agents.md` |
+| **Several agents working at once**: worktrees, one DB/port each, who owns which files | `docs/parallel-agents.md`; the two procedures live in `docs/runbooks/` and every tool's skill/command file just points at them |
 
 Domain-specific critical decisions and gotchas live inside the relevant `docs/<topic>.md` file (its own "Decisions"/"Gotchas" section), not dumped into this file or into one giant notes file. See `docs/conventions.md` for the pattern.
 

@@ -112,9 +112,38 @@ everything above it.
 - **`pnpm build`** reserves a 4 GB heap (see `package.json`). Three at once will
   swap the machine; run builds one at a time.
 
-## 7. Same rules for every tool
+## 7. The two runbooks, one per tool
 
-`AGENTS.md` points every non-Claude agent at `CLAUDE.md`. Tools that only read one
+Two procedures carry this workflow:
+
+| Runbook | When | What it does |
+|---|---|---|
+| `docs/runbooks/start-parallel-work.md` | before starting a task next to another agent | picks a free slot (worktree, branch off `origin/main`, database, port), copies and patches `.env`, installs, writes `.agent-scope` |
+| `docs/runbooks/post-merge-sync.md` | right after any PR lands in `main` | rebases this worktree, regenerates the types and import map, pushes the schema to **this slot's** database, verifies |
+
+A slot is a sandbox, not a specialisation: `start-parallel-work` deliberately does
+not tie slot `a` to any folder. The scope comes from the task the agent was given
+and is recorded in `.agent-scope` (excluded via `.git/info/exclude`), so the other
+agents can see what is taken.
+
+**The runbooks are the only copy of the procedure.** Each tool gets a pointer, never
+a paraphrase, so the three agents cannot drift apart:
+
+| Tool | Adapter | Invoked as |
+|---|---|---|
+| Claude Code | `.claude/skills/<name>/SKILL.md` | model-invoked, or `/<name>` |
+| Cursor | `.cursor/commands/<name>.md` | `/<name>` |
+| Cursor (always-on guardrails) | `.cursor/rules/parallel-agents.mdc` | automatic |
+| anything else (Grok CLI, …) | `prompts/parallel-agent-bootstrap.md` | paste, or point the tool's own instruction file at the runbook |
+
+Adding a tool means adding a pointer file, not another copy of the steps. If you
+find yourself editing the same instruction twice, the split has been broken —
+fix it back.
+
+## 8. Same rules for every tool
+
+`AGENTS.md` points every non-Claude agent at `CLAUDE.md`. Tools without skill
+support run sections 1–6 by hand — the steps are the same. Tools that only read one
 file need this page's essentials pasted into their system prompt: branch prefix
 with the agent's letter, never edit generated files, never `docker compose down
 -v`, never commit to `main`.
