@@ -9,8 +9,22 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
+/** Dev dashboard host + agent ports — keep in sync with `csrfAndCorsOrigins` in payload.config. */
+const dashboardHost = process.env.DASHBOARD_HOST || "dash.localhost";
+const serverActionOrigins =
+  process.env.NODE_ENV === "production"
+    ? undefined
+    : [3000, 3001, 3002, 3003, 3004, 3005].flatMap((port) => [
+        `${dashboardHost}:${port}`,
+        `localhost:${port}`,
+        `127.0.0.1:${port}`,
+      ]);
+
 const nextConfig: NextConfig = {
   serverExternalPackages: ["@ffmpeg-installer/ffmpeg", "fluent-ffmpeg", "sharp"],
+  ...(serverActionOrigins
+    ? { experimental: { serverActions: { allowedOrigins: serverActionOrigins } } }
+    : {}),
   images: {
     // Setting `localPatterns` at all switches next/image from "any local path" to an
     // allowlist — anything unmatched fails with `next-image-unconfigured-localpatterns`.

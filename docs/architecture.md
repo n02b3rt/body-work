@@ -78,6 +78,8 @@ Record deliberate choices so nobody re-litigates them a month later without caus
 
 - **`payload run` strips extra argv.** `process.argv` inside a script contains only the node binary and Payload's `bin.js`, so a `--dry` style flag silently reads as absent, a "dry run" of `scripts/fix-blog-from-reference.ts` wrote all 62 posts before this was understood. Pass switches as environment variables (`DRY=1 pnpm payload run …`) and print the active mode at startup.
 
+- **Admin POSTs need CSRF Origin to match the dashboard URL (and port).** Payload accepts the session cookie on GETs via `Sec-Fetch-Site`, but on POST it requires `Origin` ∈ `config.csrf`. A parallel-agent port drift (`pnpm dev` on :3000 while `.env` has `NEXT_PUBLIC_DASHBOARD_URL=…:3003`) leaves the panel looking logged in while save/form-state return Unauthorized / 403. Dev csrf/cors also allow ports 3000–3005 for `dash.localhost` / `localhost` / `127.0.0.1`; still prefer matching `.env` to `--port`. See [`parallel-agents.md`](./parallel-agents.md).
+
 - **A programmatic scroll does not drive `IntersectionObserver` in the browser-automation context.** `window.scrollTo(...)` evaluated through the extension moves `scrollY` and reflows, but no observer callback is delivered, not even the initial one the spec guarantees on `observe()`. This cost real time on the blog listing's lazy rendering: a hand-attached probe observer logged **zero** events, which reads exactly like a broken effect. Verifying with a real scroll (the `computer` tool's scroll action) revealed the code had been correct all along. **When checking anything driven by an observer, use real input events.**
 
 ## Integrations / external dependencies

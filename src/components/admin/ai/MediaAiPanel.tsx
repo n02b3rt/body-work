@@ -65,11 +65,7 @@ export const MediaAiPanel: UIFieldClientComponent = () => {
   }
 
   if (!id && !url) {
-    return (
-      <div className="bw-ai__panel">
-        <p className="bw-ai__hint">Zapisz media, aby móc zaproponować ALT z obrazu.</p>
-      </div>
-    )
+    return null
   }
 
   return (

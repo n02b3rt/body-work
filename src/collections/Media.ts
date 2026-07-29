@@ -6,12 +6,7 @@ import type {
 } from 'payload'
 
 import { staff } from '@/access/roles'
-import {
-  compressUploadFile,
-  type ConvertFormat,
-  type ImageQuality,
-  type MaxDimension,
-} from '@/lib/compress-media'
+import { compressUploadFile } from '@/lib/compress-media'
 import { formatSlug } from '@/lib/format-slug'
 import {
   mediaKindFromMime,
@@ -25,9 +20,9 @@ function asString(value: unknown): string | undefined {
 
 function readCompressOptions(data: Record<string, unknown> | undefined) {
   return {
-    convertFormat: (asString(data?.convertFormat) as ConvertFormat | undefined) ?? 'optimized',
-    maxDimension: (asString(data?.maxDimension) as MaxDimension | undefined) ?? '1920',
-    imageQuality: (asString(data?.imageQuality) as ImageQuality | undefined) ?? 'balanced',
+    convertFormat: asString(data?.convertFormat) ?? 'optimized',
+    maxDimension: asString(data?.maxDimension) ?? '1920',
+    imageQuality: asString(data?.imageQuality) ?? 'balanced',
   }
 }
 
@@ -68,8 +63,12 @@ const autofillFromFilename: CollectionBeforeValidateHook = async ({ data, req, o
   const filename = req.file?.name || asString(data.filename) || ''
   const mime = req.file?.mimetype || asString(data.mimeType)
 
-  if (!asString(data.kind)) {
+  // Always classify from MIME when we know it. `defaultValue: 'other'` used to leave
+  // `kind` stuck on "Inne" because the empty-check treated that preset as intentional.
+  if (mime) {
     data.kind = mediaKindFromMime(mime)
+  } else if (!asString(data.kind)) {
+    data.kind = 'other'
   }
 
   if (filename) {
@@ -98,9 +97,15 @@ const autofillFromFilename: CollectionBeforeValidateHook = async ({ data, req, o
   return data
 }
 
-const syncKindFromMime: CollectionBeforeChangeHook = ({ data, originalDoc }) => {
-  const mime = asString(data?.mimeType) || asString(originalDoc?.mimeType)
-  if (mime && !asString(data?.kind)) {
+const syncKindFromMime: CollectionBeforeChangeHook = ({ data, originalDoc, req }) => {
+  const mime =
+    req.file?.mimetype || asString(data?.mimeType) || asString(originalDoc?.mimeType)
+
+  // On file replace / create, MIME wins. On metadata-only edits, keep the stored kind
+  // unless it was never set.
+  if (req.file?.mimetype) {
+    data.kind = mediaKindFromMime(req.file.mimetype)
+  } else if (mime && !asString(data?.kind)) {
     data.kind = mediaKindFromMime(mime)
   }
 
@@ -120,8 +125,7 @@ export const Media: CollectionConfig = {
   admin: {
     group: 'Treści',
     useAsTitle: 'title',
-    description:
-      'Biblioteka mediów z polami dostępności/SEO, konwersją formatu i widokiem eksploratora.',
+    description: 'Biblioteka plików.',
     defaultColumns: ['filename', 'alt', 'kind', 'mimeType', 'filesize', 'updatedAt'],
     listSearchableFields: ['title', 'alt', 'filename', 'slug', 'caption', 'tags'],
     pagination: {
@@ -129,6 +133,10 @@ export const Media: CollectionConfig = {
       limits: [24, 48, 96],
     },
     components: {
+      edit: {
+        beforeDocumentControls: ['/components/admin/media/MediaGotoLibrary#MediaGotoLibrary'],
+        SaveButton: '/components/admin/media/MediaSaveButton#MediaSaveButton',
+      },
       views: {
         list: {
           Component: '/components/admin/media/MediaLibrary#MediaLibrary',
@@ -149,6 +157,15 @@ export const Media: CollectionConfig = {
   },
   fields: [
     {
+      name: 'autofill',
+      type: 'ui',
+      admin: {
+        components: {
+          Field: '/components/admin/media/MediaAutofill#MediaAutofill',
+        },
+      },
+    },
+    {
       name: 'aiAssist',
       type: 'ui',
       admin: {
@@ -162,160 +179,142 @@ export const Media: CollectionConfig = {
       type: 'textarea',
       label: 'Placeholder (LQIP)',
       admin: {
+        hidden: true,
         readOnly: true,
-        description: 'Rozmyta miniatura w base64, używana podczas ładowania zdjęcia.',
-        position: 'sidebar',
       },
     },
     {
-      type: 'tabs',
-      tabs: [
+      type: 'group',
+      label: 'Dostępność',
+      admin: {
+        hideGutter: false,
+      },
+      fields: [
         {
-          label: 'Dostępność i SEO',
-          fields: [
-            {
-              name: 'title',
-              type: 'text',
-              label: 'Tytuł',
-              admin: {
-                description: 'Nazwa wyświetlana w bibliotece. Domyślnie z nazwy pliku.',
-              },
-            },
-            {
-              name: 'alt',
-              type: 'text',
-              label: 'Tekst alternatywny (ALT)',
-              validate: (
-                value: unknown,
-                { data }: { data?: Partial<{ isDecorative?: boolean | null }> },
-              ) => {
-                if (data?.isDecorative) return true
-                if (typeof value === 'string' && value.trim().length > 0) return true
-                return 'Podaj ALT albo oznacz plik jako dekoracyjny.'
-              },
-              admin: {
-                description:
-                  'Wymagany dla dostępności i SEO (chyba że dekoracyjny). Uzupełniany z nazwy pliku: sprawdź i popraw.',
-              },
-            },
-            {
-              name: 'isDecorative',
-              type: 'checkbox',
-              label: 'Obraz dekoracyjny (pusty ALT)',
-              defaultValue: false,
-              admin: {
-                description:
-                  'Zaznacz, gdy obraz nie niesie informacji (tło, ozdoba). ALT będzie traktowany jako pusty.',
-              },
-            },
-            {
-              name: 'caption',
-              type: 'text',
-              label: 'Podpis',
-              admin: {
-                description: 'Opcjonalny podpis widoczny przy obrazie na stronie.',
-              },
-            },
-            {
-              name: 'description',
-              type: 'textarea',
-              label: 'Opis',
-              admin: {
-                description: 'Dłuższy opis kontekstu (SEO, redakcja, wyszukiwanie w bibliotece).',
-              },
-            },
-            {
-              name: 'slug',
-              type: 'text',
-              label: 'Slug',
-              unique: true,
-              index: true,
-              admin: {
-                description: 'Identyfikator URL / nazwy pliku. Domyślnie z nazwy pliku.',
-              },
-            },
-            {
-              name: 'tags',
-              type: 'text',
-              label: 'Tagi',
-              hasMany: true,
-              admin: {
-                description: 'Słowa kluczowe do filtrowania w bibliotece (np. fizjoterapia, sala).',
-              },
-            },
-          ],
+          name: 'title',
+          type: 'text',
+          label: 'Tytuł',
         },
         {
-          label: 'Konwersja',
-          fields: [
-            {
-              name: 'convertFormat',
-              type: 'select',
-              label: 'Format wyjściowy',
-              defaultValue: 'optimized',
-              options: [
-                { label: 'Zoptymalizowany (WebP / WebM)', value: 'optimized' },
-                { label: 'AVIF (tylko obrazy)', value: 'avif' },
-                { label: 'Bez konwersji (oryginał)', value: 'original' },
-              ],
-              admin: {
-                description:
-                  'Stosowane przy uploadzie / wymianie pliku. Domyślnie WebP dla obrazów i WebM dla wideo.',
-              },
-            },
-            {
-              name: 'maxDimension',
-              type: 'select',
-              label: 'Maks. dłuższy bok',
-              defaultValue: '1920',
-              options: [
-                { label: '1920 px (zalecane)', value: '1920' },
-                { label: '1280 px (lżejsze)', value: '1280' },
-                { label: '2560 px (retina / hero)', value: '2560' },
-                { label: 'Bez zmiany rozmiaru', value: 'none' },
-              ],
-              admin: {
-                description:
-                  'Skalowanie obrazów przed zapisem (ignorowane dla wideo). 1920 px to dobry kompromis jakość/waga.',
-              },
-            },
-            {
-              name: 'imageQuality',
-              type: 'select',
-              label: 'Jakość obrazu',
-              defaultValue: 'balanced',
-              options: [
-                { label: 'Zrównoważona (82)', value: 'balanced' },
-                { label: 'Wysoka (90)', value: 'high' },
-                { label: 'Mały plik (70)', value: 'small' },
-              ],
-              admin: {
-                description: 'Dotyczy konwersji WebP / AVIF (ignorowane przy „bez konwersji”).',
-                condition: (_, siblingData) => siblingData?.convertFormat !== 'original',
-              },
-            },
-          ],
+          name: 'alt',
+          type: 'text',
+          label: 'Tekst alternatywny (ALT)',
+          validate: (
+            value: unknown,
+            { data }: { data?: Partial<{ isDecorative?: boolean | null }> },
+          ) => {
+            if (data?.isDecorative) return true
+            if (typeof value === 'string' && value.trim().length > 0) return true
+            return 'Podaj ALT albo oznacz plik jako dekoracyjny.'
+          },
+          admin: {
+            description: 'Wymagany, chyba że dekoracyjny.',
+          },
         },
         {
-          label: 'Klasyfikacja',
-          fields: [
-            {
-              name: 'kind',
-              type: 'select',
-              label: 'Typ',
-              defaultValue: 'other',
-              index: true,
-              options: [
-                { label: 'Obraz', value: 'image' },
-                { label: 'Wideo', value: 'video' },
-                { label: 'Dokument', value: 'document' },
-                { label: 'Inne', value: 'other' },
-              ],
-              admin: {
-                description: 'Ustawiane automatycznie z MIME; używane do folderów w bibliotece.',
-                position: 'sidebar',
-              },
+          name: 'isDecorative',
+          type: 'checkbox',
+          label: 'Obraz dekoracyjny (pusty ALT)',
+          defaultValue: false,
+          admin: {
+            description: 'Pusty ALT.',
+          },
+        },
+        {
+          name: 'caption',
+          type: 'text',
+          label: 'Podpis',
+        },
+        {
+          name: 'description',
+          type: 'textarea',
+          label: 'Opis',
+        },
+        {
+          name: 'slug',
+          type: 'text',
+          label: 'Slug',
+          unique: true,
+          index: true,
+        },
+        {
+          name: 'tags',
+          type: 'text',
+          label: 'Tagi',
+          hasMany: true,
+          admin: {
+            description: 'Przecinek lub Enter.',
+            components: {
+              Field: '/components/admin/media/MediaTagsField#MediaTagsField',
             },
+          },
+        },
+      ],
+    },
+    {
+      type: 'group',
+      label: 'Konwersja',
+      fields: [
+        {
+          name: 'convertFormat',
+          type: 'select',
+          label: 'Format wyjściowy',
+          defaultValue: 'optimized',
+          options: [
+            { label: 'WebP / WebM (domyślnie)', value: 'optimized' },
+            { label: 'WebP', value: 'webp' },
+            { label: 'AVIF', value: 'avif' },
+            { label: 'JPEG', value: 'jpeg' },
+            { label: 'PNG', value: 'png' },
+            { label: 'WebM', value: 'webm' },
+            { label: 'MP4', value: 'mp4' },
+            { label: 'Bez zmian', value: 'original' },
+          ],
+          admin: {
+            description: 'Przy uploadzie lub wymianie pliku.',
+          },
+        },
+        {
+          name: 'maxDimension',
+          type: 'text',
+          label: 'Maks. rozmiar',
+          defaultValue: '1920',
+          admin: {
+            description: 'Dłuższy bok (px).',
+            components: {
+              Field: '/components/admin/media/MediaMaxSizeField#MediaMaxSizeField',
+            },
+          },
+        },
+        {
+          name: 'imageQuality',
+          type: 'text',
+          label: 'Jakość obrazu',
+          defaultValue: 'balanced',
+          admin: {
+            description: '1–100.',
+            condition: (_, siblingData) => siblingData?.convertFormat !== 'original',
+            components: {
+              Field: '/components/admin/media/MediaQualityField#MediaQualityField',
+            },
+          },
+        },
+      ],
+    },
+    {
+      type: 'group',
+      label: 'Typ',
+      fields: [
+        {
+          name: 'kind',
+          type: 'select',
+          label: 'Typ',
+          index: true,
+          options: [
+            { label: 'Obraz', value: 'image' },
+            { label: 'Wideo', value: 'video' },
+            { label: 'Dokument', value: 'document' },
+            { label: 'Inne', value: 'other' },
           ],
         },
       ],
@@ -325,10 +324,7 @@ export const Media: CollectionConfig = {
   // `placeholder="blur"`. The reference site ships one of these per image in its own
   // metadata, so the imported posts get theirs for free; see
   // `scripts/import-blur-placeholders.ts`. Anything uploaded later simply has none, and
-  // `next/image` falls back to no placeholder.
-  //
-  // Read-only in the panel: it is derived data, and a 300-character data URI in an editable
-  // field is only ever going to be pasted over by accident.
+  // `next/image` falls back to no placeholder. Hidden in the admin panel (derived data).
   upload: {
     mimeTypes: ['image/*', 'video/*', 'application/pdf'],
     // Payload generates these with sharp on upload, so the frontend can ask for a size

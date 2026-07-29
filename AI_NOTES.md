@@ -13,11 +13,29 @@
 
 -->
 
+## 2026-07-30: media create — no sidebar, short copy, back to library
+
+- **Done:** create/edit form has no right Placeholder column (`blurDataURL` is `admin.hidden`). Field labels/descriptions tightened to Admin UI copy rules. Successful create redirects to the library list (`/admin/c/media`) via `MediaSaveButton` + `MediaGotoLibrary` session marker.
+- **Decisions:** LQIP stays in the schema for the site, just not shown in the panel. Redirect is create-only; updates stay on the edit form.
+- **Watch out:** Payload still briefly aims at `/:id` after create — the marker catches that race. Clear leftover marker on the library mount.
+
 ## 2026-07-29: User accounts — roles, username, registration UX
 
 - **Done:** Roles are now `administrator` | `edytor` | `klient` (moderator gone, redaktor → edytor). Users have `username` (loginWithUsername + email), optional `firstName`/`lastName`, display via `getDisplayName`. First-user screen is a custom view (auto username, live uniqueness, password show/generate, confirm password). Admin create: same helpers, single password (confirm mirrored + CSS-hidden). Availability API at `/api/admin/users/availability`. Nav filtered for Edytor (Treści, E-commerce, Zarządzanie: Tłumaczenia/Wygląd/Ustawienia→Treści only). No public self-registration.
 - **Decisions:** Password generator is hand-rolled crypto (no new dep). Edytor gets content delete + ThemeColors update; Users and ops views stay admin-only. Checkout account creation deferred — helpers in `src/lib/users/` are ready to reuse.
 - **Watch out:** Existing rows with `role = redaktor|moderator` need a one-off update or a clean DB. Stock Payload Auth still renders confirm-password on create; we hide it only when `html.bw-users-create` is set by `UserFormEnhancements`. After schema change run `pnpm generate:types` + `pnpm generate:importmap`.
+
+## 2026-07-29: media save Unauthorized / 403 — CSRF port drift
+
+- **Done:** diagnosed "Nie możesz wykonać tej akcji" + form-state `UnauthorizedError` on media create as missing auth on POST (cookie rejected), not Media access rules. Dev `csrf`/`cors` now also allow `dash.localhost` / `localhost` / `127.0.0.1` on ports 3000–3005; Next `serverActions.allowedOrigins` matches. Gotcha in `docs/architecture.md` + `docs/parallel-agents.md`.
+- **Decisions:** keep `serverURL` on the slot's dashboard URL; widen allowlist only outside production.
+- **Watch out:** still prefer `.env` port === `pnpm dev --port`. After changing next/payload config, restart the dev server; re-login if the session was opened on a mismatched origin.
+
+## 2026-07-29: media create form — autofill, sections, formats, tag chips
+
+- **Done:** picking a file fills title / ALT / slug / `kind` immediately (`MediaAutofill`), not only on save. Tabs → stacked groups. Conversion supports exact formats (WebP/AVIF/JPEG/PNG + WebM/MP4) via existing sharp + ffmpeg; default stays optimized WebP/WebM. `maxDimension` / `imageQuality` are text with preset+custom UI. Tags are comma-committed chips. Docs: `docs/media.md`.
+- **Decisions:** no new conversion libraries — sharp and fluent-ffmpeg already cover the formats. `kind` no longer has `defaultValue: 'other'` (that blocked MIME classification). Size/quality stay one stored string each (preset name or number), not extra schema fields.
+- **Watch out:** first `pnpm dev` after this may prompt a schema push because `maxDimension` / `imageQuality` moved from select → text; answer carefully if Payload warns about data loss. Video MP4/WebM encode is still CPU-heavy.
 
 ## 2026-07-29: Admin UI copy tone (no tutorial prose)
 

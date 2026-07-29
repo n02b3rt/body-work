@@ -93,7 +93,7 @@ Check here before building anything: don't duplicate what exists.
 | Payload config | `src/payload.config.ts` | CMS entry: DB adapter, editor, collections, i18n PL |
 | Payload collections | `src/collections/` | `Users`, `Authors`, `Categories`, `Media`, `Pages` (nested tree), `Posts` (blog) |
 | Payload collections | `src/collections/` | `Users`, `Media`, `Pages` (nested tree), `Posts` (blog) |
-| Media library (admin) | `src/collections/Media.ts`, `src/components/admin/media/`, `docs/media.md` | Explorer (grid/list/folders), a11y/SEO fields, conversion options |
+| Media library (admin) | `src/collections/Media.ts`, `src/components/admin/media/`, `docs/media.md` | Explorer (grid/list/folders); create form autofills title/ALT/slug/kind on file pick; stacked a11y/SEO + conversion + classification groups; tag chips; sharp/ffmpeg formats beyond WebP/WebM |
 | Site settings (global) | `src/globals/SiteSettings.ts` | Brand identity, contact, default SEO |
 | Appearance: colour scheme (admin + site) | `src/globals/ThemeColors.ts`, `src/lib/theme-tokens.ts`, `src/lib/theme-css.ts`, `docs/appearance.md` | Global palette → `--bw-*` CSS vars on the public site; presets + live preview in admin |
 | Appearance: saved compositions (admin) | `src/collections/SiteComponents.ts`, `src/components/admin/builder/ComponentBuilder.tsx`, `docs/appearance.md` | Editor's own arrangements of elements („zdjęcie + tekst”), placed on pages via the `savedComponent` element |
