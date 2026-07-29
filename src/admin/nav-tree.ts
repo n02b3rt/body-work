@@ -277,6 +277,79 @@ export const adminNavTree: NavBranch[] = [
   },
 ]
 
+/**
+ * Nav node ids visible to the Edytor role (plus everything under Treści / E-commerce).
+ * Administrator sees the full tree. Clients never reach the panel.
+ */
+const EDYTOR_ALLOWED_IDS = new Set([
+  'kokpit',
+  'kokpit-summary',
+  'content',
+  'ecommerce',
+  'management',
+  'management-translations',
+  'management-appearance',
+  'management-appearance-colors',
+  'management-appearance-components',
+  'management-appearance-components-new',
+  'management-appearance-components-all',
+  'management-settings',
+  'management-settings-content',
+  'management-settings-content-pages',
+  'management-settings-content-blog',
+  'management-settings-content-media',
+])
+
+function collectDescendantIds(node: NavNode, into: Set<string>) {
+  into.add(node.id)
+  if (isNavBranch(node)) {
+    for (const child of node.children) collectDescendantIds(child, into)
+  }
+}
+
+/** All ids under Treści and E-commerce are allowed for edytor. */
+function buildEdytorAllowSet(tree: NavBranch[]): Set<string> {
+  const allowed = new Set(EDYTOR_ALLOWED_IDS)
+  for (const root of tree) {
+    if (root.id === 'content' || root.id === 'ecommerce') {
+      collectDescendantIds(root, allowed)
+    }
+  }
+  return allowed
+}
+
+function filterNode(node: NavNode, allowed: Set<string>): NavNode | null {
+  if (!allowed.has(node.id)) return null
+  if (!isNavBranch(node)) return node
+  const children = node.children
+    .map((child) => filterNode(child, allowed))
+    .filter((child): child is NavNode => child != null)
+  if (children.length === 0 && node.id !== 'content' && node.id !== 'ecommerce') {
+    // Keep empty content/ecommerce roots only if they had children filtered out entirely —
+    // drop branches with nothing left to show.
+    return null
+  }
+  if (children.length === 0) return null
+  return { ...node, children }
+}
+
+/**
+ * Filter the admin sidebar for the given role.
+ * Administrator (and unknown/missing) → full tree. Edytor → scoped tree. Others → empty.
+ */
+export function filterNavForRole(
+  role: string | null | undefined,
+  tree: NavBranch[] = adminNavTree,
+): NavBranch[] {
+  if (!role || role === 'administrator') return tree
+  if (role !== 'edytor') return []
+
+  const allowed = buildEdytorAllowSet(tree)
+  return tree
+    .map((branch) => filterNode(branch, allowed))
+    .filter((node): node is NavBranch => node != null && isNavBranch(node))
+}
+
 /** Flat map of section id → breadcrumb labels for Coming Soon view. */
 export function findNavPathLabels(sectionId: string): string[] | null {
   const walk = (nodes: NavNode[], trail: string[]): string[] | null => {

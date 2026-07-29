@@ -13,6 +13,12 @@
 
 -->
 
+## 2026-07-29: User accounts — roles, username, registration UX
+
+- **Done:** Roles are now `administrator` | `edytor` | `klient` (moderator gone, redaktor → edytor). Users have `username` (loginWithUsername + email), optional `firstName`/`lastName`, display via `getDisplayName`. First-user screen is a custom view (auto username, live uniqueness, password show/generate, confirm password). Admin create: same helpers, single password (confirm mirrored + CSS-hidden). Availability API at `/api/admin/users/availability`. Nav filtered for Edytor (Treści, E-commerce, Zarządzanie: Tłumaczenia/Wygląd/Ustawienia→Treści only). No public self-registration.
+- **Decisions:** Password generator is hand-rolled crypto (no new dep). Edytor gets content delete + ThemeColors update; Users and ops views stay admin-only. Checkout account creation deferred — helpers in `src/lib/users/` are ready to reuse.
+- **Watch out:** Existing rows with `role = redaktor|moderator` need a one-off update or a clean DB. Stock Payload Auth still renders confirm-password on create; we hide it only when `html.bw-users-create` is set by `UserFormEnhancements`. After schema change run `pnpm generate:types` + `pnpm generate:importmap`.
+
 ## 2026-07-29: Admin UI copy tone (no tutorial prose)
 
 - **Done:** Documented how dashboard labels, section leads, and field descriptions must read: one short line, name the thing, no patronizing walkthroughs. Lives in `docs/conventions.md` (*Admin UI copy*); pointers in `CLAUDE.md` and `AGENTS.md`.
@@ -31,6 +37,7 @@
 - **Done:** Kokpit → Aktualizacje shows only outdated packages with **zadeklarowana / zainstalowana / najnowsza** plus a single release-notes link (GitHub `releases/tag/vX` when the npm repo is GitHub, else Google search for `name version`). Zarządzanie → Biblioteki is pure inventory: installed version, npm/site/GitHub icon links — **no orange update highlighting**, no latest column, no update counts in the toolbar.
 - **Decisions:** Shared report + cache stay one file; views diverge only in the table UI (`package-report-ui` modes). `releaseNotesUrl` lives in `package-updates-shared` (client-safe). Sort is alphabetical; status no longer reorders rows.
 - **Watch out:** GitHub tag URLs assume a `v` prefix (the common case). Packages without Releases may 404 on that URL — still better than inventing a non-GitHub path.
+
 
 ## 2026-07-29: Admin sidebar — larger type/icons, no stub dots, hover/active motion
 

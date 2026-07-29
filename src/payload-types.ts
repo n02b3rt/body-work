@@ -73,22 +73,34 @@ export interface Config {
   };
 }
 export interface UserAuthOperations {
-  forgotPassword: {
-    email: string;
-    password: string;
-  };
-  login: {
-    email: string;
-    password: string;
-  };
+  forgotPassword:
+    | {
+        email: string;
+      }
+    | {
+        username: string;
+      };
+  login:
+    | {
+        email: string;
+        password: string;
+      }
+    | {
+        password: string;
+        username: string;
+      };
   registerFirstUser: {
-    email: string;
     password: string;
-  };
-  unlock: {
+    username: string;
     email: string;
-    password: string;
   };
+  unlock:
+    | {
+        email: string;
+      }
+    | {
+        username: string;
+      };
 }
 /**
  * Konta zespołu i klientów.
@@ -98,17 +110,13 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: number;
-  /**
-   * Imię i nazwisko lub nazwa widoczna w panelu.
-   */
-  name?: string | null;
-  /**
-   * Administrator: pełny dostęp. Moderator: treści i podgląd użytkowników. Redaktor: treści. Klient: bez panelu.
-   */
-  role: 'administrator' | 'moderator' | 'redaktor' | 'klient';
+  firstName?: string | null;
+  lastName?: string | null;
+  role: 'administrator' | 'edytor' | 'klient';
   updatedAt: string;
   createdAt: string;
   email: string;
+  username: string;
   resetPasswordToken?: string | null;
   resetPasswordExpiration?: string | null;
   salt?: string | null;
@@ -11929,11 +11937,13 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  name?: T;
+  firstName?: T;
+  lastName?: T;
   role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
+  username?: T;
   resetPasswordToken?: T;
   resetPasswordExpiration?: T;
   salt?: T;

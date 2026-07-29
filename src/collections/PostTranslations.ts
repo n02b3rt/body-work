@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import { isAdministrator, isModerator, staff } from '@/access/roles'
+import { staff } from '@/access/roles'
 
 /**
  * English versions of blog posts, one document per post.
@@ -42,10 +42,7 @@ export const PostTranslations: CollectionConfig = {
     read: () => true,
     create: staff,
     update: staff,
-    delete: ({ req: { user } }) => {
-      if (!user) return false
-      return isAdministrator(user) || isModerator(user)
-    },
+    delete: staff,
   },
   fields: [
     {

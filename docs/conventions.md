@@ -27,7 +27,7 @@ Site split (hub/centrum/akademia/dash): route groups under `src/app/`, see [`sit
 - **Route groups today:** the public site is `src/app/[locale]/`, Payload admin/API is `src/app/(payload)/`. **Do not add a root `src/app/layout.tsx`** that wraps both: each tree owns its own `<html>`/`<body>`, which is what lets Payload render its own document shell.
 - **Dashboard host:** staff open the panel only via `DASHBOARD_HOST` (dev: `dash.localhost`). Never link to `/admin` from the public site.
 - **Payload collections:** one file per collection in `src/collections/`, registered in `src/payload.config.ts`. Access helpers live in `src/access/`.
-- **Roles:** `administrator` | `moderator` | `redaktor` | `klient`: use the helpers in `src/access/roles.ts`; don't invent parallel permission checks.
+- **Roles:** `administrator` | `edytor` | `klient`: use the helpers in `src/access/roles.ts`; don't invent parallel permission checks. User display name: `getDisplayName` from `src/lib/users/`.
 - **Public UI strings:** next-intl, add keys to `messages/pl.json` (and `en.json`); don't hardcode user-facing Polish in frontend components when a message key exists.
 - **Admin labels:** Polish strings in Payload collection/global configs are fine (editors work in PL).
 - **Admin sidebar:** structure lives in `src/admin/nav-tree.ts`; don't rely on Payload's `admin.group` for multi-level nav (a custom `AdminNav` replaces DefaultNav). Stub leaves use `/admin/coming-soon?section=<id>`. Presentation (size, hover/active motion) is in `src/app/(payload)/custom.css` under `.bw-nav*`; icons in `src/components/admin/nav-icons.tsx`.
@@ -42,7 +42,7 @@ When turning a scraped Centrum page into a real one:
 3. After adding or reusing a component for a page, update its row in `migration-tracker.md` (components used/created, status).
 4. New component = bilingual from the start (see [`i18n.md`](./i18n.md)): don't hardcode Polish strings "for now."
 5. Use the real photos/video/logo from that page's `media/` folder, not a placeholder, see "Using real media assets" in [`scraped-site-map.md`](./scraped-site-map.md).
-- **Roles:** `administrator` | `moderator` | `redaktor` | `klient`: use helpers from `src/access/roles.ts`; do not invent parallel permission checks.
+- **Roles:** `administrator` | `edytor` | `klient`: use helpers from `src/access/roles.ts`; do not invent parallel permission checks. User display name: `getDisplayName` from `src/lib/users/`.
 - **Public UI strings:** next-intl, add keys to `messages/pl.json` (and `en.json`); do not hardcode user-facing Polish in frontend components when a message key exists.
 - **Dates/times (display):** use helpers from `src/lib/format-date.ts` (`formatDatePl`, `formatDateTimePl`) or next-intl `useFormatter().dateTime(value, 'dateTime')`: never ad-hoc `toLocaleString` / ISO strings in UI. Storage stays ISO/UTC.
 - **Admin labels:** Polish strings in Payload collection/global configs are fine (editors work in PL).

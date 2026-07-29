@@ -5,7 +5,7 @@ import type {
   CollectionConfig,
 } from 'payload'
 
-import { isAdministrator, isModerator, staff } from '@/access/roles'
+import { staff } from '@/access/roles'
 import {
   compressUploadFile,
   type ConvertFormat,
@@ -140,10 +140,7 @@ export const Media: CollectionConfig = {
     read: () => true,
     create: staff,
     update: staff,
-    delete: ({ req: { user } }) => {
-      if (!user) return false
-      return isAdministrator(user) || isModerator(user)
-    },
+    delete: staff,
   },
   hooks: {
     beforeOperation: [compressOnUpload],
