@@ -1,6 +1,6 @@
 import type { Field, GlobalConfig, TabsField } from 'payload'
 
-import { administrators, staff } from '@/access/roles'
+import { staff } from '@/access/roles'
 import { normalizeHexColor, THEME_TOKEN_GROUPS } from '@/lib/theme-tokens'
 
 /** One colour token → a text field rendered with the custom colour picker. */
@@ -49,7 +49,7 @@ export const ThemeColors: GlobalConfig = {
   },
   access: {
     read: () => true,
-    update: administrators,
+    update: staff,
     readVersions: staff,
   },
   fields: [

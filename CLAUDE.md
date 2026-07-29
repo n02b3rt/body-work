@@ -89,7 +89,7 @@ Check here before building anything: don't duplicate what exists.
 | Centrum components | `src/components/centrum/` | Header, Footer, Hero, PromoBar and the other section blocks: reuse before adding new ones, see `docs/conventions.md` |
 | Payload CMS admin + API | `src/app/(payload)/` | Admin UI only on dashboard host; REST/GraphQL under `/api` |
 | Host proxy (dash vs public) | `src/proxy.ts` | `dash.localhost` → admin; public hosts return **404** for `/admin` (no redirect leak); rewrites `/admin/c/*`→`/collections/*`, `/admin/g/*`→`/globals/*` |
-| Access control / roles | `src/access/roles.ts` | Roles: administrator, moderator, redaktor, klient |
+| Access control / roles | `src/access/roles.ts` | Roles: administrator, edytor, klient (`src/lib/users/` helpers: username, password, display name) |
 | Payload config | `src/payload.config.ts` | CMS entry: DB adapter, editor, collections, i18n PL |
 | Payload collections | `src/collections/` | `Users`, `Authors`, `Categories`, `Media`, `Pages` (nested tree), `Posts` (blog) |
 | Payload collections | `src/collections/` | `Users`, `Media`, `Pages` (nested tree), `Posts` (blog) |

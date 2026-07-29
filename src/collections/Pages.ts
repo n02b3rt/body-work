@@ -4,7 +4,7 @@ import {
   createParentField,
 } from '@payloadcms/plugin-nested-docs'
 
-import { isAdministrator, isModerator, staff } from '@/access/roles'
+import { staff } from '@/access/roles'
 import { metaFields, slugField } from '@/fields/meta'
 import { pageLayoutField } from '@/fields/page-layout'
 
@@ -30,10 +30,7 @@ export const Pages: CollectionConfig = {
     read: () => true,
     create: staff,
     update: staff,
-    delete: ({ req: { user } }) => {
-      if (!user) return false
-      return isAdministrator(user) || isModerator(user)
-    },
+    delete: staff,
   },
   fields: [
     {

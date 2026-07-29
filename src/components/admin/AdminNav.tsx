@@ -2,6 +2,7 @@
 
 import {
   adminNavTree,
+  filterNavForRole,
   isNavBranch,
   normalizeAdminPath,
   type NavBranch,
@@ -9,8 +10,9 @@ import {
   type NavNode,
 } from '@/admin/nav-tree'
 import { NavIcon } from '@/components/admin/nav-icons'
+import type { User } from '@/payload-types'
 import { NavHamburger, NavWrapper } from '@payloadcms/next/client'
-import { Link, Logout } from '@payloadcms/ui'
+import { Link, Logout, useAuth } from '@payloadcms/ui'
 import { usePathname, useSearchParams } from 'next/navigation'
 import React, { useCallback, useMemo, useSyncExternalStore } from 'react'
 
@@ -246,6 +248,10 @@ export function AdminNav() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const sectionParam = searchParams.get('section')
+  const { user } = useAuth()
+  const role = (user as User | null | undefined)?.role
+
+  const navTree = useMemo(() => filterNavForRole(role), [role])
 
   const storedRaw = useSyncExternalStore(subscribeOpen, openSnapshot, openServerSnapshot)
   const openMap = useMemo(() => parseStoredOpen(storedRaw), [storedRaw])
@@ -264,7 +270,7 @@ export function AdminNav() {
     <NavWrapper baseClass={baseClass}>
       <nav className={`${baseClass}__wrap bw-nav`}>
         <div className="bw-nav__tree">
-          {adminNavTree.map((branch) => (
+          {navTree.map((branch) => (
             <NavTreeNode
               key={branch.id}
               node={branch}

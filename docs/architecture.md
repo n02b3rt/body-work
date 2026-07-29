@@ -60,6 +60,7 @@ Record deliberate choices so nobody re-litigates them a month later without caus
 | 2026-07-25 | Separate root layouts per route tree, no root `src/app/layout.tsx` | Payload's `RootLayout` owns `<html>`/`<body>` for `/admin`; the public site keeps its own |
 | 2026-07-26 | Admin only on `DASHBOARD_HOST` (`dash.localhost`); public `/admin` → 404 | Obscure entry point; a redirect would leak the dashboard hostname |
 | 2026-07-26 | Four roles: administrator, moderator, redaktor, klient | Staff vs client; `klient` is blocked from the admin panel |
+| 2026-07-29 | Three roles: administrator, edytor, klient | Dropped moderator; redaktor → edytor. Edytor: Treści + E-commerce + Zarządzanie (Tłumaczenia, Wygląd, Ustawienia→Treści). Users only by admin (or future checkout). Username + first/last name; display name = full name or username |
 | 2026-07-26 | Pages with nested-docs + expandable tree; Posts blog; Site Settings global | Content model for the marketing site |
 | 2026-07-26 | Upload compression: images→WebP, video→WebM | Smaller assets by default via sharp + ffmpeg |
 | 2026-07-26 | Custom nested `AdminNav` (not Payload `admin.group`) | Multi-level WP-style tree; Nested Docs covers document hierarchy only |

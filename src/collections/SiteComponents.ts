@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import { isAdministrator, isModerator, staff } from '@/access/roles'
+import { staff } from '@/access/roles'
 import { elementsField } from '@/fields/elements'
 import { slugField } from '@/fields/meta'
 
@@ -44,10 +44,7 @@ export const SiteComponents: CollectionConfig = {
     read: () => true,
     create: staff,
     update: staff,
-    delete: ({ req: { user } }) => {
-      if (!user) return false
-      return isAdministrator(user) || isModerator(user)
-    },
+    delete: staff,
   },
   fields: [
     {
