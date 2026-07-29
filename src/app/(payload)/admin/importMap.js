@@ -38,6 +38,10 @@ import { WelcomeDashboard as WelcomeDashboard_1a68d16f6390dcabe453495a1f93438a }
 import { ComingSoonView as ComingSoonView_43e3539acc68a609b8ee9d22f60308c4 } from '../../../components/admin/ComingSoonView'
 import { UpdatesView as UpdatesView_415779f3506e78005a265ab3a2541b6d } from '../../../components/admin/UpdatesView'
 import { LibrariesView as LibrariesView_8722c89fba379dae7e53776bba61d3da } from '../../../components/admin/LibrariesView'
+import { MediaAiPanel as MediaAiPanel_44909789ded672509dc0832b5e18d2b9 } from '../../../components/admin/ai/MediaAiPanel'
+import { SeoAiPanel as SeoAiPanel_d9143343e32a327bf44a8dee682a35ea } from '../../../components/admin/ai/SeoAiPanel'
+import { PostDraftAiPanel as PostDraftAiPanel_c8ab0f39fb26dfcecf7a4b5265e7edaa } from '../../../components/admin/ai/PostDraftAiPanel'
+import { AiHelpProvider as AiHelpProvider_d16f349a765e07675d62646a08c9a859 } from '../../../components/admin/ai/AiHelpProvider'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 /** @type import('payload').ImportMap */
@@ -82,5 +86,9 @@ export const importMap = {
   "/components/admin/ComingSoonView#ComingSoonView": ComingSoonView_43e3539acc68a609b8ee9d22f60308c4,
   "/components/admin/UpdatesView#UpdatesView": UpdatesView_415779f3506e78005a265ab3a2541b6d,
   "/components/admin/LibrariesView#LibrariesView": LibrariesView_8722c89fba379dae7e53776bba61d3da,
+  "/components/admin/ai/MediaAiPanel#MediaAiPanel": MediaAiPanel_44909789ded672509dc0832b5e18d2b9,
+  "/components/admin/ai/SeoAiPanel#SeoAiPanel": SeoAiPanel_d9143343e32a327bf44a8dee682a35ea,
+  "/components/admin/ai/PostDraftAiPanel#PostDraftAiPanel": PostDraftAiPanel_c8ab0f39fb26dfcecf7a4b5265e7edaa,
+  "/components/admin/ai/AiHelpProvider#AiHelpProvider": AiHelpProvider_d16f349a765e07675d62646a08c9a859,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

@@ -95,6 +95,7 @@ Check here before building anything: don't duplicate what exists.
 | Appearance: components (admin) | `src/collections/SiteComponents.ts`, `src/fields/component-settings/`, `src/components/admin/appearance/`, `docs/appearance.md` | Elementor-style blocks (button, hero, carousel, gallery, CTA, feature cards) with live preview |
 | Shared CMS fields | `src/fields/` | SEO meta, slug helpers |
 | Admin UI extras | `src/components/admin/` | WelcomeDashboard, PagesTree, AdminNav, ComingSoonView, UpdatesView, media/* |
+| Admin AI (Gemini) | `src/lib/ai/`, `src/app/api/admin/ai/`, `src/components/admin/ai/`, `docs/admin-ai.md` | Assistive AI on dash only: ALT, SEO, EN draft, post draft, library blurbs, help chat. `GEMINI_API_KEY` |
 | Admin: package updates | `src/components/admin/UpdatesView.tsx`, `UpdatesPanel.tsx`, `LibrariesView.tsx`, `LibrariesPanel.tsx`, `package-report-ui.tsx`, `src/lib/package-updates.ts`, `src/app/api/admin/package-updates/` | Kokpit → Aktualizacje = only outdated; Zarządzanie → Biblioteki = full list + npm/site/repo links; 24h cache |
 | Admin nav tree | `src/admin/nav-tree.ts` | Nested sidebar structure (custom Nav; stubs → `/admin/coming-soon`) |
 | Frontend i18n | `messages/`, `src/i18n/` | next-intl (default `pl`) |

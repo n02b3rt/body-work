@@ -13,6 +13,12 @@
 
 -->
 
+## 2026-07-29: Admin AI (Gemini) in the dashboard
+
+- **Done:** Assistive AI for staff on `dash` only: ALT/caption for media, SEO + excerpt, PL library blurbs, EN translation draft, post draft from brief, floating help chat. Unified `POST /api/admin/ai` + `src/lib/ai/*`. Docs: `docs/admin-ai.md`.
+- **Decisions:** Google Gemini free API via native `fetch` (no SDK), primary `gemini-3.5-flash`, Gemma 4 on 429. Propose → preview → Insert; never silent write. Library blurbs cached in `.data/package-blurbs.json`. Help chat mutates nothing.
+- **Watch out:** Without `GEMINI_API_KEY` UI shows unavailable (503). Free tier may train on prompts — no secrets/PII. Page-builder layout suggest lands with the element-library stack separately.
+
 ## 2026-07-29: Aktualizacje vs Biblioteki split
 
 - **Done:** Kokpit → Aktualizacje lists **only** packages with `update-available`. Zarządzanie → Biblioteki (`/admin/libraries`) shows the full inventory with npm + homepage + repository links (normalized from registry metadata). Shared 24h cache and „Sprawdź teraz”; `cacheVersion: 2` invalidates older cache files without links.

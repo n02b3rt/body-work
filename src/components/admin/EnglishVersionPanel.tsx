@@ -2,7 +2,9 @@
 
 import type { UIFieldClientComponent } from 'payload'
 
-import { useConfig, useDocumentInfo } from '@payloadcms/ui'
+import { AiProposalCard, AiSuggestButton } from '@/components/admin/ai/AiSuggestButton'
+import { callAdminAi, isAiClientError } from '@/lib/ai/client'
+import { useConfig, useDocumentInfo, useForm } from '@payloadcms/ui'
 import React, { useEffect, useState } from 'react'
 
 type Translation = {
@@ -18,37 +20,93 @@ type State =
   | { kind: 'found'; translation: Translation }
   | { kind: 'error' }
 
+type TranslateSuggestion = {
+  title: string
+  excerpt: string | null
+  paragraphs: string[]
+}
+
+function plainFromContent(value: unknown): string {
+  const paragraphs: string[] = []
+  const walk = (n: unknown) => {
+    if (!n || typeof n !== 'object') return
+    if (Array.isArray(n)) {
+      n.forEach(walk)
+      return
+    }
+    const r = n as Record<string, unknown>
+    if (r.type === 'paragraph' || r.type === 'heading') {
+      const text = collect(r).trim()
+      if (text) paragraphs.push(text)
+      return
+    }
+    if (r.children) walk(r.children)
+    if (r.root) walk(r.root)
+  }
+  const collect = (n: unknown): string => {
+    if (!n || typeof n !== 'object') return ''
+    if (Array.isArray(n)) return n.map(collect).join('')
+    const r = n as Record<string, unknown>
+    if (typeof r.text === 'string') return r.text
+    if (r.children) return collect(r.children)
+    return ''
+  }
+  walk(value)
+  return paragraphs.join('\n\n')
+}
+
+function paragraphsToLexical(paragraphs: string[]) {
+  return {
+    root: {
+      type: 'root',
+      direction: 'ltr' as const,
+      format: '' as const,
+      indent: 0,
+      version: 1,
+      children: paragraphs.map((text) => ({
+        type: 'paragraph',
+        direction: 'ltr' as const,
+        format: '' as const,
+        indent: 0,
+        version: 1,
+        children: [
+          {
+            type: 'text',
+            detail: 0,
+            format: 0,
+            mode: 'normal',
+            style: '',
+            text,
+            version: 1,
+          },
+        ],
+      })),
+    },
+  }
+}
+
 /**
- * "English version" panel at the top of a blog post.
- *
- * Editing the English text lives in its own collection (see `PostTranslations` for why the
- * native locale switcher is not in place yet), and hunting for the right document in a list of
- * sixty is not something to ask of a non-technical editor. So this puts the state of the
- * translation on the post itself, with one button that either opens the existing document or
- * starts a new one already pointed at this post.
- *
- * Read-only: it never writes. Creating goes through Payload's own create view, so validation,
- * permissions and versioning all behave normally.
+ * English version status + optional AI draft translation (creates/updates via REST after confirm).
  */
 export const EnglishVersionPanel: UIFieldClientComponent = () => {
   const { id } = useDocumentInfo()
+  const { getDataByPath } = useForm()
   const { config } = useConfig()
   const adminRoute = config.routes?.admin || '/admin'
   const apiRoute = config.routes?.api || '/api'
 
   const [state, setState] = useState<State>({ kind: 'loading' })
+  const [busy, setBusy] = useState(false)
+  const [saving, setSaving] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [proposal, setProposal] = useState<TranslateSuggestion | null>(null)
 
   useEffect(() => {
-    // An unsaved post has nothing to translate yet, and the render below already returns null
-    // for that case. Setting state here instead would be a synchronous setState inside an
-    // effect, which the React Compiler lint rules reject.
     if (!id) return
 
     let cancelled = false
 
     const load = async () => {
-      // Yield before touching state: calling this synchronously in the effect body is what the
-      // React Compiler lint rules reject, and the flag drops a late response after unmount.
       await Promise.resolve()
       if (cancelled) return
 
@@ -84,56 +142,174 @@ export const EnglishVersionPanel: UIFieldClientComponent = () => {
 
   const createHref = `${adminRoute}/c/post-translations/create?post=${id}`
 
+  async function suggestTranslate() {
+    setBusy(true)
+    setError(null)
+    setProposal(null)
+    const title = String(getDataByPath?.('title') ?? '')
+    const excerpt = (getDataByPath?.('excerpt') as string | undefined) || null
+    const contentText = plainFromContent(getDataByPath?.('content'))
+    const result = await callAdminAi<TranslateSuggestion>({
+      task: 'translate-post',
+      title,
+      excerpt,
+      contentText,
+    })
+    setBusy(false)
+    if (isAiClientError(result)) {
+      setError(result.error)
+      return
+    }
+    setProposal(result.data)
+  }
+
+  async function applyTranslation() {
+    if (!proposal || !id) return
+    setSaving(true)
+    setError(null)
+    const payload = {
+      post: Number(id),
+      title: proposal.title,
+      excerpt: proposal.excerpt,
+      content: paragraphsToLexical(proposal.paragraphs),
+      status: 'draft',
+    }
+
+    try {
+      if (state.kind === 'found') {
+        const res = await fetch(`${apiRoute}/post-translations/${state.translation.id}`, {
+          method: 'PATCH',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        })
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        const json = (await res.json()) as { doc?: Translation } & Translation
+        const doc = json.doc || json
+        setState({ kind: 'found', translation: doc as Translation })
+      } else {
+        const res = await fetch(`${apiRoute}/post-translations`, {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        })
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        const json = (await res.json()) as { doc?: Translation } & Translation
+        const doc = (json.doc || json) as Translation
+        setState({ kind: 'found', translation: doc })
+      }
+      setProposal(null)
+    } catch {
+      setError('Nie udało się zapisać szkicu tłumaczenia.')
+    } finally {
+      setSaving(false)
+    }
+  }
+
   return (
-    <div
-      style={{
-        border: '1px solid var(--theme-elevation-150)',
-        borderRadius: 4,
-        padding: '1rem 1.25rem',
-        marginBottom: '1.5rem',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '1rem',
-        flexWrap: 'wrap',
-      }}
-    >
-      <div style={{ flex: '1 1 18rem' }}>
-        <strong style={{ display: 'block', marginBottom: '.25rem' }}>Wersja angielska</strong>
+    <div className="bw-ai__english">
+      <div
+        style={{
+          border: '1px solid var(--theme-elevation-150)',
+          borderRadius: 4,
+          padding: '1rem 1.25rem',
+          marginBottom: '0.75rem',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '1rem',
+          flexWrap: 'wrap',
+        }}
+      >
+        <div style={{ flex: '1 1 18rem' }}>
+          <strong style={{ display: 'block', marginBottom: '.25rem' }}>Wersja angielska</strong>
 
-        {state.kind === 'loading' ? <span>Sprawdzam...</span> : null}
+          {state.kind === 'loading' ? <span>Sprawdzam...</span> : null}
 
-        {state.kind === 'error' ? (
-          <span>Nie udało się sprawdzić. Zajrzyj do „Tłumaczenia wpisów”.</span>
+          {state.kind === 'error' ? (
+            <span>Nie udało się sprawdzić. Zajrzyj do „Tłumaczenia wpisów”.</span>
+          ) : null}
+
+          {state.kind === 'none' ? (
+            <span>
+              Brak. Ten wpis nie pojawia się na angielskiej wersji strony, dopóki tłumaczenie nie
+              będzie gotowe.
+            </span>
+          ) : null}
+
+          {state.kind === 'found' ? (
+            <span>
+              {state.translation.status === 'published' && state.translation.content
+                ? 'Gotowa i opublikowana. Widoczna na /en.'
+                : state.translation.status === 'published'
+                  ? 'Oznaczona jako gotowa, ale brakuje treści, więc jeszcze nie jest publikowana.'
+                  : 'Szkic. Nie jest jeszcze widoczna na /en.'}
+            </span>
+          ) : null}
+        </div>
+
+        {state.kind === 'found' ? (
+          <a
+            className="btn btn--style-primary"
+            href={`${adminRoute}/c/post-translations/${state.translation.id}`}
+          >
+            Edytuj po angielsku
+          </a>
         ) : null}
 
         {state.kind === 'none' ? (
-          <span>
-            Brak. Ten wpis nie pojawia się na angielskiej wersji strony, dopóki tłumaczenie nie
-            będzie gotowe.
-          </span>
+          <a className="btn btn--style-primary" href={createHref}>
+            Dodaj wersję angielską
+          </a>
         ) : null}
 
-        {state.kind === 'found' ? (
-          <span>
-            {state.translation.status === 'published' && state.translation.content
-              ? 'Gotowa i opublikowana. Widoczna na /en.'
-              : state.translation.status === 'published'
-                ? 'Oznaczona jako gotowa, ale brakuje treści, więc jeszcze nie jest publikowana.'
-                : 'Szkic. Nie jest jeszcze widoczna na /en.'}
-          </span>
-        ) : null}
+        <AiSuggestButton
+          label="Szkic EN (AI)"
+          busy={busy || saving}
+          onClick={() => void suggestTranslate()}
+        />
       </div>
 
-      {state.kind === 'found' ? (
-        <a className="btn btn--style-primary" href={`${adminRoute}/c/post-translations/${state.translation.id}`}>
-          Edytuj po angielsku
-        </a>
+      {error && !proposal ? (
+        <p className="bw-ai__error" role="alert">
+          {error}
+        </p>
       ) : null}
 
-      {state.kind === 'none' ? (
-        <a className="btn btn--style-primary" href={createHref}>
-          Dodaj wersję angielską
-        </a>
+      {proposal || error ? (
+        <AiProposalCard
+          title="Propozycja tłumaczenia EN"
+          error={proposal ? null : error}
+          insertLabel={
+            state.kind === 'found' ? 'Zapisz do istniejącego szkicu' : 'Utwórz szkic EN'
+          }
+          onDiscard={() => {
+            setProposal(null)
+            setError(null)
+          }}
+          onInsert={() => {
+            void applyTranslation()
+          }}
+        >
+          {proposal ? (
+            <>
+              <p>
+                <strong>Title:</strong> {proposal.title}
+              </p>
+              {proposal.excerpt ? (
+                <p>
+                  <strong>Excerpt:</strong> {proposal.excerpt}
+                </p>
+              ) : null}
+              <p>
+                <strong>Paragraphs:</strong> {proposal.paragraphs.length}
+              </p>
+              <p className="bw-ai__hint">
+                Po wstawieniu otwórz dokument EN i popraw — AI nie publikuje automatycznie.
+              </p>
+            </>
+          ) : null}
+        </AiProposalCard>
       ) : null}
     </div>
   )
