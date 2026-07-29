@@ -2,9 +2,6 @@
  * Task runners for admin AI features. Each returns a plain result object for the API route.
  */
 
-import { mkdir, readFile, writeFile } from 'fs/promises'
-import path from 'path'
-
 import {
   generateGemini,
   parseGeminiJson,
@@ -16,7 +13,6 @@ import {
   SYSTEM_TRANSLATOR,
   draftPostUserPrompt,
   helpChatUserPrompt,
-  libraryBlurbUserPrompt,
   mediaAltUserPrompt,
   seoCopyUserPrompt,
   suggestLayoutUserPrompt,
@@ -140,94 +136,6 @@ export async function suggestSeoCopy(input: {
     },
   }
 }
-
-const BLURBS_PATH = path.join(process.cwd(), '.data', 'package-blurbs.json')
-
-type BlurbsFile = { updatedAt: string; blurbs: Record<string, string> }
-
-export async function readPackageBlurbs(): Promise<Record<string, string>> {
-  try {
-    const raw = await readFile(BLURBS_PATH, 'utf8')
-    const data = JSON.parse(raw) as BlurbsFile
-    return data.blurbs && typeof data.blurbs === 'object' ? data.blurbs : {}
-  } catch {
-    return {}
-  }
-}
-
-async function writePackageBlurbs(blurbs: Record<string, string>): Promise<void> {
-  await mkdir(path.dirname(BLURBS_PATH), { recursive: true })
-  const payload: BlurbsFile = {
-    updatedAt: new Date().toISOString(),
-    blurbs,
-  }
-  await writeFile(BLURBS_PATH, JSON.stringify(payload, null, 2), 'utf8')
-}
-
-export async function suggestLibraryBlurb(input: {
-  name: string
-  kind: 'runtime' | 'dev'
-  npmDescription: string | null
-}): Promise<AiTaskResult<{ blurb: string }>> {
-  const result = await generateGemini({
-    system: SYSTEM_EDITOR,
-    json: true,
-    temperature: 0.3,
-    parts: [{ text: libraryBlurbUserPrompt(input) }],
-  })
-  if (!result.ok) return mapFail(result)
-
-  const parsed = parseGeminiJson<{ blurb?: string }>(result.text)
-  if (!parsed?.blurb?.trim()) {
-    return { ok: false, error: 'Model nie zwrócił opisu pakietu.' }
-  }
-  const blurb = parsed.blurb.trim()
-  const all = await readPackageBlurbs()
-  all[input.name] = blurb
-  await writePackageBlurbs(all)
-  return { ok: true, model: result.model, data: { blurb } }
-}
-
-export async function suggestLibraryBlurbsBatch(
-  packages: Array<{
-    name: string
-    kind: 'runtime' | 'dev'
-    npmDescription: string | null
-  }>,
-  options?: { onlyMissing?: boolean; limit?: number },
-): Promise<
-  AiTaskResult<{ blurbs: Record<string, string>; generated: string[]; skipped: string[] }>
-> {
-  const existing = await readPackageBlurbs()
-  const onlyMissing = options?.onlyMissing !== false
-  const limit = options?.limit ?? 12
-  const targets = packages.filter((p) => !(onlyMissing && existing[p.name])).slice(0, limit)
-
-  const generated: string[] = []
-  const skipped = packages.map((p) => p.name).filter((n) => !targets.some((t) => t.name === n))
-
-  for (const pkg of targets) {
-    const one = await suggestLibraryBlurb(pkg)
-    if (!one.ok) {
-      return {
-        ok: false,
-        error: `${pkg.name}: ${one.error}`,
-        unavailable: one.unavailable,
-        status: one.status,
-      }
-    }
-    existing[pkg.name] = one.data.blurb
-    generated.push(pkg.name)
-  }
-
-  return {
-    ok: true,
-    model: GEMINI_LABEL,
-    data: { blurbs: existing, generated, skipped },
-  }
-}
-
-const GEMINI_LABEL = 'gemini-batch'
 
 export async function translatePostDraft(input: {
   title: string

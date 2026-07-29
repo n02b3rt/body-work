@@ -4,6 +4,7 @@ import type {
   PackageKind,
   PackageUpdateRow,
 } from '@/lib/package-updates-shared'
+import { releaseNotesUrl } from '@/lib/package-updates-shared'
 import React from 'react'
 
 export const kindLabel: Record<PackageKind, string> = {
@@ -95,6 +96,26 @@ function RepoIcon() {
   )
 }
 
+function ReleaseNotesIcon() {
+  return (
+    <IconSvg>
+      <path
+        d="M4 2.5h6.5L13 5v8.5H4V2.5Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M10.5 2.5V5H13M6 7.5h4M6 10h4M6 12.5h2.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </IconSvg>
+  )
+}
+
 function IconLink({
   href,
   label,
@@ -118,6 +139,14 @@ function IconLink({
   )
 }
 
+function VersionCell({ value }: { value: string | null }) {
+  if (!value) {
+    return <span className="bw-updates__muted">niedostępna</span>
+  }
+  return <code>{value}</code>
+}
+
+/** Libraries view: npm + homepage + repository icon links only. */
 function PackageLinksCell({ row }: { row: PackageUpdateRow }) {
   return (
     <span className="bw-updates__links">
@@ -149,26 +178,104 @@ function PackageLinksCell({ row }: { row: PackageUpdateRow }) {
   )
 }
 
+/** Updates view: single link to GitHub release notes (or Google fallback). */
+function ReleaseNotesCell({ row }: { row: PackageUpdateRow }) {
+  if (!row.latest) {
+    return <span className="bw-updates__muted">—</span>
+  }
+  const href = releaseNotesUrl(row.name, row.latest, row.links.repository)
+  const isGithub =
+    Boolean(row.links.repository) && /github\.com/i.test(row.links.repository!)
+  const label = isGithub
+    ? `Opis wersji ${row.latest} na GitHubie`
+    : `Szukaj: ${row.name} ${row.latest}`
+
+  return (
+    <span className="bw-updates__links">
+      <IconLink href={href} label={label}>
+        <ReleaseNotesIcon />
+      </IconLink>
+      <a
+        className="bw-updates__ext-link bw-updates__release-link"
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {isGithub ? 'GitHub' : 'Google'}
+      </a>
+    </span>
+  )
+}
+
 export function PackageTable({
   title,
   rows,
   mode,
-  blurbs,
 }: {
   title: string
   rows: PackageUpdateRow[]
-  /** libraries = full inventory; updates = only outdated packages (same columns). */
+  /** updates = outdated only (versions + release notes); libraries = inventory + icons */
   mode: 'updates' | 'libraries'
-  /** Optional Polish AI blurbs keyed by package name (libraries view). */
-  blurbs?: Record<string, string>
 }) {
   if (rows.length === 0) return null
 
+  if (mode === 'updates') {
+    return (
+      <section className="bw-updates__section">
+        <h2 className="bw-updates__section-title">{title}</h2>
+        <div className="bw-updates__table-wrap">
+          <table className="bw-updates__table bw-updates__table--updates">
+            <colgroup>
+              <col className="bw-updates__col-name" />
+              <col className="bw-updates__col-ver" />
+              <col className="bw-updates__col-ver" />
+              <col className="bw-updates__col-ver" />
+              <col className="bw-updates__col-release" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col">Pakiet</th>
+                <th scope="col">Zadeklarowana</th>
+                <th scope="col">Zainstalowana</th>
+                <th scope="col">Najnowsza</th>
+                <th scope="col">Opis wersji</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row) => (
+                <tr key={row.name}>
+                  <td>
+                    <div className="bw-updates__name">
+                      <code>{row.name}</code>
+                    </div>
+                  </td>
+                  <td className="bw-updates__version">
+                    <code>{row.declared}</code>
+                  </td>
+                  <td className="bw-updates__version">
+                    <VersionCell value={row.installed} />
+                  </td>
+                  <td className="bw-updates__version">
+                    <VersionCell value={row.latest} />
+                  </td>
+                  <td className="bw-updates__links-cell">
+                    <ReleaseNotesCell row={row} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    )
+  }
+
+  // libraries — inventory only: name, installed version, icon links
   return (
     <section className="bw-updates__section">
       <h2 className="bw-updates__section-title">{title}</h2>
       <div className="bw-updates__table-wrap">
-        <table className="bw-updates__table">
+        <table className="bw-updates__table bw-updates__table--libraries">
           <colgroup>
             <col className="bw-updates__col-name" />
             <col className="bw-updates__col-version" />
@@ -178,48 +285,27 @@ export function PackageTable({
             <tr>
               <th scope="col">Pakiet</th>
               <th scope="col">Wersja</th>
-              <th scope="col">Linki</th>
+              <th scope="col" className="bw-updates__th-links">
+                Linki
+              </th>
             </tr>
           </thead>
           <tbody>
-            {rows.map((row) => {
-              const plBlurb = blurbs?.[row.name]
-              return (
-              <tr
-                key={row.name}
-                className={
-                  row.status === 'update-available'
-                    ? 'bw-updates__row--update'
-                    : undefined
-                }
-              >
+            {rows.map((row) => (
+              <tr key={row.name}>
                 <td>
                   <div className="bw-updates__name">
                     <code>{row.name}</code>
-                    {mode === 'libraries' && plBlurb ? (
-                      <span className="bw-updates__desc bw-updates__desc--pl" title={plBlurb}>
-                        {plBlurb}
-                      </span>
-                    ) : null}
-                    {mode === 'libraries' && row.description ? (
-                      <span className="bw-updates__desc" title={row.description}>
-                        {row.description}
-                      </span>
-                    ) : null}
                   </div>
                 </td>
                 <td className="bw-updates__version">
-                  {row.installed ? (
-                    <code>{row.installed}</code>
-                  ) : (
-                    <span className="bw-updates__muted">niedostępna</span>
-                  )}
+                  <VersionCell value={row.installed} />
                 </td>
                 <td className="bw-updates__links-cell">
                   <PackageLinksCell row={row} />
                 </td>
               </tr>
-            )})}
+            ))}
           </tbody>
         </table>
       </div>
@@ -227,6 +313,7 @@ export function PackageTable({
   )
 }
 
+/** Toolbar for Kokpit → Aktualizacje only (counts + last check + refresh). */
 export function PackageCheckToolbar({
   packages,
   updates,

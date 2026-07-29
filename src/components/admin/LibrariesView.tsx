@@ -2,18 +2,16 @@ import type { AdminViewServerProps } from 'payload'
 
 import { isAdministrator } from '@/access/roles'
 import { LibrariesPanel } from '@/components/admin/LibrariesPanel'
-import {
-  ensurePackageUpdatesScheduler,
-  getPackageUpdatesReport,
-} from '@/lib/package-updates'
+import { getPackageUpdatesReport } from '@/lib/package-updates'
 import { DefaultTemplate } from '@payloadcms/next/templates'
 import { Gutter } from '@payloadcms/ui'
 import { redirect } from 'next/navigation'
 import React from 'react'
 
 /**
- * Zarządzanie → Biblioteki: full inventory of direct dependencies with external links.
- * Shares the same 24h cache as Kokpit → Aktualizacje.
+ * Zarządzanie → Biblioteki: inventory of direct dependencies — installed
+ * version + npm/site/GitHub icons. Uses the shared package report for
+ * versions/links only; no update-check UI here.
  */
 export async function LibrariesView({
   initPageResult,
@@ -42,12 +40,12 @@ export async function LibrariesView({
   let loadError: string | null = null
 
   if (allowed) {
-    ensurePackageUpdatesScheduler()
     try {
+      // Read shared cache (or build once) for versions + registry links only.
+      // Scheduler / „Sprawdź teraz” live under Kokpit → Aktualizacje.
       report = await getPackageUpdatesReport({ force: false })
     } catch {
-      loadError =
-        'Nie udało się odczytać package.json lub sprawdzić wersji pakietów.'
+      loadError = 'Nie udało się odczytać listy pakietów z package.json.'
     }
   }
 
@@ -68,11 +66,7 @@ export async function LibrariesView({
           <p className="bw-updates__eyebrow">Zarządzanie</p>
           <h1 className="bw-updates__title">Biblioteki</h1>
           <p className="bw-updates__lead">
-            Wszystkie bezpośrednie zależności z <code>package.json</code>{' '}
-            (runtime i dev): zainstalowana wersja, najnowsza w npm oraz linki
-            do rejestru, strony projektu i repozytorium, o ile pakiet je podaje.
-            Lista aktualizacji (tylko pakiety z nowszą wersją) jest w{' '}
-            <code>Kokpit → Aktualizacje</code>.
+            Zainstalowane zależności projektu.
           </p>
 
           {!allowed ? (
