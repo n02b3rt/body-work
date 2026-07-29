@@ -1,5 +1,11 @@
 import { UserFormEnhancements as UserFormEnhancements_bb5e4d8c53233f45e9e99a5356cc9fbf } from '../../../components/admin/users/UserFormEnhancements'
+import { MediaAutofill as MediaAutofill_c1297f58bb759628c1dad9d4aaffa7f1 } from '../../../components/admin/media/MediaAutofill'
 import { MediaAiPanel as MediaAiPanel_44909789ded672509dc0832b5e18d2b9 } from '../../../components/admin/ai/MediaAiPanel'
+import { MediaTagsField as MediaTagsField_326ef45224949a9c51d91076548a0fed } from '../../../components/admin/media/MediaTagsField'
+import { MediaMaxSizeField as MediaMaxSizeField_8749a468e491747d60c5fc18da457eaa } from '../../../components/admin/media/MediaMaxSizeField'
+import { MediaQualityField as MediaQualityField_56212f13a6201eb755e4dc8d85e21cc8 } from '../../../components/admin/media/MediaQualityField'
+import { MediaGotoLibrary as MediaGotoLibrary_21b470ee1a3cfa862b12ecd83cf33cb4 } from '../../../components/admin/media/MediaGotoLibrary'
+import { MediaSaveButton as MediaSaveButton_43ef2e9addd8230507ecdc703ba39c97 } from '../../../components/admin/media/MediaSaveButton'
 import { MediaLibrary as MediaLibrary_8659d128761945db0b62396b345bcc93 } from '../../../components/admin/media/MediaLibrary'
 import { ColorField as ColorField_2fe2c2255ff1cccd98d0cc3e581d1db8 } from '../../../components/admin/appearance/ColorField'
 import { RscEntryLexicalCell as RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
@@ -51,7 +57,13 @@ import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } f
 /** @type import('payload').ImportMap */
 export const importMap = {
   "/components/admin/users/UserFormEnhancements#UserFormEnhancements": UserFormEnhancements_bb5e4d8c53233f45e9e99a5356cc9fbf,
+  "/components/admin/media/MediaAutofill#MediaAutofill": MediaAutofill_c1297f58bb759628c1dad9d4aaffa7f1,
   "/components/admin/ai/MediaAiPanel#MediaAiPanel": MediaAiPanel_44909789ded672509dc0832b5e18d2b9,
+  "/components/admin/media/MediaTagsField#MediaTagsField": MediaTagsField_326ef45224949a9c51d91076548a0fed,
+  "/components/admin/media/MediaMaxSizeField#MediaMaxSizeField": MediaMaxSizeField_8749a468e491747d60c5fc18da457eaa,
+  "/components/admin/media/MediaQualityField#MediaQualityField": MediaQualityField_56212f13a6201eb755e4dc8d85e21cc8,
+  "/components/admin/media/MediaGotoLibrary#MediaGotoLibrary": MediaGotoLibrary_21b470ee1a3cfa862b12ecd83cf33cb4,
+  "/components/admin/media/MediaSaveButton#MediaSaveButton": MediaSaveButton_43ef2e9addd8230507ecdc703ba39c97,
   "/components/admin/media/MediaLibrary#MediaLibrary": MediaLibrary_8659d128761945db0b62396b345bcc93,
   "/components/admin/appearance/ColorField#ColorField": ColorField_2fe2c2255ff1cccd98d0cc3e581d1db8,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,

@@ -19,6 +19,7 @@ import {
   type LibraryView,
   type SortKey,
 } from './media-library-utils'
+import { consumeMediaGotoLibrary } from './media-goto-library'
 
 const VIEW_KEY = 'bw-media-view'
 const DETAILS_KEY = 'bw-media-details'
@@ -106,6 +107,11 @@ export function MediaLibrary(props: ListViewClientProps) {
       setLoading(false)
     }
   }, [apiRoute, kind, page, query, sort])
+
+  useEffect(() => {
+    // Leftover create→library marker if we landed on the list without going through edit.
+    consumeMediaGotoLibrary()
+  }, [])
 
   useEffect(() => {
     let cancelled = false

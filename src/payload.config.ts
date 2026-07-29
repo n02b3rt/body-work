@@ -29,11 +29,33 @@ const dirname = path.dirname(filename)
 const dashboardURL =
   process.env.NEXT_PUBLIC_DASHBOARD_URL || 'http://dash.localhost:3000'
 const publicURL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+const dashboardHost = process.env.DASHBOARD_HOST || 'dash.localhost'
+
+/**
+ * Payload only accepts the auth cookie on POSTs whose `Origin` is in this list.
+ * A GET to `/admin` can still look logged-in (no Origin → Sec-Fetch-Site fallback),
+ * while save/form-state POSTs fail with Unauthorized / 403 if the port in the
+ * browser does not match `.env`. Parallel agents often drift (`pnpm dev` → :3000
+ * while `.env` says :3003), so in development we also allow the common slot ports.
+ */
+function csrfAndCorsOrigins(): string[] {
+  const origins = new Set<string>([dashboardURL, publicURL])
+  if (process.env.NODE_ENV !== 'production') {
+    for (const port of [3000, 3001, 3002, 3003, 3004, 3005]) {
+      origins.add(`http://${dashboardHost}:${port}`)
+      origins.add(`http://localhost:${port}`)
+      origins.add(`http://127.0.0.1:${port}`)
+    }
+  }
+  return [...origins]
+}
+
+const trustedOrigins = csrfAndCorsOrigins()
 
 export default buildConfig({
   serverURL: dashboardURL,
-  csrf: [dashboardURL, publicURL],
-  cors: [dashboardURL, publicURL],
+  csrf: trustedOrigins,
+  cors: trustedOrigins,
   admin: {
     user: Users.slug,
     dateFormat: PAYLOAD_DATETIME_FORMAT,

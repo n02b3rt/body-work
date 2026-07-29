@@ -160,60 +160,42 @@ export interface Author {
   createdAt: string;
 }
 /**
- * Biblioteka mediów z polami dostępności/SEO, konwersją formatu i widokiem eksploratora.
+ * Biblioteka plików.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
   id: number;
-  /**
-   * Rozmyta miniatura w base64, używana podczas ładowania zdjęcia.
-   */
   blurDataURL?: string | null;
-  /**
-   * Nazwa wyświetlana w bibliotece. Domyślnie z nazwy pliku.
-   */
   title?: string | null;
   /**
-   * Wymagany dla dostępności i SEO (chyba że dekoracyjny). Uzupełniany z nazwy pliku: sprawdź i popraw.
+   * Wymagany, chyba że dekoracyjny.
    */
   alt?: string | null;
   /**
-   * Zaznacz, gdy obraz nie niesie informacji (tło, ozdoba). ALT będzie traktowany jako pusty.
+   * Pusty ALT.
    */
   isDecorative?: boolean | null;
-  /**
-   * Opcjonalny podpis widoczny przy obrazie na stronie.
-   */
   caption?: string | null;
-  /**
-   * Dłuższy opis kontekstu (SEO, redakcja, wyszukiwanie w bibliotece).
-   */
   description?: string | null;
-  /**
-   * Identyfikator URL / nazwy pliku. Domyślnie z nazwy pliku.
-   */
   slug?: string | null;
   /**
-   * Słowa kluczowe do filtrowania w bibliotece (np. fizjoterapia, sala).
+   * Przecinek lub Enter.
    */
   tags?: string[] | null;
   /**
-   * Stosowane przy uploadzie / wymianie pliku. Domyślnie WebP dla obrazów i WebM dla wideo.
+   * Przy uploadzie lub wymianie pliku.
    */
-  convertFormat?: ('optimized' | 'avif' | 'original') | null;
+  convertFormat?: ('optimized' | 'webp' | 'avif' | 'jpeg' | 'png' | 'webm' | 'mp4' | 'original') | null;
   /**
-   * Skalowanie obrazów przed zapisem (ignorowane dla wideo). 1920 px to dobry kompromis jakość/waga.
+   * Dłuższy bok (px).
    */
-  maxDimension?: ('1920' | '1280' | '2560' | 'none') | null;
+  maxDimension?: string | null;
   /**
-   * Dotyczy konwersji WebP / AVIF (ignorowane przy „bez konwersji”).
+   * 1–100.
    */
-  imageQuality?: ('balanced' | 'high' | 'small') | null;
-  /**
-   * Ustawiane automatycznie z MIME; używane do folderów w bibliotece.
-   */
+  imageQuality?: string | null;
   kind?: ('image' | 'video' | 'document' | 'other') | null;
   updatedAt: string;
   createdAt: string;

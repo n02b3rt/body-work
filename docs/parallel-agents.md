@@ -57,6 +57,14 @@ NEXT_PUBLIC_DASHBOARD_URL=http://dash.localhost:3001
 Start with `pnpm dev --port 3001` (3002, 3003). `DASHBOARD_HOST` stays
 `dash.localhost`; the host proxy matches on hostname, not port.
 
+**Port and `.env` must agree.** Payload CSRF only accepts the auth cookie on
+POSTs whose `Origin` matches `NEXT_PUBLIC_DASHBOARD_URL` (and a small allowlist
+of common agent ports in dev). If you open `http://dash.localhost:3000` while
+`.env` says `:3003`, the admin UI can still look logged in (GETs skip Origin),
+but saving media or editing docs fails with *"Nie możesz wykonać tej akcji"* /
+`UnauthorizedError` on form-state. Fix: restart with the port from `.env`, or
+update the three URL lines to match the port you actually use.
+
 Each database needs its own first admin user, and uploads live in that worktree's
 own `media/` folder, so a Media document created in one worktree is not resolvable
 in another. That is the point: it keeps a destructive reset local to one agent.

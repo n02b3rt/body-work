@@ -113,7 +113,12 @@ grep -q '^\.agent-scope$' <repo>/.git/info/exclude || echo '.agent-scope' >> <re
 pnpm dev --port <port>
 ```
 
-The database is empty, so `http://dash.localhost:<port>/admin` will ask for a first
+Open the admin at the **same** port as in `.env`
+(`http://dash.localhost:<port>/admin`). A mismatch looks logged-in but POSTs
+(save, form-state) fail with Unauthorized / 403 — see the CSRF note in
+`docs/parallel-agents.md`.
+
+The database is empty, so that URL will ask for a first
 admin user — each slot has its own. Uploads land in this worktree's own `media/`,
 so Media documents created in another slot will not resolve here. That is
 deliberate: it keeps a destructive reset local to one agent.
