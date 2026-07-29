@@ -1,6 +1,6 @@
 'use client'
 
-import type { ArrayFieldClientComponent, FormState } from 'payload'
+import type { ArrayFieldClientComponent, ClientField, FormState } from 'payload'
 
 import {
   DraggableSortable,
@@ -9,66 +9,58 @@ import {
   useField,
   useForm,
 } from '@payloadcms/ui'
+import { reduceFieldsToValues } from 'payload/shared'
 import React, { useCallback, useMemo, useState } from 'react'
 
 import { useSavedThemeColors } from '@/components/admin/appearance/use-preview-data'
 import { themeCssVarStyle } from '@/components/admin/appearance/use-theme-colors'
+import { elementCtx } from '@/components/elements/types'
+import { asArray, str } from '@/lib/component-values'
+import { elementLabel } from '@/lib/element-catalog'
+import { sectionSpacing, sectionWidth } from '@/lib/page-sections'
+import { resolveColorChoice } from '@/lib/theme-css'
 
-import { CanvasSection, type SectionRow } from './CanvasSection'
-import { ComponentLibrary } from './ComponentLibrary'
-import { SectionInspector } from './SectionInspector'
-import { indexById, useSiteComponents, type LibraryComponent } from './use-site-components'
+import { CanvasList, type ListActions } from './CanvasList'
+import { ElementLibrary } from './ElementLibrary'
+import { InspectorPanel } from './InspectorPanel'
+import {
+  blockBySlug,
+  blockSchemaPath,
+  blocksOf,
+  findField,
+  locateInSections,
+  nestedBlocks,
+  newRowId,
+} from './model'
+import { usePopulatedValues } from './use-canvas-data'
+import { useSiteComponents } from './use-site-components'
+import { VIEWPORTS, ViewportSwitch, type ViewportKey } from './ViewportSwitch'
 
-/** Row ids are form-state only until the document is saved; this matches Payload's own shape. */
-function newRowId(): string {
-  const random = globalThis.crypto?.randomUUID?.() ?? `${Date.now()}${Math.random()}`
-  return random.replace(/[^a-f0-9]/gi, '').slice(0, 24)
+/** Reads the field's own value out of the reduced form values. */
+function atPath(values: Record<string, unknown>, path: string): unknown {
+  return path.split('.').reduce<unknown>((acc, key) => {
+    if (!acc || typeof acc !== 'object') return undefined
+    return (acc as Record<string, unknown>)[key]
+  }, values)
 }
 
-function stateValue(state: FormState, path: string): unknown {
-  return state?.[path]?.value
-}
-
-/**
- * Reads one section's values straight out of the flat form state.
- *
- * Flat lookups rather than `reduceFieldsToValues` on the whole document: the
- * builder only needs six values per row, and this keeps it independent of where
- * the field sits in the document.
- */
-function readRow(state: FormState, path: string, index: number): SectionRow {
-  const base = `${path}.${index}`
-  return {
-    component: stateValue(state, `${base}.component`),
-    width: stateValue(state, `${base}.width`),
-    spacing: stateValue(state, `${base}.spacing`),
-    anchor: stateValue(state, `${base}.anchor`),
-    hidden: stateValue(state, `${base}.hidden`),
-    background: {
-      token: stateValue(state, `${base}.background.token`),
-      custom: stateValue(state, `${base}.background.custom`),
-    },
-  }
-}
-
-function toDocId(value: unknown): string | null {
-  if (typeof value === 'number') return String(value)
-  if (typeof value === 'string' && value) return value
-  if (value && typeof value === 'object') {
-    const record = value as { id?: unknown; value?: unknown }
-    if (record.id !== undefined) return toDocId(record.id)
-    if (record.value !== undefined) return toDocId(record.value)
-  }
-  return null
+type InsertTarget = {
+  index: number
+  nested: boolean
+  path: string
+  schemaPath: string
 }
 
 /**
- * Page builder for `pages.layout`.
+ * The page builder for `pages.layout`.
  *
- * Replaces Payload's stock array UI with a canvas: sections are placements of
- * components from "Wygląd → Komponenty", reordered by drag and configured in an
- * inspector. Every mutation goes through the form's own row actions, so undo,
- * validation, drafts and versioning keep working exactly as they do elsewhere.
+ * Three panes: the element library, a canvas that renders the *same* components
+ * the public site renders, and an inspector driven by Payload's own
+ * `RenderFields`. Every mutation goes through the form's row actions
+ * (`addFieldRow`, `moveFieldRow`, `removeFieldRow`, `DUPLICATE_ROW`), which is
+ * what Payload's stock array and blocks fields do — so validation, drafts,
+ * versions and the "unsaved changes" prompt keep working, and removing this
+ * component leaves the data editable in the stock UI.
  */
 export const PageBuilder: ArrayFieldClientComponent = (props) => {
   const { field, path: pathFromProps, readOnly, schemaPath: schemaPathFromProps } = props
@@ -83,49 +75,153 @@ export const PageBuilder: ArrayFieldClientComponent = (props) => {
   const schemaPath = schemaPathFromProps ?? field?.name ?? 'layout'
   const locked = Boolean(readOnly || disabled)
 
-  const { docs, error, loading, reload } = useSiteComponents()
-  const byId = useMemo(() => indexById(docs), [docs])
-  const colors = useSavedThemeColors()
-
-  // Keyed by row id, not index: moving or deleting a row must not silently
-  // re-point the inspector at a different section.
   const [selectedId, setSelectedId] = useState<null | string>(null)
-  const selectedIndex = rows.findIndex((row) => row.id === selectedId)
+  const [viewport, setViewport] = useState<ViewportKey>('desktop')
+  const [insertOverride, setInsertOverride] = useState<InsertTarget | null>(null)
 
-  const sections = useMemo(
-    () =>
-      rows.map((row, index) => {
-        const values = readRow(formState, path, index)
-        const docId = toDocId(values.component)
-        return { docId, id: row.id, index, values }
-      }),
-    [formState, path, rows],
+  const colors = useSavedThemeColors()
+  const library = useSiteComponents()
+
+  // ------------------------------------------------------------------ schema
+  const sectionFields = useMemo(
+    () => ((field?.fields ?? []) as ClientField[]).filter((entry) => entry.type !== 'ui'),
+    [field?.fields],
   )
+  const blocks = useMemo(
+    () => blocksOf(findField(sectionFields, 'content')),
+    [sectionFields],
+  )
+  const nested = useMemo(() => nestedBlocks(blocks), [blocks])
+  const sectionOwnFields = useMemo(
+    () => sectionFields.filter((entry) => !('name' in entry && entry.name === 'content')),
+    [sectionFields],
+  )
+
+  // ------------------------------------------------------------------ values
+  const sections = useMemo(() => {
+    const values = reduceFieldsToValues(formState, true) as Record<string, unknown>
+    return asArray(atPath(values, path))
+  }, [formState, path])
+
+  const populated = usePopulatedValues(sections)
+  const located = useMemo(
+    () => (selectedId ? locateInSections(sections, selectedId, path, schemaPath) : null),
+    [path, schemaPath, sections, selectedId],
+  )
+
+  // ----------------------------------------------------------------- actions
+  const addSection = useCallback(() => {
+    if (locked) return
+    const id = newRowId()
+    addFieldRow({
+      path,
+      rowIndex: rows.length,
+      schemaPath,
+      subFieldState: {
+        id: { initialValue: id, valid: true, value: id },
+      } as unknown as FormState,
+    })
+    setSelectedId(id)
+    setInsertOverride(null)
+  }, [addFieldRow, locked, path, rows.length, schemaPath])
+
+  const actions = useMemo<ListActions>(
+    () => ({
+      duplicate: (listPath, index) => {
+        if (locked) return
+        dispatchFields({ type: 'DUPLICATE_ROW', path: listPath, rowIndex: index })
+        setModified(true)
+      },
+      // Clicking an empty column only moves the insertion point; the library is
+      // what actually adds the element.
+      insertInto: (listPath, listSchemaPath, index, isNested) => {
+        setSelectedId(null)
+        setInsertOverride({ index, nested: isNested, path: listPath, schemaPath: listSchemaPath })
+      },
+      move: (listPath, from, to) => {
+        if (locked || from === to || to < 0) return
+        moveFieldRow({ moveFromIndex: from, moveToIndex: to, path: listPath })
+      },
+      remove: (listPath, index) => {
+        if (locked) return
+        removeFieldRow({ path: listPath, rowIndex: index })
+        setSelectedId(null)
+      },
+      select: (id) => {
+        setSelectedId(id)
+        setInsertOverride(null)
+      },
+    }),
+    [dispatchFields, locked, moveFieldRow, removeFieldRow, setModified],
+  )
+
+  /** Where the next library click lands, and how it is described to the editor. */
+  const target = useMemo<(InsertTarget & { label: string }) | null>(() => {
+    if (located?.kind === 'element') {
+      return {
+        index: located.index + 1,
+        label: `pod: ${elementLabel(located.blockType)}`,
+        nested: located.nested,
+        path: located.listPath,
+        schemaPath: located.listSchemaPath,
+      }
+    }
+
+    if (located?.kind === 'section') {
+      return {
+        index: asArray(sections[located.index]?.content).length,
+        label: `Sekcja ${located.index + 1}`,
+        nested: false,
+        path: `${path}.${located.index}.content`,
+        schemaPath: `${schemaPath}.content`,
+      }
+    }
+
+    if (insertOverride) return { ...insertOverride, label: 'wybrane miejsce' }
+
+    if (sections.length > 0) {
+      const index = sections.length - 1
+      return {
+        index: asArray(sections[index]?.content).length,
+        label: `Sekcja ${index + 1}`,
+        nested: false,
+        path: `${path}.${index}.content`,
+        schemaPath: `${schemaPath}.content`,
+      }
+    }
+
+    return null
+  }, [insertOverride, located, path, schemaPath, sections])
 
   const insert = useCallback(
-    (doc: LibraryComponent) => {
-      if (locked) return
+    (slug: string, seed?: Record<string, unknown>) => {
+      if (locked || !target) return
       const id = newRowId()
-      const rowIndex = selectedIndex >= 0 ? selectedIndex + 1 : rows.length
+
+      // Seeding the row is what lets "Moje komponenty" insert an already-chosen
+      // composition; the debounced form-state request fills in the defaults for
+      // every field left out here.
+      const subFieldState: Record<string, unknown> = {
+        id: { initialValue: id, valid: true, value: id },
+      }
+      Object.entries(seed ?? {}).forEach(([key, value]) => {
+        subFieldState[key] = { initialValue: value, valid: true, value }
+      })
 
       addFieldRow({
-        path,
-        rowIndex,
-        schemaPath,
-        subFieldState: {
-          id: { initialValue: id, valid: true, value: id },
-          component: { initialValue: doc.id, valid: true, value: doc.id },
-          width: { initialValue: 'container', valid: true, value: 'container' },
-          spacing: { initialValue: 'md', valid: true, value: 'md' },
-          hidden: { initialValue: false, valid: true, value: false },
-        } as unknown as FormState,
+        blockType: slug,
+        path: target.path,
+        rowIndex: target.index,
+        schemaPath: target.schemaPath,
+        subFieldState: subFieldState as unknown as FormState,
       })
+      setInsertOverride(null)
       setSelectedId(id)
     },
-    [addFieldRow, locked, path, rows.length, schemaPath, selectedIndex],
+    [addFieldRow, locked, target],
   )
 
-  const move = useCallback(
+  const moveSection = useCallback(
     (from: number, to: number) => {
       if (locked || to < 0 || to >= rows.length || from === to) return
       moveFieldRow({ moveFromIndex: from, moveToIndex: to, path })
@@ -133,25 +229,16 @@ export const PageBuilder: ArrayFieldClientComponent = (props) => {
     [locked, moveFieldRow, path, rows.length],
   )
 
-  const remove = useCallback(
+  const removeSection = useCallback(
     (index: number) => {
       if (locked) return
-      if (rows[index]?.id === selectedId) setSelectedId(null)
       removeFieldRow({ path, rowIndex: index })
+      setSelectedId(null)
     },
-    [locked, path, removeFieldRow, rows, selectedId],
+    [locked, path, removeFieldRow],
   )
 
-  const duplicate = useCallback(
-    (index: number) => {
-      if (locked) return
-      dispatchFields({ type: 'DUPLICATE_ROW', path, rowIndex: index })
-      setModified(true)
-    },
-    [dispatchFields, locked, path, setModified],
-  )
-
-  const toggleHidden = useCallback(
+  const toggleSectionHidden = useCallback(
     (index: number, current: boolean) => {
       if (locked) return
       dispatchFields({ type: 'UPDATE', path: `${path}.${index}.hidden`, value: !current })
@@ -160,88 +247,239 @@ export const PageBuilder: ArrayFieldClientComponent = (props) => {
     [dispatchFields, locked, path, setModified],
   )
 
+  // --------------------------------------------------------------- inspector
+  const inspector = useMemo(() => {
+    if (!located) return null
+
+    if (located.kind === 'section') {
+      return (
+        <InspectorPanel
+          fields={sectionOwnFields}
+          key={located.id}
+          path={located.path}
+          readOnly={locked}
+          schemaPath={schemaPath}
+          subtitle="Sekcja"
+          title={`Sekcja ${located.index + 1}`}
+        />
+      )
+    }
+
+    const block = blockBySlug(located.nested ? nested : blocks, located.blockType)
+    if (!block) return null
+
+    return (
+      <InspectorPanel
+        fields={block.fields as ClientField[]}
+        key={located.id}
+        path={located.path}
+        readOnly={locked}
+        schemaPath={blockSchemaPath(located.listSchemaPath, located.blockType)}
+        subtitle="Element"
+        title={elementLabel(located.blockType)}
+      />
+    )
+  }, [blocks, located, locked, nested, schemaPath, sectionOwnFields])
+
+  const ctx = useMemo(() => elementCtx({ mode: 'admin' }), [])
+  const availableBlocks = useMemo(
+    () => (target?.nested ? nested : blocks).map((block) => block.slug),
+    [blocks, nested, target?.nested],
+  )
+
   return (
     <div className="bw-builder" data-field-path={path}>
       <div className="bw-builder__head">
         <div>
           <h3 className="bw-builder__title">Kreator stron</h3>
           <p className="bw-builder__lead">
-            Dodaj sekcje z biblioteki po lewej, przeciągnij, aby zmienić kolejność, kliknij
-            sekcję, aby zmienić jej ustawienia.
+            Dodaj elementy z biblioteki, przeciągnij, aby zmienić kolejność, kliknij element,
+            aby ustawić jego parametry.
           </p>
         </div>
-        <span className="bw-builder__count">
-          {rows.length} {rows.length === 1 ? 'sekcja' : 'sekcji'}
-        </span>
+        <div className="bw-builder__head-tools">
+          <ViewportSwitch onChange={setViewport} value={viewport} />
+          <span className="bw-builder__count">
+            {rows.length} {rows.length === 1 ? 'sekcja' : 'sekcji'}
+          </span>
+        </div>
       </div>
 
       <div className="bw-builder__layout">
-        <ComponentLibrary
-          disabled={locked}
-          docs={docs}
-          error={error}
-          loading={loading}
+        <ElementLibrary
+          available={availableBlocks}
+          compositions={library.docs}
+          compositionsError={library.error}
+          compositionsLoading={library.loading}
+          disabled={locked || !target}
           onInsert={insert}
-          onReload={reload}
+          onReload={library.reload}
+          targetLabel={target?.label ?? 'najpierw dodaj sekcję'}
         />
 
         <div className="bw-builder__canvas" style={themeCssVarStyle(colors)}>
-          {rows.length === 0 ? (
-            <p className="bw-builder__empty">
-              Ta strona nie ma jeszcze żadnych sekcji. Wybierz komponent z biblioteki, aby
-              zacząć.
-            </p>
-          ) : (
-            <DraggableSortable
-              className="bw-builder__sections"
-              ids={rows.map((row) => row.id)}
-              onDragEnd={({ moveFromIndex, moveToIndex }) => move(moveFromIndex, moveToIndex)}
+          <div
+            className="bw-canvas__viewport"
+            data-viewport={viewport}
+            style={{ maxWidth: VIEWPORTS[viewport].width }}
+          >
+            {rows.length === 0 ? (
+              <p className="bw-builder__empty">
+                Ta strona nie ma jeszcze sekcji. Dodaj pierwszą, aby zacząć układać treść.
+              </p>
+            ) : (
+              <DraggableSortable
+                className="bw-builder__sections"
+                ids={rows.map((row) => row.id)}
+                onDragEnd={({ moveFromIndex, moveToIndex }) =>
+                  moveSection(moveFromIndex, moveToIndex)
+                }
+              >
+                {rows.map((row, index) => {
+                  const raw = sections[index] ?? {}
+                  const section = populated[index] ?? {}
+
+                  return (
+                    <DraggableSortableItem disabled={locked} id={row.id} key={row.id}>
+                      {(draggable) => (
+                        <section
+                          className={[
+                            'bw-canvas__section',
+                            row.id === selectedId ? 'bw-canvas__section--selected' : '',
+                            raw.hidden === true ? 'bw-canvas__section--hidden' : '',
+                          ]
+                            .filter(Boolean)
+                            .join(' ')}
+                          onClick={() => {
+                            setSelectedId(row.id)
+                            setInsertOverride(null)
+                          }}
+                          ref={draggable.setNodeRef}
+                          style={{
+                            transform: draggable.transform,
+                            transition: draggable.transition,
+                          }}
+                        >
+                          <header className="bw-canvas__bar">
+                            <button
+                              aria-label="Przeciągnij sekcję"
+                              className="bw-node__grip"
+                              type="button"
+                              {...draggable.attributes}
+                              {...draggable.listeners}
+                            >
+                              ⋮⋮
+                            </button>
+                            <span className="bw-node__label">
+                              {str(raw.name) || `Sekcja ${index + 1}`}
+                            </span>
+                            <span className="bw-node__actions">
+                              <button
+                                aria-label="W górę"
+                                className="bw-node__button"
+                                disabled={locked || index === 0}
+                                onClick={(event) => {
+                                  event.stopPropagation()
+                                  moveSection(index, index - 1)
+                                }}
+                                type="button"
+                              >
+                                ↑
+                              </button>
+                              <button
+                                aria-label="W dół"
+                                className="bw-node__button"
+                                disabled={locked || index === rows.length - 1}
+                                onClick={(event) => {
+                                  event.stopPropagation()
+                                  moveSection(index, index + 1)
+                                }}
+                                type="button"
+                              >
+                                ↓
+                              </button>
+                              <button
+                                aria-label={
+                                  raw.hidden === true ? 'Pokaż sekcję' : 'Ukryj sekcję'
+                                }
+                                className="bw-node__button"
+                                disabled={locked}
+                                onClick={(event) => {
+                                  event.stopPropagation()
+                                  toggleSectionHidden(index, raw.hidden === true)
+                                }}
+                                type="button"
+                              >
+                                {raw.hidden === true ? '◌' : '●'}
+                              </button>
+                              <button
+                                aria-label="Usuń sekcję"
+                                className="bw-node__button bw-node__button--danger"
+                                disabled={locked}
+                                onClick={(event) => {
+                                  event.stopPropagation()
+                                  removeSection(index)
+                                }}
+                                type="button"
+                              >
+                                ✕
+                              </button>
+                            </span>
+                          </header>
+
+                          <div
+                            className="bw-canvas__band"
+                            style={{
+                              background: resolveColorChoice(
+                                raw.background as {
+                                  custom?: null | string
+                                  token?: null | string
+                                },
+                                null,
+                              ),
+                              padding: `${sectionSpacing(raw.spacing)} 0`,
+                            }}
+                          >
+                            <div
+                              className="bw-el-root bw-el-stack bw-canvas__inner"
+                              style={{ maxWidth: sectionWidth(raw.width) }}
+                            >
+                              <CanvasList
+                                actions={actions}
+                                ctx={ctx}
+                                elements={section.content}
+                                nested={false}
+                                path={`${path}.${index}.content`}
+                                readOnly={locked}
+                                schemaPath={`${schemaPath}.content`}
+                                selectedId={selectedId}
+                              />
+                            </div>
+                          </div>
+                        </section>
+                      )}
+                    </DraggableSortableItem>
+                  )
+                })}
+              </DraggableSortable>
+            )}
+
+            <button
+              className="bw-canvas__add-section"
+              disabled={locked}
+              onClick={addSection}
+              type="button"
             >
-              {sections.map(({ docId, id, index, values }) => (
-                <DraggableSortableItem disabled={locked} id={id} key={id}>
-                  {(draggable) => (
-                    <CanvasSection
-                      doc={docId ? byId[docId] : undefined}
-                      dragAttributes={draggable.attributes}
-                      dragListeners={draggable.listeners}
-                      index={index}
-                      isDragging={draggable.isDragging}
-                      isSelected={id === selectedId}
-                      onDuplicate={() => duplicate(index)}
-                      onMove={(to) => move(index, to)}
-                      onRemove={() => remove(index)}
-                      onSelect={() => setSelectedId(id)}
-                      onToggleHidden={() => toggleHidden(index, values.hidden === true)}
-                      row={values}
-                      setNodeRef={draggable.setNodeRef}
-                      total={rows.length}
-                      transform={draggable.transform}
-                      transition={draggable.transition}
-                    />
-                  )}
-                </DraggableSortableItem>
-              ))}
-            </DraggableSortable>
-          )}
+              + Dodaj sekcję
+            </button>
+          </div>
         </div>
 
-        {selectedIndex >= 0 ? (
-          <SectionInspector
-            docs={docs}
-            index={selectedIndex}
-            key={selectedId}
-            path={path}
-            selectedDoc={
-              sections[selectedIndex]?.docId
-                ? byId[sections[selectedIndex]!.docId!]
-                : undefined
-            }
-          />
-        ) : (
+        {inspector ?? (
           <aside className="bw-builder__inspector bw-builder__inspector--empty">
-            <h4 className="bw-builder__panel-title">Ustawienia sekcji</h4>
+            <h4 className="bw-builder__panel-title">Ustawienia</h4>
             <p className="bw-builder__hint">
-              Kliknij sekcję na kanwie, aby ustawić jej szerokość, tło, odstęp i kotwicę.
+              Kliknij sekcję lub element na kanwie, aby zobaczyć jego parametry.
             </p>
           </aside>
         )}

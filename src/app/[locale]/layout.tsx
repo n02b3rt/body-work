@@ -76,7 +76,9 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
           dangerouslySetInnerHTML={{ __html: JSON.stringify(business) }}
         />
       </head>
-      <body className="flex min-h-full flex-col">
+      {/* Extensions (Grammarly, Video Speed Controller, …) often mutate <body>
+        * attributes before hydration; without this React logs a recoverable mismatch. */}
+      <body className="flex min-h-full flex-col" suppressHydrationWarning>
         {/* Only the namespaces a client component actually reads. `getMessages()` returns
           * all 46, about 188KB, and shipping the lot put the trainer biographies and the
           * newsletter status copy into every page's payload. See

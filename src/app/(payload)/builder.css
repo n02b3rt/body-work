@@ -1,12 +1,17 @@
-/* —— Kreator stron (pages → layout) —— */
+/**
+ * The page/component builder's chrome.
+ *
+ * Only the frame lives here: the canvas renders the *same* element components
+ * the public site renders, and those are styled by `src/styles/elements.css`,
+ * which `custom.css` imports for exactly this reason.
+ */
 
 .bw-builder {
-  margin: 0 0 1.5rem;
+  margin-block: 0.5rem 1.5rem;
 }
 
 .bw-builder__head {
   display: flex;
-  flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
@@ -14,210 +19,249 @@
 }
 
 .bw-builder__title {
-  margin: 0 0 0.25rem;
-  font-size: 1.05rem;
+  margin: 0 0 0.2rem;
+  font-size: 1.15rem;
   font-weight: 600;
 }
 
 .bw-builder__lead {
   margin: 0;
-  max-width: 44rem;
-  color: var(--theme-elevation-700);
-  font-size: 0.9rem;
+  max-width: 46rem;
+  color: var(--theme-elevation-600);
+  font-size: 0.85rem;
   line-height: 1.45;
 }
 
-.bw-builder__count {
-  flex-shrink: 0;
-  padding: 0.2rem 0.6rem;
-  border-radius: 999px;
-  background: var(--theme-elevation-100);
-  color: var(--theme-elevation-700);
-  font-size: 0.8rem;
-  font-weight: 600;
+.bw-builder__head-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
+
+.bw-builder__count {
+  flex: 0 0 auto;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--theme-elevation-150);
+  border-radius: 999px;
+  color: var(--theme-elevation-600);
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.bw-builder__viewports {
+  display: inline-flex;
+  overflow: hidden;
+  border: 1px solid var(--theme-elevation-150);
+  border-radius: 4px;
+}
+
+.bw-builder__viewport-button {
+  padding: 0.3rem 0.7rem;
+  border: 0;
+  background: var(--theme-elevation-0);
+  color: var(--theme-elevation-700);
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.bw-builder__viewport-button + .bw-builder__viewport-button {
+  border-left: 1px solid var(--theme-elevation-150);
+}
+
+.bw-builder__viewport-button[aria-pressed='true'] {
+  background: var(--theme-elevation-800);
+  color: var(--theme-elevation-0);
+}
+
+/* ------------------------------------------------------------------ layout */
 
 .bw-builder__layout {
   display: grid;
-  grid-template-columns: 14rem minmax(0, 1fr) 16rem;
-  gap: 0.85rem;
+  grid-template-columns: 15rem minmax(0, 1fr) 21rem;
+  gap: 0.75rem;
   align-items: start;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1400px) {
   .bw-builder__layout {
-    grid-template-columns: 13rem minmax(0, 1fr);
-  }
-
-  .bw-builder__inspector {
-    grid-column: 1 / -1;
+    grid-template-columns: 13rem minmax(0, 1fr) 18rem;
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1100px) {
   .bw-builder__layout {
     grid-template-columns: minmax(0, 1fr);
   }
 }
 
-/* —— Library rail —— */
-
 .bw-builder__library,
 .bw-builder__inspector {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  padding: 0.75rem;
+  position: sticky;
+  top: 0.5rem;
+  max-height: calc(100vh - 6rem);
+  overflow-y: auto;
+  padding: 0.9rem;
   border: 1px solid var(--theme-elevation-150);
   border-radius: 4px;
   background: var(--theme-elevation-50);
-  position: sticky;
-  top: 1rem;
-}
-
-.bw-builder__library-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
 }
 
 .bw-builder__panel-title {
   display: flex;
-  flex-wrap: wrap;
   align-items: baseline;
-  gap: 0.4rem;
-  margin: 0;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin: 0 0 0.5rem;
   font-size: 0.95rem;
   font-weight: 600;
 }
 
 .bw-builder__panel-sub {
-  color: var(--theme-elevation-600);
-  font-size: 0.8rem;
-  font-weight: 500;
+  color: var(--theme-elevation-500);
+  font-size: 0.75rem;
+  font-weight: 400;
 }
 
-.bw-builder__search,
+.bw-builder__hint {
+  margin: 0 0 0.6rem;
+  color: var(--theme-elevation-600);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.bw-builder__hint--boxed {
+  padding: 0.6rem 0.75rem;
+  border: 1px dashed var(--theme-elevation-200);
+  border-radius: 4px;
+}
+
+.bw-builder__notice {
+  margin: 0 0 0.6rem;
+  padding: 0.5rem 0.65rem;
+  border-radius: 4px;
+  background: var(--theme-error-100, #fde8e8);
+  color: var(--theme-error-600, #a11);
+  font-size: 0.78rem;
+}
+
 .bw-builder__input {
   width: 100%;
-  min-width: 0;
-  border: 1px solid var(--theme-elevation-250);
+  padding: 0.4rem 0.55rem;
+  border: 1px solid var(--theme-elevation-200);
   border-radius: 4px;
-  background: var(--theme-elevation-0);
+  background: var(--theme-input-bg, var(--theme-elevation-0));
   color: inherit;
-  font: inherit;
-  font-size: 0.85rem;
-  padding: 0.35rem 0.5rem;
+  font-size: 0.82rem;
 }
 
-.bw-builder__library-groups {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  max-height: 30rem;
-  overflow-y: auto;
-}
-
-.bw-builder__library-group-title {
-  margin: 0 0 0.3rem;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--theme-elevation-600);
-}
+/* ----------------------------------------------------------------- library */
 
 .bw-builder__library-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.9rem;
+  margin-top: 0.75rem;
+}
+
+.bw-builder__library-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.bw-builder__library-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 0 0 0.15rem;
+  color: var(--theme-elevation-500);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.bw-builder__library-subheading {
+  margin: 0.4rem 0 0.15rem;
+  color: var(--theme-elevation-500);
+  font-size: 0.72rem;
 }
 
 .bw-builder__library-item {
-  appearance: none;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.4rem;
+  flex-direction: column;
+  gap: 0.1rem;
   width: 100%;
-  margin: 0;
-  padding: 0.35rem 0.5rem;
+  padding: 0.45rem 0.55rem;
   border: 1px solid var(--theme-elevation-150);
-  border-radius: 3px;
+  border-radius: 4px;
   background: var(--theme-elevation-0);
   color: inherit;
-  font: inherit;
-  font-size: 0.85rem;
   text-align: left;
   cursor: pointer;
 }
 
 .bw-builder__library-item:hover:not(:disabled) {
-  border-color: var(--theme-elevation-500);
+  border-color: var(--theme-elevation-400);
   background: var(--theme-elevation-100);
 }
 
 .bw-builder__library-item:disabled {
-  opacity: 0.5;
+  opacity: 0.45;
   cursor: not-allowed;
 }
 
-.bw-builder__library-item-name {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.bw-builder__library-name {
+  font-size: 0.83rem;
+  font-weight: 500;
 }
 
-.bw-builder__library-item-add {
-  flex-shrink: 0;
-  color: var(--theme-elevation-600);
-  font-weight: 700;
+.bw-builder__library-meta {
+  color: var(--theme-elevation-500);
+  font-size: 0.72rem;
+  line-height: 1.3;
 }
 
-.bw-builder__library-link {
-  font-size: 0.82rem;
-  color: var(--theme-elevation-800);
-}
-
-.bw-builder__ghost-btn {
-  appearance: none;
-  border: 1px solid var(--theme-elevation-250);
-  border-radius: 4px;
-  background: var(--theme-elevation-0);
-  color: inherit;
-  font: inherit;
-  font-size: 0.75rem;
-  padding: 0.15rem 0.45rem;
+.bw-builder__link-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--theme-elevation-500);
+  font-size: 0.7rem;
+  text-decoration: underline;
+  text-transform: none;
   cursor: pointer;
 }
 
-.bw-builder__ghost-btn:hover {
-  background: var(--theme-elevation-100);
-}
-
-/* —— Canvas —— */
+/* ------------------------------------------------------------------ canvas */
 
 .bw-builder__canvas {
   min-width: 0;
   padding: 0.75rem;
   border: 1px solid var(--theme-elevation-150);
   border-radius: 4px;
-  background: var(--theme-elevation-0);
+  background: var(--theme-elevation-100);
+}
+
+.bw-canvas__viewport {
+  margin-inline: auto;
+  width: 100%;
+  transition: max-width 0.2s ease;
+}
+
+.bw-canvas__viewport:not([data-viewport='desktop']) {
+  outline: 1px dashed var(--theme-elevation-250);
+  outline-offset: 0.5rem;
 }
 
 .bw-builder__empty {
-  margin: 0;
-  padding: 3rem 1rem;
-  text-align: center;
-  color: var(--theme-elevation-600);
-  font-size: 0.9rem;
+  margin: 0 0 0.75rem;
+  padding: 2rem 1rem;
   border: 1px dashed var(--theme-elevation-250);
   border-radius: 4px;
+  color: var(--theme-elevation-600);
+  font-size: 0.85rem;
+  text-align: center;
 }
 
 .bw-builder__sections {
@@ -226,215 +270,204 @@
   gap: 0.6rem;
 }
 
-.bw-builder__section {
-  border: 1px solid var(--theme-elevation-150);
+.bw-canvas__section {
+  overflow: hidden;
+  border: 1px solid var(--theme-elevation-200);
   border-radius: 4px;
   background: var(--theme-elevation-0);
-  overflow: hidden;
 }
 
-.bw-builder__section.is-selected {
-  border-color: var(--theme-elevation-800);
-  box-shadow: 0 0 0 1px var(--theme-elevation-800);
+.bw-canvas__section--selected {
+  border-color: var(--theme-success-500, #2e7d32);
+  box-shadow: 0 0 0 1px var(--theme-success-500, #2e7d32);
 }
 
-.bw-builder__section.is-hidden .bw-builder__section-body {
-  opacity: 0.4;
+.bw-canvas__section--hidden .bw-canvas__band {
+  opacity: 0.45;
 }
 
-.bw-builder__section.is-dragging {
-  position: relative;
-  box-shadow: 0 6px 18px rgb(0 0 0 / 18%);
-}
-
-.bw-builder__section-bar {
+.bw-canvas__bar,
+.bw-node__bar {
   display: flex;
   align-items: center;
   gap: 0.4rem;
   padding: 0.3rem 0.4rem;
-  border-bottom: 1px solid var(--theme-elevation-100);
+  border-bottom: 1px solid var(--theme-elevation-150);
   background: var(--theme-elevation-50);
 }
 
-.bw-builder__drag {
-  appearance: none;
+.bw-node__grip {
+  padding: 0.1rem 0.25rem;
   border: 0;
-  background: transparent;
-  color: var(--theme-elevation-500);
-  font: inherit;
-  font-size: 1rem;
+  background: none;
+  color: var(--theme-elevation-450);
+  font-size: 0.7rem;
   line-height: 1;
-  padding: 0.2rem 0.25rem;
   cursor: grab;
-  touch-action: none;
 }
 
-.bw-builder__drag:active {
+.bw-node__grip:active {
   cursor: grabbing;
 }
 
-.bw-builder__section-id {
-  appearance: none;
-  display: flex;
-  flex: 1;
+.bw-node__label {
+  flex: 1 1 auto;
   min-width: 0;
-  align-items: baseline;
-  gap: 0.45rem;
-  border: 0;
-  background: transparent;
-  color: inherit;
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-  padding: 0.1rem 0;
-}
-
-.bw-builder__section-name {
-  font-size: 0.85rem;
-  font-weight: 600;
   overflow: hidden;
+  color: var(--theme-elevation-700);
+  font-size: 0.75rem;
+  font-weight: 500;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.bw-builder__section-type {
-  flex-shrink: 0;
-  color: var(--theme-elevation-600);
-  font-size: 0.75rem;
-}
-
-.bw-builder__section-actions {
-  display: flex;
-  flex-shrink: 0;
+.bw-node__actions {
+  display: inline-flex;
   gap: 0.15rem;
 }
 
-.bw-builder__icon-btn {
-  appearance: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 1.6rem;
-  height: 1.6rem;
-  padding: 0 0.3rem;
+.bw-node__button {
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
   border: 1px solid transparent;
   border-radius: 3px;
-  background: transparent;
-  color: var(--theme-elevation-700);
-  font: inherit;
-  font-size: 0.85rem;
+  background: none;
+  color: var(--theme-elevation-600);
+  font-size: 0.75rem;
   line-height: 1;
-  text-decoration: none;
   cursor: pointer;
 }
 
-.bw-builder__icon-btn:hover:not(:disabled) {
-  border-color: var(--theme-elevation-250);
+.bw-node__button:hover:not(:disabled) {
+  border-color: var(--theme-elevation-200);
   background: var(--theme-elevation-100);
 }
 
-.bw-builder__icon-btn:disabled {
+.bw-node__button:disabled {
   opacity: 0.3;
   cursor: not-allowed;
 }
 
-.bw-builder__icon-btn.is-active {
-  color: var(--theme-elevation-1000, #000);
-  border-color: var(--theme-elevation-300);
-  background: var(--theme-elevation-100);
+.bw-node__button--danger:hover:not(:disabled) {
+  border-color: var(--theme-error-500, #c33);
+  color: var(--theme-error-500, #c33);
 }
 
-.bw-builder__icon-btn--danger:hover:not(:disabled) {
-  color: var(--theme-error-500);
-  border-color: var(--theme-error-500);
-  background: transparent;
+.bw-canvas__band {
+  padding-block: 0.25rem;
 }
 
-.bw-builder__section-body {
-  padding: 1rem 0;
-  cursor: pointer;
+.bw-canvas__inner {
+  margin-inline: auto;
+  width: 100%;
+  padding-inline: 1rem;
 }
 
-.bw-builder__section-inner {
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-
-.bw-builder__center {
-  display: flex;
-  justify-content: center;
-}
-
-.bw-builder__section-flag {
-  margin: 0;
-  padding: 0.3rem 0.6rem;
-  border-top: 1px solid var(--theme-elevation-100);
-  background: var(--theme-elevation-50);
-  color: var(--theme-elevation-600);
-  font-size: 0.75rem;
-}
-
-.bw-builder__notice {
-  margin: 0;
-  padding: 1.25rem 1rem;
-  border: 1px dashed var(--theme-elevation-250);
-  border-radius: 4px;
-  color: var(--theme-elevation-600);
-  font-size: 0.85rem;
-  text-align: center;
-}
-
-/* —— Inspector —— */
-
-.bw-builder__control {
+.bw-canvas__list {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
 }
 
-.bw-builder__control--inline {
-  flex-direction: row;
-  align-items: center;
-  gap: 0.45rem;
-}
-
-.bw-builder__control-label {
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--theme-elevation-800);
-}
-
-.bw-builder__control-hint {
-  color: var(--theme-elevation-600);
-  font-size: 0.72rem;
-  line-height: 1.35;
-}
-
-.bw-builder__color-row {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.bw-builder__color-swatch {
-  appearance: none;
-  flex-shrink: 0;
-  width: 2rem;
-  height: 1.85rem;
-  padding: 0;
-  border: 1px solid var(--theme-elevation-250);
+.bw-canvas__empty {
+  display: block;
+  width: 100%;
+  padding: 1.25rem 0.75rem;
+  border: 1px dashed var(--theme-elevation-250);
   border-radius: 4px;
-  background: transparent;
+  background: none;
+  color: var(--theme-elevation-500);
+  font-size: 0.78rem;
+  text-align: center;
   cursor: pointer;
 }
 
-.bw-builder__hint {
-  margin: 0;
-  color: var(--theme-elevation-600);
-  font-size: 0.82rem;
-  line-height: 1.45;
+.bw-canvas__empty:hover:not(:disabled) {
+  border-color: var(--theme-elevation-400);
+  color: var(--theme-elevation-700);
 }
 
-.bw-builder__hint--error {
-  color: var(--theme-error-500);
+.bw-canvas__column {
+  min-height: 3rem;
+  outline: 1px dashed var(--theme-elevation-200);
+  outline-offset: -1px;
+}
+
+.bw-canvas__add-section {
+  width: 100%;
+  margin-top: 0.6rem;
+  padding: 0.55rem;
+  border: 1px dashed var(--theme-elevation-250);
+  border-radius: 4px;
+  background: var(--theme-elevation-0);
+  color: var(--theme-elevation-700);
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.bw-canvas__add-section:hover:not(:disabled) {
+  border-color: var(--theme-elevation-450);
+}
+
+/* ------------------------------------------------------------------- nodes */
+
+/**
+ * The selectable shell around one element. An outline rather than a border, so
+ * the frame never changes the layout the editor is judging.
+ */
+.bw-node {
+  position: relative;
+  outline: 1px solid transparent;
+  outline-offset: -1px;
+}
+
+.bw-node:hover {
+  outline-color: var(--theme-elevation-200);
+}
+
+.bw-node--selected {
+  outline: 2px solid var(--theme-success-500, #2e7d32);
+}
+
+.bw-node--dragging {
+  opacity: 0.6;
+}
+
+/** The toolbar only appears on hover or selection, so the canvas reads as a page. */
+.bw-node > .bw-node__bar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  border: 1px solid var(--theme-elevation-200);
+  border-radius: 4px 4px 0 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-100%);
+  transition: opacity 0.12s ease;
+}
+
+.bw-node:hover > .bw-node__bar,
+.bw-node--selected > .bw-node__bar {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.bw-node__body {
+  min-width: 0;
+}
+
+/* --------------------------------------------------------------- inspector */
+
+.bw-builder__inspector--empty {
+  color: var(--theme-elevation-600);
+}
+
+/** Payload's own fields render in here; keep them inside the panel. */
+.bw-builder__fields .field-type {
+  margin-bottom: 0.6rem;
+}
+
+.bw-builder__fields .render-fields {
+  margin: 0;
 }
