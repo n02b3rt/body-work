@@ -15,18 +15,25 @@ import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { PartnerLogos } from "@/components/centrum/PartnerLogos";
 import { GALLERY_URL } from "@/lib/external-links";
 import { pageMetadata } from "@/lib/metadata";
+import { blurFor } from "@/lib/static-blur";
+import { homepageJsonLd } from "@/lib/structured-data";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const tHero = await getTranslations({ locale, namespace: "Hero" });
-  const tStatements = await getTranslations({ locale, namespace: "Statements" });
   return pageMetadata({
     locale,
     path: "/",
-    // The homepage's own hero line, and its opening statement as the description,
-    // existing copy rather than something written for search engines.
     title: tHero("title"),
-    description: tStatements("balancedFitnessBody"),
+    /**
+     * A description written to fit, not the opening statement.
+     *
+     * `Statements.balancedFitnessBody` was doing this job at 307 characters, and Google truncates
+     * around 155, so it was being cut mid-sentence. `Hero.metaDescription` is 151 and every fact
+     * in it comes from the page itself: the six services, the balanced-fitness statement and the
+     * footer's Poznań address.
+     */
+    description: tHero("metaDescription"),
   });
 }
 
@@ -72,8 +79,25 @@ export default async function CentrumHomePage({ params }: PageProps) {
 
   return (
     <>
+      {/* The site as a `WebSite` plus what the centre offers as a list of `Service` entries, both
+        * hanging off the sitewide `HealthAndBeautyBusiness` by `@id` so a crawler does not read
+        * them as two separate businesses. See `src/lib/structured-data.ts`. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homepageJsonLd(locale, services)) }}
+      />
+
       <Hero />
-      <FullBleedVideo src="/videos/hero.mp4" />
+      {/* `src` has no extension: the component offers `.webm` (1736KB) before `.mp4` (2800KB).
+        * The poster carries the first paint at 17KB and the video only loads once the section is
+        * within a viewport of being seen. `blurFor` is read here, on the server, because the
+        * component is a client one and importing the placeholder map would ship all of it. */}
+      <FullBleedVideo
+        src="/videos/hero"
+        poster="/images/home/hero-poster.webp"
+        posterAlt={tStatements("movementTool")}
+        posterBlur={blurFor("/images/home/hero-poster.webp")}
+      />
 
       {/* The opening statement's body copy is deliberately oversized on the
        * reference (`ho:f7s6`, ~40px), it reads as a statement, not as body text. */}

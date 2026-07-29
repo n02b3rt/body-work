@@ -40,7 +40,7 @@ Source of truth for the full URL list: `scripts/scrape/sitemap.xml` (40 PL URLs 
 | `/dietetyka/` | `dietetyka/` | + 2 dietitian profiles: `iwona-stachowiak/`, `magdalena-hajduk-warchol/` |
 | `/bodylab/` | `bodylab/` | + `technologia-vald/`, `analiza-skadu-ciala/` |
 | `/cennik/` | `cennik/` | Pricing table |
-| `/masaz/` | `masaz/` | |
+| `/masaz/` | `masaz/` | Built. Its e-commerce (one booking button, five buy buttons) is deliberately dropped: Centrum has no shop. |
 | `/blog/` | `blog/` | + one folder per post (62 posts mirrored as of 2026-07-25) |
 | `/kontakt/` | `kontakt/` | |
 | `/polityka-prywatnosci/`, `/regulamin/`, `/cookies/` | matching folders | Legal pages: build as HTML pages, not PDFs (PRD §4/§8.4) |

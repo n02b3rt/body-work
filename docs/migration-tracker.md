@@ -36,8 +36,8 @@ What the pass fixed is recorded in `AI_NOTES.md`; the rows below carry the per-p
 
 ## Audit against the original: 2026-07-27
 
-URL coverage: **27 of 32** content pages built; **62 of 62** blog posts in the database
-(exact match both ways). The 5 unbuilt: `/masaz` and `/cookies` (deferred by the user),
+URL coverage: **28 of 32** content pages built; **62 of 62** blog posts in the database
+(exact match both ways). The 4 unbuilt: `/cookies` (deferred by the user),
 `/test` and `/podziekowanie` (awaiting a client decision on whether they carry over), and
 `/trening-grupowy/grafik-zajec` (not applicable: outbound eFitness link). `/zakupy/*`
 (10 URLs) stays out of scope as the future shop model.
@@ -146,7 +146,7 @@ Two things about this app's shape made it harder than it looks, both worth knowi
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
 |---|---|---|---|---|---|
 | `/cennik/` | `/cennik/` | Reused: PageHero, Accordion (9 price rows; the component gained `cta`/`note`/`groups` and now `panelHeading` for this page). **No newsletter block**: the reference has none here | PL: done / EN: done | Two-way check plus a dedicated price audit, all 46 distinct figures verified present; re-verified against the live site 2026-07-26 | Bilingual |
-| `/masaz/` | `/masaz/` | - | PL:: / EN:: | - | Not started |
+| `/masaz/` | `/masaz/` | Built 2026-07-28. Hero, intro band, four treatment panels (all text-left / image-right, **no alternation**: the reference gives all four identical wrapper classes), team accordion of three therapists, testimonial carousel, contact block with the brand watermark. **The reference's six WooCommerce buttons are deliberately gone**, see the note below | PL: done / EN: done | Compared block by block against the mirror: **53 of 54** non-shop content chunks present, 10 of 10 content images, bios carry the reference's own paragraph breaks. The one gap is `ZAMKNIJ`, which our accordion renders only when a row is open (React) where the reference ships both labels and toggles in CSS | Bilingual |
 | `/kontakt/` | `/kontakt/` | Reused: PageHero (display title, **left**-aligned), MeetUsCta. **The reference page has no content of its own**, see the note below | PL: done / EN: done | Composed from copy already verified elsewhere; nothing invented | Bilingual |
 | `/instrukcja/` | `/instrukcja/` | New: none. Reused: PageHero, StatementSection ×8 (3 of them a 3-up bullet row), FullBleedImage ×4, CenteredBand, MediaCardCta ×2. 7 images copied. No newsletter block: the reference has none | PL: done / EN: done | Two-way check vs. the live site: 0 missing headings | Bilingual |
 
@@ -231,6 +231,530 @@ and then editing the excerpt would silently stop affecting search results.
 
 What was actually wrong was the panel: `Tytuł SEO` explained itself and the other two did not, so
 an empty group read as an oversight. All three now say what happens when left blank.
+
+### /trening-personalny: RWD, media, lazy loading and structured data (2026-07-29)
+
+The same four jobs as the homepage, and the one real layout break here was the same *shape* of bug
+as the service grid's: a grid that changes column count at one breakpoint while the type scales at
+another.
+
+#### The heading that could never fit
+
+Swept eight widths. Seven were clean; **at 1049 the page was 75px wider than the viewport**, and the
+culprit was a specialisation heading.
+
+The three-up specialisations grid went three-up at `lg` (1024), while `SectionHeading`'s `section`
+size jumps from 39.5px straight to 67.7px at `wide` (1060). Between those the columns are narrow and
+the type is already large. Worse, the arithmetic says it never fits: at 67.7px the word
+"funkcjonalny." needs roughly 396px, and a third of the capped 1440 container is at most 378px, so
+**the heading overflows its column at every desktop width**, not just in that band.
+
+**The reference gives this block three type steps**, `ul:f7s4 hg:f9s4 eo:f12s5`, so 39.5px, then
+50.8px, then 67.7px only at a genuinely wide viewport. Our scale has two steps and no middle. Rather
+than re-scale `section` sitewide, `StatementSection` gained a `compactHeading` prop that holds the
+heading at 39.5px, which is what the reference's base step is, and the specialisations grid uses it.
+The grid also moved to `wide:grid-cols-3` so the column count and the rest of the type scale change
+together, matching the reference's own `ho:w1-3`.
+
+Two-up columns are unaffected and deliberately left alone: at roughly 656px they hold 67.7px fine,
+which is why the homepage's split statement block never showed this.
+
+After the fix: `scrollWidth` equals `clientWidth` at 485, 669, 1009, 1049, 1219, 1469 and 1889, and
+the same holds on the homepage, which shares `StatementSection`.
+
+#### Media
+
+No video on this page, and the images were already reasonable. Measured first-load transfer:
+
+| | total | images |
+|---|---|---|
+| 485px viewport | **539KB** | 125KB |
+| 1469px viewport | 606KB | 298KB |
+
+`MediaCardCta`'s `sizes` was the one overstatement: `(min-width: 1060px) 50vw, 100vw` against a slot
+that measures 389px at 485, 557 at 669 and 396 at 1049. Plain `100vw` overstated it by a fifth on a
+phone and `50vw` by a third at 1049, because the container padding and the card's own `p-8`/`lg:p-12`
+come off. Now `(min-width: 1440px) 592px, (min-width: 1060px) calc(50vw - 96px), calc(100vw - 64px)`.
+
+`PageHero` and the full-bleed `sprawnosc.webp` band were both confirmed genuinely full width at 485,
+669, 1049 and 1469, so their `100vw` stays.
+
+#### Lazy loading with blur placeholders
+
+`scripts/generate-blur-placeholders.mjs` gained `public/images/trening-personalny`, taking the map
+to **45 entries, 167 bytes each, 9.6KB of JSON**. Placeholders are now on `PageHero` (which also
+keeps `priority`, being the first paint), `MediaCardCta`, `TextMedia` and the 668KB `sprawnosc.webp`
+band. `CenteredBand`'s watermark deliberately has none: it is under 40KB and arrives before a blur
+would help, and that is now written down in the component.
+
+#### SEO
+
+**The route shipped no description at all**, because `pageMetadata` was called with a title only, so
+there was no `description`, `og:description` or `twitter:description` either. `metaDescription` is
+157 characters and every fact in it comes from the page: the three specialisations, the intro
+statement about integrated training and physiotherapy, and the footer's Poznań address.
+
+Two JSON-LD blocks added on top of the sitewide business:
+
+- a **`Service`** naming the three variants the hub links to, with `provider` pointing at the
+  business by `@id` and `areaServed` read from the footer's city
+- a **`BreadcrumbList`**, home then this page
+
+`hasOfferCatalog` rather than `offers`: there are no prices in the markup, so an `Offer` would be a
+claim the page does not make. The catalogue names what is available and links to it, which is what
+the page actually says.
+
+"Strona główna" moved from the Blog namespace to `common.breadcrumbHome`, since a second page now
+needs it and reaching into another page's namespace for a shared label is a smell. The blog keeps
+its own key so this change stays inside the task.
+
+Verified: description 157 characters, canonical present, `og:image` the 1200x630 JPEG with `alt`,
+and **three JSON-LD blocks, all valid JSON**: `HealthAndBeautyBusiness`, `Service` with 3 variants
+and `areaServed` Poznań, and a 2-level `BreadcrumbList`.
+
+### Two things that only break on a real phone (2026-07-28)
+
+Both reported with screenshots from an actual handset, and both are below the 485px floor that
+headless Chrome will render, which is why the earlier nine-width sweep did not catch them. Neither
+was a page-level overflow: `scrollWidth` equalled `clientWidth` throughout. They were an element
+escaping its own section and a flex rule that only misbehaves at one slide per view.
+
+**"Przyjazna przestrzeń" was climbing out of the top of its section.** The card was `absolute`,
+anchored to the photo's bottom edge so it could only grow upward, which the component's own comment
+called structurally safe. It is safe *downward*. At 360 CSS px the card's content is far taller than
+a 4:5 photo, so it grew up and out: the heading ended up above the photo entirely, over the news
+carousel above it.
+
+Anchoring cannot fix that, because at that width the card genuinely needs more height than the photo
+has. So below `sm` the photo and the card are simply **stacked**, and the overlay comes back from
+`sm` up where it fits. Measured: at 485 and 529 the card's top equals the photo's bottom and
+`overlaps` is false; at 669, 1049 and 1469 it overlaps as designed.
+
+**The testimonial slides were 85% wide with their content flung apart.** Two separate faults in one
+class list:
+
+- `flex-[0_0_85%]` left 15% of the next slide hanging off the right edge as a sliced column
+- `justify-between` on a flex column whose height comes from the **tallest** slide in the track. The
+  homepage's longest testimonial is 617 characters and its shortest 69, a ninefold spread, so a
+  short quote got its quote mark at the very top, its text floating in the middle and its name
+  pinned far below. That is the "strangely large padding".
+
+Now full width below `sm` with the three parts grouped and centred, and `justify-between` kept from
+`sm` up where several slides share a row and their heights are close. Measured: 485x506 at a 485
+viewport, 335x710 at 669, 262x930 at 1049. The box is still as tall as the longest quote, because
+that is how a flex track works, but nothing floats apart inside it.
+
+Overflow re-checked after both changes: **0px at 485, 529, 669, 769, 1049, 1369 and 1889.**
+
+**The lesson for next time:** a nine-width sweep that only reaches down to 485 is not a phone test.
+The two faults here were a fixed aspect ratio meeting content that outgrows it, and a `justify`
+rule whose correctness depends on how many slides are visible. Both are things to reason about at
+360px even when nothing can render it.
+
+### The homepage: RWD, media weight, lazy loading and structured data (2026-07-28)
+
+Four separate jobs on `/`, all measured rather than eyeballed.
+
+#### The one real layout break
+
+Swept nine viewport widths for horizontal overflow. Eight were clean; **at 629px the page was 7px
+wider than the viewport**, and the cause was the service grid.
+
+It went two-up at `sm` (640px), which made each tile 289px wide while the label renders at 39.5px,
+so the single word "Fizjoterapia" needed 252px in a 225px box and spilled out. "Akademia
+szkoleniowa" was 64px over.
+
+**The reference goes two-up at 1060, not 640.** Its own tile carries `ul:w2-2 ho:w1-2`, and its
+stylesheet's media bands stop at 1059 (`640-779`, `780-919`, `920-1059`), so `ho` is 1060 and up.
+Changed to `wide:grid-cols-2`, which is this project's 1060 token. After it, `scrollWidth` equals
+`clientWidth` at 489, 629, 669, 769, 1029, 1069, 1329, 1469 and 1889.
+
+**A measurement trap worth knowing:** the grid was flipping to two-up at a *reported* 629px because
+media queries evaluate against the full viewport while `clientWidth` excludes the scrollbar gutter.
+629 + 15 = 644, which is over 640.
+
+Two smaller findings left alone, both measured: the mobile drawer's list is 24px wider than its box
+(inside `overflow-y-auto`, so it scrolls internally and never touches the page), and a mega-menu
+link is 14px over its column between 1340 and 1360 (inside `overflow-hidden`).
+
+#### Media weight: 9MB down to 1.3MB on a phone
+
+The homepage was pulling **8388KB of video** plus 1.4MB of images. The video was 1280x720 h264 at
+3459 kb/s **with an audio track** that the muted, decorative player never used.
+
+| | before | after |
+|---|---|---|
+| video, phone | 8388KB | **734KB** |
+| video, desktop | 8388KB | 1736KB |
+| first-load transfer, 489px viewport | ~9MB | **1305KB** |
+| first-load transfer, 1469px viewport | ~9MB | 2586KB |
+
+`scripts/optimize-hero-video.mjs` produces the four encodes and the poster, using the
+`@ffmpeg-installer/ffmpeg` binary `compress-media.ts` already depends on, so nothing was added to
+the stack. Audio stripped, CRF-based bitrates, `+faststart` so playback can begin before the file
+finishes:
+
+- 1280px VP9 1736KB and h264 2800KB
+- 720px VP9 733KB and h264 836KB, picked by `media="(max-width: 640px)"` on the `<source>`
+- poster 17KB WebP
+
+The original footage is kept as `public/videos/hero-source.mp4` and gitignored: it is only an input
+to the script. Net effect on the repository is **3.85MB smaller**, since the 8.4MB file it replaces
+was tracked.
+
+#### Every `sizes` is now a measured number
+
+Each image's rendered width was read out of the live page at 489, 1069, 1469 and 1889 rather than
+guessed:
+
+| image | rendered | was | now |
+|---|---|---|---|
+| service tile | 391 / 437 / 623 / 623 | `(min-width: 640px) 50vw, 100vw` | `(min-width: 1440px) 624px, (min-width: 1060px) calc(50vw - 96px), calc(100vw - 96px)` |
+| team | 457 / 471 / 656 / 656 | `(min-width: 1024px) 50vw, 100vw` | `(min-width: 1440px) 656px, (min-width: 1024px) calc(50vw - 40px), calc(100vw - 32px)` |
+| friendly-space, movement-tool, newsletter-bg | full width at all four | `100vw` | unchanged, confirmed honest |
+| partner logos | 180 at all four | `180px` | unchanged, confirmed honest |
+
+The 96px on a tile is the container padding plus the tile's own `p-8` on both sides. Plain `50vw`
+claimed 944px for the team photo at a 1889 viewport, a third more than it uses.
+
+#### Lazy loading with blur placeholders
+
+The blog gets its `blurDataURL` from Payload. The marketing pages have no CMS, so
+`scripts/generate-blur-placeholders.mjs` renders each `public/images/home` file to a 16px-wide WebP
+at quality 30 and writes `src/lib/static-blur.json`: **18 entries, 195 bytes each, 3.4KB total**.
+
+`src/lib/static-blur.ts` exposes `blurFor` and a spreadable `blurProps`, and is **for server
+components only**. `FullBleedVideo` is a client component, so the homepage reads the poster's
+placeholder on the server and hands it over as a prop; importing the map there would have shipped
+all 3.4KB to every visitor.
+
+The video now behaves like a lazy image: `preload="none"`, the poster paints first with its blur
+underneath, and an `IntersectionObserver` with `rootMargin: "100% 0px"` attaches the sources one
+viewport ahead. `prefers-reduced-motion` and `navigator.connection.saveData` both leave the poster
+in place and fetch no video at all.
+
+**Stated plainly:** the video section is second on the page, so on a phone it is inside that
+one-viewport margin immediately and still loads on first paint. The lazy attach is what protects
+everything further down; at a 489px viewport all eighteen images together came to 169KB.
+
+#### SEO
+
+Already in place before this and left alone: canonical, `hreflang` for both locales, the RSS
+alternate, Open Graph and Twitter tags, and a sitewide `HealthAndBeautyBusiness`.
+
+What changed:
+
+- **The meta description was 307 characters**, being `Statements.balancedFitnessBody`, on-page copy
+  doing metadata's job. Google truncates around 155, so it was cut mid-sentence.
+  `Hero.metaDescription` is 151 and every fact in it comes from the page: the six services, the
+  balanced-fitness statement, the footer's Poznań address.
+- **The default Open Graph image was a 2100x1300 WebP.** Facebook, LinkedIn and X all document
+  1200x630, and some scrapers still refuse WebP outright. Now `public/images/og-default.jpg`, 96KB,
+  with `og:image:width`, `og:image:height` and `og:image:alt` declared so a scraper can lay the card
+  out without fetching the file.
+- **`WebSite` and an `ItemList` of six `Service` entries**, both hanging off the business by `@id`
+  so a crawler does not read them as separate organisations. Verified: two JSON-LD blocks on the
+  page, both valid JSON, types `HealthAndBeautyBusiness` and `WebSite` + `ItemList`.
+
+**No `SearchAction`.** The sitelinks searchbox needs a URL that takes a query string, and the only
+search here is the blog's client-side filter, so declaring one would be a claim that does not hold.
+
+Regenerating the OG card after the source photo changes:
+
+```
+node -e "const s=require('sharp');s('public/images/home/friendly-space.webp').resize(1200,630,{fit:'cover'}).jpeg({quality:82,mozjpeg:true}).toFile('public/images/og-default.jpg')"
+```
+
+### The accordion's desktop pill was showing on phones too (2026-07-28)
+
+Reported with a screenshot of `/masaz`: the therapists' names wrapping onto two lines and running
+straight across the "DOWIEDZ SIĘ WIĘCEJ" button.
+
+**Root cause, and it is a trap worth remembering.** `cn` in this project is a plain
+`classes.filter(Boolean).join(" ")`, **not** `tailwind-merge`, so conflicting utilities both reach
+the class attribute and the stylesheet's own order decides which wins. `buttonClasses` starts with
+`inline-flex`; the pill added `hidden ... lg:inline-flex` beside it; and the unprefixed
+`inline-flex` beat the unprefixed `hidden`.
+
+So the pill rendered at **every** width. Measured at a 485px viewport: `display: flex`, 228px wide,
+sitting next to the mobile chevron and squeezing the row title down to 145px, at which point long
+Polish names wrapped and spilled over the button.
+
+The show/hide now lives on a **wrapper** span with no competing display utility, which makes it
+order-independent. Measured after the fix:
+
+| | 485px | 1169px |
+|---|---|---|
+| row title | 303px, one line | 303px |
+| pill | `display: none` | `display: block`, 228px |
+| chevron | visible, 32px | `display: none` |
+
+The title also gained `break-words`, because `min-w-0` on its own lets a single long word spill out
+of the shrunken box rather than wrapping inside it.
+
+**This also revises yesterday's note about the 32px overflow.** That was a symptom of the same bug:
+the invisible-by-intention pill was taking 228px, so the title's min-content plus the chevron could
+not fit. `min-w-0` was the right fix for the flex behaviour, but the pill was the actual cause.
+
+Checked the rest of the codebase for the same collision: this was the only case. Every other
+`hidden` is paired with a **prefixed** counterpart (`nav:block`, `wide:grid`, `wide:hidden`), and a
+prefixed utility is emitted after the unprefixed ones, so those win in their own range. The trap
+only bites when two **unprefixed** display utilities meet in one `cn` call.
+
+### The page could be dragged sideways on a phone (2026-07-28)
+
+Reported as "something goes out of alignment on phones", and it was real, though not where it
+looked. **Two separate causes, and one of them was my own measurement.**
+
+**The page had genuine horizontal overflow.** The mobile nav drawer is `fixed inset-0` and, when
+closed, sits off-screen at `translate-x-full`. A fixed element is not clipped by any ancestor's
+overflow, so it added scrollable width to the document: measured at a 485px viewport,
+`scrollWidth` was **517 against a `clientWidth` of 485**. On a phone that means the whole page can
+be dragged sideways into dead space. Fixed with `overflow-x: clip` on `html`.
+
+`clip` rather than `hidden`: `hidden` on the root turns the viewport into a scroll container, which
+is what breaks `position: sticky` descendants. This site's header is `fixed` so either would have
+worked, but `clip` refuses the scroll without creating a container.
+
+**The accordion row header overflowed inside the visible area.** The row title is a flex item and
+flex items default to `min-width: auto`, so a long name refused to shrink and pushed the
+`shrink-0` chevron clean out of `Container`: measured at x=485 with 32px hanging past the edge.
+`min-w-0` on the title fixes it.
+
+**It was not only `/masaz`.** Checked nine pages: the overflow was on all of them, because both
+causes are in shared components. After the fix, `scrollWidth` equals `clientWidth` on the homepage,
+`/masaz`, `/fizjoterapia`, `/cennik`, `/kontakt`, `/trening-grupowy`, `/bodylab` and `/dietetyka`.
+`/blog` still reports 509 against 485, but every element involved starts at x=501 or beyond, so it
+is the off-screen drawer being measured rather than anything a visitor can see, and `clip` stops it
+being reachable.
+
+**A correction worth recording, because it cost time.** The first pass "found" the whole page
+overflowing, with headings and buttons sliced down the right edge. That was an artefact: headless
+Chrome refuses to go below roughly a **485px viewport**, so `--window-size=390` renders at 485 and
+paints it onto a 390px canvas. Everything looked cut because the screenshot was narrower than the
+layout, not because the layout was broken. Measure `scrollWidth` against `clientWidth` from inside
+the page; do not infer overflow from the edge of a screenshot.
+
+The measurement itself was done by temporarily injecting a script into the layout that writes its
+findings to a `data-probe` attribute, read back with `--dump-dom`. Worth knowing, because headless
+Chrome cannot otherwise run script for you, and the browser extension cannot resize a window below
+Chrome's own minimum.
+
+### Three client-requested tweaks on the massage page (2026-07-28)
+
+All three are deviations from the reference, asked for after looking at the built page, and all
+three are opt-in props so no other page moves.
+
+**The treatment photographs no longer touch the section hairlines.** `TextMedia` gained
+`imageInset`, which adds `py-6 lg:py-10`. Four of these panels stack on `/masaz` and the reference
+lets each photo bleed into the rules above and below it, which reads as cramped when repeated.
+Worth knowing for anyone touching this: the padding has to sit on a **wrapper**, because an
+absolutely positioned child (`fill`) resolves `inset: 0` against its containing block's *padding
+box*, so padding on the positioned element itself moves nothing at all.
+
+**The team statement uses the whole container.** `CenteredBand` gained `headingWide`, which drops
+the usual `max-w-4xl`. That cap stops a short statement stretching into a thin line, but the
+massage team's sentence is long and was wrapping onto four cramped rows; it is three full-width
+rows now.
+
+**Every therapist row opens to the same height.** `Accordion` gained `squareMedia`, which pins the
+panel photo to `lg:aspect-square`. Before it, a row was only as tall as its own copy, so Filip
+Deskur's one-paragraph bio gave a much shorter panel than Przemysław Górski's two, and
+`object-cover` cropped the shorter one's portrait harder. **This is what the reference does**, its
+panel media carries `ratio1-1`, so it is closer to the original rather than further from it.
+
+Measured rather than eyeballed: with every row forced open, the three portraits come out **681,
+680 and 681 px** tall, identical to a rounding pixel. `/fizjoterapia/specjalisci` is the other
+people accordion and has exactly the same problem; it can take the same flag when somebody looks
+at it.
+
+### The massage section, and Centrum losing its e-commerce (2026-07-28)
+
+`/masaz` is built, and it is the page where the reference sells things. Centrum is not getting a
+shop (the client's call: that belongs on Akademia), so the selling is gone.
+
+**Six buttons removed:** one `UMÓW SIĘ` under the intro band and five `KUP TERAZ` across the four
+treatment panels, including the two Kobido variants with their durations. All six were JS-driven
+WooCommerce add-to-cart handlers with **no `href` at all**, so there was no destination to preserve
+even if we wanted one. Nothing replaces them, because the section directly below already tells a
+visitor how to book: call reception, and the phone number is right there.
+
+**The client believed massage was the only page with e-commerce. It was not.** Seven more buy or
+sign-up buttons were already built into the site, all pointing at the old WordPress shop:
+
+| Page | Button |
+|---|---|
+| `/fizjoterapia` | `bandSignUp` to `/zakupy/fizjoterapia/` |
+| `/trening-grupowy` | `planSignUp` to `/zakupy/plan-zdrowej-zmiany/` |
+| `/trening-grupowy/plan-zdrowej-zmiany` | `bandCta` and `detailsCta`, same target |
+| `/trening-personalny` | `assessmentCta`, "Kup teraz 169,-" |
+| `/trening-personalny/ocena-funkcjonalna` | `bandCta` to `/zakupy/ocena-funkcjonalna/` |
+| `/trening-personalny/trening-indywidualny` | `assessmentSignUp`, same target |
+| `/fizjoterapia/zdrowy-brzuch` | two `formats[].href` shop links on the pricing cards |
+
+All are gone, along with the ten message keys they used, and `Format` lost its `href`. Every one of
+them sat beside either an internal link or copy that still stands on its own, so nothing is
+stranded. **One casualty worth knowing:** the personal-training page's button carried the price
+("Kup teraz 169,-"), so that figure is no longer on that page. It is on `/cennik`.
+
+`GroupTraining.bandCta` deliberately survives: it labels a different, non-shop button on the same
+page. Verified: zero mentions of `zakupy`, `kup teraz`, `SHOP_` or `add-to-cart` anywhere in `src`
+or `messages`, and zero in the rendered HTML of all ten affected pages.
+
+#### Building the page
+
+The structure maps onto components that already existed, which is the point of the reuse rule:
+`PageHero`, `CenteredBand`, `TextMedia`, `Accordion`, `TestimonialCarousel`, `NewsletterSignup`.
+
+**The four treatment panels do not alternate.** Every one has the text column first and the
+photograph second. That came from the reference's own markup, where all four carry identical
+wrapper classes (`ul:w2-2 ho:w1-2` on the text column), not from a screenshot. Worth writing down,
+because most other section pages here *do* alternate and copying that pattern would have been the
+obvious mistake.
+
+Copy was extracted from the mirror programmatically rather than retyped, so the Polish is verbatim.
+The therapists' specialities are a line above each bio, matching the reference's single `<p>` with
+`<br>` pairs inside it; `PanelText` already renders `whitespace-pre-line`, so the breaks survive.
+English is a real translation, shape-checked key path by key path against the Polish.
+
+The ten content images were copied from the mirror **capped at 2560px wide**, the same limit the
+Media collection applies to uploads. Earlier sections copied theirs untouched, which is why
+`fizjoterapia/hub-zespol.webp` is 6048px and 1.1MB; nothing on this site renders wider than 1376
+CSS px, so that is dead weight.
+
+#### Verified against the original
+
+Compared block by block against the served mirror, case-insensitively (the reference bakes
+uppercase into its markup; this project stores natural case and applies `text-transform`, which
+every other section page already does).
+
+- **53 of 54** non-shop content chunks present, so 98.1% coverage
+- **10 of 10** content images
+- the four removed shop buttons account for the rest
+- the two strings on our page only are a form placeholder attribute and the newsletter's
+  off-screen `aria-hidden` honeypot label, both fine
+
+Two things the comparison caught that a screenshot would not have. The therapists' bios were
+merged into one blob on the first pass, where the reference breaks two of the three into separate
+paragraphs; fixed, and the paragraph counts now match across both locales. And the accordion's
+open-state label read `Zwiń` where the reference says `ZAMKNIJ` on **every** accordion it has
+(6 on fizjoterapia, 9 on cennik, 13 on zajecia-grupowe), paired with `DOWIEDZ SIĘ WIĘCEJ` which
+already matched. That was a pre-existing, site-wide one-word deviation, now `Zamknij` / `Close`.
+
+`ZAMKNIJ` still reads as absent from our HTML, and that one is not a defect: our accordion renders
+the open-state label only when a row is open, where the reference ships both and toggles in CSS.
+
+### Post tiles are cropped to 16:9 before they are served (2026-07-28)
+
+The blog tile is 16:9 with `object-cover`. A portrait photograph put in one downloads its **full
+height** and lets the browser throw most of it away. Measured across the featured images: **17 of
+62 are portrait or square, discarding an average of 51% of their bytes**, the worst 63%. `sizes`
+cannot help, because the wasted pixels are height.
+
+A new `cardWide` size (960x540, `fit: cover`) is generated on upload, and every 16:9 tile asks for
+it: the listing grid, the category archives, the "read next" block and the service-page teasers.
+
+**Measured, all 62 tiles at 480 CSS px on a 2x screen:**
+
+| | before | after | saved |
+|---|---|---|---|
+| 12 portrait tiles | 352.9KB | 172.2KB | **180.7KB (51%)** |
+| 14 landscape tiles | 240.1KB | 224.2KB | 15.9KB (7%) |
+| all 62 | 1440.8KB | 1092.4KB | **348.4KB (24%)** |
+
+Best single case, a 1920x2560 photograph: 69.8KB to 20.0KB. Four landscape tiles came out 100 to
+200 bytes *larger*, which is one extra encoding generation showing up as noise.
+
+**No visual change at all**, and that is verified rather than asserted: `object-cover` centres its
+crop and so does `fit: cover`, so the pre-crop is the same picture the browser was already
+producing. Compared pixel for pixel against a centred browser-side crop, RMSE came out at 1.6 to
+1.7 on a 0-255 scale, which is WebP re-encoding noise.
+
+**960x540, not 768x432.** The widest 16:9 tile on the site is the grid's 480 CSS px, which a 2x
+screen needs 960 device pixels to fill. The first attempt at 768 would have served a soft tile in
+order to fix a heavy one.
+
+**The featured card is excluded** and keeps the uncropped `hero`: on desktop it is `aspect-auto` at
+half the viewport width, not a 16:9 tile. Since `visible[0]` is the only card that can ever be
+featured, `blogListingData` gives index 0 the hero and everything else the crop, rather than
+serialising two images for all 62. When a filter is active there is no featured card and that one
+renders as a tile with an uncropped image, which costs a few kilobytes on exactly one card.
+
+`cardWide` is deliberately **not** in `mediaFrom`'s fallback order, so a cropped tile can never
+stand in for an in-article or hero image. It also carries a `generateImageName`, because a source
+that is already 16:9 makes `card` (768 wide) come out 768x432 too and the two would fight over one
+filename.
+
+#### The backfill, and the approach that had to be thrown away
+
+230 media predate the size, and the obvious move is to hand each file back to Payload's own upload
+pipeline so it regenerates everything. **Tried on one document first, which is the only reason this
+is a footnote instead of an incident.** Payload treated the incoming file as a name collision and
+renamed *everything*: `88Sn9tiZS.webp` became `88Sn9tiZS-1.webp` along with all four variants, and
+the stored original was deleted. The bytes did not survive either, 68572 in and 66808 out, so it
+would also have added a lossy generation to every image in the library.
+
+That document was repaired: files renamed back and `filename` plus every `sizes.*` entry restored
+to match the pre-change dump, verified field by field. The pixels lost to the one extra encode are
+not recoverable, but the mirror holds a copy one generation *cleaner* than what was stored
+(58596 bytes against 68572, our own import having made it bigger), so nothing of value went.
+
+`scripts/backfill-image-sizes.ts` instead produces the crop with sharp and registers it with
+`payload.update`, which does accept writes to the generated `sizes` group. That was probed on one
+document before anything relied on it. No file is renamed and no original is re-encoded. 218
+written, 12 too small to bother, 0 failures. `DRY=1` to preview, `ONLY=<id>` for one document,
+`FORCE=1` to redo.
+
+#### Worth a decision: two tiles are badly centred, today
+
+Looking at all 17 portrait crops as a contact sheet, two are poor, and **both are poor on the live
+site already** for the reason above:
+
+- one lifting photograph has the man's **head cropped off** above the frame
+- an infographic of organ icons loses its top and bottom rows, so the grid reads as broken
+
+`fit: cover` with sharp's `attention` strategy would keep faces in frame, and Payload's focal point
+(already enabled) would fix them one by one. Both change how images are cropped across the site,
+which is a visual decision rather than a defect fix, so it is not taken here.
+
+### The SEO panel now shows what it will produce, and noindex actually works (2026-07-28)
+
+The client asked a second time why the SEO fields are blank, which settles it: explaining the
+fallback in a field description does not work, because an empty box reads as an oversight no matter
+how well it is captioned.
+
+**The fields stay empty on purpose and that has not changed.** They are overrides. Writing the
+title and excerpt into them would give an editor two places to keep in step, and editing the
+excerpt would silently stop affecting search results. What was missing was any sign of the result.
+
+**"Podgląd w wyszukiwarce"** now sits at the top of the Metadane group: a live search-result
+snippet built from the same fallbacks the public site uses, plus which field each line came from,
+a character count, and a warning past roughly where Google truncates. Under the two text fields,
+a one-line hint prints the value a blank field will inherit and disappears once anything is typed.
+`admin.placeholder` in Payload is a static string, so it cannot show the document's own title.
+
+The fallbacks were checked against `src/app/[locale]/blog/[slug]/page.tsx` rather than assumed:
+`meta.title || localised.title` and `meta.description || localised.excerpt`. The preview would be
+worse than useless if it disagreed with the page.
+
+**And it turned up a real bug.** `meta.noIndex` was a **dead checkbox**: nothing anywhere read it,
+so an editor could tick "Ukryj przed wyszukiwarkami" and the post carried on being indexed. A
+control that lies about what it does is worse than no control. It is now honoured in
+`pageMetadata` (as `index: false, follow: true`, since the point is to unlist the page rather than
+strand what it links to) and in `src/app/sitemap.ts`, because listing a noindex URL in a sitemap
+hands crawlers two contradictory instructions.
+
+Verified live: ticking it put `<meta name="robots" content="noindex, follow">` in the head and
+dropped the post from the sitemap; unticking restored both.
+
+**Scope, stated plainly:** this covers blog posts. **No route reads the `pages` collection** yet,
+so a Page document's Metadane group, `noIndex` included, is not read by anything. The Centrum
+pages are static routes carrying their own metadata.
+
+**Not verified visually:** there is no admin account on this install, so the three components have
+never been seen rendered. That is why they are read-only and why the hints go through
+`admin.components.afterInput` rather than replacing the inputs: a component that only reads cannot
+break saving, validation or versioning.
 
 ### Blur placeholders were a fifth of the listing's HTML (2026-07-28)
 

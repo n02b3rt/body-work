@@ -11,8 +11,6 @@ import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { PersonalTrainingNav } from "@/components/centrum/PersonalTrainingNav";
 import { pageMetadata } from "@/lib/metadata";
 
-const SHOP_ASSESSMENT_URL = "https://bodywork.testowe.eu/zakupy/ocena-funkcjonalna/";
-
 type Section = { heading: string; body: string };
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
@@ -55,14 +53,6 @@ export default async function IndividualTrainingPage({ params }: PageProps) {
           <SectionHeading>{t("assessmentHeading")}</SectionHeading>
           <p className="max-w-3xl text-body text-brand-navy">{t("assessmentBody")}</p>
           <div className="flex flex-wrap gap-4">
-            <a
-              href={SHOP_ASSESSMENT_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={buttonClasses("outline")}
-            >
-              {t("assessmentSignUp")}
-            </a>
             <Link href="/trening-personalny/ocena-funkcjonalna" className={buttonClasses("outline")}>
               {t("assessmentMore")}
             </Link>
