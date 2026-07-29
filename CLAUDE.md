@@ -32,6 +32,7 @@ Don't grep for context that's already written down. Find the topic below, read t
 | What's in the scraped Centrum mirror and which URL maps to which folder | `docs/scraped-site-map.md` |
 | Page-by-page migration status (built? bilingual? visually verified?) | `docs/migration-tracker.md` |
 | The page builder: section model, builder UI, public renderer | `docs/page-builder.md` |
+| **Several agents working at once**: worktrees, one DB/port each, who owns which files | `docs/parallel-agents.md` |
 
 Domain-specific critical decisions and gotchas live inside the relevant `docs/<topic>.md` file (its own "Decisions"/"Gotchas" section), not dumped into this file or into one giant notes file. See `docs/conventions.md` for the pattern.
 
@@ -47,6 +48,7 @@ Working with a coding agent other than Claude Code? Read `AGENTS.md`: same rules
 - **Ask before touching the stack.** Installing, removing, upgrading, or swapping any library/service requires telling the user first, see `docs/stack.md` for what's already approved and why.
 - **No AI/tool authorship anywhere**, not in commits, PRs, code, comments, or docs.
 - **Git:** feature branches (`feat/`, `fix/`, `refactor/`, `chore/`), never non-trivial commits straight to `main`. Full convention: `docs/conventions.md`.
+- **If another agent may be working at the same time, read `docs/parallel-agents.md` first.** Own worktree, own database, own port; never `docker compose down -v` (it drops every agent's data); never hand-edit the generated `src/payload-types.ts` / `importMap.js`; rebase onto `main` the moment someone else's PR lands.
 - **Keep the docs current.** Definition of done = code works + the relevant `docs/*.md` updated + (larger tasks) an `AI_NOTES.md` entry + commit. A feature isn't finished until the map reflects it.
 
 ---
