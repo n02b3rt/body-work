@@ -13,8 +13,6 @@ import { BlogTeasers } from "@/components/centrum/BlogTeasers";
 import { SCHEDULE_URL } from "@/lib/external-links";
 import { pageMetadata } from "@/lib/metadata";
 
-const SHOP_PLAN_URL = "https://bodywork.testowe.eu/zakupy/plan-zdrowej-zmiany/";
-
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "GroupTraining" });
@@ -91,9 +89,6 @@ export default async function GroupTrainingPage({ params }: PageProps) {
           <Link href="/trening-grupowy/plan-zdrowej-zmiany" className={buttonClasses("outline")}>
             {t("planMore")}
           </Link>
-          <a href={SHOP_PLAN_URL} target="_blank" rel="noopener noreferrer" className={buttonClasses("outline")}>
-            {t("planSignUp")}
-          </a>
         </Container>
       </section>
 
