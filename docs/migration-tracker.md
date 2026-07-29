@@ -232,6 +232,59 @@ and then editing the excerpt would silently stop affecting search results.
 What was actually wrong was the panel: `Tytuł SEO` explained itself and the other two did not, so
 an empty group read as an oversight. All three now say what happens when left blank.
 
+### /trening-grupowy: RWD, media, lazy loading and structured data (2026-07-29)
+
+**No layout breaks to fix.** Swept eleven widths (485, 529, 589, 669, 769, 1009, 1049, 1219, 1469,
+1889) and `scrollWidth` equalled `clientWidth` at every one, with nothing overflowing its own box
+either. That is the shared-component work from the previous two pages paying off: this page is built
+entirely from `PageHero`, `CenteredBand`, `TextMedia`, `TestimonialCarousel`, `BlogTeasers` and
+`NewsletterSignup`, all of which were measured and corrected already. It has no multi-column
+statement grid, which is the shape that broke the other two.
+
+#### Media and lazy loading
+
+The page uses **217KB of images** out of the 1.22MB in its folder, and no video. Measured first-load
+transfer:
+
+| | total | images |
+|---|---|---|
+| 485px viewport | **476KB** | 67KB |
+| 1469px viewport | 396KB | 109KB |
+
+The only work needed was extending `scripts/generate-blur-placeholders.mjs` to
+`public/images/trening-grupowy`, taking the map to **81 entries, 160 bytes each, 16.6KB of JSON**.
+
+Verified in the served HTML rather than after load: **12 blur placeholders**, with the hero eager
+(it carries `priority`) and `hub-zajecia` and `hub-plan` both `loading="lazy"` with a placeholder
+under them.
+
+**A measurement note:** counting blurred images from the page after three seconds reports zero,
+because `next/image` drops the placeholder once the real file decodes. Check the served HTML for
+`data:image/webp;base64,` instead.
+
+#### SEO
+
+**The route shipped no description**, same as `/trening-personalny`: `pageMetadata` was called with a
+title only. The new one is 136 characters and every fact is on the page: the lead statement names
+Poznań and multi-plane movement, the band offers a free first class, and the sub-pages are group
+classes, the Healthy Change Plan and Medicover.
+
+Added a `Service` with those three as its catalogue and a two-level `BreadcrumbList`, both hanging
+off the sitewide business by `@id`. `grafik-zajec` is deliberately not among the variants: it is an
+outbound eFitness link, not a route here.
+
+Verified: description 136 characters, canonical present, `og:image` the 1200x630 JPEG with `alt`, and
+**three JSON-LD blocks, all valid JSON**: `HealthAndBeautyBusiness`, `Service` with the three named
+variants and `areaServed` Poznań, and the breadcrumb trail.
+
+#### A mismatch that turned out to be correct
+
+The PL/EN key-path check came back uneven, 1076 against 1072, and the four extra keys are
+`Blog.categoryLocative.*`. That is **deliberate**: they hold Polish locative forms
+(fizjoterapii, masażu, treningu, dietetyce) for the blog-teaser heading, English declines nothing,
+and `BlogTeasers` guards the lookup with `t.has()` before falling back to the category title. It is
+documented in that component. Left alone.
+
 ### /trening-personalny: RWD, media, lazy loading and structured data (2026-07-29)
 
 The same four jobs as the homepage, and the one real layout break here was the same *shape* of bug
@@ -274,7 +327,11 @@ No video on this page, and the images were already reasonable. Measured first-lo
 `MediaCardCta`'s `sizes` was the one overstatement: `(min-width: 1060px) 50vw, 100vw` against a slot
 that measures 389px at 485, 557 at 669 and 396 at 1049. Plain `100vw` overstated it by a fifth on a
 phone and `50vw` by a third at 1049, because the container padding and the card's own `p-8`/`lg:p-12`
-come off. Now `(min-width: 1440px) 592px, (min-width: 1060px) calc(50vw - 96px), calc(100vw - 64px)`.
+come off.
+
+> **Superseded on 2026-07-29** by the `/fizjoterapia` pass, which found the replacement still wrong
+> between 1024 and 1059: it put the two-up branch at `wide` (1060) while both calling pages lay the
+> cards out with `lg:grid-cols-2` (1024). See that section for the measured value now in the file.
 
 `PageHero` and the full-bleed `sprawnosc.webp` band were both confirmed genuinely full width at 485,
 669, 1049 and 1469, so their `100vw` stays.
@@ -311,6 +368,128 @@ its own key so this change stays inside the task.
 Verified: description 157 characters, canonical present, `og:image` the 1200x630 JPEG with `alt`,
 and **three JSON-LD blocks, all valid JSON**: `HealthAndBeautyBusiness`, `Service` with 3 variants
 and `areaServed` Poznań, and a 2-level `BreadcrumbList`.
+
+### /fizjoterapia: RWD, media, lazy loading and structured data (2026-07-29)
+
+The same four jobs again. Unlike the two pages before it, **this one had no layout break at all**:
+`scrollWidth` equals `clientWidth` at 360, 390, 414, 480, 540, 600, 639, 640, 700, 768, 834, 900,
+1023, 1024, 1059, 1060, 1200, 1366, 1440, 1600 and 1920, with no unclipped element past the right
+edge at any of them, and the same holds with an equipment row expanded. The faults were all in what
+the page *fetches*, not how it lays out.
+
+#### Measuring below 500px without a phone
+
+Worth writing down, because the previous two sessions each hit this and worked around it differently.
+**Headless Chrome clamps its layout viewport at 500px** (`--window-size=360` still reports
+`clientWidth` 500), and the Chrome extension's `resize_window` leaves the page laying out at ~980
+regardless. Neither can show you a 360px phone.
+
+What does work: a scratch page served from `public/` that iframes the route at an exact width. An
+iframe gets its own layout viewport, so media queries evaluate against *its* width — verified with a
+control page that reports `matchMedia('(min-width:640px)')` false at an iframe width of 360. Being
+same-origin, the harness reads `contentDocument` and measures from the outside, and
+`--dump-dom` carries the result back out. Two things to know if this gets rebuilt: the extension's
+JS runs in a sandboxed, opaque-origin world that cannot touch a child frame (and hangs the renderer
+if you try), so drive it with headless Chrome instead; and **headless force-loads lazy images**, so
+any `loading="lazy"` measurement taken there is meaningless — that one has to come from a headed
+browser.
+
+#### Media
+
+Nothing here was pulling megabytes. The whole page at 360px is **111KB of images**, and first paint
+fetches exactly two of the eighteen: the hero and the 2KB watermark. Confirmed in a headed browser at
+a 477px viewport: sixteen images still unloaded at `scrollY` 0.
+
+Two `sizes` were wrong, both understated as overdraws rather than layout faults:
+
+- **`Accordion` ended in a bare `100vw`.** A `sizes` written only in viewport units makes Next build
+  the srcset from `deviceSizes` alone, and its smallest entry is 640, so a 343px slot on a phone was
+  handed a 640px file. Naming a pixel length lets it reach `imageSizes`: **640 → 384 at 360 and
+  390px**, 828 → 750 at 1024 and above.
+- **`MediaCardCta` put its two-up branch at 1060 while the grid goes two-up at 1024.** Between those
+  the slot halves to 376px and the old value was still claiming `calc(100vw - 64px)`: **a 960px file
+  for a 376px hole**. Now `(min-width: 1440px) 592px, (min-width: 1024px) calc(50vw - 128px),
+  (min-width: 640px) calc(100vw - 112px), calc(100vw - 96px)`, measured at 249px/360, 513/640,
+  376/1024, 592/1920. This fixes `/trening-personalny` too, which has the same `lg:grid-cols-2`.
+
+No source file was re-encoded. `hub-zespol.webp` is 6048px and 1148KB on disk, but every byte the
+browser sees comes through `next/image`, so shrinking the source would change the repo and not one
+delivered request. Left alone deliberately.
+
+#### Lazy loading with blur placeholders
+
+`generate-blur-placeholders.mjs` gained `public/images/fizjoterapia` **and**
+`public/images/fizjoterapia/sprzet` — the script does not recurse, which is now said in its comment.
+The map is 70 entries, 11.1KB.
+
+`Accordion` is a **client** component, so it cannot call `blurProps`: importing the server-only map
+would ship all 11KB to every page that renders an accordion. It takes an `imageBlur` string on
+`AccordionItemData` instead, resolved by the page with `blurFor()` — the same shape as the
+homepage's `posterBlur`. Verified in the HTML: all six equipment photos carry a placeholder and
+`loading="lazy"`, and the hero carries a placeholder plus its `rel="preload"` (which is how Next 16
+implements `priority`).
+
+`CenteredBand`'s watermark and the newsletter background keep no placeholder: both deliver ~2KB.
+
+#### SEO
+
+Same gap as the last two routes: `pageMetadata` was called with a title only, so there was no
+`description`, `og:description` or `twitter:description`. `metaDescription` is 150 characters (PL)
+and 156 (EN), and every fact in it is on the page — the three sub-therapies, the equipment named in
+"Metody pracy", and the footer's Poznań address.
+
+Two JSON-LD blocks on top of the sitewide business: a **`Service`** with a three-entry
+`hasOfferCatalog`, and a two-level **`BreadcrumbList`**.
+
+**The catalogue deliberately omits `/fizjoterapia/specjalisci`**, which is the sub-nav's fourth
+entry. It lists the people, not a therapy, and an `OfferCatalog` entry for it would say the centre
+sells "specialists".
+
+**No `FAQPage` for the equipment accordion.** It is the obvious-looking win and it would be wrong:
+the rows are device names (USG, EPTE, COMPEX), not questions, and marking up a non-FAQ as one is
+what manual actions are for.
+
+Verified in both locales: description present and mirrored into `og:`/`twitter:`, canonical set,
+`hreflang` pair emitted, and three JSON-LD blocks that all parse —
+`HealthAndBeautyBusiness`, `Service` with 3 catalogue entries and `areaServed` Poznań, and the
+breadcrumb trail.
+
+#### Two sitewide faults this page surfaced (fixed 2026-07-29)
+
+Both were found while checking `/fizjoterapia` but live in shared components, so the fix lands on
+every route.
+
+**The floating "Akademia" CTA was completely covered by the promo pills.** `Header` pins the CTA
+bottom-centre below `wide` and `PromoBar` pins its pills bottom-right, and **both were anchored 16px
+off the bottom edge**, so the lowest pill spanned the CTA's whole box. Measured: collision at 360,
+414, 640, 834, 1024 and 1059, i.e. every width where the CTA renders.
+
+The reference has the identical fault and resolves it by stacking order alone — its
+`.academy-mobile-button` is `z-index: 120` and the promo `aside` is `121`, so the pills simply win
+and the CTA is unreachable. That is the reference being broken, not a design.
+
+`PromoBar`'s stack is now lifted clear of it below `wide`:
+`bottom-[calc(1rem+3.5rem+0.5rem)]`, which reads as the CTA's own `bottom-4`, plus its fixed
+`min-h-14`, plus a gap. The height is safe to hard-code because the button never wraps — measured
+177px wide at a 360 viewport, 56px tall at every width. From `wide` up the CTA is hidden and the
+pills keep their original `wide:bottom-7`.
+
+After: **no collision at 360, 414, 480, 640, 768, 834, 1024 or 1059**, a consistent 20px gap, and the
+pills back at their old position from 1060 up. Page overflow still 0 across 14 widths.
+
+**"WIĘCEJ O FIZJOTERAPIA".** `Blog.moreIn` is "Więcej o {category}", which governs the locative in
+Polish, and it was being handed the category title in the nominative. Wrong on all five service pages
+carrying the block. ICU has no declension, so `Blog.categoryLocative` now carries an explicit form
+for each of the four slugs — fizjoterapii, masażu, treningu, dietetyce — keyed by **slug** rather
+than title, because the slug is what routes there and survives an editor renaming the category. A
+category added later falls back to its title, which is exactly what every category got before.
+
+Verified: "Więcej o fizjoterapii", "Więcej o treningu", "Więcej o dietetyce".
+
+**English is deliberately untouched.** `en.json` has no `categoryLocative`, so it takes the fallback
+and renders "More on fizjoterapia" — the Polish title, because the Payload `Categories` collection is
+not localised. That is a real gap, but the fix is localising the collection, not patching one label
+into disagreeing with the archive page it links to.
 
 ### Two things that only break on a real phone (2026-07-28)
 

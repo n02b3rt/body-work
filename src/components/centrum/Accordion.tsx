@@ -18,6 +18,15 @@ export type AccordionItemData = {
   heading: string;
   body?: string;
   image?: string;
+  /**
+   * Blur placeholder for `image`, as a data URI.
+   *
+   * Passed in rather than looked up here: `src/lib/static-blur.ts` is server-only, and importing
+   * it into this client component would ship all 11KB of the map to every page that renders an
+   * accordion. The calling page resolves it with `blurFor()` instead, the same way the homepage
+   * hands `posterBlur` to `FullBleedVideo`.
+   */
+  imageBlur?: string;
   /** Fills the panel's other half in place of a photo, at full section-heading size,
    * the reference uses this for the pricing page's "Dla naszych klientów masaż – 15%!". */
   panelHeading?: string;
@@ -171,10 +180,20 @@ function AccordionRow({
                   src={item.image}
                   alt={item.heading}
                   fill
-                  // Half of the capped container, not half the viewport: the panel
-                  // is inside `Container`, so this cell never exceeds 688px.
-                  sizes="(min-width: 1024px) min(50vw, 688px), 100vw"
+                  /* Measured, not guessed: this cell renders 343px at a 390 viewport, 577 at 640,
+                   * 473 at 1024 (where the panel goes two-up) and 688 from 1440 on, where
+                   * `Container`'s cap fixes it. The subtractions are that container's own padding,
+                   * `px-4` then `sm:px-6` then `lg:px-8`.
+                   *
+                   * The old value ended in a bare `100vw`, and a `sizes` written only in viewport
+                   * units makes Next build the srcset from `deviceSizes` alone, whose smallest
+                   * entry is 640: a 343px slot on a phone was being handed a 640px file. Naming a
+                   * pixel length lets it reach `imageSizes` and pick 384. */
+                  sizes="(min-width: 1440px) 688px, (min-width: 1024px) calc(50vw - 32px), (min-width: 640px) calc(100vw - 48px), calc(100vw - 32px)"
                   className="object-cover"
+                  {...(item.imageBlur
+                    ? { placeholder: "blur" as const, blurDataURL: item.imageBlur }
+                    : {})}
                 />
               </div>
             ) : item.panelHeading ? (

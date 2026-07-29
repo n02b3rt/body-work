@@ -49,6 +49,19 @@ export async function BlogTeasers({ category, limit = 3 }: BlogTeasersProps) {
 
   if (posts.docs.length === 0) return null;
 
+  /**
+   * "Więcej o …" governs the locative in Polish, and ICU has no declension, so the four category
+   * slugs carry an explicit form: the plain title rendered "WIĘCEJ O FIZJOTERAPIA" on all five
+   * service pages that show this block.
+   *
+   * Keyed by slug rather than title because the slug is what routes here and cannot change under
+   * an editor's rename. A category added later falls back to its title, which is no worse than
+   * what every category got before, until somebody adds its form. English declines nothing, so
+   * `messages/en.json` deliberately has no such group and always takes the fallback.
+   */
+  const locativeKey = `categoryLocative.${category}`;
+  const categoryLabel = t.has(locativeKey) ? t(locativeKey) : found.title.toLowerCase();
+
   const cards: PostCardData[] = posts.docs.map((post) => ({
     slug: post.slug ?? String(post.id),
     title: post.title,
@@ -75,7 +88,7 @@ export async function BlogTeasers({ category, limit = 3 }: BlogTeasersProps) {
 
         <div className="pt-14">
           <Link href={`/blog/kategoria/${category}`} className={buttonClasses("outline")}>
-            {t("moreIn", { category: found.title.toLowerCase() })}
+            {t("moreIn", { category: categoryLabel })}
           </Link>
         </div>
       </Container>

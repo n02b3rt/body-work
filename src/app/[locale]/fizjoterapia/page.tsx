@@ -14,13 +14,21 @@ import { PhysiotherapyNav } from "@/components/centrum/PhysiotherapyNav";
 import { BlogTeasers } from "@/components/centrum/BlogTeasers";
 import { GALLERY_URL } from "@/lib/external-links";
 import { pageMetadata } from "@/lib/metadata";
+import { blurFor } from "@/lib/static-blur";
+import { breadcrumbJsonLd, serviceJsonLd } from "@/lib/structured-data";
 
 type Section = { heading: string; body: string; image: string };
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Physiotherapy" });
-  return pageMetadata({ locale, path: "/fizjoterapia", title: t("title") });
+  return pageMetadata({
+    locale,
+    path: "/fizjoterapia",
+    title: t("title"),
+    // The route shipped no description at all before this, so no `og:description` either.
+    description: t("metaDescription"),
+  });
 }
 
 type PageProps = { params: Promise<{ locale: string }> };
@@ -31,8 +39,31 @@ export default async function PhysiotherapyPage({ params }: PageProps) {
   setRequestLocale(locale);
   const t = await getTranslations("Physiotherapy");
   const tFooter = await getTranslations("Footer");
+  const tNav = await getTranslations("Nav");
+  const tCommon = await getTranslations("common");
 
   const sections = t.raw("sections") as Section[];
+
+  // `static-blur` is server-only, so the placeholder is resolved here and handed to the
+  // (client) accordion as data; see the note on `AccordionItemData.imageBlur`.
+  const equipment = (t.raw("equipment") as AccordionItemData[]).map((item) => ({
+    ...item,
+    ...(item.image ? { imageBlur: blurFor(item.image) } : {}),
+  }));
+
+  // What the service actually breaks down into, in `PhysiotherapyNav`'s order. The sub-nav's
+  // fourth entry, `/fizjoterapia/specjalisci`, is deliberately absent: it lists the people, not
+  // a therapy, and an `OfferCatalog` entry for it would claim the centre sells "specialists".
+  const variants = [
+    { name: tNav("physiotherapyManual"), path: "/fizjoterapia/terapia-manualna" },
+    { name: tNav("physiotherapyRehab"), path: "/fizjoterapia/rehabilitacja-ruchowa" },
+    { name: tNav("physiotherapyBelly"), path: "/fizjoterapia/zdrowy-brzuch" },
+  ];
+
+  const breadcrumbs = [
+    { name: tCommon("breadcrumbHome"), path: "/" },
+    { name: t("title"), path: "/fizjoterapia" },
+  ];
   const phone = `tel:+48${tFooter("phone").replace(/\s/g, "")}`;
   // The reference only puts a CTA under the first and third of these blocks.
   const sectionCta = [
@@ -44,6 +75,28 @@ export default async function PhysiotherapyPage({ params }: PageProps) {
 
   return (
     <>
+      {/* A `Service` naming the four pages this hub links to, plus the trail back to the
+        * homepage. Both hang off the sitewide business by `@id`. See `src/lib/structured-data.ts`
+        * for why there is a catalogue rather than an `Offer`. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            serviceJsonLd(locale, {
+              name: t("title"),
+              description: t("metaDescription"),
+              path: "/fizjoterapia",
+              city: tFooter("addressLine3").replace(/^[0-9-]+\s*/, "").split(",")[0],
+              variants,
+            }),
+          ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(breadcrumbs, locale)) }}
+      />
+
       <PageHero
         title={t("title")}
         titleSize="display"
@@ -86,7 +139,7 @@ export default async function PhysiotherapyPage({ params }: PageProps) {
           <SectionHeading uppercase>{t("equipmentHeading")}</SectionHeading>
         </Container>
       </div>
-      <Accordion items={t.raw("equipment") as AccordionItemData[]} />
+      <Accordion items={equipment} />
 
       <div className="border-t border-brand-navy-soft bg-background">
         <Container className="grid lg:grid-cols-2 lg:divide-x lg:divide-brand-navy-soft">

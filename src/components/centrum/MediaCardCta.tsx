@@ -31,15 +31,19 @@ export function MediaCardCta({ heading, imageSrc, imageAlt, ctaLabel, ctaHref, e
     <div className="flex flex-col gap-10 p-8 lg:p-12">
       <SectionHeading uppercase>{heading}</SectionHeading>
       <div className="relative aspect-[4/5] w-full overflow-hidden sm:aspect-[4/3]">
-        {/* Measured, not guessed: this renders 389px at a 485 viewport, 557 at 669, 396 at 1049
-          * and is capped by `Container` above 1440. The 64px and 96px come off for the container
-          * padding plus this card's own `p-8`/`lg:p-12`; plain `100vw` overstated the slot by a
-          * fifth on a phone and `50vw` by a third at 1049. */}
+        {/* Measured, not guessed: this renders 249px at a 360 viewport, 513 at 640, 376 at 1024
+          * and 592 from 1440 on, where `Container`'s cap fixes it. The subtractions are that
+          * container's padding (`px-4`, `sm:px-6`, `lg:px-8`) plus this card's own `p-8`/`lg:p-12`.
+          *
+          * **The two-up branch is `lg` (1024), not `wide` (1060).** Both pages that pair these
+          * cards lay them out with `lg:grid-cols-2`, so between 1024 and 1059 the slot halves to
+          * 376px while the old `1060` breakpoint was still claiming the full `calc(100vw - 64px)`:
+          * a 960px file for a 376px hole. */}
         <Image
           src={imageSrc}
           alt={imageAlt}
           fill
-          sizes="(min-width: 1440px) 592px, (min-width: 1060px) calc(50vw - 96px), calc(100vw - 64px)"
+          sizes="(min-width: 1440px) 592px, (min-width: 1024px) calc(50vw - 128px), (min-width: 640px) calc(100vw - 112px), calc(100vw - 96px)"
           className="object-cover"
           {...blurProps(imageSrc)}
         />

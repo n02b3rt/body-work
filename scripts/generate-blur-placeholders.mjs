@@ -22,8 +22,17 @@ import sharp from 'sharp'
  * One directory per page section that has been through the optimisation pass. Adding a directory
  * here is what opts its images in; keeping the list explicit keeps the map small and the diff
  * readable, and stops 196 files' worth of base64 landing in the repo for no reason.
+ *
+ * **This does not recurse**, so a subdirectory needs its own entry: `fizjoterapia/sprzet` holds
+ * the equipment accordion's photos and would otherwise be skipped.
  */
-const DIRS = ['public/images/home', 'public/images/trening-personalny']
+const DIRS = [
+  'public/images/home',
+  'public/images/trening-personalny',
+  'public/images/fizjoterapia',
+  'public/images/fizjoterapia/sprzet',
+  'public/images/trening-grupowy',
+]
 const OUT = 'src/lib/static-blur.json'
 const WIDTH = 16
 const QUALITY = 30
