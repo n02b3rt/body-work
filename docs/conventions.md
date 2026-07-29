@@ -30,7 +30,7 @@ Site split (hub/centrum/akademia/dash): route groups under `src/app/`, see [`sit
 - **Roles:** `administrator` | `moderator` | `redaktor` | `klient`: use the helpers in `src/access/roles.ts`; don't invent parallel permission checks.
 - **Public UI strings:** next-intl, add keys to `messages/pl.json` (and `en.json`); don't hardcode user-facing Polish in frontend components when a message key exists.
 - **Admin labels:** Polish strings in Payload collection/global configs are fine (editors work in PL).
-- **Admin sidebar:** structure lives in `src/admin/nav-tree.ts`; don't rely on Payload's `admin.group` for multi-level nav (a custom `AdminNav` replaces DefaultNav). Stub leaves use `/admin/coming-soon?section=<id>`.
+- **Admin sidebar:** structure lives in `src/admin/nav-tree.ts`; don't rely on Payload's `admin.group` for multi-level nav (a custom `AdminNav` replaces DefaultNav). Stub leaves use `/admin/coming-soon?section=<id>`. Presentation (size, hover/active motion) is in `src/app/(payload)/custom.css` under `.bw-nav*`; icons in `src/components/admin/nav-icons.tsx`.
 - **Short admin URLs:** nav links use `/admin/c/<slug>` and `/admin/g/<slug>`; `src/proxy.ts` rewrites them to Payload's `/collections/` and `/globals/`. Built-in Payload links may still show the long form.
 
 ## Reuse before you build (scraped-site workflow)
@@ -46,7 +46,7 @@ When turning a scraped Centrum page into a real one:
 - **Public UI strings:** next-intl, add keys to `messages/pl.json` (and `en.json`); do not hardcode user-facing Polish in frontend components when a message key exists.
 - **Dates/times (display):** use helpers from `src/lib/format-date.ts` (`formatDatePl`, `formatDateTimePl`) or next-intl `useFormatter().dateTime(value, 'dateTime')`: never ad-hoc `toLocaleString` / ISO strings in UI. Storage stays ISO/UTC.
 - **Admin labels:** Polish strings in Payload collection/global configs are fine (editors work in PL).
-- **Admin sidebar:** structure lives in `src/admin/nav-tree.ts`; do not rely on Payload `admin.group` for multi-level nav (custom `AdminNav` replaces DefaultNav). Stub leaves use `/admin/coming-soon?section=<id>`.
+- **Admin sidebar:** structure lives in `src/admin/nav-tree.ts`; do not rely on Payload `admin.group` for multi-level nav (custom `AdminNav` replaces DefaultNav). Stub leaves use `/admin/coming-soon?section=<id>`. Presentation (size, hover/active motion) is in `src/app/(payload)/custom.css` under `.bw-nav*`; icons in `src/components/admin/nav-icons.tsx`.
 - **Short admin URLs:** nav links use `/admin/c/<slug>` and `/admin/g/<slug>`; `src/proxy.ts` rewrites them to Payload’s `/collections/` and `/globals/`. Built-in Payload links may still show the long form.
 - **Media library:** collection fields + conversion hooks in `src/collections/Media.ts` / `src/lib/compress-media.ts`; explorer UI under `src/components/admin/media/` (see `docs/media.md`).
 - **Appearance:** colour tokens defined once in `src/lib/theme-tokens.ts` (drives both the `theme-colors` global and the public-site CSS vars); component types registered in `src/fields/component-settings/index.ts`, one settings group per type (see `docs/appearance.md`).
