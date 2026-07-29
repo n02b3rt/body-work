@@ -50,12 +50,27 @@ export default buildConfig({
     components: {
       Nav: '/components/admin/AdminNav#AdminNav',
       beforeDashboard: ['/components/admin/WelcomeDashboard#WelcomeDashboard'],
+      providers: ['/components/admin/ai/AiHelpProvider#AiHelpProvider'],
       views: {
         comingSoon: {
           Component: '/components/admin/ComingSoonView#ComingSoonView',
           path: '/coming-soon',
           meta: {
             title: 'W przygotowaniu',
+          },
+        },
+        updates: {
+          Component: '/components/admin/UpdatesView#UpdatesView',
+          path: '/updates',
+          meta: {
+            title: 'Aktualizacje',
+          },
+        },
+        libraries: {
+          Component: '/components/admin/LibrariesView#LibrariesView',
+          path: '/libraries',
+          meta: {
+            title: 'Biblioteki',
           },
         },
       },

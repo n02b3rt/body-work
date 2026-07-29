@@ -80,8 +80,12 @@ export function MediaBrowser({
                           </span>
                         )}
                       </div>
-                      <span className="bw-media__card-name">{mediaDisplayTitle(doc)}</span>
-                      <span className="bw-media__card-meta">{formatBytes(doc.filesize)}</span>
+                      <span className="bw-media__card-name">
+                        {mediaDisplayTitle(doc)}
+                      </span>
+                      <span className="bw-media__card-meta">
+                        {formatBytes(doc.filesize)}
+                      </span>
                     </button>
                   </li>
                 )
@@ -92,11 +96,11 @@ export function MediaBrowser({
               <table className="bw-media__table">
                 <thead>
                   <tr>
-                    <th>Nazwa</th>
-                    <th>ALT</th>
-                    <th>Typ</th>
-                    <th>Wymiary</th>
-                    <th>Rozmiar</th>
+                    <th scope="col">Nazwa</th>
+                    <th scope="col">ALT</th>
+                    <th scope="col">Typ</th>
+                    <th scope="col">Wymiary</th>
+                    <th scope="col">Rozmiar</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -110,8 +114,12 @@ export function MediaBrowser({
                         onDoubleClick={() => openDoc(doc.id)}
                       >
                         <td>{mediaDisplayTitle(doc)}</td>
-                        <td>{doc.isDecorative ? '(dekoracyjny)' : doc.alt || ': '}</td>
-                        <td>{doc.mimeType || ': '}</td>
+                        <td>
+                          {doc.isDecorative
+                            ? '(dekoracyjny)'
+                            : doc.alt || '—'}
+                        </td>
+                        <td>{doc.mimeType || '—'}</td>
                         <td>{formatDimensions(doc.width, doc.height)}</td>
                         <td>{formatBytes(doc.filesize)}</td>
                       </tr>
