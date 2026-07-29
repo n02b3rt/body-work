@@ -64,6 +64,13 @@ export function WelcomeDashboard() {
           </Link>
         ) : null}
 
+        {canManageSettings ? (
+          <Link className="bw-welcome__card" href="/admin/updates">
+            <span className="bw-welcome__card-label">Aktualizacje</span>
+            <span className="bw-welcome__card-hint">Wersje bibliotek vs npm</span>
+          </Link>
+        ) : null}
+
         <Link className="bw-welcome__card" href="/admin/account">
           <span className="bw-welcome__card-label">Twoje konto</span>
           <span className="bw-welcome__card-hint">Hasło, język i dane profilu</span>

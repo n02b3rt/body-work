@@ -36,6 +36,8 @@ import { ThemePreview as ThemePreview_ef73055a4c103881ba6bb39dbd7565f2 } from '.
 import { AdminNav as AdminNav_231477f0faa4368be46fd47ffb9da4d9 } from '../../../components/admin/AdminNav'
 import { WelcomeDashboard as WelcomeDashboard_1a68d16f6390dcabe453495a1f93438a } from '../../../components/admin/WelcomeDashboard'
 import { ComingSoonView as ComingSoonView_43e3539acc68a609b8ee9d22f60308c4 } from '../../../components/admin/ComingSoonView'
+import { UpdatesView as UpdatesView_415779f3506e78005a265ab3a2541b6d } from '../../../components/admin/UpdatesView'
+import { LibrariesView as LibrariesView_8722c89fba379dae7e53776bba61d3da } from '../../../components/admin/LibrariesView'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 /** @type import('payload').ImportMap */
@@ -78,5 +80,7 @@ export const importMap = {
   "/components/admin/AdminNav#AdminNav": AdminNav_231477f0faa4368be46fd47ffb9da4d9,
   "/components/admin/WelcomeDashboard#WelcomeDashboard": WelcomeDashboard_1a68d16f6390dcabe453495a1f93438a,
   "/components/admin/ComingSoonView#ComingSoonView": ComingSoonView_43e3539acc68a609b8ee9d22f60308c4,
+  "/components/admin/UpdatesView#UpdatesView": UpdatesView_415779f3506e78005a265ab3a2541b6d,
+  "/components/admin/LibrariesView#LibrariesView": LibrariesView_8722c89fba379dae7e53776bba61d3da,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

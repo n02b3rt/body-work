@@ -72,7 +72,7 @@ export const adminNavTree: NavBranch[] = [
     icon: 'dashboard',
     children: [
       link('kokpit-summary', 'Podsumowanie', '/admin', 'dashboard'),
-      stub('kokpit-updates', 'Aktualizacje', 'updates'),
+      link('kokpit-updates', 'Aktualizacje', '/admin/updates', 'updates'),
     ],
   },
   {
@@ -244,7 +244,7 @@ export const adminNavTree: NavBranch[] = [
           },
         ],
       },
-      stub('management-libraries', 'Biblioteki', 'library'),
+      link('management-libraries', 'Biblioteki', '/admin/libraries', 'library'),
       stub('management-seo', 'SEO', 'seo'),
       stub('management-backups', 'Kopie zapasowe', 'backup'),
       {

@@ -58,6 +58,20 @@ export default buildConfig({
             title: 'W przygotowaniu',
           },
         },
+        updates: {
+          Component: '/components/admin/UpdatesView#UpdatesView',
+          path: '/updates',
+          meta: {
+            title: 'Aktualizacje',
+          },
+        },
+        libraries: {
+          Component: '/components/admin/LibrariesView#LibrariesView',
+          path: '/libraries',
+          meta: {
+            title: 'Biblioteki',
+          },
+        },
       },
     },
   },
