@@ -1,7 +1,7 @@
 import type { AdminViewServerProps } from 'payload'
 
 import { isAdministrator } from '@/access/roles'
-import { UpdatesPanel } from '@/components/admin/UpdatesPanel'
+import { LibrariesPanel } from '@/components/admin/LibrariesPanel'
 import {
   ensurePackageUpdatesScheduler,
   getPackageUpdatesReport,
@@ -12,11 +12,10 @@ import { redirect } from 'next/navigation'
 import React from 'react'
 
 /**
- * Admin view: direct dependencies from package.json vs npm registry latest.
- * Administrator only. Informational — does not upgrade packages.
- * Results are cached for 24h; a process-level timer re-checks automatically.
+ * Zarządzanie → Biblioteki: full inventory of direct dependencies with external links.
+ * Shares the same 24h cache as Kokpit → Aktualizacje.
  */
-export async function UpdatesView({
+export async function LibrariesView({
   initPageResult,
   params,
   searchParams,
@@ -66,14 +65,14 @@ export async function UpdatesView({
     >
       <Gutter>
         <div className="bw-updates">
-          <p className="bw-updates__eyebrow">Kokpit</p>
-          <h1 className="bw-updates__title">Aktualizacje</h1>
+          <p className="bw-updates__eyebrow">Zarządzanie</p>
+          <h1 className="bw-updates__title">Biblioteki</h1>
           <p className="bw-updates__lead">
-            Pakiety z <code>package.json</code>, dla których w npm jest nowsza
-            wersja niż zainstalowana. Pełna lista bibliotek (z linkami do npm,
-            strony i repozytorium) jest w{' '}
-            <code>Zarządzanie → Biblioteki</code>. Wynik cache&apos;owany 24h;
-            panel tylko informuje — nie aktualizuje pakietów.
+            Wszystkie bezpośrednie zależności z <code>package.json</code>{' '}
+            (runtime i dev): zainstalowana wersja, najnowsza w npm oraz linki
+            do rejestru, strony projektu i repozytorium, o ile pakiet je podaje.
+            Lista aktualizacji (tylko pakiety z nowszą wersją) jest w{' '}
+            <code>Kokpit → Aktualizacje</code>.
           </p>
 
           {!allowed ? (
@@ -88,7 +87,7 @@ export async function UpdatesView({
             </p>
           ) : null}
 
-          {report ? <UpdatesPanel initialReport={report} /> : null}
+          {report ? <LibrariesPanel initialReport={report} /> : null}
         </div>
       </Gutter>
     </DefaultTemplate>

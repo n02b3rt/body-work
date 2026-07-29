@@ -37,6 +37,9 @@ yarn-error.log*
 # Payload media uploads (local disk storage)
 /media
 
+# Local runtime data (package-updates cache, etc.)
+/.data/
+
 # vercel
 .vercel
 

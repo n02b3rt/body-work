@@ -13,6 +13,17 @@
 
 -->
 
+## 2026-07-29: Aktualizacje vs Biblioteki split
+
+- **Done:** Kokpit → Aktualizacje lists **only** packages with `update-available`. Zarządzanie → Biblioteki (`/admin/libraries`) shows the full inventory with npm + homepage + repository links (normalized from registry metadata). Shared 24h cache and „Sprawdź teraz”; `cacheVersion: 2` invalidates older cache files without links.
+- **Decisions:** One report builder, two views. Empty updates state points to Biblioteki. Repository strings (`git+https://…`, `git@…`, `github:…`) are normalized to https URLs for the browser.
+- **Watch out:** Not every package publishes homepage/repository on npm — those cells only show npm. Scoped packages use the same `npmjs.com/package/@scope/name` URL pattern.
+
+## 2026-07-29: package updates — 24h auto-check + manual button
+
+- **Done:** Results live in `.data/package-updates.json` (gitignored) for 24h. A process-level `setInterval` re-queries npm every 24h while Node is up; opening the page or `GET /api/admin/package-updates` also refreshes when the cache is stale. **Sprawdź teraz** posts to the same API with `force: true` and re-renders the table without a full page reload.
+- **Decisions:** File cache over DB — one JSON blob, no schema. Scheduler is in-process (survives for `next start` / long-lived Node; restarts re-seed if the file is stale). Auth on the API via `payload.auth` + administrator only.
+- **Watch out:** In multi-instance deploys each process has its own interval and may race the same file; fine for a single VPS. Dev HMR restarts the timer often — cache still prevents hammering npm.
 ## 2026-07-29: Kokpit → Aktualizacje (package version checker)
 
 - **Done:** Real admin view at `/admin/updates` (was a coming-soon stub). Lists every direct dep and devDep from `package.json` with declared range, installed version (from `node_modules`), and npm `latest`. Badge when an update is available. Runtime vs Dev sections; updates sorted first.

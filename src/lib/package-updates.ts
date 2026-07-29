@@ -1,91 +1,85 @@
-import { readFile } from 'fs/promises'
+import { mkdir, readFile, writeFile } from 'fs/promises'
 import path from 'path'
 
-export type PackageKind = 'runtime' | 'dev'
+import {
+  isReportStale,
+  normalizeHomepageUrl,
+  normalizeRepositoryUrl,
+  npmPackageUrl,
+  PACKAGE_UPDATES_CACHE_TTL_MS,
+  PACKAGE_UPDATES_CACHE_VERSION,
+  resolveStatus,
+  type PackageKind,
+  type PackageUpdateRow,
+  type PackageUpdatesReport,
+  type PackageUpdateStatus,
+} from '@/lib/package-updates-shared'
 
-export type PackageUpdateStatus =
-  | 'up-to-date'
-  | 'update-available'
-  | 'unknown'
+export type {
+  PackageKind,
+  PackageLinks,
+  PackageUpdateRow,
+  PackageUpdatesReport,
+  PackageUpdateStatus,
+} from '@/lib/package-updates-shared'
 
-export type PackageUpdateRow = {
-  name: string
-  kind: PackageKind
-  declared: string
-  installed: string | null
-  latest: string | null
-  status: PackageUpdateStatus
-}
-
-export type PackageUpdatesReport = {
-  checkedAt: string
-  rows: PackageUpdateRow[]
-  totals: {
-    packages: number
-    updates: number
-    unknown: number
-  }
-}
+export {
+  compareVersions,
+  isReportStale,
+  nextCheckAtIso,
+  normalizeHomepageUrl,
+  normalizeRepositoryUrl,
+  npmPackageUrl,
+  PACKAGE_UPDATES_CACHE_TTL_MS,
+  PACKAGE_UPDATES_CACHE_VERSION,
+  resolveStatus,
+  rowsWithUpdates,
+} from '@/lib/package-updates-shared'
 
 type PackageJson = {
   dependencies?: Record<string, string>
   devDependencies?: Record<string, string>
 }
 
-const REGISTRY_REVALIDATE_SECONDS = 3600
 const FETCH_CONCURRENCY = 8
 const FETCH_TIMEOUT_MS = 8_000
+const CACHE_RELATIVE_PATH = path.join('.data', 'package-updates.json')
 
-/**
- * Compare two version strings as major.minor.patch (prerelease suffix ignored for the
- * numeric parts; a prerelease is lower than the same numbers without one).
- * Returns negative if a < b, 0 if equal, positive if a > b. Nulls sort as unknown.
- */
-export function compareVersions(a: string, b: string): number {
-  const pa = parseVersion(a)
-  const pb = parseVersion(b)
-  const len = Math.max(pa.parts.length, pb.parts.length)
-  for (let i = 0; i < len; i++) {
-    const da = pa.parts[i] ?? 0
-    const db = pb.parts[i] ?? 0
-    if (da !== db) return da - db
-  }
-  // Same numeric core: release (no pre) > prerelease
-  if (pa.prerelease && !pb.prerelease) return -1
-  if (!pa.prerelease && pb.prerelease) return 1
-  if (pa.prerelease && pb.prerelease) {
-    return pa.prerelease.localeCompare(pb.prerelease)
-  }
-  return 0
-}
-
-function parseVersion(raw: string): { parts: number[]; prerelease: string | null } {
-  const cleaned = raw.trim().replace(/^v/i, '')
-  const [core, ...preParts] = cleaned.split('-')
-  const parts = (core ?? '')
-    .split('.')
-    .map((segment) => {
-      const n = parseInt(segment.replace(/[^\d].*$/, ''), 10)
-      return Number.isFinite(n) ? n : 0
-    })
-  const prerelease = preParts.length > 0 ? preParts.join('-') : null
-  return { parts, prerelease }
-}
-
-export function resolveStatus(
-  installed: string | null,
-  latest: string | null,
-): PackageUpdateStatus {
-  if (!installed || !latest) return 'unknown'
-  try {
-    return compareVersions(installed, latest) < 0 ? 'update-available' : 'up-to-date'
-  } catch {
-    return 'unknown'
-  }
+type GlobalWithScheduler = typeof globalThis & {
+  __bwPackageUpdatesSchedulerStarted?: boolean
+  __bwPackageUpdatesInFlight?: Promise<PackageUpdatesReport> | null
 }
 
 function projectRoot(): string {
   return process.cwd()
+}
+
+function cacheFilePath(): string {
+  return path.join(projectRoot(), CACHE_RELATIVE_PATH)
+}
+
+async function readCache(): Promise<PackageUpdatesReport | null> {
+  try {
+    const raw = await readFile(cacheFilePath(), 'utf8')
+    const data = JSON.parse(raw) as PackageUpdatesReport
+    if (
+      !data ||
+      data.cacheVersion !== PACKAGE_UPDATES_CACHE_VERSION ||
+      typeof data.checkedAt !== 'string' ||
+      !Array.isArray(data.rows)
+    ) {
+      return null
+    }
+    return data
+  } catch {
+    return null
+  }
+}
+
+async function writeCache(report: PackageUpdatesReport): Promise<void> {
+  const filePath = cacheFilePath()
+  await mkdir(path.dirname(filePath), { recursive: true })
+  await writeFile(filePath, JSON.stringify(report, null, 2), 'utf8')
 }
 
 async function readPackageJson(): Promise<PackageJson> {
@@ -96,7 +90,12 @@ async function readPackageJson(): Promise<PackageJson> {
 
 async function readInstalledVersion(name: string): Promise<string | null> {
   try {
-    const pkgPath = path.join(projectRoot(), 'node_modules', ...name.split('/'), 'package.json')
+    const pkgPath = path.join(
+      projectRoot(),
+      'node_modules',
+      ...name.split('/'),
+      'package.json',
+    )
     const raw = await readFile(pkgPath, 'utf8')
     const pkg = JSON.parse(raw) as { version?: string }
     return typeof pkg.version === 'string' ? pkg.version : null
@@ -105,7 +104,20 @@ async function readInstalledVersion(name: string): Promise<string | null> {
   }
 }
 
-async function fetchLatestVersion(name: string): Promise<string | null> {
+type NpmLatestMeta = {
+  version: string | null
+  homepage: string | null
+  repository: string | null
+  description: string | null
+}
+
+async function fetchLatestMeta(name: string): Promise<NpmLatestMeta> {
+  const empty: NpmLatestMeta = {
+    version: null,
+    homepage: null,
+    repository: null,
+    description: null,
+  }
   const url = `https://registry.npmjs.org/${encodeURIComponent(name)}/latest`
   const controller = new AbortController()
   const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS)
@@ -113,13 +125,27 @@ async function fetchLatestVersion(name: string): Promise<string | null> {
     const res = await fetch(url, {
       signal: controller.signal,
       headers: { Accept: 'application/json' },
-      next: { revalidate: REGISTRY_REVALIDATE_SECONDS },
+      // Own file cache owns freshness; never rely on Next fetch cache for this.
+      cache: 'no-store',
     })
-    if (!res.ok) return null
-    const data = (await res.json()) as { version?: string }
-    return typeof data.version === 'string' ? data.version : null
+    if (!res.ok) return empty
+    const data = (await res.json()) as {
+      version?: string
+      homepage?: unknown
+      repository?: unknown
+      description?: unknown
+    }
+    return {
+      version: typeof data.version === 'string' ? data.version : null,
+      homepage: normalizeHomepageUrl(data.homepage),
+      repository: normalizeRepositoryUrl(data.repository),
+      description:
+        typeof data.description === 'string' && data.description.trim()
+          ? data.description.trim()
+          : null,
+    }
   } catch {
-    return null
+    return empty
   } finally {
     clearTimeout(timer)
   }
@@ -141,7 +167,10 @@ async function mapPool<T, R>(
     }
   }
 
-  const runners = Array.from({ length: Math.min(concurrency, items.length) }, () => run())
+  const runners = Array.from(
+    { length: Math.min(concurrency, items.length) },
+    () => run(),
+  )
   await Promise.all(runners)
   return results
 }
@@ -158,11 +187,8 @@ function sortRows(a: PackageUpdateRow, b: PackageUpdateRow): number {
   return a.name.localeCompare(b.name)
 }
 
-/**
- * Build a report of direct dependencies vs the npm registry.
- * Informational only — never mutates packages.
- */
-export async function getPackageUpdatesReport(): Promise<PackageUpdatesReport> {
+/** Hit package.json + npm and build a fresh report (no cache). */
+async function buildFreshReport(): Promise<PackageUpdatesReport> {
   const pkg = await readPackageJson()
   const entries: { name: string; declared: string; kind: PackageKind }[] = []
 
@@ -174,23 +200,30 @@ export async function getPackageUpdatesReport(): Promise<PackageUpdatesReport> {
   }
 
   const rows = await mapPool(entries, FETCH_CONCURRENCY, async (entry) => {
-    const [installed, latest] = await Promise.all([
+    const [installed, meta] = await Promise.all([
       readInstalledVersion(entry.name),
-      fetchLatestVersion(entry.name),
+      fetchLatestMeta(entry.name),
     ])
     return {
       name: entry.name,
       kind: entry.kind,
       declared: entry.declared,
       installed,
-      latest,
-      status: resolveStatus(installed, latest),
+      latest: meta.version,
+      status: resolveStatus(installed, meta.version),
+      description: meta.description,
+      links: {
+        npm: npmPackageUrl(entry.name),
+        homepage: meta.homepage,
+        repository: meta.repository,
+      },
     } satisfies PackageUpdateRow
   })
 
   rows.sort(sortRows)
 
   return {
+    cacheVersion: PACKAGE_UPDATES_CACHE_VERSION,
     checkedAt: new Date().toISOString(),
     rows,
     totals: {
@@ -199,4 +232,72 @@ export async function getPackageUpdatesReport(): Promise<PackageUpdatesReport> {
       unknown: rows.filter((r) => r.status === 'unknown').length,
     },
   }
+}
+
+async function buildAndCacheReport(): Promise<PackageUpdatesReport> {
+  const g = globalThis as GlobalWithScheduler
+  if (g.__bwPackageUpdatesInFlight) {
+    return g.__bwPackageUpdatesInFlight
+  }
+
+  g.__bwPackageUpdatesInFlight = (async () => {
+    try {
+      const report = await buildFreshReport()
+      await writeCache(report)
+      return report
+    } finally {
+      g.__bwPackageUpdatesInFlight = null
+    }
+  })()
+
+  return g.__bwPackageUpdatesInFlight
+}
+
+/**
+ * Starts a process-wide interval that re-checks npm every 24h while the Node
+ * process is up. Safe to call repeatedly. Also refreshes immediately if the
+ * on-disk cache is missing or stale.
+ */
+export function ensurePackageUpdatesScheduler(): void {
+  const g = globalThis as GlobalWithScheduler
+  if (g.__bwPackageUpdatesSchedulerStarted) return
+  g.__bwPackageUpdatesSchedulerStarted = true
+
+  // Fire-and-forget: seed cache on first boot / after restart when stale.
+  void getPackageUpdatesReport({ force: false }).catch(() => {
+    // Best-effort; UI/API can retry.
+  })
+
+  const timer = setInterval(() => {
+    void getPackageUpdatesReport({ force: true }).catch(() => {
+      // Keep the interval alive even if one cycle fails (network blip).
+    })
+  }, PACKAGE_UPDATES_CACHE_TTL_MS)
+
+  // Do not keep a short-lived process (scripts/tests) from exiting solely for this timer.
+  // Long-lived `next start` always has other handles, so the interval still fires.
+  if (typeof timer.unref === 'function') {
+    timer.unref()
+  }
+}
+
+/**
+ * Return a package-updates report.
+ * - `force: false` (default): use disk cache when younger than 24h; otherwise refresh.
+ * - `force: true`: always re-query npm and rewrite the cache (manual "Sprawdź teraz").
+ */
+export async function getPackageUpdatesReport(options?: {
+  force?: boolean
+}): Promise<PackageUpdatesReport> {
+  ensurePackageUpdatesScheduler()
+
+  const force = options?.force === true
+  if (!force) {
+    const cached = await readCache()
+    if (cached && !isReportStale(cached)) {
+      return cached
+    }
+  }
+
+  return buildAndCacheReport()
 }

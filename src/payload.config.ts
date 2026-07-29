@@ -65,6 +65,13 @@ export default buildConfig({
             title: 'Aktualizacje',
           },
         },
+        libraries: {
+          Component: '/components/admin/LibrariesView#LibrariesView',
+          path: '/libraries',
+          meta: {
+            title: 'Biblioteki',
+          },
+        },
       },
     },
   },
