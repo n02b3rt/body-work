@@ -25,6 +25,30 @@
 - **`embla-carousel` was never a direct dependency**, so `CarouselArrows`'s `import type { EmblaCarouselType } from "embla-carousel"` fails to resolve under pnpm 11's stricter hoisting: a pre-existing `tsc` error on `main`. Taken from `embla-carousel-react`'s own `UseEmblaCarouselType` instead, no dependency added.
 - **The React Compiler caught the same rule twice more** (`set-state-in-effect`), making it seven times on this project. `useSiteComponents` derives `loading` from a request counter; `CarouselTrack` subscribes to embla's `select`/`reInit` rather than reading the snap synchronously.
 - **Watch out:** the builder UI itself is **not visually verified**, for the reason recorded on 2026-07-28: there is still **no user account in this database**, so every admin route serves the login screen. It typechecks, lints, builds and is in the import map, and the data model behind it is verified end to end, but somebody has to log in and look at it. Also: `revalidate = 3600` on the catch-all means a page edited in the panel takes up to an hour to appear, same trade as the blog.
+## 2026-07-29: Admin AI (Gemini) in the dashboard
+
+- **Done:** Assistive AI for staff on `dash` only: ALT/caption for media, SEO + excerpt, PL library blurbs, EN translation draft, post draft from brief, floating help chat. Unified `POST /api/admin/ai` + `src/lib/ai/*`. Docs: `docs/admin-ai.md`.
+- **Decisions:** Google Gemini free API via native `fetch` (no SDK), primary `gemini-3.5-flash`, Gemma 4 on 429. Propose → preview → Insert; never silent write. Library blurbs cached in `.data/package-blurbs.json`. Help chat mutates nothing.
+- **Watch out:** Without `GEMINI_API_KEY` UI shows unavailable (503). Free tier may train on prompts — no secrets/PII. Page-builder layout suggest lands with the element-library stack separately.
+
+## 2026-07-29: Aktualizacje vs Biblioteki split
+
+- **Done:** Kokpit → Aktualizacje lists **only** packages with `update-available`. Zarządzanie → Biblioteki (`/admin/libraries`) shows the full inventory with npm + homepage + repository links (normalized from registry metadata). Shared 24h cache and „Sprawdź teraz”; `cacheVersion: 2` invalidates older cache files without links.
+- **Decisions:** One report builder, two views. Empty updates state points to Biblioteki. Repository strings (`git+https://…`, `git@…`, `github:…`) are normalized to https URLs for the browser.
+- **Watch out:** Not every package publishes homepage/repository on npm — those cells only show npm. Scoped packages use the same `npmjs.com/package/@scope/name` URL pattern.
+
+## 2026-07-29: package updates — 24h auto-check + manual button
+
+- **Done:** Results live in `.data/package-updates.json` (gitignored) for 24h. A process-level `setInterval` re-queries npm every 24h while Node is up; opening the page or `GET /api/admin/package-updates` also refreshes when the cache is stale. **Sprawdź teraz** posts to the same API with `force: true` and re-renders the table without a full page reload.
+- **Decisions:** File cache over DB — one JSON blob, no schema. Scheduler is in-process (survives for `next start` / long-lived Node; restarts re-seed if the file is stale). Auth on the API via `payload.auth` + administrator only.
+- **Watch out:** In multi-instance deploys each process has its own interval and may race the same file; fine for a single VPS. Dev HMR restarts the timer often — cache still prevents hammering npm.
+
+## 2026-07-29: Kokpit → Aktualizacje (package version checker)
+
+- **Done:** Real admin view at `/admin/updates` (was a coming-soon stub). Lists every direct dep and devDep from `package.json` with declared range, installed version (from `node_modules`), and npm `latest`. Badge when an update is available. Runtime vs Dev sections; updates sorted first.
+- **Decisions:** Administrator only (ops concern, not editorial). No one-click upgrade — informational only, stack rule still requires asking before changing packages. No new deps: native `fetch` to registry.npmjs.org with 1h revalidate + concurrency 8. Minimal major.minor.patch comparator instead of adding `semver`.
+- **Watch out:** `pnpm install --prod` drops devDeps from `node_modules`, so those show "niedostępna" for installed but still get a latest from npm. Path resolution is `process.cwd()` + `node_modules/<name>`. npm `latest` can jump major (e.g. typescript 5 → 7); the panel does not filter by declared range, it only compares installed vs latest.
+
 ## 2026-07-29: /trening-personalny RWD, media, lazy loading, structured data
 
 - **Done:** the one real break was a specialisation heading overflowing its column, pushing the page 75px past the viewport at 1049. The three-up grid switched at `lg` (1024) while `SectionHeading`'s `section` size jumps 39.5px to 67.7px at `wide` (1060), and at 67.7px the word "funkcjonalny." needs ~396px against a maximum 378px column, so it never fit at any desktop width. `StatementSection` gained `compactHeading` (holds 39.5px, the reference's base step) and the grid moved to `wide:grid-cols-3`. `MediaCardCta`'s `sizes` corrected to measured numbers. Blur placeholders extended to this section (map now 45 entries, 9.6KB). Meta description added where the route had none, plus `Service` and `BreadcrumbList` JSON-LD.

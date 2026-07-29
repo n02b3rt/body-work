@@ -89,6 +89,7 @@ Per PRD §9: "zero abonamentów SaaS tam, gdzie istnieje dojrzała alternatywa o
 | CDN/DNS/WAF | Cloudflare Free |
 | Payments | Przelewy24 (paid by necessity: commission only, no subscription) |
 | Transactional email | **Resend** (this is the "SMTP relay" the PRD already exempts from self-hosting) |
+| Admin AI | **Google Gemini** (`GEMINI_API_KEY`, model `gemini-3.5-flash`, Gemma 4 fallback). Free / usage-based API via native `fetch`, no SDK. Admin-only (`/api/admin/ai`). See [`admin-ai.md`](./admin-ai.md). |
 
 Full picture: `PRD.md` §7 and §9.
 
@@ -100,6 +101,15 @@ A stack note floating outside the PRD mentioned NeonDB and Prisma. Checked again
 - **Prisma → rejected.** Payload already owns the database schema, migrations, and query layer via its Local API. A second ORM touching the same Postgres instance is redundant and a migration-conflict risk. If a genuinely separate data need shows up later (e.g. a reporting layer outside Payload's collections), raise it as a new proposal: don't reintroduce Prisma by default.
 
 See [`architecture.md`](./architecture.md) → Key decisions for the dated log entry.
+
+## Admin AI: Gemini, and why it is allowed (2026-07-29)
+
+Approved with the Admin AI plan: Google Gemini free / usage-based API for assistive
+features in the dashboard only (`GEMINI_API_KEY`, native `fetch`, no SDK).
+
+This does **not** put Google in charge of content or subscriber data. Generation is
+opt-in from admin UI buttons; results are proposals the editor inserts. The free tier
+may use prompts to improve Google models — do not send secrets. Details: [`admin-ai.md`](./admin-ai.md).
 
 ## Email: Resend, and why it doesn't break the self-hosting rule (2026-07-27)
 

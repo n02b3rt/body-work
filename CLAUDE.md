@@ -98,7 +98,9 @@ Check here before building anything: don't duplicate what exists.
 | Page builder: public renderer | `src/components/page-blocks/`, `src/lib/cms-page.ts`, `src/app/[locale]/[...rest]/page.tsx` | The catch-all serves a published page, else 404s as before. **Reads need `depth: 2`**; CMS pages are PL-only and 404 in EN per `docs/i18n.md` |
 | Component parameter readers (shared) | `src/lib/component-values.ts`, `src/lib/component-styles.ts`, `src/lib/page-sections.ts` | One source for admin previews **and** the public blocks, so a block looks the same in the builder as on the site |
 | Shared CMS fields | `src/fields/` | SEO meta, slug helpers |
-| Admin UI extras | `src/components/admin/` | WelcomeDashboard, PagesTree, AdminNav, ComingSoonView, media/* |
+| Admin UI extras | `src/components/admin/` | WelcomeDashboard, PagesTree, AdminNav, ComingSoonView, UpdatesView, media/* |
+| Admin AI (Gemini) | `src/lib/ai/`, `src/app/api/admin/ai/`, `src/components/admin/ai/`, `docs/admin-ai.md` | Assistive AI on dash only: ALT, SEO, EN draft, post draft, library blurbs, help chat. `GEMINI_API_KEY` |
+| Admin: package updates | `src/components/admin/UpdatesView.tsx`, `UpdatesPanel.tsx`, `LibrariesView.tsx`, `LibrariesPanel.tsx`, `package-report-ui.tsx`, `src/lib/package-updates.ts`, `src/app/api/admin/package-updates/` | Kokpit → Aktualizacje = only outdated; Zarządzanie → Biblioteki = full list + npm/site/repo links; 24h cache |
 | Admin nav tree | `src/admin/nav-tree.ts` | Nested sidebar structure (custom Nav; stubs → `/admin/coming-soon`) |
 | Frontend i18n | `messages/`, `src/i18n/` | next-intl (default `pl`) |
 | Date/time display (PL) | `src/lib/format-date.ts` | `formatDatePl`, `formatDateTimePl`; Payload `admin.dateFormat`; next-intl `formats` |
