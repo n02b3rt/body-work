@@ -8,6 +8,7 @@ The essentials, restated in case your tooling only reads this file and never fol
 - **Read `PRD.md` and `AI_NOTES.md` first**: requirements and the running project journal.
 - **Ask before touching the stack.** Installing, removing, upgrading, or swapping any library/service requires telling the user first. Approved list + why: `docs/stack.md`.
 - **Git:** feature branches (`feat/`, `fix/`, `refactor/`, `chore/`), small commits, `type: short summary` titles, never non-trivial commits straight to `main`. No AI/tool authorship anywhere: no "Co-Authored-By", "Generated with", or tool names in commits, code, comments, or docs.
+- **Admin UI copy is short and dry** (section leads, field descriptions, card hints): one line that names the thing, not a tutorial. Full rule: `docs/conventions.md` → *Admin UI copy*.
 - **Definition of done:** code works + the relevant `docs/*.md` file is updated + (larger tasks) an `AI_NOTES.md` entry + commit.
 - **Don't duplicate**: check `CLAUDE.md`'s project map and docs index before building something that might already exist.
 
