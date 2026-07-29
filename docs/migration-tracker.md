@@ -401,15 +401,42 @@ Verified in both locales: description present and mirrored into `og:`/`twitter:`
 `HealthAndBeautyBusiness`, `Service` with 3 catalogue entries and `areaServed` Poznań, and the
 breadcrumb trail.
 
-#### Left measured but not fixed
+#### Two sitewide faults this page surfaced (fixed 2026-07-29)
 
-- **The floating "Akademia" CTA collides with the promo pills.** `Header` pins it bottom-centre below
-  `wide`, `PromoBar` pins its pills bottom-right, and from ~640 to 1059 the pills are wide enough to
-  cover it. Visible on this page at 834 and 1024. Both are sitewide, so this is not a `/fizjoterapia`
-  fix; it needs its own pass across every route.
-- **"WIĘCEJ O FIZJOTERAPIA"** in `BlogTeasers` — `Blog.moreIn` interpolates the category name in the
-  nominative where Polish needs the locative ("o fizjoterapii"). Ours, not the reference's, and it is
-  wrong on all five service pages that carry the block.
+Both were found while checking `/fizjoterapia` but live in shared components, so the fix lands on
+every route.
+
+**The floating "Akademia" CTA was completely covered by the promo pills.** `Header` pins the CTA
+bottom-centre below `wide` and `PromoBar` pins its pills bottom-right, and **both were anchored 16px
+off the bottom edge**, so the lowest pill spanned the CTA's whole box. Measured: collision at 360,
+414, 640, 834, 1024 and 1059, i.e. every width where the CTA renders.
+
+The reference has the identical fault and resolves it by stacking order alone — its
+`.academy-mobile-button` is `z-index: 120` and the promo `aside` is `121`, so the pills simply win
+and the CTA is unreachable. That is the reference being broken, not a design.
+
+`PromoBar`'s stack is now lifted clear of it below `wide`:
+`bottom-[calc(1rem+3.5rem+0.5rem)]`, which reads as the CTA's own `bottom-4`, plus its fixed
+`min-h-14`, plus a gap. The height is safe to hard-code because the button never wraps — measured
+177px wide at a 360 viewport, 56px tall at every width. From `wide` up the CTA is hidden and the
+pills keep their original `wide:bottom-7`.
+
+After: **no collision at 360, 414, 480, 640, 768, 834, 1024 or 1059**, a consistent 20px gap, and the
+pills back at their old position from 1060 up. Page overflow still 0 across 14 widths.
+
+**"WIĘCEJ O FIZJOTERAPIA".** `Blog.moreIn` is "Więcej o {category}", which governs the locative in
+Polish, and it was being handed the category title in the nominative. Wrong on all five service pages
+carrying the block. ICU has no declension, so `Blog.categoryLocative` now carries an explicit form
+for each of the four slugs — fizjoterapii, masażu, treningu, dietetyce — keyed by **slug** rather
+than title, because the slug is what routes there and survives an editor renaming the category. A
+category added later falls back to its title, which is exactly what every category got before.
+
+Verified: "Więcej o fizjoterapii", "Więcej o treningu", "Więcej o dietetyce".
+
+**English is deliberately untouched.** `en.json` has no `categoryLocative`, so it takes the fallback
+and renders "More on fizjoterapia" — the Polish title, because the Payload `Categories` collection is
+not localised. That is a real gap, but the fix is localising the collection, not patching one label
+into disagreeing with the archive page it links to.
 
 ### Two things that only break on a real phone (2026-07-28)
 

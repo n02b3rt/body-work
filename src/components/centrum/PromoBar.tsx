@@ -81,7 +81,16 @@ export function PromoBar() {
     // The container spans half the viewport height so the pills stack upward from the
     // bottom edge, and stays click-through: only the pills themselves take pointer
     // events, exactly as on the reference.
-    <aside className="pointer-events-none fixed right-1 bottom-1 z-[121] flex min-h-[50vh] flex-col items-end justify-end wide:right-7 wide:bottom-7">
+    //
+    // Below `wide` the stack is lifted clear of the floating "Akademia" CTA that `Header`
+    // pins to the bottom centre there. Both were anchored 16px off the bottom edge, so the
+    // lowest pill covered the CTA outright at every width from 360 to 1059 (measured: the
+    // pill spans the CTA's whole 56px box). The reference has the identical fault and simply
+    // lets its `z-index: 121` win over the CTA's 120; see docs/migration-tracker.md.
+    //
+    // The offset is that CTA's own `bottom-4`, plus its fixed `min-h-14`, plus a gap: it never
+    // wraps (measured 177px wide at a 360 viewport), so its height is not going to move.
+    <aside className="pointer-events-none fixed right-1 bottom-[calc(1rem+3.5rem+0.5rem)] z-[121] flex min-h-[50vh] flex-col items-end justify-end wide:right-7 wide:bottom-7">
       {visible.map((promo) => (
         <div
           key={promo.cookie}

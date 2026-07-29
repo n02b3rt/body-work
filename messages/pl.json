@@ -1741,7 +1741,13 @@
     "categoriesHeading": "Kategorie",
     "fromTheBlog": "Z naszego bloga",
     "moreIn": "Więcej o {category}",
-    "pageTitle": "Blog, strona {page}"
+    "pageTitle": "Blog, strona {page}",
+    "categoryLocative": {
+      "fizjoterapia": "fizjoterapii",
+      "masaz": "masażu",
+      "trening": "treningu",
+      "dietetyka": "dietetyce"
+    }
   },
   "Errors": {
     "notFoundCode": "404",
