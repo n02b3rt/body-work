@@ -13,6 +13,15 @@ export const metaFields: Field = {
   },
   fields: [
     {
+      name: 'aiAssist',
+      type: 'ui',
+      admin: {
+        components: {
+          Field: '/components/admin/ai/SeoAiPanel#SeoAiPanel',
+        },
+      },
+    },
+    {
       name: 'title',
       type: 'text',
       label: 'Tytuł SEO',

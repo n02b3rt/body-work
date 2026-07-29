@@ -50,6 +50,7 @@ export default buildConfig({
     components: {
       Nav: '/components/admin/AdminNav#AdminNav',
       beforeDashboard: ['/components/admin/WelcomeDashboard#WelcomeDashboard'],
+      providers: ['/components/admin/ai/AiHelpProvider#AiHelpProvider'],
       views: {
         comingSoon: {
           Component: '/components/admin/ComingSoonView#ComingSoonView',
