@@ -10,9 +10,17 @@ export const SITE_URL = (process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost
 
 export const SITE_NAME = "BODYWORK Centrum";
 
-/** Falls back to a real brand photo rather than a generated card: this is the "friendly
- * space" shot the homepage leads with. */
-const DEFAULT_OG_IMAGE = "/images/home/friendly-space.webp";
+/**
+ * Falls back to a real brand photo rather than a generated card: this is the "friendly space" shot
+ * the homepage leads with, cropped to the 1200x630 every platform documents.
+ *
+ * **JPEG, not the WebP original.** Facebook, LinkedIn and X all state 1200x630, and some scrapers
+ * still refuse WebP outright; an unrendered card costs more than 96KB does. Regenerate with the
+ * one-liner in `docs/migration-tracker.md` if the source photo ever changes.
+ */
+const DEFAULT_OG_IMAGE = "/images/og-default.jpg";
+const DEFAULT_OG_WIDTH = 1200;
+const DEFAULT_OG_HEIGHT = 630;
 
 /** Builds the localised path for a route: `pl` is the default locale and carries no
  * prefix (`localePrefix: "as-needed"`). */
@@ -46,6 +54,16 @@ type PageMetadataArgs = {
    * The 62 imported posts are in exactly that position until somebody translates them.
    */
   singleLanguage?: boolean;
+  /**
+   * Keep the page out of search results, from the document's own `meta.noIndex`.
+   *
+   * The checkbox existed in the panel for a while and **nothing read it**: an editor could tick
+   * "Ukryj przed wyszukiwarkami" and the page carried on being indexed. A control that lies about
+   * what it does is worse than no control, so it is wired through here and honoured in
+   * `src/app/sitemap.ts` as well, since listing a noindex URL in a sitemap sends crawlers
+   * contradictory instructions.
+   */
+  noIndex?: boolean | null;
 };
 
 /**
@@ -70,6 +88,7 @@ export function pageMetadata({
   section,
   authors,
   singleLanguage = false,
+  noIndex = false,
 }: PageMetadataArgs): Metadata {
   // `singleLanguage` means the text exists in one language only, so every locale's URL is
   // serving the same words. Pointing them all at the default locale's URL consolidates the
@@ -78,11 +97,17 @@ export function pageMetadata({
   const canonicalLocale = singleLanguage ? routing.defaultLocale : locale;
   const url = `${SITE_URL}${localePath(canonicalLocale, path)}`;
   const pageUrl = `${SITE_URL}${localePath(locale, path)}`;
+  const usingDefaultImage = !image;
   const ogImage = image
     ? image.startsWith("http")
       ? image
       : `${SITE_URL}${image}`
     : `${SITE_URL}${DEFAULT_OG_IMAGE}`;
+
+  // Declaring the size lets a scraper lay the card out without fetching the file first, and the
+  // default's dimensions are known, so there is no reason to leave them off.
+  const ogWidth = usingDefaultImage ? DEFAULT_OG_WIDTH : imageWidth;
+  const ogHeight = usingDefaultImage ? DEFAULT_OG_HEIGHT : imageHeight;
 
   const languages = Object.fromEntries(
     routing.locales.map((code) => [code, `${SITE_URL}${localePath(code, path)}`]),
@@ -91,6 +116,9 @@ export function pageMetadata({
   return {
     title,
     ...(description ? { description } : {}),
+    // `follow` stays on: the point is to keep this page out of the index, not to strand the
+    // pages it links to.
+    ...(noIndex ? { robots: { index: false, follow: true } } : {}),
     alternates: {
       canonical: url,
       ...(singleLanguage ? {} : { languages }),
@@ -112,8 +140,9 @@ export function pageMetadata({
       images: [
         {
           url: ogImage,
-          ...(imageWidth ? { width: imageWidth } : {}),
-          ...(imageHeight ? { height: imageHeight } : {}),
+          ...(ogWidth ? { width: ogWidth } : {}),
+          ...(ogHeight ? { height: ogHeight } : {}),
+          ...(title ? { alt: title } : {}),
         },
       ],
       ...(publishedTime ? { publishedTime } : {}),

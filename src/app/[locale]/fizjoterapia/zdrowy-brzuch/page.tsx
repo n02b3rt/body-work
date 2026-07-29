@@ -11,7 +11,7 @@ import { PhysiotherapyNav } from "@/components/centrum/PhysiotherapyNav";
 import { pageMetadata } from "@/lib/metadata";
 
 type Lead = { name: string; body: string; image: string };
-type Format = { heading: string; price: string; duration: string; href: string };
+type Format = { heading: string; price: string; duration: string };
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -96,14 +96,6 @@ export default async function HealthyBellyPage({ params }: PageProps) {
                 <br />
                 {format.duration}
               </p>
-              <a
-                href={format.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={buttonClasses("outline", "mt-4")}
-              >
-                {t("formatCta")}
-              </a>
             </div>
           ))}
         </Container>

@@ -23,6 +23,9 @@ import { StrikethroughFeatureClient as StrikethroughFeatureClient_e70f5e05f09f93
 import { UnderlineFeatureClient as UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { BoldFeatureClient as BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { ItalicFeatureClient as ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { SeoPreview as SeoPreview_752ed51552c58b98feed87d2595b772d } from '../../../components/admin/SeoPreview'
+import { SeoTitleHint as SeoTitleHint_263fb429da337552c7d817d7e71194b0 } from '../../../components/admin/SeoHints'
+import { SeoDescriptionHint as SeoDescriptionHint_263fb429da337552c7d817d7e71194b0 } from '../../../components/admin/SeoHints'
 import { SlideRowLabel as SlideRowLabel_eb81802ffb260073b488880077373e9c } from '../../../components/admin/appearance/SlideRowLabel'
 import { CardRowLabel as CardRowLabel_dc3af6e709460ed2bbb693a1f560c19b } from '../../../components/admin/appearance/CardRowLabel'
 import { CanvasOnlyField as CanvasOnlyField_38741d8cfa3a787da1d41ff286d29716 } from '../../../components/admin/builder/CanvasOnlyField'
@@ -66,6 +69,9 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#UnderlineFeatureClient": UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#BoldFeatureClient": BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#ItalicFeatureClient": ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "/components/admin/SeoPreview#SeoPreview": SeoPreview_752ed51552c58b98feed87d2595b772d,
+  "/components/admin/SeoHints#SeoTitleHint": SeoTitleHint_263fb429da337552c7d817d7e71194b0,
+  "/components/admin/SeoHints#SeoDescriptionHint": SeoDescriptionHint_263fb429da337552c7d817d7e71194b0,
   "/components/admin/appearance/SlideRowLabel#SlideRowLabel": SlideRowLabel_eb81802ffb260073b488880077373e9c,
   "/components/admin/appearance/CardRowLabel#CardRowLabel": CardRowLabel_dc3af6e709460ed2bbb693a1f560c19b,
   "/components/admin/builder/CanvasOnlyField#CanvasOnlyField": CanvasOnlyField_38741d8cfa3a787da1d41ff286d29716,
