@@ -100,7 +100,7 @@ Two things about this app's shape made it harder than it looks, both worth knowi
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
 |---|---|---|---|---|---|
 | `/trening-personalny/` | `/trening-personalny/` | New: SectionNav/PersonalTrainingNav, PageHero, CenteredBand, MediaCardCta. Reused: StatementSection, TextMedia, TestimonialCarousel (generalised to take items as props), NewsletterSignup | PL: done / EN: done | Copy verified verbatim against the scrape both ways (no missing headings, no altered strings): **not yet opened in a browser** | Bilingual |
-| `/trening-personalny/trening-indywidualny/` | same | New: Accordion. Reused: PageHero, CenteredBand, TextMedia, SectionNav | PL: done / EN: done | Same automated two-way check | Bilingual |
+| `/trening-personalny/trening-indywidualny/` | same | New: Accordion. Reused: PageHero, CenteredBand, TextMedia, SectionNav | PL: done / EN: done | Same automated two-way check + RWD measured at 8 widths 2026-07-30 (0 overflow) | Bilingual |
 | `/trening-personalny/trening-w-parze/` | same | Reused: PageHero, TextMedia, Accordion (subset of the shared items), SectionNav | PL: done / EN: done | Same automated two-way check: this check caught a whole section I'd missed | Bilingual |
 | `/trening-personalny/ocena-funkcjonalna/` | same | Reused: PageHero, CenteredBand, StatementSection, SectionNav | PL: done / EN: done | Same automated two-way check | Bilingual |
 | `/trening-personalny/trenerzy/` | same | Reused: PageHero, CenteredBand, SectionNav; 3 categories × 18 trainer cards | PL: done / **EN: bios still Polish** (see AI_NOTES) | Same automated two-way check | Built (PL) |
@@ -829,6 +829,54 @@ Measured rather than eyeballed: with every row forced open, the three portraits 
 680 and 681 px** tall, identical to a rounding pixel. `/fizjoterapia/specjalisci` is the other
 people accordion and has exactly the same problem; it can take the same flag when somebody looks
 at it.
+
+### /trening-personalny/trening-indywidualny: the accordion was downloading eight photos nobody asked for (2026-07-30)
+
+The page was already sound: **no horizontal scroll and no overflowing element at any width from
+345 to 1885 px**, no heading wider than its own box, and every button 56 px tall. That was measured,
+not eyeballed — `getBoundingClientRect` on every element in the document at 360, 390, 414, 768,
+1024, 1280, 1440 and 1900, with the off-canvas menu and the newsletter honeypot (parked at
+`-9999px`) excluded. So **no layout change was needed and none was made.**
+
+`sizes` was checked the same way, against the slot each image really renders into: 313 px at a 360
+viewport, 343 at 390, 705 at 768, 441 at 1024, 649 at 1440, 656 from 1900 on. Every declaration
+lands within 1–7 % of the truth, the residual being the desktop scrollbar, which a phone does not
+have. Nothing to fix there either.
+
+**What was actually wrong was the "Kiedy warto?" accordion.** Its eight photos had no blur
+placeholders, because `generate-blur-placeholders.mjs` does not recurse and
+`trening-personalny/reasons` had no entry of its own — the same trap `fizjoterapia/sprzet` was
+already in.
+
+Worse, `loading="lazy"` was not saving anything. A closed panel is a `0fr` grid row, so it has no
+*height*, but its photo keeps its own 288 px layout box, and the eight boxes end up stacked within
+about a thousand pixels of each other (tops measured at 6771, 6905, 7014 …). That band sits well
+inside the distance at which Chrome starts a lazy image, so scrolling past the row *titles*
+downloaded all eight photos of an accordion nobody had opened. They are now mounted on first open,
+with the 151-byte blur painted on the wrapper so the panel is never blank.
+
+Measured against the built server, a 390 px phone at DPR 2: **153 KB of images before, 96 KB after**,
+so 57 KB and eight requests that are no longer spent by default. The absolute numbers are small
+because AVIF plus the width ladder in `next.config.ts` were already doing the heavy lifting — this
+page was never anywhere near the megabytes the brief feared.
+
+**The deferral is conditional on `imageBlur` being present**, which is what keeps it safe. Without
+a placeholder there is nothing to paint between the click and the photo, and trading a download the
+visitor might not need for a blank half-panel they certainly see is the wrong way round. The eleven
+other pages on this component pass no placeholder and so are byte-for-byte unchanged; verified in
+the build output (`/masaz` still ships all 11 of its `<img>` tags). `/fizjoterapia` does pass one
+and picked up six deferred photos for free.
+
+SEO: the route shipped no description at all, so no `og:description` either. It now has one in both
+locales, plus a `Service` whose catalogue is the eight focuses the accordion describes, and a
+three-level `BreadcrumbList` (the hub's is two). The catalogue entries carry **no `url`**: they are
+sections of this page, not routes, and linking them somewhere would be inventing pages. It is
+deliberately **not** a `FAQPage` — those eight headings are topics ("Redukcja tkanki tłuszczowej"),
+not questions, and dressing them as `Question`/`Answer` would claim a shape the page does not have.
+
+Not done: `/trening-personalny/trening-w-parze` renders the same eight `TrainingReasons` rows and
+still passes no `imageBlur`, so it keeps the old behaviour. One `blurFor` map there buys it the
+same 57 KB.
 
 ### The massage section, and Centrum losing its e-commerce (2026-07-28)
 

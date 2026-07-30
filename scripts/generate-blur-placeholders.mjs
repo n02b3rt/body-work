@@ -24,11 +24,13 @@ import sharp from 'sharp'
  * readable, and stops 196 files' worth of base64 landing in the repo for no reason.
  *
  * **This does not recurse**, so a subdirectory needs its own entry: `fizjoterapia/sprzet` holds
- * the equipment accordion's photos and would otherwise be skipped.
+ * the equipment accordion's photos and would otherwise be skipped, and `trening-personalny/reasons`
+ * holds the "Kiedy warto?" accordion's eight photos for the same reason.
  */
 const DIRS = [
   'public/images/home',
   'public/images/trening-personalny',
+  'public/images/trening-personalny/reasons',
   'public/images/fizjoterapia',
   'public/images/fizjoterapia/sprzet',
   'public/images/trening-grupowy',

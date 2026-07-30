@@ -10,13 +10,23 @@ import { Accordion, type AccordionItemData } from "@/components/centrum/Accordio
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { PersonalTrainingNav } from "@/components/centrum/PersonalTrainingNav";
 import { pageMetadata } from "@/lib/metadata";
+import { blurFor } from "@/lib/static-blur";
+import { breadcrumbJsonLd, serviceJsonLd } from "@/lib/structured-data";
 
 type Section = { heading: string; body: string };
+
+const HERO_IMAGE = "/images/trening-personalny/indywidualny-hero.webp";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "IndividualTraining" });
-  return pageMetadata({ locale, path: "/trening-personalny/trening-indywidualny", title: t("title") });
+  return pageMetadata({
+    locale,
+    path: "/trening-personalny/trening-indywidualny",
+    title: t("title"),
+    // The route shipped no description at all before this, so no `og:description` either.
+    description: t("metaDescription"),
+  });
 }
 
 type PageProps = { params: Promise<{ locale: string }> };
@@ -28,6 +38,8 @@ export default async function IndividualTrainingPage({ params }: PageProps) {
   const t = await getTranslations("IndividualTraining");
   const tReasons = await getTranslations("TrainingReasons");
   const tFooter = await getTranslations("Footer");
+  const tNav = await getTranslations("Nav");
+  const tCommon = await getTranslations("common");
 
   const sections = t.raw("sections") as Section[];
   const sectionMeta = [
@@ -39,14 +51,58 @@ export default async function IndividualTrainingPage({ params }: PageProps) {
 
   const phone = `tel:+48${tFooter("phone").replace(/\s/g, "")}`;
 
+  /* The accordion is a client component, so it cannot read the server-only blur map itself;
+   * the placeholder is resolved here and handed down, the same way the homepage passes
+   * `posterBlur` to `FullBleedVideo`. See the note on `AccordionItemData.imageBlur`. */
+  const reasons = (tReasons.raw("items") as AccordionItemData[]).map((item) => ({
+    ...item,
+    imageBlur: item.image ? blurFor(item.image) : undefined,
+  }));
+
   return (
     <>
-      <PersonalTrainingNav />
-      <PageHero
-        title={t("title")}
-        imageSrc="/images/trening-personalny/indywidualny-hero.webp"
-        imageAlt={t("title")}
+      {/* A `Service` for individual training, whose catalogue is the eight focuses the
+        * "Kiedy warto?" section below actually describes. They carry no `url` because they are
+        * sections of this page rather than routes; see `src/lib/structured-data.ts`.
+        *
+        * Deliberately **not** a `FAQPage`: those eight headings are topics ("Redukcja tkanki
+        * tłuszczowej"), not questions, and dressing them up as `Question`/`Answer` pairs would
+        * claim a shape the page does not have. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            serviceJsonLd(locale, {
+              name: t("title").replace(/\.$/, ""),
+              description: t("metaDescription"),
+              path: "/trening-personalny/trening-indywidualny",
+              city: tFooter("addressLine3").replace(/^[0-9-]+\s*/, "").split(",")[0],
+              image: HERO_IMAGE,
+              variants: reasons.map((item) => ({ name: item.heading })),
+            }),
+          ),
+        }}
       />
+      {/* Three levels, unlike the hub's two: this page sits under `/trening-personalny`, and
+        * saying so is the whole point of a breadcrumb trail in the search result. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd(
+              [
+                { name: tCommon("breadcrumbHome"), path: "/" },
+                { name: tNav("personalTraining"), path: "/trening-personalny" },
+                { name: tNav("personalTrainingIndividual"), path: "/trening-personalny/trening-indywidualny" },
+              ],
+              locale,
+            ),
+          ),
+        }}
+      />
+
+      <PersonalTrainingNav />
+      <PageHero title={t("title")} imageSrc={HERO_IMAGE} imageAlt={t("title")} />
 
       <section className="border-t border-brand-navy-soft bg-background">
         <Container className="flex flex-col items-start gap-10 py-16 lg:py-24">
@@ -96,7 +152,7 @@ export default async function IndividualTrainingPage({ params }: PageProps) {
           <SectionHeading>{tReasons("heading")}</SectionHeading>
         </Container>
       </div>
-      <Accordion items={tReasons.raw("items") as AccordionItemData[]} />
+      <Accordion items={reasons} />
 
       <section className="border-t border-brand-navy-soft bg-background">
         <Container className="grid gap-8 py-16 lg:grid-cols-2 lg:gap-16 lg:py-20">

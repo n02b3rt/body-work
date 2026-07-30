@@ -56,6 +56,29 @@ type AccordionProps = {
  * chevron below that. */
 export function Accordion({ items, squareMedia = false }: AccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  /**
+   * Which rows have ever been open, which is what gates mounting their photos.
+   *
+   * `loading="lazy"` is not enough on its own. A closed panel is a `0fr` grid row, so it has no
+   * *height*, but its photo keeps its own 288px layout box (`min-h-[18rem]`), and those boxes end
+   * up stacked within about a thousand pixels of each other — measured on
+   * `/trening-personalny/trening-indywidualny`, tops at 6771, 6905, 7014 and so on. That band sits
+   * well inside the distance at which Chrome starts a lazy image, so merely scrolling past the row
+   * titles downloaded all eight photos of an accordion nobody had opened.
+   *
+   * Kept here rather than in the row, because this is where a toggle is already handled; deriving
+   * it in the row needed a `useEffect` that only re-rendered it a second time.
+   *
+   * Indices are never removed: a row the visitor closes again keeps its photo, so re-opening it is
+   * instant rather than a second download.
+   *
+   * **Only rows that carry an `imageBlur` defer**, see `AccordionRow`. Without a placeholder there
+   * would be nothing to paint between the click and the photo arriving, and trading a download the
+   * visitor may not need for a blank half-panel they definitely see is the wrong way round. The
+   * eleven other pages on this component have no placeholders yet and so keep their old behaviour
+   * exactly; each one picks the saving up for free the moment it starts passing `imageBlur`.
+   */
+  const [openedIndices, setOpenedIndices] = useState<ReadonlySet<number>>(() => new Set());
 
   return (
     <div className="border-t border-brand-navy-soft bg-background">
@@ -65,7 +88,13 @@ export function Accordion({ items, squareMedia = false }: AccordionProps) {
           item={item}
           squareMedia={squareMedia}
           open={openIndex === index}
-          onToggle={() => setOpenIndex((current) => (current === index ? null : index))}
+          hasOpened={openedIndices.has(index)}
+          onToggle={() => {
+            setOpenIndex((current) => (current === index ? null : index));
+            setOpenedIndices((current) =>
+              current.has(index) ? current : new Set(current).add(index),
+            );
+          }}
         />
       ))}
     </div>
@@ -75,11 +104,14 @@ export function Accordion({ items, squareMedia = false }: AccordionProps) {
 function AccordionRow({
   item,
   open,
+  hasOpened,
   onToggle,
   squareMedia,
 }: {
   item: AccordionItemData;
   open: boolean;
+  /** Has been open at least once, so its photo is worth downloading. See `Accordion`. */
+  hasOpened: boolean;
   onToggle: () => void;
   squareMedia: boolean;
 }) {
@@ -206,31 +238,40 @@ function AccordionRow({
                   ))}
                 </div>
                 {item.image ? (
+                  /* The blur rides on the wrapper as a background, not only on the `Image`, so a
+                   * row that has never been opened still has something to paint in the instant
+                   * between the click and the photo arriving. It is the same 16px data URI, ~150
+                   * bytes, already inlined in the HTML. */
                   <div
                     className={cn(
-                      "relative min-h-[18rem] w-full",
+                      "relative min-h-[18rem] w-full bg-cover bg-center",
                       squareMedia ? "lg:aspect-square lg:min-h-0" : "lg:min-h-full",
                     )}
+                    style={item.imageBlur ? { backgroundImage: `url("${item.imageBlur}")` } : undefined}
                   >
-                    <Image
-                      src={item.image}
-                      alt={item.heading}
-                      fill
-                      /* Measured, not guessed: this cell renders 343px at a 390 viewport, 577 at 640,
-                       * 473 at 1024 (where the panel goes two-up) and 688 from 1440 on, where
-                       * `Container`'s cap fixes it. The subtractions are that container's own padding,
-                       * `px-4` then `sm:px-6` then `lg:px-8`.
-                       *
-                       * The old value ended in a bare `100vw`, and a `sizes` written only in viewport
-                       * units makes Next build the srcset from `deviceSizes` alone, whose smallest
-                       * entry is 640: a 343px slot on a phone was being handed a 640px file. Naming a
-                       * pixel length lets it reach `imageSizes` and pick 384. */
-                      sizes="(min-width: 1440px) 688px, (min-width: 1024px) calc(50vw - 32px), (min-width: 640px) calc(100vw - 48px), calc(100vw - 32px)"
-                      className="object-cover"
-                      {...(item.imageBlur
-                        ? { placeholder: "blur" as const, blurDataURL: item.imageBlur }
-                        : {})}
-                    />
+                    {/* A row with no placeholder mounts its photo immediately, as it always did:
+                      * deferring it would only swap a download for a blank half-panel. */}
+                    {hasOpened || !item.imageBlur ? (
+                      <Image
+                        src={item.image}
+                        alt={item.heading}
+                        fill
+                        /* Measured, not guessed: this cell renders 343px at a 390 viewport, 577 at
+                         * 640, 473 at 1024 (where the panel goes two-up) and 688 from 1440 on, where
+                         * `Container`'s cap fixes it. The subtractions are that container's own
+                         * padding, `px-4` then `sm:px-6` then `lg:px-8`.
+                         *
+                         * The old value ended in a bare `100vw`, and a `sizes` written only in
+                         * viewport units makes Next build the srcset from `deviceSizes` alone, whose
+                         * smallest entry is 640: a 343px slot on a phone was being handed a 640px
+                         * file. Naming a pixel length lets it reach `imageSizes` and pick 384. */
+                        sizes="(min-width: 1440px) 688px, (min-width: 1024px) calc(50vw - 32px), (min-width: 640px) calc(100vw - 48px), calc(100vw - 32px)"
+                        className="object-cover"
+                        {...(item.imageBlur
+                          ? { placeholder: "blur" as const, blurDataURL: item.imageBlur }
+                          : {})}
+                      />
+                    ) : null}
                   </div>
                 ) : item.panelHeading ? (
                   <div className="pb-12 lg:border-l lg:border-brand-navy-soft lg:py-16 lg:pl-16">

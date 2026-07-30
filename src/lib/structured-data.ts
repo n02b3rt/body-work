@@ -27,6 +27,12 @@ function absolute(url: string) {
  * `hasOfferCatalog` rather than `offers`: there are no prices in the markup and inventing them, or
  * declaring an `Offer` without one, would be a claim the page does not make. The catalogue names
  * what is available and links to it, which is what the page actually says.
+ *
+ * A variant's `path` is optional, because not every one of them is a page. On a leaf such as
+ * `/trening-personalny/trening-indywidualny` the catalogue lists the focuses that page's own
+ * "Kiedy warto?" section describes — medical training, motor preparation, training during
+ * pregnancy — and those are sections, not routes. Naming them without a `url` is valid, and it is
+ * the honest shape: inventing links to pages that do not exist would be worse than omitting them.
  */
 export function serviceJsonLd(
   locale: string,
@@ -35,7 +41,9 @@ export function serviceJsonLd(
     description: string;
     path: string;
     city: string;
-    variants: { name: string; path: string }[];
+    /** Representative photo, site-relative or absolute. */
+    image?: string;
+    variants: { name: string; path?: string }[];
   },
 ): Thing {
   const url = `${SITE_URL}${localePath(locale, service.path)}`;
@@ -48,6 +56,7 @@ export function serviceJsonLd(
     description: service.description,
     url,
     serviceType: service.name,
+    ...(service.image ? { image: absolute(service.image) } : {}),
     provider: { "@id": `${SITE_URL}/#business` },
     areaServed: { "@type": "City", name: service.city },
     ...(service.variants.length
@@ -58,7 +67,7 @@ export function serviceJsonLd(
             itemListElement: service.variants.map((variant) => ({
               "@type": "Service",
               name: variant.name,
-              url: `${SITE_URL}${localePath(locale, variant.path)}`,
+              ...(variant.path ? { url: `${SITE_URL}${localePath(locale, variant.path)}` } : {}),
             })),
           },
         }
