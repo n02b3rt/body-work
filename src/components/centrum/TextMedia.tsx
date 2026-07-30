@@ -89,7 +89,10 @@ export function TextMedia({
 
   return (
     <section className="border-t border-brand-navy-soft bg-background">
-      <Container className="grid gap-8 lg:grid-cols-2 lg:items-stretch lg:gap-16">
+      {/* `grid-cols-1` is not redundant: with no base column count the single implicit track is
+        * `auto`, floored at the widest word in the cell, and at a 320 viewport this row measured
+        * 303px inside a 288px container. Inert from 360 up. */}
+      <Container className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-stretch lg:gap-16">
         {imagePosition === "left" ? (
           <>
             {imageBlock}

@@ -146,7 +146,53 @@ Two things about this app's shape made it harder than it looks, both worth knowi
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
 |---|---|---|---|---|---|
 | `/cennik/` | `/cennik/` | Reused: PageHero, Accordion (9 price rows; the component gained `cta`/`note`/`groups` and now `panelHeading` for this page). **No newsletter block**: the reference has none here | PL: done / EN: done | Two-way check plus a dedicated price audit, all 46 distinct figures verified present; re-verified against the live site 2026-07-26 | Bilingual |
-| `/masaz/` | `/masaz/` | Built 2026-07-28. Hero, intro band, four treatment panels (all text-left / image-right, **no alternation**: the reference gives all four identical wrapper classes), team accordion of three therapists, testimonial carousel, contact block with the brand watermark. **The reference's six WooCommerce buttons are deliberately gone**, see the note below | PL: done / EN: done | Compared block by block against the mirror: **53 of 54** non-shop content chunks present, 10 of 10 content images, bios carry the reference's own paragraph breaks. The one gap is `ZAMKNIJ`, which our accordion renders only when a row is open (React) where the reference ships both labels and toggles in CSS | Bilingual |
+| `/masaz/` | `/masaz/` | Built 2026-07-28. Hero, intro band, four treatment panels (all text-left / image-right, **no alternation**: the reference gives all four identical wrapper classes), team accordion of three therapists, testimonial carousel, contact block with the brand watermark. **The reference's six WooCommerce buttons are deliberately gone**, see the note below | PL: done / EN: done | Compared block by block against the mirror: **53 of 54** non-shop content chunks present, 10 of 10 content images, bios carry the reference's own paragraph breaks. The one gap is `ZAMKNIJ`, which our accordion renders only when a row is open (React) where the reference ships both labels and toggles in CSS. **RWD/media/SEO pass 2026-07-30**, see the notes below | Bilingual |
+
+### `/masaz` RWD, media and SEO, 2026-07-30
+
+Swept at 23 widths from 320 to 1920, every therapist row opened at six of them.
+`scrollWidth === clientWidth` at all 23 before and after; the faults were all inside boxes, which
+is why nobody had seen them.
+
+- **A quoted review was painting across its neighbour.** One Google review contains
+  `kobido/fizjoterapeutyczne/relaksacyjne`, 38 characters with no space and no default break
+  opportunity at a slash, so its min-content width is 335px. As a shrink-to-fit flex item the
+  paragraph took that width whatever the slide was, and overran a 252px slide by **66px at a 1024
+  viewport**, printing fragments of itself over the testimonial next to it. The copy is quoted
+  verbatim, so `w-full break-words` on the quote is the fix.
+- **`break-words` on its own would not have fixed it, and this is the reusable part.** A browser
+  ignores `overflow-wrap: break-word` when it computes an element's min-content contribution, so a
+  shrink-to-fit flex item is still *sized* to the unbreakable word and simply overflows without ever
+  breaking it. The width has to be pinned as well: `w-full break-words`. The same pair went onto
+  `SectionHeading`, where at a 320 viewport "kompleksowego" (317px) and "KLASYCZNY" (303px) did not
+  fit the container's 288px content box and were sliced by the viewport edge.
+- **The therapist portraits were a letterbox on tablets.** `Accordion`'s `squareMedia` only applied
+  `lg:aspect-square`, and below that the box fell back to `min-h-[18rem]`: **720x288 at a 768
+  viewport, 2.5:1**, which keeps a band across the chest and crops the head off entirely. That is the
+  exact thing the flag exists to prevent. Square at every width now, matching the reference's own
+  unprefixed `ratio1-1`.
+- **`TextMedia`'s grid took `grid-cols-1`**, without which its single implicit `auto` track was
+  floored at the widest word and the row measured 303px inside a 288px container at 320.
+- **Four source images were carrying rows the page can never display**, so
+  `scripts/crop-to-display-aspect.mjs` crops them to the tallest box each one appears in: the hero
+  from 2:3 to the 4:3 of `PageHero`'s narrowest breakpoint, two portraits to the square the accordion
+  now uses. Centred, so it is exactly the region `object-cover` was already painting. **33 to 36% off
+  the hero at every width, 20 to 21% off one portrait, 16 to 18% off the other, 16% across the four
+  files.** `wiktoria-wysocka.webp` is already square and is left alone. Quality 80 was picked by
+  measurement, not taste: it reproduces the mirror's own bytes per pixel, and RMSE against the cropped
+  original is 1.20 to 1.73 on 0-255, the same band as the blog's `cardWide` pre-crop.
+- **Blur placeholders** now cover `public/images/masaz` (map 91 entries), with the three accordion
+  portraits taking theirs as an `imageBlur` prop because `static-blur` is server-only. The two
+  full-bleed plates (`hub-mark`, `jak-skorzystac`) are deliberately left without one: both are blank
+  cream at under 10KB and arrive before a placeholder would help, the same call `CenteredBand`
+  already documents.
+- **SEO:** an SEO title and a meta description on a route that had a bare one-word `<title>` and no
+  description at all, plus `Service` with the four treatments as an `OfferCatalog` and a
+  `BreadcrumbList`. The catalogue entries all point at `/masaz` because none of the four has a page
+  of its own; prices stay out, they live on `/cennik`.
+- **Measured, deliberately not fixed:** at 320 two `shrink-0` rows in the shared header and footer
+  are 7px and 13px wider than the container's content box. They are not this page's, they are
+  contained by `overflow-x: clip`, and nothing is visibly cut.
 | `/kontakt/` | `/kontakt/` | Reused: PageHero (display title, **left**-aligned), MeetUsCta. **The reference page has no content of its own**, see the note below | PL: done / EN: done | Composed from copy already verified elsewhere; nothing invented | Bilingual |
 | `/instrukcja/` | `/instrukcja/` | New: none. Reused: PageHero, StatementSection ×8 (3 of them a 3-up bullet row), FullBleedImage ×4, CenteredBand, MediaCardCta ×2. 7 images copied. No newsletter block: the reference has none | PL: done / EN: done | Two-way check vs. the live site: 0 missing headings | Bilingual |
 
