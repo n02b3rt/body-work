@@ -137,9 +137,39 @@ Two things about this app's shape made it harder than it looks, both worth knowi
 
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
 |---|---|---|---|---|---|
-| `/bodylab/` | `/bodylab/` | New: BodylabNav. Reused: PageHero; 3 alternating tool blocks | PL: done / EN: done | Automated two-way check (0 issues): **not opened in a browser** | Bilingual |
-| `/bodylab/technologia-vald/` | same | Reused: PageHero, StatementSection ×7, Accordion (pricing). No newsletter block (reference has none) | PL: done / EN: done | Same check + live re-verify 2026-07-26 | Bilingual |
-| `/bodylab/analiza-skadu-ciala/` | same, note the slug really is missing the "ł" on the reference (markup + sitemap.xml) | Reused: PageHero, TextMedia ×2. No newsletter block (reference has none) | PL: done / EN: done | Same check + live re-verify 2026-07-26 | Bilingual |
+| `/bodylab/` | `/bodylab/` | New: BodylabNav. Reused: PageHero; 3 alternating tool blocks | PL: done / EN: done | **Opened in a browser 2026-07-30** and swept at 24 widths from 320 to 1920: `scrollWidth === clientWidth` at every one. Fixed the statement band described below | Bilingual |
+| `/bodylab/technologia-vald/` | same | Reused: PageHero, StatementSection ×7, Accordion (pricing). No newsletter block (reference has none) | PL: done / EN: done | Swept at 14 widths 2026-07-30; fixed the audience grid described below. 7px of residual `scrollWidth` at 320 belongs to the shared header's closed drawer, not this page | Bilingual |
+| `/bodylab/analiza-skadu-ciala/` | same, note the slug really is missing the "ł" on the reference (markup + sitemap.xml) | Reused: PageHero, TextMedia ×2. No newsletter block (reference has none) | PL: done / EN: done | Swept at 10 widths 2026-07-30, no overflow at any of them | Bilingual |
+
+### Deviations and fixes, 2026-07-30
+
+- **The "W BODYLAB każdy ruch ma znaczenie." band is two columns now, not text over a background.**
+  It rendered `hub-mark.webp` as a full-bleed `object-cover` background with the heading and body
+  on top, which put navy copy over navy line art, and, because the section's height comes from its
+  content, showed a different arbitrary crop of the drawing at every viewport width. The reference
+  puts that drawing in its own `ratio4-3` cell beside the copy (`ul:w2-2 ho:w1-2`), so this restores
+  the reference rather than inventing a layout. `hub-mark.webp` here is a real editorial
+  illustration (stdev 39 across channels); the file of the same name on `/trening-grupowy` is a flat
+  cream plate (stdev 3), which is why `CenteredBand` gets away with a background there.
+- **The heading in that band is no longer forced uppercase.** The reference's `h2` carries neither
+  `ttu` nor `ul:ttu`, and the stored copy is already mixed case.
+- **The three tool photographs are square, from the reference's own `ratio1-1`.** They were in a
+  16:9 box; two of the three sources are 720x1080 portraits, so that discarded two thirds of the
+  frame, and the third (an InBody readout, 2833x2625) lost 40% of a screenshot people are meant to
+  read.
+- **`StatementSection`'s heading is `w-full break-words`.** It is a column flex container, so
+  `items-start` sized the heading to max-content: on `/bodylab/technologia-vald` a heading painted
+  209px across the neighbouring cell at a 1060 viewport, colliding with its text. Invisible to a
+  `scrollWidth` check because `html` carries `overflow-x: clip`. The audience grid on that page also
+  takes `compactHeading` (a third of the row is 262px there, and "Rehabilitacji" needs about 440px
+  at the `section` size) and an explicit `grid-cols-1`, without which the single implicit `auto`
+  track was floored at the widest word and the cells measured 340px inside a 328px container at 360.
+- **Reported, deliberately not changed:** the reference's lead band is centred with an eyebrow line
+  ("BODYLAB – Laboratorium Twojej wydajności.") that this page has never carried, and its own
+  background image there is a blank cream plate, so nothing is lost by our `bg-background`. The
+  audience heading "OSOBY W TRKACIE REHABILITACJI" is misspelled on the reference too (`TRKACIE`),
+  and copy stays verbatim. `og:image` stays the shared 1200x630 JPEG rather than a page photo, for
+  the reason in `src/lib/metadata.ts`.
 
 ## Standalone pages
 
