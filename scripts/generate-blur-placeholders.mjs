@@ -31,6 +31,7 @@ const DIRS = [
   'public/images/home',
   'public/images/trening-personalny',
   'public/images/trening-personalny/reasons',
+  'public/images/trening-personalny/trenerzy',
   'public/images/fizjoterapia',
   'public/images/fizjoterapia/sprzet',
   'public/images/trening-grupowy',

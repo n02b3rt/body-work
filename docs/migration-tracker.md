@@ -101,9 +101,9 @@ Two things about this app's shape made it harder than it looks, both worth knowi
 |---|---|---|---|---|---|
 | `/trening-personalny/` | `/trening-personalny/` | New: SectionNav/PersonalTrainingNav, PageHero, CenteredBand, MediaCardCta. Reused: StatementSection, TextMedia, TestimonialCarousel (generalised to take items as props), NewsletterSignup | PL: done / EN: done | Copy verified verbatim against the scrape both ways (no missing headings, no altered strings): **not yet opened in a browser** | Bilingual |
 | `/trening-personalny/trening-indywidualny/` | same | New: Accordion. Reused: PageHero, CenteredBand, TextMedia, SectionNav | PL: done / EN: done | Same automated two-way check + RWD measured at 8 widths 2026-07-30 (0 overflow) | Bilingual |
-| `/trening-personalny/trening-w-parze/` | same | Reused: PageHero, TextMedia, Accordion (subset of the shared items), SectionNav | PL: done / EN: done | Same automated two-way check: this check caught a whole section I'd missed | Bilingual |
-| `/trening-personalny/ocena-funkcjonalna/` | same | Reused: PageHero, CenteredBand, StatementSection, SectionNav | PL: done / EN: done | Same automated two-way check | Bilingual |
-| `/trening-personalny/trenerzy/` | same | Reused: PageHero, CenteredBand, SectionNav; 3 categories × 18 trainer cards | PL: done / **EN: bios still Polish** (see AI_NOTES) | Same automated two-way check | Built (PL) |
+| `/trening-personalny/trening-w-parze/` | same | Reused: PageHero, TextMedia, Accordion (subset of the shared items), SectionNav | PL: done / EN: done | Same automated two-way check: this check caught a whole section I'd missed; + RWD measured at 9 widths from 320 2026-07-30 (0 overflow) | Bilingual |
+| `/trening-personalny/ocena-funkcjonalna/` | same | Reused: PageHero, CenteredBand, StatementSection, SectionNav | PL: done / EN: done | Same automated two-way check + RWD measured at 9 widths from 320 2026-07-30 (title overflowed at 320, fixed) | Bilingual |
+| `/trening-personalny/trenerzy/` | same | Reused: PageHero, CenteredBand, SectionNav; 3 categories × 19 trainer cards | PL: done / **EN: bios still Polish** (see AI_NOTES) | Same automated two-way check + RWD measured at 9 widths from 320 2026-07-30 (cards and category row overflowed at 320, fixed) | Built (PL) |
 
 ## Fizjoterapia
 
@@ -877,6 +877,61 @@ not questions, and dressing them as `Question`/`Answer` would claim a shape the 
 Not done: `/trening-personalny/trening-w-parze` renders the same eight `TrainingReasons` rows and
 still passes no `imageBlur`, so it keeps the old behaviour. One `blurFor` map there buys it the
 same 57 KB.
+
+### The other three personal-training subpages, and the 320px bug the first sweep missed (2026-07-30)
+
+`/trening-w-parze`, `/ocena-funkcjonalna` and `/trenerzy` got the same pass as
+`/trening-indywidualny`. **The first sweep started at 360px and that was too narrow a net**: three
+of the four pages scroll sideways at **320px**, which is a real viewport (iPhone SE, and the
+narrowest common preset). Two distinct causes, both the same underlying trap.
+
+**Text that cannot break.** At `text-h-mobile` (39.5px) a single Polish word can be wider than a
+small phone's whole column. Measured at 320: "Trening z oceną funkcjonalną." wanted 327px inside a
+273px box and pushed the document to 343px; "Trening indywidualny." did it by 33px. `SectionHeading`
+now carries `hyphens-auto break-words` on its non-fitted sizes — a dictionary break with a hyphen,
+which is what Polish wants, and a hard break underneath for words the dictionary does not know.
+Neither does anything until a word genuinely cannot fit, so nothing that fits today moved. Fitted
+`display` headings are exempt: they are `whitespace-nowrap` and scale to their own container.
+
+**Boxes that cannot shrink**, which is the part `break-words` does *not* solve. `overflow-wrap`
+lets text wrap but does **not** lower the intrinsic min-content width that a grid track or flex item
+is sized against. On `/trenerzy` that bit twice: each trainer card floored at 294px (a 228px
+min-content `h3` plus its own `p-8`) inside a 273px column, and the category row's implicit `auto`
+track was floored by "TRENING FUNKCJONALNY". Fixed with `min-w-0` on the card and an explicit
+`grid-cols-1` (`minmax(0, 1fr)`) on the row — the same two idioms the accordion already documents.
+
+After the fixes, all four pages: **zero overflowing elements and no horizontal scroll at 320, 360,
+390, 414, 768, 1024, 1280, 1440 and 1900**, every button 56px.
+
+**`/trenerzy` was the page that actually carried weight**: 19 portraits, 2.8MB of source, and not a
+single blur placeholder, because the script does not recurse and `trening-personalny/trenerzy` had
+no entry. Its `sizes` was also written purely in viewport units, so it claimed the whole grid column
+including padding — 634px for a 395px cell at 1920 (60% over) and 390 for a 277px cell on a phone.
+Rewritten against the measured slot (247px at 360, 277 at 390, 287 at 768, 388 at 1440, 393 at 1900,
+all now within 2–7%). **478KB to 355KB of portraits on a 390px phone at DPR2**, and naming pixel
+lengths also lets the srcset reach `imageSizes` instead of `deviceSizes`, whose floor is 640.
+
+`/ocena-funkcjonalna` had two full-bleed photos built with a raw `next/image` and no placeholder,
+though both were already in the blur map — just never wired up. `/trening-w-parze` now passes
+`imageBlur` for its six accordion rows, which is also what earns it the deferred-photo behaviour
+described above.
+
+All three had **no meta description at all**, so no `og:description` either; each now has one in
+both locales plus a `BreadcrumbList`. `/trenerzy` gets an `ItemList` of 19 `Person`, which is what
+those entries honestly are — real named people with a role and a photograph. Their `jobTitle` comes
+from the category heading, not from `trainer.specialisation`: that string is the reference's own
+display label, "SPECJALIZACJA — TRENING MEDYCZNY", prefix and shouting included, which is right on
+the page and wrong in structured data.
+
+**Two content problems found and deliberately not fixed**, because they are real people's names and
+the scraped reference does not contain them to check against (its trainer list is rendered by
+script, so the mirror has the `SPECJALIZACJA` labels but no names): `Franiciszek Kruk` is almost
+certainly "Franciszek" — its own image file is `franciszek-kruk.webp` — and `Małgorzata
+Muzyka-kopera` should probably be "Muzyka-Kopera". Both want a human to confirm. Katarzyna Adamek
+appearing under two categories is **not** a bug; she has two specialisations.
+
+**Pre-existing, on another agent's page, reported not fixed:** `/masaz` scrolls sideways at 320px
+(32 overflowing elements, the `TextMedia` text column among them). Same min-content shape as above.
 
 ### The massage section, and Centrum losing its e-commerce (2026-07-28)
 

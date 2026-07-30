@@ -9,8 +9,12 @@ import { Accordion, type AccordionItemData } from "@/components/centrum/Accordio
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
 import { PersonalTrainingNav } from "@/components/centrum/PersonalTrainingNav";
 import { pageMetadata } from "@/lib/metadata";
+import { blurFor } from "@/lib/static-blur";
+import { breadcrumbJsonLd, serviceJsonLd } from "@/lib/structured-data";
 
 type Section = { heading: string; body: string };
+
+const HERO_IMAGE = "/images/trening-personalny/parze-hero.webp";
 
 /** The reference shows a subset of the shared "when is it worth it?" list here,
  * medical training and pregnancy training are omitted on this page. */
@@ -19,7 +23,13 @@ const REASON_INDEXES = [0, 1, 2, 3, 6, 7];
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "PairTraining" });
-  return pageMetadata({ locale, path: "/trening-personalny/trening-w-parze", title: t("title") });
+  return pageMetadata({
+    locale,
+    path: "/trening-personalny/trening-w-parze",
+    title: t("title"),
+    // The route shipped no description at all before this, so no `og:description` either.
+    description: t("metaDescription"),
+  });
 }
 
 type PageProps = { params: Promise<{ locale: string }> };
@@ -31,9 +41,18 @@ export default async function PairTrainingPage({ params }: PageProps) {
   const t = await getTranslations("PairTraining");
   const tReasons = await getTranslations("TrainingReasons");
   const tFooter = await getTranslations("Footer");
+  const tNav = await getTranslations("Nav");
+  const tCommon = await getTranslations("common");
 
   const sections = t.raw("sections") as Section[];
   const allReasons = tReasons.raw("items") as AccordionItemData[];
+  /* Resolved here because `Accordion` is a client component and the blur map is server-only; see
+   * the note on `AccordionItemData.imageBlur`. Passing it is also what lets a closed row hold its
+   * photo back until somebody opens it. */
+  const reasons = REASON_INDEXES.map((index) => allReasons[index]).map((item) => ({
+    ...item,
+    imageBlur: item.image ? blurFor(item.image) : undefined,
+  }));
   const sectionImages = [
     "/images/trening-personalny/parze-przebieg.webp",
     "/images/trening-personalny/parze-plan.webp",
@@ -42,8 +61,42 @@ export default async function PairTrainingPage({ params }: PageProps) {
 
   return (
     <>
+      {/* Same shape as the individual-training page: a `Service` whose catalogue is the six
+        * focuses this page's own "Kiedy warto?" subset describes, and the trail down from the hub.
+        * The entries carry no `url` because they are sections here, not routes. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            serviceJsonLd(locale, {
+              name: t("title").replace(/\.$/, ""),
+              description: t("metaDescription"),
+              path: "/trening-personalny/trening-w-parze",
+              city: tFooter("addressLine3").replace(/^[0-9-]+\s*/, "").split(",")[0],
+              image: HERO_IMAGE,
+              variants: reasons.map((item) => ({ name: item.heading })),
+            }),
+          ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd(
+              [
+                { name: tCommon("breadcrumbHome"), path: "/" },
+                { name: tNav("personalTraining"), path: "/trening-personalny" },
+                { name: tNav("personalTrainingPairs"), path: "/trening-personalny/trening-w-parze" },
+              ],
+              locale,
+            ),
+          ),
+        }}
+      />
+
       <PersonalTrainingNav />
-      <PageHero title={t("title")} imageSrc="/images/trening-personalny/parze-hero.webp" imageAlt={t("title")} />
+      <PageHero title={t("title")} imageSrc={HERO_IMAGE} imageAlt={t("title")} />
 
       <section className="border-t border-brand-navy-soft bg-background">
         <Container className="flex flex-col items-start gap-10 py-16 lg:py-24">
@@ -77,7 +130,7 @@ export default async function PairTrainingPage({ params }: PageProps) {
           <SectionHeading>{tReasons("heading")}</SectionHeading>
         </Container>
       </div>
-      <Accordion items={REASON_INDEXES.map((index) => allReasons[index])} />
+      <Accordion items={reasons} />
 
       <section className="border-t border-brand-navy-soft bg-background">
         <Container className="grid gap-8 py-16 lg:grid-cols-2 lg:gap-16 lg:py-20">

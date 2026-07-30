@@ -76,6 +76,21 @@ export function SectionHeading({
       className={cn(
         "font-normal text-brand-navy",
         uppercase && "uppercase",
+        /* A single Polish word can be longer than a small phone's whole column, and at
+         * `text-h-mobile` (39.5px) several page titles are. Measured at a 320px viewport:
+         * "Trening z oceną funkcjonalną." needed 327px inside a 273px box and pushed the
+         * **document** to 343px, i.e. the page scrolled sideways; "Trening indywidualny." did the
+         * same by 33px. Both are fixed here rather than per page, because the next long title
+         * would bring the bug straight back.
+         *
+         * `hyphens-auto` breaks at a dictionary point and leaves a hyphen, which is what Polish
+         * wants ("funk-cjonalną"); `break-words` is the guarantee underneath it for a word the
+         * dictionary does not know. Neither does anything at all until a word genuinely cannot
+         * fit, so no heading that fits today moves. Same pairing as the accordion row titles.
+         *
+         * Fitted `display` headings are exempt: they are `whitespace-nowrap` and scale themselves
+         * down to their container, so they can never overflow this way. */
+        chars === 0 && "hyphens-auto break-words",
         // Fitted headings stay on one line, matching the reference's `wsnw`.
         chars > 0 && "whitespace-nowrap",
         // Fall back to the fluid size when children aren't a plain string to measure.

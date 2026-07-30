@@ -76,6 +76,49 @@ export function serviceJsonLd(
 }
 
 /**
+ * The people on a staff page, as an `ItemList` of `Person` hanging off the sitewide business.
+ *
+ * These are real named individuals with a stated specialisation and a photograph on the page, so
+ * `Person` is exactly what they are — this is not a case of dressing content up as something it is
+ * not. `worksFor` points at the business by `@id` rather than repeating its address.
+ *
+ * **Bios are deliberately left out.** They are already in the page's own prose where a crawler can
+ * read them, and repeating nineteen of them here would add several KB of markup for facts that are
+ * not new. Name, role and photo are what a `Person` entry adds that the prose does not state in a
+ * machine-readable way.
+ */
+export function trainerListJsonLd(
+  locale: string,
+  list: {
+    name: string;
+    path: string;
+    people: { name: string; jobTitle: string; image: string }[];
+  },
+): Thing {
+  const url = `${SITE_URL}${localePath(locale, list.path)}`;
+  const businessId = `${SITE_URL}/#business`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "@id": `${url}#people`,
+    name: list.name,
+    url,
+    itemListElement: list.people.map((person, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Person",
+        name: person.name,
+        jobTitle: person.jobTitle,
+        image: absolute(person.image),
+        worksFor: { "@id": businessId },
+      },
+    })),
+  };
+}
+
+/**
  * The homepage's own graph: the site as a `WebSite`, and what the centre offers as an `ItemList`
  * of `Service` entries pointing at the section pages.
  *
