@@ -86,6 +86,17 @@ function AccordionRow({
   const t = useTranslations("Statements");
   const panelId = useId();
 
+  /** A panel made of nothing but named sub-lists lays them out as the panel's own halves rather
+   * than stacking them in its left column. Only the pricing page's dietetics row is in this shape;
+   * a row that also has copy, a photo or a panel heading keeps the original layout. */
+  const groupsFillPanel =
+    Boolean(item.groups?.length) &&
+    !item.body &&
+    !item.note &&
+    !item.cta &&
+    !item.image &&
+    !item.panelHeading;
+
   return (
     <div className="border-b border-brand-navy-soft">
       <button
@@ -155,52 +166,79 @@ function AccordionRow({
          * reference both sit at the same 48px page inset, and letting the panel run
          * full-bleed instead left the copy ~228px to the left of its own heading. */}
         <div className="min-h-0">
-          <Container className="grid lg:grid-cols-2">
-            <div className="flex flex-col items-start gap-8 py-12 lg:py-16 lg:pr-16">
-              {item.body ? <PanelText text={item.body} /> : null}
-              {item.cta ? <PanelLink cta={item.cta} /> : null}
-              {item.note ? <PanelText text={item.note} muted /> : null}
-
-              {item.groups?.map((group) => (
-                <div key={group.heading} className="flex flex-col items-start gap-6">
+          {/* `grid-cols-1` explicitly: an implicit `auto` track is floored at its min-content
+            * width, so one unbreakable word in a price list could size the whole panel wider than
+            * the page. Tailwind's `grid-cols-*` are `minmax(0, 1fr)`, which removes that floor and
+            * changes nothing else, since the single track already filled the container. */}
+          <Container className="grid grid-cols-1 lg:grid-cols-2">
+            {groupsFillPanel ? (
+              /* A panel that is nothing but named sub-lists gives each one half of the row, which
+               * is what the reference does: both dietitians' blocks carry `ul:w2-2 ho:w1-2`, full
+               * width on a phone and a half each from its wide breakpoint up. Stacking them in the
+               * left column instead left the right half of the panel empty at every desktop width
+               * and made the longest price line wrap beside that empty space. */
+              item.groups!.map((group, index) => (
+                <div
+                  key={group.heading}
+                  className={cn(
+                    "flex flex-col items-start gap-6 py-12 lg:py-16",
+                    index === 0 ? "lg:pr-16" : "lg:border-l lg:border-brand-navy-soft lg:pl-16",
+                  )}
+                >
                   <h4 className="text-h-menu text-brand-navy">{group.heading}</h4>
                   <PanelText text={group.body} />
                   {group.cta ? <PanelLink cta={group.cta} /> : null}
                 </div>
-              ))}
-            </div>
-            {item.image ? (
-              <div
-                className={cn(
-                  "relative min-h-[18rem] w-full",
-                  squareMedia ? "lg:aspect-square lg:min-h-0" : "lg:min-h-full",
-                )}
-              >
-                <Image
-                  src={item.image}
-                  alt={item.heading}
-                  fill
-                  /* Measured, not guessed: this cell renders 343px at a 390 viewport, 577 at 640,
-                   * 473 at 1024 (where the panel goes two-up) and 688 from 1440 on, where
-                   * `Container`'s cap fixes it. The subtractions are that container's own padding,
-                   * `px-4` then `sm:px-6` then `lg:px-8`.
-                   *
-                   * The old value ended in a bare `100vw`, and a `sizes` written only in viewport
-                   * units makes Next build the srcset from `deviceSizes` alone, whose smallest
-                   * entry is 640: a 343px slot on a phone was being handed a 640px file. Naming a
-                   * pixel length lets it reach `imageSizes` and pick 384. */
-                  sizes="(min-width: 1440px) 688px, (min-width: 1024px) calc(50vw - 32px), (min-width: 640px) calc(100vw - 48px), calc(100vw - 32px)"
-                  className="object-cover"
-                  {...(item.imageBlur
-                    ? { placeholder: "blur" as const, blurDataURL: item.imageBlur }
-                    : {})}
-                />
-              </div>
-            ) : item.panelHeading ? (
-              <div className="pb-12 lg:border-l lg:border-brand-navy-soft lg:py-16 lg:pl-16">
-                <SectionHeading as="h4">{item.panelHeading}</SectionHeading>
-              </div>
-            ) : null}
+              ))
+            ) : (
+              <>
+                <div className="flex flex-col items-start gap-8 py-12 lg:py-16 lg:pr-16">
+                  {item.body ? <PanelText text={item.body} /> : null}
+                  {item.cta ? <PanelLink cta={item.cta} /> : null}
+                  {item.note ? <PanelText text={item.note} muted /> : null}
+
+                  {item.groups?.map((group) => (
+                    <div key={group.heading} className="flex flex-col items-start gap-6">
+                      <h4 className="text-h-menu text-brand-navy">{group.heading}</h4>
+                      <PanelText text={group.body} />
+                      {group.cta ? <PanelLink cta={group.cta} /> : null}
+                    </div>
+                  ))}
+                </div>
+                {item.image ? (
+                  <div
+                    className={cn(
+                      "relative min-h-[18rem] w-full",
+                      squareMedia ? "lg:aspect-square lg:min-h-0" : "lg:min-h-full",
+                    )}
+                  >
+                    <Image
+                      src={item.image}
+                      alt={item.heading}
+                      fill
+                      /* Measured, not guessed: this cell renders 343px at a 390 viewport, 577 at 640,
+                       * 473 at 1024 (where the panel goes two-up) and 688 from 1440 on, where
+                       * `Container`'s cap fixes it. The subtractions are that container's own padding,
+                       * `px-4` then `sm:px-6` then `lg:px-8`.
+                       *
+                       * The old value ended in a bare `100vw`, and a `sizes` written only in viewport
+                       * units makes Next build the srcset from `deviceSizes` alone, whose smallest
+                       * entry is 640: a 343px slot on a phone was being handed a 640px file. Naming a
+                       * pixel length lets it reach `imageSizes` and pick 384. */
+                      sizes="(min-width: 1440px) 688px, (min-width: 1024px) calc(50vw - 32px), (min-width: 640px) calc(100vw - 48px), calc(100vw - 32px)"
+                      className="object-cover"
+                      {...(item.imageBlur
+                        ? { placeholder: "blur" as const, blurDataURL: item.imageBlur }
+                        : {})}
+                    />
+                  </div>
+                ) : item.panelHeading ? (
+                  <div className="pb-12 lg:border-l lg:border-brand-navy-soft lg:py-16 lg:pl-16">
+                    <SectionHeading as="h4">{item.panelHeading}</SectionHeading>
+                  </div>
+                ) : null}
+              </>
+            )}
           </Container>
         </div>
       </div>

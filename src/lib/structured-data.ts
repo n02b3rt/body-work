@@ -167,6 +167,60 @@ export function localBusinessJsonLd(t: {
   };
 }
 
+/**
+ * The price list: one `Service` per row, each carrying the range its own prices span.
+ *
+ * This is the one page on the site where prices are actually in the markup, so it is the one place
+ * an `Offer` can be declared without inventing anything — the reason every section hub uses a bare
+ * `hasOfferCatalog` instead. `AggregateOffer` rather than 64 individual `Offer`s because only the
+ * amounts on that page are unambiguous; see `src/lib/pricing.ts` for why the labels are not.
+ *
+ * `url` is set only where the row's own CTA points at a route on this site. Two rows have no such
+ * link — group classes send the visitor to the eFitness calendar, and dietetics links per dietitian
+ * rather than for the row as a whole — and a `Service` is perfectly valid without one.
+ */
+export function pricingCatalogJsonLd(
+  locale: string,
+  catalog: {
+    name: string;
+    path: string;
+    services: {
+      name: string;
+      path?: string;
+      lowPrice: number;
+      highPrice: number;
+      offerCount: number;
+    }[];
+  },
+): Thing {
+  const url = `${SITE_URL}${localePath(locale, catalog.path)}`;
+  const businessId = `${SITE_URL}/#business`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "OfferCatalog",
+    "@id": `${url}#pricing`,
+    name: catalog.name,
+    url,
+    provider: { "@id": businessId },
+    itemListElement: catalog.services.map((service) => ({
+      "@type": "Service",
+      name: service.name,
+      ...(service.path ? { url: `${SITE_URL}${localePath(locale, service.path)}` } : {}),
+      provider: { "@id": businessId },
+      offers: {
+        "@type": "AggregateOffer",
+        priceCurrency: "PLN",
+        // Strings, which is what schema.org asks for, and which keeps 1650 from being
+        // serialised in a locale's own number formatting.
+        lowPrice: String(service.lowPrice),
+        highPrice: String(service.highPrice),
+        offerCount: service.offerCount,
+      },
+    })),
+  };
+}
+
 /** The publisher block every `BlogPosting` has to point at. */
 function publisher(): Thing {
   return {

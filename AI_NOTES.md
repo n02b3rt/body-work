@@ -13,6 +13,15 @@
 
 -->
 
+## 2026-07-30: /cennik RWD, links, structured prices
+
+- **Done:** one real layout fault, and it was **ours, not the reference's** — the dietetics row is the only accordion row with `groups`, and `Accordion` stacked both dietitians in the panel's left column leaving the right half empty, where the reference gives each a half (`ul:w2-2 ho:w1-2`). Now two 688px cells at a 1912 viewport. **Nine CTAs pointed at `https://bodywork.testowe.eu/…`**, the reference mirror, in both locales — every target exists here as a route, so they are internal paths now; the tenth is the genuine eFitness link. Meta description added (there was none), plus an `OfferCatalog` of nine `Service` + `AggregateOffer` and a `BreadcrumbList`.
+- **Measured:** 23 widths 320→1920 **x 10 states each** (closed + each of the 9 rows opened) = **230 states**, `scrollWidth === clientWidth` in every one, nothing over its own box after the fix.
+- **This page has no photographs**, checked against the mirror (`scraped/cennik/media/` is favicons, logo and social icons only). 2KB of images across 13 `<img>`, all SVG chrome, out of 237–284KB total. So there is no `sizes` tuning, no lazy loading and no blur map work to do here, and saying so beats inventing some.
+- **The prices are read back out of the copy** (`src/lib/pricing.ts`), never kept as a second list. **Only the amounts, never the labels:** an amount always carries `,-` or `zł` so it cannot be confused with "(1,5h)", but the labels are ambiguous — the massage treatment name is on the line *above* its price, and "1 trening" appears three times at three levels. 64 named offers would be 64 chances to publish a wrong price; nine ranges cannot be mangled.
+- **Watch out:** an accordion's content is `grid-rows-[0fr]` until clicked, so a sweep that only loads the page measures an empty panel and reports a page that is perfectly clean. The harness has to click every row (one at a time — only one opens) and wait out the 300ms `grid-template-rows` transition. Confirm the panels really opened before believing a clean result.
+- **Two pre-existing faults found on neighbouring pages and deliberately not fixed here:** `/fizjoterapia/specjalisci` at 1060 (heading +130px over its column) and `/trening-grupowy/zajecia-grupowe` at 1920 (+59px). Both the `lg`-grid-vs-`wide`-type shape, **fourth sighting**, both want `compactHeading`. Proved pre-existing by rebuilding with `main`'s `Accordion` and getting identical numbers, and by their appearing in the `closed` state.
+
 ## 2026-07-29: /trening-grupowy RWD, media, lazy loading, structured data
 
 - **Done:** nothing to fix on RWD. Eleven widths swept (485 to 1889), `scrollWidth` equals `clientWidth` at all of them and nothing overflows its own box, because this page is built entirely from components already measured and corrected on the homepage and `/trening-personalny`, and it has no multi-column statement grid. Extended the blur map to `public/images/trening-grupowy` (81 entries, 16.6KB). Added the missing meta description plus `Service` and `BreadcrumbList` JSON-LD.

@@ -232,6 +232,89 @@ and then editing the excerpt would silently stop affecting search results.
 What was actually wrong was the panel: `Tytuł SEO` explained itself and the other two did not, so
 an empty group read as an oversight. All three now say what happens when left blank.
 
+### /cennik: RWD, loading and structured data (2026-07-30)
+
+**The page is a display title and a nine-row accordion, and its whole content is inside panels that
+are `grid-rows-[0fr]` until clicked.** A sweep that only loads the page measures nothing, so the
+harness opens each row in turn: **23 widths from 320 to 1920 x 10 states each** (closed, plus each
+of the nine rows), **230 measured states**. `scrollWidth` equals `clientWidth` in every one of them,
+and after the fix below nothing overflows its own box either.
+
+#### The one layout fault, and it was ours
+
+The dietetics row is the only accordion row on the site with `groups` (two named sub-lists, one per
+dietitian). `Accordion` stacked both of them inside the panel's **left** column and left the right
+half empty at every desktop width, which also made the longest price line wrap next to that empty
+space. The reference does not do this: both blocks there carry `ul:w2-2 ho:w1-2`, full width on a
+phone and **a half each** from its wide breakpoint up.
+
+So a panel that is *only* sub-lists now lays them out as the panel's own halves. Measured at a 1912
+viewport: two cells 688px wide at x=261 and x=949, which is the capped container split in two. The
+branch is guarded (`groupsFillPanel`) so a row that also has copy, a photo or a panel heading keeps
+the original layout — and that guard matters, because this is a shared component used by twelve
+other pages.
+
+The panel's `Container` also gained an explicit `grid-cols-1`. An implicit `auto` track is floored
+at min-content, so one unbreakable word in a price list could have sized the panel wider than the
+page; `grid-cols-*` is `minmax(0, 1fr)` and removes that floor without changing anything else.
+
+#### Images: there are none, and that is correct
+
+This route renders **no photographs at all** — `PageHero` is called without an `imageSrc` and no
+accordion row here carries an `image`. Checked against the mirror rather than assumed: every file in
+`scripts/scrape/scraped/cennik/media/` is a favicon, a logo or a social icon, so the reference has no
+photography on this page either.
+
+Measured whole-page transfer, unchanged by this work: **2KB of images across 13 `<img>` elements**
+(all SVG chrome from the header and footer) out of **237–284KB total** at every width from 320 to
+1920. There is nothing to resize, nothing to lazy-load and nothing to put a blur placeholder under.
+Said plainly rather than manufactured: `next/image` `sizes` tuning and the blur map are the right
+tools for the pages that have photographs, and this is not one of them.
+
+#### SEO
+
+**Nine links pointed at the reference mirror.** Every CTA in the price list, in both locales, was an
+absolute `https://bodywork.testowe.eu/...` URL left over from the import — so the pricing page, which
+is exactly where a visitor decides to book, sent them to a staging clone of this site. All nine
+targets exist here as routes, and the reference's own markup uses relative paths (`href="/dietetyka/
+iwona-stachowiak/"`), so the absolute origin was never even in the source. Now internal paths, which
+`PanelLink` routes through next-intl's locale-aware `Link`. The tenth CTA is left alone: it is the
+eFitness calendar, genuinely off-site and identical to `SCHEDULE_URL`.
+
+**The route shipped no description**, so no `og:description` either. Now 145 characters PL and 148 EN.
+
+**`OfferCatalog` with real prices, which no other page on this site can honestly declare.** Every
+section hub uses a bare `hasOfferCatalog` precisely because it shows no prices; this page shows 65 of
+them. Each of the nine rows becomes a `Service` carrying an `AggregateOffer` with `lowPrice`,
+`highPrice`, `priceCurrency: PLN` and `offerCount`, plus a `BreadcrumbList`.
+
+The amounts are **read back out of the page copy** (`src/lib/pricing.ts`) rather than kept as a
+second hand-maintained list, so the structured data cannot drift from what a visitor reads. Only the
+amounts are read, never the labels: a number here always carries a `,-` or `zł` marker and cannot be
+confused with "(1,5h)" or "(pakiet 5x)", whereas the labels are genuinely ambiguous — on the massage
+row the treatment name sits on the line *above* its price, and "1 trening" appears three times at
+three different price levels. Reconstructing 64 individually named offers would be 64 chances to
+publish a mangled price; a range per service says exactly what the page says and cannot be mangled.
+
+Verified against the rendered page: nine services, ranges 240–5710, 360–7800, 240–5710, 240–4750,
+560–560, 45–2090, 180–1550, 495–795 and 200–395 PLN, each cross-checked against its own price list.
+Seven carry a `url`; group classes and dietetics do not, because their row CTA is off-site and
+per-dietitian respectively.
+
+#### Found on other pages, not fixed here
+
+The sweep was pointed at the twelve other pages that share `Accordion` to check for regressions.
+Two pre-existing faults turned up, **both confirmed present with `main`'s `Accordion` too**, on a
+rebuild with this branch's component reverted, and both in the `closed` state, i.e. page content
+rather than panel content:
+
+- `/fizjoterapia/specjalisci` at 1060: "Specjalizacja uroginekologiczna" needs 596px in a 466px
+  column (+130). The page does not scroll sideways, but the heading crosses its column.
+- `/trening-grupowy/zajecia-grupowe` at 1920: a `StatementSection` heading over its column by 59px.
+
+Both are the `lg`-grid-vs-`wide`-type shape this project has now hit four times, and both take the
+same `compactHeading` fix. Left for their own branches rather than widened into this one.
+
 ### /trening-grupowy: RWD, media, lazy loading and structured data (2026-07-29)
 
 **No layout breaks to fix.** Swept eleven widths (485, 529, 589, 669, 769, 1009, 1049, 1219, 1469,
