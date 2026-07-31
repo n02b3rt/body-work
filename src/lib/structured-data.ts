@@ -76,6 +76,53 @@ export function serviceJsonLd(
 }
 
 /**
+ * A therapy, with the conditions the page says it treats.
+ *
+ * `Service` says the centre sells this; it says nothing about *what the therapy is for*, and on
+ * `/fizjoterapia/terapia-manualna` and `/fizjoterapia/rehabilitacja-ruchowa` the whole page below
+ * the fold is a list of exactly that — ten and twelve named conditions, each with its own
+ * paragraph. `MedicalTherapy.indication` is the vocabulary for it, so those headings become
+ * machine-readable instead of being invisible prose. Emitted **alongside** `serviceJsonLd`, not
+ * instead of it: the two answer different questions and are linked by `@id`.
+ *
+ * Every condition named here is a visible heading on the page, which is what Google's structured
+ * data policy requires. The bodies stay out: they are already in the markup, and repeating twelve
+ * of them would add several KB for nothing new.
+ *
+ * No `provider`: `MedicalTherapy` inherits from `MedicalEntity`, which has no such property, and
+ * inventing one would be worse than letting the sibling `Service` carry the business link.
+ */
+export function therapyJsonLd(
+  locale: string,
+  therapy: {
+    name: string;
+    description: string;
+    path: string;
+    /** Representative photo, site-relative or absolute. */
+    image?: string;
+    /** Condition names, exactly as the page's own headings read. */
+    conditions: string[];
+  },
+): Thing {
+  const url = `${SITE_URL}${localePath(locale, therapy.path)}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "MedicalTherapy",
+    "@id": `${url}#therapy`,
+    name: therapy.name,
+    description: therapy.description,
+    url,
+    ...(therapy.image ? { image: absolute(therapy.image) } : {}),
+    // Trailing full stops are part of the display copy, not part of a condition's name.
+    indication: therapy.conditions.map((name) => ({
+      "@type": "MedicalIndication",
+      name: name.replace(/\.$/, ""),
+    })),
+  };
+}
+
+/**
  * The people on a staff page, as an `ItemList` of `Person` hanging off the sitewide business.
  *
  * These are real named individuals with a stated specialisation and a photograph on the page, so
@@ -86,13 +133,18 @@ export function serviceJsonLd(
  * read them, and repeating nineteen of them here would add several KB of markup for facts that are
  * not new. Name, role and photo are what a `Person` entry adds that the prose does not state in a
  * machine-readable way.
+ *
+ * `jobTitle` is optional, because not every people list on the site states one. The three project
+ * leads on `/fizjoterapia/zdrowy-brzuch` are introduced only by name; their bios open with a
+ * shouted display label ("SPECJALIZACJA - TRENING MEDYCZNY, …") that is right on the page and wrong
+ * as a title, so they are published without one rather than with a mangled one.
  */
 export function trainerListJsonLd(
   locale: string,
   list: {
     name: string;
     path: string;
-    people: { name: string; jobTitle: string; image: string }[];
+    people: { name: string; jobTitle?: string; image: string }[];
   },
 ): Thing {
   const url = `${SITE_URL}${localePath(locale, list.path)}`;
@@ -110,7 +162,7 @@ export function trainerListJsonLd(
       item: {
         "@type": "Person",
         name: person.name,
-        jobTitle: person.jobTitle,
+        ...(person.jobTitle ? { jobTitle: person.jobTitle } : {}),
         image: absolute(person.image),
         worksFor: { "@id": businessId },
       },

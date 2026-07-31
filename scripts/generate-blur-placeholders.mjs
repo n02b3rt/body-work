@@ -25,7 +25,9 @@ import sharp from 'sharp'
  *
  * **This does not recurse**, so a subdirectory needs its own entry: `fizjoterapia/sprzet` holds
  * the equipment accordion's photos and would otherwise be skipped, and `trening-personalny/reasons`
- * holds the "Kiedy warto?" accordion's eight photos for the same reason.
+ * holds the "Kiedy warto?" accordion's eight photos for the same reason. Likewise
+ * `fizjoterapia/manualna`, `fizjoterapia/rehab` and `fizjoterapia/specjalisci`, which hold the
+ * condition and specialist accordions of the three physiotherapy subpages.
  */
 const DIRS = [
   'public/images/home',
@@ -33,6 +35,9 @@ const DIRS = [
   'public/images/trening-personalny/reasons',
   'public/images/trening-personalny/trenerzy',
   'public/images/fizjoterapia',
+  'public/images/fizjoterapia/manualna',
+  'public/images/fizjoterapia/rehab',
+  'public/images/fizjoterapia/specjalisci',
   'public/images/fizjoterapia/sprzet',
   'public/images/trening-grupowy',
 ]

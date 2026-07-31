@@ -13,6 +13,65 @@
 
 -->
 
+## 2026-07-31: the four physiotherapy subpages, and a deferred photo that never arrived
+
+- **The find that matters, and it was pre-existing, not this branch's:** the accordion's "hold the
+  photo back until the row is opened" optimisation, shipped 2026-07-30, meant **the photo never
+  loaded at all**. `next/image` defaults to `loading="lazy"`; a deferred row mounts its `<img>` into
+  a panel that is still `grid-rows-[0fr]` with `overflow:hidden`, so it has **zero visible area**.
+  Chrome takes the lazy decision at insertion, decides it is nowhere near the viewport, and never
+  revisits it — the panel's growth is an ancestor's `grid-template-rows` transition, not a scroll,
+  so nothing re-triggers the check. Open a row, `scrollIntoView` the photo, dispatch `resize`, wait
+  three seconds: `complete` false, `naturalWidth` 0. The visitor sees the 16px blur, for good.
+  Reproduced on `/trening-personalny/trening-indywidualny` before touching anything here. Fix is one
+  line: `loading={item.imageBlur ? "eager" : "lazy"}` — **mounting on first open is the deferral, so
+  lazy has no work left to do.**
+- **Done:** RWD, media, lazy loading and structured data on `/fizjoterapia/{terapia-manualna,
+  rehabilitacja-ruchowa,zdrowy-brzuch,specjalisci}`. Images a 390px phone at DPR2 fetches:
+  **`/specjalisci` 495.1KB → 60.6KB (−88%)**, rehab 221.9 → 74.5, zdrowy-brzuch 200.1 → 99.2,
+  terapia-manualna 194.2 → 58.3. Blur map extended to `fizjoterapia/{manualna,rehab,specjalisci}`
+  (140 entries, 21.2KB). All four had **no meta description at all**; each now has one in both
+  locales, its own 1200x630 OG JPEG (`scripts/generate-og-images.mjs`), and JSON-LD.
+- **Two real layout breaks, both on `/specjalisci`, both the min-content floor again.** At 320px the
+  document was 364px wide (+44): "Specjalizacja uroginekologiczna" floored its **implicit** grid
+  track at 348px, and `items-start` on the lead section's flex column floored "Dobry
+  fizjoterapeuta." at 333px inside a 288px container. `grid-cols-1` (= `minmax(0,1fr)`) and dropping
+  `items-start`. Third time this exact shape has bitten: **`break-words` never lowers min-content.**
+- **A heading can fit its column and still be broken.** At 1060 "uroginekologiczna" stayed inside its
+  column but rendered as "uroginekologi / czna" — `hyphens: auto` did nothing because **Chrome's
+  hyphenation dictionaries are a downloadable component and a fresh profile has none**, so
+  `break-words` broke anywhere. New `SectionHeading size="section-late"`
+  (`text-h-mobile min-[1400px]:text-h-section`); 1400 is measured — the word wants 570–612px at
+  67.7px, and the column is `(min(vw,1440)-128)/2`. Closes the item left open on 2026-07-30.
+- **Decisions:** `MedicalTherapy` with an `indication` list beside the `Service`, because `Service`
+  cannot say what a therapy is *for* and these two pages are nothing but a list of conditions; no
+  prices in `zdrowy-brzuch`'s catalogue (only `/cennik` parses amounts, and its parser does not
+  read "2.000,-"); no `jobTitle` for its three leads (`trainerListJsonLd` now takes it as optional).
+- **Watch out — the harness:** `--virtual-time-budget` fast-forwards past your measurements whenever
+  the page is waiting on the network, so `--dump-dom` came back empty about half the time; have the
+  probe **POST its results** to a throwaway Node server instead. Headless windows count as
+  backgrounded, and Chrome's intensive throttling drops `setTimeout` to once a minute after five
+  minutes, which looks exactly like a hang: pass `--disable-background-timer-throttling
+  --disable-renderer-backgrounding --disable-backgrounding-occluded-windows`. **A file added to
+  `public/` 404s until the server is restarted.** And Git Bash rewrites a leading-slash argument
+  into a Windows path — `MSYS_NO_PATHCONV=1`, or the harness silently measures a 404 page and
+  reports it clean.
+- **Watch out — measuring:** React 19 emits `srcSet="…"` with the capital S it was written with, so
+  a `\bsrcset=` regex misses every one and falls back to `src`, which `next/image` sets to the
+  **largest** candidate; every weight I measured was 3–6x too high until the regex went
+  case-insensitive. Same for `hrefLang`. And `getBoundingClientRect().height` on a grid item is the
+  **row** height, not the text height, so counting lines from it is meaningless where a sibling
+  paragraph is taller — that one has to come from a screenshot.
+- **Found, not fixed, two of them, both shared components and both sitewide:** (1) the mega-menu
+  column headings overflow their own box — "Fizjoterapia" +10px at 1366, English "Physiotherapy"
+  **+36px in a 194px column at 1920 and over its box at every width measured**; structural,
+  `grid-cols-5` with `px-10` inside a 1440 cap where the reference has none. (2) The footer's fitted
+  "CONTACT" is 2–3% over its container at every width **in English only** — `FIT_COEFFICIENT` 1.5
+  assumes a ~0.62em average uppercase advance and "CONTACT" is rounder than that (two `C`s and an
+  `O`); Polish "KONTAKT" is the same seven characters and fits, which is why nobody had seen it.
+  Both spill into padding rather than clipping. Each fix moves every page, so neither belongs in a
+  four-subpage task.
+
 ## 2026-07-30: the other three personal-training subpages, and the 320px bug the first sweep missed
 
 - **Correction to the entry below: sweeping from 360px was too narrow a net.** At 320px (iPhone SE, and the narrowest common preset) **three of the four subpages scrolled sideways**, including `/trening-indywidualny`, which I had reported clean. Two causes: a Polish word longer than the column at `text-h-mobile` 39.5px ("funkcjonalną." wanted 327px in a 273px box, document went to 343px), and boxes that cannot shrink. `SectionHeading` now has `hyphens-auto break-words` on its non-fitted sizes; `/trenerzy` needed `min-w-0` on the card and an explicit `grid-cols-1` on the category row.

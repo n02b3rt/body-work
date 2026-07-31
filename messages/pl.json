@@ -660,6 +660,7 @@
   },
   "ManualTherapy": {
     "title": "Terapia manualna.",
+    "metaDescription": "Terapia manualna w Poznaniu: bóle głowy, szyi, barku, nadgarstka, kręgosłupa i kolan. Diagnostyka funkcjonalna, techniki manualne, suche igłowanie i trening.",
     "bandEyebrow": "Jesteś w dobrych rękach!",
     "bandHeading": "Kiedy możemy pomóc?",
     "bandBody": "Terapia manualna to skuteczna metoda pracy z bólem i ograniczeniami ruchowymi, oparta na precyzyjnej diagnostyce oraz indywidualnie dobranych technikach terapeutycznych. Nasi fizjoterapeuci łączą wiedzę z zakresu terapii manualnej, osteopatii oraz treningu medycznego, aby kompleksowo wspierać proces leczenia. Dzięki pracy na tkankach miękkich, stawach oraz układzie nerwowym pomagamy zmniejszyć ból, poprawić zakres ruchu i przywrócić naturalną równowagę w ciele. Terapia manualna sprawdza się zarówno w przypadku dolegliwości przeciążeniowych, urazów, jak i przewlekłych problemów bólowych.",
@@ -722,6 +723,7 @@
   },
   "MovementRehab": {
     "title": "Rehabilitacja ruchowa.",
+    "metaDescription": "Rehabilitacja ruchowa w Poznaniu: po urazach, operacjach i przy tendinopatiach. Rekonstrukcja ACL, skręcenia, bóle bioder i pleców. Program szyty na miarę.",
     "bandHeading": "Kiedy możemy pomóc?",
     "bandBody": "Rehabilitacja ruchowa to kompleksowe podejście do poprawy funkcjonowania całego ciała. Nasi fizjoterapeuci to wysoko wykwalifikowani specjaliści, którzy łączą wiedzę z zakresu terapii manualnej, treningu medycznego, terapii wisceralnej oraz nowoczesnych metod rehabilitacji ruchowej. Dzięki temu potrafimy nie tylko przywracać sprawność po urazach czy operacjach, ale również wspierać poprawę postawy, koordynacji i wydolności ruchowej. W pracy z pacjentami korzystamy z nowoczesnych narzędzi diagnostycznych i treningowych, a programy rehabilitacyjne dopasowujemy indywidualnie, aby maksymalnie zwiększyć efektywność i komfort terapii.",
     "conditions": [
@@ -793,6 +795,7 @@
   },
   "HealthyBelly": {
     "title": "Zdrowy brzuch.",
+    "metaDescription": "Zdrowy brzuch: 2-miesięczny program dla mięśni brzucha i dna miednicy. Diagnostyka USG, 8 spotkań, rozejście kresy białej i powrót do formy po ciąży. Poznań.",
     "leadHeading": "Projekt, który przywraca równowagę mięśniom brzucha i dna miednicy.",
     "aboutHeading": "O projekcie.",
     "aboutBody": "Pierwsze spotkanie to wywiad, badanie USG brzucha dynamiczne i statyczne, testowanie funkcjonalne mięśni tułowia (mięśnie brzucha, grzbietu, dna miednicy, przepony) i nauka ćwiczeń dla poprawy napięcia zmienionych tkanek. Cały projekt trwa około 2 miesiące, czyli 8 spotkań treningowych. Na ostatnim spotkaniu z cyklu sprawdzamy zmiany przy pomocy USG i testów, które były zastosowane na początku.",
@@ -834,6 +837,7 @@
   },
   "Physiotherapists": {
     "title": "Specjaliści.",
+    "metaDescription": "Fizjoterapeuci BODYWORK w Poznaniu: specjalizacja ortopedyczna i uroginekologiczna. Poznaj 11 specjalistów i wybierz osobę do swojego problemu.",
     "leadHeading": "Dobry fizjoterapeuta.",
     "leadBody": "To człowiek otwarty na mowę ciała i słuchający co mówi Pacjent oraz jego ciało. To człowiek współpracujący ze specjalistami z zakresu diagnostyki obrazowej, dietetyki, psychologii, treningu sportowego czy medycyny. Przede wszystkim to osoba myśląca kreatywnie i samodzielnie z intencją pomocy w powrocie do zdrowia osobom, które tego potrzebują.",
     "bandHeading": "Znajdź fizjoterapeutę dla siebie!",

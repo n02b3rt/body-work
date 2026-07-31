@@ -266,6 +266,26 @@ function AccordionRow({
                          * smallest entry is 640: a 343px slot on a phone was being handed a 640px
                          * file. Naming a pixel length lets it reach `imageSizes` and pick 384. */
                         sizes="(min-width: 1440px) 688px, (min-width: 1024px) calc(50vw - 32px), (min-width: 640px) calc(100vw - 48px), calc(100vw - 32px)"
+                        /**
+                         * `eager` on the deferred path, and this is a bug fix, not a tuning knob.
+                         *
+                         * `next/image` defaults to `loading="lazy"`, and a deferred row mounts its
+                         * photo into a panel that is still `grid-rows-[0fr]` with `overflow:hidden`
+                         * — zero visible area. Chrome takes its lazy-loading decision when the
+                         * element is inserted, decides this one is nowhere near the viewport, and
+                         * then never revisits it: the panel's growth is an ancestor's own
+                         * `grid-template-rows` transition, not a scroll, so nothing re-triggers the
+                         * check. Measured on `/trening-personalny/trening-indywidualny`: open a row,
+                         * scroll the photo to the middle of the screen, fire `resize`, wait three
+                         * seconds — `complete` stays `false` and `naturalWidth` stays 0. **The
+                         * visitor sees the 16px blur and nothing else, for good.** Setting
+                         * `loading="eager"` on that same element loads it at once.
+                         *
+                         * Mounting on first open *is* the deferral, so lazy has no work left to do
+                         * here. A row with no placeholder is mounted from the start, is genuinely
+                         * below the fold, and keeps native lazy loading, which works normally.
+                         */
+                        loading={item.imageBlur ? "eager" : "lazy"}
                         className="object-cover"
                         {...(item.imageBlur
                           ? { placeholder: "blur" as const, blurDataURL: item.imageBlur }

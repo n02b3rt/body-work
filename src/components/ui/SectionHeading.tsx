@@ -1,7 +1,14 @@
 import type { CSSProperties, ElementType, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-export type SectionHeadingSize = "display" | "section" | "hero" | "sub" | "tile" | "menu";
+export type SectionHeadingSize =
+  | "display"
+  | "section"
+  | "section-late"
+  | "hero"
+  | "sub"
+  | "tile"
+  | "menu";
 
 type SectionHeadingProps = {
   children: ReactNode;
@@ -22,6 +29,25 @@ type SectionHeadingProps = {
 const sizes: Record<SectionHeadingSize, string> = {
   display: "",
   section: "text-h-mobile wide:text-h-section",
+  /**
+   * `section`, but it waits for a column wide enough to hold it.
+   *
+   * Fifth sighting of the same shape: a grid goes two- or three-up at one breakpoint while the type
+   * jumps at another, and in the band between them a long Polish word is wider than its column.
+   * `compactHeading` on `StatementSection` answers it by never growing at all, which is right for a
+   * three-up grid; a two-up column does hold 67.7px, just not until it is about 610px wide.
+   *
+   * **1400px is measured, not guessed.** "Specjalizacja uroginekologiczna" at 67.7px wants 570–612px:
+   * on `/fizjoterapia/specjalisci` it broke mid-word, with no hyphen, in a 569px column at a 1280
+   * viewport and sat on two clean lines in a 612px one at 1366. `Container` caps at 1440, so the
+   * column is `(min(vw, 1440) - 64 - 64) / 2`: 636px at a 1400 viewport, and it only grows from
+   * there. English needs it too ("Urogynaecological specialisation").
+   *
+   * **Not solved by `hyphens-auto`.** Chrome's hyphenation dictionaries are a downloadable
+   * component, absent on a fresh profile, which is exactly how the mid-word break was caught; the
+   * `break-words` underneath it then breaks anywhere at all. A size that fits needs no dictionary.
+   */
+  "section-late": "text-h-mobile min-[1400px]:text-h-section",
   hero: "text-h-mobile wide:text-h-hero",
   sub: "text-h-mobile wide:text-h-sub",
   tile: "text-h-tile",

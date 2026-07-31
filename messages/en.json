@@ -660,6 +660,7 @@
   },
   "ManualTherapy": {
     "title": "Manual therapy.",
+    "metaDescription": "Manual therapy in Poznan: headaches, neck, shoulder, wrist, back and knee pain. Functional diagnostics, manual techniques, dry needling and medical training.",
     "bandEyebrow": "You're in good hands!",
     "bandHeading": "When can we help?",
     "bandBody": "Manual therapy is an effective way of working with pain and restricted movement, based on precise assessment and individually chosen therapeutic techniques. Our physiotherapists combine knowledge of manual therapy with modern rehabilitation.",
@@ -722,6 +723,7 @@
   },
   "MovementRehab": {
     "title": "Movement rehabilitation.",
+    "metaDescription": "Movement rehabilitation in Poznan: after injuries, surgery and tendinopathies. ACL reconstruction, sprains, hip and back pain. Programmes built per patient.",
     "bandHeading": "When can we help?",
     "bandBody": "Rehabilitacja ruchowa to kompleksowe podejście do poprawy funkcjonowania całego ciała. Nasi fizjoterapeuci to wysoko wykwalifikowani specjaliści, którzy łączą wiedzę z zakresu terapii manualnej, treningu medycznego, terapii wisceralnej oraz nowoczesnych metod rehabilitacji ruchowej. Dzięki temu potrafimy nie tylko przywracać sprawność po urazach czy operacjach, ale również wspierać poprawę postawy, koordynacji i wydolności ruchowej. W pracy z pacjentami korzystamy z nowoczesnych narzędzi diagnostycznych i treningowych, a programy rehabilitacyjne dopasowujemy indywidualnie, aby maksymalnie zwiększyć efektywność i komfort terapii.",
     "conditions": [
@@ -793,6 +795,7 @@
   },
   "HealthyBelly": {
     "title": "Healthy belly.",
+    "metaDescription": "Healthy belly: a two-month programme for the abdominal and pelvic-floor muscles. Ultrasound diagnostics, 8 sessions, diastasis recti and postnatal recovery.",
     "leadHeading": "A programme that restores balance to the abdominal and pelvic-floor muscles.",
     "aboutHeading": "About the programme.",
     "aboutBody": "Pierwsze spotkanie to wywiad, badanie USG brzucha dynamiczne i statyczne, testowanie funkcjonalne mięśni tułowia (mięśnie brzucha, grzbietu, dna miednicy, przepony) i nauka ćwiczeń dla poprawy napięcia zmienionych tkanek. Cały projekt trwa około 2 miesiące, czyli 8 spotkań treningowych. Na ostatnim spotkaniu z cyklu sprawdzamy zmiany przy pomocy USG i testów, które były zastosowane na początku.",
@@ -834,6 +837,7 @@
   },
   "Physiotherapists": {
     "title": "Specialists.",
+    "metaDescription": "BODYWORK physiotherapists in Poznan: orthopaedic and urogynaecological specialisations. Meet 11 specialists and pick the one matched to your problem.",
     "leadHeading": "A good physiotherapist.",
     "leadBody": "To człowiek otwarty na mowę ciała i słuchający co mówi Pacjent oraz jego ciało. To człowiek współpracujący ze specjalistami z zakresu diagnostyki obrazowej, dietetyki, psychologii, treningu sportowego czy medycyny. Przede wszystkim to osoba myśląca kreatywnie i samodzielnie z intencją pomocy w powrocie do zdrowia osobom, które tego potrzebują.",
     "bandHeading": "Find the physiotherapist for you!",
