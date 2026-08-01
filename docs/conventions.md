@@ -73,6 +73,7 @@ pnpm test
 
 - **Runner: Node's built-in one** (`node --test`), which runs TypeScript directly. **No dependency**, in keeping with the stack rule. The PRD names Vitest and Playwright; neither is installed, and neither is needed for what we test today.
 - **Tests need Node 22.18 or newer**, because that is where running TypeScript without a build landed. The app itself still targets Node 20 (`engines`); CI pins 22 for this reason alone.
+- **Imports inside `tests/` carry the explicit `.ts` extension**, because `node` will not guess it. That is why the root `tsconfig.json` sets `allowImportingTsExtensions`. It only permits the extension: **code under `src/` keeps writing imports without one.**
 - **New code arrives tested.** `tests/coverage.test.ts` fails when an importable module under `src/lib/` or `src/access/` has none. Its `GRANDFATHERED` list covers what predates the suite and **may only shrink**.
 - **Where:** `tests/`, mirroring `src/`, one file per module (`tests/media.test.ts`). Not co-located, so nothing lands in the Next build or Payload's import map.
 - **What we test:** pure functions whose behaviour is load-bearing and easy to break silently: media size resolution, slug and date formatting, user helpers. Write a test when you find yourself writing a comment explaining why something must not change.
@@ -89,9 +90,7 @@ pnpm test
 
 ## Context handoff (session reset)
 
-An AI degrades when a chat gets too long (context pollution) or nears the token limit: it starts looping or making sloppy mistakes. When you notice that, don't push through it. Reset: get a clean technical dump, open a fresh chat, paste the dump, and continue.
-
-Prompt to paste when you want a handoff:
+An agent degrades once a session runs long: it loops, or gets sloppy. Don't push through it. Get a dump, open a fresh session, paste it, continue.
 
 > Produce a full technical dump of our current state (Context Handoff). List, in bullets: 1) exactly what we've done and that works, 2) where we're stuck / what we're working on now, 3) the next steps, 4) all key decisions and the names of changed files. Format it so I can paste it into a fresh chat and continue without losing context.
 
