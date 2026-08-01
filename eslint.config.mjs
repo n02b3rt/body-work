@@ -13,11 +13,19 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
     "scripts/scrape/scraped/**",
-    // eslint-plugin-react 7.37 (pulled in by eslint-config-next) crashes on ESLint
-    // 10 while linting this file, which took the whole run down with it. There is
-    // nothing here worth linting: it is the config itself.
+    // Nothing here is worth linting: it is the config itself.
     "eslint.config.mjs",
   ]),
+  {
+    // eslint-plugin-react 7.37 arrives through eslint-config-next and predates
+    // ESLint 10's rule context API, so rules that reach for the old signature
+    // throw "contextOrFilename.getFilename is not a function" and take the whole
+    // run down. Turning the offenders off keeps every other rule working.
+    // The real fix is upgrading the plugin; that needs a lockfile change.
+    rules: {
+      "react/display-name": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;
