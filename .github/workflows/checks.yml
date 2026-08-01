@@ -42,6 +42,9 @@ jobs:
       - name: types
         run: pnpm exec tsc --noEmit
 
+      - name: lint
+        run: pnpm lint
+
       - name: translations
         run: pnpm check:messages
 

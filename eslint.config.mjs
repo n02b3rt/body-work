@@ -13,6 +13,10 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
     "scripts/scrape/scraped/**",
+    // eslint-plugin-react 7.37 (pulled in by eslint-config-next) crashes on ESLint
+    // 10 while linting this file, which took the whole run down with it. There is
+    // nothing here worth linting: it is the config itself.
+    "eslint.config.mjs",
   ]),
 ]);
 
