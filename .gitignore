@@ -43,6 +43,12 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Agent config is part of this repo: skills, slash commands, shared settings.
+# A global gitignore excluding .claude/ would otherwise drop them silently.
+!.claude/
+!.claude/**
+.claude/settings.local.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

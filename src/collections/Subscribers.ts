@@ -5,7 +5,7 @@ import { administrators, isStaff } from '@/access/roles'
 /**
  * Newsletter subscribers: **the list lives here, in our own Postgres, not at Resend.**
  *
- * `PRD.md` §9 makes self-hosting the cardinal rule but already exempts the mail relay,
+ * The PRD makes self-hosting the cardinal rule but already exempts the mail relay,
  * which is the right call: outbound mail depends on IP reputation nobody should try to
  * build themselves. So Resend delivers, and this collection owns the data. That keeps the
  * RODO consent record (token, timestamp, IP) somewhere we can actually produce on demand,

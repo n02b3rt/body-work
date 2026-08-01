@@ -1,3 +1,5 @@
+> Read when: hunting for the history behind a specific decision from 24 to 30 July 2026. Superseded by `../log.md`; do not read in full, grep it.
+
 # AI Notes: BodyWork Centrum
 
 > Running journal for whoever works on this project (human or agent).

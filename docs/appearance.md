@@ -1,3 +1,5 @@
+> Read when: touching the colour scheme, theme tokens, or the editor's saved compositions.
+
 # Appearance (Wygląd)
 
 Admin section for the site's visual theme: a global colour scheme applied to

@@ -1,3 +1,5 @@
+> Read when: starting a task while another agent may be running. This file is the procedure; follow it step by step.
+
 # Runbook: start work in an isolated slot
 
 > **This file is the single source of truth for the procedure**, whichever agent you

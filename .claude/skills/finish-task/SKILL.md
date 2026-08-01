@@ -1,0 +1,30 @@
+---
+name: finish-task
+description: The definition of done for this repo: what to update, verify and commit before calling a change finished. Use when you have finished implementing something and are about to commit, open a pull request, or tell the user it is done.
+---
+
+Work through this in order. Skipping step 1 is what makes the map start lying.
+
+1. **`docs/map.md`.** Did you add a file, a route, a collection, a script? Add or update its row.
+   Did you build something listed under "Not built yet"? Move it into its domain.
+2. **The relevant `docs/*.md`.** A Centrum page means a row in `migration-tracker.md` (plus the
+   deviations table if you deviated). A cross-cutting choice means a row in `decisions.md`.
+3. **`docs/log.md`**, only if there is a decision or a gotcha the diff does not show. "What I did" is
+   `git log`. Use `/log`, which keeps the file at 20 entries.
+4. **Regenerate** if the schema or admin components changed: `pnpm generate:types`, then
+   `pnpm generate:importmap`.
+5. **Verify.**
+
+```bash
+pnpm build
+```
+
+   Plus `pnpm check:messages` if you touched translations, `pnpm smoke:builder` if you touched the
+   builder. There is no test runner. **`pnpm lint` is broken on `main` too** (eslint-plugin-react
+   7.37 vs ESLint 10), so a failure there is not necessarily yours: check before you blame your diff.
+
+6. **Commit** on a `feat/` `fix/` `refactor/` `chore/` branch, never straight to `main`. Title:
+   `type: short, on-point summary`, English, ~60 characters. No AI or tool authorship anywhere.
+   No em-dashes.
+
+Report failures as failures. A red `build` means it is not done.

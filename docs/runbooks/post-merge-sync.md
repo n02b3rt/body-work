@@ -1,3 +1,5 @@
+> Read when: a pull request just landed in `main` and this worktree needs to catch up. This file is the procedure; follow it step by step.
+
 # Runbook: sync one slot after a merge
 
 > **This file is the single source of truth for the procedure**, whichever agent you
@@ -53,7 +55,7 @@ git branch -D <old-branch>
   anything, and installing needs the user's approval anyway.
 - `messages/pl.json` / `en.json` — keep both sides' keys; they are appended in
   different namespaces.
-- `AI_NOTES.md`, `CLAUDE.md`, `docs/*.md` — plain prose, keep both entries and put
+- `CLAUDE.md`, `docs/*.md` — plain prose, keep both entries and put
   the newer one on top.
 - Source files inside another agent's area — a signal that the scope split leaked.
   Resolve in favour of `origin/main` and tell the user.
@@ -114,7 +116,7 @@ Notes:
 
 ## 7. If this branch is the one that just merged
 
-Per `docs/parallel-agents.md`, the `AI_NOTES.md` entry is written at merge time,
+Per `docs/parallel-agents.md`, the `docs/log.md` line is written at merge time,
 not while the branch lives, so that three agents do not all prepend to the same
 file. If yours was the merged PR and the entry is not in `main` yet, add it now on
 a small follow-up branch, together with any `docs/*.md` row the feature needs.

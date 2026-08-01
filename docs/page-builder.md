@@ -1,3 +1,5 @@
+> Read when: adding or changing a builder element or section, or wondering why the canvas and the site render the same thing.
+
 # Page builder (Kreator stron)
 
 Building a page out of an **element library** — a set of parameterised widgets
@@ -170,20 +172,4 @@ one hop, a `savedComponent` is one and its own pictures are two.
 
 ## Key paths
 
-| Piece | Path |
-|---|---|
-| Element library (blocks) | `src/fields/elements/` |
-| Shared `style` group | `src/fields/elements/style.ts` |
-| Element names / categories (client-safe) | `src/lib/element-catalog.ts` |
-| Style resolver | `src/lib/element-styles.ts` |
-| Section field definitions | `src/fields/page-layout.ts` |
-| Width / spacing / anchor maps | `src/lib/page-sections.ts` |
-| Shared renderers | `src/components/elements/` |
-| Element stylesheet (site + admin) | `src/styles/elements.css` |
-| Builder UI | `src/components/admin/builder/` |
-| Builder chrome styles | `src/app/(payload)/builder.css` |
-| Public renderer | `src/components/page-blocks/PageSections.tsx` |
-| Page lookup | `src/lib/cms-page.ts` |
-| Route | `src/app/[locale]/[...rest]/page.tsx` |
-| Sample compositions | `src/seed/appearance-samples.ts` (`pnpm seed:appearance`) |
-| Smoke test | `scripts/smoke-page-builder.ts` (`pnpm smoke:builder`) |
+All of them, plus the surrounding domains: [`map.md`](./map.md#page-builder).

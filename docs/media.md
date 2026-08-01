@@ -1,3 +1,5 @@
+> Read when: changing upload handling, conversion, or the admin media explorer.
+
 # Media library
 
 Admin media module for BodyWork Centrum (Payload collection `media`).

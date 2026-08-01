@@ -1,3 +1,5 @@
+> Read when: you need the reference for a page: which live URL maps to which folder in the mirror, and where its real media sits.
+
 # Scraped site map: Centrum reference mirror
 
 > What `scripts/scrape/scraped/` contains and which live URL each folder mirrors. Written in English. Regenerate the mirror with `scripts/scrape/run_scrape.bat`; this describes its shape as of 2026-07-25: re-verify against the live mirror if something looks off after a re-scrape.

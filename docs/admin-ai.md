@@ -1,3 +1,5 @@
+> Read when: touching the Gemini-backed helpers in the dashboard (ALT text, SEO, EN draft, post draft, help chat).
+
 # Admin AI (Gemini)
 
 Assistive AI inside the Payload admin on the dashboard host only. Never runs on public sites.
