@@ -5,12 +5,6 @@
 Find the domain, go straight to the file. Don't grep blind.
 Something missing here that exists in the code? **Add its row in the same change**, otherwise the map starts lying.
 
-[Public site](#public-site) · [Blog](#blog) · [Page builder](#page-builder) · [CMS / Payload](#cms--payload) ·
-[Media](#media) · [Admin panel](#admin-panel) · [Accounts and roles](#accounts-and-roles) · [Appearance](#appearance) ·
-[i18n](#i18n-plen) · [SEO](#seo) · [Newsletter and email](#newsletter-and-email) · [Admin AI](#admin-ai) ·
-[Package updates](#package-updates) · [Scraper](#scraper--centrum-reference) · [Infra and dev](#infra-and-dev) ·
-[Parallel work](#parallel-work) · [**Not built yet**](#not-built-yet-dont-go-looking)
-
 ---
 
 ## Public site
@@ -90,7 +84,7 @@ Global palette drives the `--bw-*` CSS vars on the site; presets and live previe
 next-intl for UI strings, a separate collection for posts. Default locale `pl`.
 - Config (`src/i18n/`): `routing.ts`, `request.ts`, `navigation.ts`, `client-namespaces.ts`
 - Strings: `messages/pl.json`, `messages/en.json` · Dates: `src/lib/format-date.ts` · Slugs: `format-slug.ts`
-- ⚠ **Only 11 of 46 namespaces reach the browser.** A `"use client"` component reading a namespace that isn't listed renders the key path instead. Add it to `client-namespaces.ts`, verify with `pnpm check:messages`.
+- ⚠ **Only 11 of 46 namespaces reach the browser.** A `"use client"` component reading a namespace that isn't listed renders the key path instead. Add it to `client-namespaces.ts`, verify with `pnpm check:messages` (`scripts/check-client-messages.mjs`).
 - Skill: `i18n-messages`. Deeper: `i18n.md`
 
 ## SEO
@@ -127,7 +121,9 @@ A mirror of `bodywork.testowe.eu`: the content and design source, not production
 ## Infra and dev
 - Dev database: `docker-compose.yml` → `localhost:5432`, DB `bodywork` · Env: `.env.example`
 - Next: `next.config.ts` · Scripts: `package.json` (`dev`, `build`, `lint`, `generate:types`, `generate:importmap`, `check:messages`, `smoke:builder`, `seed:appearance`)
-- Static assets: `public/` · Smoke tests: `scripts/smoke-*.ts`
+- Static assets: `public/` · Config: `next.config.ts`, `tsconfig.json`, `eslint.config.mjs`, `postcss.config.mjs`, `pnpm-workspace.yaml`
+- Smoke tests: `scripts/smoke-blog-write.ts`, `smoke-gemini.ts`, `smoke-image-display.ts`, `smoke-newsletter.ts`, `smoke-page-builder.ts`
+- One-off maintenance: `scripts/backfill-image-sizes.ts` (regenerate `imageSizes` on existing uploads), `scripts/seed-translation-example.ts`
 - ⚠ There is no test runner. All you have: `pnpm build`, `pnpm smoke:builder`, `pnpm check:messages`, `scripts/smoke-*.ts`.
 - ⚠ `pnpm lint` is broken on `main` too (eslint-plugin-react 7.37 vs ESLint 10); see `log.md`.
 
@@ -136,6 +132,15 @@ Several agents at once = own worktree, own database, own port.
 - Rules: `parallel-agents.md` · Procedures: `runbooks/start-parallel-work.md`, `runbooks/post-merge-sync.md`
 - Skills: `start-parallel-work`, `post-merge-sync` · For other tools: `../prompts/parallel-agent-bootstrap.md`
 - ⚠ **Never `docker compose down -v`**: one volume holds every agent's database.
+
+## Docs and agent config
+The rules an agent reads, and the files that carry them.
+- Rules: `CLAUDE.md` (router, protocol, budgets), `AGENTS.md` (same rules, tool-agnostic), `README.md` (humans)
+- Docs: `docs/`, one topic per file, each opening with a `> Read when:` line. Stale narrative rolls into `docs/archive/`
+- Claude Code (`.claude/`): `settings.json` (permission allow/deny), `skills/` (8, each fires on its own trigger), `commands/log.md` (`/log`)
+- Cursor: `.cursor/commands/` · Other tools: `prompts/parallel-agent-bootstrap.md`
+- ⚠ A **global** gitignore excludes `.claude/`; the repo `.gitignore` negates it. Don't undo that or the skills stop shipping.
+- ⚠ Skills are thin routers. The procedure lives in `docs/`, so edit the doc, not the skill copy.
 
 ---
 
