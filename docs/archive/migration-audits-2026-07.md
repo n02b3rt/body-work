@@ -3,7 +3,7 @@
 # Archiwum: audyty migracji Centrum (lipiec 2026)
 
 Przeniesione z `migration-tracker.md`, żeby tracker został tabelą stanu, a nie dziennikiem sesji.
-Wnioski z tych audytów siedzą już w kodzie. To jest historia, nie kontekst roboczy — **nie czytaj w całości**, grepuj.
+Wnioski z tych audytów siedzą już w kodzie. To jest historia, nie kontekst roboczy: **nie czytaj w całości**, grepuj.
 
 Stan strona po stronie: [`../migration-tracker.md`](../migration-tracker.md).
 
@@ -285,13 +285,13 @@ Worth writing down, because the previous two sessions each hit this and worked a
 regardless. Neither can show you a 360px phone.
 
 What does work: a scratch page served from `public/` that iframes the route at an exact width. An
-iframe gets its own layout viewport, so media queries evaluate against *its* width — verified with a
+iframe gets its own layout viewport, so media queries evaluate against *its* width: verified with a
 control page that reports `matchMedia('(min-width:640px)')` false at an iframe width of 360. Being
 same-origin, the harness reads `contentDocument` and measures from the outside, and
 `--dump-dom` carries the result back out. Two things to know if this gets rebuilt: the extension's
 JS runs in a sandboxed, opaque-origin world that cannot touch a child frame (and hangs the renderer
 if you try), so drive it with headless Chrome instead; and **headless force-loads lazy images**, so
-any `loading="lazy"` measurement taken there is meaningless — that one has to come from a headed
+any `loading="lazy"` measurement taken there is meaningless: that one has to come from a headed
 browser.
 
 #### Media
@@ -319,12 +319,12 @@ delivered request. Left alone deliberately.
 #### Lazy loading with blur placeholders
 
 `generate-blur-placeholders.mjs` gained `public/images/fizjoterapia` **and**
-`public/images/fizjoterapia/sprzet` — the script does not recurse, which is now said in its comment.
+`public/images/fizjoterapia/sprzet`: the script does not recurse, which is now said in its comment.
 The map is 70 entries, 11.1KB.
 
 `Accordion` is a **client** component, so it cannot call `blurProps`: importing the server-only map
 would ship all 11KB to every page that renders an accordion. It takes an `imageBlur` string on
-`AccordionItemData` instead, resolved by the page with `blurFor()` — the same shape as the
+`AccordionItemData` instead, resolved by the page with `blurFor()`: the same shape as the
 homepage's `posterBlur`. Verified in the HTML: all six equipment photos carry a placeholder and
 `loading="lazy"`, and the hero carries a placeholder plus its `rel="preload"` (which is how Next 16
 implements `priority`).
@@ -335,7 +335,7 @@ implements `priority`).
 
 Same gap as the last two routes: `pageMetadata` was called with a title only, so there was no
 `description`, `og:description` or `twitter:description`. `metaDescription` is 150 characters (PL)
-and 156 (EN), and every fact in it is on the page — the three sub-therapies, the equipment named in
+and 156 (EN), and every fact in it is on the page: the three sub-therapies, the equipment named in
 "Metody pracy", and the footer's Poznań address.
 
 Two JSON-LD blocks on top of the sitewide business: a **`Service`** with a three-entry
@@ -350,7 +350,7 @@ the rows are device names (USG, EPTE, COMPEX), not questions, and marking up a n
 what manual actions are for.
 
 Verified in both locales: description present and mirrored into `og:`/`twitter:`, canonical set,
-`hreflang` pair emitted, and three JSON-LD blocks that all parse —
+`hreflang` pair emitted, and three JSON-LD blocks that all parse :
 `HealthAndBeautyBusiness`, `Service` with 3 catalogue entries and `areaServed` Poznań, and the
 breadcrumb trail.
 
@@ -364,13 +364,13 @@ bottom-centre below `wide` and `PromoBar` pins its pills bottom-right, and **bot
 off the bottom edge**, so the lowest pill spanned the CTA's whole box. Measured: collision at 360,
 414, 640, 834, 1024 and 1059, i.e. every width where the CTA renders.
 
-The reference has the identical fault and resolves it by stacking order alone — its
+The reference has the identical fault and resolves it by stacking order alone: its
 `.academy-mobile-button` is `z-index: 120` and the promo `aside` is `121`, so the pills simply win
 and the CTA is unreachable. That is the reference being broken, not a design.
 
 `PromoBar`'s stack is now lifted clear of it below `wide`:
 `bottom-[calc(1rem+3.5rem+0.5rem)]`, which reads as the CTA's own `bottom-4`, plus its fixed
-`min-h-14`, plus a gap. The height is safe to hard-code because the button never wraps — measured
+`min-h-14`, plus a gap. The height is safe to hard-code because the button never wraps: measured
 177px wide at a 360 viewport, 56px tall at every width. From `wide` up the CTA is hidden and the
 pills keep their original `wide:bottom-7`.
 
@@ -380,14 +380,14 @@ pills back at their old position from 1060 up. Page overflow still 0 across 14 w
 **"WIĘCEJ O FIZJOTERAPIA".** `Blog.moreIn` is "Więcej o {category}", which governs the locative in
 Polish, and it was being handed the category title in the nominative. Wrong on all five service pages
 carrying the block. ICU has no declension, so `Blog.categoryLocative` now carries an explicit form
-for each of the four slugs — fizjoterapii, masażu, treningu, dietetyce — keyed by **slug** rather
+for each of the four slugs (fizjoterapii, masażu, treningu, dietetyce) keyed by **slug** rather
 than title, because the slug is what routes there and survives an editor renaming the category. A
 category added later falls back to its title, which is exactly what every category got before.
 
 Verified: "Więcej o fizjoterapii", "Więcej o treningu", "Więcej o dietetyce".
 
 **English is deliberately untouched.** `en.json` has no `categoryLocative`, so it takes the fallback
-and renders "More on fizjoterapia" — the Polish title, because the Payload `Categories` collection is
+and renders "More on fizjoterapia": the Polish title, because the Payload `Categories` collection is
 not localised. That is a real gap, but the fix is localising the collection, not patching one label
 into disagreeing with the archive page it links to.
 

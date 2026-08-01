@@ -3,7 +3,7 @@
 Read `docs/runbooks/post-merge-sync.md` and follow it step by step, in this worktree
 only.
 
-That runbook is the procedure — do not work from memory. It rebases this checkout on
+That runbook is the procedure: do not work from memory. It rebases this checkout on
 `origin/main`, regenerates the Payload types and the import map, pushes the schema to
 this slot's own database and verifies the result.
 

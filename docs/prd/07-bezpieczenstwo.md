@@ -7,11 +7,11 @@
 | Rola                | Uprawnienia                                                                                            |
 | ------------------- | ------------------------------------------------------------------------------------------------------ |
 | **Admin**           | Wszystko: użytkownicy, ustawienia, przekierowania, zamówienia, treści                                  |
-| **Redaktor**        | Strony, wpisy, aktualności, media, cennik, zespół, galerie, opinie — bez zamówień, klientów i ustawień |
-| **Obsługa szkoleń** | Kursy, edycje, zamówienia, kody rabatowe, listy uczestników — bez treści marketingowych i ustawień     |
+| **Redaktor**        | Strony, wpisy, aktualności, media, cennik, zespół, galerie, opinie: bez zamówień, klientów i ustawień |
+| **Obsługa szkoleń** | Kursy, edycje, zamówienia, kody rabatowe, listy uczestników: bez treści marketingowych i ustawień     |
 | **Customer**        | Wyłącznie własne zamówienia i dane (osobna kolekcja, brak dostępu do panelu)                           |
 
-Wymuszone: silne hasła, 2FA dla roli Admin, blokada po nieudanych próbach, sesje wygasające, `/admin` dostępny tylko z hosta `dash.` (opcjonalnie dodatkowo za Cloudflare Access — darmowe do 50 użytkowników).
+Wymuszone: silne hasła, 2FA dla roli Admin, blokada po nieudanych próbach, sesje wygasające, `/admin` dostępny tylko z hosta `dash.` (opcjonalnie dodatkowo za Cloudflare Access: darmowe do 50 użytkowników).
 
 ### Zabezpieczenia aplikacyjne
 
@@ -25,10 +25,10 @@ Wymuszone: silne hasła, 2FA dla roli Admin, blokada po nieudanych próbach, ses
 
 ### Zgodność
 
-- **RODO:** rejestr zgód, retencja danych zamówień (ustawowo 5 lat dla dokumentacji księgowej), procedura usunięcia danych osobowych z anonimizacją zamówień, umowa powierzenia z hostingodawcą (Hetzner — DPA dostępne), fonty i skrypty self-hosted, brak transferu poza EOG w warstwie serwerowej
+- **RODO:** rejestr zgód, retencja danych zamówień (ustawowo 5 lat dla dokumentacji księgowej), procedura usunięcia danych osobowych z anonimizacją zamówień, umowa powierzenia z hostingodawcą (Hetzner: DPA dostępne), fonty i skrypty self-hosted, brak transferu poza EOG w warstwie serwerowej
 - **Prawo konsumenckie:** regulamin sklepu jako strona HTML z wersjonowaniem, informacja o prawie odstąpienia i jego wyłączeniach dla usług w określonym terminie, potwierdzenie zamówienia z pełnym podsumowaniem
 - **Dostępność:** WCAG 2.1 AA (§8.13)
-- **Dofinansowanie UE:** obecna strona zawiera sekcję „Unia Europejska — współpraca" — jeśli wynika z niej obowiązek informacyjny w okresie trwałości projektu, treść musi zostać przeniesiona wraz z zachowaniem starego URL-a przez 301. **Do potwierdzenia z klientem.**
+- **Dofinansowanie UE:** obecna strona zawiera sekcję „Unia Europejska (współpraca") jeśli wynika z niej obowiązek informacyjny w okresie trwałości projektu, treść musi zostać przeniesiona wraz z zachowaniem starego URL-a przez 301. **Do potwierdzenia z klientem.**
 
 ### Zmienne środowiskowe
 

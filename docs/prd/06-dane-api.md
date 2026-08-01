@@ -32,7 +32,7 @@ ConsentLogs; // ip_hash, categories, timestamp, policyVersion
 ### 10.2 Kolekcje sklepowe
 
 ```ts
-Courses; // ścieżka merytoryczna kursu — opis, program, dla kogo, prowadzący[]
+Courses; // ścieżka merytoryczna kursu: opis, program, dla kogo, prowadzący[]
 // slug, type: 'TP'|'TM'|'TF'|'PM'|'other', seo, akredytacje
 
 CourseEditions; // konkretny termin sprzedażowy
@@ -80,62 +80,62 @@ Footer_Hub / _Centrum / _Akademia; // kolumny linków, dane, dokumenty prawne
 
 ### 10.4 Indeksy i integralność
 
-- `Pages(site, slug, locale)` — unikalny
-- `Posts(site, slug, locale)` — unikalny; `Posts(publishedAt)`
+- `Pages(site, slug, locale)`: unikalny
+- `Posts(site, slug, locale)`: unikalny; `Posts(publishedAt)`
 - `CourseEditions(saleStatus, startDate)`, `CourseEditions(city)`, `CourseEditions(course)`
-- `Orders(status, createdAt)`, `Orders(orderNumber)` — unikalny, `Orders(p24.sessionId)` — unikalny (idempotencja webhooka)
-- `Redirects(from)` — unikalny
+- `Orders(status, createdAt)`; `Orders(orderNumber)`: unikalny; `Orders(p24.sessionId)`: unikalny (idempotencja webhooka)
+- `Redirects(from)`: unikalny
 - Licznik miejsc modyfikowany **wyłącznie w transakcji** (`SELECT ... FOR UPDATE`), nigdy z poziomu klienta.
 
 ---
 
 ## 11. Specyfikacja API
 
-Większość operacji odczytu realizują Server Components przez Local API Payload — bez publicznego endpointu. Poniżej endpointy faktycznie wystawione na zewnątrz.
+Większość operacji odczytu realizują Server Components przez Local API Payload: bez publicznego endpointu. Poniżej endpointy faktycznie wystawione na zewnątrz.
 
 ### Sklep
 
-**POST `/api/cart`** — dodanie pozycji do koszyka
+**POST `/api/cart`**: dodanie pozycji do koszyka
 
 - Body: `{ kind: 'edition'|'product', id: string, qty: number, variant?: string }`
 - Walidacja serwerowa: istnienie, `saleStatus === 'open'`, dostępność miejsc
 - Odpowiedź: `{ cart: Cart }` (cookie `bw_cart`, HttpOnly, SameSite=Lax)
 
-**PATCH `/api/cart`** / **DELETE `/api/cart/:itemId`** — zmiana ilości / usunięcie
+**PATCH `/api/cart`** / **DELETE `/api/cart/:itemId`**: zmiana ilości / usunięcie
 
-**POST `/api/checkout`** — utworzenie zamówienia i sesji płatności
+**POST `/api/checkout`**: utworzenie zamówienia i sesji płatności
 
 - Body: dane uczestnika, dane do faktury, kod rabatowy, zgody
 - Walidacja: Zod + ponowne przeliczenie cen po stronie serwera + rezerwacja miejsc (`reservedUntil = now + 30 min`)
 - Rate limit: 10/min/IP
 - Odpowiedź: `{ orderNumber, redirectUrl }` (link do Przelewy24)
 
-**POST `/api/p24/notify`** — webhook Przelewy24
+**POST `/api/p24/notify`**: webhook Przelewy24
 
 - Auth: weryfikacja podpisu (SHA-384 z `crc`), sprawdzenie IP bramki
 - Idempotentny po `sessionId`
 - Kroki: `verify` → aktualizacja statusu → potwierdzenie miejsc → e-maile
 - Odpowiedź: `200 OK` (zawsze szybka; ciężkie operacje w kolejce)
 
-**GET `/api/orders/:orderNumber`** — status zamówienia (uwierzytelniony lub z tokenem z e-maila)
+**GET `/api/orders/:orderNumber`**: status zamówienia (uwierzytelniony lub z tokenem z e-maila)
 
 ### Treści i pomocnicze
 
-**POST `/api/forms/:formId`** — wysyłka formularza (honeypot + rate limit 5/min/IP)
+**POST `/api/forms/:formId`**: wysyłka formularza (honeypot + rate limit 5/min/IP)
 
-**POST `/api/newsletter`** — zapis do Listmonk (double opt-in), 5/min/IP
+**POST `/api/newsletter`**: zapis do Listmonk (double opt-in), 5/min/IP
 
-**GET `/api/search?q=&site=&locale=`** — wyszukiwarka (Postgres FTS), 30/min/IP
+**GET `/api/search?q=&site=&locale=`**: wyszukiwarka (Postgres FTS), 30/min/IP
 
-**POST `/api/revalidate`** — rewalidacja ISR, wywoływana z hooków Payload, chroniona sekretem
+**POST `/api/revalidate`**: rewalidacja ISR, wywoływana z hooków Payload, chroniona sekretem
 
-**GET `/api/og/[type]/[id]`** — generowany obraz OG
+**GET `/api/og/[type]/[id]`**: generowany obraz OG
 
-**GET `/api/health`** — health-check dla Coolify/Uptime Kuma
+**GET `/api/health`**: health-check dla Coolify/Uptime Kuma
 
 ### Panel
 
-`/api/[...payload]` — REST + GraphQL Payload, chronione sesją i RBAC; `/admin` — interfejs panelu (dostęp tylko przez `dash.body-work.pl`).
+`/api/[...payload]` (REST + GraphQL Payload, chronione sesją i RBAC; `/admin`) interfejs panelu (dostęp tylko przez `dash.body-work.pl`).
 
 ---
 

@@ -16,26 +16,26 @@
 **Dlaczego Payload, a nie Strapi/Directus/headless WP:**
 
 - Instaluje się _wewnątrz_ Next.js → Local API bez narzutu HTTP, wspólny deploy, wspólny TypeScript.
-- Pole `blocks` to gotowy page-builder — dokładnie to, czego wymaga punkt „dodawanie podstron przez nieprogramistów".
-- Localization, wersjonowanie, drafts, live preview, RBAC, form-builder, SEO plugin, redirects plugin — w rdzeniu lub w oficjalnych, darmowych pluginach.
+- Pole `blocks` to gotowy page-builder: dokładnie to, czego wymaga punkt „dodawanie podstron przez nieprogramistów".
+- Localization, wersjonowanie, drafts, live preview, RBAC, form-builder, SEO plugin, redirects plugin: w rdzeniu lub w oficjalnych, darmowych pluginach.
 - Licencja MIT, brak płatnych funkcji ukrytych za enterprise (w odróżnieniu od części ekosystemu Strapi).
-- Panel w React — modyfikowalny tymi samymi umiejętnościami, których projekt i tak wymaga.
+- Panel w React: modyfikowalny tymi samymi umiejętnościami, których projekt i tak wymaga.
 
 **Dlaczego nie headless WordPress:** utrzymuje wszystkie dzisiejsze koszty i problemy (aktualizacje, wtyczki, PHP), dokłada drugą warstwę do utrzymania. Sprzeczne z celem C1.
 
-**Dlaczego nie Medusa.js do sklepu:** Medusa to osobny backend z **własnym panelem administracyjnym** — złamałoby wymóg „jeden wspólny dashboard" i podwoiło infrastrukturę. Katalog to ~30 pozycji usługowych bez wysyłki i wariantów; pełny silnik commerce jest tu przerostem formy. Lekki moduł zamówień w Payload (kolekcje `Courses`/`CourseEditions`/`Orders`/`Coupons` + integracja P24) daje 100% potrzebnych funkcji przy ułamku złożoności.
-_Warunek zmiany decyzji:_ jeśli klient zapowie rozwój sklepu z produktami fizycznymi (odzież, sprzęt, magazyn, wysyłka, integracje kurierskie), wraca temat Medusy jako osobnego serwisu — patrz §14.
+**Dlaczego nie Medusa.js do sklepu:** Medusa to osobny backend z **własnym panelem administracyjnym**: złamałoby wymóg „jeden wspólny dashboard" i podwoiło infrastrukturę. Katalog to ~30 pozycji usługowych bez wysyłki i wariantów; pełny silnik commerce jest tu przerostem formy. Lekki moduł zamówień w Payload (kolekcje `Courses`/`CourseEditions`/`Orders`/`Coupons` + integracja P24) daje 100% potrzebnych funkcji przy ułamku złożoności.
+_Warunek zmiany decyzji:_ jeśli klient zapowie rozwój sklepu z produktami fizycznymi (odzież, sprzęt, magazyn, wysyłka, integracje kurierskie), wraca temat Medusy jako osobnego serwisu: patrz §14.
 
 ### UI i styl
 
 | Technologia                        | Rola                                                                                                     |
 | ---------------------------------- | -------------------------------------------------------------------------------------------------------- |
 | **Tailwind CSS 4**                 | Warstwa stylów                                                                                           |
-| **shadcn/ui** (Radix)              | Dostępne komponenty bazowe (dialog, tabs, accordion, select) — kopiowane do repo, bez zależności runtime |
+| **shadcn/ui** (Radix)              | Dostępne komponenty bazowe (dialog, tabs, accordion, select): kopiowane do repo, bez zależności runtime |
 | **Motion** (dawniej Framer Motion) | Animacje sekcji, karuzel, promo-barów                                                                    |
-| **Embla Carousel**                 | Karuzele (News, opinie, galeria) — lekka, dostępna                                                       |
+| **Embla Carousel**                 | Karuzele (News, opinie, galeria): lekka, dostępna                                                       |
 | **next/image + sharp**             | Obrazy, AVIF/WebP, lazy loading, rozmiary responsywne                                                    |
-| **next/font**                      | Self-hosting fontów (bez Google Fonts CDN — RODO)                                                        |
+| **next/font**                      | Self-hosting fontów (bez Google Fonts CDN: RODO)                                                        |
 
 ### Biblioteki funkcjonalne
 
@@ -70,7 +70,7 @@ _Warunek zmiany decyzji:_ jeśli klient zapowie rozwój sklepu z produktami fizy
 | Element             | Rozwiązanie                                                                              | Szacowany koszt |
 | ------------------- | ---------------------------------------------------------------------------------------- | --------------- |
 | Serwer              | Hetzner CPX31 / CX42 (4 vCPU, 8–16 GB RAM, NVMe), lokalizacja Falkenstein lub Helsinki   | ~55–80 zł/mies. |
-| Orkiestracja        | **Coolify** (self-hosted PaaS, Apache-2.0) — deploy z Gita, TLS, podgląd logów, rollback | 0               |
+| Orkiestracja        | **Coolify** (self-hosted PaaS, Apache-2.0): deploy z Gita, TLS, podgląd logów, rollback | 0               |
 | Reverse proxy / TLS | Caddy lub Traefik (w Coolify) + Let's Encrypt                                            | 0               |
 | Baza                | Postgres 16 w kontenerze                                                                 | 0               |
 | Media               | Wolumen na dysku lub Hetzner Object Storage / MinIO                                      | 0–25 zł/mies.   |
@@ -81,9 +81,9 @@ _Warunek zmiany decyzji:_ jeśli klient zapowie rozwój sklepu z produktami fizy
 | Logi/błędy          | GlitchTip (self-hosted, kompatybilny z SDK Sentry)                                       | 0               |
 | CDN/DNS/WAF         | Cloudflare Free                                                                          | 0               |
 | SMTP transakcyjny   | Relay (np. istniejąca poczta firmowa, Amazon SES lub darmowy próg dostawcy)              | 0–40 zł/mies.   |
-| Bramka płatnicza    | Przelewy24 — prowizja od transakcji, brak abonamentu                                     | prowizja        |
+| Bramka płatnicza    | Przelewy24: prowizja od transakcji, brak abonamentu                                     | prowizja        |
 
-**Alternatywa rozważona i odrzucona:** Vercel. Zaleta: zero konfiguracji. Wady w tym projekcie: koszt rośnie z ruchem i transformacjami obrazów, potrzebna zewnętrzna baza (Neon/Supabase — kolejny abonament), a wymóg klienta brzmi „self-hosted, minimalizacja opłat rocznych". Rekomendacja: Hetzner + Coolify. Vercel warto zostawić jako plan awaryjny na okres przejściowy.
+**Alternatywa rozważona i odrzucona:** Vercel. Zaleta: zero konfiguracji. Wady w tym projekcie: koszt rośnie z ruchem i transformacjami obrazów, potrzebna zewnętrzna baza (Neon/Supabase: kolejny abonament), a wymóg klienta brzmi „self-hosted, minimalizacja opłat rocznych". Rekomendacja: Hetzner + Coolify. Vercel warto zostawić jako plan awaryjny na okres przejściowy.
 
 ### Szacunkowe porównanie kosztów rocznych
 
@@ -97,7 +97,7 @@ _Warunek zmiany decyzji:_ jeśli klient zapowie rozwój sklepu z produktami fizy
 | SMTP                                                                                                  | zwykle w hostingu         | 0–500 zł                |
 | **Razem (bez prowizji płatniczych i domen)**                                                          | **~2 500–7 000 zł**       | **~950–1 700 zł**       |
 
-> Kwoty „dziś" to widełki rynkowe — **do potwierdzenia fakturami klienta** przed umieszczeniem w ofercie. To najmocniejszy argument sprzedażowy w tym projekcie, więc warto go oprzeć na ich realnych danych, a nie na szacunkach.
+> Kwoty „dziś" to widełki rynkowe: **do potwierdzenia fakturami klienta** przed umieszczeniem w ofercie. To najmocniejszy argument sprzedażowy w tym projekcie, więc warto go oprzeć na ich realnych danych, a nie na szacunkach.
 
 ---
 

@@ -23,7 +23,7 @@ Pattern: **Propose → preview → Insert / Discard**. Nothing is written silent
 | Key | `GEMINI_API_KEY` in `.env` (see `.env.example`) |
 | Primary model | `gemini-3.5-flash` |
 | Fallback on 429 | `gemma-4-26b-a4b-it` |
-| Client | [`src/lib/ai/gemini.ts`](../src/lib/ai/gemini.ts) — plain `fetch`, no npm SDK |
+| Client | [`src/lib/ai/gemini.ts`](../src/lib/ai/gemini.ts): plain `fetch`, no npm SDK |
 | Tasks | [`src/lib/ai/tasks.ts`](../src/lib/ai/tasks.ts) |
 | API | `POST /api/admin/ai` with `{ task, ... }` |
 | Auth | Payload session; staff roles |

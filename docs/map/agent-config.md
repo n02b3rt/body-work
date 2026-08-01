@@ -26,14 +26,19 @@ agent decide not to open the file.
 
 ## 3. Triggers, loaded by the harness
 
-`.claude/skills/`, eight of them. A skill's `description` says **when** it applies; the harness keeps
-only that one line in context and pulls the body in when the task matches.
+`.claude/skills/`, twelve of them. A skill's `description` says **when** it applies; the harness keeps
+only that one line in context and pulls the body in when the task matches. The prose inside is
+tool-agnostic, and `AGENTS.md` routes other tools to the same files.
 
 | Skill | Fires on |
 |---|---|
 | `centrum-fidelity` | Centrum pages and section components |
+| `new-route` | a new `page.tsx` or `route.ts` |
+| `blog-content` | the blog: listing, posts, archives, EN versions |
+| `images-and-video` | any image, gallery, hero or video |
 | `payload-schema` | collections, globals, fields, config |
 | `page-builder` | builder elements and sections |
+| `payload-script` | anything under `scripts/` using `payload run` |
 | `admin-copy` | any string an editor will read |
 | `i18n-messages` | translation keys, client components reading them |
 | `finish-task` | before a commit or PR |

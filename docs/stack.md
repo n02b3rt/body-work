@@ -111,7 +111,7 @@ features in the dashboard only (`GEMINI_API_KEY`, native `fetch`, no SDK).
 
 This does **not** put Google in charge of content or subscriber data. Generation is
 opt-in from admin UI buttons; results are proposals the editor inserts. The free tier
-may use prompts to improve Google models — do not send secrets. Details: [`admin-ai.md`](./admin-ai.md).
+may use prompts to improve Google models: do not send secrets. Details: [`admin-ai.md`](./admin-ai.md).
 
 ## Email: Resend, and why it doesn't break the self-hosting rule (2026-07-27)
 

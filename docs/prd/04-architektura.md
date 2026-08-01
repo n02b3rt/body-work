@@ -55,10 +55,10 @@
 
 ### 7.2 Kluczowa decyzja: jedna aplikacja, wiele domen
 
-Zamiast trzech osobnych projektów Next.js — **jedna aplikacja z routingiem po hoście**. Powody:
+Zamiast trzech osobnych projektów Next.js: **jedna aplikacja z routingiem po hoście**. Powody:
 
-1. Payload 3 działa **wewnątrz** aplikacji Next.js i udostępnia Local API — zapytania do treści idą prosto do Postgresa, bez narzutu HTTP. Przy trzech osobnych frontendach każdy musiałby odpytywać CMS przez sieć.
-2. Jeden build, jeden deploy, jeden zestaw komponentów UI, jeden `docker compose` — realistyczne do utrzymania przez jedną osobę.
+1. Payload 3 działa **wewnątrz** aplikacji Next.js i udostępnia Local API: zapytania do treści idą prosto do Postgresa, bez narzutu HTTP. Przy trzech osobnych frontendach każdy musiałby odpytywać CMS przez sieć.
+2. Jeden build, jeden deploy, jeden zestaw komponentów UI, jeden `docker compose`: realistyczne do utrzymania przez jedną osobę.
 3. Wspólne bloki i design system: akademia i centrum dzielą 70% komponentów.
 
 Rozdzielenie zapewnia middleware:
@@ -149,13 +149,13 @@ bodywork/
 
 ### 7.4 Wzorce
 
-1. **Server Components domyślnie** — klienckie tylko koszyk, filtry kalendarza, karuzele, formularze, przełączniki.
-2. **ISR + rewalidacja na żądanie** — treści generowane statycznie, hook `afterChange` w Payload uderza w `/api/revalidate`. Redaktor widzi zmianę w kilkanaście sekund, a odwiedzający dostaje stronę statyczną.
-3. **Local API zamiast HTTP** — `getPayload()` w Server Components; brak dodatkowego round-tripu.
-4. **Bloki jako kontrakt** — jeden blok = jeden komponent React + jedna definicja pola w Payload. Dodanie bloku to jedno miejsce w kodzie i natychmiastowa dostępność w panelu.
-5. **Serwis jako wymiar danych** — każda kolekcja treści ma pole `site: 'hub' | 'centrum' | 'akademia'`; filtrowanie w zapytaniach i w widokach panelu.
-6. **Slug + lokalizacja** — pola lokalizowane w Payload (PL domyślnie, EN opcjonalnie); brak wpisu EN → fallback na PL z `hreflang` bez podmiany.
-7. **Koszyk w cookie + serwerowa weryfikacja cen** — cena i dostępność miejsc **zawsze** liczone po stronie serwera przed utworzeniem płatności.
+1. **Server Components domyślnie**: klienckie tylko koszyk, filtry kalendarza, karuzele, formularze, przełączniki.
+2. **ISR + rewalidacja na żądanie**: treści generowane statycznie, hook `afterChange` w Payload uderza w `/api/revalidate`. Redaktor widzi zmianę w kilkanaście sekund, a odwiedzający dostaje stronę statyczną.
+3. **Local API zamiast HTTP**: `getPayload()` w Server Components; brak dodatkowego round-tripu.
+4. **Bloki jako kontrakt**: jeden blok = jeden komponent React + jedna definicja pola w Payload. Dodanie bloku to jedno miejsce w kodzie i natychmiastowa dostępność w panelu.
+5. **Serwis jako wymiar danych**: każda kolekcja treści ma pole `site: 'hub' | 'centrum' | 'akademia'`; filtrowanie w zapytaniach i w widokach panelu.
+6. **Slug + lokalizacja**: pola lokalizowane w Payload (PL domyślnie, EN opcjonalnie); brak wpisu EN → fallback na PL z `hreflang` bez podmiany.
+7. **Koszyk w cookie + serwerowa weryfikacja cen**: cena i dostępność miejsc **zawsze** liczone po stronie serwera przed utworzeniem płatności.
 
 ---
 

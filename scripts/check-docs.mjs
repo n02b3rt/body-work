@@ -155,35 +155,11 @@ if (exists('docs/log.md')) {
 
 // -------------------------------------------------------- 7. em-dash ratchet
 
-// The client asked for no em-dashes (docs/conventions.md). These files predate
-// the rule. The debt may shrink, never grow, and no file outside this list may
-// introduce one. Lower a number here when you clean a file up; never raise it.
-const EM_DASH_DEBT = {
-  '.cursor/commands/post-merge-sync.md': 1,
-  '.cursor/commands/start-parallel-work.md': 2,
-  'docs/archive/ai-notes-2026-07.md': 44,
-  'docs/archive/migration-audits-2026-07.md': 12,
-  'docs/archive/prd-stos-technologiczny.md': 12,
-  'docs/prd/01-cele-uzytkownicy.md': 13,
-  'docs/prd/02-zakres-mvp.md': 9,
-  'docs/prd/03-stan-obecny.md': 7,
-  'docs/prd/04-architektura.md': 10,
-  'docs/prd/05-funkcjonalnosci.md': 14,
-  'docs/prd/06-dane-api.md': 20,
-  'docs/prd/07-bezpieczenstwo.md': 6,
-  'docs/prd/08-fazy.md': 15,
-  'docs/prd/09-ryzyka-kryteria.md': 9,
-  'docs/prd/10-zalaczniki.md': 7,
-  'docs/runbooks/post-merge-sync.md': 11,
-  'docs/runbooks/start-parallel-work.md': 9,
-  'docs/admin-ai.md': 1,
-  'docs/appearance.md': 3,
-  'docs/media.md': 4,
-  'docs/page-builder.md': 9,
-  'docs/parallel-agents.md': 7,
-  'docs/stack.md': 1,
-  'prompts/parallel-agent-bootstrap.md': 2,
-}
+// The client asked for no em-dashes (docs/conventions.md). The debt is cleared:
+// every markdown file in the repo is at zero. Keep this object empty. If a file
+// ever has to carry one, add it here with its count and say why, because from
+// then on that count may only be lowered.
+const EM_DASH_DEBT = {}
 
 let debtNow = 0
 for (const f of allMarkdown) {

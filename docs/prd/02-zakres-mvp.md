@@ -11,7 +11,7 @@
 - ✅ OG/SEO, JSON-LD `Organization`
 - ✅ Edytowalny z CMS (kafle, teksty, tło/wideo)
 
-**Centrum (`centrum.body-work.pl`)** — wg projektu z bodywork.testowe.eu
+**Centrum (`centrum.body-work.pl`)**: wg projektu z bodywork.testowe.eu
 
 - ✅ Strona główna: hero wideo, sekcja „News" (karuzela), sekcje o filozofii, kafle usług, zespół, opinie, newsletter, partnerzy, kontakt, sticky promo-bar
 - ✅ Drzewo usług: Trening personalny (indywidualny / w parze / ocena funkcjonalna / trenerzy), Fizjoterapia (terapia manualna / rehabilitacja ruchowa / zdrowy brzuch / specjaliści), Trening grupowy (zajęcia / Plan Zdrowej Zmiany / grafik → eFitness / Medicover), Dietetyka (+ profile dietetyków), BodyLab (VALD / analiza składu ciała), Masaż
@@ -26,7 +26,7 @@
 - ✅ Wersja EN
 - ✅ Link wychodzący do grafiku zajęć / zapisów (eFitness)
 
-**Akademia (`akademia.body-work.pl`)** — projekt graficzny do dostarczenia przez grafika
+**Akademia (`akademia.body-work.pl`)**: projekt graficzny do dostarczenia przez grafika
 
 - ✅ Strona główna akademii
 - ✅ Strony ścieżek szkoleniowych: Fundamenty Ruchu (TP), Trener Medyczny (TM), Motoryka i Ruch Człowieka (PM), Masterclass/Warsztaty (TF)
@@ -49,7 +49,7 @@
 - ✅ Zarządzanie produktami (kursy), terminami, cenami, limitami miejsc
 - ✅ Zamówienia: lista, statusy, eksport listy uczestników do CSV, ręczne dodanie uczestnika
 - ✅ Kody rabatowe
-- ✅ Menu, stopka, dane kontaktowe, ustawienia SEO — edytowalne
+- ✅ Menu, stopka, dane kontaktowe, ustawienia SEO: edytowalne
 - ✅ Zarządzanie przekierowaniami 301
 - ✅ Zgłoszenia z formularzy w panelu (nie tylko na maila)
 
@@ -69,8 +69,8 @@
 - ❌ Migracja historycznych zamówień WooCommerce do nowego sklepu (archiwum offline: eksport CSV + zrzut bazy)
 - ❌ Platforma e-learningowa / hosting wideo kursów (pozostaje Podia)
 - ❌ Aplikacja mobilna
-- ❌ Integracja z systemem księgowym w trybie automatycznym (faza 2 — patrz §14)
-- ❌ Panel klienta B2C (karnety, obecności) — to domena eFitness
+- ❌ Integracja z systemem księgowym w trybie automatycznym (faza 2: patrz §14)
+- ❌ Panel klienta B2C (karnety, obecności): to domena eFitness
 - ❌ Wielojęzyczność poza PL/EN
 - ❌ Automatyczny import terminów kursów z zewnętrznych systemów
 - ❌ Sklep z produktami fizycznymi w pełnym zakresie (koszulki obsłużone jako pojedynczy produkt z odbiorem osobistym/paczkomatem ryczałtem)
@@ -79,13 +79,13 @@
 
 ## 5. User Stories
 
-### Odwiedzający — hub
+### Odwiedzający: hub
 
 **US-1:** Jako osoba, która wpisała `body-work.pl`, chcę w jednym spojrzeniu zrozumieć, że BODYWORK to klub, akademia i kurs online, i wybrać właściwą ścieżkę.
 
 > _Wchodzę na body-work.pl, widzę trzy kafle z krótkim opisem. Klikam „Akademia szkoleniowa" i trafiam na akademia.body-work.pl._
 
-### Odwiedzający — centrum
+### Odwiedzający: centrum
 
 **US-2:** Jako potencjalna klientka chcę sprawdzić cennik i grafik zajęć bez dzwonienia.
 
@@ -103,7 +103,7 @@
 
 > _Klikam „EN", zostaję na tej samej podstronie, treść zmienia język, URL to `/en/...`._
 
-### Odwiedzający — akademia
+### Odwiedzający: akademia
 
 **US-6:** Jako fizjoterapeuta chcę przefiltrować kalendarz szkoleń po mieście i typie, żeby znaleźć kurs dla siebie.
 
@@ -133,7 +133,7 @@
 
 **US-12:** Jako redaktor chcę zaktualizować cennik przed nowym rokiem.
 
-> _Otwieram „Cennik → Centrum", zmieniam kwoty w tabeli, zapisuję — zmiana jest widoczna na stronie w ciągu minuty._
+> _Otwieram „Cennik → Centrum", zmieniam kwoty w tabeli, zapisuję: zmiana jest widoczna na stronie w ciągu minuty._
 
 **US-13:** Jako redaktor chcę mieć pewność, że mogę cofnąć błędną zmianę.
 

@@ -2,7 +2,7 @@
 
 # Page builder (Kreator stron)
 
-Building a page out of an **element library** — a set of parameterised widgets
+Building a page out of an **element library**: a set of parameterised widgets
 (heading, text, image, buttons, columns, gallery, hero, CTA…) that an editor
 configures where they place them, the way Elementor does it.
 
@@ -10,7 +10,7 @@ This replaced the first design, where every "component" was a document in
 **Wygląd → Komponenty** with a type and one settings group, and a page was a list
 of *placements* of those documents. The two jobs turned out to be different:
 configuring a widget belongs to the page, and the thing worth saving under a name
-is a **composition** — "photo left, heading + copy + button right" — not a single
+is a **composition**, "photo left, heading + copy + button right", not a single
 widget. So the library moved into config, and the collection now holds
 compositions. See [`appearance.md`](./appearance.md).
 
@@ -60,7 +60,7 @@ page. That is the constraint everything else bends around:
   Component, and props crossing into the interactive elements (gallery, carousel,
   accordion) must be serializable. So `ElementCtx` is `{ mode, labels, depth }`
   and nothing else; media and compositions are resolved **into the data** before
-  rendering — by Payload's `depth` on the site, by a REST fetch in the builder
+  rendering: by Payload's `depth` on the site, by a REST fetch in the builder
   (`use-canvas-data.ts`).
 - **No Tailwind, no next-intl.** The admin panel loads neither. Layout comes from
   `src/styles/elements.css`, imported by `globals.css` *and* by
@@ -79,7 +79,7 @@ Both are the same three panes:
 
 - **Biblioteka** (`ElementLibrary.tsx`): elements grouped by category, plus the
   editor's saved compositions. Clicking inserts at the current target, which is
-  spelled out at the top of the panel — dragging from a scrolling rail into a
+  spelled out at the top of the panel: dragging from a scrolling rail into a
   nested canvas is where builders of this kind usually break down.
 - **Kanwa** (`CanvasList.tsx`): the real components, wrapped in a selectable
   shell with move / duplicate / delete, drag-to-reorder, and a viewport switch.
@@ -87,7 +87,7 @@ Both are the same three panes:
   column has to become its own drop target.
 - **Ustawienia** (`InspectorPanel.tsx`): Payload's own `RenderFields`, given the
   selected block's client fields. That is where rich text, upload pickers,
-  relationship selectors, conditions and validation come from — none of it is
+  relationship selectors, conditions and validation come from: none of it is
   hand-written.
 
 Three decisions worth keeping:
@@ -117,7 +117,7 @@ priority**, so a CMS page can never shadow a hand-built route: `/cennik` stays
 the coded page even if somebody creates a page with that slug.
 
 Reads go through `src/lib/cms-page.ts` at **`depth: 3`**: population counts
-relationship hops, not field nesting — an upload inside a section's elements is
+relationship hops, not field nesting: an upload inside a section's elements is
 one hop, a `savedComponent` is one and its own pictures are two.
 
 ## Decisions
@@ -144,7 +144,7 @@ one hop, a `savedComponent` is one and its own pictures are two.
   `components → blocks → columns → column → blocks → element → style → colour →
   token`. Two things keep it under: `site-components` has `dbName: 'components'`,
   and every element block and repeated array carries a **function** `dbName`
-  returning `` `${tableName}_b_hero` ``. It has to be a function — a bare
+  returning `` `${tableName}_b_hero` ``. It has to be a function: a bare
   string **replaces the whole table name**, which would collapse every occurrence
   of a block into one table. Group fields have no `dbName` at all (they do not
   create tables), so shortening has to happen at the block/array level.
@@ -162,7 +162,7 @@ one hop, a `savedComponent` is one and its own pictures are two.
 - **`payload run` scripts need top-level `await`, not an async `main()`.** Wrapped
   in a function, the module finishes evaluating while the promise is still
   pending, Node finds no open handle, and the process exits with **code 0 having
-  printed only the first line** — which reads exactly like a script that ran and
+  printed only the first line**: which reads exactly like a script that ran and
   did nothing.
 - **Unpublishing is `data: { _status: 'draft' }` without `draft: true`.** With the
   flag Payload writes a new draft *version* and leaves the published row in the

@@ -22,6 +22,24 @@ The essentials, restated in case your tooling only reads this file:
 - **Definition of done:** code works + `docs/map.md` current + the relevant `docs/*.md` updated + commit.
 - **Don't duplicate**: check `docs/map.md` before building something that may already exist.
 
+## Guidance that applies to particular work
+
+These live under `.claude/skills/` because Claude Code loads them automatically, but **the contents
+are tool-agnostic prose**: open the file and read it, whatever you are. Ignore the frontmatter.
+
+| When the task involves | Read |
+|---|---|
+| a Centrum page or section component | `.claude/skills/centrum-fidelity/SKILL.md` |
+| a new `page.tsx` or `route.ts` | `.claude/skills/new-route/SKILL.md` |
+| the blog: listing, posts, archives, EN versions | `.claude/skills/blog-content/SKILL.md` |
+| any image, gallery, hero or video | `.claude/skills/images-and-video/SKILL.md` |
+| collections, globals, fields, Payload config | `.claude/skills/payload-schema/SKILL.md` |
+| a builder element or section | `.claude/skills/page-builder/SKILL.md` |
+| anything under `scripts/` using `payload run` | `.claude/skills/payload-script/SKILL.md` |
+| a translation key or a client component reading one | `.claude/skills/i18n-messages/SKILL.md` |
+| any string an editor will see in the dashboard | `.claude/skills/admin-copy/SKILL.md` |
+| finishing up: what to update and verify before committing | `.claude/skills/finish-task/SKILL.md` |
+
 ## Working next to other agents
 
 This repo is often worked on by several agents at once, in separate terminals. Full workflow:

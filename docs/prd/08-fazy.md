@@ -4,7 +4,7 @@
 
 Szacunki godzinowe są orientacyjne, dla jednej osoby, i zakładają dostarczenie kompletnych materiałów przez klienta w terminie.
 
-### Faza 0 — Discovery i przygotowanie _(~20–30 h)_
+### Faza 0: Discovery i przygotowanie _(~20–30 h)_
 
 **Cel:** Usunąć niewiadome, zanim powstanie pierwsza linia kodu produkcyjnego.
 
@@ -20,7 +20,7 @@ Szacunki godzinowe są orientacyjne, dla jednej osoby, i zakładają dostarczeni
 
 ---
 
-### Faza 1 — Fundament _(~40–55 h)_
+### Faza 1: Fundament _(~40–55 h)_
 
 **Cel:** Działający szkielet: aplikacja, CMS, deploy, design system, hub online.
 
@@ -38,7 +38,7 @@ Szacunki godzinowe są orientacyjne, dla jednej osoby, i zakładają dostarczeni
 
 ---
 
-### Faza 2 — Centrum: treść _(~80–110 h)_
+### Faza 2: Centrum: treść _(~80–110 h)_
 
 **Cel:** Kompletny serwis B2C wg dostarczonego projektu.
 
@@ -57,7 +57,7 @@ Szacunki godzinowe są orientacyjne, dla jednej osoby, i zakładają dostarczeni
 
 ---
 
-### Faza 3 — Akademia: treść i katalog _(~60–80 h)_
+### Faza 3: Akademia: treść i katalog _(~60–80 h)_
 
 **Cel:** Serwis B2B z katalogiem i kalendarzem, jeszcze bez płatności.
 
@@ -75,7 +75,7 @@ Szacunki godzinowe są orientacyjne, dla jednej osoby, i zakładają dostarczeni
 
 ---
 
-### Faza 4 — Sklep i płatności _(~70–95 h)_
+### Faza 4: Sklep i płatności _(~70–95 h)_
 
 **Cel:** Pełna ścieżka zakupowa z Przelewy24.
 
@@ -84,7 +84,7 @@ Szacunki godzinowe są orientacyjne, dla jednej osoby, i zakładają dostarczeni
 - Rezerwacja miejsc z wygasaniem, transakcyjna obsługa licznika
 - Integracja Przelewy24: rejestracja transakcji, przekierowanie, webhook z weryfikacją podpisu, `verify`, idempotencja
 - Statusy zamówień, ręczne oznaczanie płatności (przelew/BUR), zwroty
-- E-maile transakcyjne (potwierdzenie, przypomnienie o płatności, powiadomienie dla obsługi) — szablony edytowalne
+- E-maile transakcyjne (potwierdzenie, przypomnienie o płatności, powiadomienie dla obsługi): szablony edytowalne
 - Panel obsługi: lista uczestników per edycja, eksport CSV, notatki
 - Lista rezerwowa przy wyprzedaniu
 - Konto uczestnika: rejestracja, logowanie, historia zamówień
@@ -95,7 +95,7 @@ Szacunki godzinowe są orientacyjne, dla jednej osoby, i zakładają dostarczeni
 
 ---
 
-### Faza 5 — Dashboard, dostępność, wydajność _(~35–50 h)_
+### Faza 5: Dashboard, dostępność, wydajność _(~35–50 h)_
 
 **Cel:** Panel gotowy do pracy przez nietechnicznych użytkowników.
 
@@ -113,7 +113,7 @@ Szacunki godzinowe są orientacyjne, dla jednej osoby, i zakładają dostarczeni
 
 ---
 
-### Faza 6 — Migracja i uruchomienie _(~30–40 h)_
+### Faza 6: Migracja i uruchomienie _(~30–40 h)_
 
 **Cel:** Bezpieczne przełączenie bez utraty ruchu.
 
@@ -145,7 +145,7 @@ Szacunki godzinowe są orientacyjne, dla jednej osoby, i zakładają dostarczeni
 | 6         | Migracja i launch      | 30–40         |
 | **Razem** |                        | **335–460 h** |
 
-Plus rezerwa 10–15% na zmiany zakresu. Przy 20 h/tydzień to ok. **5–7 miesięcy**; przy 35 h/tydzień — **3–4 miesiące**.
+Plus rezerwa 10–15% na zmiany zakresu. Przy 20 h/tydzień to ok. **5–7 miesięcy**; przy 35 h/tydzień: **3–4 miesiące**.
 
 ---
 
@@ -153,23 +153,23 @@ Plus rezerwa 10–15% na zmiany zakresu. Przy 20 h/tydzień to ok. **5–7 miesi
 
 ### Krótki horyzont (naturalne rozszerzenia)
 
-- **Integracja z systemem fakturowania** (Fakturownia / wFirma / InFakt) — automatyczne faktury po opłaceniu zamówienia
+- **Integracja z systemem fakturowania** (Fakturownia / wFirma / InFakt): automatyczne faktury po opłaceniu zamówienia
 - **Automatyczne przypomnienia** przed rozpoczęciem kursu (harmonogram modułów → e-mail)
 - **Certyfikaty ukończenia** generowane jako PDF z panelu
-- **Rezerwacja treningów personalnych i fizjoterapii** — self-hosted **Cal.com** (AGPL) na subdomenie, integracja kalendarzy specjalistów; może zastąpić część funkcji zewnętrznych systemów
+- **Rezerwacja treningów personalnych i fizjoterapii**: self-hosted **Cal.com** (AGPL) na subdomenie, integracja kalendarzy specjalistów; może zastąpić część funkcji zewnętrznych systemów
 - **Wyszukiwarka pełnotekstowa** rozbudowana o Typesense/Meilisearch (self-hosted), jeśli Postgres FTS przestanie wystarczać
 - **Karty podarunkowe** z kodami generowanymi w panelu
 
 ### Średni horyzont
 
-- **Migracja zapisów na zajęcia grupowe z eFitness** — największa pozycja abonamentowa klienta; wymaga karnetów, obecności, kolejek i płatności cyklicznych. Osobny projekt, osobna wycena.
-- **Sklep z produktami fizycznymi** — jeśli linia odzieżowa/sprzętowa urośnie: wtedy wraca temat **Medusa v2** jako osobnego serwisu z własnym adminem, spięta z tym frontendem.
+- **Migracja zapisów na zajęcia grupowe z eFitness**: największa pozycja abonamentowa klienta; wymaga karnetów, obecności, kolejek i płatności cyklicznych. Osobny projekt, osobna wycena.
+- **Sklep z produktami fizycznymi**: jeśli linia odzieżowa/sprzętowa urośnie: wtedy wraca temat **Medusa v2** jako osobnego serwisu z własnym adminem, spięta z tym frontendem.
 - **Program poleceń / lojalnościowy** dla kursantów
-- **Strefa materiałów dla uczestników** (skrypty, nagrania) — może odciążyć Podię
+- **Strefa materiałów dla uczestników** (skrypty, nagrania): może odciążyć Podię
 
 ### Do rozważenia
 
-- Automatyczne tłumaczenie roboczych wersji EN (lokalny model przez Ollama — bez abonamentu)
+- Automatyczne tłumaczenie roboczych wersji EN (lokalny model przez Ollama: bez abonamentu)
 - A/B testy landingów kampanijnych
 - Panel raportów sprzedaży w dashboardzie (obrót per kurs, miasto, kanał)
 

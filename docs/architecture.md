@@ -16,9 +16,24 @@ One Next.js 16 app + embedded Payload CMS 3, serving four domains from one repo 
 
 Full domain/routing model: [`sites.md`](./sites.md). Full rationale for "one app, four domains": PRD §7.2.
 
-How it works in one paragraph: the Python toolkit in `scripts/scrape/` mirrors the live site's pages, assets, and media into `scripts/scrape/scraped/` (gitignored, regenerable) so the real content and layout are visible locally without depending on the old site staying up. The Next.js app is the product: public pages live under `src/app/[locale]/`, while Payload CMS runs in-process under `src/app/(payload)/` (admin at `/admin`, reachable only on the dashboard host; API at `/api`) against self-hosted PostgreSQL. Content is edited in Payload and read in Server Components via `getPayload()`: no separate CMS server.
+How it works:
 
-Status (2026-08-01): 28 of 32 Centrum pages are built on a shared component library against the scraper mirror reference (see [`scraped-site-map.md`](./scraped-site-map.md)), most of them bilingual; per-page detail in [`migration-tracker.md`](./migration-tracker.md). Payload runs nine collections (`Users`, `Media`, `Pages`, `Posts`, `Categories`, `Authors`, `PostTranslations`, `Subscribers`, `SiteComponents`) and two globals (`SiteSettings`, `ThemeColors`), plus a page builder whose elements render both the admin canvas and the site. The marketing page copy still lives in `messages/*.json` and has not been migrated into Payload. Hub and Akademia are not started; what else does not exist yet is listed in [`map.md`](./map.md).
+- **The product** is the Next.js app. Public pages under `src/app/[locale]/`, Payload in-process
+  under `src/app/(payload)/` against self-hosted PostgreSQL. No separate CMS server.
+- **Content** is edited in Payload and read in Server Components via `getPayload()`, so reads never
+  make an HTTP round trip.
+- **The reference** is a Python mirror of the live site in `scripts/scrape/scraped/` (gitignored,
+  regenerable), so the real content and layout stay available locally.
+
+Status (2026-08-01):
+
+- **Centrum:** 28 of 32 content pages built on a shared component library, most bilingual.
+  Per-page detail in [`migration-tracker.md`](./migration-tracker.md).
+- **Payload:** nine collections (`Users`, `Media`, `Pages`, `Posts`, `Categories`, `Authors`,
+  `PostTranslations`, `Subscribers`, `SiteComponents`), two globals (`SiteSettings`, `ThemeColors`),
+  and a page builder whose elements render both the admin canvas and the site.
+- **Not done:** marketing copy still lives in `messages/*.json`, not in Payload. Hub and Akademia are
+  not started. The rest of what does not exist is listed in [`map.md`](./map.md).
 
 ## Main modules
 

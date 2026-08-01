@@ -53,7 +53,19 @@ Helpers: `src/lib/blog-listing.ts`, `blog-page-size.ts`, `post-translation.ts`.
 - **No hero image and no lead paragraph on a post page.** `featuredImage` is the post's first body
   image and `excerpt` is its opening paragraph, so rendering either above the article duplicated it.
 
+## Performance
+
+The listing is static (`revalidate = 3600`) and filters in the browser. Four pieces carry that, and
+each looks removable until you know why it is there:
+
+- `blogListingData()` in `src/lib/blog-listing.ts`: one query pass, drafts excluded, re-sorted in JS
+- `withFirstPaintPlaceholders()`, same file: prunes `blurDataURL` below the fold
+- `blog/strona/[page]/`: the page number is in the path, because `searchParams` would force dynamic rendering
+- `BLOG_PAGE_SIZE` in its own import-free module, so the client bundle does not pull in Payload
+
+**Read the `blog-content` skill before changing any of them.**
+
 ## Related
 
-[`../i18n.md`](../i18n.md) · [`../migration-tracker.md`](../migration-tracker.md) (the reference's
-actual blog inventory: image counts, categories, author portraits)
+Skill `blog-content` · [`../i18n.md`](../i18n.md) · [`../migration-tracker.md`](../migration-tracker.md)
+(the reference's actual blog inventory: image counts, categories, author portraits)

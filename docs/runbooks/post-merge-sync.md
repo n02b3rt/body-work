@@ -7,7 +7,7 @@
 > `/post-merge-sync`, every other tool by being told to read it. Change the procedure
 > here; the adapters are three-line pointers and must stay that way.
 
-**Run when:** any pull request has landed in `main` — yours or another agent's — or
+**Run when:** any pull request has landed in `main` (yours or another agent's) or
 when the user asks to sync, rebase or catch up a worktree after a merge.
 
 Run this **in the worktree that needs catching up**, once per merged PR. It touches
@@ -25,7 +25,7 @@ Background: `docs/parallel-agents.md`.
 pwd && git branch --show-current && git status --short
 ```
 
-Read `.agent-scope` if it exists — it says which slot, port and database this
+Read `.agent-scope` if it exists: it says which slot, port and database this
 worktree owns.
 
 If the working tree is dirty, commit or stash before rebasing. Never rebase over
@@ -38,7 +38,7 @@ git fetch origin
 git rebase origin/main
 ```
 
-**If the merged PR was this branch's own**, there is nothing to rebase — start the
+**If the merged PR was this branch's own**, there is nothing to rebase: start the
 next task from a fresh branch instead, and delete the old one:
 
 ```bash
@@ -48,16 +48,16 @@ git branch -D <old-branch>
 
 ### Resolving conflicts
 
-- `src/payload-types.ts`, `src/app/(payload)/admin/importMap.js` — **do not merge
+- `src/payload-types.ts`, `src/app/(payload)/admin/importMap.js`: **do not merge
   them by hand.** Take either side (`git checkout --theirs`), finish the rebase and
   regenerate in step 4; the generator is the source of truth.
-- `pnpm-lock.yaml` — take `origin/main`'s version. Only one agent installs
+- `pnpm-lock.yaml`: take `origin/main`'s version. Only one agent installs
   anything, and installing needs the user's approval anyway.
-- `messages/pl.json` / `en.json` — keep both sides' keys; they are appended in
+- `messages/pl.json` / `en.json`: keep both sides' keys; they are appended in
   different namespaces.
-- `CLAUDE.md`, `docs/*.md` — plain prose, keep both entries and put
+- `CLAUDE.md`, `docs/*.md`: plain prose, keep both entries and put
   the newer one on top.
-- Source files inside another agent's area — a signal that the scope split leaked.
+- Source files inside another agent's area: a signal that the scope split leaked.
   Resolve in favour of `origin/main` and tell the user.
 
 ## 3. Reinstall if dependencies moved
@@ -92,7 +92,7 @@ It boots Payload against `DATABASE_URL` from this worktree's `.env` and exercise
 the page builder end to end, so it doubles as a check.
 
 If Payload asks about a destructive change (a dropped column, a renamed enum),
-**stop and ask the user** — accepting it silently deletes data from this slot's
+**stop and ask the user**: accepting it silently deletes data from this slot's
 database. Never answer it by wiping the shared volume; `docker compose down -v`
 would destroy every agent's database, not just this one.
 
@@ -112,7 +112,7 @@ Notes:
 - `pnpm lint` fails on `main` for reasons unrelated to any change here
   (eslint-plugin-react against ESLint 10, while linting `eslint.config.mjs`). Do
   not spend the session chasing it, and do not "fix" it by touching the stack.
-- A dev server started before the rebase is stale — restart it.
+- A dev server started before the rebase is stale: restart it.
 
 ## 7. If this branch is the one that just merged
 

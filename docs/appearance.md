@@ -3,7 +3,7 @@
 # Appearance (Wygląd)
 
 Admin section for the site's visual theme: a global colour scheme applied to
-the whole site, and the editor's own saved compositions — reusable arrangements
+the whole site, and the editor's own saved compositions: reusable arrangements
 of elements from the page builder's library.
 
 ## Colour scheme (`theme-colors` global)
@@ -37,7 +37,7 @@ right", saved under a name and dropped into any page as one item.
 - Fields: `name`, `category` (sekcja / nagłówek / karta / CTA / inne),
   `content` (the element blocks), `slug`, `description`.
 - `content` is edited with `ComponentBuilder`, the same canvas the page builder
-  uses, minus sections — a composition *is* the contents of one.
+  uses, minus sections: a composition *is* the contents of one.
 - Pages **reference** a composition through the `savedComponent` element, so
   editing it here updates every page that uses it.
 - Shared parameter helpers (colour choice, radius, gap, alignment, aspect ratio,
@@ -75,7 +75,7 @@ Full write-up of the element model, the builder and the public renderer:
   *section*, each with its own tree of elements; a saved composition is placed
   through the `savedComponent` element. Adding an element type means adding a
   block in `src/fields/elements/`, a case in `ElementTree`, a renderer in
-  `src/components/elements/` and a row in `src/lib/element-catalog.ts` — miss the
+  `src/components/elements/` and a row in `src/lib/element-catalog.ts`: miss the
   last one and it never appears in the library panel.
 - The pure parameter readers live in `src/lib/component-values.ts` and
   `src/lib/element-styles.ts`, read by the canvas and the public site alike:

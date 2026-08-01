@@ -1,6 +1,6 @@
 > Read when: building one specific feature and you want its full behavioural spec.
 
-## 8. Funkcjonalności — szczegóły
+## 8. Funkcjonalności: szczegóły
 
 ### 8.1 Hub
 
@@ -32,7 +32,7 @@ Redaktor tworzy stronę, wybiera serwis, ustawia slug i buduje treść z listy b
 | CTA / promo-bar    | tekst, przycisk, kolorystyka                                     |
 | Odstęp / separator | wysokość, linia                                                  |
 
-Każdy blok ma warianty wizualne (`variant`) zamiast dowolnego CSS — redaktor nie może zepsuć layoutu.
+Każdy blok ma warianty wizualne (`variant`) zamiast dowolnego CSS: redaktor nie może zepsuć layoutu.
 
 Dodatkowo: pola SEO (title, description, obraz OG), `noindex`, data publikacji, wersje robocze, podgląd na żywo w panelu (split-view Payload Live Preview).
 
@@ -40,8 +40,8 @@ Dodatkowo: pola SEO (title, description, obraz OG), `noindex`, data publikacji, 
 
 Dwa oddzielne typy:
 
-- **Posts (blog)** — treść długa, RichText + bloki, kategorie, tagi, autor (powiązanie z kolekcją Zespół), czas czytania, powiązane wpisy, JSON-LD `Article`, kanał RSS.
-- **News (aktualności)** — krótka zajawka, obraz, link „Więcej" (wewnętrzny lub zewnętrzny), data ważności (auto-ukrywanie po dacie), pole „przypnij".
+- **Posts (blog)**: treść długa, RichText + bloki, kategorie, tagi, autor (powiązanie z kolekcją Zespół), czas czytania, powiązane wpisy, JSON-LD `Article`, kanał RSS.
+- **News (aktualności)**: krótka zajawka, obraz, link „Więcej" (wewnętrzny lub zewnętrzny), data ważności (auto-ukrywanie po dacie), pole „przypnij".
 
 Oba przypisane do serwisu (centrum/akademia), oba lokalizowane.
 
@@ -61,7 +61,7 @@ JSON-LD: `Course` + `CourseInstance` + `Offer`.
 
 ### 8.6 Sklep i checkout
 
-**Model:** produkty to usługi/wydarzenia — brak wysyłki (poza koszulką), brak wariantów rozmiarowych (poza koszulką), kluczowy jest **limit miejsc** i **przypisanie uczestnika do terminu**.
+**Model:** produkty to usługi/wydarzenia: brak wysyłki (poza koszulką), brak wariantów rozmiarowych (poza koszulką), kluczowy jest **limit miejsc** i **przypisanie uczestnika do terminu**.
 
 **Ścieżka zakupu:**
 
@@ -89,9 +89,9 @@ JSON-LD: `Course` + `CourseInstance` + `Offer`.
 - Zwrot / anulowanie → status `refunded`, zwolnienie miejsca, notatka
 - Wyprzedanie w trakcie checkoutu → jasny komunikat i lista alternatywnych terminów
 
-**Płatności ratalne:** Przelewy24 udostępnia raty w swoim panelu wyboru metody — nie wymaga osobnej integracji. Na karcie produktu zostaje kalkulator/informacja o ratach (jak dziś) oraz sekcja o trzyratowym rozłożeniu przez dział szkoleń i o dofinansowaniu BUR.
+**Płatności ratalne:** Przelewy24 udostępnia raty w swoim panelu wyboru metody: nie wymaga osobnej integracji. Na karcie produktu zostaje kalkulator/informacja o ratach (jak dziś) oraz sekcja o trzyratowym rozłożeniu przez dział szkoleń i o dofinansowaniu BUR.
 
-**Faktury:** w MVP dane do faktury zbierane i eksportowalne; wystawianie po stronie księgowości. Integracja z API (Fakturownia / wFirma / InFakt) wskazana jako rozszerzenie po MVP — koszt ~ tyle co jeden abonament, ale oszczędza godziny pracy administracji.
+**Faktury:** w MVP dane do faktury zbierane i eksportowalne; wystawianie po stronie księgowości. Integracja z API (Fakturownia / wFirma / InFakt) wskazana jako rozszerzenie po MVP: koszt ~ tyle co jeden abonament, ale oszczędza godziny pracy administracji.
 
 ### 8.7 Konto uczestnika
 
@@ -99,7 +99,7 @@ Rejestracja/logowanie (e-mail + hasło, magic link opcjonalnie), lista zamówie�
 
 ### 8.8 Formularze
 
-Payload Form Builder: redaktor tworzy formularz (pola, walidacja, treść potwierdzenia, adresy powiadomień) i wstawia go blokiem na dowolnej stronie. Zgłoszenia trafiają **do panelu** oraz na e-mail — koniec z gubieniem leadów w skrzynce.
+Payload Form Builder: redaktor tworzy formularz (pola, walidacja, treść potwierdzenia, adresy powiadomień) i wstawia go blokiem na dowolnej stronie. Zgłoszenia trafiają **do panelu** oraz na e-mail: koniec z gubieniem leadów w skrzynce.
 
 Ochrona: honeypot + rate limiting + (opcjonalnie) self-hosted Altcha/Friendly Captcha zamiast reCAPTCHA (prywatność, brak zależności od Google).
 
@@ -107,7 +107,7 @@ Ochrona: honeypot + rate limiting + (opcjonalnie) self-hosted Altcha/Friendly Ca
 
 Self-hosted **Listmonk** (MIT). Formularz na stronie → API → dopisanie subskrybenta z potwierdzeniem double opt-in. Redakcja kampanii w panelu Listmonk. Wysyłka przez relay SMTP.
 
-Alternatywa, gdyby klient chciał jeden panel: przechowywanie subskrybentów w Payload i eksport CSV — ale wtedy brak automatyzacji kampanii.
+Alternatywa, gdyby klient chciał jeden panel: przechowywanie subskrybentów w Payload i eksport CSV: ale wtedy brak automatyzacji kampanii.
 
 ### 8.10 Wielojęzyczność (PL/EN)
 
@@ -115,30 +115,30 @@ Alternatywa, gdyby klient chciał jeden panel: przechowywanie subskrybentów w P
 - `next-intl` dla stringów interfejsu.
 - Ścieżki: `/...` (PL) i `/en/...` (EN); `hreflang` + `x-default`.
 - Brak tłumaczenia → strona nie pojawia się w EN (zamiast pokazywać pusty szkielet), z fallbackiem na listach.
-- **Krytyczne przy migracji:** rozbicie `[:pl]…[:en]…` z qTranslate-X na dwie osobne wartości pól — skryptem, z raportem rozbieżności.
+- **Krytyczne przy migracji:** rozbicie `[:pl]…[:en]…` z qTranslate-X na dwie osobne wartości pól: skryptem, z raportem rozbieżności.
 
 ### 8.11 SEO i migracja adresów
 
 - Sitemapy per serwis, generowane z bazy.
 - `robots.txt` per host.
 - JSON-LD: `Organization`, `LocalBusiness` (godziny, adres, telefon), `Article`, `Course`/`CourseInstance`, `Event`, `Product`/`Offer`, `BreadcrumbList`, `FAQPage`.
-- Kanoniczne URL-e, `og:image` generowane dynamicznie (`@vercel/og` / Satori — biblioteka, nie usługa).
+- Kanoniczne URL-e, `og:image` generowane dynamicznie (`@vercel/og` / Satori: biblioteka, nie usługa).
 - **Kolekcja `Redirects`** zarządzana z panelu + mapa startowa wygenerowana skryptem z crawl-a starej witryny.
 - Zmiana adresu w Google Search Console dla `body-work.com.pl` → `akademia.body-work.pl`.
 - Utrzymanie starej domeny przez min. 12 miesięcy z aktywnymi 301.
 
 ### 8.12 Analityka i zgody
 
-- **Umami** (self-hosted, MIT) jako podstawowa analityka bez ciasteczek — działa bez zgody.
+- **Umami** (self-hosted, MIT) jako podstawowa analityka bez ciasteczek: działa bez zgody.
 - GTM + Meta Pixel + GA4 uruchamiane **wyłącznie po zgodzie** z banera.
 - Baner zgód: własny komponent (Consent Mode v2), kategorie: niezbędne / analityczne / marketingowe, log zgód w bazie.
 - Zdarzenia e-commerce (view_item, add_to_cart, begin_checkout, purchase) wysyłane do dataLayer.
 
 ### 8.13 Dostępność
 
-Europejski Akt o Dostępności (EAA) obejmuje usługi e-commerce dla konsumentów od czerwca 2025 — sklep akademii jest w zakresie. Projekt zakłada zgodność z **WCAG 2.1 AA**: kontrasty, nawigacja klawiaturą, focus states, alt-teksty wymuszone w bibliotece mediów, poprawna semantyka, `prefers-reduced-motion` dla karuzel i wideo hero, formularze z etykietami i komunikatami błędów.
+Europejski Akt o Dostępności (EAA) obejmuje usługi e-commerce dla konsumentów od czerwca 2025: sklep akademii jest w zakresie. Projekt zakłada zgodność z **WCAG 2.1 AA**: kontrasty, nawigacja klawiaturą, focus states, alt-teksty wymuszone w bibliotece mediów, poprawna semantyka, `prefers-reduced-motion` dla karuzel i wideo hero, formularze z etykietami i komunikatami błędów.
 
-> Uwaga dla klienta: to nie jest opcja „nice to have" — warto potwierdzić zakres obowiązków prawnych z ich obsługą prawną. Ja nie jestem prawnikiem i podaję to jako sygnał do weryfikacji, nie jako opinię prawną.
+> Uwaga dla klienta: to nie jest opcja „nice to have": warto potwierdzić zakres obowiązków prawnych z ich obsługą prawną. Ja nie jestem prawnikiem i podaję to jako sygnał do weryfikacji, nie jako opinię prawną.
 
 ---
 

@@ -24,7 +24,7 @@ task you were given and is recorded per session in step 6.
 
 Before touching anything, state in one line which folders this task will touch,
 based on what the user asked for. Use the project map in `CLAUDE.md` to name real
-paths. If another agent is already running, this list must not overlap theirs —
+paths. If another agent is already running, this list must not overlap theirs :
 check the `.agent-scope` files of the sibling worktrees (step 6) and say so if it
 does, instead of proceeding.
 
@@ -47,7 +47,7 @@ docker compose exec postgres psql -U payload -lqt | grep bodywork_<slot> \
   || docker compose exec postgres psql -U payload -d bodywork -c "CREATE DATABASE bodywork_<slot>;"
 ```
 
-Never `docker compose down -v` — one volume holds every slot's database.
+Never `docker compose down -v`: one volume holds every slot's database.
 
 ## 4. Create the worktree
 
@@ -64,7 +64,7 @@ The slot letter in the branch name is what makes a PR list readable.
 
 ## 5. Give the worktree its own environment
 
-Nothing gitignored is inherited — the new worktree has no `.env`, no `media/`, no
+Nothing gitignored is inherited: the new worktree has no `.env`, no `media/`, no
 `node_modules/`.
 
 ```bash
@@ -80,7 +80,7 @@ NEXT_PUBLIC_SERVER_URL=http://localhost:<port>
 NEXT_PUBLIC_DASHBOARD_URL=http://dash.localhost:<port>
 ```
 
-`DASHBOARD_HOST` stays `dash.localhost` — the host proxy matches on hostname, not
+`DASHBOARD_HOST` stays `dash.localhost`: the host proxy matches on hostname, not
 port. `PAYLOAD_SECRET` can stay as it is; it is a dev secret.
 
 ```bash
@@ -103,7 +103,7 @@ owns:
 started: <YYYY-MM-DD HH:MM>
 ```
 
-Keep it out of git without touching the tracked `.gitignore` — once per repo:
+Keep it out of git without touching the tracked `.gitignore`: once per repo:
 
 ```bash
 grep -q '^\.agent-scope$' <repo>/.git/info/exclude || echo '.agent-scope' >> <repo>/.git/info/exclude
@@ -117,11 +117,11 @@ pnpm dev --port <port>
 
 Open the admin at the **same** port as in `.env`
 (`http://dash.localhost:<port>/admin`). A mismatch looks logged-in but POSTs
-(save, form-state) fail with Unauthorized / 403 — see the CSRF note in
+(save, form-state) fail with Unauthorized / 403: see the CSRF note in
 `docs/parallel-agents.md`.
 
 The database is empty, so that URL will ask for a first
-admin user — each slot has its own. Uploads land in this worktree's own `media/`,
+admin user: each slot has its own. Uploads land in this worktree's own `media/`,
 so Media documents created in another slot will not resolve here. That is
 deliberate: it keeps a destructive reset local to one agent.
 
@@ -132,11 +132,11 @@ step 1.
 
 - **Stay inside the scope from step 1.** Need a change outside it? Report it, do
   not make it.
-- **Never hand-edit generated files** — `src/payload-types.ts`,
+- **Never hand-edit generated files**: `src/payload-types.ts`,
   `src/app/(payload)/admin/importMap.js`. Regenerate them.
 - **Payload schema changes** (`src/collections/`, `src/fields/`) are single-agent
   work. If another `.agent-scope` claims them, stop and say so.
-- **Stack changes need the user's approval** — see `docs/stack.md`.
+- **Stack changes need the user's approval**: see `docs/stack.md`.
 - **`pnpm build` reserves a 4 GB heap.** Do not run one while another slot is
   building.
 - When someone else's PR lands, run the `post-merge-sync` skill before continuing.

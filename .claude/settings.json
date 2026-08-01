@@ -39,7 +39,9 @@
       "Read(./src/app/(payload)/admin/importMap.js)",
       "Read(./pnpm-lock.yaml)",
       "Read(./.env)",
-      "Read(./.env.*)"
+      "Read(./.env.local)",
+      "Read(./.env.development)",
+      "Read(./.env.production)"
     ]
   }
 }
