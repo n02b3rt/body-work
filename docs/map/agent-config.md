@@ -1,0 +1,57 @@
+> Read when: adding a skill, a slash command, a doc, or changing how agents are told to work here.
+
+# Docs and agent config
+
+The rules an agent reads, and the files that carry them. Three layers, each with one job.
+
+## 1. Rules, always loaded
+
+| File | Job |
+|---|---|
+| `CLAUDE.md` | router, protocol, non-negotiables, budgets. **Kept under 3 KB on purpose** |
+| `AGENTS.md` | the same rules, tool-agnostic, for anything that is not Claude Code |
+| `README.md` | for humans: what the project is, how to run it |
+
+## 2. Knowledge, loaded on demand
+
+| Layer | Where | Answers |
+|---|---|---|
+| Map | `docs/map.md` plus `docs/map/*.md` | **where** something lives |
+| Topic docs | `docs/*.md` | **how and why** it works |
+| Requirements | `docs/prd/` | what was specified |
+| History | `docs/log.md`, then `docs/archive/` | what was decided, and what bit us |
+
+Every file in `docs/` opens with a `> Read when:` line. That line is the whole point: it lets an
+agent decide not to open the file.
+
+## 3. Triggers, loaded by the harness
+
+`.claude/skills/`, eight of them. A skill's `description` says **when** it applies; the harness keeps
+only that one line in context and pulls the body in when the task matches.
+
+| Skill | Fires on |
+|---|---|
+| `centrum-fidelity` | Centrum pages and section components |
+| `payload-schema` | collections, globals, fields, config |
+| `page-builder` | builder elements and sections |
+| `admin-copy` | any string an editor will read |
+| `i18n-messages` | translation keys, client components reading them |
+| `finish-task` | before a commit or PR |
+| `start-parallel-work`, `post-merge-sync` | worktree setup and post-merge catch-up |
+
+Also: `.claude/settings.json` (permission allow and deny lists), `.claude/commands/log.md` (`/log`),
+`.cursor/commands/` for Cursor, `prompts/parallel-agent-bootstrap.md` for everything else.
+
+## Gotchas
+
+- **A global gitignore (`~/.gitignore_global`) excludes `.claude/`.** The repo `.gitignore` negates it.
+  Undo that and the skills silently stop shipping to anyone who clones.
+- **Skills are thin routers.** The procedure lives in `docs/`; edit the doc, not the skill's summary.
+- **Budgets are the only thing stopping this from regrowing.** They are in `CLAUDE.md`, and so is the
+  growth rule for when a map file gets too big.
+- **`.claude/settings.json` deny rules are load-bearing**, not decoration: they block reading the
+  754 KB generated types file and wiping the shared Docker volume.
+
+## Related
+
+[`../conventions.md`](../conventions.md) · [`parallel-work.md`](./parallel-work.md)

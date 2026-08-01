@@ -7,11 +7,11 @@ Next.js 16 is newer than most training data: check `node_modules/next/dist/docs/
 
 ## Protocol
 
-1. Before you search this repo for anything → read **`docs/map.md`**. Grep only after that.
+1. Before you search this repo for anything → read **`docs/map.md`**, then the one `docs/map/<domain>.md` it points at. Grep only after that.
 2. It's in the map → go straight to the file. It isn't → 2 greps maximum, then ask.
-3. Found something the map doesn't list → add its row in the same change.
-4. New module → its row in `docs/map.md` is part of "done".
-5. Built something from the "Not built yet" section → move it into its domain.
+3. Found something the map doesn't list → add it to that domain file in the same change.
+4. New module or new domain → its entry in the map is part of "done".
+5. Built something from the "Not built yet" section → move it into its domain file.
 
 ## Non-negotiables
 
@@ -25,10 +25,14 @@ Next.js 16 is newer than most training data: check `node_modules/next/dist/docs/
 
 ## Budgets
 
-- `CLAUDE.md` ≤ 3 KB · `docs/map.md` ≤ 12 KB · `docs/log.md` ≤ 20 entries · every prose `docs/**.md` ≤ 10 KB
-- Over budget → split into `docs/<topic>.md`, or roll the stale narrative into `docs/archive/`
+- `CLAUDE.md` ≤ 3 KB · `docs/map.md` ≤ 5 KB (router only) · `docs/map/*.md` ≤ 6 KB each ·
+  `docs/log.md` ≤ 20 entries · every prose `docs/**.md` ≤ 10 KB
+- Over budget → split it, or roll the stale narrative into `docs/archive/`.
+  **`docs/map.md` says exactly how to split a map file**; follow it, don't improvise a shape.
 - Exempt from the size cap, because they are lookup tables: `migration-tracker.md`, `scraped-site-map.md`.
   They stay exempt only while they stay tables. Narrative in them is a bug.
+- A map file explains **where**. A topic doc under `docs/` explains **how and why**. Paragraphs in a
+  map file mean the content is in the wrong layer.
 - Every file in `docs/` opens with a `> Read when: …` line
 - **Never read in full:** `docs/prd/*` (grep it), `src/payload-types.ts`, `pnpm-lock.yaml`
 

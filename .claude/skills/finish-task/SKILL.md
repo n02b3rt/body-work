@@ -5,8 +5,10 @@ description: The definition of done for this repo: what to update, verify and co
 
 Work through this in order. Skipping step 1 is what makes the map start lying.
 
-1. **`docs/map.md`.** Did you add a file, a route, a collection, a script? Add or update its row.
-   Did you build something listed under "Not built yet"? Move it into its domain.
+1. **The map.** Did you add a file, a route, a collection, a script? Add it to the matching
+   `docs/map/<domain>.md`. A whole new domain also gets a row in `docs/map.md`. Did you build
+   something listed under "Not built yet" in `docs/map.md`? Move it into its domain file.
+   If a map file is now over 6 KB, split it the way `docs/map.md` prescribes.
 2. **The relevant `docs/*.md`.** A Centrum page means a row in `migration-tracker.md` (plus the
    deviations table if you deviated). A cross-cutting choice means a row in `decisions.md`.
 3. **`docs/log.md`**, only if there is a decision or a gotcha the diff does not show. "What I did" is
