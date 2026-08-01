@@ -56,8 +56,13 @@ One-off maintenance: `scripts/backfill-image-sizes.ts`, `scripts/seed-translatio
   still says 20 because that is what the app needs; `.github/workflows/checks.yml` pins 22 for the tests.
 - **New code arrives tested:** `tests/coverage.test.ts` goes red when an importable module under
   `src/lib/` or `src/access/` has no test. Its `GRANDFATHERED` list may only shrink.
-- **CI:** `.github/workflows/checks.yml` runs docs and tests first (no install needed), then types,
-  translations and the build.
+- **CI:** `.github/workflows/checks.yml` runs docs and tests first (no install needed), then types
+  and translations.
+- ⚠ **CI does not run `pnpm build`, and cannot yet.** It compiles and type-checks, then fails while
+  collecting page data, because static generation reaches Payload and needs `PAYLOAD_SECRET` plus a
+  real database. A fresh Postgres would not fix it: **this project has no migrations**, the schema is
+  pushed in dev mode, so a clean database has no tables to query. Giving Payload a migration story is
+  the prerequisite. Until then, someone runs the build locally before merging.
 - **Still missing:** end-to-end tests and browser automation.
 - **`pnpm lint` is broken on `main` too** (eslint-plugin-react 7.37 vs ESLint 10, fails while linting
   `eslint.config.mjs`). A failure there is not necessarily yours.
