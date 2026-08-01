@@ -5,6 +5,8 @@ description: The definition of done for this repo: what to update, verify and co
 
 Work through this in order. Skipping step 1 is what makes the map start lying.
 
+0. **Added or renamed a skill?** `pnpm sync:skills`, so Grok Code sees the same trigger.
+   `pnpm check:docs` fails if you forget.
 1. **The map.** Did you add a file, a route, a collection, a script? Add it to the matching
    `docs/map/<domain>.md`. A whole new domain also gets a row in `docs/map.md`. Did you build
    something listed under "Not built yet" in `docs/map.md`? Move it into its domain file.

@@ -17,6 +17,7 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { spawnSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
@@ -178,6 +179,23 @@ for (const f of allMarkdown) {
 const debtBaseline = Object.values(EM_DASH_DEBT).reduce((a, b) => a + b, 0)
 if (debtNow < debtBaseline) {
   notes.push(`em-dash debt is down to ${debtNow} from ${debtBaseline}: lower the numbers in EM_DASH_DEBT`)
+}
+
+// ------------------------------------------------ 8. skill mirrors for other agents
+
+// Grok Code reads only its own directory, so the triggers are mirrored there. One
+// implementation, invoked in check mode, so this cannot disagree with the fixer.
+{
+  const sync = spawnSync(process.execPath, [abs('scripts/sync-agent-skills.mjs'), '--check'], {
+    cwd: ROOT,
+    encoding: 'utf8',
+  })
+  if (sync.status !== 0) {
+    for (const line of `${sync.stderr}`.split('\n').map((l) => l.trim()).filter(Boolean)) {
+      if (!line.startsWith('Run:') && !line.includes('stale skill mirror')) fail(`skill mirror: ${line}`)
+    }
+    fail('skill mirrors are stale: run `pnpm sync:skills`')
+  }
 }
 
 // ------------------------------------------------------------------- report

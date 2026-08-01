@@ -27,6 +27,11 @@ The essentials, restated in case your tooling only reads this file:
 These live under `.claude/skills/` because Claude Code loads them automatically, but **the contents
 are tool-agnostic prose**: open the file and read it, whatever you are. Ignore the frontmatter.
 
+Cursor reads `.claude/skills/` natively, so it sees them without help. Grok Code reads only its own
+directory, so `.grok/skills/` holds a generated pointer per skill: same trigger, body replaced by a
+link back here. Regenerate with `pnpm sync:skills`; `pnpm check:docs` fails if a mirror goes stale.
+**Never edit a mirror**, edit the source.
+
 | When the task involves | Read |
 |---|---|
 | a Centrum page or section component | `.claude/skills/centrum-fidelity/SKILL.md` |

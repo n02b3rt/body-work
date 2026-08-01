@@ -48,6 +48,30 @@ tool-agnostic, and `AGENTS.md` routes other tools to the same files.
 Also: `.claude/settings.json` (permission allow and deny lists), `.claude/commands/log.md` (`/log`),
 `.cursor/commands/` for Cursor, `prompts/parallel-agent-bootstrap.md` for everything else.
 
+## 4. The same rules on other agents
+
+Each tool looks in different directories, so the triggers are mirrored. **The guidance itself is
+never copied**: every mirror is a pointer at `.claude/skills/<name>/SKILL.md`.
+
+| Tool | Reads | What it needs from us |
+|---|---|---|
+| Claude Code | `.claude/skills/` | nothing, this is the source |
+| Cursor | `.agents/skills/`, `.cursor/skills/`, and **`.claude/skills/` for compatibility** | nothing; it already sees the source. `.cursor/commands/` adds the two worktree procedures as slash commands |
+| Grok Code | `./.grok/skills/` only (plus `~/.agents/skills/` at user level) | `.grok/skills/`, generated |
+| Anything else | nothing automatic | `AGENTS.md` carries a task-to-file table, and `prompts/parallel-agent-bootstrap.md` is paste-able |
+
+```bash
+pnpm sync:skills
+```
+
+Regenerates `.grok/skills/` from `.claude/skills/`: one folder per skill, frontmatter copied so the
+tool can match the trigger, body replaced by a pointer. It also deletes mirrors whose skill is gone,
+because a trigger for guidance that no longer exists is worse than no trigger.
+
+`pnpm check:docs` runs the same script in `--check` mode, so a mirror cannot silently go stale.
+
+**Editing a mirror by hand achieves nothing**: the next sync overwrites it. Edit the source.
+
 ## Gotchas
 
 - **A global gitignore (`~/.gitignore_global`) excludes `.claude/`.** The repo `.gitignore` negates it.

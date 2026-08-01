@@ -39,7 +39,8 @@ pnpm dev
 | `pnpm check:messages` | verify browser-shipped translation namespaces |
 | `pnpm smoke:builder` | page-builder data model, end to end |
 | `pnpm seed:appearance` | write the sample saved compositions |
-| `pnpm check:docs` | enforce the documentation rules: budgets, `> Read when:` headers, links, map coverage, em-dash ratchet (`scripts/check-docs.mjs`) |
+| `pnpm check:docs` | enforce the documentation rules: budgets, `> Read when:` headers, links, map coverage, em-dash ratchet, skill mirrors (`scripts/check-docs.mjs`) |
+| `pnpm sync:skills` | regenerate `.grok/skills/` from `.claude/skills/` (`scripts/sync-agent-skills.mjs`) |
 
 Other smoke scripts, run with `pnpm payload run`: `scripts/smoke-blog-write.ts`, `smoke-gemini.ts`,
 `smoke-image-display.ts`, `smoke-newsletter.ts`.

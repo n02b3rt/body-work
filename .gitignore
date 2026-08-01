@@ -43,11 +43,16 @@ yarn-error.log*
 # vercel
 .vercel
 
-# Agent config is part of this repo: skills, slash commands, shared settings.
-# A global gitignore excluding .claude/ would otherwise drop them silently.
+# Agent config is part of this repo: rules, skills, slash commands, shared settings.
+# A global gitignore excluding CLAUDE.md and .claude/ would otherwise drop them
+# silently, which is how the skills nearly failed to ship at all.
+!CLAUDE.md
 !.claude/
 !.claude/**
 .claude/settings.local.json
+# .grok/ and .cursor/ are generated or hand-written mirrors for other agents.
+!.grok/
+!.grok/**
 
 # typescript
 *.tsbuildinfo
