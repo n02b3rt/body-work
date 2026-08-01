@@ -39,7 +39,8 @@ None of this is in the repo. Don't grep for it, don't assume you missed it.
 - **Akademia (B2B, courses):** nothing, and **no design delivered yet**. Will land under `src/app/[locale]/(akademia)/`.
 - **`/cookies`:** deferred by the client. `/test` and `/podziekowanie` await a client decision.
 - **`/galeria`:** the reference links to a page that **doesn't exist**; the workaround is in `src/lib/external-links.ts`.
-- **Unit tests, e2e, any test runner:** none. Smoke scripts and `pnpm build` are the whole story.
+- **E2E tests, browser automation, CI:** none. Unit tests exist (`pnpm test`) but cover pure
+  functions only, see [`map/infra.md`](./map/infra.md).
 - **Redis, S3, monitoring, analytics:** in the PRD, not in the code. Dev keeps files on disk and the database in Docker.
 
 Built one of these? **Move it out of this section into its domain file**, that's part of "done".

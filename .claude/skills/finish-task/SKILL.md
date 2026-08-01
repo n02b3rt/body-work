@@ -21,12 +21,17 @@ Work through this in order. Skipping step 1 is what makes the map start lying.
 pnpm check:docs
 ```
 ```bash
+pnpm test
+```
+```bash
 pnpm build
 ```
 
    Plus `pnpm check:messages` if you touched translations, `pnpm smoke:builder` if you touched the
-   builder. There is no test runner. **`pnpm lint` is broken on `main` too** (eslint-plugin-react
-   7.37 vs ESLint 10), so a failure there is not necessarily yours: check before you blame your diff.
+   builder. **Changed a pure function in `src/lib/`? It probably has a test in `tests/`, and if it
+   does not, that is the cheapest one you will ever write.** **`pnpm lint` is broken on `main` too**
+   (eslint-plugin-react 7.37 vs ESLint 10), so a failure there is not necessarily yours: check before
+   you blame your diff.
 
 6. **Commit** on a `feat/` `fix/` `refactor/` `chore/` branch, never straight to `main`. Title:
    `type: short, on-point summary`, English, ~60 characters. No AI or tool authorship anywhere.

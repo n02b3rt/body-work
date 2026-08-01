@@ -32,7 +32,8 @@ pnpm dev
 
 | Command | Does |
 |---|---|
-| `pnpm build` | production build; the closest thing to a test suite |
+| `pnpm test` | unit tests in `tests/`, run by Node's own runner, no dependency |
+| `pnpm build` | production build; still the broadest check we have |
 | `pnpm generate:types` | regenerate `src/payload-types.ts` |
 | `pnpm generate:importmap` | regenerate the admin import map |
 | `pnpm check:messages` | verify browser-shipped translation namespaces |
@@ -46,8 +47,11 @@ One-off maintenance: `scripts/backfill-image-sizes.ts`, `scripts/seed-translatio
 
 ## Gotchas
 
-- **There is no test runner.** No Vitest, no Playwright, despite the PRD naming both. All you have is
-  `pnpm build`, the smoke scripts and `pnpm check:messages`.
+- **Tests live in `tests/`, run by Node's own runner**, which executes the TypeScript directly, so
+  there is no test dependency. They cover **pure functions only**: `node` resolves neither the `@/…`
+  path aliases nor anything reaching Payload, and that is the line where Vitest would start earning
+  its keep. Adding it is a stack change: ask first. The PRD names Vitest and Playwright; neither is installed.
+- **Still missing:** end-to-end tests, browser automation, and any of this running in CI.
 - **`pnpm lint` is broken on `main` too** (eslint-plugin-react 7.37 vs ESLint 10, fails while linting
   `eslint.config.mjs`). A failure there is not necessarily yours.
 - **`pnpm build` can fail spuriously if `pnpm start` is holding `.next`.** Kill the server first.

@@ -11,6 +11,7 @@ Older: [`archive/ai-notes-2026-07.md`](./archive/ai-notes-2026-07.md) (84 entrie
 
 ---
 
+- **2026-08-01, tests exist:** `pnpm test`, 35 of them, on **Node's built-in runner**: it executes the TypeScript directly, so this cost no dependency and no stack decision. They pin invariants that only a comment guarded before, such as `cardWide` staying out of the `mediaFrom` fallback chain. ⚠ Node resolves neither `@/…` aliases nor Payload, so anything touching those is out of reach; that is where Vitest would start earning its place. ⚠ Imports inside `tests/` need the explicit `.ts` extension.
 - **2026-08-01, docs enforced:** `pnpm check:docs` fails on budgets, missing `> Read when:` headers, broken links, map paths that do not exist, uncovered source folders and em-dashes. ⚠ It caught two long-standing false claims: media downscales to **1920px, not 2560**, and there are **48 namespaces, not 46**.
 - **2026-08-01, agent workflow:** session boot cut from ~190 KB to 2.6 KB. `AI_NOTES.md` archived, `PRD.md` split into `prd/`, `map.md` turned into a router over `docs/map/*.md`, domain knowledge moved into `.claude/skills/`. ⚠ A **global** gitignore excludes `.claude/`; the repo `.gitignore` now negates it or the skills never ship. ⚠ Only three domains multiply per site when Akademia lands; the split shape is at the foot of `map.md`.
 - **2026-07-30, media create:** no Placeholder column (`blurDataURL` is `admin.hidden`), a successful create returns to the library. ⚠ Payload still briefly aims at `/:id`; a session marker catches the race.

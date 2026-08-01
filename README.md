@@ -45,7 +45,7 @@ Keep the port in `.env` matching the one you pass to `pnpm dev`, or admin saves 
 | `pnpm smoke:builder` | end-to-end check of the page builder data model |
 | `pnpm seed:appearance` | write the sample saved compositions |
 
-There is no unit or e2e test runner yet.
+Unit tests run on Node's built-in runner, with no test dependency. There is no e2e runner yet.
 
 ## Where to look
 

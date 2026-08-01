@@ -67,8 +67,15 @@ Short and dry, one line that names the thing. Full rule, examples and where it a
 
 ## Tests
 
-- What we test: _(fill in once testing is set up: likely critical page rendering and any interactive forms)_
-- Where they live / how we name them / how to run them: _(fill in: the PRD specifies Vitest for unit tests and Playwright for E2E, neither installed yet)_
+```bash
+pnpm test
+```
+
+- **Runner: Node's built-in one** (`node --test`), which runs TypeScript directly. **No dependency**, in keeping with the stack rule. The PRD names Vitest and Playwright; neither is installed, and neither is needed for what we test today.
+- **Where:** `tests/`, mirroring `src/`, one file per module (`tests/media.test.ts`). Not co-located, so nothing lands in the Next build or Payload's import map.
+- **What we test:** pure functions whose behaviour is load-bearing and easy to break silently: media size resolution, slug and date formatting, user helpers. Write a test when you find yourself writing a comment explaining why something must not change.
+- **What we do not test yet:** anything importing `@/…` path aliases or reaching Payload. Node resolves neither. That is the boundary where Vitest starts earning its place: **ask before adding it**.
+- Name a test after the guarantee, not the function: `cardWide never substitutes for another size` beats `mediaFrom works`.
 
 ## Healthy growth (so it doesn't become a colossus)
 

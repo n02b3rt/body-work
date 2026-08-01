@@ -13,6 +13,7 @@
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
     "seed:appearance": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/appearance-samples.ts",
     "smoke:builder": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/smoke-page-builder.ts",
+    "test": "node --test \"tests/**/*.test.ts\"",
     "check:messages": "node scripts/check-client-messages.mjs",
     "check:docs": "node scripts/check-docs.mjs"
   },
