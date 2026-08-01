@@ -76,7 +76,7 @@ Short and dry, one line that names the thing. Full rule, examples and where it a
 - **Module boundaries early.** One domain = one module. Don't mix layers (UI / logic / data) in one bag.
 - **Don't duplicate**: check [`map.md`](./map.md) first to see whether something already exists.
 - **Refactoring is normal work**, not "someday". Notice a mess in passing: clean it up and commit it separately.
-- **Docs have budgets too.** See the limits in `CLAUDE.md`; a `docs/*.md` past 10 KB gets split, and a stale narrative gets rolled into `docs/archive/`.
+- **Docs have budgets too, and they are enforced.** See the limits in `CLAUDE.md`; a `docs/*.md` past 10 KB gets split, and a stale narrative gets rolled into `docs/archive/`. `pnpm check:docs` fails when you ignore it.
 
 ## Context handoff (session reset)
 

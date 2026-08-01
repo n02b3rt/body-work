@@ -7,7 +7,7 @@ Uploads land in the `media` collection, get downscaled and converted, and are se
 
 ## Collection
 
-`src/collections/Media.ts`. Uploads are downscaled to a 2560px long edge and converted to WebP;
+`src/collections/Media.ts`. Uploads are downscaled to a **1920px** long edge by default (`maxDimension`, editable per upload; `MAX_IMAGE_EDGE = 2560` in `compress-media.ts` is only the fallback when the field is empty) and converted to WebP;
 four `imageSizes` are generated (thumbnail, card, content, hero). Conversion also supports exact
 formats (WebP, AVIF, JPEG, PNG, WebM, MP4) through the sharp and fluent-ffmpeg already installed:
 **no new conversion library is needed or wanted**.

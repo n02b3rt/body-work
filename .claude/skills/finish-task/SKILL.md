@@ -15,8 +15,11 @@ Work through this in order. Skipping step 1 is what makes the map start lying.
    `git log`. Use `/log`, which keeps the file at 20 entries.
 4. **Regenerate** if the schema or admin components changed: `pnpm generate:types`, then
    `pnpm generate:importmap`.
-5. **Verify.**
+5. **Verify.** Start with the cheap one, which enforces steps 1 to 3 for you:
 
+```bash
+pnpm check:docs
+```
 ```bash
 pnpm build
 ```

@@ -12,7 +12,7 @@ a tree of **elements**. One set of React components renders both the admin canva
   - `basic.ts` (heading, text, image, buttons, icon list, divider, spacer)
   - `layout.ts` (columns, column)
   - `media.ts` (gallery, carousel, video)
-  - `sections.ts` (hero, CTA, cards, accordion)
+  - `sections.ts` (hero, cta, features, accordion)
   - `shared.ts` (the saved-composition element)
   - `style.ts` (the `style` group every element carries: padding, margin, background, text colour, radius, border, shadow, width, alignment, per-breakpoint visibility, anchor id, CSS class)
 

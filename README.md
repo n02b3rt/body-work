@@ -41,6 +41,7 @@ Keep the port in `.env` matching the one you pass to `pnpm dev`, or admin saves 
 | `pnpm generate:types` | regenerate `src/payload-types.ts` after a schema change |
 | `pnpm generate:importmap` | regenerate the admin import map after adding an admin component |
 | `pnpm check:messages` | verify the translation namespaces shipped to the browser |
+| `pnpm check:docs` | enforce the documentation rules: budgets, links, map coverage |
 | `pnpm smoke:builder` | end-to-end check of the page builder data model |
 | `pnpm seed:appearance` | write the sample saved compositions |
 

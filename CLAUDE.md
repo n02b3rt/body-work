@@ -25,15 +25,12 @@ Next.js 16 is newer than most training data: check `node_modules/next/dist/docs/
 
 ## Budgets
 
-- `CLAUDE.md` ≤ 3 KB · `docs/map.md` ≤ 5 KB (router only) · `docs/map/*.md` ≤ 6 KB each ·
-  `docs/log.md` ≤ 20 entries · every prose `docs/**.md` ≤ 10 KB
-- Over budget → split it, or roll the stale narrative into `docs/archive/`.
-  **`docs/map.md` says exactly how to split a map file**; follow it, don't improvise a shape.
-- Exempt from the size cap, because they are lookup tables: `migration-tracker.md`, `scraped-site-map.md`.
-  They stay exempt only while they stay tables. Narrative in them is a bug.
-- A map file explains **where**. A topic doc under `docs/` explains **how and why**. Paragraphs in a
-  map file mean the content is in the wrong layer.
-- Every file in `docs/` opens with a `> Read when: …` line
+- `CLAUDE.md` ≤ 3 KB · `docs/map.md` ≤ 5 KB · `docs/map/*.md` ≤ 6 KB · prose `docs/**.md` ≤ 10 KB ·
+  `docs/log.md` ≤ 20 entries. Every file in `docs/` opens with `> Read when: …`
+- Over budget → split it, or roll stale narrative into `docs/archive/`.
+  **`docs/map.md` prescribes the split shape**; follow it, don't improvise one.
+- A map file says **where**. A topic doc says **how and why**. Paragraphs in a map file are misfiled.
+- **`pnpm check:docs` enforces all of the above**, plus links, map coverage and the no-em-dash rule.
 - **Never read in full:** `docs/prd/*` (grep it), `src/payload-types.ts`, `pnpm-lock.yaml`
 
 ## Index

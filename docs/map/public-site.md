@@ -2,7 +2,7 @@
 
 # Public site
 
-Every Centrum page (28 routes of a planned 32) plus the shared section blocks that compose them.
+Every Centrum page (28 of 32 content pages per the tracker; 33 `page.tsx` files in total, counting blog and utility routes) plus the shared section blocks that compose them.
 App Router, Polish by default, English via a locale prefix.
 
 ## Routes

@@ -3,7 +3,7 @@ name: i18n-messages
 description: Why a translated string can render as a raw key path in the browser, and what to do about it. Use whenever you add or rename a key in messages/pl.json or messages/en.json, make a component "use client" that reads translations, or see a literal key path like Blog.title rendered on the page.
 ---
 
-**Only 11 of the 46 namespaces are shipped to the browser.** `getMessages()` is 188 KB; client
+**Only 11 of the 48 namespaces are shipped to the browser.** `getMessages()` is 188 KB; client
 components need 7.1 KB, so the list is explicit rather than automatic.
 
 A `"use client"` component reading a namespace that is not on that list renders the **key path**

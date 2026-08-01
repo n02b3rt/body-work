@@ -47,6 +47,10 @@ Also: `.claude/settings.json` (permission allow and deny lists), `.claude/comman
 - **A global gitignore (`~/.gitignore_global`) excludes `.claude/`.** The repo `.gitignore` negates it.
   Undo that and the skills silently stop shipping to anyone who clones.
 - **Skills are thin routers.** The procedure lives in `docs/`; edit the doc, not the skill's summary.
+- **`pnpm check:docs` (`scripts/check-docs.mjs`) enforces every rule here**: budgets, `> Read when:`
+  headers, link validity, that each path the map claims actually exists, that every source folder and
+  script is covered, the 20-entry log cap, and an em-dash ratchet whose debt may shrink but never grow.
+  It is the difference between rules and wishes. Run it before committing.
 - **Budgets are the only thing stopping this from regrowing.** They are in `CLAUDE.md`, and so is the
   growth rule for when a map file gets too big.
 - **`.claude/settings.json` deny rules are load-bearing**, not decoration: they block reading the
