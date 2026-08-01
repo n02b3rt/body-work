@@ -11,7 +11,9 @@ The essentials, restated in case your tooling only reads this file:
   Grep only when the map has no answer. Found something the map doesn't list → add its row.
 - **The PRD is a spec, not a briefing.** Don't read it end to end:
   [`docs/prd/00-index.md`](./docs/prd/00-index.md) tells you which of the 10 files to open.
-  Recent decisions and gotchas: [`docs/log.md`](./docs/log.md).
+  Recent decisions and gotchas: [`docs/log.md`](./docs/log.md). Claude Code has a `/log` command for
+  appending to it; **every other tool follows the rules printed at the top of that file**, which say
+  the same thing: one line, twenty entries maximum, and only for what the diff does not show.
 - **Stack:** installing, removing, upgrading or swapping any library or service = **you ask first**.
   Approved list and why: [`docs/stack.md`](./docs/stack.md).
 - **Git:** branches `feat/`, `fix/`, `refactor/`, `chore/`, small commits, `type: short summary` titles,
