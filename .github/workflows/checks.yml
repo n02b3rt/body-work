@@ -1,0 +1,49 @@
+name: checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # The app itself runs on Node 20 (see engines in package.json), but the
+          # test suite uses Node's built-in runner against TypeScript directly,
+          # and that type stripping only exists from 22.18. Tests are the reason
+          # this is pinned higher than engines, so do not lower it.
+          node-version: 22
+          cache: pnpm
+
+      # These two need no dependency tree, so they answer in seconds. A broken map
+      # or a red test should not wait on a full install.
+      - name: docs
+        run: node scripts/check-docs.mjs
+
+      - name: test
+        run: node --test "tests/**/*.test.ts"
+
+      - name: install
+        run: pnpm install --frozen-lockfile
+
+      - name: types
+        run: pnpm exec tsc --noEmit
+
+      - name: translations
+        run: pnpm check:messages
+
+      - name: build
+        run: pnpm build

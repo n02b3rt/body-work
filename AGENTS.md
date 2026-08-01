@@ -36,6 +36,7 @@ are tool-agnostic prose**: open the file and read it, whatever you are. Ignore t
 | collections, globals, fields, Payload config | `.claude/skills/payload-schema/SKILL.md` |
 | a builder element or section | `.claude/skills/page-builder/SKILL.md` |
 | anything under `scripts/` using `payload run` | `.claude/skills/payload-script/SKILL.md` |
+| a function under `src/lib` or `src/access` | `.claude/skills/write-tests/SKILL.md` |
 | a translation key or a client component reading one | `.claude/skills/i18n-messages/SKILL.md` |
 | any string an editor will see in the dashboard | `.claude/skills/admin-copy/SKILL.md` |
 | finishing up: what to update and verify before committing | `.claude/skills/finish-task/SKILL.md` |

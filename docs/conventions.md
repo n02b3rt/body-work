@@ -72,6 +72,8 @@ pnpm test
 ```
 
 - **Runner: Node's built-in one** (`node --test`), which runs TypeScript directly. **No dependency**, in keeping with the stack rule. The PRD names Vitest and Playwright; neither is installed, and neither is needed for what we test today.
+- **Tests need Node 22.18 or newer**, because that is where running TypeScript without a build landed. The app itself still targets Node 20 (`engines`); CI pins 22 for this reason alone.
+- **New code arrives tested.** `tests/coverage.test.ts` fails when an importable module under `src/lib/` or `src/access/` has none. Its `GRANDFATHERED` list covers what predates the suite and **may only shrink**.
 - **Where:** `tests/`, mirroring `src/`, one file per module (`tests/media.test.ts`). Not co-located, so nothing lands in the Next build or Payload's import map.
 - **What we test:** pure functions whose behaviour is load-bearing and easy to break silently: media size resolution, slug and date formatting, user helpers. Write a test when you find yourself writing a comment explaining why something must not change.
 - **What we do not test yet:** anything importing `@/…` path aliases or reaching Payload. Node resolves neither. That is the boundary where Vitest starts earning its place: **ask before adding it**.

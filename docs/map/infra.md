@@ -51,7 +51,13 @@ One-off maintenance: `scripts/backfill-image-sizes.ts`, `scripts/seed-translatio
   there is no test dependency. They cover **pure functions only**: `node` resolves neither the `@/…`
   path aliases nor anything reaching Payload, and that is the line where Vitest would start earning
   its keep. Adding it is a stack change: ask first. The PRD names Vitest and Playwright; neither is installed.
-- **Still missing:** end-to-end tests, browser automation, and any of this running in CI.
+- ⚠ **`pnpm test` needs Node 22.18+**, where running TypeScript without a build landed. `engines`
+  still says 20 because that is what the app needs; `.github/workflows/checks.yml` pins 22 for the tests.
+- **New code arrives tested:** `tests/coverage.test.ts` goes red when an importable module under
+  `src/lib/` or `src/access/` has no test. Its `GRANDFATHERED` list may only shrink.
+- **CI:** `.github/workflows/checks.yml` runs docs and tests first (no install needed), then types,
+  translations and the build.
+- **Still missing:** end-to-end tests and browser automation.
 - **`pnpm lint` is broken on `main` too** (eslint-plugin-react 7.37 vs ESLint 10, fails while linting
   `eslint.config.mjs`). A failure there is not necessarily yours.
 - **`pnpm build` can fail spuriously if `pnpm start` is holding `.next`.** Kill the server first.
