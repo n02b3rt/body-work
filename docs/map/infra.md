@@ -58,11 +58,12 @@ One-off maintenance: `scripts/backfill-image-sizes.ts`, `scripts/seed-translatio
   `src/lib/` or `src/access/` has no test. Its `GRANDFATHERED` list may only shrink.
 - **CI:** `.github/workflows/checks.yml` runs docs and tests first (no install needed), then types
   and translations.
-- ⚠ **CI does not run `pnpm build`, and cannot yet.** It compiles and type-checks, then fails while
-  collecting page data, because static generation reaches Payload and needs `PAYLOAD_SECRET` plus a
-  real database. A fresh Postgres would not fix it: **this project has no migrations**, the schema is
-  pushed in dev mode, so a clean database has no tables to query. Giving Payload a migration story is
-  the prerequisite. Until then, someone runs the build locally before merging.
+- ⚠ **There are no migrations, so the project cannot start on a clean database.** Payload pushes the
+  schema in dev and expects migrations in production. This blocks a first deploy and is why CI does
+  not run `pnpm build`: it compiles and type-checks, then dies collecting page data. Scripts are
+  ready (`pnpm migrate:create`, `migrate`, `migrate:status`); the procedure is
+  [`../runbooks/create-migrations.md`](../runbooks/create-migrations.md). Until then someone runs the
+  build locally before merging.
 - **Still missing:** end-to-end tests and browser automation.
 - **`pnpm lint` is broken on `main` too** (eslint-plugin-react 7.37 vs ESLint 10, fails while linting
   `eslint.config.mjs`). A failure there is not necessarily yours.

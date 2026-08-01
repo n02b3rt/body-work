@@ -30,4 +30,14 @@ Four things that bite:
   env vars (`DRY=1 pnpm payload run …`). Scripts need top-level `await`, not an `async main()`, or
   the process exits 0 after printing one line.
 
+## Migrations, or the lack of them
+
+**There are none yet**, and that is a live problem, not a detail: Payload pushes the schema in
+development and expects migrations in production, so the project cannot start against a clean
+database. It is why CI does not run `pnpm build`.
+
+Scripts exist (`pnpm migrate:create`, `pnpm migrate`, `pnpm migrate:status`). Creating the first one
+is a deliberate, single-agent job: follow `docs/runbooks/create-migrations.md`. Once it is done,
+**every schema change ships with its own migration**, committed alongside the change.
+
 Access rules and roles: `src/access/roles.ts`. Never invent a parallel permission check.
