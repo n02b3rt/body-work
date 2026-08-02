@@ -1,0 +1,61 @@
+name: checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # The app itself runs on Node 20 (see engines in package.json), but the
+          # test suite uses Node's built-in runner against TypeScript directly,
+          # and that type stripping only exists from 22.18. Tests are the reason
+          # this is pinned higher than engines, so do not lower it.
+          node-version: 22
+          cache: pnpm
+
+      # These two need no dependency tree, so they answer in seconds. A broken map
+      # or a red test should not wait on a full install.
+      - name: docs
+        run: node scripts/check-docs.mjs
+
+      - name: test
+        run: node --test "tests/**/*.test.ts"
+
+      - name: install
+        run: pnpm install --frozen-lockfile
+
+      - name: types
+        run: pnpm exec tsc --noEmit
+
+      - name: lint
+        run: pnpm lint
+
+      - name: translations
+        run: pnpm check:messages
+
+      # `pnpm build` is deliberately not run here.
+      #
+      # It compiles and type-checks fine, then fails while collecting page data:
+      # static generation reaches Payload, which needs PAYLOAD_SECRET and a real
+      # database. Handing it a fresh Postgres would not help either, because this
+      # project has no migrations: the schema is pushed in dev mode, so a clean
+      # database has no tables for the build to query.
+      #
+      # Adding it back means giving Payload a migration story first. Until then the
+      # build is verified by a human running it locally, and `types` above already
+      # catches what a compile would.

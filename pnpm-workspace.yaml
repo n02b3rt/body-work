@@ -4,3 +4,10 @@ allowBuilds:
   esbuild: true
   sharp: true
   unrs-resolver: true
+  # @ffmpeg-installer resolves to a platform package, so the one that needs a build
+  # differs per machine. Only win32-x64 ever appeared locally, which is why CI on
+  # Linux was the first thing to fail on this.
+  '@ffmpeg-installer/linux-x64': true
+  '@ffmpeg-installer/win32-x64': true
+  '@ffmpeg-installer/darwin-x64': true
+  '@ffmpeg-installer/darwin-arm64': true

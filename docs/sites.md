@@ -1,6 +1,8 @@
+> Read when: working across hosts: hub vs centrum vs akademia vs dashboard, or deciding where a shared component belongs.
+
 # Sites: one Next.js app, four domains
 
-> How the single codebase serves BODYWORK's four public/admin surfaces. Written in English. Full rationale: PRD.md §7.
+> How the single codebase serves BODYWORK's four public/admin surfaces. Written in English. Full rationale: `prd/04-architektura.md` §7.
 
 ## The domains
 

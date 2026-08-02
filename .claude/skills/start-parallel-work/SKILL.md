@@ -9,8 +9,7 @@ it used to say.
 
 Three things it is easy to get wrong, so keep them in mind while reading:
 
-- A slot is a sandbox, **not a specialisation**. Slot `a` is not "the admin agent" —
-  the scope of the work comes from the user's task and gets written to `.agent-scope`.
+- A slot is a sandbox, **not a specialisation**. Slot `a` is not "the admin agent": the scope of the work comes from the user's task and gets written to `.agent-scope`.
 - The new worktree inherits nothing gitignored: no `.env`, no `media/`, no
   `node_modules/`. Step 5 is not optional.
 - Never `docker compose down -v`. One volume holds every slot's database.
