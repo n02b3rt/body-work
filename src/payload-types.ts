@@ -73,22 +73,34 @@ export interface Config {
   };
 }
 export interface UserAuthOperations {
-  forgotPassword: {
-    email: string;
-    password: string;
-  };
-  login: {
-    email: string;
-    password: string;
-  };
+  forgotPassword:
+    | {
+        email: string;
+      }
+    | {
+        username: string;
+      };
+  login:
+    | {
+        email: string;
+        password: string;
+      }
+    | {
+        password: string;
+        username: string;
+      };
   registerFirstUser: {
-    email: string;
     password: string;
-  };
-  unlock: {
+    username: string;
     email: string;
-    password: string;
   };
+  unlock:
+    | {
+        email: string;
+      }
+    | {
+        username: string;
+      };
 }
 /**
  * Konta zespołu i klientów.
@@ -98,17 +110,13 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: number;
-  /**
-   * Imię i nazwisko lub nazwa widoczna w panelu.
-   */
-  name?: string | null;
-  /**
-   * Administrator: pełny dostęp. Moderator: treści i podgląd użytkowników. Redaktor: treści. Klient: bez panelu.
-   */
-  role: 'administrator' | 'moderator' | 'redaktor' | 'klient';
+  firstName?: string | null;
+  lastName?: string | null;
+  role: 'administrator' | 'edytor' | 'klient';
   updatedAt: string;
   createdAt: string;
   email: string;
+  username: string;
   resetPasswordToken?: string | null;
   resetPasswordExpiration?: string | null;
   salt?: string | null;
@@ -152,60 +160,42 @@ export interface Author {
   createdAt: string;
 }
 /**
- * Biblioteka mediów z polami dostępności/SEO, konwersją formatu i widokiem eksploratora.
+ * Biblioteka plików.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
   id: number;
-  /**
-   * Rozmyta miniatura w base64, używana podczas ładowania zdjęcia.
-   */
   blurDataURL?: string | null;
-  /**
-   * Nazwa wyświetlana w bibliotece. Domyślnie z nazwy pliku.
-   */
   title?: string | null;
   /**
-   * Wymagany dla dostępności i SEO (chyba że dekoracyjny). Uzupełniany z nazwy pliku: sprawdź i popraw.
+   * Wymagany, chyba że dekoracyjny.
    */
   alt?: string | null;
   /**
-   * Zaznacz, gdy obraz nie niesie informacji (tło, ozdoba). ALT będzie traktowany jako pusty.
+   * Pusty ALT.
    */
   isDecorative?: boolean | null;
-  /**
-   * Opcjonalny podpis widoczny przy obrazie na stronie.
-   */
   caption?: string | null;
-  /**
-   * Dłuższy opis kontekstu (SEO, redakcja, wyszukiwanie w bibliotece).
-   */
   description?: string | null;
-  /**
-   * Identyfikator URL / nazwy pliku. Domyślnie z nazwy pliku.
-   */
   slug?: string | null;
   /**
-   * Słowa kluczowe do filtrowania w bibliotece (np. fizjoterapia, sala).
+   * Przecinek lub Enter.
    */
   tags?: string[] | null;
   /**
-   * Stosowane przy uploadzie / wymianie pliku. Domyślnie WebP dla obrazów i WebM dla wideo.
+   * Przy uploadzie lub wymianie pliku.
    */
-  convertFormat?: ('optimized' | 'avif' | 'original') | null;
+  convertFormat?: ('optimized' | 'webp' | 'avif' | 'jpeg' | 'png' | 'webm' | 'mp4' | 'original') | null;
   /**
-   * Skalowanie obrazów przed zapisem (ignorowane dla wideo). 1920 px to dobry kompromis jakość/waga.
+   * Dłuższy bok (px).
    */
-  maxDimension?: ('1920' | '1280' | '2560' | 'none') | null;
+  maxDimension?: string | null;
   /**
-   * Dotyczy konwersji WebP / AVIF (ignorowane przy „bez konwersji”).
+   * 1–100.
    */
-  imageQuality?: ('balanced' | 'high' | 'small') | null;
-  /**
-   * Ustawiane automatycznie z MIME; używane do folderów w bibliotece.
-   */
+  imageQuality?: string | null;
   kind?: ('image' | 'video' | 'document' | 'other') | null;
   updatedAt: string;
   createdAt: string;
@@ -11929,11 +11919,13 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  name?: T;
+  firstName?: T;
+  lastName?: T;
   role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
+  username?: T;
   resetPasswordToken?: T;
   resetPasswordExpiration?: T;
   salt?: T;

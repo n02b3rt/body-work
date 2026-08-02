@@ -100,7 +100,18 @@ export function SectionHeading({
     <Tag
       style={style}
       className={cn(
-        "font-normal text-brand-navy",
+        // A floor, not a style: at a 320 viewport the container's content box is 288px and a single
+        // Polish word at the 39.5px mobile step needs more than that ("kompleksowego" 317px,
+        // "KLASYCZNY" 303px), so the heading was sliced off by the viewport edge on /masaz.
+        // Wrapping cannot save a single word, so it has to be allowed to break.
+        //
+        // **`w-full` is half of it.** `break-words` is ignored when the browser computes an
+        // element's min-content contribution, so a heading that is a shrink-to-fit flex item (every
+        // `CenteredBand`, every `TextMedia` column) was still sized to that long word and overflowed
+        // without breaking. Both are inert wherever the longest word already fits, and `display`
+        // sizes are untouched in practice: they carry `whitespace-nowrap` and are fitted by
+        // container query, and they already laid out full width.
+        "w-full break-words font-normal text-brand-navy",
         uppercase && "uppercase",
         /* A single Polish word can be longer than a small phone's whole column, and at
          * `text-h-mobile` (39.5px) several page titles are. Measured at a 320px viewport:

@@ -30,7 +30,7 @@ Status: all 22 Centrum pages are built and bilingual against the scraper mirror 
 | UI primitives | Container (the max-width fix), Button, SectionHeading | `src/components/ui/` |
 | Centrum components | Header, Footer, Hero, PromoBar, and the other section blocks | `src/components/centrum/` |
 | Payload CMS | Admin UI, REST/GraphQL, auth, uploads | `src/app/(payload)/`, `src/payload.config.ts`, `src/collections/`, `src/globals/` |
-| Admin shell / nav | Custom nested sidebar + package updates/libraries views | `src/admin/nav-tree.ts`, `src/components/admin/AdminNav.tsx`, `ComingSoonView.tsx`, `UpdatesView.tsx`, `LibrariesView.tsx`, `src/lib/package-updates.ts`, `src/app/api/admin/package-updates/` |
+| Admin shell / nav | Custom nested sidebar + package updates/libraries views | `src/admin/nav-tree.ts`, `src/components/admin/AdminNav.tsx`, `ComingSoonView.tsx`, `UpdatesView.tsx`, `LibrariesView.tsx`, `src/lib/package-updates.ts`, `src/app/api/admin/package-updates/` — Aktualizacje = outdated + versions + release notes; Biblioteki = inventory + icons |
 | Media library | Upload a11y/SEO fields, conversion, explorer UI | `src/collections/Media.ts`, `src/components/admin/media/`, `docs/media.md` |
 | Access / roles | RBAC helpers | `src/access/` |
 | PostgreSQL | CMS data store (local Docker; same on Hetzner VPS) | `docker-compose.yml` (dev) |
@@ -60,6 +60,7 @@ Record deliberate choices so nobody re-litigates them a month later without caus
 | 2026-07-25 | Separate root layouts per route tree, no root `src/app/layout.tsx` | Payload's `RootLayout` owns `<html>`/`<body>` for `/admin`; the public site keeps its own |
 | 2026-07-26 | Admin only on `DASHBOARD_HOST` (`dash.localhost`); public `/admin` → 404 | Obscure entry point; a redirect would leak the dashboard hostname |
 | 2026-07-26 | Four roles: administrator, moderator, redaktor, klient | Staff vs client; `klient` is blocked from the admin panel |
+| 2026-07-29 | Three roles: administrator, edytor, klient | Dropped moderator; redaktor → edytor. Edytor: Treści + E-commerce + Zarządzanie (Tłumaczenia, Wygląd, Ustawienia→Treści). Users only by admin (or future checkout). Username + first/last name; display name = full name or username |
 | 2026-07-26 | Pages with nested-docs + expandable tree; Posts blog; Site Settings global | Content model for the marketing site |
 | 2026-07-26 | Upload compression: images→WebP, video→WebM | Smaller assets by default via sharp + ffmpeg |
 | 2026-07-26 | Custom nested `AdminNav` (not Payload `admin.group`) | Multi-level WP-style tree; Nested Docs covers document hierarchy only |
@@ -76,6 +77,8 @@ Record deliberate choices so nobody re-litigates them a month later without caus
 - **A custom breakpoint does not automatically beat a smaller built-in one.** `sm:grid-cols-2 wide:grid-cols-3` on the same element renders **two** columns above 1060px: the `sm` rule wins, so the `wide` override never lands. Found on the blog grid, measured with `getComputedStyle` (a probe carrying only `wide:grid-cols-3` gave three columns; adding `sm:grid-cols-2` dropped it back to two). The project's `--breakpoint-wide: 1060px` and `--breakpoint-nav: 1340px` are fine on their own; the trap is pairing one with a *built-in* breakpoint variant for the **same property**. Either stay within the built-ins (`sm:`/`lg:`) for that property, or express every step of it with custom breakpoints. Worth a look wherever `wide:` sits next to `sm:`/`md:`/`lg:`.
 
 - **`payload run` strips extra argv.** `process.argv` inside a script contains only the node binary and Payload's `bin.js`, so a `--dry` style flag silently reads as absent, a "dry run" of `scripts/fix-blog-from-reference.ts` wrote all 62 posts before this was understood. Pass switches as environment variables (`DRY=1 pnpm payload run …`) and print the active mode at startup.
+
+- **Admin POSTs need CSRF Origin to match the dashboard URL (and port).** Payload accepts the session cookie on GETs via `Sec-Fetch-Site`, but on POST it requires `Origin` ∈ `config.csrf`. A parallel-agent port drift (`pnpm dev` on :3000 while `.env` has `NEXT_PUBLIC_DASHBOARD_URL=…:3003`) leaves the panel looking logged in while save/form-state return Unauthorized / 403. Dev csrf/cors also allow ports 3000–3005 for `dash.localhost` / `localhost` / `127.0.0.1`; still prefer matching `.env` to `--port`. See [`parallel-agents.md`](./parallel-agents.md).
 
 - **A programmatic scroll does not drive `IntersectionObserver` in the browser-automation context.** `window.scrollTo(...)` evaluated through the extension moves `scrollY` and reflows, but no observer callback is delivered, not even the initial one the spec guarantees on `observe()`. This cost real time on the blog listing's lazy rendering: a hand-attached probe observer logged **zero** events, which reads exactly like a broken effect. Verifying with a real scroll (the `computer` tool's scroll action) revealed the code had been correct all along. **When checking anything driven by an observer, use real input events.**
 

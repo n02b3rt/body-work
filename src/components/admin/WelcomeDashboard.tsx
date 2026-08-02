@@ -1,5 +1,6 @@
 'use client'
 
+import { getDisplayName } from '@/lib/users'
 import type { User } from '@/payload-types'
 import { useAuth } from '@payloadcms/ui'
 import Link from 'next/link'
@@ -7,8 +8,7 @@ import React from 'react'
 
 const roleLabel: Record<string, string> = {
   administrator: 'Administrator',
-  moderator: 'Moderator',
-  redaktor: 'Redaktor',
+  edytor: 'Edytor',
   klient: 'Klient',
 }
 
@@ -16,8 +16,8 @@ export function WelcomeDashboard() {
   const { user } = useAuth()
   const typed = user as User | null | undefined
   const role = typed?.role
-  const displayName = typed?.name || typed?.email || 'użytkowniku'
-  const canManageUsers = role === 'administrator' || role === 'moderator'
+  const displayName = getDisplayName(typed) || 'użytkowniku'
+  const canManageUsers = role === 'administrator'
   const canManageSettings = role === 'administrator'
 
   return (

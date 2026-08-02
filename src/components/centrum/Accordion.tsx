@@ -244,8 +244,13 @@ function AccordionRow({
                    * bytes, already inlined in the HTML. */
                   <div
                     className={cn(
-                      "relative min-h-[18rem] w-full bg-cover bg-center",
-                      squareMedia ? "lg:aspect-square lg:min-h-0" : "lg:min-h-full",
+                      "relative w-full bg-cover bg-center",
+                      // Square at **every** width, not just from `lg`. The `min-h-[18rem]` fallback
+                      // made this box 720x288 at a 768 viewport, a 2.5:1 letterbox: a portrait shown
+                      // there keeps a horizontal band across the chest and crops the head off
+                      // entirely, which is the opposite of what `squareMedia` exists to prevent. The
+                      // reference's own `ratio1-1` carries no breakpoint prefix either.
+                      squareMedia ? "aspect-square" : "min-h-[18rem] lg:min-h-full",
                     )}
                     style={item.imageBlur ? { backgroundImage: `url("${item.imageBlur}")` } : undefined}
                   >

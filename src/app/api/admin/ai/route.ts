@@ -1,11 +1,8 @@
-import { requireAdministratorUser, requireStaffUser } from '@/lib/ai/auth'
+import { requireStaffUser } from '@/lib/ai/auth'
 import { isGeminiConfigured } from '@/lib/ai/gemini'
 import {
   draftPostFromBrief,
   helpChat,
-  readPackageBlurbs,
-  suggestLibraryBlurb,
-  suggestLibraryBlurbsBatch,
   suggestMediaAlt,
   suggestPageLayout,
   suggestSeoCopy,
@@ -32,7 +29,7 @@ function failResult(result: {
 
 /**
  * Unified admin AI endpoint. Body: `{ task, ...params }`.
- * Staff for editorial tasks; administrator for library blurbs.
+ * Staff session required for all tasks.
  */
 export async function POST(request: Request) {
   let body: TaskBody
@@ -58,19 +55,11 @@ export async function POST(request: Request) {
     )
   }
 
-  if (task === 'status') {
-    const auth = await requireStaffUser()
-    if (auth.error) return auth.error
-    return Response.json({ configured: isGeminiConfigured() })
-  }
+  const auth = await requireStaffUser()
+  if (auth.error) return auth.error
 
-  const adminTasks = new Set(['library-blurb', 'library-blurbs', 'library-blurbs-get'])
-  if (adminTasks.has(task)) {
-    const auth = await requireAdministratorUser()
-    if (auth.error) return auth.error
-  } else {
-    const auth = await requireStaffUser()
-    if (auth.error) return auth.error
+  if (task === 'status') {
+    return Response.json({ configured: isGeminiConfigured() })
   }
 
   switch (task) {
@@ -91,42 +80,6 @@ export async function POST(request: Request) {
       })
       if (!result.ok) return failResult(result)
       return Response.json({ data: result.data, model: result.model })
-    }
-    case 'library-blurb': {
-      const result = await suggestLibraryBlurb({
-        name: String(body.name ?? ''),
-        kind: body.kind === 'dev' ? 'dev' : 'runtime',
-        npmDescription:
-          body.npmDescription != null ? String(body.npmDescription) : null,
-      })
-      if (!result.ok) return failResult(result)
-      return Response.json({ data: result.data, model: result.model })
-    }
-    case 'library-blurbs': {
-      const packages = Array.isArray(body.packages)
-        ? (body.packages as Array<{
-            name?: string
-            kind?: string
-            npmDescription?: string | null
-          }>)
-            .filter((p) => p && typeof p.name === 'string')
-            .map((p) => ({
-              name: String(p.name),
-              kind: (p.kind === 'dev' ? 'dev' : 'runtime') as 'runtime' | 'dev',
-              npmDescription:
-                p.npmDescription != null ? String(p.npmDescription) : null,
-            }))
-        : []
-      const result = await suggestLibraryBlurbsBatch(packages, {
-        onlyMissing: body.onlyMissing !== false,
-        limit: typeof body.limit === 'number' ? body.limit : 12,
-      })
-      if (!result.ok) return failResult(result)
-      return Response.json({ data: result.data, model: result.model })
-    }
-    case 'library-blurbs-get': {
-      const blurbs = await readPackageBlurbs()
-      return Response.json({ data: { blurbs } })
     }
     case 'translate-post': {
       const result = await translatePostDraft({

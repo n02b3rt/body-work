@@ -40,6 +40,8 @@ const DIRS = [
   'public/images/fizjoterapia/specjalisci',
   'public/images/fizjoterapia/sprzet',
   'public/images/trening-grupowy',
+  'public/images/bodylab',
+  'public/images/masaz',
 ]
 const OUT = 'src/lib/static-blur.json'
 const WIDTH = 16

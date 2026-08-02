@@ -69,11 +69,7 @@ export async function UpdatesView({
           <p className="bw-updates__eyebrow">Kokpit</p>
           <h1 className="bw-updates__title">Aktualizacje</h1>
           <p className="bw-updates__lead">
-            Pakiety z <code>package.json</code>, dla których w npm jest nowsza
-            wersja niż zainstalowana. Pełna lista bibliotek (z linkami do npm,
-            strony i repozytorium) jest w{' '}
-            <code>Zarządzanie → Biblioteki</code>. Wynik cache&apos;owany 24h;
-            panel tylko informuje — nie aktualizuje pakietów.
+            Pakiety z dostępną nowszą wersją.
           </p>
 
           {!allowed ? (

@@ -28,11 +28,11 @@ Don't grep for context that's already written down. Find the topic below, read t
 | The four domains, host-based routing, shared vs. site-specific components | `docs/sites.md` |
 | Approved libraries/infra + **the "ask before installing" rule** | `docs/stack.md` |
 | Bilingual (PL/EN) strategy: next-intl vs. Payload localization | `docs/i18n.md` |
-| Naming, folders, git convention, code style, healthy-growth rules | `docs/conventions.md` |
+| Naming, folders, git convention, code style, **admin UI copy tone**, healthy-growth rules | `docs/conventions.md` |
 | What's in the scraped Centrum mirror and which URL maps to which folder | `docs/scraped-site-map.md` |
 | Page-by-page migration status (built? bilingual? visually verified?) | `docs/migration-tracker.md` |
 | The page builder: section model, builder UI, public renderer | `docs/page-builder.md` |
-| **Several agents working at once**: worktrees, one DB/port each, who owns which files | `docs/parallel-agents.md` |
+| **Several agents working at once**: worktrees, one DB/port each, who owns which files | `docs/parallel-agents.md`; the two procedures live in `docs/runbooks/` and every tool's skill/command file just points at them |
 
 Domain-specific critical decisions and gotchas live inside the relevant `docs/<topic>.md` file (its own "Decisions"/"Gotchas" section), not dumped into this file or into one giant notes file. See `docs/conventions.md` for the pattern.
 
@@ -47,6 +47,7 @@ Working with a coding agent other than Claude Code? Read `AGENTS.md`: same rules
   **Where the reference is plainly defective, fix it instead of reproducing it** (user's call, 2026-07-27: *"na oryginale też mogą rzeczy się rozjeżdżać bądź być do dupy, więc ogarnij to tak żeby było zajebiście"*). That covers broken links, unreadable type sizes, layouts that leave content colliding or stranded: the things a visitor would read as a bug. It is **not** a licence to redesign: the copy stays verbatim, the palette and imagery stay as they are, and every deviation gets one line in `docs/migration-tracker.md` saying what was changed and why. Two worked examples live in `LegalDocument` (body size, column layout, heading scale) and `external-links.ts` (the dead `/galeria` target). If a change is a matter of taste rather than a defect, keep the reference and ask.
 - **Ask before touching the stack.** Installing, removing, upgrading, or swapping any library/service requires telling the user first, see `docs/stack.md` for what's already approved and why.
 - **No AI/tool authorship anywhere**, not in commits, PRs, code, comments, or docs.
+- **Admin UI copy is short and dry.** Section leads, field `description`s, card hints: one line that names the thing, not a tutorial. Full rule + good/bad examples: `docs/conventions.md` → *Admin UI copy*.
 - **Git:** feature branches (`feat/`, `fix/`, `refactor/`, `chore/`), never non-trivial commits straight to `main`. Full convention: `docs/conventions.md`.
 - **If another agent may be working at the same time, read `docs/parallel-agents.md` first.** Own worktree, own database, own port; never `docker compose down -v` (it drops every agent's data); never hand-edit the generated `src/payload-types.ts` / `importMap.js`; rebase onto `main` the moment someone else's PR lands.
 - **Keep the docs current.** Definition of done = code works + the relevant `docs/*.md` updated + (larger tasks) an `AI_NOTES.md` entry + commit. A feature isn't finished until the map reflects it.
@@ -74,7 +75,8 @@ Check here before building anything: don't duplicate what exists.
 | Shared post card | `src/components/centrum/PostCard.tsx` | Used by the archives and the "read next" block. The listing keeps its own copy, which carries the grid divider borders |
 | Blog teasers on service pages | `src/components/centrum/BlogTeasers.tsx` | Three posts from a matching category at the foot of five service pages |
 | Image placeholders (LQIP) | `scripts/import-blur-placeholders.ts`, `blurDataURL` on Media | Harvested from the mirror's own `<picture>` backgrounds. 189/230 covered |
-| Image placeholders for static pages | `scripts/generate-blur-placeholders.mjs`, `src/lib/static-blur.ts` | The blog's come from Payload; the marketing pages have no CMS, so theirs are generated into `static-blur.json` (107 entries, 17.0KB). **Server components only:** a client component takes the string as a prop, see `FullBleedVideo`. The script **does not recurse**: a subdirectory needs its own `DIRS` entry |
+| Image placeholders for static pages | `scripts/generate-blur-placeholders.mjs`, `src/lib/static-blur.ts` | The blog's come from Payload; the marketing pages have no CMS, so theirs are generated into `static-blur.json` (162 entries, 32.6KB). **Server components only:** a client component takes the string as a prop, see `FullBleedVideo`. The script **does not recurse**: a subdirectory needs its own `DIRS` entry |
+| Cropping a static image to the aspect it is shown at | `scripts/crop-to-display-aspect.mjs` | `next/image` picks a variant by **width only**, so a 2:3 portrait in a 4:3 box still ships every row and `object-cover` throws them away. Crops the source to the tallest box it appears in, centred, so it is visually lossless. **The manifest in the script is the contract:** make a component's aspect ratio taller and the crop becomes wrong. `DRY=1` to preview |
 | Hero video encodes | `scripts/optimize-hero-video.mjs`, `public/videos/` | 720px and 1280px VP9/h264 pairs plus a poster, no audio. **8388KB down to 734KB on a phone.** `hero-source.mp4` is the gitignored input |
 | Structured data (JSON-LD) | `src/lib/structured-data.ts` | `HealthAndBeautyBusiness` sitewide, `BlogPosting` + `BreadcrumbList` per post, `Service`/`OfferCatalog`/`ItemList` of `Person` per section page, and `MedicalTherapy` (its `indication` list = the conditions a therapy page names). Rendered via `dangerouslySetInnerHTML`, which is the documented App Router way |
 | RSS feed | `src/app/feed.xml/route.ts` | Polish only, deliberately. Lives outside `[locale]` so no locale prefix is negotiated onto it |
@@ -89,11 +91,11 @@ Check here before building anything: don't duplicate what exists.
 | Centrum components | `src/components/centrum/` | Header, Footer, Hero, PromoBar and the other section blocks: reuse before adding new ones, see `docs/conventions.md` |
 | Payload CMS admin + API | `src/app/(payload)/` | Admin UI only on dashboard host; REST/GraphQL under `/api` |
 | Host proxy (dash vs public) | `src/proxy.ts` | `dash.localhost` → admin; public hosts return **404** for `/admin` (no redirect leak); rewrites `/admin/c/*`→`/collections/*`, `/admin/g/*`→`/globals/*` |
-| Access control / roles | `src/access/roles.ts` | Roles: administrator, moderator, redaktor, klient |
+| Access control / roles | `src/access/roles.ts` | Roles: administrator, edytor, klient (`src/lib/users/` helpers: username, password, display name) |
 | Payload config | `src/payload.config.ts` | CMS entry: DB adapter, editor, collections, i18n PL |
 | Payload collections | `src/collections/` | `Users`, `Authors`, `Categories`, `Media`, `Pages` (nested tree), `Posts` (blog) |
 | Payload collections | `src/collections/` | `Users`, `Media`, `Pages` (nested tree), `Posts` (blog) |
-| Media library (admin) | `src/collections/Media.ts`, `src/components/admin/media/`, `docs/media.md` | Explorer (grid/list/folders), a11y/SEO fields, conversion options |
+| Media library (admin) | `src/collections/Media.ts`, `src/components/admin/media/`, `docs/media.md` | Explorer (grid/list/folders); create form autofills title/ALT/slug/kind on file pick; stacked a11y/SEO + conversion + classification groups; tag chips; sharp/ffmpeg formats beyond WebP/WebM |
 | Site settings (global) | `src/globals/SiteSettings.ts` | Brand identity, contact, default SEO |
 | Appearance: colour scheme (admin + site) | `src/globals/ThemeColors.ts`, `src/lib/theme-tokens.ts`, `src/lib/theme-css.ts`, `docs/appearance.md` | Global palette → `--bw-*` CSS vars on the public site; presets + live preview in admin |
 | Appearance: saved compositions (admin) | `src/collections/SiteComponents.ts`, `src/components/admin/builder/ComponentBuilder.tsx`, `docs/appearance.md` | Editor's own arrangements of elements („zdjęcie + tekst”), placed on pages via the `savedComponent` element |
@@ -103,8 +105,8 @@ Check here before building anything: don't duplicate what exists.
 | Element parameter readers (shared) | `src/lib/component-values.ts`, `src/lib/component-styles.ts`, `src/lib/element-styles.ts`, `src/lib/page-sections.ts` | One source for the canvas **and** the site. Element layout CSS lives in `src/styles/elements.css`, imported by `globals.css` *and* `(payload)/custom.css`; responsiveness is **container queries**, so the canvas's phone preview is honest |
 | Shared CMS fields | `src/fields/` | SEO meta, slug helpers |
 | Admin UI extras | `src/components/admin/` | WelcomeDashboard, PagesTree, AdminNav, ComingSoonView, UpdatesView, media/* |
-| Admin AI (Gemini) | `src/lib/ai/`, `src/app/api/admin/ai/`, `src/components/admin/ai/`, `docs/admin-ai.md` | Assistive AI on dash only: ALT, SEO, EN draft, post draft, library blurbs, help chat. `GEMINI_API_KEY` |
-| Admin: package updates | `src/components/admin/UpdatesView.tsx`, `UpdatesPanel.tsx`, `LibrariesView.tsx`, `LibrariesPanel.tsx`, `package-report-ui.tsx`, `src/lib/package-updates.ts`, `src/app/api/admin/package-updates/` | Kokpit → Aktualizacje = only outdated; Zarządzanie → Biblioteki = full list + npm/site/repo links; 24h cache |
+| Admin AI (Gemini) | `src/lib/ai/`, `src/app/api/admin/ai/`, `src/components/admin/ai/`, `docs/admin-ai.md` | Assistive AI on dash only: ALT, SEO, EN draft, post draft, help chat. `GEMINI_API_KEY` |
+| Admin: package updates | `src/components/admin/UpdatesView.tsx`, `UpdatesPanel.tsx`, `LibrariesView.tsx`, `LibrariesPanel.tsx`, `package-report-ui.tsx`, `src/lib/package-updates.ts`, `src/app/api/admin/package-updates/` | Kokpit → Aktualizacje = outdated only (declared/installed/latest + release notes link); Zarządzanie → Biblioteki = inventory (installed + npm/site/GitHub icons, no update highlight); 24h cache |
 | Admin nav tree | `src/admin/nav-tree.ts` | Nested sidebar structure (custom Nav; stubs → `/admin/coming-soon`) |
 | Frontend i18n | `messages/`, `src/i18n/` | next-intl (default `pl`) |
 | Date/time display (PL) | `src/lib/format-date.ts` | `formatDatePl`, `formatDateTimePl`; Payload `admin.dateFormat`; next-intl `formats` |

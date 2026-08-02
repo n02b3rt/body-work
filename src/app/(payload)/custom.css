@@ -147,57 +147,102 @@
   font-size: 0.8rem;
 }
 
-/* —— Custom nested admin nav —— */
+/* —— Custom nested admin nav (WP-like clarity + calm motion) —— */
 
 .bw-nav__tree {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
-  padding: 0.25rem 0 1rem;
+  gap: 0.1rem;
+  padding: 0.35rem 0 1.25rem;
 }
 
 .bw-nav__branch-toggle {
   appearance: none;
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.55rem;
   width: 100%;
   margin: 0;
-  padding: 0.35rem 0.5rem;
+  padding: 0.5rem 0.7rem;
   border: 0;
   background: transparent;
   color: inherit;
   font: inherit;
-  font-size: 0.9rem;
+  font-size: 0.9375rem; /* 15px — readable leaf/section labels */
+  line-height: 1.35;
   text-align: left;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: 6px;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
 .bw-nav__branch-toggle:hover {
   background: var(--theme-elevation-100);
+  color: var(--theme-text);
+}
+
+.bw-nav__branch-toggle:active {
+  background: var(--theme-elevation-150);
+}
+
+.bw-nav__branch-toggle:focus-visible {
+  outline: 2px solid var(--theme-elevation-800);
+  outline-offset: 1px;
 }
 
 .bw-nav__branch-toggle--root {
   font-weight: 600;
-  font-size: 0.8rem;
-  letter-spacing: 0.04em;
+  font-size: 0.8125rem; /* 13px section headers, still clear */
+  letter-spacing: 0.035em;
   text-transform: uppercase;
   color: var(--theme-elevation-700);
-  margin-top: 0.5rem;
+  margin-top: 0.7rem;
+  padding: 0.55rem 0.7rem;
 }
 
 .bw-nav__branch:first-child > .bw-nav__branch-toggle--root {
   margin-top: 0;
 }
 
-.bw-nav__chevron {
+.bw-nav__branch--open > .bw-nav__branch-toggle--root {
+  color: var(--theme-text);
+}
+
+.bw-nav__branch--active > .bw-nav__branch-toggle {
+  color: var(--theme-text);
+}
+
+.bw-nav__branch--active > .bw-nav__branch-toggle--root {
+  color: var(--theme-text);
+}
+
+.bw-nav__toggle-mark {
   display: inline-flex;
-  width: 0.85rem;
+  width: 1.15rem;
+  height: 1.15rem;
   flex-shrink: 0;
-  color: var(--theme-elevation-600);
-  font-size: 0.7rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  color: var(--theme-elevation-700);
+  font-size: 1rem;
+  font-weight: 600;
   line-height: 1;
+  transition:
+    color 0.18s ease,
+    background-color 0.18s ease;
+}
+
+.bw-nav__toggle-mark--open {
+  color: var(--theme-text);
+}
+
+.bw-nav__branch-toggle:hover .bw-nav__toggle-mark {
+  color: var(--theme-text);
+  background: var(--theme-elevation-100);
 }
 
 .bw-nav__icon {
@@ -205,26 +250,39 @@
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  width: 1rem;
-  height: 1rem;
-  color: var(--theme-elevation-700);
+  width: 1.25rem; /* 20px — WordPress-scale */
+  height: 1.25rem;
+  color: var(--theme-elevation-600);
+  transition: color 0.18s ease;
 }
 
 .bw-nav__icon svg {
   display: block;
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 .bw-nav__branch-toggle--root .bw-nav__icon {
   color: var(--theme-elevation-600);
 }
 
+.bw-nav__branch-toggle:hover .bw-nav__icon,
+.bw-nav__leaf .nav__link:hover .bw-nav__icon,
+.bw-nav__link--active .bw-nav__icon {
+  color: var(--theme-text);
+}
+
 .bw-nav__link {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.55rem;
+  width: 100%;
+  font-size: 0.9375rem;
+  line-height: 1.35;
 }
 
-.bw-nav__branch-label {
+.bw-nav__branch-label,
+.bw-nav .nav__link-label {
   flex: 1;
   min-width: 0;
 }
@@ -233,21 +291,64 @@
   display: flex;
   flex-direction: column;
   gap: 0.05rem;
-  padding: 0.1rem 0 0.25rem 0.15rem;
+  padding: 0.15rem 0 0.3rem 0.1rem;
+  animation: bw-nav-reveal 0.18s ease;
 }
 
+@keyframes bw-nav-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Payload DefaultNav leaves ship `.nav__link`; give them room and motion */
 .bw-nav__leaf .nav__link {
-  padding-left: 1.35rem;
+  padding: 0.48rem 0.7rem 0.48rem 2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  color: inherit;
+  font-size: 0.9375rem;
+  line-height: 1.35;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
-.bw-nav__stub-mark {
-  margin-left: 0.25rem;
-  color: var(--theme-elevation-500);
-  font-weight: 700;
+.bw-nav__leaf .nav__link:hover {
+  background: var(--theme-elevation-100);
+  color: var(--theme-text);
 }
 
-.bw-nav__link--active {
+.bw-nav__leaf .nav__link:active {
+  background: var(--theme-elevation-150);
+}
+
+.bw-nav__leaf .nav__link:focus-visible {
+  outline: 2px solid var(--theme-elevation-800);
+  outline-offset: 1px;
+}
+
+/* Active item: soft fill only (no left border / accent bar) */
+.bw-nav__leaf .nav__link.bw-nav__link--active {
+  background: var(--theme-elevation-100);
+  color: var(--theme-text);
   font-weight: 600;
+  box-shadow: none;
+}
+
+.bw-nav__leaf .nav__link.bw-nav__link--active:hover {
+  background: var(--theme-elevation-150);
+}
+
+/* Hide Payload's default left indicator bar */
+.bw-nav .nav__link-indicator {
+  display: none;
 }
 
 .bw-coming-soon {
@@ -289,7 +390,10 @@
 /* —— Package updates (Kokpit → Aktualizacje) —— */
 
 .bw-updates {
+  box-sizing: border-box;
+  width: 100%;
   max-width: 72rem;
+  min-width: 0;
   padding: 1.5rem 0 2.5rem;
 }
 
@@ -404,6 +508,7 @@
 
 /* Outer frame only — row separators are on cells so edges stay square. */
 .bw-updates__table-wrap {
+  max-width: 100%;
   overflow-x: auto;
   border: 1px solid var(--theme-elevation-150);
   border-radius: 4px;
@@ -412,7 +517,7 @@
 
 .bw-updates__table {
   width: 100%;
-  min-width: 28rem;
+  max-width: 100%;
   table-layout: fixed;
   border-collapse: separate;
   border-spacing: 0;
@@ -424,16 +529,33 @@
 }
 
 .bw-updates__col-version {
-  width: 8.5rem;
+  width: 7rem;
 }
 
+.bw-updates__col-ver {
+  width: 7rem;
+}
+
+/* 3×1.5rem icons + gaps + cell padding — keep tight so the name column breathes */
 .bw-updates__col-links {
-  width: 6.5rem;
+  width: 5.75rem;
+}
+
+.bw-updates__col-release {
+  width: 7.5rem;
+}
+
+.bw-updates__table--updates {
+  min-width: 36rem;
+}
+
+.bw-updates__table--libraries {
+  min-width: 0;
 }
 
 .bw-updates__table th,
 .bw-updates__table td {
-  padding: 0.65rem 0.85rem;
+  padding: 0.55rem 0.65rem;
   text-align: left;
   vertical-align: middle;
   border: 0;
@@ -456,19 +578,17 @@
   border-bottom: none;
 }
 
-.bw-updates__row--update {
-  background: color-mix(in srgb, var(--theme-warning-500, #d4a017) 8%, transparent);
-}
-
 .bw-updates__name {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
   min-width: 0;
+  overflow: hidden;
 }
 
 .bw-updates__name code {
   font-weight: 600;
+  overflow-wrap: anywhere;
   word-break: break-word;
 }
 
@@ -479,14 +599,19 @@
 .bw-updates__version {
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .bw-updates__version code {
   word-break: normal;
 }
 
+.bw-updates__th-links,
 .bw-updates__links-cell {
+  text-align: right;
   white-space: nowrap;
+  overflow: hidden;
 }
 
 .bw-updates__muted {
@@ -503,29 +628,21 @@
   line-height: 1.5;
 }
 
-.bw-updates__desc {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  font-size: 0.8rem;
-  font-weight: 400;
-  color: var(--theme-elevation-600);
-  line-height: 1.35;
-}
-
 .bw-updates__links {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  justify-content: flex-end;
+  gap: 0.15rem;
+  max-width: 100%;
 }
 
 .bw-updates__icon-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.75rem;
-  height: 1.75rem;
+  flex: 0 0 auto;
+  width: 1.5rem;
+  height: 1.5rem;
   border-radius: 4px;
   color: var(--theme-elevation-700);
   text-decoration: none;
@@ -551,6 +668,11 @@
 
 .bw-updates__ext-link:hover {
   color: var(--theme-elevation-900, inherit);
+}
+
+.bw-updates__release-link {
+  font-size: 0.8rem;
+  margin-left: 0.15rem;
 }
 
 /* —— Media library explorer —— */
@@ -1297,11 +1419,6 @@
   padding-left: 1.25rem;
 }
 
-.bw-updates__desc--pl {
-  color: var(--theme-elevation-800);
-  font-weight: 500;
-}
-
 .bw-builder__ai {
   margin-bottom: 1rem;
 }
@@ -1419,4 +1536,268 @@
   font: inherit;
   background: var(--theme-input-bg, var(--theme-elevation-0));
   color: inherit;
+}
+
+/* ——— Users document form ———
+ * Desired order: Imię → Nazwisko → Email → Nazwa użytkownika → Hasło → Rola
+ * Auth block is injected before collection fields; reorder with flex + display:contents.
+ */
+.collection-edit--users .document-fields__edit {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.collection-edit--users .document-fields__fields {
+  display: contents;
+}
+
+.collection-edit--users .field-type:has(#field-firstName) {
+  order: 1;
+}
+
+.collection-edit--users .field-type:has(#field-lastName) {
+  order: 2;
+}
+
+.collection-edit--users .auth-fields,
+.collection-edit--users .collection-edit__auth {
+  order: 3;
+  /* Drop Payload's gray auth panel */
+  background: transparent;
+  padding: 0;
+  gap: var(--base, 1rem);
+}
+
+.collection-edit--users .field-type:has(#field-role),
+.collection-edit--users .field-type:has([name='role']),
+.collection-edit--users .field-type:has(#field-role-error) {
+  order: 4;
+}
+
+/* Hide the invisible enhancements UI field shell */
+.collection-edit--users .field-type:has(.bw-user-form-enhancements) {
+  order: 99;
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 0 !important;
+  height: 0;
+  border: 0 !important;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.collection-edit--users .bw-user-form-enhancements {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+/* Single password on create (confirm is mirrored in JS). */
+html.bw-users-create .confirm-password {
+  display: none !important;
+}
+
+/* Password input + icon actions on one row */
+.collection-edit--users .bw-password-field-wrap {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+
+.collection-edit--users .bw-password-field-wrap > input {
+  flex: 1;
+  min-width: 0;
+  padding-right: 5.5rem;
+}
+
+.collection-edit--users .bw-password-actions {
+  position: absolute;
+  right: 0.35rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  z-index: 2;
+}
+
+.collection-edit--users .bw-password-action {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--theme-elevation-600, #666);
+  cursor: pointer;
+  line-height: 0;
+}
+
+.collection-edit--users .bw-password-action:hover {
+  background: var(--theme-elevation-100, #eee);
+  color: var(--theme-text, inherit);
+}
+
+.collection-edit--users .bw-password-action:focus-visible {
+  outline: 2px solid var(--theme-success-500, #2f9e44);
+  outline-offset: 1px;
+}
+
+/* Username alternatives under the username field */
+.collection-edit--users .bw-username-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
+  width: 100%;
+}
+
+.collection-edit--users .bw-username-suggestions__label {
+  font-size: 0.8125rem;
+  color: var(--theme-elevation-600, #666);
+}
+
+.collection-edit--users .bw-username-suggestions__chip {
+  appearance: none;
+  border: 1px solid var(--theme-elevation-250, #ccc);
+  background: var(--theme-elevation-50, #f5f5f5);
+  color: inherit;
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.collection-edit--users .bw-username-suggestions__chip:hover {
+  border-color: var(--theme-elevation-400, #999);
+  background: var(--theme-elevation-100, #eee);
+}
+
+/* Live uniqueness errors on auth fields */
+html.bw-users-create .field-type.email.error input,
+html.bw-users-create .field-type.text.error input,
+.collection-edit--users .field-type.email.error input,
+.collection-edit--users .field-type.text.error input {
+  border-color: var(--theme-error-500, #c92a2a);
+}
+
+/* --- Media create/edit: tags chips + option fields --- */
+
+.bw-media-tags__box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.5rem;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--theme-elevation-150);
+  border-radius: 4px;
+  background: var(--theme-input-bg, var(--theme-elevation-0));
+  cursor: text;
+}
+
+.bw-media-tags__box.is-readonly {
+  cursor: default;
+  opacity: 0.85;
+}
+
+.bw-media-tags__box:focus-within {
+  border-color: var(--theme-elevation-400);
+  outline: none;
+  box-shadow: 0 0 0 1px var(--theme-elevation-400);
+}
+
+.bw-media-tags__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  max-width: 100%;
+  padding: 0.2rem 0.45rem 0.2rem 0.55rem;
+  border: 1px solid var(--theme-elevation-250);
+  border-radius: 999px;
+  background: var(--theme-elevation-100);
+  color: var(--theme-text, inherit);
+  font-size: 0.8125rem;
+  line-height: 1.3;
+}
+
+.bw-media-tags__chip-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bw-media-tags__chip-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--theme-elevation-600);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.bw-media-tags__chip-remove:hover {
+  background: var(--theme-elevation-200);
+  color: var(--theme-text, inherit);
+}
+
+.bw-media-tags__input {
+  flex: 1 1 8rem;
+  min-width: 6rem;
+  margin: 0;
+  padding: 0.25rem 0.15rem;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  outline: none;
+}
+
+.bw-media-option__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: stretch;
+}
+
+.bw-media-option__select {
+  flex: 1 1 12rem;
+  min-width: 0;
+  height: 2.5rem;
+  padding: 0 0.65rem;
+  border: 1px solid var(--theme-elevation-150);
+  border-radius: 4px;
+  background: var(--theme-input-bg, var(--theme-elevation-0));
+  color: inherit;
+  font: inherit;
+}
+
+.bw-media-option__custom {
+  flex: 0 1 7rem;
+  width: 7rem;
+  height: 2.5rem;
+  padding: 0 0.65rem;
+  border: 1px solid var(--theme-elevation-150);
+  border-radius: 4px;
+  background: var(--theme-input-bg, var(--theme-elevation-0));
+  color: inherit;
+  font: inherit;
 }

@@ -49,9 +49,16 @@ export function StatementSection({
         align === "center" ? "items-center text-center" : "items-start text-left",
       )}
     >
+      {/* `w-full` is load-bearing. This is a **column** flex container, so `items-start` sets the
+        * cross size to fit-content, and a heading whose max-content width exceeds the column then
+        * lays out at max-content and paints straight over the neighbouring cell: measured 209px
+        * past a 262px cell on /bodylab/technologia-vald at a 1060 viewport, invisible to a
+        * `scrollWidth` check because `html` carries `overflow-x: clip`. `w-full` pins it to the
+        * column so the text wraps; `break-words` is the last resort for a single word that still
+        * cannot fit, which is what `compactHeading` above is really for. */}
       <SectionHeading
         size={compactHeading ? "tile" : "section"}
-        className={align === "center" ? "max-w-3xl" : "max-w-5xl"}
+        className={cn("w-full break-words", align === "center" ? "max-w-3xl" : "max-w-5xl")}
       >
         {heading}
       </SectionHeading>

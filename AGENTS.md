@@ -8,12 +8,20 @@ The essentials, restated in case your tooling only reads this file and never fol
 - **Read `PRD.md` and `AI_NOTES.md` first**: requirements and the running project journal.
 - **Ask before touching the stack.** Installing, removing, upgrading, or swapping any library/service requires telling the user first. Approved list + why: `docs/stack.md`.
 - **Git:** feature branches (`feat/`, `fix/`, `refactor/`, `chore/`), small commits, `type: short summary` titles, never non-trivial commits straight to `main`. No AI/tool authorship anywhere: no "Co-Authored-By", "Generated with", or tool names in commits, code, comments, or docs.
+- **Admin UI copy is short and dry** (section leads, field descriptions, card hints): one line that names the thing, not a tutorial. Full rule: `docs/conventions.md` → *Admin UI copy*.
 - **Definition of done:** code works + the relevant `docs/*.md` file is updated + (larger tasks) an `AI_NOTES.md` entry + commit.
 - **Don't duplicate**: check `CLAUDE.md`'s project map and docs index before building something that might already exist.
 
 ## Working next to other agents
 
-This repo is often worked on by several agents at once, in separate terminals. Full workflow: [`docs/parallel-agents.md`](./docs/parallel-agents.md). The rules that will bite you if you skip it:
+This repo is often worked on by several agents at once, in separate terminals. Full workflow: [`docs/parallel-agents.md`](./docs/parallel-agents.md). Two runbooks carry it, and they are tool-agnostic — read the file and follow it, whatever agent you are:
+
+- **Starting a task** next to another agent → [`docs/runbooks/start-parallel-work.md`](./docs/runbooks/start-parallel-work.md)
+- **A PR just landed in `main`** → [`docs/runbooks/post-merge-sync.md`](./docs/runbooks/post-merge-sync.md)
+
+Claude Code invokes them as skills, Cursor as `/start-parallel-work` and `/post-merge-sync`; anything else is pointed at the files directly (paste-able prompts: `prompts/parallel-agent-bootstrap.md`). The steps are identical — the runbook is the only copy.
+
+The rules that will bite you if you skip all of it:
 
 - **Your own worktree, your own database, your own port.** `git worktree add`, a separate `DATABASE_URL` (`bodywork_a`, `bodywork_b`, …) and `pnpm dev --port 300X`. Payload pushes the dev schema on startup, so two agents on one database corrupt each other's tables. Each worktree needs its own `.env` and gets its own `media/`.
 - **Never run `docker compose down -v`.** One volume holds every agent's database.

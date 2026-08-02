@@ -27,10 +27,10 @@ Site split (hub/centrum/akademia/dash): route groups under `src/app/`, see [`sit
 - **Route groups today:** the public site is `src/app/[locale]/`, Payload admin/API is `src/app/(payload)/`. **Do not add a root `src/app/layout.tsx`** that wraps both: each tree owns its own `<html>`/`<body>`, which is what lets Payload render its own document shell.
 - **Dashboard host:** staff open the panel only via `DASHBOARD_HOST` (dev: `dash.localhost`). Never link to `/admin` from the public site.
 - **Payload collections:** one file per collection in `src/collections/`, registered in `src/payload.config.ts`. Access helpers live in `src/access/`.
-- **Roles:** `administrator` | `moderator` | `redaktor` | `klient`: use the helpers in `src/access/roles.ts`; don't invent parallel permission checks.
+- **Roles:** `administrator` | `edytor` | `klient`: use the helpers in `src/access/roles.ts`; don't invent parallel permission checks. User display name: `getDisplayName` from `src/lib/users/`.
 - **Public UI strings:** next-intl, add keys to `messages/pl.json` (and `en.json`); don't hardcode user-facing Polish in frontend components when a message key exists.
 - **Admin labels:** Polish strings in Payload collection/global configs are fine (editors work in PL).
-- **Admin sidebar:** structure lives in `src/admin/nav-tree.ts`; don't rely on Payload's `admin.group` for multi-level nav (a custom `AdminNav` replaces DefaultNav). Stub leaves use `/admin/coming-soon?section=<id>`.
+- **Admin sidebar:** structure lives in `src/admin/nav-tree.ts`; don't rely on Payload's `admin.group` for multi-level nav (a custom `AdminNav` replaces DefaultNav). Stub leaves use `/admin/coming-soon?section=<id>`. Presentation (size, hover/active motion) is in `src/app/(payload)/custom.css` under `.bw-nav*`; icons in `src/components/admin/nav-icons.tsx`.
 - **Short admin URLs:** nav links use `/admin/c/<slug>` and `/admin/g/<slug>`; `src/proxy.ts` rewrites them to Payload's `/collections/` and `/globals/`. Built-in Payload links may still show the long form.
 
 ## Reuse before you build (scraped-site workflow)
@@ -42,11 +42,11 @@ When turning a scraped Centrum page into a real one:
 3. After adding or reusing a component for a page, update its row in `migration-tracker.md` (components used/created, status).
 4. New component = bilingual from the start (see [`i18n.md`](./i18n.md)): don't hardcode Polish strings "for now."
 5. Use the real photos/video/logo from that page's `media/` folder, not a placeholder, see "Using real media assets" in [`scraped-site-map.md`](./scraped-site-map.md).
-- **Roles:** `administrator` | `moderator` | `redaktor` | `klient`: use helpers from `src/access/roles.ts`; do not invent parallel permission checks.
+- **Roles:** `administrator` | `edytor` | `klient`: use helpers from `src/access/roles.ts`; do not invent parallel permission checks. User display name: `getDisplayName` from `src/lib/users/`.
 - **Public UI strings:** next-intl, add keys to `messages/pl.json` (and `en.json`); do not hardcode user-facing Polish in frontend components when a message key exists.
 - **Dates/times (display):** use helpers from `src/lib/format-date.ts` (`formatDatePl`, `formatDateTimePl`) or next-intl `useFormatter().dateTime(value, 'dateTime')`: never ad-hoc `toLocaleString` / ISO strings in UI. Storage stays ISO/UTC.
 - **Admin labels:** Polish strings in Payload collection/global configs are fine (editors work in PL).
-- **Admin sidebar:** structure lives in `src/admin/nav-tree.ts`; do not rely on Payload `admin.group` for multi-level nav (custom `AdminNav` replaces DefaultNav). Stub leaves use `/admin/coming-soon?section=<id>`.
+- **Admin sidebar:** structure lives in `src/admin/nav-tree.ts`; do not rely on Payload `admin.group` for multi-level nav (custom `AdminNav` replaces DefaultNav). Stub leaves use `/admin/coming-soon?section=<id>`. Presentation (size, hover/active motion) is in `src/app/(payload)/custom.css` under `.bw-nav*`; icons in `src/components/admin/nav-icons.tsx`.
 - **Short admin URLs:** nav links use `/admin/c/<slug>` and `/admin/g/<slug>`; `src/proxy.ts` rewrites them to Payload’s `/collections/` and `/globals/`. Built-in Payload links may still show the long form.
 - **Media library:** collection fields + conversion hooks in `src/collections/Media.ts` / `src/lib/compress-media.ts`; explorer UI under `src/components/admin/media/` (see `docs/media.md`).
 - **Appearance:** colour tokens defined once in `src/lib/theme-tokens.ts` (drives both the `theme-colors` global and the public-site CSS vars); component types registered in `src/fields/component-settings/index.ts`, one settings group per type (see `docs/appearance.md`).
@@ -57,6 +57,38 @@ When turning a scraped Centrum page into a real one:
 - CMS content, read via `getPayload()` in Server Components; edit in `/admin`. Prefer collections over hard-coded copy once a content type is editable. The existing page copy still lives in `messages/*.json`: migrate it to Payload deliberately, page by page, rather than hand-rolling a second data layer in between.
 - After changing admin UI components or collections that affect the import map: `pnpm generate:importmap`. After schema/field changes: `pnpm generate:types`.
 - One way to do one thing, if a second pattern for the same problem appears, consolidate.
+
+## Admin UI copy (labels, leads, field descriptions)
+
+Editors and staff work in Polish. Labels and short hints in the dashboard are **orienting labels**, not tutorials. Assume the reader is competent.
+
+### Rules
+
+1. **One short line by default.** Section leads, view subtitles, card hints, `admin.description` on fields/collections: usually a single short sentence or fragment. Two lines only when a real constraint must be stated (e.g. format, max length, required relation).
+2. **Name the thing, don't teach it.** Say what the screen or field *is*, not how to use the whole product. No walkthroughs, no "you can also…", no "this panel only informs…", no cross-links to other menu paths in the lead.
+3. **No filler.** Drop openers like "Ta sekcja pozwala…", "W tym miejscu możesz…", "Użyj tego pola do…", "Pełna lista… znajdziesz w…". If the label already says *Tytuł*, the description must add a fact the label does not (e.g. "Max ~60 znaków"), otherwise omit the description.
+4. **No patronizing tone.** No over-explaining obvious CMS concepts (what a slug is, that publish makes it live, that cache refreshes). No "for beginners" prose.
+5. **Prefer silence over noise.** Empty `description` / no lead is better than a paragraph that restates the title.
+6. **Placeholders** are examples (`Jan Kowalski`, `np. 120`), not instructions.
+
+### Good vs bad
+
+| Where | Bad | Good |
+|---|---|---|
+| View lead | "Pakiety z package.json, dla których w npm jest nowsza wersja niż zainstalowana: zakres zadeklarowany, wersja w node_modules, najnowsza w rejestrze oraz link do opisu wydania. Pełna lista jest w Zarządzanie → Biblioteki. Wynik cache'owany 24h; panel tylko informuje." | "Pakiety z dostępną nowszą wersją." |
+| View lead | "Wszystkie bezpośrednie zależności z package.json (runtime i dev): zainstalowana wersja oraz ikony do npm, strony projektu i GitHuba." | "Zainstalowane zależności projektu." |
+| Field `description` | "Użyj tego pola, aby podać krótki opis autora wyświetlany na blogu pod imieniem." | "Pod imieniem na blogu." or omit |
+| Field `description` | "Opcjonalnie: tylko jeśli ten autor ma też konto w panelu." | "Opcjonalne konto w panelu." |
+| Card hint | "Przejdź tutaj, aby zarządzać strukturą i treściami podstron witryny." | "Struktura i treści podstron" |
+
+### Where this applies
+
+- Custom admin views (`*View.tsx` leads, toolbars, empty states)
+- Payload `admin.description` / labels on collections, globals, fields, blocks, tabs
+- Builder chrome (page builder, component builder, appearance panels)
+- Nav labels stay short words; stubs don't need essays on the coming-soon page either
+
+When you *must* document behaviour for agents or future humans, put it in `docs/*.md` or a code comment: **not** in the UI string the editor sees every day.
 
 ## Code style
 

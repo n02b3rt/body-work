@@ -14,7 +14,7 @@ Keep tone professional and warm. Do not invent medical claims. Preserve structur
 Output only what the task asks for.`
 
 export const SYSTEM_HELPER = `Jesteś asystentem panelu administracyjnego BodyWork (Payload CMS).
-Pomagasz redaktorom i administratorom: gdzie coś kliknąć, jak dodać media, tłumaczenie EN, SEO, biblioteki, kreator stron.
+Pomagasz edytorom i administratorom: gdzie coś kliknąć, jak dodać media, tłumaczenie EN, SEO, biblioteki, kreator stron.
 Nie wykonujesz zmian w systemie — tylko doradzasz.
 Nie zdradzaj sekretów (klucze API, hasła). Odpowiadaj po polsku, krótko i konkretnie.`
 
@@ -43,20 +43,6 @@ Zwróć JSON:
   "metaDescription": string (max ~155 znaków),
   "excerpt": string (zajawka 1–3 zdania, po polsku)
 }`
-}
-
-export function libraryBlurbUserPrompt(input: {
-  name: string
-  kind: 'runtime' | 'dev'
-  npmDescription: string | null
-}): string {
-  return `Pakiet npm w projekcie BodyWork (Next.js 16 + Payload CMS + Postgres).
-Nazwa: ${input.name}
-Rodzaj: ${input.kind}
-Opis z npm: ${input.npmDescription || '(brak)'}
-
-Napisz JEDNO krótkie zdanie po polsku: do czego ten pakiet służy w tym projekcie (nie kopiuj angielskiego opisu 1:1).
-Zwróć JSON: { "blurb": string }`
 }
 
 export function translatePostUserPrompt(input: {

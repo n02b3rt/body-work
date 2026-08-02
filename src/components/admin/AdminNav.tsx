@@ -2,6 +2,7 @@
 
 import {
   adminNavTree,
+  filterNavForRole,
   isNavBranch,
   normalizeAdminPath,
   type NavBranch,
@@ -9,8 +10,9 @@ import {
   type NavNode,
 } from '@/admin/nav-tree'
 import { NavIcon } from '@/components/admin/nav-icons'
+import type { User } from '@/payload-types'
 import { NavHamburger, NavWrapper } from '@payloadcms/next/client'
-import { Link, Logout } from '@payloadcms/ui'
+import { Link, Logout, useAuth } from '@payloadcms/ui'
 import { usePathname, useSearchParams } from 'next/navigation'
 import React, { useCallback, useMemo, useSyncExternalStore } from 'react'
 
@@ -124,24 +126,24 @@ function NavLeafLink({
 }) {
   const label = (
     <>
-      {active ? <div className={`${baseClass}__link-indicator`} /> : null}
       {leaf.icon ? (
         <span className="bw-nav__icon">
           <NavIcon name={leaf.icon} />
         </span>
       ) : null}
       <span className={`${baseClass}__link-label`}>{leaf.label}</span>
-      {leaf.stub ? (
-        <span className="bw-nav__stub-mark" title="W przygotowaniu">
-          ·
-        </span>
-      ) : null}
     </>
   )
 
+  const className = `${baseClass}__link bw-nav__link${active ? ' bw-nav__link--active' : ''}`
+
   if (active && normalizeAdminPath(pathname) === normalizeAdminPath(leaf.href)) {
     return (
-      <div className={`${baseClass}__link bw-nav__link`} id={`nav-${leaf.id}`}>
+      <div
+        className={className}
+        id={`nav-${leaf.id}`}
+        aria-current="page"
+      >
         {label}
       </div>
     )
@@ -149,10 +151,11 @@ function NavLeafLink({
 
   return (
     <Link
-      className={`${baseClass}__link bw-nav__link${active ? ' bw-nav__link--active' : ''}`}
+      className={className}
       href={leaf.href}
       id={`nav-${leaf.id}`}
       prefetch={false}
+      aria-current={active ? 'page' : undefined}
     >
       {label}
     </Link>
@@ -179,7 +182,7 @@ function NavTreeNode({
     return (
       <div
         className="bw-nav__leaf"
-        style={depth > 1 ? { paddingLeft: `${(depth - 1) * 0.65}rem` } : undefined}
+        style={depth > 1 ? { paddingLeft: `${(depth - 1) * 0.7}rem` } : undefined}
       >
         <NavLeafLink leaf={node} active={active} pathname={pathname} />
       </div>
@@ -191,8 +194,14 @@ function NavTreeNode({
 
   return (
     <div
-      className={`bw-nav__branch${isOpen ? ' bw-nav__branch--open' : ''}`}
-      style={depth > 0 ? { paddingLeft: `${depth * 0.35}rem` } : undefined}
+      className={[
+        'bw-nav__branch',
+        isOpen ? 'bw-nav__branch--open' : '',
+        hasActive ? 'bw-nav__branch--active' : '',
+      ]
+        .filter(Boolean)
+        .join(' ')}
+      style={depth > 0 ? { paddingLeft: `${depth * 0.4}rem` } : undefined}
     >
       <button
         type="button"
@@ -200,8 +209,11 @@ function NavTreeNode({
         aria-expanded={isOpen}
         onClick={() => toggle(node.id)}
       >
-        <span className="bw-nav__chevron" aria-hidden>
-          {isOpen ? '▾' : '▸'}
+        <span
+          className={`bw-nav__toggle-mark${isOpen ? ' bw-nav__toggle-mark--open' : ''}`}
+          aria-hidden
+        >
+          {isOpen ? '−' : '+'}
         </span>
         {node.icon ? (
           <span className="bw-nav__icon">
@@ -236,6 +248,10 @@ export function AdminNav() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const sectionParam = searchParams.get('section')
+  const { user } = useAuth()
+  const role = (user as User | null | undefined)?.role
+
+  const navTree = useMemo(() => filterNavForRole(role), [role])
 
   const storedRaw = useSyncExternalStore(subscribeOpen, openSnapshot, openServerSnapshot)
   const openMap = useMemo(() => parseStoredOpen(storedRaw), [storedRaw])
@@ -254,7 +270,7 @@ export function AdminNav() {
     <NavWrapper baseClass={baseClass}>
       <nav className={`${baseClass}__wrap bw-nav`}>
         <div className="bw-nav__tree">
-          {adminNavTree.map((branch) => (
+          {navTree.map((branch) => (
             <NavTreeNode
               key={branch.id}
               node={branch}
