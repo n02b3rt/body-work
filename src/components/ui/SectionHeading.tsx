@@ -1,7 +1,14 @@
 import type { CSSProperties, ElementType, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-export type SectionHeadingSize = "display" | "section" | "hero" | "sub" | "tile" | "menu";
+export type SectionHeadingSize =
+  | "display"
+  | "section"
+  | "section-late"
+  | "hero"
+  | "sub"
+  | "tile"
+  | "menu";
 
 type SectionHeadingProps = {
   children: ReactNode;
@@ -22,6 +29,25 @@ type SectionHeadingProps = {
 const sizes: Record<SectionHeadingSize, string> = {
   display: "",
   section: "text-h-mobile wide:text-h-section",
+  /**
+   * `section`, but it waits for a column wide enough to hold it.
+   *
+   * Fifth sighting of the same shape: a grid goes two- or three-up at one breakpoint while the type
+   * jumps at another, and in the band between them a long Polish word is wider than its column.
+   * `compactHeading` on `StatementSection` answers it by never growing at all, which is right for a
+   * three-up grid; a two-up column does hold 67.7px, just not until it is about 610px wide.
+   *
+   * **1400px is measured, not guessed.** "Specjalizacja uroginekologiczna" at 67.7px wants 570–612px:
+   * on `/fizjoterapia/specjalisci` it broke mid-word, with no hyphen, in a 569px column at a 1280
+   * viewport and sat on two clean lines in a 612px one at 1366. `Container` caps at 1440, so the
+   * column is `(min(vw, 1440) - 64 - 64) / 2`: 636px at a 1400 viewport, and it only grows from
+   * there. English needs it too ("Urogynaecological specialisation").
+   *
+   * **Not solved by `hyphens-auto`.** Chrome's hyphenation dictionaries are a downloadable
+   * component, absent on a fresh profile, which is exactly how the mid-word break was caught; the
+   * `break-words` underneath it then breaks anywhere at all. A size that fits needs no dictionary.
+   */
+  "section-late": "text-h-mobile min-[1400px]:text-h-section",
   hero: "text-h-mobile wide:text-h-hero",
   sub: "text-h-mobile wide:text-h-sub",
   tile: "text-h-tile",
@@ -87,6 +113,21 @@ export function SectionHeading({
         // container query, and they already laid out full width.
         "w-full break-words font-normal text-brand-navy",
         uppercase && "uppercase",
+        /* A single Polish word can be longer than a small phone's whole column, and at
+         * `text-h-mobile` (39.5px) several page titles are. Measured at a 320px viewport:
+         * "Trening z oceną funkcjonalną." needed 327px inside a 273px box and pushed the
+         * **document** to 343px, i.e. the page scrolled sideways; "Trening indywidualny." did the
+         * same by 33px. Both are fixed here rather than per page, because the next long title
+         * would bring the bug straight back.
+         *
+         * `hyphens-auto` breaks at a dictionary point and leaves a hyphen, which is what Polish
+         * wants ("funk-cjonalną"); `break-words` is the guarantee underneath it for a word the
+         * dictionary does not know. Neither does anything at all until a word genuinely cannot
+         * fit, so no heading that fits today moves. Same pairing as the accordion row titles.
+         *
+         * Fitted `display` headings are exempt: they are `whitespace-nowrap` and scale themselves
+         * down to their container, so they can never overflow this way. */
+        chars === 0 && "hyphens-auto break-words",
         // Fitted headings stay on one line, matching the reference's `wsnw`.
         chars > 0 && "whitespace-nowrap",
         // Fall back to the fluid size when children aren't a plain string to measure.

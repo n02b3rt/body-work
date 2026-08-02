@@ -100,20 +100,20 @@ Two things about this app's shape made it harder than it looks, both worth knowi
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
 |---|---|---|---|---|---|
 | `/trening-personalny/` | `/trening-personalny/` | New: SectionNav/PersonalTrainingNav, PageHero, CenteredBand, MediaCardCta. Reused: StatementSection, TextMedia, TestimonialCarousel (generalised to take items as props), NewsletterSignup | PL: done / EN: done | Copy verified verbatim against the scrape both ways (no missing headings, no altered strings): **not yet opened in a browser** | Bilingual |
-| `/trening-personalny/trening-indywidualny/` | same | New: Accordion. Reused: PageHero, CenteredBand, TextMedia, SectionNav | PL: done / EN: done | Same automated two-way check | Bilingual |
-| `/trening-personalny/trening-w-parze/` | same | Reused: PageHero, TextMedia, Accordion (subset of the shared items), SectionNav | PL: done / EN: done | Same automated two-way check: this check caught a whole section I'd missed | Bilingual |
-| `/trening-personalny/ocena-funkcjonalna/` | same | Reused: PageHero, CenteredBand, StatementSection, SectionNav | PL: done / EN: done | Same automated two-way check | Bilingual |
-| `/trening-personalny/trenerzy/` | same | Reused: PageHero, CenteredBand, SectionNav; 3 categories × 18 trainer cards | PL: done / **EN: bios still Polish** (see AI_NOTES) | Same automated two-way check | Built (PL) |
+| `/trening-personalny/trening-indywidualny/` | same | New: Accordion. Reused: PageHero, CenteredBand, TextMedia, SectionNav | PL: done / EN: done | Same automated two-way check + RWD measured at 8 widths 2026-07-30 (0 overflow) | Bilingual |
+| `/trening-personalny/trening-w-parze/` | same | Reused: PageHero, TextMedia, Accordion (subset of the shared items), SectionNav | PL: done / EN: done | Same automated two-way check: this check caught a whole section I'd missed; + RWD measured at 9 widths from 320 2026-07-30 (0 overflow) | Bilingual |
+| `/trening-personalny/ocena-funkcjonalna/` | same | Reused: PageHero, CenteredBand, StatementSection, SectionNav | PL: done / EN: done | Same automated two-way check + RWD measured at 9 widths from 320 2026-07-30 (title overflowed at 320, fixed) | Bilingual |
+| `/trening-personalny/trenerzy/` | same | Reused: PageHero, CenteredBand, SectionNav; 3 categories × 19 trainer cards | PL: done / **EN: bios still Polish** (see AI_NOTES) | Same automated two-way check + RWD measured at 9 widths from 320 2026-07-30 (cards and category row overflowed at 320, fixed) | Built (PL) |
 
 ## Fizjoterapia
 
 | Scraped route | Target route | Components | i18n | Visual QA | Status |
 |---|---|---|---|---|---|
 | `/fizjoterapia/` | `/fizjoterapia/` | New: PhysiotherapyNav. Reused: PageHero, CenteredBand, TextMedia ×4, Accordion (6 equipment items), MediaCardCta ×2, TestimonialCarousel | PL: done / EN: done | Automated two-way check vs. the scrape (0 issues): **not opened in a browser** | Bilingual |
-| `/fizjoterapia/terapia-manualna/` | same | Reused: PageHero, CenteredBand, Accordion (10 conditions) | PL: done / EN: done | Same check: caught a missing contact section | Bilingual |
-| `/fizjoterapia/rehabilitacja-ruchowa/` | same | Reused: PageHero, CenteredBand, Accordion (12 conditions) | PL: done / EN: done | Same check | Bilingual |
-| `/fizjoterapia/zdrowy-brzuch/` | same | Reused: PageHero; 3 leads + 2 pricing formats | PL: done / EN: done | Same check | Bilingual |
-| `/fizjoterapia/specjalisci/` | same | Reused: PageHero, CenteredBand; 2 categories × 11 specialists | PL: done / **EN: bios still Polish** (same reason as the trainers) | Same check | Built (PL) |
+| `/fizjoterapia/terapia-manualna/` | same | Reused: PageHero, CenteredBand, Accordion (10 conditions, deferred media) | PL: done / EN: done | 2026-07-31: swept 10 widths x every row, both locales, 0 findings | Verified |
+| `/fizjoterapia/rehabilitacja-ruchowa/` | same | Reused: PageHero, CenteredBand, Accordion (12 conditions, deferred media) | PL: done / EN: done | 2026-07-31: same sweep, 0 findings | Verified |
+| `/fizjoterapia/zdrowy-brzuch/` | same | Reused: PageHero, CenteredBand, Accordion (3 leads, `squareMedia`) + 2 pricing formats | PL: done / EN: done | 2026-07-31: same sweep, 0 findings | Verified |
+| `/fizjoterapia/specjalisci/` | same | Reused: PageHero, CenteredBand, Accordion (11 specialists, `squareMedia`); `SectionHeading size="section-late"` | PL: done / **EN: bios still Polish** (same reason as the trainers) | 2026-07-31: same sweep; fixed a 320/360px sideways scroll and a mid-word heading break at 1060 | Built (PL) |
 
 ## Trening grupowy
 
@@ -307,6 +307,89 @@ and then editing the excerpt would silently stop affecting search results.
 
 What was actually wrong was the panel: `Tytuł SEO` explained itself and the other two did not, so
 an empty group read as an oversight. All three now say what happens when left blank.
+
+### /cennik: RWD, loading and structured data (2026-07-30)
+
+**The page is a display title and a nine-row accordion, and its whole content is inside panels that
+are `grid-rows-[0fr]` until clicked.** A sweep that only loads the page measures nothing, so the
+harness opens each row in turn: **23 widths from 320 to 1920 x 10 states each** (closed, plus each
+of the nine rows), **230 measured states**. `scrollWidth` equals `clientWidth` in every one of them,
+and after the fix below nothing overflows its own box either.
+
+#### The one layout fault, and it was ours
+
+The dietetics row is the only accordion row on the site with `groups` (two named sub-lists, one per
+dietitian). `Accordion` stacked both of them inside the panel's **left** column and left the right
+half empty at every desktop width, which also made the longest price line wrap next to that empty
+space. The reference does not do this: both blocks there carry `ul:w2-2 ho:w1-2`, full width on a
+phone and **a half each** from its wide breakpoint up.
+
+So a panel that is *only* sub-lists now lays them out as the panel's own halves. Measured at a 1912
+viewport: two cells 688px wide at x=261 and x=949, which is the capped container split in two. The
+branch is guarded (`groupsFillPanel`) so a row that also has copy, a photo or a panel heading keeps
+the original layout — and that guard matters, because this is a shared component used by twelve
+other pages.
+
+The panel's `Container` also gained an explicit `grid-cols-1`. An implicit `auto` track is floored
+at min-content, so one unbreakable word in a price list could have sized the panel wider than the
+page; `grid-cols-*` is `minmax(0, 1fr)` and removes that floor without changing anything else.
+
+#### Images: there are none, and that is correct
+
+This route renders **no photographs at all** — `PageHero` is called without an `imageSrc` and no
+accordion row here carries an `image`. Checked against the mirror rather than assumed: every file in
+`scripts/scrape/scraped/cennik/media/` is a favicon, a logo or a social icon, so the reference has no
+photography on this page either.
+
+Measured whole-page transfer, unchanged by this work: **2KB of images across 13 `<img>` elements**
+(all SVG chrome from the header and footer) out of **237–284KB total** at every width from 320 to
+1920. There is nothing to resize, nothing to lazy-load and nothing to put a blur placeholder under.
+Said plainly rather than manufactured: `next/image` `sizes` tuning and the blur map are the right
+tools for the pages that have photographs, and this is not one of them.
+
+#### SEO
+
+**Nine links pointed at the reference mirror.** Every CTA in the price list, in both locales, was an
+absolute `https://bodywork.testowe.eu/...` URL left over from the import — so the pricing page, which
+is exactly where a visitor decides to book, sent them to a staging clone of this site. All nine
+targets exist here as routes, and the reference's own markup uses relative paths (`href="/dietetyka/
+iwona-stachowiak/"`), so the absolute origin was never even in the source. Now internal paths, which
+`PanelLink` routes through next-intl's locale-aware `Link`. The tenth CTA is left alone: it is the
+eFitness calendar, genuinely off-site and identical to `SCHEDULE_URL`.
+
+**The route shipped no description**, so no `og:description` either. Now 145 characters PL and 148 EN.
+
+**`OfferCatalog` with real prices, which no other page on this site can honestly declare.** Every
+section hub uses a bare `hasOfferCatalog` precisely because it shows no prices; this page shows 65 of
+them. Each of the nine rows becomes a `Service` carrying an `AggregateOffer` with `lowPrice`,
+`highPrice`, `priceCurrency: PLN` and `offerCount`, plus a `BreadcrumbList`.
+
+The amounts are **read back out of the page copy** (`src/lib/pricing.ts`) rather than kept as a
+second hand-maintained list, so the structured data cannot drift from what a visitor reads. Only the
+amounts are read, never the labels: a number here always carries a `,-` or `zł` marker and cannot be
+confused with "(1,5h)" or "(pakiet 5x)", whereas the labels are genuinely ambiguous — on the massage
+row the treatment name sits on the line *above* its price, and "1 trening" appears three times at
+three different price levels. Reconstructing 64 individually named offers would be 64 chances to
+publish a mangled price; a range per service says exactly what the page says and cannot be mangled.
+
+Verified against the rendered page: nine services, ranges 240–5710, 360–7800, 240–5710, 240–4750,
+560–560, 45–2090, 180–1550, 495–795 and 200–395 PLN, each cross-checked against its own price list.
+Seven carry a `url`; group classes and dietetics do not, because their row CTA is off-site and
+per-dietitian respectively.
+
+#### Found on other pages, not fixed here
+
+The sweep was pointed at the twelve other pages that share `Accordion` to check for regressions.
+Two pre-existing faults turned up, **both confirmed present with `main`'s `Accordion` too**, on a
+rebuild with this branch's component reverted, and both in the `closed` state, i.e. page content
+rather than panel content:
+
+- `/fizjoterapia/specjalisci` at 1060: "Specjalizacja uroginekologiczna" needs 596px in a 466px
+  column (+130). The page does not scroll sideways, but the heading crosses its column.
+- `/trening-grupowy/zajecia-grupowe` at 1920: a `StatementSection` heading over its column by 59px.
+
+Both are the `lg`-grid-vs-`wide`-type shape this project has now hit four times, and both take the
+same `compactHeading` fix. Left for their own branches rather than widened into this one.
 
 ### /trening-grupowy: RWD, media, lazy loading and structured data (2026-07-29)
 
@@ -822,6 +905,295 @@ Measured rather than eyeballed: with every row forced open, the three portraits 
 680 and 681 px** tall, identical to a rounding pixel. `/fizjoterapia/specjalisci` is the other
 people accordion and has exactly the same problem; it can take the same flag when somebody looks
 at it.
+
+### /trening-personalny/trening-indywidualny: the accordion was downloading eight photos nobody asked for (2026-07-30)
+
+The page was already sound: **no horizontal scroll and no overflowing element at any width from
+345 to 1885 px**, no heading wider than its own box, and every button 56 px tall. That was measured,
+not eyeballed — `getBoundingClientRect` on every element in the document at 360, 390, 414, 768,
+1024, 1280, 1440 and 1900, with the off-canvas menu and the newsletter honeypot (parked at
+`-9999px`) excluded. So **no layout change was needed and none was made.**
+
+`sizes` was checked the same way, against the slot each image really renders into: 313 px at a 360
+viewport, 343 at 390, 705 at 768, 441 at 1024, 649 at 1440, 656 from 1900 on. Every declaration
+lands within 1–7 % of the truth, the residual being the desktop scrollbar, which a phone does not
+have. Nothing to fix there either.
+
+**What was actually wrong was the "Kiedy warto?" accordion.** Its eight photos had no blur
+placeholders, because `generate-blur-placeholders.mjs` does not recurse and
+`trening-personalny/reasons` had no entry of its own — the same trap `fizjoterapia/sprzet` was
+already in.
+
+Worse, `loading="lazy"` was not saving anything. A closed panel is a `0fr` grid row, so it has no
+*height*, but its photo keeps its own 288 px layout box, and the eight boxes end up stacked within
+about a thousand pixels of each other (tops measured at 6771, 6905, 7014 …). That band sits well
+inside the distance at which Chrome starts a lazy image, so scrolling past the row *titles*
+downloaded all eight photos of an accordion nobody had opened. They are now mounted on first open,
+with the 151-byte blur painted on the wrapper so the panel is never blank.
+
+Measured against the built server, a 390 px phone at DPR 2: **153 KB of images before, 96 KB after**,
+so 57 KB and eight requests that are no longer spent by default. The absolute numbers are small
+because AVIF plus the width ladder in `next.config.ts` were already doing the heavy lifting — this
+page was never anywhere near the megabytes the brief feared.
+
+**The deferral is conditional on `imageBlur` being present**, which is what keeps it safe. Without
+a placeholder there is nothing to paint between the click and the photo, and trading a download the
+visitor might not need for a blank half-panel they certainly see is the wrong way round. The eleven
+other pages on this component pass no placeholder and so are byte-for-byte unchanged; verified in
+the build output (`/masaz` still ships all 11 of its `<img>` tags). `/fizjoterapia` does pass one
+and picked up six deferred photos for free.
+
+SEO: the route shipped no description at all, so no `og:description` either. It now has one in both
+locales, plus a `Service` whose catalogue is the eight focuses the accordion describes, and a
+three-level `BreadcrumbList` (the hub's is two). The catalogue entries carry **no `url`**: they are
+sections of this page, not routes, and linking them somewhere would be inventing pages. It is
+deliberately **not** a `FAQPage` — those eight headings are topics ("Redukcja tkanki tłuszczowej"),
+not questions, and dressing them as `Question`/`Answer` would claim a shape the page does not have.
+
+Not done: `/trening-personalny/trening-w-parze` renders the same eight `TrainingReasons` rows and
+still passes no `imageBlur`, so it keeps the old behaviour. One `blurFor` map there buys it the
+same 57 KB.
+
+### The other three personal-training subpages, and the 320px bug the first sweep missed (2026-07-30)
+
+`/trening-w-parze`, `/ocena-funkcjonalna` and `/trenerzy` got the same pass as
+`/trening-indywidualny`. **The first sweep started at 360px and that was too narrow a net**: three
+of the four pages scroll sideways at **320px**, which is a real viewport (iPhone SE, and the
+narrowest common preset). Two distinct causes, both the same underlying trap.
+
+**Text that cannot break.** At `text-h-mobile` (39.5px) a single Polish word can be wider than a
+small phone's whole column. Measured at 320: "Trening z oceną funkcjonalną." wanted 327px inside a
+273px box and pushed the document to 343px; "Trening indywidualny." did it by 33px. `SectionHeading`
+now carries `hyphens-auto break-words` on its non-fitted sizes — a dictionary break with a hyphen,
+which is what Polish wants, and a hard break underneath for words the dictionary does not know.
+Neither does anything until a word genuinely cannot fit, so nothing that fits today moved. Fitted
+`display` headings are exempt: they are `whitespace-nowrap` and scale to their own container.
+
+**Boxes that cannot shrink**, which is the part `break-words` does *not* solve. `overflow-wrap`
+lets text wrap but does **not** lower the intrinsic min-content width that a grid track or flex item
+is sized against. On `/trenerzy` that bit twice: each trainer card floored at 294px (a 228px
+min-content `h3` plus its own `p-8`) inside a 273px column, and the category row's implicit `auto`
+track was floored by "TRENING FUNKCJONALNY". Fixed with `min-w-0` on the card and an explicit
+`grid-cols-1` (`minmax(0, 1fr)`) on the row — the same two idioms the accordion already documents.
+
+After the fixes, all four pages: **zero overflowing elements and no horizontal scroll at 320, 360,
+390, 414, 768, 1024, 1280, 1440 and 1900**, every button 56px.
+
+**`/trenerzy` was the page that actually carried weight**: 19 portraits, 2.8MB of source, and not a
+single blur placeholder, because the script does not recurse and `trening-personalny/trenerzy` had
+no entry. Its `sizes` was also written purely in viewport units, so it claimed the whole grid column
+including padding — 634px for a 395px cell at 1920 (60% over) and 390 for a 277px cell on a phone.
+Rewritten against the measured slot (247px at 360, 277 at 390, 287 at 768, 388 at 1440, 393 at 1900,
+all now within 2–7%). **478KB to 355KB of portraits on a 390px phone at DPR2**, and naming pixel
+lengths also lets the srcset reach `imageSizes` instead of `deviceSizes`, whose floor is 640.
+
+`/ocena-funkcjonalna` had two full-bleed photos built with a raw `next/image` and no placeholder,
+though both were already in the blur map — just never wired up. `/trening-w-parze` now passes
+`imageBlur` for its six accordion rows, which is also what earns it the deferred-photo behaviour
+described above.
+
+All three had **no meta description at all**, so no `og:description` either; each now has one in
+both locales plus a `BreadcrumbList`. `/trenerzy` gets an `ItemList` of 19 `Person`, which is what
+those entries honestly are — real named people with a role and a photograph. Their `jobTitle` comes
+from the category heading, not from `trainer.specialisation`: that string is the reference's own
+display label, "SPECJALIZACJA — TRENING MEDYCZNY", prefix and shouting included, which is right on
+the page and wrong in structured data.
+
+**Two content problems found and deliberately not fixed**, because they are real people's names and
+the scraped reference does not contain them to check against (its trainer list is rendered by
+script, so the mirror has the `SPECJALIZACJA` labels but no names): `Franiciszek Kruk` is almost
+certainly "Franciszek" — its own image file is `franciszek-kruk.webp` — and `Małgorzata
+Muzyka-kopera` should probably be "Muzyka-Kopera". Both want a human to confirm. Katarzyna Adamek
+appearing under two categories is **not** a bug; she has two specialisations.
+
+**Pre-existing, on another agent's page, reported not fixed:** `/masaz` scrolls sideways at 320px
+(32 overflowing elements, the `TextMedia` text column among them). Same min-content shape as above.
+
+### The four physiotherapy subpages, and a deferred photo that never arrived (2026-07-31)
+
+`/fizjoterapia/terapia-manualna`, `/rehabilitacja-ruchowa`, `/zdrowy-brzuch` and `/specjalisci`:
+RWD, media weight, lazy loading and structured data, the same four jobs as the pages before them.
+
+#### RWD: two real breaks, both on /specjalisci, both the min-content floor
+
+Measured, not assumed: **10 widths (320, 360, 390, 414, 768, 1024, 1060, 1280, 1400, 1920) x every
+state of every page**, closed plus each accordion row opened one at a time, in **both locales** —
+776 measured states. Each state checks `scrollWidth` against `clientWidth`, every element's box
+against the viewport, every leaf's content against its own box, and every pill button's height.
+
+Only `/specjalisci` was broken, and only below 390px:
+
+| | at 320 | at 360 |
+|---|---|---|
+| document | 364px wide in a 320px viewport (**+44**) | 364 in 360 (**+4**) |
+| `h2` "Specjalizacja uroginekologiczna" | 348px box, 44px past the edge | 348px box, 4px past |
+| `h2` "Dobry fizjoterapeuta." | 333px box in a 288px container | fits |
+| the `p` beside the first heading | dragged to 348px with it | same |
+
+Both are the lesson this project has now written down three times: **`overflow-wrap` does not lower
+a box's min-content width.** `break-words` stops a word spilling *out* of its box; it does nothing
+for a grid track or a flex item that is *sized against* min-content in the first place.
+
+- The category sections are `Container className="grid gap-10 … lg:grid-cols-2"`. Below `lg` that
+  is a single **implicit** track, and an implicit track is `auto`, floored at min-content — 348px,
+  set by "uroginekologiczna". The paragraph shares the track, so it inflated too. Fixed with an
+  explicit `grid-cols-1`, which is Tailwind's `minmax(0, 1fr)`.
+- The lead section is `flex flex-col items-start`. On a column flex container `items-start` sizes
+  each child to fit-content, which is also floored at min-content, so "Dobry fizjoterapeuta."
+  claimed 333px. Both children are block-level and left-aligned, so dropping `items-start` and
+  letting them stretch changes nothing visually.
+
+The same explicit `grid-cols-1` went on the other three pages' two-up sections and on the
+`zdrowy-brzuch` pricing cards, which are latent cases of the identical shape — the English
+"Ultrasound consultation + training" wants 237px in a 224px card at 320px.
+
+#### A heading that fitted its column and still read as broken
+
+At 1060 "Specjalizacja uroginekologiczna" no longer crossed its column — `hyphens-auto break-words`
+landed on `SectionHeading` the day before and keeps it inside — but a screenshot showed *how*: as
+**"uroginekologi / czna", broken mid-word with no hyphen.** `hyphens: auto` was doing nothing,
+because Chrome's hyphenation dictionaries are a **downloadable component** and a fresh profile has
+none; the `break-words` underneath then breaks anywhere at all. A visitor on such a profile reads a
+mangled word.
+
+So this is the fifth sighting of the grid-breakpoint-vs-type-breakpoint shape, and it got its own
+size rather than another per-page patch: **`SectionHeading size="section-late"`** =
+`text-h-mobile min-[1400px]:text-h-section`. `compactHeading` on `StatementSection` answers the
+three-up case by never growing; a two-up column *does* hold 67.7px, just not until it is about
+610px wide.
+
+**1400px is measured.** The word wants 570–612px at 67.7px: it broke in a 569px column at a 1280
+viewport and sat on two clean lines in a 612px one at 1366. `Container` caps at 1440, so the column
+is `(min(vw, 1440) - 64 - 64) / 2` — 636px at 1400, and only wider after that. English needs it too
+("Urogynaecological specialisation"). Verified by screenshot at 1060 (two clean lines at 39.5px)
+and at 1440 (two clean lines at 67.7px).
+
+This closes the `/fizjoterapia/specjalisci` item left open under "Found on other pages, not fixed
+here" on 2026-07-30. `/trening-grupowy/zajecia-grupowe` still has the same shape and can now take
+`section-late` instead of `compactHeading`.
+
+#### The bug worth remembering: a deferred image that never loads
+
+`Accordion` holds a row's photo back until the row is opened, which is the optimisation these pages
+needed most. Opening a row on `/fizjoterapia/specjalisci` in a real browser showed **the blur
+placeholder and nothing else**. Not a wrong `sizes`, not a 404: the photo was simply never fetched.
+
+`next/image` defaults to `loading="lazy"`. A deferred row mounts its image into a panel that is
+still `grid-rows-[0fr]` with `overflow: hidden` — **zero visible area**. Chrome takes the
+lazy-loading decision at insertion, concludes the element is nowhere near the viewport, and never
+revisits it: the panel's growth is an ancestor's own `grid-template-rows` transition, not a scroll,
+so nothing re-triggers the check.
+
+Proved rather than guessed, on the live page: open a row, `scrollIntoView` the photo to the middle
+of the screen, dispatch `resize`, wait three seconds — `complete` stays `false` and `naturalWidth`
+stays `0`. Set `loading="eager"` on that same element and it loads immediately.
+
+**Mounting on first open *is* the deferral, so lazy has no work left to do.** The image now carries
+`loading={item.imageBlur ? "eager" : "lazy"}`: deferred rows load on open, rows with no placeholder
+are mounted from the start and keep native lazy loading, exactly as before.
+
+**This was pre-existing**, shipped on 2026-07-30 with the deferral itself, and reproduced on
+`/trening-personalny/trening-indywidualny` before any of this branch's changes. Both pages are
+fixed by the one-line change. Verified after: open four of eleven rows on `/specjalisci` and
+exactly four photographs are fetched, all `complete`, at `w=750` for a 688px slot.
+
+#### Media: the phone was pulling half a megabyte for photographs nobody had opened
+
+Blur placeholders now cover `fizjoterapia/manualna`, `fizjoterapia/rehab` and
+`fizjoterapia/specjalisci` (the map is 140 entries, 21.2KB — the script still does not recurse).
+Passing `imageBlur` is what switches the deferral on, so the accordion photographs left the initial
+document entirely.
+
+Images fetched by a 390px phone at DPR2, resolved from each page's own `srcset` and `sizes` against
+the built server:
+
+| page | before | after | images in the document |
+|---|---|---|---|
+| `/fizjoterapia/specjalisci` | **495.1KB** | **60.6KB** (−88%) | 26 → 15 |
+| `/fizjoterapia/rehabilitacja-ruchowa` | 221.9KB | 74.5KB (−66%) | 28 → 16 |
+| `/fizjoterapia/zdrowy-brzuch` | 200.1KB | 99.2KB (−50%) | 20 → 17 |
+| `/fizjoterapia/terapia-manualna` | 194.2KB | 58.3KB (−70%) | 26 → 16 |
+
+Opening a row then costs what that one photograph costs and nothing else: on the same 390px phone
+at DPR2 the slot is `calc(100vw - 32px)` = 358px, so it fetches the 750px rung — **36.1KB for a
+specialist's portrait, 13.6–16.0KB for a condition photo.** Eleven portraits used to arrive whether
+or not anybody opened a single row.
+
+What is left on a phone is the hero (40–148KB, `priority`, and its `100vw` is honest), the section
+watermark and the newsletter background at 30KB each. `zdrowy-brzuch` keeps more than the others
+because it has a real full-bleed photograph, `brzuch-projekt.webp`, which now carries a placeholder
+too.
+
+`/specjalisci` and the `zdrowy-brzuch` leads also took `squareMedia`, the flag `Accordion` has been
+carrying a note about since `/masaz`: without it a portrait is stretched to whatever height the bio
+happens to need, so whoever wrote least about themselves gets cropped hardest.
+
+**No source image was re-encoded.** Everything goes through `next/image`, so shrinking an 8534px
+original changes the repository and not one delivered byte.
+
+#### SEO
+
+All four routes shipped **no meta description at all**, so no `og:description` either, and all four
+fell back to the same generic `og-default.jpg`. Each now has a 143–157 character description in
+both locales, and its own **1200x630 JPEG** card cut from its hero by
+`scripts/generate-og-images.mjs` — same recipe as the default (JPEG because some scrapers still
+refuse WebP), 31–71KB each.
+
+JSON-LD per page, on top of the sitewide `HealthAndBeautyBusiness`:
+
+| page | blocks |
+|---|---|
+| `terapia-manualna` | `Service` + `MedicalTherapy` (10 `MedicalIndication`) + 3-level `BreadcrumbList` |
+| `rehabilitacja-ruchowa` | `Service` + `MedicalTherapy` (12 indications) + `BreadcrumbList` |
+| `zdrowy-brzuch` | `Service` with the two formats as an `OfferCatalog` + `ItemList` of 3 `Person` + `BreadcrumbList` |
+| `specjalisci` | `ItemList` of 11 `Person` + `BreadcrumbList` |
+
+**`MedicalTherapy` is new and it earns its place.** `Service` says the centre sells manual therapy;
+it says nothing about what the therapy is *for*, and the entire page below the fold is exactly
+that — ten and twelve named conditions, each with its own paragraph. `indication` is the vocabulary
+for it. Every condition named is a visible heading, which is what Google's structured-data policy
+requires, and the bodies stay out because they are already in the prose.
+
+Three things deliberately **not** claimed:
+
+- **No prices on `zdrowy-brzuch`**, although the page prints two. Only `/cennik` reads amounts back
+  out of its own copy, and its parser is written for that page's shape: "2.000,-" and its English
+  "2,000 PLN" are not that shape, and a second hand-kept price is free to drift from the one the
+  visitor reads.
+- **No `Service` on `/specjalisci`** — people, not a therapy, the same reason the hub's own
+  catalogue leaves it out.
+- **No `jobTitle` for the three `zdrowy-brzuch` leads.** They are introduced by name only; their
+  bios open with a shouted display label ("SPECJALIZACJA - TRENING MEDYCZNY, …") that is right on
+  the page and wrong as a title. `trainerListJsonLd` now takes `jobTitle` as optional. On
+  `/specjalisci` the category heading *is* the clean value, so those eleven do carry one.
+
+Titles are stripped of the reference's trailing full stop before they enter a breadcrumb or a
+`Service` name — "Terapia manualna.", stop included, was going into search results.
+
+Verified on the built server, both locales: description present and under 160 characters, canonical,
+`hreflang` pair, `og:image` the new JPEG with declared 1200x630, `twitter:card`, and every JSON-LD
+block parsing as valid JSON with the expected `@type`.
+
+#### Found and not fixed: two shared components, both pre-existing, both sitewide
+
+Reported rather than fixed because each one lives in a component every route renders, and each needs
+a decision about the whole site rather than about four pages.
+
+**The mega-menu column headings overflow their own box.** "Fizjoterapia" by 10px in a 176px column
+at 1366 and by 9px at 1400; in English "Physiotherapy" by **36px in a 194px column at 1920 and 47px
+in a 183px one at 1400** — the English label is over its box at *every* width measured. It spills
+into the column's own 40px padding rather than clipping or colliding with the divider, so nothing is
+unreadable. The cause is structural: the mega menu is `grid-cols-5` with `px-10`, and `Container`
+caps at 1440 where the reference has no cap at all, so our columns are narrower than the ones this
+type size was chosen for.
+
+**The footer's fitted "KONTAKT" heading overflows in English.** `SectionHeading size="display"` sets
+`font-size: 100cqw / chars * 1.5` and is `whitespace-nowrap`, and `FIT_COEFFICIENT` was calibrated
+on an average uppercase advance of ~0.62em. "CONTACT" is rounder than that average — two `C`s and an
+`O` — so it lands 2–3% over its container at every width: +6px in a 273px box at 320, +22px in a
+981px box at 1060, +16px in a 1201px box at 1400. Polish "KONTAKT" has the same seven characters and
+fits everywhere, which is why this has gone unnoticed. Lowering the coefficient fixes it, and moves
+**every** display heading on **every** page, so it is the client's call, not a subpage's.
 
 ### The massage section, and Centrum losing its e-commerce (2026-07-28)
 

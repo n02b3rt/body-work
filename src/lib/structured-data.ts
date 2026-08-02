@@ -27,6 +27,12 @@ function absolute(url: string) {
  * `hasOfferCatalog` rather than `offers`: there are no prices in the markup and inventing them, or
  * declaring an `Offer` without one, would be a claim the page does not make. The catalogue names
  * what is available and links to it, which is what the page actually says.
+ *
+ * A variant's `path` is optional, because not every one of them is a page. On a leaf such as
+ * `/trening-personalny/trening-indywidualny` the catalogue lists the focuses that page's own
+ * "Kiedy warto?" section describes — medical training, motor preparation, training during
+ * pregnancy — and those are sections, not routes. Naming them without a `url` is valid, and it is
+ * the honest shape: inventing links to pages that do not exist would be worse than omitting them.
  */
 export function serviceJsonLd(
   locale: string,
@@ -35,7 +41,9 @@ export function serviceJsonLd(
     description: string;
     path: string;
     city: string;
-    variants: { name: string; path: string }[];
+    /** Representative photo, site-relative or absolute. */
+    image?: string;
+    variants: { name: string; path?: string }[];
   },
 ): Thing {
   const url = `${SITE_URL}${localePath(locale, service.path)}`;
@@ -48,6 +56,7 @@ export function serviceJsonLd(
     description: service.description,
     url,
     serviceType: service.name,
+    ...(service.image ? { image: absolute(service.image) } : {}),
     provider: { "@id": `${SITE_URL}/#business` },
     areaServed: { "@type": "City", name: service.city },
     ...(service.variants.length
@@ -58,11 +67,106 @@ export function serviceJsonLd(
             itemListElement: service.variants.map((variant) => ({
               "@type": "Service",
               name: variant.name,
-              url: `${SITE_URL}${localePath(locale, variant.path)}`,
+              ...(variant.path ? { url: `${SITE_URL}${localePath(locale, variant.path)}` } : {}),
             })),
           },
         }
       : {}),
+  };
+}
+
+/**
+ * A therapy, with the conditions the page says it treats.
+ *
+ * `Service` says the centre sells this; it says nothing about *what the therapy is for*, and on
+ * `/fizjoterapia/terapia-manualna` and `/fizjoterapia/rehabilitacja-ruchowa` the whole page below
+ * the fold is a list of exactly that — ten and twelve named conditions, each with its own
+ * paragraph. `MedicalTherapy.indication` is the vocabulary for it, so those headings become
+ * machine-readable instead of being invisible prose. Emitted **alongside** `serviceJsonLd`, not
+ * instead of it: the two answer different questions and are linked by `@id`.
+ *
+ * Every condition named here is a visible heading on the page, which is what Google's structured
+ * data policy requires. The bodies stay out: they are already in the markup, and repeating twelve
+ * of them would add several KB for nothing new.
+ *
+ * No `provider`: `MedicalTherapy` inherits from `MedicalEntity`, which has no such property, and
+ * inventing one would be worse than letting the sibling `Service` carry the business link.
+ */
+export function therapyJsonLd(
+  locale: string,
+  therapy: {
+    name: string;
+    description: string;
+    path: string;
+    /** Representative photo, site-relative or absolute. */
+    image?: string;
+    /** Condition names, exactly as the page's own headings read. */
+    conditions: string[];
+  },
+): Thing {
+  const url = `${SITE_URL}${localePath(locale, therapy.path)}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "MedicalTherapy",
+    "@id": `${url}#therapy`,
+    name: therapy.name,
+    description: therapy.description,
+    url,
+    ...(therapy.image ? { image: absolute(therapy.image) } : {}),
+    // Trailing full stops are part of the display copy, not part of a condition's name.
+    indication: therapy.conditions.map((name) => ({
+      "@type": "MedicalIndication",
+      name: name.replace(/\.$/, ""),
+    })),
+  };
+}
+
+/**
+ * The people on a staff page, as an `ItemList` of `Person` hanging off the sitewide business.
+ *
+ * These are real named individuals with a stated specialisation and a photograph on the page, so
+ * `Person` is exactly what they are — this is not a case of dressing content up as something it is
+ * not. `worksFor` points at the business by `@id` rather than repeating its address.
+ *
+ * **Bios are deliberately left out.** They are already in the page's own prose where a crawler can
+ * read them, and repeating nineteen of them here would add several KB of markup for facts that are
+ * not new. Name, role and photo are what a `Person` entry adds that the prose does not state in a
+ * machine-readable way.
+ *
+ * `jobTitle` is optional, because not every people list on the site states one. The three project
+ * leads on `/fizjoterapia/zdrowy-brzuch` are introduced only by name; their bios open with a
+ * shouted display label ("SPECJALIZACJA - TRENING MEDYCZNY, …") that is right on the page and wrong
+ * as a title, so they are published without one rather than with a mangled one.
+ */
+export function trainerListJsonLd(
+  locale: string,
+  list: {
+    name: string;
+    path: string;
+    people: { name: string; jobTitle?: string; image: string }[];
+  },
+): Thing {
+  const url = `${SITE_URL}${localePath(locale, list.path)}`;
+  const businessId = `${SITE_URL}/#business`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "@id": `${url}#people`,
+    name: list.name,
+    url,
+    itemListElement: list.people.map((person, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Person",
+        name: person.name,
+        ...(person.jobTitle ? { jobTitle: person.jobTitle } : {}),
+        image: absolute(person.image),
+        worksFor: { "@id": businessId },
+      },
+    })),
   };
 }
 
@@ -164,6 +268,60 @@ export function localBusinessJsonLd(t: {
         closes: "14:00",
       },
     ],
+  };
+}
+
+/**
+ * The price list: one `Service` per row, each carrying the range its own prices span.
+ *
+ * This is the one page on the site where prices are actually in the markup, so it is the one place
+ * an `Offer` can be declared without inventing anything — the reason every section hub uses a bare
+ * `hasOfferCatalog` instead. `AggregateOffer` rather than 64 individual `Offer`s because only the
+ * amounts on that page are unambiguous; see `src/lib/pricing.ts` for why the labels are not.
+ *
+ * `url` is set only where the row's own CTA points at a route on this site. Two rows have no such
+ * link — group classes send the visitor to the eFitness calendar, and dietetics links per dietitian
+ * rather than for the row as a whole — and a `Service` is perfectly valid without one.
+ */
+export function pricingCatalogJsonLd(
+  locale: string,
+  catalog: {
+    name: string;
+    path: string;
+    services: {
+      name: string;
+      path?: string;
+      lowPrice: number;
+      highPrice: number;
+      offerCount: number;
+    }[];
+  },
+): Thing {
+  const url = `${SITE_URL}${localePath(locale, catalog.path)}`;
+  const businessId = `${SITE_URL}/#business`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "OfferCatalog",
+    "@id": `${url}#pricing`,
+    name: catalog.name,
+    url,
+    provider: { "@id": businessId },
+    itemListElement: catalog.services.map((service) => ({
+      "@type": "Service",
+      name: service.name,
+      ...(service.path ? { url: `${SITE_URL}${localePath(locale, service.path)}` } : {}),
+      provider: { "@id": businessId },
+      offers: {
+        "@type": "AggregateOffer",
+        priceCurrency: "PLN",
+        // Strings, which is what schema.org asks for, and which keeps 1650 from being
+        // serialised in a locale's own number formatting.
+        lowPrice: String(service.lowPrice),
+        highPrice: String(service.highPrice),
+        offerCount: service.offerCount,
+      },
+    })),
   };
 }
 
