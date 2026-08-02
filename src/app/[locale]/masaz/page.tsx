@@ -9,7 +9,9 @@ import { TextMedia } from "@/components/centrum/TextMedia";
 import { Accordion, type AccordionItemData } from "@/components/centrum/Accordion";
 import { TestimonialCarousel, type Testimonial } from "@/components/centrum/TestimonialCarousel";
 import { NewsletterSignup } from "@/components/centrum/NewsletterSignup";
+import { blurFor } from "@/lib/static-blur";
 import { pageMetadata } from "@/lib/metadata";
+import { breadcrumbJsonLd, serviceJsonLd } from "@/lib/structured-data";
 
 type Section = { heading: string; body: string; image: string };
 type Person = { name: string; role: string; body: string; image: string };
@@ -17,7 +19,15 @@ type Person = { name: string; role: string; body: string; image: string };
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Massage" });
-  return pageMetadata({ locale, path: "/masaz", title: t("title") });
+  return pageMetadata({
+    locale,
+    path: "/masaz",
+    // A separate, longer title for the tab and the search result: the on-page `<h1>` keeps the
+    // one-word "Masaż", which as a `<title>` carried no locality and no treatment name.
+    title: t("seoTitle"),
+    // The route shipped a title and nothing else, so no `og:description` either.
+    description: t("metaDescription"),
+  });
 }
 
 type PageProps = { params: Promise<{ locale: string }> };
@@ -42,6 +52,7 @@ export default async function MassagePage({ params }: PageProps) {
   // Enables static rendering for this route; see the note in [locale]/layout.tsx.
   setRequestLocale(locale);
   const t = await getTranslations("Massage");
+  const tCommon = await getTranslations("common");
   const tFooter = await getTranslations("Footer");
 
   const sections = t.raw("sections") as Section[];
@@ -54,10 +65,52 @@ export default async function MassagePage({ params }: PageProps) {
     heading: person.name,
     body: `${person.role}\n\n${person.body}`,
     image: person.image,
+    // `Accordion` is a client component and `static-blur` is server-only, so the placeholder
+    // travels as data; see the note on `AccordionItemData.imageBlur`.
+    imageBlur: blurFor(person.image),
+  }));
+
+  /** The four treatments, each a named variant of the one service rather than a page of its own. */
+  const variants = sections.map((section) => ({
+    // Trailing full stops are how this copy is written ("Masaż klasyczny."); a schema `name` reads
+    // better without one, and it is the same string either way.
+    name: section.heading.replace(/\.$/, ""),
+    path: "/masaz",
   }));
 
   return (
     <>
+      {/* A `Service` naming the four treatments, plus the trail back to the homepage. Both hang off
+        * the sitewide business by `@id`; see `src/lib/structured-data.ts` for why the catalogue
+        * carries no `Offer`: the prices live on /cennik and this page states none. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            serviceJsonLd(locale, {
+              name: t("title"),
+              description: t("metaDescription"),
+              path: "/masaz",
+              city: tFooter("addressLine3").replace(/^[0-9-]+\s*/, "").split(",")[0],
+              variants,
+            }),
+          ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd(
+              [
+                { name: tCommon("breadcrumbHome"), path: "/" },
+                { name: t("title"), path: "/masaz" },
+              ],
+              locale,
+            ),
+          ),
+        }}
+      />
       <PageHero
         title={t("title")}
         titleSize="display"

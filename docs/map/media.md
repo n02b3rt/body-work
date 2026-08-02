@@ -39,8 +39,16 @@ Two separate systems, and they do not overlap:
 - **Payload media:** `blurDataURL` on the collection, harvested by `scripts/import-blur-placeholders.ts`
   from the mirror's own `<picture>` backgrounds. 189 of 230 covered.
 - **Static marketing pages:** no CMS behind them, so `scripts/generate-blur-placeholders.mjs` writes
-  `static-blur.json`, read through `src/lib/static-blur.ts`. **Server components only**: a client
-  component takes the string as a prop, see `FullBleedVideo`.
+  `static-blur.json` (162 entries, 32.6 KB), read through `src/lib/static-blur.ts`. **Server
+  components only**: a client component takes the string as a prop, see `FullBleedVideo`. The script
+  **does not recurse**: a subdirectory needs its own `DIRS` entry.
+
+## Cropping a static image to the aspect it is shown at
+
+`scripts/crop-to-display-aspect.mjs`. `next/image` picks a variant by **width only**, so a 2:3
+portrait in a 4:3 box still ships every row and `object-cover` throws them away. Crops the source to
+the tallest box it appears in, centred, so it is visually lossless. **The manifest in the script is
+the contract:** make a component's aspect ratio taller and the crop becomes wrong. `DRY=1` previews.
 
 ## Video
 

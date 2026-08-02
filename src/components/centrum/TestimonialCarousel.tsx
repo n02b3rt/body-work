@@ -54,7 +54,18 @@ export function TestimonialCarousel({ heading, items }: TestimonialCarouselProps
               <span aria-hidden className="font-serif text-5xl leading-none text-brand-navy">
                 &ldquo;
               </span>
-              <p className="text-body">{item.quote}</p>
+              {/* These are real reviews and one contains "kobido/fizjoterapeutyczne/relaksacyjne",
+                * 38 characters with no space and no default break opportunity at a slash. Its
+                * min-content width is 335px, so it overran a 252px slide by 66px at a 1024 viewport
+                * and painted fragments of itself across the neighbouring testimonial. The copy is
+                * quoted verbatim, so the fix belongs here.
+                *
+                * **`w-full` is half the fix.** `break-words` (`overflow-wrap: break-word`) is
+                * ignored when the browser computes an element's min-content contribution, so as a
+                * shrink-to-fit flex item this paragraph still got sized to that 335px word and
+                * simply overflowed without ever breaking it. Pinning it to the slide is what forces
+                * the break. Inert for every quote that already fits. */}
+              <p className="w-full break-words text-body">{item.quote}</p>
               {item.name ? (
                 <footer className="text-label font-light uppercase tracking-[1px]">{item.name}</footer>
               ) : null}

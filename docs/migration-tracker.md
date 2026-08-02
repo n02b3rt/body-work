@@ -26,20 +26,20 @@ News carousel copy is the one deliberate gap here, deferred until the blog exist
 | Route | Components | i18n | QA | Status |
 |---|---|---|---|---|
 | `/trening-personalny/` | New: SectionNav/PersonalTrainingNav, PageHero, CenteredBand, MediaCardCta. Reused: StatementSection, TextMedia, TestimonialCarousel, NewsletterSignup | PL ✓ / EN ✓ | HTML; browser ✗ | Bilingual |
-| `…/trening-indywidualny/` | New: Accordion. Reused: PageHero, CenteredBand, TextMedia, SectionNav | PL ✓ / EN ✓ | HTML | Bilingual |
-| `…/trening-w-parze/` | PageHero, TextMedia, Accordion, SectionNav | PL ✓ / EN ✓ | HTML (caught a missing section) | Bilingual |
-| `…/ocena-funkcjonalna/` | PageHero, CenteredBand, StatementSection, SectionNav | PL ✓ / EN ✓ | HTML | Bilingual |
-| `…/trenerzy/` | PageHero, CenteredBand, SectionNav; 3 categories × 18 trainer cards | PL ✓ / **EN: bios still Polish** | HTML | Built (PL) |
+| `…/trening-indywidualny/` | New: Accordion (deferred media). Reused: PageHero, CenteredBand, TextMedia, SectionNav | PL ✓ / EN ✓ | HTML + browser 30.07 (8 widths, 0 overflow) | Bilingual |
+| `…/trening-w-parze/` | PageHero, TextMedia, Accordion, SectionNav | PL ✓ / EN ✓ | HTML (caught a missing section) + browser 30.07 (9 widths from 320) | Bilingual |
+| `…/ocena-funkcjonalna/` | PageHero, CenteredBand, StatementSection, SectionNav | PL ✓ / EN ✓ | HTML + browser 30.07 (title overflowed at 320, fixed) | Bilingual |
+| `…/trenerzy/` | PageHero, CenteredBand, SectionNav; 3 categories × 19 trainer cards | PL ✓ / **EN: bios still Polish** | HTML + browser 30.07 (cards and category row overflowed at 320, fixed) | Built (PL) |
 
 ## Fizjoterapia
 
 | Route | Components | i18n | QA | Status |
 |---|---|---|---|---|
 | `/fizjoterapia/` | New: PhysiotherapyNav. Reused: PageHero, CenteredBand, TextMedia ×4, Accordion (6), MediaCardCta ×2, TestimonialCarousel | PL ✓ / EN ✓ | HTML; browser ✗ | Bilingual |
-| `…/terapia-manualna/` | PageHero, CenteredBand, Accordion (10 conditions) | PL ✓ / EN ✓ | HTML (caught a missing contact section) | Bilingual |
-| `…/rehabilitacja-ruchowa/` | PageHero, CenteredBand, Accordion (12 conditions) | PL ✓ / EN ✓ | HTML | Bilingual |
-| `…/zdrowy-brzuch/` | PageHero; 3 leads + 2 pricing formats | PL ✓ / EN ✓ | HTML | Bilingual |
-| `…/specjalisci/` | PageHero, CenteredBand; 2 categories × 11 specialists | PL ✓ / **EN: bios still Polish** | HTML | Built (PL) |
+| `…/terapia-manualna/` | PageHero, CenteredBand, Accordion (10 conditions, deferred media) | PL ✓ / EN ✓ | HTML (caught a missing contact section) + browser 31.07 (10 widths × every row, both locales, 0 findings) | Verified |
+| `…/rehabilitacja-ruchowa/` | PageHero, CenteredBand, Accordion (12 conditions, deferred media) | PL ✓ / EN ✓ | HTML + browser 31.07 (same sweep, 0 findings) | Verified |
+| `…/zdrowy-brzuch/` | PageHero, Accordion (3 leads, `squareMedia`) + 2 pricing formats | PL ✓ / EN ✓ | HTML + browser 31.07 (same sweep, 0 findings) | Verified |
+| `…/specjalisci/` | PageHero, CenteredBand, Accordion (11 specialists, `squareMedia`); `SectionHeading size="section-late"` | PL ✓ / **EN: bios still Polish** | HTML + browser 31.07 (fixed a 320/360 sideways scroll and a mid-word heading break at 1060) | Built (PL) |
 
 ## Trening grupowy
 
@@ -63,16 +63,16 @@ News carousel copy is the one deliberate gap here, deferred until the blog exist
 
 | Route | Components | i18n | QA | Status |
 |---|---|---|---|---|
-| `/bodylab/` | New: BodylabNav. Reused: PageHero; 3 alternating tool blocks | PL ✓ / EN ✓ | HTML; browser ✗ | Bilingual |
-| `…/technologia-vald/` | PageHero, StatementSection ×7, Accordion (pricing) | PL ✓ / EN ✓ | HTML + live 26.07 | Bilingual |
-| `…/analiza-skadu-ciala/` | PageHero, TextMedia ×2. ⚠ The slug really is missing the "ł" on the reference (markup + sitemap) | PL ✓ / EN ✓ | HTML + live 26.07 | Bilingual |
+| `/bodylab/` | New: BodylabNav. Reused: PageHero; 3 alternating tool blocks | PL ✓ / EN ✓ | HTML + browser 30.07 (24 widths from 320, 0 overflow) | Bilingual |
+| `…/technologia-vald/` | PageHero, StatementSection ×7, Accordion (pricing) | PL ✓ / EN ✓ | HTML + live 26.07 + browser 30.07 (14 widths; audience grid fixed) | Bilingual |
+| `…/analiza-skadu-ciala/` | PageHero, TextMedia ×2. ⚠ The slug really is missing the "ł" on the reference (markup + sitemap) | PL ✓ / EN ✓ | HTML + live 26.07 + browser 30.07 (10 widths, 0 overflow) | Bilingual |
 
 ## Standalone pages
 
 | Route | Components | i18n | QA | Status |
 |---|---|---|---|---|
-| `/cennik/` | PageHero, Accordion (9 price rows; gained `cta`/`note`/`groups`/`panelHeading`). No newsletter block | PL ✓ / EN ✓ | HTML + price audit (46/46 figures) + live 26.07 | Bilingual |
-| `/masaz/` | Hero, intro band, 4 treatment panels (no alternation), team accordion, testimonial carousel, contact block. **The reference's 6 WooCommerce buttons are deliberately gone** | PL ✓ / EN ✓ | 53/54 content chunks, 10/10 images. Gap: `ZAMKNIJ`, which our accordion renders only when open | Bilingual |
+| `/cennik/` | PageHero, Accordion (9 price rows; gained `cta`/`note`/`groups`/`panelHeading`). No newsletter block | PL ✓ / EN ✓ | HTML + price audit (46/46 figures) + live 26.07 + browser 30.07 (every row opened) | Bilingual |
+| `/masaz/` | Hero, intro band, 4 treatment panels (no alternation), team accordion, testimonial carousel, contact block. **The reference's 6 WooCommerce buttons are deliberately gone** | PL ✓ / EN ✓ | 53/54 content chunks, 10/10 images. Gap: `ZAMKNIJ`, which our accordion renders only when open. Browser 30.07: 23 widths, every therapist row opened | Bilingual |
 | `/kontakt/` | PageHero (left-aligned), MeetUsCta. **The reference page has no content of its own** | PL ✓ / EN ✓ | Composed from copy verified elsewhere; nothing invented | Bilingual |
 | `/instrukcja/` | PageHero, StatementSection ×8, FullBleedImage ×4, CenteredBand, MediaCardCta ×2. 7 images | PL ✓ / EN ✓ | HTML vs live: 0 missing headings | Bilingual |
 | `/test/`, `/podziekowanie/` | TBD | n/a | n/a | **Confirm with client first** (`prd/08-fazy.md`, Phase 0): may not carry over |

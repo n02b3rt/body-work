@@ -1,4 +1,4 @@
-> Read when: hunting for the history behind a specific decision from 24 to 30 July 2026. Superseded by `../log.md`; do not read in full, grep it.
+> Read when: hunting for the history behind a specific decision from 24 to 31 July 2026. Superseded by `../log.md`; do not read in full, grep it.
 
 # AI Notes: BodyWork Centrum
 
@@ -14,6 +14,113 @@
 - **Watch out:** gotchas, debts, or things that will bite next time.
 
 -->
+
+## 2026-07-31: the four physiotherapy subpages, and a deferred photo that never arrived
+
+- **The find that matters, and it was pre-existing, not this branch's:** the accordion's "hold the
+  photo back until the row is opened" optimisation, shipped 2026-07-30, meant **the photo never
+  loaded at all**. `next/image` defaults to `loading="lazy"`; a deferred row mounts its `<img>` into
+  a panel that is still `grid-rows-[0fr]` with `overflow:hidden`, so it has **zero visible area**.
+  Chrome takes the lazy decision at insertion, decides it is nowhere near the viewport, and never
+  revisits it: the panel's growth is an ancestor's `grid-template-rows` transition, not a scroll,
+  so nothing re-triggers the check. Open a row, `scrollIntoView` the photo, dispatch `resize`, wait
+  three seconds: `complete` false, `naturalWidth` 0. The visitor sees the 16px blur, for good.
+  Reproduced on `/trening-personalny/trening-indywidualny` before touching anything here. Fix is one
+  line: `loading={item.imageBlur ? "eager" : "lazy"}`: **mounting on first open is the deferral, so
+  lazy has no work left to do.**
+- **Done:** RWD, media, lazy loading and structured data on `/fizjoterapia/{terapia-manualna,
+  rehabilitacja-ruchowa,zdrowy-brzuch,specjalisci}`. Images a 390px phone at DPR2 fetches:
+  **`/specjalisci` 495.1KB → 60.6KB (−88%)**, rehab 221.9 → 74.5, zdrowy-brzuch 200.1 → 99.2,
+  terapia-manualna 194.2 → 58.3. Blur map extended to `fizjoterapia/{manualna,rehab,specjalisci}`
+  (140 entries, 21.2KB). All four had **no meta description at all**; each now has one in both
+  locales, its own 1200x630 OG JPEG (`scripts/generate-og-images.mjs`), and JSON-LD.
+- **Two real layout breaks, both on `/specjalisci`, both the min-content floor again.** At 320px the
+  document was 364px wide (+44): "Specjalizacja uroginekologiczna" floored its **implicit** grid
+  track at 348px, and `items-start` on the lead section's flex column floored "Dobry
+  fizjoterapeuta." at 333px inside a 288px container. `grid-cols-1` (= `minmax(0,1fr)`) and dropping
+  `items-start`. Third time this exact shape has bitten: **`break-words` never lowers min-content.**
+- **A heading can fit its column and still be broken.** At 1060 "uroginekologiczna" stayed inside its
+  column but rendered as "uroginekologi / czna"; `hyphens: auto` did nothing because **Chrome's
+  hyphenation dictionaries are a downloadable component and a fresh profile has none**, so
+  `break-words` broke anywhere. New `SectionHeading size="section-late"`
+  (`text-h-mobile min-[1400px]:text-h-section`); 1400 is measured: the word wants 570–612px at
+  67.7px, and the column is `(min(vw,1440)-128)/2`. Closes the item left open on 2026-07-30.
+- **Decisions:** `MedicalTherapy` with an `indication` list beside the `Service`, because `Service`
+  cannot say what a therapy is *for* and these two pages are nothing but a list of conditions; no
+  prices in `zdrowy-brzuch`'s catalogue (only `/cennik` parses amounts, and its parser does not
+  read "2.000,-"); no `jobTitle` for its three leads (`trainerListJsonLd` now takes it as optional).
+- **Watch out, the harness:** `--virtual-time-budget` fast-forwards past your measurements whenever
+  the page is waiting on the network, so `--dump-dom` came back empty about half the time; have the
+  probe **POST its results** to a throwaway Node server instead. Headless windows count as
+  backgrounded, and Chrome's intensive throttling drops `setTimeout` to once a minute after five
+  minutes, which looks exactly like a hang: pass `--disable-background-timer-throttling
+  --disable-renderer-backgrounding --disable-backgrounding-occluded-windows`. **A file added to
+  `public/` 404s until the server is restarted.** And Git Bash rewrites a leading-slash argument
+  into a Windows path: `MSYS_NO_PATHCONV=1`, or the harness silently measures a 404 page and
+  reports it clean.
+- **Watch out, measuring:** React 19 emits `srcSet="…"` with the capital S it was written with, so
+  a `\bsrcset=` regex misses every one and falls back to `src`, which `next/image` sets to the
+  **largest** candidate; every weight I measured was 3–6x too high until the regex went
+  case-insensitive. Same for `hrefLang`. And `getBoundingClientRect().height` on a grid item is the
+  **row** height, not the text height, so counting lines from it is meaningless where a sibling
+  paragraph is taller: that one has to come from a screenshot.
+- **Found, not fixed, two of them, both shared components and both sitewide:** (1) the mega-menu
+  column headings overflow their own box: "Fizjoterapia" +10px at 1366, English "Physiotherapy"
+  **+36px in a 194px column at 1920 and over its box at every width measured**; structural,
+  `grid-cols-5` with `px-10` inside a 1440 cap where the reference has none. (2) The footer's fitted
+  "CONTACT" is 2–3% over its container at every width **in English only**: `FIT_COEFFICIENT` 1.5
+  assumes a ~0.62em average uppercase advance and "CONTACT" is rounder than that (two `C`s and an
+  `O`); Polish "KONTAKT" is the same seven characters and fits, which is why nobody had seen it.
+  Both spill into padding rather than clipping. Each fix moves every page, so neither belongs in a
+  four-subpage task.
+
+## 2026-07-30: the other three personal-training subpages, and the 320px bug the first sweep missed
+
+- **Correction to the entry below: sweeping from 360px was too narrow a net.** At 320px (iPhone SE, and the narrowest common preset) **three of the four subpages scrolled sideways**, including `/trening-indywidualny`, which I had reported clean. Two causes: a Polish word longer than the column at `text-h-mobile` 39.5px ("funkcjonalną." wanted 327px in a 273px box, document went to 343px), and boxes that cannot shrink. `SectionHeading` now has `hyphens-auto break-words` on its non-fitted sizes; `/trenerzy` needed `min-w-0` on the card and an explicit `grid-cols-1` on the category row.
+- **The lesson worth keeping: `overflow-wrap` does not lower intrinsic min-content width.** `break-words` fixes text spilling out of a box; it does **nothing** for a grid track or flex item sized against min-content. Those need `min-w-0` or `minmax(0,1fr)`. On `/trenerzy` the card floored at 294px (228px min-content `h3` + `p-8`) inside a 273px column and no amount of wrapping helped. All four pages now: 0 overflow at 320/360/390/414/768/1024/1280/1440/1900.
+- **Done:** `/trenerzy` was the page carrying real weight: 19 portraits, 2.8MB of source, **no blur placeholders at all** (script does not recurse; `trening-personalny/trenerzy` had no `DIRS` entry) and a `sizes` written in pure viewport units that claimed the whole column including padding: 634px for a 395px cell at 1920, 60% over. Rewritten against measured slots, now within 2–7% everywhere: **478KB → 355KB of portraits on a 390px phone at DPR2**. `/ocena-funkcjonalna` had two raw `next/image` full-bleeds whose placeholders already existed in the map but were never wired. `/trening-w-parze` now passes `imageBlur`, which also earns it the deferred-accordion behaviour. All three had no meta description at all; each now has one in both locales plus a `BreadcrumbList`, and `/trenerzy` an `ItemList` of 19 `Person`.
+- **Watch out:** `trainer.specialisation` is a *display label*: "SPECJALIZACJA: TRENING MEDYCZNY", prefix and shouting included. Right on the page, wrong as a `jobTitle`; the category heading is the clean value.
+- **Two content problems left for a human**, because they are real people's names and the mirror cannot settle them (its trainer list is script-rendered, so the scrape has the `SPECJALIZACJA` labels but **no names**): `Franiciszek Kruk` is almost certainly "Franciszek", its own image is `franciszek-kruk.webp`, and `Małgorzata Muzyka-kopera` probably wants a capital K. Katarzyna Adamek under two categories is not a bug, she has two specialisations.
+- **Pre-existing, not mine, not fixed:** `/masaz` scrolls sideways at 320px (32 overflowing elements). Another agent owns that page; same min-content shape, so `min-w-0` on the `TextMedia` text column is likely the whole fix. `/trening-grupowy`'s 24 "offenders" at 320 are the testimonial carousel's off-screen slides and are correct.
+
+## 2026-07-30: /trening-personalny/trening-indywidualny RWD, deferred accordion media, structured data
+
+- **Done:** nothing to fix on RWD, and that is a measured claim, not an assumption: every element in the document at 360/390/414/768/1024/1280/1440/1900: **zero overflowing elements, `scrollWidth === clientWidth`, no heading wider than its own box, every button 56px** at all eight. `sizes` checked against the real slot each image renders into (313px at 360, 343 at 390, 705 at 768, 441 at 1024, 649 at 1440, 656 at 1900): honest to within 1–7%, the residual being the desktop scrollbar. So no layout change was made. Added the missing meta description (PL+EN), a `Service` and a three-level `BreadcrumbList`.
+- **The real find:** `loading="lazy"` was doing nothing for the "Kiedy warto?" accordion. A closed panel is `grid-rows-[0fr]`, so it has no *height*, but its photo keeps its own 288px layout box, and the eight boxes stack within ~1000px of each other (tops at 6771, 6905, 7014 …), inside Chrome's lazy threshold, so scrolling past the row **titles** pulled all eight photos of an accordion nobody opened. Now mounted on first open. **153KB → 96KB of images on a 390px phone at DPR2**, measured against the built server.
+- **Decisions:** the deferral fires **only when the row carries an `imageBlur`**, so there is always something to paint; without a placeholder a row mounts eagerly exactly as before. That is what makes a change to a component shared by 13 pages safe while two other agents are in `/masaz` and `/bodylab`: verified in the build output that `/masaz` still ships all 11 `<img>` tags, while `/fizjoterapia` gained six deferrals for free. Also **not** a `FAQPage`: the eight headings are topics, not questions.
+- **Watch out:** `next start` survives `TaskStop` (it kills the wrapper, not the node child), so a rebuild leaves the **old server** answering on the port while the new build has deleted its CSS chunks. The symptom is baffling (unstyled pages, `naturalWidth === 0` on every image, the error boundary) and none of it is your code. Kill the listener by PID and confirm the port is free before restarting.
+- **Watch out:** `pnpm` needs Node ≥22 and this shell has 20.9, so `pnpm build` dies in its own launcher; `npx cross-env … next build` runs fine. And `next dev` cannot boot in this worktree at all: Payload's dev push stops on an interactive enum-rename prompt with no TTY. Prerendered HTML under `.next/server/app/**` is the reliable way to verify meta and JSON-LD without a server.
+
+## 2026-07-30: /cennik RWD, links, structured prices
+
+- **Done:** one real layout fault, and it was **ours, not the reference's**: the dietetics row is the only accordion row with `groups`, and `Accordion` stacked both dietitians in the panel's left column leaving the right half empty, where the reference gives each a half (`ul:w2-2 ho:w1-2`). Now two 688px cells at a 1912 viewport. **Nine CTAs pointed at `https://bodywork.testowe.eu/…`**, the reference mirror, in both locales; every target exists here as a route, so they are internal paths now; the tenth is the genuine eFitness link. Meta description added (there was none), plus an `OfferCatalog` of nine `Service` + `AggregateOffer` and a `BreadcrumbList`.
+- **Measured:** 23 widths 320→1920 **x 10 states each** (closed + each of the 9 rows opened) = **230 states**, `scrollWidth === clientWidth` in every one, nothing over its own box after the fix.
+- **This page has no photographs**, checked against the mirror (`scraped/cennik/media/` is favicons, logo and social icons only). 2KB of images across 13 `<img>`, all SVG chrome, out of 237–284KB total. So there is no `sizes` tuning, no lazy loading and no blur map work to do here, and saying so beats inventing some.
+- **The prices are read back out of the copy** (`src/lib/pricing.ts`), never kept as a second list. **Only the amounts, never the labels:** an amount always carries `,-` or `zł` so it cannot be confused with "(1,5h)", but the labels are ambiguous: the massage treatment name is on the line *above* its price, and "1 trening" appears three times at three levels. 64 named offers would be 64 chances to publish a wrong price; nine ranges cannot be mangled.
+- **Watch out:** an accordion's content is `grid-rows-[0fr]` until clicked, so a sweep that only loads the page measures an empty panel and reports a page that is perfectly clean. The harness has to click every row (one at a time, only one opens) and wait out the 300ms `grid-template-rows` transition. Confirm the panels really opened before believing a clean result.
+- **Two pre-existing faults found on neighbouring pages and deliberately not fixed here:** `/fizjoterapia/specjalisci` at 1060 (heading +130px over its column) and `/trening-grupowy/zajecia-grupowe` at 1920 (+59px). Both the `lg`-grid-vs-`wide`-type shape, **fourth sighting**, both want `compactHeading`. Proved pre-existing by rebuilding with `main`'s `Accordion` and getting identical numbers, and by their appearing in the `closed` state.
+
+## 2026-07-30: /masaz RWD, media, lazy loading, structured data
+
+- **Done:** `/masaz` swept at 23 widths from 320 to 1920, with every therapist row opened at six of them. Page overflow was already zero at all 23 and stayed zero; **every fault on this page was inside a box**, which is why none had been seen. Fixed: a quoted review painting across its neighbour, therapist portraits letterboxed to 2.5:1 on tablets, and two headings sliced by the viewport edge at 320. Four source images cropped to the aspect the page actually displays, blur placeholders for `public/images/masaz`, SEO title + description + `Service`/`BreadcrumbList` JSON-LD.
+- **`break-words` does nothing for a shrink-to-fit flex item, and that cost real time.** A browser **ignores `overflow-wrap: break-word` when computing min-content contribution**, so the element is still *sized* to the unbreakable word and overflows without ever breaking it. First attempt added `break-words` alone to the testimonial and to `SectionHeading` and **every measurement came back byte-identical**. The pair is `w-full break-words`: pin the width, then allow the break. Same shape as the `w-full` on `StatementSection` from the `/bodylab` pass, and it is now on `SectionHeading` itself, so every heading on the site has the floor.
+- **What it was breaking:** one Google review contains `kobido/fizjoterapeutyczne/relaksacyjne` (38 characters, no space, and a slash is not a break opportunity), giving the paragraph a 335px min-content width. It overran a 252px carousel slide by **66px at 1024** and printed fragments of itself over the testimonial beside it. And at 320 the container's content box is 288px while "kompleksowego" needs 317px and "KLASYCZNY" 303px.
+- **`squareMedia` was only square from `lg`.** Below that `Accordion` fell back to `min-h-[18rem]`, so at a 768 viewport a portrait sat in a **720x288, 2.5:1** box: a band across the chest with the head cropped off, which is the exact failure the flag was added to prevent. The reference's own `ratio1-1` carries no breakpoint prefix.
+- **New: `scripts/crop-to-display-aspect.mjs`.** `next/image` picks a variant by **width only**, so a 2560x3840 portrait in a box the page renders at 4:3 still ships every row and `object-cover` throws two thirds away. Cropping the source to the tallest box it appears in is **visually lossless by construction** (cover centres, a centred crop keeps exactly those pixels) and saves at every breakpoint: **33-36% off the hero, 20-21% and 16-18% off two portraits, 16% across the four files**, 165KB off the repo. This complements, and does not contradict, the earlier "do not re-encode sources" note: shrinking *width* is pointless because the optimizer already resizes, removing *rows nobody can see* is not.
+- **Quality 80 came from measurement.** It reproduces the mirror's own bytes per pixel (0.95 to 1.14x); RMSE against the cropped original is 1.20 to 1.73 on 0-255, the same band as the blog's `cardWide`. Quality 90, tried first, made one file **16% larger than the uncropped original**.
+- **Measured:** headed browser at 390 fetches **34.1KB of images on arrival** (hero plus the first treatment photo) and 153.3KB for the whole page after scrolling all of it; 8 blur placeholders and 10 lazy images in the served HTML.
+- **Watch out, three environment traps in one session:** (1) `.next/cache/images` survives a rebuild and is keyed in a way that kept serving **pre-crop variants**, so the first "after" measurements showed portraits still at 0.75; clear that directory after touching anything under `public/images`. (2) Handing sharp a **path** rather than a buffer leaves the file open in its cache, and the overwrite then fails on Windows with `EPERM`/`UNKNOWN` on one file out of three, which reads exactly like a permissions problem and is not. (3) The Postgres container was found **stopped** mid-session and every build failed with "cannot connect to Postgres"; `docker compose up -d` restarted the existing container with its data intact; never add `-v`.
+- **Deliberately not fixed:** at 320 two `shrink-0` rows in the shared header and footer are 7px and 13px wider than the container's content box, contained by `overflow-x: clip` and not visibly cut. The homepage still shows its own 12px residual at 360 from the closed drawer, unchanged by any of this.
+
+## 2026-07-30: /bodylab RWD, media, lazy loading, structured data
+
+- **Done:** `/bodylab` swept at 24 widths from **320** to 1920 with zero page overflow, and the one real display fault fixed: the "każdy ruch ma znaczenie" band rendered the section's **editorial illustration** as a full-bleed `object-cover` background with navy copy on top of it. Restored to the reference's two columns (copy | `ratio4-3` drawing). Tool photographs moved from 16:9 to the reference's `ratio1-1`. Blur placeholders now cover `public/images/bodylab` (map 93 entries, 18.5KB), `sizes` replaced with the measured column formula, meta descriptions and **SEO titles** added on all three routes, plus `Service` + `BreadcrumbList` JSON-LD.
+- **Measured, headed browser at 390:** on arrival **58.4KB of images** and 590KB of transfer, with the three tool photographs (46.6KB) not fetched until scrolled; whole page 106.3KB of images against 145.9KB before. Every column image lands on the nearest srcset rung at or above its slot at eight widths checked, no over-fetch beyond one rung.
+- **A grid heading can paint across its neighbour without any page overflow at all.** `StatementSection` is a column flex container, so `items-start` sized the heading to **max-content**: on `/bodylab/technologia-vald` one painted **209px into the next cell** at 1060, over that cell's text, and `scrollWidth` never saw it because `html` carries `overflow-x: clip` from the 2026-07-28 fix. `w-full break-words` on the heading is the general guard; that page's three-up grid also takes `compactHeading`. **So `scrollWidth === clientWidth` is necessary and not sufficient**: the child-vs-parent-content-box check is the one that finds these.
+- **A grid with no base column count is floored at its widest word.** The same page's audience grid was `grid sm:grid-cols-2 lg:grid-cols-3`; at 360 the single implicit `auto` track measured **340px inside a 328px container**. Explicit `grid-cols-1` removes the floor. (The `/dietetyka` branch hit the identical shape the same day.)
+- **`Emulation.setDeviceMetricsOverride` gets below the 485px floor**, which several earlier entries here treat as impossible. Driving Chrome over CDP and setting the *layout* viewport directly is not clamped by the window, so 320 and 360 are honest and the `public/` iframe trick from the `/fizjoterapia` pass is no longer needed. Harness in the session scratchpad: launch with `--remote-debugging-port`, `Target.createTarget`, override metrics, then `Runtime.evaluate` a probe that reports page overflow, viewport escapes and child-vs-parent escapes together. **Still true, and it caught me again:** headless force-loads lazy images, so the 58.4KB first-paint figure above comes from a **headed** run that never scrolls.
+- **Watch out:** `pnpm` on this machine is 11.17 and refuses Node 20.9 (`styleText` import), so every script here ran through `./node_modules/.bin/…` directly. And a `git worktree` with a **junctioned `node_modules` cannot be built by Turbopack** ("Symlink [project]/node_modules is invalid, it points out of the filesystem root"); `next build --webpack` builds it fine, which is how this branch was verified.
+- **Also flagged, not changed:** the reference's lead band is centred and carries an eyebrow line this page never had; `/bodylab/technologia-vald` inherits a 7px `scrollWidth` residual at 320 from the shared header's closed drawer (the homepage shows 51px at the same width, so it is not this page's); and there is still no sitewide `title.template`, so 25 other routes ship a bare one-word `<title>`.
 
 ## 2026-07-30: media create: no sidebar, short copy, back to library
 

@@ -10,7 +10,9 @@ helper. They used to be identical across the site; they are not any more.
 | Metadata helper | `src/lib/metadata.ts` | one builder, called from each route's `generateMetadata` |
 | Editable SEO fields | `src/fields/meta.ts` | shared field group on documents |
 | Panel preview | `src/components/admin/SeoPreview.tsx`, `SeoHints.tsx` | shows what will actually be produced |
-| Structured data | `src/lib/structured-data.ts` | `HealthAndBeautyBusiness` sitewide, `BlogPosting` and `BreadcrumbList` per post, `Service` on service pages |
+| Structured data | `src/lib/structured-data.ts` | `HealthAndBeautyBusiness` sitewide, `BlogPosting` and `BreadcrumbList` per post, `Service` / `OfferCatalog` / `ItemList` of `Person` on service pages, `MedicalTherapy` on a therapy page (its `indication` list = the conditions that page names) |
+| Open Graph cards | `scripts/generate-og-images.mjs`, `public/images/og/` | 1200x630 **JPEG** cut from each page's hero (some scrapers still refuse WebP). A route with none falls back to `og-default.jpg`; add a row to the script when a route starts declaring its own `image` |
+| Prices read back out of the copy | `src/lib/pricing.ts` | the price list is one source of truth: amounts are parsed out of the rendered copy, never kept as a second list |
 | Sitemap | `src/app/sitemap.ts` | walks `src/app/[locale]` and pulls posts from Payload, so it cannot drift when a page is added |
 | Robots | `src/app/robots.ts` | |
 | RSS | `src/app/feed.xml/route.ts` | **outside** `[locale]`, so no locale prefix is negotiated onto it. Polish only, deliberately |
