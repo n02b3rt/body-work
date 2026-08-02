@@ -7,11 +7,19 @@ import { PageHero } from "@/components/centrum/PageHero";
 import { TextMedia } from "@/components/centrum/TextMedia";
 import { BodylabNav } from "@/components/centrum/BodylabNav";
 import { pageMetadata } from "@/lib/metadata";
+import { breadcrumbJsonLd, serviceJsonLd } from "@/lib/structured-data";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "BodyComposition" });
-  return pageMetadata({ locale, path: "/bodylab/analiza-skadu-ciala", title: t("title") });
+  return pageMetadata({
+    locale,
+    path: "/bodylab/analiza-skadu-ciala",
+    // Longer than the `<h1>`, which stays "Analiza składu ciała."; see the note on the hub page.
+    title: t("seoTitle"),
+    // The route shipped a title and nothing else, so no `og:description` either.
+    description: t("metaDescription"),
+  });
 }
 
 /** Route slug intentionally missing the "ł", see BodylabNav. */
@@ -22,9 +30,42 @@ export default async function BodyCompositionPage({ params }: PageProps) {
   // Enables static rendering for this route; see the note in [locale]/layout.tsx.
   setRequestLocale(locale);
   const t = await getTranslations("BodyComposition");
+  const tNav = await getTranslations("Nav");
+  const tCommon = await getTranslations("common");
+  const tFooter = await getTranslations("Footer");
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            serviceJsonLd(locale, {
+              name: t("title"),
+              description: t("metaDescription"),
+              path: "/bodylab/analiza-skadu-ciala",
+              city: tFooter("addressLine3").replace(/^[0-9-]+\s*/, "").split(",")[0],
+              variants: [],
+            }),
+          ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd(
+              [
+                { name: tCommon("breadcrumbHome"), path: "/" },
+                { name: tNav("bodylab"), path: "/bodylab" },
+                { name: t("title"), path: "/bodylab/analiza-skadu-ciala" },
+              ],
+              locale,
+            ),
+          ),
+        }}
+      />
+
       <BodylabNav />
       <PageHero title={t("title")} imageSrc="/images/bodylab/analiza-hero.webp" imageAlt={t("title")} />
 

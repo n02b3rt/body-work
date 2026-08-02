@@ -1389,10 +1389,13 @@
   },
   "Bodylab": {
     "title": "Bodylab",
+    "seoTitle": "Bodylab: performance testing and movement analysis | BODYWORK",
+    "metaDescription": "Bodylab in Poznań: ForceDecks force plates, VALD dynamometry and TANITA and InBody body composition analysis. Testing that shows how your body works.",
     "leadHeading": "Understand your body. Raise your results. Maximise the effects.",
     "leadBody": "W BODYLAB łączymy naukę, nowoczesną technologię i praktykę treningową, aby dać Ci pełny obraz funkcjonowania ciała. Nasze testy fizjologiczne i analizy ekspertów pozwalają świadomie rozwijać sprawność, optymalizować regenerację i osiągać lepsze wyniki – niezależnie od tego, czy trenujesz zawodowo, czy dbasz o zdrowie i kondycję na co dzień.",
     "everyMoveHeading": "At BODYLAB every movement counts.",
     "everyMoveBody": "Analizujemy motorykę i funkcjonowanie Twojego ciała, aby trening i rehabilitacja były w pełni dopasowane do Twoich możliwości. Tu nauka spotyka praktykę, a technologia maksymalizuje efekty każdego ćwiczenia.",
+    "everyMoveImageAlt": "Illustration: successive phases of a weighted box step-up",
     "techHeading": "Technology that supports your fitness.",
     "tools": [
       {
@@ -1420,6 +1423,8 @@
   },
   "ValdTechnology": {
     "title": "VALD technology.",
+    "seoTitle": "VALD technology: ForceDecks and dynamometry | BODYWORK Poznań",
+    "metaDescription": "VALD technology in Poznań: ForceDecks and dynamometry measure strength, power and left-right asymmetry. Testing for athletes and people after injury.",
     "leadHeading": "Strength, health and better results.",
     "leadBody": "Bez względu na to, czy Twoim celem są lepsze wyniki sportowe, rehabilitacja po urazach, czy generalna poprawa siły i sprawności, wykorzystanie zalet treningu ekscentrycznego otwiera przed Tobą zupełnie nowe możliwości.",
     "diagHeading": "Sports diagnostics at the highest level.",
@@ -1471,6 +1476,8 @@
   },
   "BodyComposition": {
     "title": "Body composition analysis.",
+    "seoTitle": "Body composition analysis: TANITA and InBody | BODYWORK",
+    "metaDescription": "Body composition analysis in Poznań on TANITA and InBody devices: body fat, muscle mass, total body water and BMR, and a plan built on them.",
     "leadHeading": "Your starting point for working on your body consciously.",
     "leadBody": "Twoje ciało kryje w sobie więcej informacji, niż można zobaczyć gołym okiem. Dzięki nowoczesnej analizie składu ciała odkryjesz pełniejszy obraz swojej sprawności i zdrowia.",
     "dataHeading": "Precise data.",
