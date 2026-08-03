@@ -27,9 +27,9 @@ export function Footer() {
       <div className="border-t border-brand-navy-soft">
         <Container className="flex flex-col gap-4 py-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-body text-brand-navy">
-            <Link href="/polityka-prywatnosci">{t("privacyPolicy")}</Link>
-            <Link href="/regulamin">{t("terms")}</Link>
-            <Link href="/cookies">{t("cookies")}</Link>
+            <Link prefetch={false} href="/polityka-prywatnosci">{t("privacyPolicy")}</Link>
+            <Link prefetch={false} href="/regulamin">{t("terms")}</Link>
+            <Link prefetch={false} href="/cookies">{t("cookies")}</Link>
           </div>
           <p className="text-body text-brand-navy">{t("copyright", { year })}</p>
         </Container>

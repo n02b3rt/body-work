@@ -112,7 +112,7 @@ export function MegaMenu({ open, onClose }: MegaMenuProps) {
               className={cn("flex flex-col gap-6 px-10 first:pl-0", columnClasses)}
               style={stagger(index + 1)}
             >
-              <Link href={column.headingHref} onClick={onClose} className="text-h-menu text-brand-navy">
+              <Link prefetch={false} href={column.headingHref} onClick={onClose} className="text-h-menu text-brand-navy">
                 {column.heading}
               </Link>
               <ul className="flex flex-col gap-3">
@@ -129,7 +129,7 @@ export function MegaMenu({ open, onClose }: MegaMenuProps) {
                         {link.label}
                       </a>
                     ) : (
-                      <Link
+                      <Link prefetch={false}
                         href={link.href}
                         onClick={onClose}
                         className="text-label uppercase tracking-[1px] text-brand-navy hover:opacity-70"
@@ -145,7 +145,7 @@ export function MegaMenu({ open, onClose }: MegaMenuProps) {
 
           <div className={cn("flex flex-col gap-4 px-10", columnClasses)} style={stagger(columns.length + 1)}>
             {flatLinks.map((link) => (
-              <Link
+              <Link prefetch={false}
                 key={link.href}
                 href={link.href}
                 onClick={onClose}

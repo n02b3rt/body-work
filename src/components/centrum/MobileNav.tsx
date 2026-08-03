@@ -66,7 +66,7 @@ export function MobileNav({ open, onClose, navItems, otherLocale, pathname }: Mo
         <ul className="divide-y divide-background/20">
           {navItems.map((item, index) => (
             <li key={item.href} className={cn("py-3", rowClasses)} style={stagger(index)}>
-              <Link
+              <Link prefetch={false}
                 href={item.href}
                 onClick={onClose}
                 className="block text-partner font-light uppercase tracking-[1px] text-background"
@@ -87,7 +87,7 @@ export function MobileNav({ open, onClose, navItems, otherLocale, pathname }: Mo
                           {child.label}
                         </a>
                       ) : (
-                        <Link
+                        <Link prefetch={false}
                           href={child.href}
                           onClick={onClose}
                           className="block py-1 text-btn uppercase tracking-[1px] text-background/70"
@@ -102,7 +102,7 @@ export function MobileNav({ open, onClose, navItems, otherLocale, pathname }: Mo
             </li>
           ))}
           <li className={cn("py-3", rowClasses)} style={stagger(navItems.length)}>
-            <Link
+            <Link prefetch={false}
               href="/kontakt"
               onClick={onClose}
               className="block text-partner font-light uppercase tracking-[1px] text-background"
@@ -117,7 +117,7 @@ export function MobileNav({ open, onClose, navItems, otherLocale, pathname }: Mo
         className={cn("flex shrink-0 items-center justify-between border-t border-background/20 px-4 py-4", rowClasses)}
         style={stagger(navItems.length + 1)}
       >
-        <Link
+        <Link prefetch={false}
           href={pathname}
           locale={otherLocale}
           onClick={onClose}
