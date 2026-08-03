@@ -55,6 +55,14 @@ One-off maintenance: `scripts/backfill-image-sizes.ts`, `scripts/seed-translatio
   its keep. Adding it is a stack change: ask first. The PRD names Vitest and Playwright; neither is installed.
 - ⚠ **`pnpm test` needs Node 22.18+**, where running TypeScript without a build landed. `engines`
   still says 20 because that is what the app needs; `.github/workflows/checks.yml` pins 22 for the tests.
+- ⚠ **`pnpm` itself needs Node 22.13+.** `packageManager` pins pnpm 11.17, which imports
+  `styleText` from `node:util` at load, so on anything older every pnpm command dies before it
+  reads a file. `engines` says 20.9 and that is still true of the **app**, not of the toolchain:
+  Next builds and runs fine on 20.9 when invoked directly
+  (`node node_modules/next/dist/bin/next build`), which is the workaround when Node is too old to
+  reach pnpm at all. **Do not try to maintain the lockfile with an older pnpm.** pnpm 10 strips the
+  66 `libc` fields pnpm 11 writes, which is the platform-variant metadata that already broke CI
+  once on `@ffmpeg-installer`.
 - **New code arrives tested:** `tests/coverage.test.ts` goes red when an importable module under
   `src/lib/` or `src/access/` has no test. Its `GRANDFATHERED` list may only shrink.
 - **CI:** `.github/workflows/checks.yml` runs docs and tests first (no install needed), then types
