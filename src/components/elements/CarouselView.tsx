@@ -2,7 +2,7 @@
 
 import NextImage from 'next/image'
 
-import { useScrollCarousel } from '@/components/ui/use-scroll-carousel'
+import { useLoopedSlides, useScrollCarousel } from '@/components/ui/use-scroll-carousel'
 
 import { ElementLink } from './ElementLink'
 import type { ElementLabels, ElementMode } from './types'
@@ -68,10 +68,10 @@ export function CarouselView({
     trackActive: showDots,
   })
 
-  // Looping needs a second, identical copy to wrap into, so the track renders every slide
-  // twice and the duplicates are hidden from assistive technology. Without loop the track is
-  // just the slides and the scroller stops at both ends.
-  const track = loop ? [...slides, ...slides] : slides
+  // Looping needs a second, identical copy to wrap into, and the duplicates are hidden from
+  // assistive technology. It is added after hydration rather than shipped in the HTML: only
+  // script can drive the loop, so the server has no use for a copy nothing can scroll yet.
+  const track = useLoopedSlides(slides, loop)
   const basis = BASIS[slidesPerView] ?? BASIS[1]!
   const sizes =
     slidesPerView >= 3

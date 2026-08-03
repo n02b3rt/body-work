@@ -55,9 +55,9 @@ median:
 | | main | branch |
 |---|---|---|
 | Performance | 85 | **87** |
-| LCP | 4.29 s | **4.04 s** |
-| Speed Index | 2.00 s | **1.54 s** |
-| TBT | 48 ms | 46 ms |
+| LCP | 4.29 s | **4.06 s** |
+| Speed Index | 2.00 s | **1.55 s** |
+| TBT | 48 ms | 56 ms |
 | FCP | 1.08 s | 1.08 s |
 
 Run it yourself, no install needed:

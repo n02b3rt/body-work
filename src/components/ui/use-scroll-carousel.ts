@@ -1,6 +1,27 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
+
+/** Same client-only gate `FullBleedVideo` uses, for the same reason: tell the server and the
+ * first client render apart without a hydration mismatch. */
+const subscribe = () => () => {};
+const onClient = () => true;
+const onServer = () => false;
+
+/**
+ * The slides to render: the real ones on the server, doubled once the browser has them.
+ *
+ * The loop needs a second copy to wrap into, but only script can drive that loop, so shipping
+ * the copy in the HTML makes the server render, and every visitor hydrate, twice the DOM for
+ * something nothing can use yet. LCP on this site is 85% render delay, which is main-thread
+ * time, so DOM that exists before it is needed is the exact wrong kind of weight.
+ *
+ * The second pass must stay `aria-hidden`: see how the call sites index against `items.length`.
+ */
+export function useLoopedSlides<T>(items: T[], loop = true): T[] {
+  const hydrated = useSyncExternalStore(subscribe, onClient, onServer);
+  return loop && hydrated ? [...items, ...items] : items;
+}
 
 /**
  * A looping, autoplaying carousel built on the browser's own scroller.

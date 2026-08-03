@@ -3,7 +3,11 @@
 import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { carouselViewport, useScrollCarousel } from "@/components/ui/use-scroll-carousel";
+import {
+  carouselViewport,
+  useLoopedSlides,
+  useScrollCarousel,
+} from "@/components/ui/use-scroll-carousel";
 import { CarouselArrows } from "./CarouselArrows";
 
 type NewsItem = { title: string; detailTitle?: string; detail?: string };
@@ -16,6 +20,8 @@ export function NewsCarousel() {
     autoplayMs: 4500,
     count: items.length,
   });
+  // The looping copy is added after hydration, not shipped in the HTML.
+  const track = useLoopedSlides(items);
 
   return (
     <section className="border-t border-brand-navy-soft bg-background py-16 lg:py-24">
@@ -35,7 +41,7 @@ export function NewsCarousel() {
         * container edge and sit under it. */}
       <div ref={ref} className={`mt-10 scroll-pl-4 sm:scroll-pl-6 lg:scroll-pl-8 ${carouselViewport}`}>
         <div className="flex gap-4 px-4 sm:px-6 lg:px-8">
-          {[...items, ...items].map((item, index) => (
+          {track.map((item, index) => (
             <article
               key={`${item.title}-${index}`}
               aria-hidden={index >= items.length}

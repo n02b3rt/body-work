@@ -2,7 +2,11 @@
 
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { carouselViewport, useScrollCarousel } from "@/components/ui/use-scroll-carousel";
+import {
+  carouselViewport,
+  useLoopedSlides,
+  useScrollCarousel,
+} from "@/components/ui/use-scroll-carousel";
 import { CarouselArrows } from "./CarouselArrows";
 
 /** Some pages quote clients anonymously, so `name` is optional. */
@@ -22,6 +26,8 @@ export function TestimonialCarousel({ heading, items }: TestimonialCarouselProps
     count: items.length,
     stopOnInteraction: true,
   });
+  // The looping copy is added after hydration, not shipped in the HTML.
+  const track = useLoopedSlides(items);
 
   return (
     <section className="border-t border-brand-navy-soft bg-background py-16 lg:py-24">
@@ -51,7 +57,7 @@ export function TestimonialCarousel({ heading, items }: TestimonialCarouselProps
         * `use-scroll-carousel.ts`. */}
       <div ref={ref} className={`mt-10 border-t border-brand-navy-soft ${carouselViewport}`}>
         <div className="flex">
-          {[...items, ...items].map((item, index) => (
+          {track.map((item, index) => (
             <blockquote
               key={index}
               aria-hidden={index >= items.length}
