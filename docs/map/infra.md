@@ -75,12 +75,11 @@ One-off maintenance: `scripts/backfill-image-sizes.ts`, `scripts/seed-translatio
   and translations.
 - **Deploying:** [`../runbooks/deploy.md`](../runbooks/deploy.md), including why `.next/cache`
   must survive a release.
-- ⚠ **There are no migrations, so the project cannot start on a clean database.** Payload pushes the
-  schema in dev and expects migrations in production. This blocks a first deploy and is why CI does
-  not run `pnpm build`: it compiles and type-checks, then dies collecting page data. Scripts are
-  ready (`pnpm migrate:create`, `migrate`, `migrate:status`); the procedure is
-  [`../runbooks/create-migrations.md`](../runbooks/create-migrations.md). Until then someone runs the
-  build locally before merging.
+- ⚠ **There are no migrations, so the project cannot start on a clean database.** Payload pushes
+  the schema in dev and expects migrations in production, which is why CI cannot build and why a
+  backup dump is currently the only way to produce schema plus content:
+  [`../runbooks/create-migrations.md`](../runbooks/create-migrations.md). Someone runs the build
+  locally before merging.
 - **Still missing:** end-to-end tests and browser automation.
 - **`pnpm lint` is broken on `main` too** (eslint-plugin-react 7.37 vs ESLint 10, fails while linting
   `eslint.config.mjs`). A failure there is not necessarily yours.
