@@ -40,11 +40,33 @@ sudo apachectl configtest && sudo systemctl reload apache2
 and its images from one host. On HTTP/1.1 that is six connections and a queue, and the LCP image
 waits in it.
 
-## 3. Brotli
+## 3. Brotli, and the half of it that is in this repo
+
+**Enabling `mod_brotli` on its own will do nothing, and will look like it worked.**
+
+Next compresses its own responses: `compress` defaults to `true`, so Node hands Apache a body that
+already carries `Content-Encoding: gzip`, and Apache will not recompress an encoded response.
+Verified locally against `next start`, with no proxy in front: `Content-Encoding: gzip` comes back
+on a bare request.
+
+So the two changes ship together, or neither works:
+
+1. In `next.config.ts`, hand compression over to the proxy:
+
+   ```ts
+   compress: false,
+   ```
+
+2. Only then, on the server:
 
 ```bash
 sudo a2enmod brotli
 ```
+
+Doing step 1 without step 2 ships **uncompressed HTML and JavaScript**, which is far worse than the
+gzip we have now. Sequence it as: configure and reload Apache first, confirm with the `curl` in
+step 4 that a plain request still comes back gzipped by Apache, then deploy the `compress: false`
+build and confirm it comes back `br`.
 
 ```apache
 AddOutputFilterByType BROTLI_COMPRESS text/html text/css text/plain text/xml \
@@ -55,8 +77,8 @@ BrotliCompressionQuality 5
 Quality 5, not the default 11: 11 is for files compressed once and stored, and these responses come
 off a proxy on every request. 5 is roughly gzip's cost for meaningfully better output.
 
-Gzip already works, so this is an improvement on ~223 KB of JS and ~28 KB of HTML, not a fix for
-something broken.
+Gzip already works, so this is an improvement on ~217 KB of JS and ~27 KB of HTML, not a fix for
+something broken. Expect roughly 20% off both.
 
 ## 4. Verify
 
