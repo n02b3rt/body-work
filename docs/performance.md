@@ -47,7 +47,7 @@ ahead of it, and the server speaks HTTP/1.1, so the browser had 6 connections to
 | CSS | 10.3 KB | **9.1 KB** |
 | Eager images (homepage) | 15 | **3** |
 | Image preloads (homepage) | 9 | **2** |
-| Homepage HTML | 27.2 KB | 28.1 KB |
+| Homepage HTML | 27.2 KB | 27.3 KB |
 
 Lighthouse mobile, both builds served locally from `next start`, five runs each, interleaved,
 median:
@@ -111,14 +111,42 @@ curl -sS -D - -o /dev/null -H 'Accept-Encoding: br' https://demo.n02b3rt.pl/ | g
   HTML implied, and a modern `browserslist` target moved the bundle by 100 bytes because Turbopack
   already emits modern output. `pnpm check:perf` reports gzip for exactly this reason.
 
+## What actually holds LCP back: hydration
+
+Lighthouse breaks LCP into four phases. Measured on this branch:
+
+| phase | `/` | `/fizjoterapia` |
+|---|---|---|
+| TTFB | 463 ms (12%) | 461 ms (10%) |
+| Load Delay | 0 ms | 0 ms |
+| Load Time | 0 ms | 241 ms (5%) |
+| **Render Delay** | **3437 ms (88%)** | **3719 ms (84%)** |
+
+**The LCP resource is downloaded and waiting; it cannot paint because the main thread is busy.**
+Preloads, priorities and lazy loading all act on Load Delay and Load Time, which together are
+5-12% of the problem. That is why this pass moved Speed Index by 23% and LCP by 5%.
+
+Two consequences worth remembering before optimising anything here again:
+
+- **Bytes on the critical path are not the constraint. Client JavaScript is.** Every page hydrates
+  the same shell: `Header` (15.7 KB of source), `MegaMenu` (8.3 KB), `MobileNav` (5.8 KB) and
+  `PromoBar` (5.1 KB), all `"use client"`, plus next-intl's 13.6 KB gzipped browser runtime.
+- **The homepage's LCP element is the `<video>`, not the poster.** The poster's `preload` and
+  `fetchPriority` aim at an element the video paints over. On section pages the LCP element really
+  is the hero `<img>`, so the pair earns its place there.
+
 ## Still on the table
 
-`next-intl` costs about 44 KB raw in the browser, and the reason is `src/i18n/navigation.ts`:
-`createNavigation` returns a `Link` that is itself a client component reading `useLocale()`, and 32
-files import it, **including server components**. Every link on every page is therefore a client
-boundary. Replacing it with a wrapper over `next/link` that computes the `as-needed` prefix itself
-(`pl` unprefixed, `en` under `/en`, from `src/i18n/routing.ts`) is what would let
-`NextIntlClientProvider`, `CLIENT_NAMESPACES` and `check:messages` go. Not started.
+Taking next-intl out of the browser, which the numbers above make the only change that can move
+LCP. `src/i18n/navigation.ts` is the knot: `createNavigation` returns a `Link` that is itself a
+client component reading `useLocale()`, and 32 files import it, **including server components**, so
+every link on every page is a client boundary. The prefix rule it needs is trivial (`pl`
+unprefixed, `en` under `/en`, from `src/i18n/routing.ts`).
+
+It is all-or-nothing: the 13.6 KB runtime only leaves once **every** `useTranslations` in a client
+component is gone, which is 15 components plus `error.tsx` and `not-found.tsx`, and those two are
+error boundaries that cannot take props from a server parent. `CLIENT_NAMESPACES` and
+`check:messages` go with it, so the `i18n-messages` skill changes in the same commit. Not started.
 
 ## Related
 
