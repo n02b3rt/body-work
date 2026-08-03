@@ -59,20 +59,15 @@ One-off maintenance: `scripts/backfill-image-sizes.ts`, `scripts/seed-translatio
   Lighthouse prices at 1390 ms. Brotli is done and needed no repo change:
   [`../runbooks/apache-http2-brotli.md`](../runbooks/apache-http2-brotli.md),
   [`../performance.md`](../performance.md).
-- ⚠ **`embla-carousel-react` and `embla-carousel-autoplay` are declared and unused.** Nothing
-  imports them; the carousels run on `src/components/ui/use-scroll-carousel.ts`. They stayed in
-  `package.json` because removing them without being able to run `pnpm install` breaks
-  `--frozen-lockfile` in CI. Finish it with `pnpm remove embla-carousel-react
-  embla-carousel-autoplay` on Node 22.13 or newer.
+- ⚠ **The two `embla-carousel-*` packages are declared and unused.** The carousels run on
+  `ui/use-scroll-carousel.ts`. Dropping them from `package.json` without running `pnpm install`
+  breaks `--frozen-lockfile`, so finish it with `pnpm remove` on Node 22.13+.
 - ⚠ **`pnpm` itself needs Node 22.13+.** `packageManager` pins pnpm 11.17, which imports
-  `styleText` from `node:util` at load, so on anything older every pnpm command dies before it
-  reads a file. `engines` says 20.9 and that is still true of the **app**, not of the toolchain:
-  Next builds and runs fine on 20.9 when invoked directly
-  (`node node_modules/next/dist/bin/next build`), which is the workaround when Node is too old to
-  reach pnpm at all. **Do not try to maintain the lockfile with an older pnpm.** pnpm 10 runs on
-  20.9 and does update the file, but rewrites 429 lines and drops the 66 `libc` fields pnpm 11
-  writes. Whether pnpm 11 then accepts it is untestable from a machine that cannot run pnpm 11,
-  and CI uses `--frozen-lockfile`, so it is a guess aimed at a gate.
+  `styleText` from `node:util` at load, so on anything older every pnpm command dies first.
+  `engines` says 20.9 and that is true of the **app**, not the toolchain: `node
+  node_modules/next/dist/bin/next build` works on 20.9, which is the way round it. **Do not
+  maintain the lockfile with an older pnpm:** pnpm 10 does run, rewrites 429 lines and drops the
+  `libc` fields pnpm 11 writes, and you cannot check the result without pnpm 11.
 - **New code arrives tested:** `tests/coverage.test.ts` goes red when an importable module under
   `src/lib/` or `src/access/` has no test. Its `GRANDFATHERED` list may only shrink.
 - **CI:** `.github/workflows/checks.yml` runs docs and tests first (no install needed), then types
