@@ -48,11 +48,15 @@ const stamp =
 const OUT = path.join(BACKUP_ROOT, stamp)
 
 /**
- * Postgres runs in Docker here and there is no local `psql`, so every query goes through the
- * container. On a server with the client tools installed, point `PG_EXEC` at `psql` instead.
+ * Postgres runs in Docker here, so commands go through the container. Set `PG_CONTAINER=none` on
+ * a host where `psql` and `pg_dump` are on the PATH instead, and they are called directly.
  */
+const inContainer = CONTAINER && CONTAINER !== 'none'
+const pgBin = (tool) => (inContainer ? 'docker' : tool)
+const pgArgs = (tool, args) => (inContainer ? ['exec', CONTAINER, tool, ...args] : args)
+
 const psql = (sql) =>
-  execFileSync('docker', ['exec', CONTAINER, 'psql', '-U', PG_USER, '-d', DB, '-t', '-A', '-c', sql], {
+  execFileSync(pgBin('psql'), pgArgs('psql', ['-U', PG_USER, '-d', DB, '-t', '-A', '-c', sql]), {
     encoding: 'utf8',
   }).trim()
 
@@ -84,7 +88,7 @@ fs.mkdirSync(OUT, { recursive: true })
 const sqlPath = path.join(OUT, 'database.sql')
 fs.writeFileSync(
   sqlPath,
-  execFileSync('docker', ['exec', CONTAINER, 'pg_dump', '-U', PG_USER, '-d', DB, '--clean', '--if-exists'], {
+  execFileSync(pgBin('pg_dump'), pgArgs('pg_dump', ['-U', PG_USER, '-d', DB, '--clean', '--if-exists']), {
     encoding: 'utf8',
     maxBuffer: 512 * 1024 * 1024,
   }),

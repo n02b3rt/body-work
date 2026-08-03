@@ -32,6 +32,16 @@ const CONTAINER = process.env.PG_CONTAINER || 'centrum-postgres-1'
 const DB = process.env.PG_DATABASE || 'bodywork'
 const PG_USER = process.env.PG_USER || 'payload'
 
+/**
+ * Postgres runs in Docker here, so the client tools are reached through the container. Set
+ * `PG_CONTAINER=none` on a host that has `psql` and `pg_dump` on its PATH and they are called
+ * directly instead.
+ */
+const inContainer = CONTAINER && CONTAINER !== 'none'
+const pgBin = (tool) => (inContainer ? 'docker' : tool)
+const pgArgs = (tool, args, { stdin = false } = {}) =>
+  inContainer ? ['exec', ...(stdin ? ['-i'] : []), CONTAINER, tool, ...args] : args
+
 if (!SOURCE) {
   console.error('Usage: I_MEAN_IT=1 pnpm restore:content <backup-dir>')
   process.exit(1)
@@ -58,7 +68,7 @@ if (!process.env.I_MEAN_IT) {
 }
 
 console.log(`\nrestoring into ${DB}...`)
-execFileSync('docker', ['exec', '-i', CONTAINER, 'psql', '-U', PG_USER, '-d', DB, '-v', 'ON_ERROR_STOP=0'], {
+execFileSync(pgBin('psql'), pgArgs('psql', ['-U', PG_USER, '-d', DB, '-v', 'ON_ERROR_STOP=0'], { stdin: true }), {
   input: fs.readFileSync(sqlPath),
   stdio: ['pipe', 'ignore', 'inherit'],
   maxBuffer: 512 * 1024 * 1024,
@@ -74,7 +84,7 @@ if (fs.existsSync(mediaArchive)) {
 }
 
 const psql = (sql) =>
-  execFileSync('docker', ['exec', CONTAINER, 'psql', '-U', PG_USER, '-d', DB, '-t', '-A', '-c', sql], {
+  execFileSync(pgBin('psql'), pgArgs('psql', ['-U', PG_USER, '-d', DB, '-t', '-A', '-c', sql]), {
     encoding: 'utf8',
   }).trim()
 
