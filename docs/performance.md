@@ -39,6 +39,23 @@ Lighthouse mobile scored **72**, with LCP 4.2 s and TBT 540 ms.
 answers with a HIT. It arrived at 4.2 s because 16 JS and CSS files, 2 fonts and 8 icon SVGs were
 ahead of it, and the server speaks HTTP/1.1, so the browser had 6 connections to share between them.
 
+## After the shared-shell pass, same day
+
+| | Before | After |
+|---|---|---|
+| Worst page, JS | 224.6 KB | **217.9 KB** |
+| CSS | 10.3 KB | **9.1 KB** |
+| Eager images | 15 | **1** |
+| Preloads | 13 | **5** |
+| Homepage HTML | 27.2 KB | 33.2 KB |
+
+The homepage document grew because the icon sprite is inline, and that is the trade: five fewer
+round trips before the LCP image against 6 KB gzip carried in a response already on its way. It is
+the right trade on HTTP/1.1 and a narrower one once the server speaks HTTP/2.
+
+**Not yet measured against a browser.** The Lighthouse re-run belongs after the next deploy, in
+incognito: the original report warns that Chrome extensions polluted it.
+
 ## The server is half the problem
 
 `demo.n02b3rt.pl` runs behind Apache which advertises only `http/1.1` in its TLS ALPN and does not
@@ -75,6 +92,19 @@ curl -sS -D - -o /dev/null -H 'Accept-Encoding: br' https://demo.n02b3rt.pl/ | g
 - **A client component drags its props into the HTML.** Everything crossing a `"use client"`
   boundary is serialised into the inline RSC payload, so a wrapper that only needs to be
   interactive should be as small and as deep in the tree as it can be.
+- **Gzip the thing before you decide it is heavy.** Two of this pass's planned wins died on the
+  measurement: dropping below-the-fold blur placeholders saves 437 bytes, not the 25 KB the raw
+  HTML implied, and a modern `browserslist` target moved the bundle by 100 bytes because Turbopack
+  already emits modern output. `pnpm check:perf` reports gzip for exactly this reason.
+
+## Still on the table
+
+`next-intl` costs about 44 KB raw in the browser, and the reason is `src/i18n/navigation.ts`:
+`createNavigation` returns a `Link` that is itself a client component reading `useLocale()`, and 32
+files import it, **including server components**. Every link on every page is therefore a client
+boundary. Replacing it with a wrapper over `next/link` that computes the `as-needed` prefix itself
+(`pl` unprefixed, `en` under `/en`, from `src/i18n/routing.ts`) is what would let
+`NextIntlClientProvider`, `CLIENT_NAMESPACES` and `check:messages` go. Not started.
 
 ## Related
 

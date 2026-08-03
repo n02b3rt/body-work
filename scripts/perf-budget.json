@@ -1,8 +1,8 @@
 {
-  "js": 229976,
-  "css": 10517,
-  "html": 88860,
+  "js": 223100,
+  "css": 9301,
+  "html": 94960,
   "files": 17,
-  "eager": 15,
-  "preloads": 13
+  "eager": 1,
+  "preloads": 5
 }
