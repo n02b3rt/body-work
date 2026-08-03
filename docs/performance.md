@@ -54,11 +54,15 @@ median:
 
 | | main | branch |
 |---|---|---|
-| Performance | 85 | **87** |
-| LCP | 4.29 s | **4.06 s** |
+| Performance | 85 | **92** |
+| LCP | 4.29 s | **3.39 s** |
 | Speed Index | 2.00 s | **1.55 s** |
-| TBT | 48 ms | 56 ms |
+| TBT | 48 ms | 46 ms |
 | FCP | 1.08 s | 1.08 s |
+
+The jump from 87 to 92 is the hero video alone: the phone encode went from 736 KB to 372 KB, and
+below that weight the **poster wins the LCP race instead of the video**, which is what finally makes
+its `preload` and `fetchPriority` pair count for anything.
 
 Run it yourself, no install needed:
 
@@ -131,9 +135,14 @@ Two consequences worth remembering before optimising anything here again:
 - **Bytes on the critical path are not the constraint. Client JavaScript is.** Every page hydrates
   the same shell: `Header` (15.7 KB of source), `MegaMenu` (8.3 KB), `MobileNav` (5.8 KB) and
   `PromoBar` (5.1 KB), all `"use client"`, plus next-intl's 13.6 KB gzipped browser runtime.
-- **The homepage's LCP element is the `<video>`, not the poster.** The poster's `preload` and
-  `fetchPriority` aim at an element the video paints over. On section pages the LCP element really
-  is the hero `<img>`, so the pair earns its place there.
+- **Watch which element actually is the LCP, per page.** On the homepage it was the `<video>`, so
+  the poster's `preload` and `fetchPriority` aimed at something the video painted over and could not
+  help. Halving the phone encode handed the title back to the poster. `largest-contentful-paint-element`
+  in the Lighthouse JSON names it; do not assume.
+- **Links prefetch themselves into a flood.** The App Router prefetches every `<Link>` its observer
+  sees, several times per route. The chrome carries `prefetch={false}`, which keeps the hover and
+  touch prefetch and drops the viewport one. On HTTP/1.1 those requests share six connections with
+  the LCP image.
 
 ## Still on the table
 
