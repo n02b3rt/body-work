@@ -2,8 +2,8 @@
 
 # Apache: HTTP/2 and brotli
 
-Measured on `demo.n02b3rt.pl`, 3 August 2026: TLS ALPN offered only `http/1.1`, and a request
-carrying `Accept-Encoding: br` came back uncompressed at 168 KB. Lighthouse priced the missing
+Measured on `demo.n02b3rt.pl`, 3 August 2026: TLS ALPN offered only `http/1.1`. Brotli has
+since been enabled and works; HTTP/2 has not. Lighthouse priced the missing
 HTTP/2 at **1390 ms**, its single largest line. Both are server configuration; nothing in this repo
 can reach them.
 
@@ -40,33 +40,38 @@ sudo apachectl configtest && sudo systemctl reload apache2
 and its images from one host. On HTTP/1.1 that is six connections and a queue, and the LCP image
 waits in it.
 
-## 3. Brotli, and the half of it that is in this repo
+## 3. Brotli: done, 3 August 2026
 
-**Enabling `mod_brotli` on its own will do nothing, and will look like it worked.**
+Working on `demo.n02b3rt.pl`, measured with a realistic browser `Accept-Encoding`:
 
-Next compresses its own responses: `compress` defaults to `true`, so Node hands Apache a body that
-already carries `Content-Encoding: gzip`, and Apache will not recompress an encoded response.
-Verified locally against `next start`, with no proxy in front: `Content-Encoding: gzip` comes back
-on a bare request.
+```
+gzip, deflate, br, zstd  ->  Content-Encoding: br    19 940 bytes
+gzip                     ->  Content-Encoding: gzip  27 967 bytes
+```
 
-So the two changes ship together, or neither works:
+29% off the HTML. Nothing in this repo had to change for it.
 
-1. In `next.config.ts`, hand compression over to the proxy:
+**An earlier version of this runbook claimed `compress: false` was required in `next.config.ts`,
+and that was wrong.** The reasoning looked sound: Next compresses its own responses (`compress`
+defaults to true) and Apache will not recompress an encoded body, which is exactly what happens
+locally against a bare `next start`. Behind this proxy it does not, and brotli wins. Leave
+`compress` alone.
 
-   ```ts
-   compress: false,
-   ```
-
-2. Only then, on the server:
+If brotli ever stops appearing, Next's own gzip is still the first thing to suspect, and
+`compress: false` is the thing to try. It is a fix to reach for on evidence, not a prerequisite.
 
 ```bash
 sudo a2enmod brotli
 ```
 
-Doing step 1 without step 2 ships **uncompressed HTML and JavaScript**, which is far worse than the
-gzip we have now. Sequence it as: configure and reload Apache first, confirm with the `curl` in
-step 4 that a plain request still comes back gzipped by Apache, then deploy the `compress: false`
-build and confirm it comes back `br`.
+```apache
+AddOutputFilterByType BROTLI_COMPRESS text/html text/css text/plain text/xml \
+  application/javascript application/json image/svg+xml
+BrotliCompressionQuality 5
+```
+
+Quality 5, not the default 11: 11 is for files compressed once and stored, and these responses come
+off a proxy on every request.
 
 ```apache
 AddOutputFilterByType BROTLI_COMPRESS text/html text/css text/plain text/xml \
@@ -88,12 +93,18 @@ echo | openssl s_client -alpn h2,http/1.1 -connect demo.n02b3rt.pl:443 \
   -servername demo.n02b3rt.pl 2>/dev/null | grep -i ALPN
 
 # must print: content-encoding: br
-curl -sS -D - -o /dev/null -H 'Accept-Encoding: br' -u '<user>:<pass>' \
+curl -sS -D - -o /dev/null -H 'Accept-Encoding: gzip, deflate, br, zstd' -u '<user>:<pass>' \
   https://demo.n02b3rt.pl/ | grep -i content-encoding
 ```
 
-A `HEAD` request is not a test: Apache skips compression on it, so `curl -I` reports no
-`Content-Encoding` even when the filter is working. Use `-D - -o /dev/null` as above.
+Two ways to fool yourself here, both of which I did:
+
+**A `HEAD` request is not a test.** Apache skips compression on it, so `curl -I` reports no
+`Content-Encoding` even when the filter is working. Use `-D - -o /dev/null`.
+
+**`Accept-Encoding: br` on its own is not a test either.** Next only speaks gzip, so with `br`
+alone it stops compressing and the proxy takes over, which can make a broken setup look fine and a
+working one look like it needs `compress: false`. Send the full list a browser sends.
 
 ## Not a problem, do not fix
 

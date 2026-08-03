@@ -80,8 +80,9 @@ than it is, and anything that trades the other way will look worse. Confirm on t
 
 ## The server is half the problem
 
-`demo.n02b3rt.pl` runs behind Apache which advertises only `http/1.1` in its TLS ALPN and does not
-carry `mod_brotli`. Lighthouse prices the first at 1390 ms on its own. Neither is fixable in this
+`demo.n02b3rt.pl` runs behind Apache which advertises only `http/1.1` in its TLS ALPN. Brotli is
+done (29% off the HTML, 19.9 KB against 27.9 KB gzip); HTTP/2 is not, and Lighthouse prices it at
+1390 ms on its own. Neither is fixable in this
 repo. The configuration and how to verify it: [`runbooks/apache-http2-brotli.md`](./runbooks/apache-http2-brotli.md).
 
 Check what the server is actually doing before blaming the bundle:
