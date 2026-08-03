@@ -1,9 +1,8 @@
 'use client'
 
-import Autoplay from 'embla-carousel-autoplay'
-import useEmblaCarousel from 'embla-carousel-react'
 import NextImage from 'next/image'
-import { useCallback, useEffect, useState } from 'react'
+
+import { useScrollCarousel } from '@/components/ui/use-scroll-carousel'
 
 import { ElementLink } from './ElementLink'
 import type { ElementLabels, ElementMode } from './types'
@@ -38,7 +37,8 @@ const BASIS: Record<number, string> = {
   3: '33.3333%',
 }
 
-/** Embla-backed slider, wired the same way as the hand-built carousels on the site. */
+/** Slider on the browser's own scroller, wired the same way as the hand-built carousels on
+ * the site. See `src/components/ui/use-scroll-carousel.ts`. */
 export function CarouselView({
   aspectRatio,
   autoplay,
@@ -54,30 +54,22 @@ export function CarouselView({
   slidesPerView,
 }: Props) {
   // Autoplay would fight the editor on the canvas, so it only runs on the site.
-  const [plugin] = useState(() =>
-    autoplay && mode === 'site'
-      ? [Autoplay({ delay: Math.max(interval, 1) * 1000, stopOnInteraction: false })]
-      : [],
-  )
-  const [emblaRef, emblaApi] = useEmblaCarousel({ align: 'start', loop }, plugin)
-  const [selected, setSelected] = useState(0)
+  const {
+    active: selected,
+    ref: viewportRef,
+    scrollPrev,
+    scrollNext,
+    scrollTo,
+  } = useScrollCarousel({
+    autoplayMs: autoplay && mode === 'site' ? Math.max(interval, 1) * 1000 : undefined,
+    count: slides.length,
+    loop,
+  })
 
-  const onSelect = useCallback((api: { selectedScrollSnap: () => number }) => {
-    setSelected(api.selectedScrollSnap())
-  }, [])
-
-  // Subscribe only: reading the snap synchronously here would be a `setState` in
-  // an effect body, which the React Compiler rejects outright in this project.
-  useEffect(() => {
-    if (!emblaApi) return
-    emblaApi.on('select', onSelect)
-    emblaApi.on('reInit', onSelect)
-    return () => {
-      emblaApi.off('select', onSelect)
-      emblaApi.off('reInit', onSelect)
-    }
-  }, [emblaApi, onSelect])
-
+  // Looping needs a second, identical copy to wrap into, so the track renders every slide
+  // twice and the duplicates are hidden from assistive technology. Without loop the track is
+  // just the slides and the scroller stops at both ends.
+  const track = loop ? [...slides, ...slides] : slides
   const basis = BASIS[slidesPerView] ?? BASIS[1]!
   const sizes =
     slidesPerView >= 3
@@ -88,9 +80,9 @@ export function CarouselView({
 
   return (
     <div className="bw-el-carousel">
-      <div className="bw-el-carousel__viewport" ref={emblaRef}>
+      <div className="bw-el-carousel__viewport" ref={viewportRef}>
         <div className="bw-el-carousel__track" style={{ gap }}>
-          {slides.map((slide, index) => {
+          {track.map((slide, index) => {
             const picture = (
               <span className="bw-el-frame" style={{ aspectRatio, borderRadius: radius }}>
                 <NextImage
@@ -107,6 +99,7 @@ export function CarouselView({
 
             return (
               <figure
+                aria-hidden={index >= slides.length}
                 className="bw-el-carousel__slide bw-el-figure"
                 key={`${slide.url}-${index}`}
                 style={{ flexBasis: `calc(${basis} - ${gap})` }}
@@ -132,7 +125,7 @@ export function CarouselView({
           <button
             aria-label={labels.previous}
             className="bw-el-carousel__arrow"
-            onClick={() => emblaApi?.scrollPrev()}
+            onClick={scrollPrev}
             type="button"
           >
             ‹
@@ -140,7 +133,7 @@ export function CarouselView({
           <button
             aria-label={labels.next}
             className="bw-el-carousel__arrow"
-            onClick={() => emblaApi?.scrollNext()}
+            onClick={scrollNext}
             type="button"
           >
             ›
@@ -156,7 +149,7 @@ export function CarouselView({
               aria-label={`${labels.slide} ${index + 1}`}
               className="bw-el-carousel__dot"
               key={`${slide.url}-dot-${index}`}
-              onClick={() => emblaApi?.scrollTo(index)}
+              onClick={() => scrollTo(index)}
               type="button"
             />
           ))}

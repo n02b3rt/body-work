@@ -1,10 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import useEmblaCarousel from "embla-carousel-react";
-import Autoplay from "embla-carousel-autoplay";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { carouselViewport, useScrollCarousel } from "@/components/ui/use-scroll-carousel";
 import { CarouselArrows } from "./CarouselArrows";
 
 /** Some pages quote clients anonymously, so `name` is optional. */
@@ -18,14 +16,18 @@ type TestimonialCarouselProps = {
 /** Quotes carousel. Content comes in as props rather than being read from a fixed
  * translation namespace, because each section page carries its own set. */
 export function TestimonialCarousel({ heading, items }: TestimonialCarouselProps) {
-  const [autoplay] = useState(() => Autoplay({ delay: 5500, stopOnInteraction: true }));
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" }, [autoplay]);
+  // Quotes stop cycling for good once someone takes hold of them: they are for reading.
+  const { ref, scrollPrev, scrollNext } = useScrollCarousel({
+    autoplayMs: 5500,
+    count: items.length,
+    stopOnInteraction: true,
+  });
 
   return (
     <section className="border-t border-brand-navy-soft bg-background py-16 lg:py-24">
       <Container className="flex items-center justify-between gap-6">
         <SectionHeading size="sub">{heading}</SectionHeading>
-        <CarouselArrows api={emblaApi} />
+        <CarouselArrows onPrev={scrollPrev} onNext={scrollNext} />
       </Container>
 
       {/* Cards are separated by hairlines (border-r/border-b) rather than being
@@ -44,12 +46,16 @@ export function TestimonialCarousel({ heading, items }: TestimonialCarouselProps
        * the three parts are grouped and centred instead, which reads as deliberate. The box is
        * still as tall as the longest quote, since that is how a flex track works, but nothing
        * floats apart inside it. */}
-      <div className="mt-10 overflow-hidden border-t border-brand-navy-soft" ref={emblaRef}>
+      {/* Every quote is rendered twice so the loop has an identical copy to wrap into; the
+        * second pass is `aria-hidden` so a screen reader reads each testimonial once. See
+        * `use-scroll-carousel.ts`. */}
+      <div ref={ref} className={`mt-10 border-t border-brand-navy-soft ${carouselViewport}`}>
         <div className="flex">
-          {items.map((item, index) => (
+          {[...items, ...items].map((item, index) => (
             <blockquote
               key={index}
-              className="flex min-w-0 flex-[0_0_100%] flex-col items-center justify-center gap-6 border-b border-r border-brand-navy-soft p-6 text-center text-brand-navy sm:flex-[0_0_50%] sm:justify-between sm:gap-10 lg:flex-[0_0_25%]"
+              aria-hidden={index >= items.length}
+              className="flex min-w-0 flex-[0_0_100%] snap-start flex-col items-center justify-center gap-6 border-b border-r border-brand-navy-soft p-6 text-center text-brand-navy sm:flex-[0_0_50%] sm:justify-between sm:gap-10 lg:flex-[0_0_25%]"
             >
               <span aria-hidden className="font-serif text-5xl leading-none text-brand-navy">
                 &ldquo;

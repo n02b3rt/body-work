@@ -1,29 +1,27 @@
 "use client";
 
-import type { UseEmblaCarouselType } from "embla-carousel-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/cn";
 
-/** Taken from the hook's own return type: `embla-carousel` is only a transitive
- * dependency, so importing from it directly fails to resolve under pnpm's
- * strict `node_modules`. */
-type EmblaApi = UseEmblaCarouselType[1];
-
 type CarouselArrowsProps = {
-  api?: EmblaApi;
+  onPrev?: () => void;
+  onNext?: () => void;
   className?: string;
 };
 
 /** Navy circle + cream chevron prev/next pair, matching the reference's carousel
- * controls (its own markup uses two 49px inline SVGs). */
-export function CarouselArrows({ api, className }: CarouselArrowsProps) {
+ * controls (its own markup uses two 49px inline SVGs).
+ *
+ * Takes two callbacks rather than a carousel instance: the scroller is the browser's,
+ * and these only ever nudged it one slide either way. See `use-scroll-carousel.ts`. */
+export function CarouselArrows({ onPrev, onNext, className }: CarouselArrowsProps) {
   const t = useTranslations("Carousel");
 
   return (
     <div className={cn("flex shrink-0 items-center gap-3", className)}>
       <button
         type="button"
-        onClick={() => api?.scrollPrev()}
+        onClick={onPrev}
         aria-label={t("previous")}
         className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-navy text-background transition-opacity hover:opacity-80"
       >
@@ -31,7 +29,7 @@ export function CarouselArrows({ api, className }: CarouselArrowsProps) {
       </button>
       <button
         type="button"
-        onClick={() => api?.scrollNext()}
+        onClick={onNext}
         aria-label={t("next")}
         className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-navy text-background transition-opacity hover:opacity-80"
       >

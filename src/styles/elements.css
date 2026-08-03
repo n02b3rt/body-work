@@ -327,8 +327,23 @@
   gap: 1rem;
 }
 
+/* The slider is the browser's own scroller: `embla-carousel` used to do the snapping,
+ * dragging and momentum in JavaScript at about 16 KB gzipped. These four declarations are
+ * the whole of what it was emulating. Arrows, dots and autoplay still need script, and that
+ * lives in `src/components/ui/use-scroll-carousel.ts`.
+ *
+ * In here rather than as Tailwind utilities because the admin panel loads no Tailwind, and
+ * the canvas has to render exactly as the published page does. */
 .bw-el-carousel__viewport {
-  overflow: hidden;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  /* The reference has no visible scrollbar under its carousels. */
+  scrollbar-width: none;
+}
+
+.bw-el-carousel__viewport::-webkit-scrollbar {
+  display: none;
 }
 
 .bw-el-carousel__track {
@@ -339,6 +354,7 @@
   min-width: 0;
   flex-grow: 0;
   flex-shrink: 0;
+  scroll-snap-align: start;
 }
 
 .bw-el-carousel__nav {
