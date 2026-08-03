@@ -55,6 +55,10 @@ One-off maintenance: `scripts/backfill-image-sizes.ts`, `scripts/seed-translatio
   its keep. Adding it is a stack change: ask first. The PRD names Vitest and Playwright; neither is installed.
 - ⚠ **`pnpm test` needs Node 22.18+**, where running TypeScript without a build landed. `engines`
   still says 20 because that is what the app needs; `.github/workflows/checks.yml` pins 22 for the tests.
+- **The server is half of any performance number.** `demo.n02b3rt.pl` speaks HTTP/1.1 and cannot do
+  brotli until Next stops compressing for itself:
+  [`../runbooks/apache-http2-brotli.md`](../runbooks/apache-http2-brotli.md),
+  [`../performance.md`](../performance.md).
 - ⚠ **`pnpm` itself needs Node 22.13+.** `packageManager` pins pnpm 11.17, which imports
   `styleText` from `node:util` at load, so on anything older every pnpm command dies before it
   reads a file. `engines` says 20.9 and that is still true of the **app**, not of the toolchain:

@@ -29,7 +29,8 @@ components used and QA state: [`../migration-tracker.md`](../migration-tracker.m
 | Sub-tree navs | `nav-items.ts` plus `SectionNav.tsx`, `BodylabNav`, `DieteticsNav`, `GroupTrainingNav`, `PersonalTrainingNav`, `PhysiotherapyNav` |
 
 Primitives live one level up in `src/components/ui/`: `Container` (the 1440px width cap),
-`Button`, `SectionHeading`.
+`Button`, `SectionHeading`, and `use-scroll-carousel.ts` (the scroll-snap carousel behind
+`NewsCarousel`, `TestimonialCarousel` and the builder's `CarouselView`).
 
 ## Error and notice pages
 
