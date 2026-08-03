@@ -17,8 +17,8 @@ never up. `--update` rewrites them, and doing that is a decision that belongs in
 A running dev server owns `.next` and will delete a production build out of it. Build elsewhere:
 
 ```bash
-NEXT_DIST_DIR=.next-build pnpm build
-NEXT_DIST_DIR=.next-build pnpm check:perf
+NEXT_DIST_DIR=.next-build node node_modules/next/dist/bin/next build
+NEXT_DIST_DIR=.next-build node scripts/perf-budget.mjs --check
 ```
 
 ## Baseline, 3 August 2026
@@ -67,8 +67,8 @@ its `preload` and `fetchPriority` pair count for anything.
 Run it yourself, no install needed:
 
 ```bash
-NEXT_DIST_DIR=.next-build pnpm build
-NEXT_DIST_DIR=.next-build pnpm start -p 3010
+NEXT_DIST_DIR=.next-build node node_modules/next/dist/bin/next build
+NEXT_DIST_DIR=.next-build node node_modules/next/dist/bin/next start -p 3010
 npx -y lighthouse@12 http://localhost:3010/ --only-categories=performance \
   --form-factor=mobile --screenEmulation.mobile --view \
   --chrome-flags="--headless=new --disable-extensions"
@@ -162,10 +162,10 @@ the visitor watches a blur placeholder for up to a second and a half **per image
 
 Two things fix it and they are both outside the page code:
 
-- **`pnpm warm:images <url>` after every deploy.** It reads the build, works out the variants a
+- **`node scripts/warm-image-cache.mjs <url>` after every deploy.** It reads the build, works out the variants a
   real device can pick (2611 of the 6566 the srcsets offer) and requests each in both formats.
   About 13 minutes at the default concurrency.
-- **Build with `NEXT_CACHE_DIR=<path> pnpm build:deploy`.** The encode cache lives in
+- **Build with `NEXT_CACHE_DIR=<path> node scripts/build-with-cache.mjs`.** The encode cache lives in
   `.next/cache/images`, and a deploy that builds from scratch throws it away, so every visitor
   starts paying again. The script carries it in and back out around the build and logs its size,
   which turns a silent regression into a line in the deploy log.

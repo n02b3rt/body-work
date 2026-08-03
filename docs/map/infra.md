@@ -63,10 +63,12 @@ One-off maintenance: `scripts/backfill-image-sizes.ts`, `scripts/seed-translatio
 - ⚠ **The two `embla-carousel-*` packages are declared and unused.** The carousels run on
   `ui/use-scroll-carousel.ts`. Dropping them from `package.json` without running `pnpm install`
   breaks `--frozen-lockfile`, so finish it with `pnpm remove` on Node 22.13+.
-- ⚠ **`pnpm` itself needs Node 22.13+** (`packageManager` pins 11.17, which imports `styleText`
-  from `node:util` at load). `engines` says 20.9 and that is true of the **app**: `node
-  node_modules/next/dist/bin/next build` works there, which is the way round it. **Do not maintain
-  the lockfile with an older pnpm:** pnpm 10 rewrites 429 lines and drops fields pnpm 11 writes.
+- ⚠ **`pnpm` needs Node 22.13+, so on this machine no `pnpm <script>` runs at all.**
+  `packageManager` pins 11.17, which imports `styleText` from `node:util` at load. The runbooks
+  therefore spell every command as `node scripts/...`; the `package.json` entries are the nicer
+  form once Node moves. `engines` says 20.9 and that is true of the **app**: `node
+  node_modules/next/dist/bin/next build` works there. **Do not maintain the lockfile with an older
+  pnpm:** pnpm 10 rewrites 429 lines and drops fields pnpm 11 writes.
 - **New code arrives tested:** `tests/coverage.test.ts` goes red when an importable module under
   `src/lib/` or `src/access/` has no test. Its `GRANDFATHERED` list may only shrink.
 - **CI:** `.github/workflows/checks.yml` runs docs and tests first (no install needed), then types

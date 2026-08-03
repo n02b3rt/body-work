@@ -8,6 +8,13 @@ has to be true after a release and how to prove it, whatever moves the files.
 The transfer step is deliberately left open: `git pull` and build on the server, or build locally
 and copy `.next`. Everything else applies either way.
 
+> **Every command here is written as `node scripts/...`, not `pnpm <script>`, on purpose.**
+> `packageManager` pins pnpm 11.17, which needs Node 22.13, and the machine holding the content
+> runs 20.9, so every `pnpm` command dies before it reads a file. The `package.json` scripts exist
+> and are the nicer spelling once Node moves; until then they are a command that cannot run, which
+> in a runbook is worse than no command at all. Same reason `next` is invoked through `node` below.
+> Upgrading Node fixes this, `pnpm install`, `pnpm test` and the embla lockfile mismatch in one go.
+
 ## Content and media do not travel with the code
 
 **A deploy moves the app. It does not move the blog.** Both of these are gitignored, so no `git
@@ -34,9 +41,9 @@ correct until something rebuilds on the server. `/feed.xml` and `/api/*` tell th
 To move it, from the machine that has the content:
 
 ```bash
-pnpm backup:content                                   # here: database, /media, a manifest
+node scripts/backup-content.mjs                       # here: database, /media, a manifest
 scp -r ../backups/<stamp> <user>@<host>:/tmp/         # across
-I_MEAN_IT=1 pnpm restore:content /tmp/<stamp>         # there
+I_MEAN_IT=1 node scripts/restore-content.mjs /tmp/<stamp>   # there
 ```
 
 The restore checks every row count against the manifest and exits non-zero if one disagrees, so a
@@ -69,10 +76,10 @@ the last release added two of them (`hero-md.webm`, `hero-md.mp4`). A transfer w
 build from a checkout that skipped LFS-ish assets, silently leaves the old 736 KB phone encode in
 place. It is the single biggest item on the homepage's LCP.
 
-## Build with `pnpm build:deploy`, not `pnpm build`
+## Build through the cache-preserving script, not plain `next build`
 
 ```bash
-NEXT_CACHE_DIR=/var/cache/bodywork-next pnpm build:deploy
+NEXT_CACHE_DIR=/var/cache/bodywork-next node scripts/build-with-cache.mjs
 ```
 
 That is the whole of it. The script copies the cache in before the build and back out after, and
@@ -96,7 +103,7 @@ one-off and becomes part of every release.
 
 ```bash
 # Both formats, only the widths a real device can land on. About 13 minutes.
-USER_NAME=klient PASS=<password> pnpm warm:images https://demo.n02b3rt.pl
+USER_NAME=klient PASS=<password> node scripts/warm-image-cache.mjs https://demo.n02b3rt.pl
 ```
 
 Run it a second time. Every response should come back `HIT` and the slowest should be tens of
