@@ -40,6 +40,7 @@ pnpm dev
 | `pnpm smoke:builder` | page-builder data model, end to end |
 | `pnpm seed:appearance` | write the sample saved compositions |
 | `pnpm check:docs` | enforce the documentation rules: budgets, `> Read when:` headers, links, map coverage, em-dash ratchet, skill mirrors (`scripts/check-docs.mjs`) |
+| `pnpm check:perf` | per-page gzipped JS, CSS and HTML out of the build (`scripts/perf-budget.mjs`), against the ratchet in `scripts/perf-budget.json` ([`../performance.md`](../performance.md)) |
 | `pnpm sync:skills` | regenerate `.grok/skills/` from `.claude/skills/` (`scripts/sync-agent-skills.mjs`) |
 
 Other smoke scripts, run with `pnpm payload run`: `scripts/smoke-blog-write.ts`, `smoke-gemini.ts`,
@@ -67,7 +68,10 @@ One-off maintenance: `scripts/backfill-image-sizes.ts`, `scripts/seed-translatio
 - **Still missing:** end-to-end tests and browser automation.
 - **`pnpm lint` is broken on `main` too** (eslint-plugin-react 7.37 vs ESLint 10, fails while linting
   `eslint.config.mjs`). A failure there is not necessarily yours.
-- **`pnpm build` can fail spuriously if `pnpm start` is holding `.next`.** Kill the server first.
+- **`.next` has one owner at a time.** `pnpm start` holding it makes a build fail; a running
+  `pnpm dev` goes further and **wipes a finished production build out of it**, which looks like the
+  build silently produced nothing. Either stop the other process or send the build elsewhere:
+  `NEXT_DIST_DIR=.next-build pnpm build`, honoured by `next.config.ts` and by `pnpm check:perf`.
 - **`payload run` strips extra argv.** Pass switches as env vars (`DRY=1`), and print the active mode
   at startup. Scripts need top-level `await`, not an `async main()`, or the process exits 0 after one line.
 - **Keep the port in `.env` matching `pnpm dev --port`**, or admin saves fail CSRF.

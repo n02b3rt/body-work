@@ -22,6 +22,12 @@ const serverActionOrigins =
 
 const nextConfig: NextConfig = {
   serverExternalPackages: ["@ffmpeg-installer/ffmpeg", "fluent-ffmpeg", "sharp"],
+  // A running `next dev` owns `.next` and wipes a production build out of it, which is
+  // the same collision `docs/map/infra.md` records for `pnpm start`. Setting this lets a
+  // build go somewhere else instead of asking whoever is developing to stop:
+  //   NEXT_DIST_DIR=.next-build pnpm build && NEXT_DIST_DIR=.next-build pnpm check:perf
+  // Unset, it is exactly the Next default, so nobody else's workflow changes.
+  ...(process.env.NEXT_DIST_DIR ? { distDir: process.env.NEXT_DIST_DIR } : {}),
   ...(serverActionOrigins
     ? { experimental: { serverActions: { allowedOrigins: serverActionOrigins } } }
     : {}),
