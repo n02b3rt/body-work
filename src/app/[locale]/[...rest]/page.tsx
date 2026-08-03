@@ -7,6 +7,16 @@ import { routing } from "@/i18n/routing";
 import { findPublishedPage, listPublishedPages, pathFromSegments } from "@/lib/cms-page";
 import { mediaPath } from "@/lib/media";
 import { pageMetadata } from "@/lib/metadata";
+/**
+ * Page-builder element styles, shared verbatim with the admin panel (see
+ * `src/app/(payload)/custom.css`), which is what keeps the builder canvas and the published
+ * page looking the same.
+ *
+ * Imported here rather than from `globals.css` because this is the only public route that
+ * renders a builder element. From `globals.css` it was on all 33 coded pages, none of which
+ * has a `data-el` node anywhere in them.
+ */
+import "@/styles/elements.css";
 
 /**
  * Two jobs, in this order: serve a page built in the admin page builder, and

@@ -1,8 +1,4 @@
 @import "tailwindcss";
-/* Page-builder elements. Shared verbatim with the admin panel (see
- * `src/app/(payload)/custom.css`), which is what keeps the builder canvas and
- * the published page looking the same. */
-@import "../styles/elements.css";
 
 :root {
   --background: #f9f7f0;

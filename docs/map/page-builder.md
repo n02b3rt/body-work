@@ -37,7 +37,9 @@ Public entry point: `src/components/page-blocks/PageSections.tsx`.
 `src/lib/component-values.ts`, `component-styles.ts`, `element-styles.ts`, `page-sections.ts`,
 `element-catalog.ts` (client-safe names and categories), `element-icons.ts`, `cms-page.ts` (page lookup).
 
-CSS: `src/styles/elements.css`, imported by `globals.css` **and** `(payload)/custom.css`.
+CSS: `src/styles/elements.css`, imported by `[locale]/[...rest]/page.tsx` **and**
+`(payload)/custom.css`. Not by `globals.css`: it was on all 33 coded pages, and `[...rest]` is
+the only public route that renders an element.
 Builder chrome: `src/app/(payload)/builder.css`.
 
 ## Route, seed, verification
