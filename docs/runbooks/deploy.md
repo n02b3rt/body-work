@@ -34,16 +34,22 @@ correct until something rebuilds on the server. `/feed.xml` and `/api/*` tell th
 To move it, from the machine that has the content:
 
 ```bash
-docker exec centrum-postgres-1 pg_dump -U payload -d bodywork --clean --if-exists > bodywork.sql
-# copy bodywork.sql across, then on the server:
-psql -U <user> -d <database> < bodywork.sql
-# and the uploads, which are not in the dump:
-rsync -av media/ <user>@<host>:<app-path>/media/
+pnpm backup:content                                   # here: database, /media, a manifest
+scp -r ../backups/<stamp> <user>@<host>:/tmp/         # across
+I_MEAN_IT=1 pnpm restore:content /tmp/<stamp>         # there
 ```
 
-⚠ **The only copy of that content is a developer's Docker volume.** Anything written in the CMS
-since the import exists there and nowhere else. That is worth fixing before it is worth optimising
-anything.
+The restore checks every row count against the manifest and exits non-zero if one disagrees, so a
+half-landed restore is loud rather than something you find out about from the blog. It refuses to
+run without `I_MEAN_IT=1`, because the dump carries `--clean --if-exists` and drops the tables it
+is about to recreate.
+
+**Rebuild afterwards.** The blog is statically generated, so the pages still hold whatever the
+database looked like when they were last built.
+
+⚠ **There are no migrations, so a dump is currently the only way to produce the schema and the
+content in one step.** That makes these backups load-bearing rather than a nicety, and it is why
+`create-migrations.md` is worth doing.
 
 ## Before anything moves
 

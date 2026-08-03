@@ -42,6 +42,8 @@ pnpm dev
 | `pnpm check:docs` | enforce the documentation rules: budgets, `> Read when:` headers, links, map coverage, em-dash ratchet, skill mirrors (`scripts/check-docs.mjs`) |
 | `pnpm check:perf` | per-page gzipped JS, CSS and HTML from the build against the ratchet in `scripts/perf-budget.json` (`scripts/perf-budget.mjs`) |
 | `pnpm build:deploy` | build carrying `.next/cache` in and out via `NEXT_CACHE_DIR` (`scripts/build-with-cache.mjs`) |
+| `pnpm backup:content` | database plus `/media` plus a manifest, into `../backups` (`scripts/backup-content.mjs`) |
+| `pnpm restore:content <dir>` | put one back and verify the row counts (`scripts/restore-content.mjs`) |
 | `pnpm warm:images <url>` | pre-encode every image variant a device can pick (`scripts/warm-image-cache.mjs`) |
 | `pnpm sync:skills` | regenerate `.grok/skills/` from `.claude/skills/` (`scripts/sync-agent-skills.mjs`) |
 
@@ -51,10 +53,9 @@ One-off maintenance: `scripts/backfill-image-sizes.ts`, `scripts/seed-translatio
 
 ## Gotchas
 
-- **Tests live in `tests/`, run by Node's own runner**, which executes the TypeScript directly, so
-  there is no test dependency. They cover **pure functions only**: `node` resolves neither the `@/…`
-  path aliases nor anything reaching Payload, and that is the line where Vitest would start earning
-  its keep. Adding it is a stack change: ask first. The PRD names Vitest and Playwright; neither is installed.
+- **Tests live in `tests/`, run by Node's own runner**, so there is no test dependency. They cover
+  **pure functions only**: `node` resolves neither the `@/…` aliases nor anything reaching Payload,
+  which is where Vitest would start earning its keep. Adding it is a stack change: ask first.
 - ⚠ **`pnpm test` needs Node 22.18+**, where running TypeScript without a build landed. `engines`
   still says 20 because that is what the app needs; `.github/workflows/checks.yml` pins 22 for the tests.
 - **The server is half of any performance number.** `demo.n02b3rt.pl` still speaks HTTP/1.1
@@ -62,12 +63,10 @@ One-off maintenance: `scripts/backfill-image-sizes.ts`, `scripts/seed-translatio
 - ⚠ **The two `embla-carousel-*` packages are declared and unused.** The carousels run on
   `ui/use-scroll-carousel.ts`. Dropping them from `package.json` without running `pnpm install`
   breaks `--frozen-lockfile`, so finish it with `pnpm remove` on Node 22.13+.
-- ⚠ **`pnpm` itself needs Node 22.13+.** `packageManager` pins pnpm 11.17, which imports
-  `styleText` from `node:util` at load, so on anything older every pnpm command dies first.
-  `engines` says 20.9 and that is true of the **app**, not the toolchain: `node
-  node_modules/next/dist/bin/next build` works on 20.9, which is the way round it. **Do not
-  maintain the lockfile with an older pnpm:** pnpm 10 does run, rewrites 429 lines and drops the
-  `libc` fields pnpm 11 writes, and you cannot check the result without pnpm 11.
+- ⚠ **`pnpm` itself needs Node 22.13+** (`packageManager` pins 11.17, which imports `styleText`
+  from `node:util` at load). `engines` says 20.9 and that is true of the **app**: `node
+  node_modules/next/dist/bin/next build` works there, which is the way round it. **Do not maintain
+  the lockfile with an older pnpm:** pnpm 10 rewrites 429 lines and drops fields pnpm 11 writes.
 - **New code arrives tested:** `tests/coverage.test.ts` goes red when an importable module under
   `src/lib/` or `src/access/` has no test. Its `GRANDFATHERED` list may only shrink.
 - **CI:** `.github/workflows/checks.yml` runs docs and tests first (no install needed), then types

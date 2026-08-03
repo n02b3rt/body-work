@@ -22,7 +22,9 @@
     "check:docs": "node scripts/check-docs.mjs",
     "check:perf": "node scripts/perf-budget.mjs --check",
     "warm:images": "node scripts/warm-image-cache.mjs",
-    "build:deploy": "node scripts/build-with-cache.mjs"
+    "build:deploy": "node scripts/build-with-cache.mjs",
+    "backup:content": "node scripts/backup-content.mjs",
+    "restore:content": "node scripts/restore-content.mjs"
   },
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",

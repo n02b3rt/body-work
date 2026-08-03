@@ -17,6 +17,8 @@
 /.next/
 # Alternate build output, for building while a dev server holds `.next` (NEXT_DIST_DIR).
 /.next-build/
+# Content backups, if BACKUP_DIR is pointed inside the repo. The default is ../backups.
+/backups/
 /out/
 
 # production
