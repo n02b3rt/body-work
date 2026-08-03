@@ -41,6 +41,7 @@ pnpm dev
 | `pnpm seed:appearance` | write the sample saved compositions |
 | `pnpm check:docs` | enforce the documentation rules: budgets, `> Read when:` headers, links, map coverage, em-dash ratchet, skill mirrors (`scripts/check-docs.mjs`) |
 | `pnpm check:perf` | per-page gzipped JS, CSS and HTML out of the build (`scripts/perf-budget.mjs`), against the ratchet in `scripts/perf-budget.json` ([`../performance.md`](../performance.md)) |
+| `pnpm warm:images <url>` | request every image variant a device can pick, so no visitor pays for a cold `/_next/image` encode (`scripts/warm-image-cache.mjs`) |
 | `pnpm sync:skills` | regenerate `.grok/skills/` from `.claude/skills/` (`scripts/sync-agent-skills.mjs`) |
 
 Other smoke scripts, run with `pnpm payload run`: `scripts/smoke-blog-write.ts`, `smoke-gemini.ts`,

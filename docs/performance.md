@@ -145,6 +145,31 @@ Two consequences worth remembering before optimising anything here again:
   touch prefetch and drops the viewport one. On HTTP/1.1 those requests share six connections with
   the LCP image.
 
+## The first visitor pays for every image, once per width
+
+`/_next/image` encodes on demand and caches per image, per width, per format. Measured against the
+live host with a cold entry:
+
+| width | AVIF | WebP |
+|---|---|---|
+| 960 | 0.48 s, 13.3 KB | 0.19 s, 18.7 KB |
+| 1440 | 0.76 s, 22.4 KB | 0.27 s, 33.4 KB |
+| 2048 | **1.47 s**, 34.6 KB | 0.46 s, 52.7 KB |
+
+AVIF is 30% smaller and about three times slower to produce. Warm, it is clearly worth it. Cold,
+the visitor watches a blur placeholder for up to a second and a half **per image**, which is what
+"open it in incognito and it crawls" is.
+
+Two things fix it and they are both outside the page code:
+
+- **`pnpm warm:images <url>` after every deploy.** It reads the build, works out the variants a
+  real device can pick (2611 of the 6566 the srcsets offer) and requests each in both formats.
+  About 13 minutes at the default concurrency.
+- **Carry `.next/cache` across releases.** The encode cache lives in `.next/cache/images`. A deploy
+  that builds from scratch throws it away and every visitor starts paying again.
+
+Do the second and the first is a one-off rather than a ritual.
+
 ## Still on the table
 
 Taking next-intl out of the browser, which the numbers above make the only change that can move
