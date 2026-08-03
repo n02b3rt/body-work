@@ -55,8 +55,8 @@ One-off maintenance: `scripts/backfill-image-sizes.ts`, `scripts/seed-translatio
   its keep. Adding it is a stack change: ask first. The PRD names Vitest and Playwright; neither is installed.
 - ⚠ **`pnpm test` needs Node 22.18+**, where running TypeScript without a build landed. `engines`
   still says 20 because that is what the app needs; `.github/workflows/checks.yml` pins 22 for the tests.
-- **The server is half of any performance number.** `demo.n02b3rt.pl` speaks HTTP/1.1 and cannot do
-  brotli until Next stops compressing for itself:
+- **The server is half of any performance number.** `demo.n02b3rt.pl` still speaks HTTP/1.1, which
+  Lighthouse prices at 1390 ms. Brotli is done and needed no repo change:
   [`../runbooks/apache-http2-brotli.md`](../runbooks/apache-http2-brotli.md),
   [`../performance.md`](../performance.md).
 - ⚠ **`embla-carousel-react` and `embla-carousel-autoplay` are declared and unused.** Nothing
@@ -69,9 +69,10 @@ One-off maintenance: `scripts/backfill-image-sizes.ts`, `scripts/seed-translatio
   reads a file. `engines` says 20.9 and that is still true of the **app**, not of the toolchain:
   Next builds and runs fine on 20.9 when invoked directly
   (`node node_modules/next/dist/bin/next build`), which is the workaround when Node is too old to
-  reach pnpm at all. **Do not try to maintain the lockfile with an older pnpm.** pnpm 10 strips the
-  66 `libc` fields pnpm 11 writes, which is the platform-variant metadata that already broke CI
-  once on `@ffmpeg-installer`.
+  reach pnpm at all. **Do not try to maintain the lockfile with an older pnpm.** pnpm 10 runs on
+  20.9 and does update the file, but rewrites 429 lines and drops the 66 `libc` fields pnpm 11
+  writes. Whether pnpm 11 then accepts it is untestable from a machine that cannot run pnpm 11,
+  and CI uses `--frozen-lockfile`, so it is a guess aimed at a gate.
 - **New code arrives tested:** `tests/coverage.test.ts` goes red when an importable module under
   `src/lib/` or `src/access/` has no test. Its `GRANDFATHERED` list may only shrink.
 - **CI:** `.github/workflows/checks.yml` runs docs and tests first (no install needed), then types
