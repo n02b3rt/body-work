@@ -40,8 +40,9 @@ pnpm dev
 | `pnpm smoke:builder` | page-builder data model, end to end |
 | `pnpm seed:appearance` | write the sample saved compositions |
 | `pnpm check:docs` | enforce the documentation rules: budgets, `> Read when:` headers, links, map coverage, em-dash ratchet, skill mirrors (`scripts/check-docs.mjs`) |
-| `pnpm check:perf` | per-page gzipped JS, CSS and HTML out of the build (`scripts/perf-budget.mjs`), against the ratchet in `scripts/perf-budget.json` ([`../performance.md`](../performance.md)) |
-| `pnpm warm:images <url>` | request every image variant a device can pick, so no visitor pays for a cold `/_next/image` encode (`scripts/warm-image-cache.mjs`) |
+| `pnpm check:perf` | per-page gzipped JS, CSS and HTML from the build against the ratchet in `scripts/perf-budget.json` (`scripts/perf-budget.mjs`) |
+| `pnpm build:deploy` | build carrying `.next/cache` in and out via `NEXT_CACHE_DIR` (`scripts/build-with-cache.mjs`) |
+| `pnpm warm:images <url>` | pre-encode every image variant a device can pick (`scripts/warm-image-cache.mjs`) |
 | `pnpm sync:skills` | regenerate `.grok/skills/` from `.claude/skills/` (`scripts/sync-agent-skills.mjs`) |
 
 Other smoke scripts, run with `pnpm payload run`: `scripts/smoke-blog-write.ts`, `smoke-gemini.ts`,
@@ -71,8 +72,8 @@ One-off maintenance: `scripts/backfill-image-sizes.ts`, `scripts/seed-translatio
   `src/lib/` or `src/access/` has no test. Its `GRANDFATHERED` list may only shrink.
 - **CI:** `.github/workflows/checks.yml` runs docs and tests first (no install needed), then types
   and translations.
-- **Deploying:** [`../runbooks/deploy.md`](../runbooks/deploy.md), which also covers warming the
-  image cache and why `.next/cache` must survive a release.
+- **Deploying:** [`../runbooks/deploy.md`](../runbooks/deploy.md), including why `.next/cache`
+  must survive a release.
 - ⚠ **There are no migrations, so the project cannot start on a clean database.** Payload pushes the
   schema in dev and expects migrations in production. This blocks a first deploy and is why CI does
   not run `pnpm build`: it compiles and type-checks, then dies collecting page data. Scripts are

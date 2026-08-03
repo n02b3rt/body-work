@@ -26,17 +26,28 @@ the last release added two of them (`hero-md.webm`, `hero-md.mp4`). A transfer w
 build from a checkout that skipped LFS-ish assets, silently leaves the old 736 KB phone encode in
 place. It is the single biggest item on the homepage's LCP.
 
-## The one that is easy to get wrong
+## Build with `pnpm build:deploy`, not `pnpm build`
 
-**Carry `.next/cache` across releases.**
+```bash
+NEXT_CACHE_DIR=/var/cache/bodywork-next pnpm build:deploy
+```
 
-`/_next/image` encodes on demand and caches under `.next/cache/images`. A cold entry costs up to
-1.5 s of server time per image per width (numbers in [`../performance.md`](../performance.md)). A
-deploy that builds into a clean directory throws that away, and the next visitor to every page pays
-for it again while a blur placeholder sits on screen.
+That is the whole of it. The script copies the cache in before the build and back out after, and
+prints its size both times, so a release that loses it says so in the log instead of showing up as
+a slow site three days later.
 
-If the deploy cannot preserve it, the warm step below stops being a one-off and becomes part of
-every release.
+**Why it matters.** `/_next/image` encodes on demand and caches under `.next/cache/images`. A cold
+entry costs up to 1.5 s of server time for one image at one width, and the visitor spends it
+looking at a blur placeholder ([`../performance.md`](../performance.md)). Next keeps that cache
+between builds in the same directory, so building in place was always fine. The moment a deploy
+builds into a fresh release directory, a container layer or a CI workspace, it starts empty and
+every visitor pays again.
+
+`NEXT_CACHE_DIR` has to be an absolute path **outside** whatever the deploy replaces. The script
+refuses to run without it rather than guessing.
+
+If for some reason the build cannot go through this script, the warm step below stops being a
+one-off and becomes part of every release.
 
 ## After the build is live
 

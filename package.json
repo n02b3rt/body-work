@@ -21,7 +21,8 @@
     "check:messages": "node scripts/check-client-messages.mjs",
     "check:docs": "node scripts/check-docs.mjs",
     "check:perf": "node scripts/perf-budget.mjs --check",
-    "warm:images": "node scripts/warm-image-cache.mjs"
+    "warm:images": "node scripts/warm-image-cache.mjs",
+    "build:deploy": "node scripts/build-with-cache.mjs"
   },
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",

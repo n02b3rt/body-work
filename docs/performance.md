@@ -165,8 +165,10 @@ Two things fix it and they are both outside the page code:
 - **`pnpm warm:images <url>` after every deploy.** It reads the build, works out the variants a
   real device can pick (2611 of the 6566 the srcsets offer) and requests each in both formats.
   About 13 minutes at the default concurrency.
-- **Carry `.next/cache` across releases.** The encode cache lives in `.next/cache/images`. A deploy
-  that builds from scratch throws it away and every visitor starts paying again.
+- **Build with `NEXT_CACHE_DIR=<path> pnpm build:deploy`.** The encode cache lives in
+  `.next/cache/images`, and a deploy that builds from scratch throws it away, so every visitor
+  starts paying again. The script carries it in and back out around the build and logs its size,
+  which turns a silent regression into a line in the deploy log.
 
 Do the second and the first is a one-off rather than a ritual.
 
