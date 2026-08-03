@@ -45,16 +45,34 @@ ahead of it, and the server speaks HTTP/1.1, so the browser had 6 connections to
 |---|---|---|
 | Worst page, JS | 224.6 KB | **217.9 KB** |
 | CSS | 10.3 KB | **9.1 KB** |
-| Eager images | 15 | **1** |
-| Preloads | 13 | **5** |
-| Homepage HTML | 27.2 KB | 33.2 KB |
+| Eager images (homepage) | 15 | **3** |
+| Image preloads (homepage) | 9 | **2** |
+| Homepage HTML | 27.2 KB | 28.1 KB |
 
-The homepage document grew because the icon sprite is inline, and that is the trade: five fewer
-round trips before the LCP image against 6 KB gzip carried in a response already on its way. It is
-the right trade on HTTP/1.1 and a narrower one once the server speaks HTTP/2.
+Lighthouse mobile, both builds served locally from `next start`, five runs each, interleaved,
+median:
 
-**Not yet measured against a browser.** The Lighthouse re-run belongs after the next deploy, in
-incognito: the original report warns that Chrome extensions polluted it.
+| | main | branch |
+|---|---|---|
+| Performance | 85 | **87** |
+| LCP | 4.29 s | **4.04 s** |
+| Speed Index | 2.00 s | **1.54 s** |
+| TBT | 48 ms | 46 ms |
+| FCP | 1.08 s | 1.08 s |
+
+Run it yourself, no install needed:
+
+```bash
+NEXT_DIST_DIR=.next-build pnpm build
+NEXT_DIST_DIR=.next-build pnpm start -p 3010
+npx -y lighthouse@12 http://localhost:3010/ --only-categories=performance \
+  --form-factor=mobile --screenEmulation.mobile --view \
+  --chrome-flags="--headless=new --disable-extensions"
+```
+
+**Localhost understates network fixes and prices CPU fixes honestly.** A request costs almost
+nothing over loopback, so anything that trades requests for main-thread work will look better here
+than it is, and anything that trades the other way will look worse. Confirm on the demo host.
 
 ## The server is half the problem
 
@@ -74,18 +92,14 @@ curl -sS -D - -o /dev/null -H 'Accept-Encoding: br' https://demo.n02b3rt.pl/ | g
 
 - **An eager `<img>` costs more than its bytes.** React 19 turns every image rendered in the initial
   shell without `loading="lazy"` into a `<link rel="preload">` in `<head>`, ahead of the LCP image.
-  Decorative marks belong in the icon sprite, or carry `loading="lazy"`, but never neither.
-- **`priority` no longer does what its name says.** Next 16 deprecated it in favour of `preload`
-  and stopped emitting `fetchPriority="high"` with it, so pages carrying `priority` shipped a
-  preload link and not one high-priority image. The LCP element wants **both** `preload` and
-  `fetchPriority="high"`. An image that is only sometimes the LCP element, because the layout
-  reorders it by viewport, wants `fetchPriority` **without** `preload`: see `BlogList`.
-- **Above-the-fold icons go in the sprite, the rest stay lazy files.** `IconSprite` renders the
-  five marks that paint immediately, once per document, and `Icon` references a symbol; colour
-  variants are `currentColor`, not more symbols. **Inlining is not free**: whatever the sprite
-  holds is paid twice per page, once in the HTML and once escaped into the RSC payload, and it
-  is paid on every page view where a file would have been cached. `logo-mark.svg` earns its
-  place outside for that reason. Eight icon files and eight preloads became one lazy file.
+  **Every decorative mark carries `loading="lazy"`**, which is all it takes: only the header
+  wordmark stays eager, because it is the one that paints above the fold. Nine image preloads
+  became two.
+- **Inlining an SVG sprite was tried and reverted, and the reason generalises.** It removed the
+  same preloads, but 12 KB of inline SVG and twelve `<use>` instantiations cost **160 ms of
+  document work** on a throttled mobile CPU (document bootup 507 ms to 667 ms) and held TBT at
+  ~200 ms against ~50 ms, every run. Trading network requests for main-thread work is a bad trade
+  on a phone, and `loading="lazy"` buys the same thing for nothing.
 - **Blur placeholders are for what paints first.** Each one is a ~1.4 KB SVG data URI in a `style`
   attribute, and the RSC payload carries a second copy. Below the fold, on an image that is already
   lazy, it buys nothing.

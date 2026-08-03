@@ -2,7 +2,6 @@
 
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { Icon } from "@/components/ui/Icon";
 import { cn } from "@/lib/cn";
 import type { NavItem } from "./nav-items";
 
@@ -41,9 +40,8 @@ export function MobileNav({ open, onClose, navItems, otherLocale, pathname }: Mo
       )}
     >
       <div className="flex h-[65px] shrink-0 items-center justify-between px-4">
-        {/* `text-white` where this used to be `brightness-0 invert`: the mark paints in
-          * `currentColor` now, so the drawer no longer has to filter a navy asset white. */}
-        <Icon name="logo" className="h-6 w-auto text-white" />
+        {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG wordmark */}
+        <img src="/icons/logo.svg" width={336} height={46} loading="lazy" alt="" className="h-6 w-auto brightness-0 invert" />
         <button
           type="button"
           onClick={onClose}
@@ -135,7 +133,8 @@ export function MobileNav({ open, onClose, navItems, otherLocale, pathname }: Mo
             aria-label={tHeader("instagramAlt")}
             className="block h-7 w-7 shrink-0"
           >
-            <Icon name="instagram" className="h-7 w-7 text-white" />
+            {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG icon */}
+            <img src="/icons/instagram-white.svg" loading="lazy" alt="" className="h-7 w-7" />
           </a>
           <a
             href="https://www.facebook.com/centrumbodywork/?locale=pl_PL"
@@ -144,7 +143,8 @@ export function MobileNav({ open, onClose, navItems, otherLocale, pathname }: Mo
             aria-label={tHeader("facebookAlt")}
             className="block h-7 w-7 shrink-0"
           >
-            <Icon name="facebook" className="h-7 w-7 text-white" />
+            {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG icon */}
+            <img src="/icons/facebook-white.svg" loading="lazy" alt="" className="h-7 w-7" />
           </a>
         </div>
       </div>

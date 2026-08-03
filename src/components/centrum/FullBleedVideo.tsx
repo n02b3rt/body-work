@@ -86,13 +86,7 @@ export function FullBleedVideo({ src, poster, posterAlt, posterBlur }: FullBleed
   return (
     <section ref={sectionRef} className="relative h-[70vh] w-full overflow-hidden sm:h-screen">
       {/* Stays mounted underneath: it is what shows before the video loads, while it buffers, and
-        * for anyone who never gets the video at all.
-        *
-        * This is the homepage's LCP element and it needs both halves: `preload` puts the
-        * request in `<head>`, `fetchPriority` makes it jump the queue. `priority` used to mean
-        * both; Next 16 deprecated it in favour of `preload` and stopped emitting
-        * `fetchPriority="high"` alongside it, so the served page had a preload link and no
-        * high-priority image anywhere on it. See PageHero for the same pair. */}
+        * for anyone who never gets the video at all. `priority` because it is high on the page. */}
       <Image
         src={poster}
         alt={posterAlt}

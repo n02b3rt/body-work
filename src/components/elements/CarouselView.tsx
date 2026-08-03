@@ -64,6 +64,8 @@ export function CarouselView({
     autoplayMs: autoplay && mode === 'site' ? Math.max(interval, 1) * 1000 : undefined,
     count: slides.length,
     loop,
+    // The only carousel here that draws dots, so the only one that pays for tracking them.
+    trackActive: showDots,
   })
 
   // Looping needs a second, identical copy to wrap into, so the track renders every slide

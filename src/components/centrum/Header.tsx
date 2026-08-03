@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { Container } from "@/components/ui/Container";
-import { Icon } from "@/components/ui/Icon";
 import { buttonClasses } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
 import { useNavItems } from "./nav-items";
@@ -18,20 +17,18 @@ const ACADEMY_URL = "https://akademia.body-work.pl";
 const SCROLL_ENTER = 72;
 const SCROLL_EXIT = 24;
 
-// The hover state is the outline mark redrawn as a solid one, so it is a second shape
-// rather than a second colour, and the two still cross-fade. Both come out of the sprite.
 const socialLinks = [
   {
     href: "https://www.instagram.com/body_work_centrum/",
     key: "instagramAlt" as const,
-    icon: "instagram" as const,
-    hoverIcon: "instagramSolid" as const,
+    icon: "/icons/instagram.svg",
+    hoverIcon: "/icons/instagram-hover.svg",
   },
   {
     href: "https://www.facebook.com/centrumbodywork/?locale=pl_PL",
     key: "facebookAlt" as const,
-    icon: "facebook" as const,
-    hoverIcon: "facebookSolid" as const,
+    icon: "/icons/facebook.svg",
+    hoverIcon: "/icons/facebook-hover.svg",
   },
 ];
 
@@ -119,7 +116,8 @@ export function Header() {
           <Link href="/" className="relative z-10 block shrink-0">
             {/* Below the nav breakpoint there's no room for the fixed-width flip
              * slot, so the compact logo stands on its own there. */}
-            <Icon name="logo" label={tHeader("logoAlt")} className="h-6 w-auto text-brand-navy nav:hidden" />
+            {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG wordmark, no raster optimization needed */}
+            <img src="/icons/logo.svg" width={336} height={46} alt={tHeader("logoAlt")} className="h-6 w-auto nav:hidden" />
             <span className="hidden h-6 w-56 nav:block" style={{ perspective: "400px" }}>
               <span
                 className={cn(
@@ -131,7 +129,8 @@ export function Header() {
                   {tHeader("tagline")}
                 </span>
                 <span className="absolute inset-0 flex items-center [backface-visibility:hidden] [transform:rotateX(180deg)]">
-                  <Icon name="logo" className="h-6 w-auto text-brand-navy" />
+                  {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG wordmark */}
+                  <img src="/icons/logo.svg" width={336} height={46} loading="lazy" alt="" className="h-6 w-auto" />
                 </span>
               </span>
             </span>
@@ -208,13 +207,14 @@ export function Header() {
                   aria-label={tHeader(social.key)}
                   className="group relative block h-7 w-7 shrink-0"
                 >
-                  <Icon
-                    name={social.icon}
-                    className="h-7 w-7 text-brand-navy transition-opacity group-hover:opacity-0"
-                  />
-                  <Icon
-                    name={social.hoverIcon}
-                    className="absolute inset-0 h-7 w-7 text-brand-navy opacity-0 transition-opacity group-hover:opacity-100"
+                  {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG icon */}
+                  <img src={social.icon} alt="" loading="lazy" className="h-7 w-7 transition-opacity group-hover:opacity-0" />
+                  {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG icon */}
+                  <img
+                    src={social.hoverIcon}
+                    alt=""
+                    loading="lazy"
+                    className="absolute inset-0 h-7 w-7 opacity-0 transition-opacity group-hover:opacity-100"
                   />
                 </a>
               ))}
@@ -299,7 +299,8 @@ export function Header() {
             )}
           >
             <Link href="/" className="shrink-0">
-              <Icon name="logo" label={tHeader("logoAlt")} className="h-9 w-auto text-brand-navy sm:h-11" />
+              {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG wordmark, no raster optimization needed */}
+              <img src="/icons/logo.svg" width={336} height={46} alt={tHeader("logoAlt")} className="h-9 w-auto sm:h-11" />
             </Link>
             <div className="flex items-center gap-3">
               <a href={ACADEMY_URL} target="_blank" rel="noopener noreferrer" className={buttonClasses("brand")}>

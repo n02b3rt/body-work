@@ -260,11 +260,6 @@ export function BlogList({
               * while keeping the text first in the source for mobile and for screen readers. */}
             {featured.image ? (
               <div className="relative aspect-video w-full wide:order-first wide:aspect-auto wide:w-1/2">
-                {/* `fetchPriority` without `preload`, unlike the heroes. This photo leads the
-                  * card on desktop but follows the text on mobile (`wide:order-first`), so it
-                  * is only sometimes the LCP element, and Next's own guidance is to prioritise
-                  * rather than preload when that is true: a preload link would have every
-                  * phone fetching it at top priority to paint it below the fold. */}
                 <Image
                   src={featured.image.url}
                   // Decorative: the title is right beside it as real text.
