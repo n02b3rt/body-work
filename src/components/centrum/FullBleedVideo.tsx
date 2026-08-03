@@ -113,11 +113,17 @@ export function FullBleedVideo({ src, poster, posterAlt, posterBlur }: FullBleed
           onCanPlay={() => setReady(true)}
           aria-hidden
         >
-          {/* Narrow screens first. A phone showing a 390px-wide section has no use for a 1280px
-            * encode, and the 720px one is 733KB against 1736KB. `media` on a `<source>` is
-            * evaluated once when the element loads, which is exactly when this mounts. */}
+          {/* Narrowest first: `media` on a `<source>` is evaluated in order, once, when the
+            * element loads, which is exactly when this mounts.
+            *
+            * Three rungs, because two left a tablet at 800px taking the desktop encode. On the
+            * homepage this element is the LCP, so the phone rung's weight is the metric:
+            * 540px VP9 at 372KB against the 736KB it used to fetch. Encodes and the reasoning
+            * behind each CRF: `scripts/optimize-hero-video.mjs`. */}
           <source media="(max-width: 640px)" src={`${src}-sm.webm`} type="video/webm" />
           <source media="(max-width: 640px)" src={`${src}-sm.mp4`} type="video/mp4" />
+          <source media="(max-width: 1024px)" src={`${src}-md.webm`} type="video/webm" />
+          <source media="(max-width: 1024px)" src={`${src}-md.mp4`} type="video/mp4" />
           <source src={`${src}.webm`} type="video/webm" />
           <source src={`${src}.mp4`} type="video/mp4" />
         </video>
