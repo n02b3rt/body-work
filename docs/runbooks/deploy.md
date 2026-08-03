@@ -8,6 +8,43 @@ has to be true after a release and how to prove it, whatever moves the files.
 The transfer step is deliberately left open: `git pull` and build on the server, or build locally
 and copy `.next`. Everything else applies either way.
 
+## Content and media do not travel with the code
+
+**A deploy moves the app. It does not move the blog.** Both of these are gitignored, so no `git
+pull` and no build will ever produce them on the server:
+
+- `/media` (1216 files, 55 MB here): every upload. `media` rows in the database point at files that
+  simply are not there otherwise.
+- `scripts/scrape/scraped/`: the source `import-blog.ts` reads, which is why re-running the import
+  on the server is not a fallback.
+
+The 62 blog posts live in a **database**, not in the repo. If the server's database does not have
+them, they are not missing from the deploy, they were never there.
+
+How to tell in one request, because it queries Payload live rather than reading the build:
+
+```bash
+curl -sS -u '<user>:<pass>' https://demo.n02b3rt.pl/api/posts?limit=0 | grep -o '"totalDocs":[0-9]*'
+```
+
+`"totalDocs":0` means the database is empty and no amount of rebuilding will change it. A build run
+on a machine that **does** have the content bakes 62 posts into static HTML, which then looks
+correct until something rebuilds on the server. `/feed.xml` and `/api/*` tell the truth either way.
+
+To move it, from the machine that has the content:
+
+```bash
+docker exec centrum-postgres-1 pg_dump -U payload -d bodywork --clean --if-exists > bodywork.sql
+# copy bodywork.sql across, then on the server:
+psql -U <user> -d <database> < bodywork.sql
+# and the uploads, which are not in the dump:
+rsync -av media/ <user>@<host>:<app-path>/media/
+```
+
+⚠ **The only copy of that content is a developer's Docker volume.** Anything written in the CMS
+since the import exists there and nowhere else. That is worth fixing before it is worth optimising
+anything.
+
 ## Before anything moves
 
 **1. The lockfile.** `package.json` currently declares `embla-carousel-react` and
