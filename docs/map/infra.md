@@ -59,6 +59,11 @@ One-off maintenance: `scripts/backfill-image-sizes.ts`, `scripts/seed-translatio
   brotli until Next stops compressing for itself:
   [`../runbooks/apache-http2-brotli.md`](../runbooks/apache-http2-brotli.md),
   [`../performance.md`](../performance.md).
+- ⚠ **`embla-carousel-react` and `embla-carousel-autoplay` are declared and unused.** Nothing
+  imports them; the carousels run on `src/components/ui/use-scroll-carousel.ts`. They stayed in
+  `package.json` because removing them without being able to run `pnpm install` breaks
+  `--frozen-lockfile` in CI. Finish it with `pnpm remove embla-carousel-react
+  embla-carousel-autoplay` on Node 22.13 or newer.
 - ⚠ **`pnpm` itself needs Node 22.13+.** `packageManager` pins pnpm 11.17, which imports
   `styleText` from `node:util` at load, so on anything older every pnpm command dies before it
   reads a file. `engines` says 20.9 and that is still true of the **app**, not of the toolchain:
