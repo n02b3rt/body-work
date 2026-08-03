@@ -53,14 +53,23 @@ export function PageHero({
       {belowTitle}
       {imageSrc ? (
         <div className="relative aspect-[4/3] w-full sm:aspect-[16/9] lg:aspect-[2.4/1]">
-          {/* `priority` because this is the page's first paint, and `100vw` is honest: it was
-            * measured full-bleed at 485, 669, 1049 and 1469. The blur placeholder covers the
-            * gap before a large hero photograph decodes. */}
+          {/* This is the page's LCP element, so it needs both halves of the job: `preload`
+            * puts the request in `<head>` where the browser finds it without parsing the
+            * body, and `fetchPriority` tells it to jump the queue once found.
+            *
+            * `priority` used to be the single prop for both. Next 16 deprecated it in favour
+            * of `preload` and, in doing so, stopped emitting `fetchPriority="high"` with it:
+            * the served HTML had the preload link and not one high-priority image on it.
+            * (node_modules/next/dist/docs/01-app/03-api-reference/02-components/image.md.)
+            *
+            * `100vw` is honest: measured full-bleed at 485, 669, 1049 and 1469. The blur
+            * placeholder covers the gap before a large hero photograph decodes. */}
           <Image
             src={imageSrc}
             alt={imageAlt ?? ""}
             fill
-            priority
+            preload
+            fetchPriority="high"
             sizes="100vw"
             className="object-cover"
             {...blurProps(imageSrc)}

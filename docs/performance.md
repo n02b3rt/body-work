@@ -57,10 +57,18 @@ curl -sS -D - -o /dev/null -H 'Accept-Encoding: br' https://demo.n02b3rt.pl/ | g
 
 - **An eager `<img>` costs more than its bytes.** React 19 turns every image rendered in the initial
   shell without `loading="lazy"` into a `<link rel="preload">` in `<head>`, ahead of the LCP image.
-  Decorative marks belong in the icon sprite, not in an `<img>`.
-- **Icons are one sprite, never files.** `src/components/ui/IconSprite.tsx` renders once per
-  document; `Icon` references a symbol. Eight files became zero requests. Colour variants are
-  `currentColor`, not more symbols.
+  Decorative marks belong in the icon sprite, or carry `loading="lazy"`, but never neither.
+- **`priority` no longer does what its name says.** Next 16 deprecated it in favour of `preload`
+  and stopped emitting `fetchPriority="high"` with it, so pages carrying `priority` shipped a
+  preload link and not one high-priority image. The LCP element wants **both** `preload` and
+  `fetchPriority="high"`. An image that is only sometimes the LCP element, because the layout
+  reorders it by viewport, wants `fetchPriority` **without** `preload`: see `BlogList`.
+- **Above-the-fold icons go in the sprite, the rest stay lazy files.** `IconSprite` renders the
+  five marks that paint immediately, once per document, and `Icon` references a symbol; colour
+  variants are `currentColor`, not more symbols. **Inlining is not free**: whatever the sprite
+  holds is paid twice per page, once in the HTML and once escaped into the RSC payload, and it
+  is paid on every page view where a file would have been cached. `logo-mark.svg` earns its
+  place outside for that reason. Eight icon files and eight preloads became one lazy file.
 - **Blur placeholders are for what paints first.** Each one is a ~1.4 KB SVG data URI in a `style`
   attribute, and the RSC payload carries a second copy. Below the fold, on an image that is already
   lazy, it buys nothing.

@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { SCHEDULE_URL, FACEBOOK_URL, INSTAGRAM_URL, MAP_URL } from "@/lib/external-links";
 import { Container } from "@/components/ui/Container";
+import { Icon } from "@/components/ui/Icon";
 import { buttonClasses } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
 
@@ -101,8 +102,11 @@ export function MegaMenu({ open, onClose }: MegaMenuProps) {
     >
       <Container className="py-10">
         <div className={columnClasses} style={stagger(0)}>
+          {/* Not in the icon sprite and `lazy` on purpose: this menu is desktop-only and
+            * behind a click, so the mark must not be preloaded ahead of the LCP image.
+            * See src/components/ui/icon-shapes.ts. */}
           {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG mark, no raster optimization needed */}
-          <img src="/icons/logo-mark.svg" width={86} height={121} alt="" className="h-24 w-auto" />
+          <img src="/icons/logo-mark.svg" width={86} height={121} alt="" loading="lazy" className="h-24 w-auto" />
         </div>
 
         <div className="mt-10 grid grid-cols-5 divide-x divide-brand-navy-soft border-t border-brand-navy-soft pt-10">
@@ -163,8 +167,7 @@ export function MegaMenu({ open, onClose }: MegaMenuProps) {
                 aria-label={tHeader("instagramAlt")}
                 className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brand-navy-soft transition-colors hover:bg-brand-navy/5"
               >
-                {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG icon */}
-                <img src="/icons/instagram.svg" alt="" className="h-5 w-5" />
+                <Icon name="instagram" className="h-5 w-5 text-brand-navy" />
               </a>
               <a
                 href={FACEBOOK_URL}
@@ -173,8 +176,7 @@ export function MegaMenu({ open, onClose }: MegaMenuProps) {
                 aria-label={tHeader("facebookAlt")}
                 className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brand-navy-soft transition-colors hover:bg-brand-navy/5"
               >
-                {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG icon */}
-                <img src="/icons/facebook.svg" alt="" className="h-5 w-5" />
+                <Icon name="facebook" className="h-5 w-5 text-brand-navy" />
               </a>
               <a href={MAP_URL} target="_blank" rel="noopener noreferrer" className={buttonClasses("outline")}>
                 {tHeader("mapDirections")}

@@ -28,8 +28,10 @@ export function PartnerLogos({ heading }: PartnerLogosProps) {
           {heading ? (
             <p className="max-w-28 text-partner uppercase leading-tight text-brand-navy">{heading}</p>
           ) : null}
+          {/* Not in the icon sprite and `lazy` on purpose: this sits at the foot of the
+            * page. See src/components/ui/icon-shapes.ts. */}
           {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG mark, no raster optimization needed */}
-          <img src="/icons/logo-mark.svg" width={86} height={121} alt="" className="h-16 w-auto" />
+          <img src="/icons/logo-mark.svg" width={86} height={121} alt="" loading="lazy" className="h-16 w-auto" />
         </div>
 
         <div className="w-px shrink-0 -skew-x-[19deg] bg-brand-navy-soft" aria-hidden />

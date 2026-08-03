@@ -29,7 +29,8 @@ components used and QA state: [`../migration-tracker.md`](../migration-tracker.m
 | Sub-tree navs | `nav-items.ts` plus `SectionNav.tsx`, `BodylabNav`, `DieteticsNav`, `GroupTrainingNav`, `PersonalTrainingNav`, `PhysiotherapyNav` |
 
 Primitives live one level up in `src/components/ui/`: `Container` (the 1440px width cap),
-`Button`, `SectionHeading`.
+`Button`, `SectionHeading`, and the icon sprite (`IconSprite` + `Icon`, over `icon-names.ts`
+and `icon-shapes.ts`).
 
 ## Error and notice pages
 
@@ -47,6 +48,9 @@ newsletter confirmation screen.
   reference links four buttons at a `/galeria` page that does not exist.
 - **A custom breakpoint does not automatically beat a smaller built-in one.** `sm:grid-cols-2` beats
   `wide:grid-cols-3` above 1060px. Details in [`../architecture.md`](../architecture.md) gotchas.
+- **Brand marks come from the sprite, not from `public/icons/`.** `IconSprite` has to stay in the
+  server layout and out of any `"use client"` subtree. Why, and why `logo-mark.svg` is the one
+  exception: [`../performance.md`](../performance.md).
 
 ## Related
 

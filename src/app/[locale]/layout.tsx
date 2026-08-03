@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { routing } from "@/i18n/routing";
 import { clientMessages } from "@/i18n/client-namespaces";
+import { IconSprite } from "@/components/ui/IconSprite";
 import { Header } from "@/components/centrum/Header";
 import { Footer } from "@/components/centrum/Footer";
 import { PromoBar } from "@/components/centrum/PromoBar";
@@ -79,6 +80,10 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
       {/* Extensions (Grammarly, Video Speed Controller, …) often mutate <body>
         * attributes before hydration; without this React logs a recoverable mismatch. */}
       <body className="flex min-h-full flex-col" suppressHydrationWarning>
+        {/* Every brand mark as `<symbol>` definitions, before anything that `<use>`s them.
+          * This replaced eight `<img src="/icons/*.svg">`, which React 19 was promoting into
+          * eight `<link rel="preload">` ahead of the LCP image. See docs/performance.md. */}
+        <IconSprite />
         {/* Only the namespaces a client component actually reads. `getMessages()` returns
           * all 46, about 188KB, and shipping the lot put the trainer biographies and the
           * newsletter status copy into every page's payload. See
