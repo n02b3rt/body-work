@@ -56,10 +56,8 @@ One-off maintenance: `scripts/backfill-image-sizes.ts`, `scripts/seed-translatio
   its keep. Adding it is a stack change: ask first. The PRD names Vitest and Playwright; neither is installed.
 - ⚠ **`pnpm test` needs Node 22.18+**, where running TypeScript without a build landed. `engines`
   still says 20 because that is what the app needs; `.github/workflows/checks.yml` pins 22 for the tests.
-- **The server is half of any performance number.** `demo.n02b3rt.pl` still speaks HTTP/1.1, which
-  Lighthouse prices at 1390 ms. Brotli is done and needed no repo change:
-  [`../runbooks/apache-http2-brotli.md`](../runbooks/apache-http2-brotli.md),
-  [`../performance.md`](../performance.md).
+- **The server is half of any performance number.** `demo.n02b3rt.pl` still speaks HTTP/1.1
+  (1390 ms per Lighthouse); brotli is done. [`../performance.md`](../performance.md).
 - ⚠ **The two `embla-carousel-*` packages are declared and unused.** The carousels run on
   `ui/use-scroll-carousel.ts`. Dropping them from `package.json` without running `pnpm install`
   breaks `--frozen-lockfile`, so finish it with `pnpm remove` on Node 22.13+.
@@ -73,6 +71,8 @@ One-off maintenance: `scripts/backfill-image-sizes.ts`, `scripts/seed-translatio
   `src/lib/` or `src/access/` has no test. Its `GRANDFATHERED` list may only shrink.
 - **CI:** `.github/workflows/checks.yml` runs docs and tests first (no install needed), then types
   and translations.
+- **Deploying:** [`../runbooks/deploy.md`](../runbooks/deploy.md), which also covers warming the
+  image cache and why `.next/cache` must survive a release.
 - ⚠ **There are no migrations, so the project cannot start on a clean database.** Payload pushes the
   schema in dev and expects migrations in production. This blocks a first deploy and is why CI does
   not run `pnpm build`: it compiles and type-checks, then dies collecting page data. Scripts are
