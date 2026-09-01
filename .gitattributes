@@ -1,0 +1,23 @@
+# Line endings are decided here, not by each machine's git config.
+#
+# The repo is worked on from Windows and built on Linux in CI and in Docker.
+# Without this file a Windows checkout writes CRLF while the index holds LF, and
+# every file then shows up as modified: a 376-file diff of pure carriage returns,
+# which is exactly what happened once already.
+#
+# Stored as LF, checked out as LF, everywhere.
+* text=auto eol=lf
+
+# Binary, never converted.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.avif binary
+*.gif binary
+*.ico binary
+*.mp4 binary
+*.webm binary
+*.woff binary
+*.woff2 binary
+*.pdf binary

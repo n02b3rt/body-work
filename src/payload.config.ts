@@ -32,6 +32,21 @@ const publicURL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 const dashboardHost = process.env.DASHBOARD_HOST || 'dash.localhost'
 
 /**
+ * Additional trusted origins, comma separated, as full URLs.
+ *
+ * Production trusts exactly two: the public URL and the dashboard URL. A deployment
+ * that answers on more than one public host, which the demo does (apex plus
+ * `centrum.`), leaves the others out of `csrf`, and every POST from them fails with
+ * "Nie mozesz wykonac tej akcji". Rather than widen the rule, name the extra hosts.
+ */
+function extraOrigins(): string[] {
+  return (process.env.PAYLOAD_EXTRA_ORIGINS || '')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean)
+}
+
+/**
  * Payload only accepts the auth cookie on POSTs whose `Origin` is in this list.
  * A GET to `/admin` can still look logged-in (no Origin → Sec-Fetch-Site fallback),
  * while save/form-state POSTs fail with Unauthorized / 403 if the port in the
@@ -47,6 +62,7 @@ function csrfAndCorsOrigins(): string[] {
       origins.add(`http://127.0.0.1:${port}`)
     }
   }
+  for (const origin of extraOrigins()) origins.add(origin)
   return [...origins]
 }
 
@@ -159,6 +175,10 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
     },
+    // No `push` override here on purpose. The adapter gates the dev-mode schema push on
+    // `NODE_ENV !== 'production'` before it ever looks at the option, so a production
+    // build cannot be talked into pushing. Migrations under `src/migrations/` are what
+    // shapes a database that dev mode has not already touched.
   }),
   i18n: {
     fallbackLanguage: 'pl',

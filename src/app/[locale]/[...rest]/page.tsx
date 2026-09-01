@@ -36,9 +36,15 @@ type PageProps = {
 
 // The old `revalidate = 3600` traded a same-hour cache window for simplicity.
 // The new builder saves and expects the change on the public page immediately,
-// so this route is revalidated on demand (see `src/lib/builder/revalidate.ts`,
+// so this route is meant to be revalidated on demand (`src/lib/builder/revalidate.ts`,
 // Phase 1B) rather than on a timer. `generateStaticParams` still prerenders
 // every published page at build time.
+//
+// Phase 1B is not built. Until it is, dropping the timer as well left these pages
+// cached for the life of the process: an editor saved, and the public page never
+// changed. A short window is the bridge, not the destination. Delete this the day
+// on-demand revalidation lands.
+export const revalidate = 60;
 
 export async function generateStaticParams() {
   const pages = await listPublishedPages();

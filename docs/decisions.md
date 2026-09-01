@@ -7,6 +7,11 @@ Domain-specific gotchas do **not** go here: they belong in the `Gotchas` section
 
 | Date | Decision | Why |
 |---|---|---|
+| 2026-09-01 | Payload migrations committed to `src/migrations/`, generated once and replayed onto an empty database | The project could not start anywhere dev mode had not already been. Not optional: the adapter gates its schema push on `NODE_ENV` before reading the `push` option, so no environment variable can stand in for a migration. Put `pnpm build` back in CI. See [`runbooks/create-migrations.md`](./runbooks/create-migrations.md) |
+| 2026-09-01 | Demo deployed to a self-hosted TrueNAS box, not the Hetzner/Coolify target in [`stack.md`](./stack.md) | A client demo on hardware we already own, with no bearing on where production lands. Nothing about the image is TrueNAS specific: it is a plain container behind a reverse proxy |
+| 2026-09-01 | The image builds its own throwaway Postgres inside the Dockerfile | `next build` queries Payload while collecting page data, so the build needs a schema. Doing it in the build stage keeps `docker build .` working on any machine, with no service container to wire up |
+| 2026-09-01 | CMS pages carry a 60 second revalidate window again | On-demand revalidation (page builder Phase 1B) is unbuilt, and dropping the timer with it left saved pages cached for the life of the process. Bridge, to be deleted when Phase 1B lands |
+| 2026-09-01 | Line endings pinned to LF by `.gitattributes` | A Windows checkout against an LF index showed all 376 files as modified, which hides real changes and makes any diff unreadable |
 | 2026-07-24 | Stack choice: Next.js 16 (App Router) + TypeScript + Tailwind CSS 4 | Modern React framework, good fit for a marketing/content site with room for future dynamic features (booking, CMS) |
 | 2026-07-24 | Kept the existing Python scraper toolkit as `scripts/scrape/`, output gitignored | Preserves the working mirror tool as a content reference without bloating the repo (mirror is ~300MB) |
 | 2026-07-25 | One Next.js app serving 4 domains (hub/centrum/akademia/dash) via host-based middleware, not 4 separate projects | Payload's Local API needs to live in-process; ~70% component sharing between Centrum/Akademia; one deploy to maintain. Full detail: PRD §7.2, [`sites.md`](./sites.md) |
