@@ -1,0 +1,69 @@
+# BODYWORK demo, as a TrueNAS custom app.
+#
+# Paste into Apps -> Discover -> Custom App -> Install via YAML. Procedure, data import
+# and the reverse proxy hosts: docs/runbooks/deploy-demo.md.
+#
+# Every CHANGE_ME below is deliberate. Nothing here has a working default, because a
+# default secret that works is a default secret that ships.
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: payload
+      POSTGRES_PASSWORD: CHANGE_ME_DB_PASSWORD
+      POSTGRES_DB: bodywork
+    volumes:
+      # Host path on the NAS. Create the dataset first; see the runbook.
+      - /mnt/CHANGE_ME_POOL/apps/bodywork/pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U payload -d bodywork']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    mem_limit: 512m
+
+  app:
+    image: ghcr.io/n02b3rt/body-work:latest
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://payload:CHANGE_ME_DB_PASSWORD@postgres:5432/bodywork
+      # openssl rand -hex 32. Changing it later invalidates every existing session.
+      PAYLOAD_SECRET: CHANGE_ME_LONG_RANDOM_STRING
+
+      # The three hostnames the demo answers on. DASHBOARD_HOST is the only one that
+      # serves the admin panel; the others return a plain 404 for /admin, by design.
+      NEXT_PUBLIC_SERVER_URL: https://bodywork.czekanski.dev
+      NEXT_PUBLIC_DASHBOARD_URL: https://admin.bodywork.czekanski.dev
+      DASHBOARD_HOST: admin.bodywork.czekanski.dev
+      # Public hosts beyond NEXT_PUBLIC_SERVER_URL. Without this a POST from
+      # centrum.* fails CSRF, which surfaces as "Nie mozesz wykonac tej akcji".
+      PAYLOAD_EXTRA_ORIGINS: https://centrum.bodywork.czekanski.dev
+
+      # Set to false only while the database still holds a dump taken before
+      # migrations existed and has not been stamped yet. See the runbook.
+      RUN_MIGRATIONS: 'true'
+
+      # Leave empty on the demo: mail is logged to the container console rather than
+      # sent, which is what you want when a client is clicking around in it.
+      RESEND_API_KEY: ''
+      EMAIL_FROM: BODYWORK <newsletter@body-work.pl>
+      # Optional, drives the AI buttons in the admin. Empty disables them.
+      GEMINI_API_KEY: ''
+
+      TZ: Europe/Warsaw
+    volumes:
+      # Payload's uploads. The container runs as uid 1000, so chown the dataset to
+      # 1000:1000 or every upload fails with EACCES.
+      - /mnt/CHANGE_ME_POOL/apps/bodywork/media:/app/media
+      # Cache for the admin's Aktualizacje view. Small, but it wants to be writable.
+      - /mnt/CHANGE_ME_POOL/apps/bodywork/data:/app/.data
+    ports:
+      # Nginx Proxy Manager forwards to this port on the NAS address. Nothing else
+      # should reach it: the app itself has no host gating beyond the admin panel.
+      - '30080:3000'
+    mem_limit: 2g
