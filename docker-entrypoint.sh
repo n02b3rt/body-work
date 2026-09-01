@@ -12,6 +12,16 @@
 # see docs/runbooks/deploy-demo.md.
 set -e
 
+APP_UID="$(id -u node)"
+APP_GID="$(id -g node)"
+
+# First pass, as root: take the mounted paths, then drop privileges and re-enter.
+# `exec` keeps the server as PID 1, so signals from `docker stop` still reach it.
+if [ "$(id -u)" = "0" ]; then
+  chown "$APP_UID:$APP_GID" /app/media /app/.data 2>/dev/null || true
+  exec setpriv --reuid="$APP_UID" --regid="$APP_GID" --init-groups "$0" "$@"
+fi
+
 if [ "${RUN_MIGRATIONS:-true}" = "true" ]; then
   echo "entrypoint: applying migrations"
   node_modules/.bin/payload migrate

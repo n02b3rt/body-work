@@ -2,9 +2,12 @@
 
 # Runbook: the demo on TrueNAS
 
-A live demo at `bodywork.czekanski.dev`, with `centrum.` and `admin.` alongside it,
-running the real content rather than an empty database, updated by hand when a build is
-worth showing.
+A live demo on three hostnames, running the real content rather than an empty database,
+updated by hand when a build is worth showing.
+
+The names stay one level deep. Cloudflare's free Universal SSL covers `czekanski.dev` and
+`*.czekanski.dev`, and nothing below that, so a second level would reach the client as a
+certificate warning rather than a website.
 
 Pieces: an image built by GitHub Actions into GHCR, a custom app on TrueNAS 25.04 holding
 that image plus its own Postgres, and Nginx Proxy Manager in front for TLS and the
@@ -15,18 +18,12 @@ password gate, reached through a Cloudflare Tunnel.
 - The image is public-repo-private, so the NAS needs a GHCR pull credential: a GitHub
   personal access token with `read:packages`, added under Apps -> Settings -> Manage
   Container Images -> registry `ghcr.io`.
-- Three DNS names pointing at the tunnel: `bodywork`, `centrum.bodywork`,
-  `admin.bodywork`, all under `czekanski.dev`.
-- The datasets, created once:
-
-```
-/mnt/<pool>/apps/bodywork/pgdata
-/mnt/<pool>/apps/bodywork/media
-/mnt/<pool>/apps/bodywork/data
-```
-
-`media` and `data` must be owned by uid 1000: the container drops to the `node` user, and
-an upload into a root-owned dataset fails with EACCES rather than anything readable.
+- Three DNS names pointing at the tunnel: `bodywork`, `bodywork-centrum` and
+  `bodywork-admin`, all directly under `czekanski.dev`.
+- Nothing to prepare on disk. The compose file's host paths live under
+  `/mnt/System/Body-Work/`, next to the other apps, and Docker creates them on first
+  start. The container starts as root, takes ownership of `media` and `.data`, then drops
+  to an unprivileged user, so no directory has to be chowned by hand beforehand.
 
 ## 1. Cut an image
 
@@ -87,19 +84,19 @@ media uploads are not cut off:
 | Host | Access list |
 |---|---|
 | `bodywork.czekanski.dev` | the demo password |
-| `centrum.bodywork.czekanski.dev` | the demo password |
-| `admin.bodywork.czekanski.dev` | **none** |
+| `bodywork-centrum.czekanski.dev` | the demo password |
+| `bodywork-admin.czekanski.dev` | **none** |
 
 The admin host is deliberately outside the password gate. Payload has its own login, and
 stacking basic auth on top means two prompts for the person you are demoing to.
 
-In Cloudflare, the tunnel routes all three to Nginx Proxy Manager, and `admin.` gets a
+In Cloudflare, the tunnel routes all three to Nginx Proxy Manager, and the admin host gets a
 cache rule of Bypass. The free plan caps request bodies at 100 MB, which is the real
 ceiling on uploads regardless of what Nginx allows.
 
 ## 5. First login
 
-`https://admin.bodywork.czekanski.dev` shows the create-first-user screen only while the
+`https://bodywork-admin.czekanski.dev` shows the create-first-user screen only while the
 `users` table is empty. Restoring a dump usually means it is not, so log in with an
 account that already exists instead.
 
@@ -125,9 +122,9 @@ Content and uploads live in the datasets, not the image, so they survive the swa
 - **Editors do not see changes instantly.** CMS pages carry a 60 second window until
   on-demand revalidation lands ([`../map/page-builder.md`](../map/page-builder.md)), and
   the blog stays on its hour. Do not promise the client a live refresh.
-- **One host serves every public name.** Host-based site routing is not built, so
-  `centrum.` and the apex serve the same Centrum site. Fine for a demo, worth saying out
-  loud before someone reads it as the finished hub.
+- **One host serves every public name.** Host-based site routing is not built, so the
+  centrum name and the plain one serve the same Centrum site. Fine for a demo, worth
+  saying out loud before someone reads it as the finished hub.
 - **Never point this app at the production database.** It is a demo, and the entrypoint
   migrates whatever it is given.
 
