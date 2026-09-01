@@ -95,6 +95,12 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 # mount them; a real deployment mounts over both.
 RUN mkdir -p /app/media /app/.data && chown -R node:node /app/media /app/.data
 
+# `.next` has to be writable by the same user, and not only `.next/cache`: ISR writes the
+# rendered page back to `.next/server/app/...`. Arriving root-owned from the COPY above,
+# it leaves every revalidation failing with EACCES while the page still answers 200, so
+# the site keeps serving its build-time content and nothing looks wrong from outside.
+RUN chown -R node:node /app/.next
+
 USER node
 EXPOSE 3000
 
