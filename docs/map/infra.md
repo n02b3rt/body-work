@@ -26,13 +26,16 @@ pnpm dev
 ## Config files
 
 `next.config.ts`, `tsconfig.json`, `eslint.config.mjs`, `postcss.config.mjs`, `pnpm-workspace.yaml`,
-`package.json`. Static assets in `public/`.
+`package.json`. Static assets in `public/`. `.gitattributes` pins every checkout to LF.
 
 ## Scripts
 
 | Command | Does |
 |---|---|
 | `pnpm test` | unit tests in `tests/`, run by Node's own runner, no dependency |
+| `pnpm migrate` | apply `src/migrations/` to the database in `DATABASE_URL` |
+| `pnpm migrate:create` | generate a migration for a schema change, see [`../runbooks/create-migrations.md`](../runbooks/create-migrations.md) |
+| `pnpm migrate:status` | which migrations have run |
 | `pnpm build` | production build; still the broadest check we have |
 | `pnpm generate:types` | regenerate `src/payload-types.ts` |
 | `pnpm generate:importmap` | regenerate the admin import map |
@@ -58,12 +61,13 @@ One-off maintenance: `scripts/backfill-image-sizes.ts`, `scripts/convert-richtex
   `src/lib/` or `src/access/` has no test. Its `GRANDFATHERED` list may only shrink.
 - **CI:** `.github/workflows/checks.yml` runs docs and tests first (no install needed), then types
   and translations.
-- ⚠ **There are no migrations, so the project cannot start on a clean database.** Payload pushes the
-  schema in dev and expects migrations in production. This blocks a first deploy and is why CI does
-  not run `pnpm build`: it compiles and type-checks, then dies collecting page data. Scripts are
-  ready (`pnpm migrate:create`, `migrate`, `migrate:status`); the procedure is
-  [`../runbooks/create-migrations.md`](../runbooks/create-migrations.md). Until then someone runs the
-  build locally before merging.
+- ⚠ **A schema change without a migration breaks every environment but yours.** `src/migrations/`
+  now shapes an empty database, which is what lets CI build and a container start. The dev-mode push
+  cannot cover for a missing one: the adapter gates it on `NODE_ENV` before reading the `push`
+  option, so there is no flag that makes production push. Procedure:
+  [`../runbooks/create-migrations.md`](../runbooks/create-migrations.md).
+- ⚠ **`next/font/google` fetches its font at build time.** An image build on a network that blocks
+  `fonts.googleapis.com` fails there and nowhere else. The font is self-hosted afterwards.
 - **Still missing:** end-to-end tests and browser automation.
 - **`pnpm lint` is broken on `main` too** (eslint-plugin-react 7.37 vs ESLint 10, fails while linting
   `eslint.config.mjs`). A failure there is not necessarily yours.
@@ -73,6 +77,17 @@ One-off maintenance: `scripts/backfill-image-sizes.ts`, `scripts/convert-richtex
 - **Keep the port in `.env` matching `pnpm dev --port`**, or admin saves fail CSRF.
 - **`images.localPatterns` must list `/images/**` alongside Payload's path.** Setting the key at all
   turns `next/image` into an allowlist.
+
+## Deployment
+
+Not the Hetzner target in [`../stack.md`](../stack.md): a client demo, self-hosted on TrueNAS.
+
+- `Dockerfile` builds it, standing up a throwaway Postgres of its own because `next build`
+  reaches Payload for page data. `.dockerignore` trims the context, `docker-entrypoint.sh`
+  migrates before starting the server.
+- `.github/workflows/release.yml` publishes the image to GHCR, by hand or on a `v*` tag.
+- `deploy/truenas/docker-compose.yml` is the app definition, with Nginx Proxy Manager in front.
+- Procedure, content import and the update path: [`../runbooks/deploy-demo.md`](../runbooks/deploy-demo.md).
 
 ## Related
 

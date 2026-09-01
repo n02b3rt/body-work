@@ -7,10 +7,12 @@ One line per entry, newest first. **20 entries maximum**; older ones roll into `
 **An entry exists only when there is a decision or a gotcha the diff doesn't show.**
 "What I did" is `git log`, not this file. Append with `/log`.
 
-Older: [`archive/ai-notes-2026-07.md`](./archive/ai-notes-2026-07.md) (89 entries, 24–31 July 2026).
+Older: [`archive/log-2026-07.md`](./archive/log-2026-07.md) (1 entry),
+[`archive/ai-notes-2026-07.md`](./archive/ai-notes-2026-07.md) (89 entries, 24–31 July 2026).
 
 ---
 
+- **2026-09-01, the project can start on an empty database:** `src/migrations/` exists, so `pnpm build` and CI both run in a fresh environment for the first time, and a container migrates itself on start. ⚠ The adapter gates its dev-mode schema push on `NODE_ENV !== 'production'` **before it reads the `push` option** (`db-postgres/dist/connect.js`), so there is no env flag that lets a production build push: migrations are the only route, and every schema change now needs `pnpm migrate:create` committed with it. ⚠ A database restored from a dump taken before this has its tables but no `payload_migrations` row; stamp it or the next start tries to create them twice. ⚠ `next/font/google` fetches Plus Jakarta Sans **at build time**, so an image build on a network that blocks `fonts.googleapis.com` fails with nothing else wrong.
 - **2026-08-01, lint runs again after months:** the crash was `eslint-plugin-react` 7.37 (via `eslint-config-next`) hitting ESLint 10's rule context API **at load time**, so the whole run died before reading a file. Its rules are now stripped as a group in `eslint.config.mjs`; `@next/next/*` and `react-hooks/*` survive, which is the part that pays. ⚠ Workaround, not a fix: upgrading the plugin needs a lockfile change. ⚠ With lint working it found 3 errors and 8 warnings nobody had seen. `react-hooks/set-state-in-effect` is a warning for now: it fires on three deliberate hydration guards that deserve a look with the app running.
 - **2026-08-01, CI cannot build, and the reason matters:** `pnpm build` compiles and type-checks, then dies collecting page data, because static generation reaches Payload for `PAYLOAD_SECRET` and a database. ⚠ **A Postgres service would not fix it: there are no migrations.** The schema is pushed in dev mode, so a clean database has no tables. A migration story is the prerequisite for ever building in a fresh environment, CI or production.
 - **2026-08-01, same rules on Grok and Cursor:** Cursor reads `.claude/skills/` natively, so it needed nothing. Grok Code reads only `./.grok/skills/`, so `pnpm sync:skills` generates a pointer per skill there: frontmatter copied for the trigger, body replaced by a link back, and orphaned mirrors deleted. ⚠ **Never edit a mirror**, the next sync overwrites it. `pnpm check:docs` runs the same script in `--check` mode.
@@ -30,6 +32,5 @@ Older: [`archive/ai-notes-2026-07.md`](./archive/ai-notes-2026-07.md) (89 entrie
 - **2026-07-29, admin nav:** structure in `nav-tree.ts`, presentation exclusively in `custom.css` (`.bw-nav*`). Active state is background + weight, no border.
 - **2026-07-29, page builder:** "components" split into a 16-element library and saved compositions; nesting fixed at one level; one set of renderers draws canvas and site. Full rules: skill `page-builder`. ⚠ A block's `dbName` **must be a function**, or every block of that type collapses into one table. ⚠ `payload run` needs top-level `await`: skill `payload-script`.
 - **2026-07-29, publishing:** unpublish is `data: { _status: 'draft' }` **without** `draft: true`. With the flag Payload writes a new draft version and the page stays live.
-- **2026-07-29, blur placeholders:** counting them from the live page returns zero, because `next/image` drops the placeholder once the real file decodes. Check the served HTML for `data:image/webp;base64,` instead.
 
 > ⚠ **`pnpm lint` is broken on `main` too** (eslint-plugin-react 7.37 vs ESLint 10, fails while linting `eslint.config.mjs`). Not caused by your change; needs its own fix.

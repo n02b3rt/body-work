@@ -1,48 +1,39 @@
-> Read when: the project needs to start somewhere other than a database that has already been through a dev push. First deploy, a rebuilt environment, or putting `pnpm build` back in CI.
+> Read when: you changed a collection, a global or a field, and the schema has to reach an environment that dev mode will never touch.
 
-# Runbook: give Payload a migration story
+# Runbook: migrations
 
-**This has not been done yet.** Until it is, the project can only start against a database that a
-dev-mode schema push has already shaped. That is why CI cannot run `pnpm build` and why a first
-production deploy would fail: `pnpm build` compiles and type-checks, then dies collecting page data
-because static generation queries tables that a clean database does not have.
+**The initial migration exists** (`src/migrations/20260901_160631`), generated from the
+schema as of 1 September 2026 and proved by replaying it onto an empty database. That is
+what lets `pnpm build` run in a fresh environment, what put the build back into CI, and
+what a deployed container runs on start.
 
-Payload pushes the schema automatically in development and **does not** in production, where it
-expects migrations instead. There are none.
+Payload pushes the schema automatically in development and expects migrations everywhere
+else. The push is not a fallback you can enable: the adapter checks
+`NODE_ENV !== 'production'` before it looks at the `push` option, so a production build
+cannot be talked into shaping its own database.
 
-## What running this gets you
+## Every schema change from here
 
-A file under `src/migrations/` describing the whole current schema, committed to the repo, which
-`pnpm migrate` can replay onto any empty database.
+A change to a collection, a global or a field is not finished until its migration is
+committed with it.
 
-## Steps
-
-Do this on a machine with dependencies installed and Docker running. **One person, once**, not in
-parallel with another agent: see [`../parallel-agents.md`](../parallel-agents.md).
-
-1. **Start from a database that matches `main`.** Your own slot, not a shared one.
-
-   ```bash
-   docker compose up -d
-   ```
-
-2. **Let dev mode settle the schema**, so what gets captured is the real thing. Start the dev server,
-   let it finish booting, answer any prompt carefully, then stop it.
+1. Make the change, and let dev mode settle it.
 
    ```bash
    pnpm dev
    ```
 
-3. **Generate the initial migration.**
+2. Generate the migration.
 
    ```bash
    pnpm migrate:create
    ```
 
-   It lands in `src/migrations/`. Read it before committing: it should create every table you expect
-   (nine collections, two globals, the builder's block tables) and drop nothing.
+   It lands in `src/migrations/`. Read it before committing: it should describe your
+   change and nothing else. An unexpected `DROP` means dev mode had already drifted from
+   `main`, and the fix is a clean database, not a hand-edited migration.
 
-4. **Prove it replays.** Point `DATABASE_URL` at an empty database, then:
+3. Prove it replays, against an empty database rather than the one you just changed.
 
    ```bash
    pnpm migrate
@@ -51,17 +42,21 @@ parallel with another agent: see [`../parallel-agents.md`](../parallel-agents.md
    pnpm migrate:status
    ```
 
-   Anything less than a clean run means the migration is not trustworthy yet. Do not skip this: a
-   migration that has only ever been generated, never applied, is a guess.
+CI runs `pnpm migrate` before `pnpm build` on a throwaway Postgres, so a missing migration
+fails the pull request rather than the deploy.
 
-5. **Then, and only then**, put the build back in CI. Uncomment the `build` step in
-   `.github/workflows/checks.yml` and give the job a Postgres service plus `PAYLOAD_SECRET`,
-   `DATABASE_URL` and `NEXT_PUBLIC_SERVER_URL`, running `pnpm migrate` before `pnpm build`.
+## Databases that predate this
 
-## Afterwards
+A dump taken before 1 September 2026 has the tables but no row in `payload_migrations`,
+so migrating it tries to create them a second time. Stamp it instead, once:
 
-Every schema change gets its own migration from then on: `pnpm migrate:create` after changing
-collections, committed with the change. The `payload-schema` skill covers the rest of that loop.
+```sql
+INSERT INTO payload_migrations (name, batch) VALUES ('20260901_160631', 1);
+```
 
-Update [`../map/infra.md`](../map/infra.md) and this file's opening line once it is done, and drop a
-line in [`../log.md`](../log.md).
+Then read the app's log on the next start. Anything missing means that database had
+drifted from the repo, and the answer is a migration generated from it, not manual SQL.
+
+## Related
+
+[`deploy-demo.md`](./deploy-demo.md) - [`../map/infra.md`](../map/infra.md)
