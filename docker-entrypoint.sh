@@ -14,7 +14,7 @@ set -e
 
 if [ "${RUN_MIGRATIONS:-true}" = "true" ]; then
   echo "entrypoint: applying migrations"
-  pnpm migrate
+  node_modules/.bin/payload migrate
 else
   echo "entrypoint: RUN_MIGRATIONS=false, skipping migrations"
 fi

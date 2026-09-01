@@ -66,14 +66,17 @@ RUN --mount=type=cache,target=/pnpm/store \
     pnpm install --frozen-lockfile --prod
 
 # -------------------------------------------------------------------- runtime
+#
+# No pnpm here on purpose. Corepack fetches the pinned pnpm on first use, which as the
+# unprivileged `node` user would mean a network round trip on every cold start and a
+# write to a root-owned cache. The two binaries this image actually runs are already in
+# node_modules, so it calls them directly and the container needs no network to boot.
 FROM node:${NODE_VERSION} AS runner
-ENV PNPM_HOME=/pnpm
-ENV PATH=$PNPM_HOME:$PATH
-RUN corepack enable
 WORKDIR /app
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_OPTIONS=--no-deprecation
 ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
 ENV TZ=Europe/Warsaw
@@ -100,4 +103,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=120s --retries=3 \
   CMD node -e "fetch('http://127.0.0.1:'+(process.env.PORT||3000)+'/pl').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
-CMD ["pnpm", "start"]
+CMD ["node_modules/.bin/next", "start"]

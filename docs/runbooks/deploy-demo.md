@@ -44,7 +44,7 @@ Apps -> Discover -> Custom App -> Install via YAML, with
 every `CHANGE_ME`: the pool name, the database password, and `PAYLOAD_SECRET`
 (`openssl rand -hex 32`).
 
-On first start the entrypoint runs `pnpm migrate` against the empty database and the site
+On first start the entrypoint migrates the empty database and the site
 comes up with no content. That is expected; content arrives next.
 
 ## 3. Load the demo content
@@ -109,8 +109,8 @@ account that already exists instead.
 2. On the NAS: Apps -> bodywork -> Edit -> Update image, or pull `:latest` and recreate.
 
 The entrypoint migrates on every start, so a schema change in the new build applies
-itself. `pnpm migrate` is a no-op once every migration is recorded, which is what makes
-that safe to run unconditionally.
+itself. Migrating is a no-op once every migration is recorded, which is what makes that
+safe to run unconditionally.
 
 Content and uploads live in the datasets, not the image, so they survive the swap.
 
