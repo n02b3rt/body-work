@@ -101,7 +101,10 @@ RUN mkdir -p /app/media /app/.data && chown -R node:node /app/media /app/.data
 # the site keeps serving its build-time content and nothing looks wrong from outside.
 RUN chown -R node:node /app/.next
 
-USER node
+# Starts as root and drops to `node` in the entrypoint, once it has taken ownership of
+# whatever the host mounted over /app/media and /app/.data. A bind mount arrives owned by
+# the host's uid, which no image can predict, and the alternative is asking every
+# deployment to chown a directory correctly before the first start.
 EXPOSE 3000
 
 # Payload boots lazily, so a real request is the only honest readiness signal.

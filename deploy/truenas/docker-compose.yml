@@ -15,8 +15,9 @@ services:
       POSTGRES_PASSWORD: CHANGE_ME_DB_PASSWORD
       POSTGRES_DB: bodywork
     volumes:
-      # Host path on the NAS. Create the dataset first; see the runbook.
-      - /mnt/CHANGE_ME_POOL/apps/bodywork/pgdata:/var/lib/postgresql/data
+      # Host paths on the NAS. Docker creates them on first start; the app takes
+      # ownership of its own two in the entrypoint, so nothing needs chowning by hand.
+      - /mnt/System/Body-Work/pgdata:/var/lib/postgresql/data
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U payload -d bodywork']
       interval: 5s
@@ -37,12 +38,16 @@ services:
 
       # The three hostnames the demo answers on. DASHBOARD_HOST is the only one that
       # serves the admin panel; the others return a plain 404 for /admin, by design.
+      #
+      # One level of subdomain only: Cloudflare's free Universal SSL covers
+      # `*.czekanski.dev` and nothing deeper, so `admin.bodywork.czekanski.dev` would
+      # reach the client as a certificate warning.
       NEXT_PUBLIC_SERVER_URL: https://bodywork.czekanski.dev
-      NEXT_PUBLIC_DASHBOARD_URL: https://admin.bodywork.czekanski.dev
-      DASHBOARD_HOST: admin.bodywork.czekanski.dev
-      # Public hosts beyond NEXT_PUBLIC_SERVER_URL. Without this a POST from
-      # centrum.* fails CSRF, which surfaces as "Nie mozesz wykonac tej akcji".
-      PAYLOAD_EXTRA_ORIGINS: https://centrum.bodywork.czekanski.dev
+      NEXT_PUBLIC_DASHBOARD_URL: https://bodywork-admin.czekanski.dev
+      DASHBOARD_HOST: bodywork-admin.czekanski.dev
+      # Public hosts beyond NEXT_PUBLIC_SERVER_URL. Without this a POST from the
+      # centrum host fails CSRF, which surfaces as "Nie mozesz wykonac tej akcji".
+      PAYLOAD_EXTRA_ORIGINS: https://bodywork-centrum.czekanski.dev
 
       # Set to false only while the database still holds a dump taken before
       # migrations existed and has not been stamped yet. See the runbook.
@@ -57,11 +62,9 @@ services:
 
       TZ: Europe/Warsaw
     volumes:
-      # Payload's uploads. The container runs as uid 1000, so chown the dataset to
-      # 1000:1000 or every upload fails with EACCES.
-      - /mnt/CHANGE_ME_POOL/apps/bodywork/media:/app/media
-      # Cache for the admin's Aktualizacje view. Small, but it wants to be writable.
-      - /mnt/CHANGE_ME_POOL/apps/bodywork/data:/app/.data
+      # Payload's uploads, and the cache behind the admin's Aktualizacje view.
+      - /mnt/System/Body-Work/media:/app/media
+      - /mnt/System/Body-Work/data:/app/.data
     ports:
       # Nginx Proxy Manager forwards to this port on the NAS address. Nothing else
       # should reach it: the app itself has no host gating beyond the admin panel.
