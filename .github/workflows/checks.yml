@@ -48,14 +48,54 @@ jobs:
       - name: translations
         run: pnpm check:messages
 
-      # `pnpm build` is deliberately not run here.
-      #
-      # It compiles and type-checks fine, then fails while collecting page data:
-      # static generation reaches Payload, which needs PAYLOAD_SECRET and a real
-      # database. Handing it a fresh Postgres would not help either, because this
-      # project has no migrations: the schema is pushed in dev mode, so a clean
-      # database has no tables for the build to query.
-      #
-      # Adding it back means giving Payload a migration story first. Until then the
-      # build is verified by a human running it locally, and `types` above already
-      # catches what a compile would.
+  # Split out so the fast checks above are not held up by a database container.
+  #
+  # This job is what a migration story bought: the build reaches Payload while
+  # collecting page data, so it needs a schema, and `src/migrations/` is now able to
+  # put one on an empty database. Note the adapter's dev-mode push is gated on
+  # NODE_ENV and cannot stand in for that here.
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: payload
+          POSTGRES_PASSWORD: payload
+          POSTGRES_DB: bodywork
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U payload -d bodywork"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgresql://payload:payload@localhost:5432/bodywork
+      PAYLOAD_SECRET: ci-only-never-used-to-serve-anything
+      NEXT_PUBLIC_SERVER_URL: http://localhost:3000
+      NEXT_PUBLIC_DASHBOARD_URL: http://dash.localhost:3000
+      DASHBOARD_HOST: dash.localhost
+      NEXT_TELEMETRY_DISABLED: '1'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: install
+        run: pnpm install --frozen-lockfile
+
+      - name: migrate
+        run: pnpm migrate
+
+      - name: build
+        run: pnpm build
