@@ -38,7 +38,6 @@ Helpers: `src/lib/blog-listing.ts`, `blog-page-size.ts`, `post-translation.ts`.
 |---|---|
 | `scripts/content-health.ts` | read-only editorial worklist: posts without subheadings, images needing real alt text, missing categories |
 | `scripts/fix-blog-from-reference.ts` | repairs thumbnail/excerpt/date, which the import took from the article body. `DRY=1` to preview, **not** `--dry` |
-| `scripts/fix-image-alt-text.ts` | sets in-article alts to "post title: nearest heading" |
 | `scripts/import-blog.ts` | the original import |
 | `scripts/smoke-blog-write.ts` | write-path smoke test |
 

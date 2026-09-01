@@ -5,8 +5,8 @@ import {
 } from '@payloadcms/plugin-nested-docs'
 
 import { staff } from '@/access/roles'
+import { builderField, componentRefsField } from '@/fields/builder'
 import { metaFields, slugField } from '@/fields/meta'
-import { pageLayoutField } from '@/fields/page-layout'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -40,29 +40,12 @@ export const Pages: CollectionConfig = {
       required: true,
     },
     slugField('title'),
+    builderField(),
+    componentRefsField(),
     {
-      // Unnamed tabs: presentation only, so this adds no columns and the
-      // existing `content` field keeps its path.
+      // Unnamed tab: presentation only, adds no column and no path segment.
       type: 'tabs',
       tabs: [
-        {
-          label: 'Układ strony',
-          description:
-            'Kreator stron: ułóż stronę z komponentów zdefiniowanych w Zarządzanie → Wygląd → Komponenty.',
-          fields: [pageLayoutField],
-        },
-        {
-          label: 'Treść tekstowa',
-          description:
-            'Zwykły tekst pod sekcjami. Zostaw puste, jeśli cała strona jest zbudowana w kreatorze.',
-          fields: [
-            {
-              name: 'content',
-              type: 'richText',
-              label: 'Treść',
-            },
-          ],
-        },
         {
           label: 'SEO',
           fields: [metaFields],

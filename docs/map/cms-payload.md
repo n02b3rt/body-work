@@ -30,7 +30,8 @@ Server Components read content through `getPayload()`.
 ## Globals and shared fields
 
 `src/globals/SiteSettings.ts` (brand identity, contact, default SEO), `src/globals/ThemeColors.ts`.
-Shared field definitions: `src/fields/meta.ts` (SEO), `src/fields/page-layout.ts` (builder sections).
+Shared field definitions: `src/fields/meta.ts` (SEO), `src/fields/builder.ts` (the page builder's
+`builder`/`componentRefs` fields, see [`page-builder.md`](./page-builder.md)).
 
 ## Access
 

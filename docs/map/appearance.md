@@ -23,14 +23,14 @@ public-site CSS vars. Do not define a colour in two places.
 ## Saved compositions
 
 Editors' own arrangements ("photo plus text"), saved under a name and placed on pages through the
-`savedComponent` element.
+`savedComponent` element. Part of the page builder rewrite, see
+[`page-builder.md`](./page-builder.md): edited at `dash.localhost/edytor/komponenty/{slug}`, same
+as a page. The library UI to save a canvas selection as a new composition and insert one (copy or
+reference) is not built yet.
 
-- Collection: `src/collections/SiteComponents.ts`
-- Builder: `src/components/admin/builder/ComponentBuilder.tsx`
-- Samples: `src/seed/appearance-samples.ts` (`pnpm seed:appearance`)
-
-Compositions are **referenced, not copied**, with a depth guard, because nothing stops an editor
-putting a composition inside itself.
+- Collection: `src/collections/SiteComponents.ts` (`builder` json field, `preview` thumbnail)
+- Reference resolution, with a depth guard against a composition placed inside itself:
+  `src/lib/builder/resolve.ts` (site), `src/components/builder/editor/use-resolved-media.ts` (canvas)
 
 ## Gotchas
 

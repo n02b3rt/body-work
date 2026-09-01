@@ -10,6 +10,10 @@ import { Link } from "@/i18n/navigation";
 import { mediaFrom } from "@/lib/media";
 import { routing } from "@/i18n/routing";
 import { PostBody } from "@/components/centrum/PostBody";
+import { coerceBuilderDoc } from "@/lib/builder/types";
+import { resolveForRender } from "@/lib/builder/resolve";
+import { BuilderRender } from "@/components/builder/render/BuilderRender";
+import { baseRenderCtx } from "@/components/builder/render/ctx";
 import { ClockIcon } from "@/components/centrum/BlogIcons";
 import { PostCard } from "@/components/centrum/PostCard";
 import { blogPostingJsonLd, breadcrumbJsonLd } from "@/lib/structured-data";
@@ -141,6 +145,12 @@ export default async function PostPage({ params }: PostPageProps) {
   // what this served before, and not a half-translated one either. See docs/i18n.md.
   const localised = localisePost(post, locale, await findTranslation(post.id));
   if (!localised) notFound();
+
+  const builderDoc = localised.translated ? null : coerceBuilderDoc(localised.builder);
+  const builderResolved =
+    builderDoc && builderDoc.nodes[builderDoc.root]?.children.length > 0
+      ? await resolveForRender(payload, builderDoc)
+      : null;
 
   const author = post.author && typeof post.author === "object" ? post.author : null;
   // 10rem on screen: 320px on a 2x display, so the 400px `thumbnail` is the right
@@ -284,15 +294,15 @@ export default async function PostPage({ params }: PostPageProps) {
 
       <article className="bg-background">
         <Container className="py-12 wide:py-16">
-          {/* Payload stores Lexical JSON; this renders it with the default converters.
-            * `blog-prose` carries the typography for headings, lists and images inside
-            * the article, see globals.css. */}
-          {localised.content ? (
-            <PostBody
-              content={localised.content}
-              // Only when this is a translation: image widths follow the Polish version.
-              syncSizesFrom={localised.translated ? post.content : null}
-            />
+          {/* Two renderers for now: an English translation is still Lexical richText
+            * (`PostTranslations.content`), the Polish body is the builder tree
+            * (`Post.builder`). `docs/page-builder.md` Phase 3 unifies these into one
+            * translation overlay on the builder tree; until then they render
+            * differently on purpose, see `LocalisedPost` in `post-translation.ts`. */}
+          {localised.translated ? (
+            localised.richText ? <PostBody content={localised.richText} /> : null
+          ) : builderResolved && builderDoc ? (
+            <BuilderRender ctx={{ ...baseRenderCtx("site"), ...builderResolved }} doc={builderDoc} />
           ) : null}
         </Container>
       </article>

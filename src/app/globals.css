@@ -1,8 +1,9 @@
 @import "tailwindcss";
-/* Page-builder elements. Shared verbatim with the admin panel (see
- * `src/app/(payload)/custom.css`), which is what keeps the builder canvas and
- * the published page looking the same. */
-@import "../styles/elements.css";
+/* Page builder: generated, keeps runtime-assembled `md:`/`lg:` classes from a
+ * saved document visible to Tailwind's static scanner. See
+ * src/lib/builder/tw-safelist.ts. `(builder)/layout.tsx` imports this same
+ * file for the /edytor canvas, so one generated stylesheet covers both. */
+@import "../styles/builder-safelist.css";
 
 :root {
   --background: #f9f7f0;

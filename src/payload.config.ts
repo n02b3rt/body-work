@@ -59,6 +59,10 @@ export default buildConfig({
   admin: {
     user: Users.slug,
     dateFormat: PAYLOAD_DATETIME_FORMAT,
+    // Extensions (Video Speed Controller, etc.) inject attrs on <html> before React
+    // hydrates; without this the first load logs a recoverable mismatch. Same reason
+    // the public locale layout sets suppressHydrationWarning on <body>.
+    suppressHydrationWarning: true,
     timezones: {
       defaultTimezone: 'Europe/Warsaw',
       supportedTimezones: [{ label: 'Warszawa (CET/CEST)', value: 'Europe/Warsaw' }],

@@ -22,6 +22,16 @@ function isAdminPath(pathname: string) {
   return pathname === "/admin" || pathname.startsWith("/admin/");
 }
 
+/** The page builder's full-screen editor, same host-only rule as `/admin`. */
+function isBuilderPath(pathname: string) {
+  return (
+    pathname === "/edytor" ||
+    pathname.startsWith("/edytor/") ||
+    pathname === "/podglad" ||
+    pathname.startsWith("/podglad/")
+  );
+}
+
 function isApiPath(pathname: string) {
   return pathname === "/api" || pathname.startsWith("/api/");
 }
@@ -60,9 +70,9 @@ export default function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Public hosts get a plain 404 for the admin, not a redirect, which would leak the
-  // dashboard hostname.
-  if (isAdminPath(pathname)) {
+  // Public hosts get a plain 404 for the admin and the builder, not a redirect,
+  // which would leak the dashboard hostname.
+  if (isAdminPath(pathname) || isBuilderPath(pathname)) {
     return new NextResponse("Not Found", {
       status: 404,
       headers: { "content-type": "text/plain; charset=utf-8" },

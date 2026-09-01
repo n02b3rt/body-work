@@ -37,14 +37,14 @@ pnpm dev
 | `pnpm generate:types` | regenerate `src/payload-types.ts` |
 | `pnpm generate:importmap` | regenerate the admin import map |
 | `pnpm check:messages` | verify browser-shipped translation namespaces |
-| `pnpm smoke:builder` | page-builder data model, end to end |
-| `pnpm seed:appearance` | write the sample saved compositions |
+| `pnpm smoke:builder` | page-builder data model, end to end (`scripts/smoke-builder.ts`) |
+| `pnpm generate:tw-safelist` | regenerate the page builder's Tailwind safelist, see [`page-builder.md`](./page-builder.md) |
 | `pnpm check:docs` | enforce the documentation rules: budgets, `> Read when:` headers, links, map coverage, em-dash ratchet, skill mirrors (`scripts/check-docs.mjs`) |
 | `pnpm sync:skills` | regenerate `.grok/skills/` from `.claude/skills/` (`scripts/sync-agent-skills.mjs`) |
 
 Other smoke scripts, run with `pnpm payload run`: `scripts/smoke-blog-write.ts`, `smoke-gemini.ts`,
 `smoke-image-display.ts`, `smoke-newsletter.ts`.
-One-off maintenance: `scripts/backfill-image-sizes.ts`, `scripts/seed-translation-example.ts`.
+One-off maintenance: `scripts/backfill-image-sizes.ts`, `scripts/convert-richtext-to-builder.ts`.
 
 ## Gotchas
 

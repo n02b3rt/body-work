@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { staff } from '@/access/roles'
-import { elementsField } from '@/fields/elements'
+import { builderField } from '@/fields/builder'
 import { slugField } from '@/fields/meta'
 
 /**
@@ -24,13 +24,10 @@ export const SiteComponents: CollectionConfig = {
     singular: 'Komponent',
     plural: 'Komponenty',
   },
-  /**
-   * Postgres caps identifiers at 63 characters, and a composition nests
-   * `blocks → columns → column → blocks → element → style → colour → token`.
-   * Five characters saved on the table prefix is what keeps the deepest enum
-   * name inside the limit; the element blocks carry short `dbName`s for the
-   * same reason.
-   */
+  // Kept from the previous builder for schema stability (renaming it now is a table
+  // rename with no benefit): the constraint that named it, Postgres' 63-character
+  // identifier cap on deeply nested block tables, no longer applies now that a
+  // composition is one `jsonb` column instead of a tree of block tables.
   dbName: 'components',
   admin: {
     group: 'Wygląd',
@@ -73,18 +70,20 @@ export const SiteComponents: CollectionConfig = {
         description: 'Porządkuje listę w bibliotece kreatora.',
       },
     },
-    elementsField({
-      label: 'Złożenie',
-      admin: {
-        description: 'Zawartość układasz na kanwie poniżej.',
-        components: {
-          Field: '/components/admin/builder/ComponentBuilder#ComponentBuilder',
-        },
-      },
-    }),
+    builderField(),
     slugField('name', {
       description: 'Identyfikator komponentu, przydatny przy odwołaniach.',
     }),
+    {
+      name: 'preview',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Miniatura',
+      admin: {
+        position: 'sidebar',
+        description: 'Podgląd w bibliotece kreatora. Generowana automatycznie przy zapisie w edytorze; można nadpisać ręcznie.',
+      },
+    },
     {
       name: 'description',
       type: 'textarea',
