@@ -1,10 +1,14 @@
+import { getPayload } from "payload";
+import config from "@payload-config";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
-import { RichText } from "@payloadcms/richtext-lexical/react";
 import { Container } from "@/components/ui/Container";
-import { PageSections } from "@/components/page-blocks/PageSections";
 import { routing } from "@/i18n/routing";
 import { findPublishedPage, listPublishedPages, pathFromSegments } from "@/lib/cms-page";
+import { coerceBuilderDoc } from "@/lib/builder/types";
+import { resolveForRender } from "@/lib/builder/resolve";
+import { BuilderRender } from "@/components/builder/render/BuilderRender";
+import { baseRenderCtx } from "@/components/builder/render/ctx";
 import { mediaPath } from "@/lib/media";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -30,7 +34,11 @@ type PageProps = {
   params: Promise<{ locale: string; rest?: string[] }>;
 };
 
-export const revalidate = 3600;
+// The old `revalidate = 3600` traded a same-hour cache window for simplicity.
+// The new builder saves and expects the change on the public page immediately,
+// so this route is revalidated on demand (see `src/lib/builder/revalidate.ts`,
+// Phase 1B) rather than on a timer. `generateStaticParams` still prerenders
+// every published page at build time.
 
 export async function generateStaticParams() {
   const pages = await listPublishedPages();
@@ -84,31 +92,25 @@ export default async function CatchAllPage({ params }: PageProps) {
   const page = await findPublishedPage(pathFromSegments(rest));
   if (!page) notFound();
 
-  const hasSections = Array.isArray(page.layout) && page.layout.length > 0;
+  const doc = coerceBuilderDoc(page.builder);
+  const hasContent = doc.nodes[doc.root]?.children.length > 0;
+
+  const payload = hasContent ? await getPayload({ config }) : null;
+  const resolved = payload ? await resolveForRender(payload, doc) : { media: {}, components: {} };
 
   return (
     <main>
-      <PageSections layout={page.layout} />
-
-      {page.content ? (
-        <Container as="section" className="py-12">
-          <div className="blog-prose">
-            {/* Typed off `RichText` itself rather than the `/lexical` subpath,
-              * as `PostBody` does. */}
-            <RichText data={page.content as Parameters<typeof RichText>[0]["data"]} />
-          </div>
-        </Container>
-      ) : null}
-
-      {/* A page with a title and nothing else is a real editing state, and an
-        * empty <main> reads as a broken deploy rather than an unfinished page. */}
-      {!hasSections && !page.content ? (
+      {hasContent ? (
+        <BuilderRender ctx={{ ...baseRenderCtx("site"), ...resolved }} doc={doc} />
+      ) : (
+        // A page with a title and nothing else is a real editing state, and an
+        // empty <main> reads as a broken deploy rather than an unfinished page.
         <Container as="section" className="py-24">
           <h1 className="font-normal text-h-mobile text-brand-navy wide:text-h-section">
             {page.title}
           </h1>
         </Container>
-      ) : null}
+      )}
     </main>
   );
 }

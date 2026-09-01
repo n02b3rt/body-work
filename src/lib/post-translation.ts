@@ -14,13 +14,27 @@ import type { Post, PostTranslation } from "@/payload-types";
  * Polish is the default locale and always resolves to the post itself.
  */
 
-export type LocalisedPost = {
-  title: string;
-  excerpt?: string | null;
-  content: Post["content"] | null;
-  /** True when the reader is seeing a translation rather than the original. */
-  translated: boolean;
-};
+/**
+ * The Polish body and an English translation are two different shapes for now:
+ * the Polish body is a builder tree (`Post["builder"]`), the translation is
+ * still Lexical richText (`PostTranslation["content"]`), because
+ * `docs/page-builder.md` Phase 3 — a translation overlay living on the builder
+ * tree itself — has not landed yet. A discriminated union says so at the type
+ * level instead of pretending the two ever line up.
+ */
+export type LocalisedPost =
+  | {
+      title: string;
+      excerpt?: string | null;
+      translated: false;
+      builder: Post["builder"];
+    }
+  | {
+      title: string;
+      excerpt?: string | null;
+      translated: true;
+      richText: PostTranslation["content"];
+    };
 
 /**
  * Publishable means marked published **and** carrying a body.
@@ -42,7 +56,7 @@ export function localisePost(
     return {
       title: post.title,
       excerpt: post.excerpt,
-      content: post.content,
+      builder: post.builder,
       translated: false,
     };
   }
@@ -52,9 +66,7 @@ export function localisePost(
   return {
     title: translation.title,
     excerpt: translation.excerpt,
-    // A translation may carry only a title and excerpt while the body is still being written.
-    // Falling back to the Polish body would be the half-translated page the rule forbids.
-    content: translation.content ?? null,
+    richText: translation.content,
     translated: true,
   };
 }

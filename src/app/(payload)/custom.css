@@ -1,8 +1,4 @@
 @import './appearance.css';
-@import './builder.css';
-/* The builder canvas renders the site's own element components, so the admin
- * panel needs the same stylesheet the public site loads. */
-@import '../../styles/elements.css';
 
 .bw-welcome {
   margin: 0 0 2rem;
