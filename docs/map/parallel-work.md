@@ -38,4 +38,4 @@ the runbook, not a copy.
 
 ## Related
 
-[`infra.md`](./infra.md) · [`cms-payload.md`](./cms-payload.md)
+[`infra/index.md`](./infra/index.md) · [`cms-payload.md`](./cms-payload.md)

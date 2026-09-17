@@ -49,5 +49,5 @@ DRY=1 pnpm payload run scripts/your-script.ts
 ## Registering it
 
 Add a `package.json` script only if it will be run repeatedly; one-offs stay `pnpm payload run …`.
-Either way the file gets a line in `docs/map/infra.md` (or its own domain file), which
+Either way the file gets a line in `docs/map/infra/scripts.md` (or its own domain file), which
 `pnpm check:docs` enforces.

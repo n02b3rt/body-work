@@ -102,7 +102,7 @@ export function MegaMenu({ open, onClose }: MegaMenuProps) {
       <Container className="py-10">
         <div className={columnClasses} style={stagger(0)}>
           {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG mark, no raster optimization needed */}
-          <img src="/icons/logo-mark.svg" width={86} height={121} alt="" className="h-24 w-auto" />
+          <img src="/icons/logo-mark.svg" width={86} height={121} loading="lazy" alt="" className="h-24 w-auto" />
         </div>
 
         <div className="mt-10 grid grid-cols-5 divide-x divide-brand-navy-soft border-t border-brand-navy-soft pt-10">
@@ -112,7 +112,7 @@ export function MegaMenu({ open, onClose }: MegaMenuProps) {
               className={cn("flex flex-col gap-6 px-10 first:pl-0", columnClasses)}
               style={stagger(index + 1)}
             >
-              <Link href={column.headingHref} onClick={onClose} className="text-h-menu text-brand-navy">
+              <Link prefetch={false} href={column.headingHref} onClick={onClose} className="text-h-menu text-brand-navy">
                 {column.heading}
               </Link>
               <ul className="flex flex-col gap-3">
@@ -129,7 +129,7 @@ export function MegaMenu({ open, onClose }: MegaMenuProps) {
                         {link.label}
                       </a>
                     ) : (
-                      <Link
+                      <Link prefetch={false}
                         href={link.href}
                         onClick={onClose}
                         className="text-label uppercase tracking-[1px] text-brand-navy hover:opacity-70"
@@ -145,7 +145,7 @@ export function MegaMenu({ open, onClose }: MegaMenuProps) {
 
           <div className={cn("flex flex-col gap-4 px-10", columnClasses)} style={stagger(columns.length + 1)}>
             {flatLinks.map((link) => (
-              <Link
+              <Link prefetch={false}
                 key={link.href}
                 href={link.href}
                 onClick={onClose}
@@ -164,7 +164,7 @@ export function MegaMenu({ open, onClose }: MegaMenuProps) {
                 className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brand-navy-soft transition-colors hover:bg-brand-navy/5"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG icon */}
-                <img src="/icons/instagram.svg" alt="" className="h-5 w-5" />
+                <img src="/icons/instagram.svg" loading="lazy" alt="" className="h-5 w-5" />
               </a>
               <a
                 href={FACEBOOK_URL}
@@ -174,7 +174,7 @@ export function MegaMenu({ open, onClose }: MegaMenuProps) {
                 className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brand-navy-soft transition-colors hover:bg-brand-navy/5"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG icon */}
-                <img src="/icons/facebook.svg" alt="" className="h-5 w-5" />
+                <img src="/icons/facebook.svg" loading="lazy" alt="" className="h-5 w-5" />
               </a>
               <a href={MAP_URL} target="_blank" rel="noopener noreferrer" className={buttonClasses("outline")}>
                 {tHeader("mapDirections")}

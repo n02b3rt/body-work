@@ -49,6 +49,12 @@ const serverActionOrigins =
 
 const nextConfig: NextConfig = {
   serverExternalPackages: ["@ffmpeg-installer/ffmpeg", "fluent-ffmpeg", "sharp"],
+  // A running `next dev` owns `.next` and wipes a production build out of it, which is
+  // the same collision `docs/map/infra/index.md` records for `pnpm start`. Setting this lets a
+  // build go somewhere else instead of asking whoever is developing to stop:
+  //   NEXT_DIST_DIR=.next-build pnpm build && NEXT_DIST_DIR=.next-build pnpm check:perf
+  // Unset, it is exactly the Next default, so nobody else's workflow changes.
+  ...(process.env.NEXT_DIST_DIR ? { distDir: process.env.NEXT_DIST_DIR } : {}),
   ...(serverActionOrigins
     ? { experimental: { serverActions: { allowedOrigins: serverActionOrigins } } }
     : {}),
@@ -86,6 +92,10 @@ const nextConfig: NextConfig = {
     // dropping that floor from 640 to 480 would pull tiny widths into every card grid.
     // Both lists are merged for fixed-px `sizes` like ours, so nothing is lost.
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 480, 960, 1376, 1440],
+    // `/_next/image` was answering `max-age=14400, must-revalidate`: four hours, then a
+    // conditional request, for a file that cannot change without changing its URL. Uploads
+    // get a new id and static images a new path, so a year is honest.
+    minimumCacheTTL: 31536000,
   },
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {

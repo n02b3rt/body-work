@@ -59,4 +59,4 @@ drifted from the repo, and the answer is a migration generated from it, not manu
 
 ## Related
 
-[`deploy-demo.md`](./deploy-demo.md) - [`../map/infra.md`](../map/infra.md)
+[`deploy-demo.md`](./deploy-demo.md) - [`../map/infra/deployment.md`](../map/infra/deployment.md)

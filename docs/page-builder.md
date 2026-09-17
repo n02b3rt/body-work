@@ -63,9 +63,11 @@ page. That is the constraint everything else bends around:
   rendering: by Payload's `depth` on the site, by a REST fetch in the builder
   (`use-canvas-data.ts`).
 - **No Tailwind, no next-intl.** The admin panel loads neither. Layout comes from
-  `src/styles/elements.css`, imported by `globals.css` *and* by
+  `src/styles/elements.css`, imported by `[locale]/[...rest]/page.tsx` *and* by
   `(payload)/custom.css`; the strings the interactive elements need travel in
-  `ctx.labels`, looked up by `PageSections` with `getTranslations`.
+  `ctx.labels`, looked up by `PageSections` with `getTranslations`. It is **not** in
+  `globals.css`: that put 10.6 KB of element styles on all 33 coded pages, none of which
+  renders an element.
 - **Container queries, not media queries.** The canvas emulates a phone by
   shrinking to 390px; a media query would keep reporting the desktop viewport.
   `.bw-el-root` is the query container, so "ukryj na telefonie" and column

@@ -60,7 +60,8 @@ export function PageHero({
             src={imageSrc}
             alt={imageAlt ?? ""}
             fill
-            priority
+            preload
+            fetchPriority="high"
             sizes="100vw"
             className="object-cover"
             {...blurProps(imageSrc)}

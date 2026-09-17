@@ -8,6 +8,9 @@
 
 <!-- Copy this block for each new entry, newest on top:
 
+## 2026-07-29: blur placeholders (rolled off docs/log.md, 3 August 2026)
+- **2026-07-29, blur placeholders:** counting them from the live page returns zero, because `next/image` drops the placeholder once the real file decodes. Check the served HTML for `data:image/webp;base64,` instead.
+
 ## {{DATE}}: <short task title>
 - **Done:** what now works.
 - **Decisions:** architectural choices made and why (one line each).

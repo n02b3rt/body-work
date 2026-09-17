@@ -57,7 +57,7 @@ export function SectionNav({ sectionLabel, items }: SectionNavProps) {
                     {item.label}
                   </a>
                 ) : (
-                  <Link href={item.href} className={className}>
+                  <Link prefetch={false} href={item.href} className={className}>
                     {item.label}
                   </Link>
                 )}
@@ -88,7 +88,7 @@ export function SectionNav({ sectionLabel, items }: SectionNavProps) {
               {underline}
             </a>
           ) : (
-            <Link
+            <Link prefetch={false}
               key={item.href}
               href={item.href}
               aria-current={isCurrent(item.href) ? "page" : undefined}
