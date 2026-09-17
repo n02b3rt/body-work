@@ -8,27 +8,7 @@
  */
 import { getPayload } from 'payload'
 import config from '@payload-config'
-
-type Node = { type?: string; text?: string; children?: Node[]; value?: unknown }
-
-function textOf(node: Node): string {
-  if (typeof node.text === 'string') return node.text
-  return (node.children ?? []).map(textOf).join('')
-}
-
-function words(node: Node): number {
-  return textOf(node).split(/\s+/).filter(Boolean).length
-}
-
-function headings(root: Node): number {
-  let count = 0
-  const walk = (node: Node) => {
-    if (node.type === 'heading') count += 1
-    for (const child of node.children ?? []) walk(child)
-  }
-  walk(root)
-  return count
-}
+import { coerceBuilderDoc, collectMediaIds, headingCount, wordCount } from '@/lib/builder/types'
 
 const payload = await getPayload({ config })
 
@@ -47,10 +27,10 @@ const noCategory: string[] = []
 
 for (const post of posts.docs) {
   const slug = post.slug ?? String(post.id)
-  const root = (post.content as unknown as { root?: Node })?.root
+  const doc = coerceBuilderDoc(post.builder)
 
-  if (root && headings(root) === 0) {
-    noHeadings.push({ slug, words: words(root), minutes: post.readingMinutes ?? 0 })
+  if (headingCount(doc) === 0) {
+    noHeadings.push({ slug, words: wordCount(doc), minutes: post.readingMinutes ?? 0 })
   }
   if (!post.excerpt?.trim()) noExcerpt.push(slug)
   if (!post.author) noAuthor.push(slug)
@@ -78,17 +58,7 @@ const featuredIds = new Set(
 
 const inContentIds = new Set<number>()
 for (const post of posts.docs) {
-  const root = (post.content as unknown as { root?: Node })?.root
-  if (!root) continue
-  const walk = (node: Node) => {
-    if (node.type === 'upload') {
-      const v = node.value as { id?: number } | number | undefined
-      const id = typeof v === 'number' ? v : v?.id
-      if (typeof id === 'number') inContentIds.add(id)
-    }
-    for (const child of node.children ?? []) walk(child)
-  }
-  walk(root)
+  for (const id of collectMediaIds(coerceBuilderDoc(post.builder))) inContentIds.add(id)
 }
 
 // The real gap: an image inside an article whose alt is still just the article's title,

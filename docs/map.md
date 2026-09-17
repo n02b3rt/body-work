@@ -8,7 +8,7 @@ Find the domain, open **only** that file, go straight to the code. Don't grep bl
 |---|---|---|
 | Public site | [`map/public-site.md`](./map/public-site.md) | Centrum pages, section components, error pages |
 | Blog | [`map/blog.md`](./map/blog.md) | listing, posts, category archives, EN versions |
-| Page builder | [`map/page-builder.md`](./map/page-builder.md) | sections, the 16-element library, shared renderers |
+| Page builder | [`map/page-builder.md`](./map/page-builder.md) | the 18-element library, shared renderers |
 | CMS / Payload | [`map/cms-payload.md`](./map/cms-payload.md) | config, 9 collections, 2 globals, the panel |
 | Media | [`map/media.md`](./map/media.md) | uploads, conversion, blur placeholders, video, explorer |
 | Admin panel | [`map/admin-panel.md`](./map/admin-panel.md) | nav tree, dashboard, custom views |
@@ -20,12 +20,11 @@ Find the domain, open **only** that file, go straight to the code. Don't grep bl
 | Admin AI | [`map/admin-ai.md`](./map/admin-ai.md) | Gemini helpers in the dashboard |
 | Package updates | [`map/package-updates.md`](./map/package-updates.md) | Aktualizacje and Biblioteki screens |
 | Scraper | [`map/scraper.md`](./map/scraper.md) | the Centrum reference mirror |
-| Infra and dev | [`map/infra.md`](./map/infra.md) | local setup, config files, scripts, verification |
+| Infra and dev | [`map/infra/index.md`](./map/infra/index.md) | local setup, config files, scripts, deployment |
 | Parallel work | [`map/parallel-work.md`](./map/parallel-work.md) | worktrees, one database and port per agent |
 | Docs and agent config | [`map/agent-config.md`](./map/agent-config.md) | `docs/`, `.claude/`, skills, budgets |
 
-**Found something none of these files list? Add it, in the same change.** A map that lies is worse
-than no map, because the next agent trusts it.
+**Found something none of these files list? Add it, in the same change.** A map that lies is worse than no map.
 
 ---
 
@@ -39,8 +38,8 @@ None of this is in the repo. Don't grep for it, don't assume you missed it.
 - **Akademia (B2B, courses):** nothing, and **no design delivered yet**. Will land under `src/app/[locale]/(akademia)/`.
 - **`/cookies`:** deferred by the client. `/test` and `/podziekowanie` await a client decision.
 - **`/galeria`:** the reference links to a page that **doesn't exist**; the workaround is in `src/lib/external-links.ts`.
-- **E2E tests and browser automation:** none. Unit tests and CI exist; they cover pure functions
-  only, see [`map/infra.md`](./map/infra.md).
+- **E2E tests and browser automation:** none. Unit tests and CI cover pure functions only,
+  see [`map/infra/index.md`](./map/infra/index.md).
 - **Redis, S3, monitoring, analytics:** in the PRD, not in the code. Dev keeps files on disk and the database in Docker.
 
 Built one of these? **Move it out of this section into its domain file**, that's part of "done".
@@ -49,8 +48,8 @@ Built one of these? **Move it out of this section into its domain file**, that's
 
 ## How this map grows
 
-The project will roughly triple when Akademia and the hub land. Two rules keep that from turning
-the map back into a swamp. Follow them mechanically; do not improvise a new shape.
+The project will roughly triple when Akademia and the hub land. Follow these rules mechanically;
+do not improvise a new shape.
 
 **1. Most domains do not multiply per site.** CMS, media, accounts, i18n, SEO, appearance, page
 builder, admin panel, package updates, infra, parallel work and agent config are **shared**: one

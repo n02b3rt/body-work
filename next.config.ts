@@ -9,11 +9,38 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
-/** Dev dashboard host + agent ports — keep in sync with `csrfAndCorsOrigins` in payload.config. */
+/** Dev dashboard host + agent ports: keep in sync with `csrfAndCorsOrigins` in payload.config. */
 const dashboardHost = process.env.DASHBOARD_HOST || "dash.localhost";
+
+/** `allowedOrigins` wants bare hosts, so strip the scheme off a configured URL. */
+function hostOf(url: string | undefined): string | undefined {
+  if (!url) return undefined;
+  try {
+    return new URL(url).host;
+  } catch {
+    return undefined;
+  }
+}
+
+/**
+ * A server action is rejected when the request's `Origin` does not match its `Host`.
+ * Behind a reverse proxy the browser's origin is the public hostname while the app
+ * answers on a container port, so production has to name its own hosts or every save
+ * in the admin fails. Dev keeps the agent port range instead, see docs/parallel-agents.md.
+ */
+const productionActionOrigins = [
+  process.env.NEXT_PUBLIC_SERVER_URL,
+  process.env.NEXT_PUBLIC_DASHBOARD_URL,
+  ...(process.env.PAYLOAD_EXTRA_ORIGINS || "").split(","),
+]
+  .map((value) => hostOf(value?.trim()))
+  .filter((host): host is string => Boolean(host));
+
 const serverActionOrigins =
   process.env.NODE_ENV === "production"
-    ? undefined
+    ? productionActionOrigins.length > 0
+      ? productionActionOrigins
+      : undefined
     : [3000, 3001, 3002, 3003, 3004, 3005].flatMap((port) => [
         `${dashboardHost}:${port}`,
         `localhost:${port}`,
@@ -23,7 +50,7 @@ const serverActionOrigins =
 const nextConfig: NextConfig = {
   serverExternalPackages: ["@ffmpeg-installer/ffmpeg", "fluent-ffmpeg", "sharp"],
   // A running `next dev` owns `.next` and wipes a production build out of it, which is
-  // the same collision `docs/map/infra.md` records for `pnpm start`. Setting this lets a
+  // the same collision `docs/map/infra/index.md` records for `pnpm start`. Setting this lets a
   // build go somewhere else instead of asking whoever is developing to stop:
   //   NEXT_DIST_DIR=.next-build pnpm build && NEXT_DIST_DIR=.next-build pnpm check:perf
   // Unset, it is exactly the Next default, so nobody else's workflow changes.

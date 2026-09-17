@@ -1,31 +1,13 @@
 import type { CollectionConfig } from 'payload'
 
 import { staff } from '@/access/roles'
+import { builderField, componentRefsField } from '@/fields/builder'
 import { metaFields, slugField } from '@/fields/meta'
+import { coerceBuilderDoc, wordCount } from '@/lib/builder/types'
 import { PAYLOAD_DATETIME_FORMAT, PAYLOAD_TIME_FORMAT } from '@/lib/format-date'
 
 /** Words per minute for the "N min" label. 200 is the usual figure for prose. */
 const WORDS_PER_MINUTE = 200
-
-/** Walk a Lexical tree and add up the text. Cheaper and more robust than rendering it:
- * any node carrying a `text` property contributes, whatever its type.
- *
- * Descends through **every** object value, not just `children`: the field's top level is
- * `{ root: { children: [...] } }`, so a walker that only followed `children` stopped at
- * the first hop and always counted zero. */
-function countWords(node: unknown): number {
-  if (Array.isArray(node)) return node.reduce((sum: number, child) => sum + countWords(child), 0)
-  if (node && typeof node === 'object') {
-    const record = node as Record<string, unknown>
-    const own =
-      typeof record.text === 'string' ? record.text.trim().split(/\s+/).filter(Boolean).length : 0
-    return Object.entries(record).reduce(
-      (sum, [key, value]) => (key === 'text' ? sum : sum + countWords(value)),
-      own,
-    )
-  }
-  return 0
-}
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -46,8 +28,8 @@ export const Posts: CollectionConfig = {
     beforeChange: [
       ({ data }) => {
         // Only fill it in when the editor left it blank, so a hand-set value sticks.
-        if (data.readingMinutes == null && data.content) {
-          const words = countWords(data.content)
+        if (data.readingMinutes == null && data.builder) {
+          const words = wordCount(coerceBuilderDoc(data.builder))
           if (words > 0) data.readingMinutes = Math.max(1, Math.round(words / WORDS_PER_MINUTE))
         }
         return data
@@ -94,11 +76,8 @@ export const Posts: CollectionConfig = {
       type: 'textarea',
       label: 'Lead / zajawka',
     },
-    {
-      name: 'content',
-      type: 'richText',
-      label: 'Treść',
-    },
+    builderField(),
+    componentRefsField(),
     {
       name: 'featuredImage',
       type: 'upload',

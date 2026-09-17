@@ -187,4 +187,4 @@ error boundaries that cannot take props from a server parent. `CLIENT_NAMESPACES
 
 ## Related
 
-[`map/infra.md`](./map/infra.md) · [`map/media.md`](./map/media.md) · skill `images-and-video`
+[`map/infra/index.md`](./map/infra/index.md) · [`map/media.md`](./map/media.md) · skill `images-and-video`

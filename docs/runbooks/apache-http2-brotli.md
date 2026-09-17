@@ -114,4 +114,4 @@ on its own.
 
 ## Related
 
-[`../performance.md`](../performance.md) · [`../map/infra.md`](../map/infra.md)
+[`../performance.md`](../performance.md) · [`../map/infra/index.md`](../map/infra/index.md)

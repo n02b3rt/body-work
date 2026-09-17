@@ -49,7 +49,8 @@ Full strategy: [`i18n.md`](./i18n.md).
 |---|---|
 | react-hook-form | Form handling |
 | zod | Validation (forms + API input) |
-| Zustand | Client-side UI state (e.g. cart UI, calendar filters): price/availability is always re-verified server-side regardless of client state |
+| Zustand | Client-side UI state (e.g. cart UI, calendar filters, the page builder's editor store): price/availability is always re-verified server-side regardless of client state |
+| `@dnd-kit` (core, sortable, modifiers, utilities) | Drag-and-drop in the page builder editor (`/edytor`): the library panel, canvas and navigation tree. Already in the dependency tree transitively (`@payloadcms/ui` uses `@dnd-kit/core`/`sortable` for its own `DraggableSortable`); promoted to a direct dependency for the editor's own drag surfaces, which cross an iframe boundary `DraggableSortable` does not support. |
 
 ## Payload plugins
 

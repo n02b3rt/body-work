@@ -114,8 +114,14 @@ const mapText = mapFiles.map(read).join('\n')
 
 const covered = (name) => mapText.includes(name)
 
+// Untracked build artefacts are not the repo's contents, so the map owes them nothing.
+// They exist on any machine that has run `pnpm dev` and never in CI, which made this
+// check impossible to pass locally.
+const NOT_REPO_CONTENT = ['.data', 'next-env.d.ts', 'tsconfig.tsbuildinfo']
+
 for (const entry of fs.readdirSync(ROOT)) {
   if (['.git', 'node_modules', '.next', '.gitignore', 'pnpm-lock.yaml'].includes(entry)) continue
+  if (NOT_REPO_CONTENT.includes(entry)) continue
   if (!covered(entry)) fail(`top-level entry not in the map: ${entry}`)
 }
 

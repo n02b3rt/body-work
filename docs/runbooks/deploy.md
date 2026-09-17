@@ -143,4 +143,4 @@ on the metric this site is short on.
 ## Related
 
 [`../performance.md`](../performance.md) · [`apache-http2-brotli.md`](./apache-http2-brotli.md) ·
-[`create-migrations.md`](./create-migrations.md) · [`../map/infra.md`](../map/infra.md)
+[`create-migrations.md`](./create-migrations.md) · [`../map/infra/deployment.md`](../map/infra/deployment.md)

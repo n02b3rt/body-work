@@ -90,39 +90,15 @@ export const PostTranslations: CollectionConfig = {
       name: 'content',
       type: 'richText',
       label: 'Treść (EN)',
-      admin: {
-        description:
-          'Startuje jako kopia polskiej treści, razem ze zdjęciami i układem. Nadpisz sam tekst, zdjęć nie trzeba wstawiać od nowa ani ruszać.',
-      },
     },
   ],
   hooks: {
-    beforeValidate: [
-      async ({ data, operation, req }) => {
-        if (operation !== 'create' || !data) return data
-        // Only when the editor has not written anything yet.
-        if (data.content || !data.post) return data
-
-        const postId = typeof data.post === 'object' ? data.post?.id : data.post
-        if (!postId) return data
-
-        /**
-         * A new translation opens as a copy of the Polish body.
-         *
-         * Without this the editor starts from an empty rich-text field, and any image the
-         * article had is simply gone from the English version: which is exactly what happened
-         * to the first translation written here. Copying the body means the pictures and the
-         * order of things survive, and translating becomes overwriting text in place.
-         */
-        const post = await req.payload
-          .findByID({ collection: 'posts', id: postId, depth: 0, overrideAccess: true })
-          .catch(() => null)
-
-        if (post?.content) data.content = post.content
-
-        return data
-      },
-    ],
+    // The "start as a copy of the Polish body" behaviour that used to live here depended on
+    // `posts.content` (Lexical richText), which the page-builder rewrite replaced with
+    // `posts.builder` (a JSON tree) — an editor cannot open a JSON tree in a richText field, so
+    // there is nothing correct to copy any more. `docs/page-builder.md` Phase 3 replaces this
+    // whole collection with a translation overlay on `builder` itself; until then a new
+    // translation starts blank, same as any other new document.
   },
   timestamps: true,
 }
