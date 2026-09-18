@@ -7,7 +7,7 @@ One line per entry, newest first. **20 entries maximum**; older ones roll into `
 **An entry exists only when there is a decision or a gotcha the diff doesn't show.**
 "What I did" is `git log`, not this file. Append with `/log`.
 
-Older: [`archive/log-2026-07.md`](./archive/log-2026-07.md) (3 entries, 29 July 2026),
+Older: [`archive/log-2026-07.md`](./archive/log-2026-07.md) (4 entries, 29 July 2026),
 [`archive/ai-notes-2026-07.md`](./archive/ai-notes-2026-07.md) (89 entries, 24–31 July 2026).
 
 ---
@@ -32,6 +32,5 @@ Older: [`archive/log-2026-07.md`](./archive/log-2026-07.md) (3 entries, 29 July 
 - **2026-07-29, media form:** picking a file autofills title/ALT/slug/`kind`. Extra formats come from the sharp + ffmpeg already installed, **no new library**. ⚠ `kind` lost its `defaultValue` because it blocked MIME classification.
 - **2026-07-29, admin copy:** one dry line instead of a tutorial. Rule in `admin-copy.md`. ⚠ Old copy gets fixed opportunistically, no mass rewrite.
 - **2026-07-29, Aktualizacje vs Biblioteki:** Aktualizacje shows only outdated packages, Biblioteki is pure inventory. Shared report, different table modes. ⚠ GitHub tag URLs assume a `v` prefix.
-- **2026-07-29, admin nav:** structure in `nav-tree.ts`, presentation exclusively in `custom.css` (`.bw-nav*`). Active state is background + weight, no border.
 
 > ⚠ **`pnpm lint` is broken on `main` too** (eslint-plugin-react 7.37 vs ESLint 10, fails while linting `eslint.config.mjs`). Not caused by your change; needs its own fix.
