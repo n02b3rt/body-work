@@ -9,8 +9,9 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
-/** Dev dashboard host + agent ports: keep in sync with `csrfAndCorsOrigins` in payload.config. */
+/** Dev dashboard/centrum hosts + agent ports: keep in sync with `csrfAndCorsOrigins` in payload.config. */
 const dashboardHost = process.env.DASHBOARD_HOST || "dash.localhost";
+const centrumHost = process.env.CENTRUM_HOST || "centrum.localhost";
 
 /** `allowedOrigins` wants bare hosts, so strip the scheme off a configured URL. */
 function hostOf(url: string | undefined): string | undefined {
@@ -43,6 +44,7 @@ const serverActionOrigins =
       : undefined
     : [3000, 3001, 3002, 3003, 3004, 3005].flatMap((port) => [
         `${dashboardHost}:${port}`,
+        `${centrumHost}:${port}`,
         `localhost:${port}`,
         `127.0.0.1:${port}`,
       ]);

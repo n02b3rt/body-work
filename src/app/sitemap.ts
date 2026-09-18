@@ -16,8 +16,10 @@ import { SITE_URL, localePath } from "@/lib/metadata";
  */
 
 /** Real pages that still don't belong in a sitemap. `/newsletter` only ever renders the
- *  result of clicking a link in an email, and carries `robots: noindex` to match. */
-const EXCLUDED = new Set(["/newsletter"]);
+ *  result of clicking a link in an email, and carries `robots: noindex` to match. `/hub` is
+ *  Centrum's own sitemap picking up the hub site's landing page: its real canonical URL is a
+ *  different host's `/`, reached only through `proxy.ts`'s host rewrite, see `docs/sites.md`. */
+const EXCLUDED = new Set(["/newsletter", "/hub"]);
 
 type StaticRoute = { route: string; lastModified: Date };
 
@@ -38,8 +40,15 @@ async function staticRoutes(): Promise<StaticRoute[]> {
     }
     for (const entry of entries) {
       if (!entry.isDirectory()) continue;
-      // Skip dynamic segments and route groups.
-      if (entry.name.startsWith("[") || entry.name.startsWith("(")) continue;
+      // Dynamic segments have their real URLs come from the CMS instead: skip them.
+      if (entry.name.startsWith("[")) continue;
+      // Route groups don't add a URL segment, so recurse into them under the *same* route
+      // rather than skipping them outright, or every route inside one (all of Centrum, once
+      // it moved into `(centrum)/`) would silently vanish from the sitemap.
+      if (entry.name.startsWith("(")) {
+        await walk(path.join(dir, entry.name), route);
+        continue;
+      }
       await walk(path.join(dir, entry.name), `${route}/${entry.name}`);
     }
   }

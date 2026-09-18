@@ -36,4 +36,4 @@ Which live URL maps to which folder, plus the verified brand colours, breakpoint
 ## Related
 
 Skill `centrum-fidelity` · [`../scraped-site-map.md`](../scraped-site-map.md) ·
-[`../migration-tracker.md`](../migration-tracker.md) · [`public-site.md`](./public-site.md)
+[`../migration-tracker.md`](../migration-tracker.md) · [`public-site/centrum.md`](./public-site/centrum.md)

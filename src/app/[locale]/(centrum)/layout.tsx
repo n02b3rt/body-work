@@ -10,7 +10,7 @@ import { Footer } from "@/components/centrum/Footer";
 import { PromoBar } from "@/components/centrum/PromoBar";
 import { getThemeCss } from "@/lib/get-theme-colors";
 import { localBusinessJsonLd } from "@/lib/structured-data";
-import "../globals.css";
+import "../../globals.css";
 
 // Temporary stand-in for the real typeface (Circular Pro Book, a paid Lineto
 // font found in the scrape's @font-face rules) pending a licensing decision,

@@ -24,6 +24,7 @@ export const CLIENT_NAMESPACES = [
   // inside the admin panel, which has no next-intl provider. `Carousel` stays,
   // the hand-built carousels on the coded pages still read it.
   "Header",
+  "Hub",
   "Nav",
   "News",
   "Newsletter",

@@ -6,7 +6,7 @@ Find the domain, open **only** that file, go straight to the code. Don't grep bl
 
 | Domain | File | Covers |
 |---|---|---|
-| Public site | [`map/public-site.md`](./map/public-site.md) | Centrum pages, section components, error pages |
+| Public site | [`map/public-site/index.md`](./map/public-site/index.md) | Hub and Centrum: pages, section components, error pages |
 | Blog | [`map/blog.md`](./map/blog.md) | listing, posts, category archives, EN versions |
 | Page builder | [`map/page-builder.md`](./map/page-builder.md) | the 18-element library, shared renderers |
 | CMS / Payload | [`map/cms-payload.md`](./map/cms-payload.md) | config, 9 collections, 2 globals, the panel |
@@ -34,7 +34,6 @@ None of this is in the repo. Don't grep for it, don't assume you missed it.
 
 - **Payments, cart, orders, Przelewy24:** no code at all. Data model: [`prd/06-dane-api.md`](./prd/06-dane-api.md),
   env and security: [`prd/07-bezpieczenstwo.md`](./prd/07-bezpieczenstwo.md). Account helpers ready to reuse: `src/lib/users/`.
-- **The `body-work.pl` hub:** nothing. Will land under `src/app/[locale]/(hub)/`, see [`sites.md`](./sites.md).
 - **Akademia (B2B, courses):** nothing, and **no design delivered yet**. Will land under `src/app/[locale]/(akademia)/`.
 - **`/cookies`:** deferred by the client. `/test` and `/podziekowanie` await a client decision.
 - **`/galeria`:** the reference links to a page that **doesn't exist**; the workaround is in `src/lib/external-links.ts`.
@@ -48,8 +47,8 @@ Built one of these? **Move it out of this section into its domain file**, that's
 
 ## How this map grows
 
-The project will roughly triple when Akademia and the hub land. Follow these rules mechanically;
-do not improvise a new shape.
+The project will grow further still when Akademia lands. Follow these rules mechanically; do not
+improvise a new shape.
 
 **1. Most domains do not multiply per site.** CMS, media, accounts, i18n, SEO, appearance, page
 builder, admin panel, package updates, infra, parallel work and agent config are **shared**: one
@@ -58,13 +57,14 @@ components ([`prd/04-architektura.md`](./prd/04-architektura.md) §7.2), and the
 library is the reason.
 
 **2. Exactly three domains multiply**: public site, blog, newsletter. When a second site's routes
-enter one of them, split that file into a folder, and only then:
+enter one of them, split that file into a folder. Already done for public site, when the hub landed:
 
 ```
 docs/map/public-site.md
-  ->  docs/map/public-site/index.md     what all sites share (primitives, error pages, patterns)
+  ->  docs/map/public-site/index.md     what both sites share (primitives, error pages, patterns)
       docs/map/public-site/centrum.md
-      docs/map/public-site/akademia.md
+      docs/map/public-site/hub.md
+      docs/map/public-site/akademia.md  (once Akademia has a first real route)
 ```
 
 The row in the table above then points at `index.md`, which links to its siblings.
