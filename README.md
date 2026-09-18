@@ -25,10 +25,12 @@ pnpm dev
 ```
 
 Copy `.env.example` to `.env` first. The variables that must be set:
-`DATABASE_URL`, `PAYLOAD_SECRET`, `NEXT_PUBLIC_SERVER_URL`, `NEXT_PUBLIC_DASHBOARD_URL`, `DASHBOARD_HOST`.
+`DATABASE_URL`, `PAYLOAD_SECRET`, `NEXT_PUBLIC_SERVER_URL`, `NEXT_PUBLIC_CENTRUM_URL`,
+`NEXT_PUBLIC_DASHBOARD_URL`, `DASHBOARD_HOST`, `CENTRUM_HOST`.
 Optional: `RESEND_API_KEY` (without it mail is logged, not sent) and `GEMINI_API_KEY` (admin AI helpers).
 
-- Public site: `http://localhost:3000`
+- Hub (landing page): `http://localhost:3000`
+- Centrum: `http://centrum.localhost:3000`
 - Admin: `http://dash.localhost:3000`. **Public hosts return a plain 404 for `/admin`**, by design.
 
 Keep the port in `.env` matching the one you pass to `pnpm dev`, or admin saves fail CSRF.

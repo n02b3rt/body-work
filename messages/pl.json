@@ -1788,5 +1788,22 @@
     "usefulLinks": "Przydatne strony",
     "errorReference": "Numer zgłoszenia",
     "globalTitle": "Błąd | BODYWORK Centrum"
+  },
+  "Hub": {
+    "logoAlt": "Logo BODYWORK",
+    "languageSwitch": "EN",
+    "metaTitle": "BODYWORK",
+    "metaDescription": "BODYWORK: centrum treningu personalnego i fizjoterapii, akademia szkoleniowa dla specjalistów oraz Alfabet Ruchu, platforma edukacji online.",
+    "missionHeading": "Centrum pracy z ciałem",
+    "missionBody": "Łączymy trening, fizjoterapię i dietetykę, aby poprawić Twoje zdrowie, sprawność i komfort życia – a specjalistów branży uczymy tego samego podejścia na naszych szkoleniach.",
+    "cta": "Przejdź na stronę",
+    "centrumHeading": "Centrum BODYWORK",
+    "centrumBody": "Centrum pracy z ciałem: łączymy trening, fizjoterapię i dietetykę, aby poprawić Twoje zdrowie, sprawność i komfort życia.",
+    "akademiaHeading": "Akademia Szkoleniowa",
+    "akademiaBody": "Szkolenia stacjonarne dla specjalistów, z naciskiem na praktyczne zastosowanie wiedzy w codziennej pracy z klientem.",
+    "alfabetRuchuHeading": "Alfabet Ruchu",
+    "alfabetRuchuBody": "Platforma edukacji online, rozwijająca kompetencje zawodowe w oparciu o aktualną, praktyczną wiedzę.",
+    "footerCopy": "Centrum pracy z ciałem w Poznaniu.",
+    "copyright": "© {year} BODYWORK"
   }
 }

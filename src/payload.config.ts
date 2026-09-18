@@ -30,6 +30,7 @@ const dashboardURL =
   process.env.NEXT_PUBLIC_DASHBOARD_URL || 'http://dash.localhost:3000'
 const publicURL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 const dashboardHost = process.env.DASHBOARD_HOST || 'dash.localhost'
+const centrumHost = process.env.CENTRUM_HOST || 'centrum.localhost'
 
 /**
  * Additional trusted origins, comma separated, as full URLs.
@@ -58,6 +59,7 @@ function csrfAndCorsOrigins(): string[] {
   if (process.env.NODE_ENV !== 'production') {
     for (const port of [3000, 3001, 3002, 3003, 3004, 3005]) {
       origins.add(`http://${dashboardHost}:${port}`)
+      origins.add(`http://${centrumHost}:${port}`)
       origins.add(`http://localhost:${port}`)
       origins.add(`http://127.0.0.1:${port}`)
     }

@@ -5,11 +5,17 @@ import { routing } from "./i18n/routing";
 
 /** The dashboard lives on its own host, see docs/sites.md. */
 const DEFAULT_DASHBOARD_HOST = "dash.localhost";
+/** Centrum's own host; everything else non-dashboard falls through to the hub, see docs/sites.md. */
+const DEFAULT_CENTRUM_HOST = "centrum.localhost";
 
 const handleI18n = createMiddleware(routing);
 
 function dashboardHost() {
   return (process.env.DASHBOARD_HOST || DEFAULT_DASHBOARD_HOST).toLowerCase();
+}
+
+function centrumHost() {
+  return (process.env.CENTRUM_HOST || DEFAULT_CENTRUM_HOST).toLowerCase();
 }
 
 function hostnameOf(request: NextRequest) {
@@ -34,6 +40,19 @@ function isBuilderPath(pathname: string) {
 
 function isApiPath(pathname: string) {
   return pathname === "/api" || pathname.startsWith("/api/");
+}
+
+/** Plain 404, not a redirect, so a gated host never leaks another host's shape. */
+function notFound() {
+  return new NextResponse("Not Found", {
+    status: 404,
+    headers: { "content-type": "text/plain; charset=utf-8" },
+  });
+}
+
+/** The hub's one screen, on any host that isn't the dashboard or Centrum. */
+function isHubHomePath(pathname: string) {
+  return pathname === "/" || pathname === "/en" || pathname === "/en/";
 }
 
 /**
@@ -73,10 +92,7 @@ export default function proxy(request: NextRequest) {
   // Public hosts get a plain 404 for the admin and the builder, not a redirect,
   // which would leak the dashboard hostname.
   if (isAdminPath(pathname) || isBuilderPath(pathname)) {
-    return new NextResponse("Not Found", {
-      status: 404,
-      headers: { "content-type": "text/plain; charset=utf-8" },
-    });
+    return notFound();
   }
 
   // Payload's REST/GraphQL and its upload files must not be locale-rewritten.
@@ -84,7 +100,25 @@ export default function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  return handleI18n(request);
+  // Centrum host: its tree lives at `(centrum)/`, a route group, so every path is unchanged.
+  if (hostnameOf(request) === centrumHost()) {
+    return handleI18n(request);
+  }
+
+  // Every other host is the hub: one screen at `/`, invisibly rewritten to the real `hub`
+  // segment (route groups can't share a path across hosts, see docs/decisions.md), same
+  // trick as the dashboard's own `/` → `/admin` rewrite above. Anything else 404s, so this
+  // host can never fall through to Centrum's full route tree.
+  if (!isHubHomePath(pathname)) {
+    return notFound();
+  }
+  request.nextUrl.pathname = pathname === "/" ? "/hub" : "/en/hub";
+  const response = handleI18n(request);
+  // next-intl builds its `hreflang` alternates from the pathname it was handed, which here is
+  // the rewritten `/hub`: an address that 404s on this host, so advertising it to crawlers is
+  // worse than saying nothing. The page's own `generateMetadata` emits the real pair instead.
+  response.headers.delete("link");
+  return response;
 }
 
 export const config = {

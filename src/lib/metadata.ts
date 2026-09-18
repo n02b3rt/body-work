@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import { routing } from "@/i18n/routing";
 
-/** Public origin. Absolute URLs are required for Open Graph, a relative `og:image` is
- * ignored by every crawler. */
-export const SITE_URL = (process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000").replace(
-  /\/$/,
-  "",
-);
+/**
+ * Centrum's own origin, not the app's: `NEXT_PUBLIC_SERVER_URL` is the bare host, which the
+ * hub now owns (see docs/sites.md). Everything in this file (canonical URLs, OG tags,
+ * `sitemap.ts`, `structured-data.ts`) is exclusively a Centrum concern, so it reads
+ * `NEXT_PUBLIC_CENTRUM_URL` instead. Absolute URLs are required for Open Graph, a relative
+ * `og:image` is ignored by every crawler.
+ */
+export const SITE_URL = (
+  process.env.NEXT_PUBLIC_CENTRUM_URL || "http://centrum.localhost:3000"
+).replace(/\/$/, "");
 
 export const SITE_NAME = "BODYWORK Centrum";
 

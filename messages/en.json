@@ -1782,5 +1782,22 @@
     "usefulLinks": "Useful pages",
     "errorReference": "Reference",
     "globalTitle": "Error | BODYWORK Centrum"
+  },
+  "Hub": {
+    "logoAlt": "BODYWORK logo",
+    "languageSwitch": "PL",
+    "metaTitle": "BODYWORK",
+    "metaDescription": "BODYWORK: a personal training and physiotherapy centre, a training academy for professionals, and Alfabet Ruchu, an online education platform.",
+    "missionHeading": "A centre for working with the body",
+    "missionBody": "We combine training, physiotherapy and dietetics to improve your health, fitness and comfort, and we teach the same approach to industry professionals on our courses.",
+    "cta": "Go to the site",
+    "centrumHeading": "Centrum BODYWORK",
+    "centrumBody": "A centre for working with the body: we combine training, physiotherapy and dietetics to improve your health, fitness and comfort.",
+    "akademiaHeading": "Training Academy",
+    "akademiaBody": "In-person courses for professionals, focused on putting the knowledge to practical use in everyday client work.",
+    "alfabetRuchuHeading": "Alfabet Ruchu",
+    "alfabetRuchuBody": "An online education platform, developing professional competencies from current, practical knowledge.",
+    "footerCopy": "A centre for working with the body, in Poznań.",
+    "copyright": "© {year} BODYWORK"
   }
 }

@@ -66,4 +66,4 @@ skipped there because their real URLs come from the CMS.
   also needs `src/i18n/client-namespaces.ts`: see the `i18n-messages` skill.
 - Images: `sizes` on every one, `priority` on the hero only. See the `images-and-video` skill.
 - A Centrum page also needs its row in `docs/migration-tracker.md` and the `centrum-fidelity` skill.
-- Add the route to `docs/map/public-site.md`, then run `pnpm check:docs`.
+- Add the route to `docs/map/public-site/centrum.md` or `hub.md` (whichever site it's on), then run `pnpm check:docs`.

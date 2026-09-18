@@ -21,9 +21,9 @@ pnpm dev
 
 - Database: `docker-compose.yml` → `localhost:5432`, DB `bodywork`
 - Environment: copy `.env.example`. Required: `DATABASE_URL`, `PAYLOAD_SECRET`,
-  `NEXT_PUBLIC_SERVER_URL`, `NEXT_PUBLIC_DASHBOARD_URL`, `DASHBOARD_HOST`.
-  Optional: `RESEND_API_KEY`, `GEMINI_API_KEY`
-- Public site `http://localhost:3000`, admin `http://dash.localhost:3000`
+  `NEXT_PUBLIC_SERVER_URL`, `NEXT_PUBLIC_CENTRUM_URL`, `NEXT_PUBLIC_DASHBOARD_URL`,
+  `DASHBOARD_HOST`, `CENTRUM_HOST`. Optional: `RESEND_API_KEY`, `GEMINI_API_KEY`
+- Hub `http://localhost:3000`, Centrum `http://centrum.localhost:3000`, admin `http://dash.localhost:3000`
 
 ## Config files
 

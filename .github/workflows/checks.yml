@@ -77,8 +77,10 @@ jobs:
       DATABASE_URL: postgresql://payload:payload@localhost:5432/bodywork
       PAYLOAD_SECRET: ci-only-never-used-to-serve-anything
       NEXT_PUBLIC_SERVER_URL: http://localhost:3000
+      NEXT_PUBLIC_CENTRUM_URL: http://centrum.localhost:3000
       NEXT_PUBLIC_DASHBOARD_URL: http://dash.localhost:3000
       DASHBOARD_HOST: dash.localhost
+      CENTRUM_HOST: centrum.localhost
       NEXT_TELEMETRY_DISABLED: '1'
 
     steps:

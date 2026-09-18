@@ -32,8 +32,10 @@ Status (2026-08-01):
 - **Payload:** nine collections (`Users`, `Media`, `Pages`, `Posts`, `Categories`, `Authors`,
   `PostTranslations`, `Subscribers`, `SiteComponents`), two globals (`SiteSettings`, `ThemeColors`),
   and a page builder whose elements render both the admin canvas and the site.
-- **Not done:** marketing copy still lives in `messages/*.json`, not in Payload. Hub and Akademia are
-  not started. The rest of what does not exist is listed in [`map.md`](./map.md).
+- **Hub:** one landing page, `src/app/[locale]/hub/`, reachable on its own host via a `proxy.ts`
+  rewrite (see the Gotcha in [`sites.md`](./sites.md)). Akademia is still not started.
+- **Not done:** marketing copy still lives in `messages/*.json`, not in Payload. The rest of what
+  does not exist is listed in [`map.md`](./map.md).
 
 ## Main modules
 
@@ -42,7 +44,7 @@ Status (2026-08-01):
 | Public frontend | Locale-aware pages/layouts, marketing UI | `src/app/[locale]/` |
 | i18n config | next-intl routing, request config, locale-aware navigation | `src/i18n/` |
 | UI translations | PL/EN message catalogs | `messages/` |
-| Host + locale routing | One proxy: dashboard-host gating, then next-intl (Next.js 16 renamed `middleware.ts` → `proxy.ts`, see Gotchas) | `src/proxy.ts` |
+| Host + locale routing | One proxy: dashboard-host gating, then `CENTRUM_HOST` vs. the hub's own one-screen rewrite, then next-intl (Next.js 16 renamed `middleware.ts` → `proxy.ts`, see Gotchas) | `src/proxy.ts` |
 | UI primitives | Container (the max-width fix), Button, SectionHeading | `src/components/ui/` |
 | Centrum components | Header, Footer, Hero, PromoBar, and the other section blocks | `src/components/centrum/` |
 | Payload CMS | Admin UI, REST/GraphQL, auth, uploads | `src/app/(payload)/`, `src/payload.config.ts`, `src/collections/`, `src/globals/` |
@@ -74,8 +76,8 @@ Status (2026-08-01):
 
 - **Centrum design reference:** `https://bodywork.testowe.eu`: mirrored by `scripts/scrape/scrape_site.py`; itself a page-builder export, not final design (PRD §6.2): treat as structural/visual reference only.
 - **Akademia design:** not yet delivered, see [`sites.md`](./sites.md) and PRD §6.3/§15 (top schedule risk).
-- **Payload CMS:** in-process; admin **only** at `NEXT_PUBLIC_DASHBOARD_URL` (dev: `http://dash.localhost:3000`); env: `DATABASE_URL`, `PAYLOAD_SECRET`, `NEXT_PUBLIC_SERVER_URL`, `NEXT_PUBLIC_DASHBOARD_URL`, `DASHBOARD_HOST`.
+- **Payload CMS:** in-process; admin **only** at `NEXT_PUBLIC_DASHBOARD_URL` (dev: `http://dash.localhost:3000`); env: `DATABASE_URL`, `PAYLOAD_SECRET`, `NEXT_PUBLIC_SERVER_URL` (the hub's own URL), `NEXT_PUBLIC_CENTRUM_URL`, `NEXT_PUBLIC_DASHBOARD_URL`, `DASHBOARD_HOST`, `CENTRUM_HOST`.
 - **PostgreSQL 16:** local via Docker Compose; production intended on the same Hetzner VPS as the Node app.
-- **Host proxy:** [`src/proxy.ts`](../src/proxy.ts): dashboard host rewrites `/` → `/admin`; non-dashboard hosts return 404 for `/admin`; everything else is handed to next-intl.
+- **Host proxy:** [`src/proxy.ts`](../src/proxy.ts): dashboard host rewrites `/` → `/admin`; non-dashboard hosts return 404 for `/admin`; `CENTRUM_HOST` falls through to Centrum's `(centrum)/` route group unchanged; every other host is the hub, its `/` (and `/en`) rewritten to the real `hub` segment, anything else 404s (see the Gotcha in [`sites.md`](./sites.md)).
 - **next-intl:** public site strings in `messages/*.json`; config in `src/i18n/`.
 - Payments, email, calendar, e-commerce, and infra integrations, see [`stack.md`](./stack.md) and PRD §7/§9/§11: none wired up yet.
