@@ -133,4 +133,4 @@ Content and uploads live in the datasets, not the image, so they survive the swa
 
 ## Related
 
-[`create-migrations.md`](./create-migrations.md) - [`../map/infra.md`](../map/infra.md)
+[`create-migrations.md`](./create-migrations.md) - [`../map/infra/deployment.md`](../map/infra/deployment.md)

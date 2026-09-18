@@ -113,7 +113,7 @@ export function Header() {
        * full-bleeds its background/borders but never its actual content. */}
       <div className="relative border-b border-brand-navy-soft" onMouseLeave={() => setHoveredHref(null)}>
         <Container className="flex h-[65px] items-center justify-between gap-4">
-          <Link href="/" className="relative z-10 block shrink-0">
+          <Link prefetch={false} href="/" className="relative z-10 block shrink-0">
             {/* Below the nav breakpoint there's no room for the fixed-width flip
              * slot, so the compact logo stands on its own there. */}
             {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG wordmark, no raster optimization needed */}
@@ -130,7 +130,7 @@ export function Header() {
                 </span>
                 <span className="absolute inset-0 flex items-center [backface-visibility:hidden] [transform:rotateX(180deg)]">
                   {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG wordmark */}
-                  <img src="/icons/logo.svg" width={336} height={46} alt="" className="h-6 w-auto" />
+                  <img src="/icons/logo.svg" width={336} height={46} loading="lazy" alt="" className="h-6 w-auto" />
                 </span>
               </span>
             </span>
@@ -141,7 +141,7 @@ export function Header() {
            * reference does the same (`e:ph2` → `xo:ph3` at 1480px). */}
           <nav className="hidden h-full flex-1 items-stretch justify-end nav:flex">
             {navItems.map((item) => (
-              <Link
+              <Link prefetch={false}
                 key={item.href}
                 href={item.href}
                 onMouseEnter={() => setHoveredHref(item.href)}
@@ -208,18 +208,19 @@ export function Header() {
                   className="group relative block h-7 w-7 shrink-0"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG icon */}
-                  <img src={social.icon} alt="" className="h-7 w-7 transition-opacity group-hover:opacity-0" />
+                  <img src={social.icon} alt="" loading="lazy" className="h-7 w-7 transition-opacity group-hover:opacity-0" />
                   {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG icon */}
                   <img
                     src={social.hoverIcon}
                     alt=""
+                    loading="lazy"
                     className="absolute inset-0 h-7 w-7 opacity-0 transition-opacity group-hover:opacity-100"
                   />
                 </a>
               ))}
             </div>
 
-            <Link
+            <Link prefetch={false}
               href={pathname}
               locale={otherLocale}
               className="ml-4 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-brand-navy-soft text-label font-light uppercase text-brand-navy hover:opacity-70"
@@ -271,7 +272,7 @@ export function Header() {
                   />
                 </a>
               ) : (
-                <Link key={child.href} href={child.href} className={cn(className, "group")} style={style}>
+                <Link prefetch={false} key={child.href} href={child.href} className={cn(className, "group")} style={style}>
                   {label}
                   <span
                     aria-hidden
@@ -297,7 +298,7 @@ export function Header() {
               compact ? "opacity-0" : "opacity-100",
             )}
           >
-            <Link href="/" className="shrink-0">
+            <Link prefetch={false} href="/" className="shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG wordmark, no raster optimization needed */}
               <img src="/icons/logo.svg" width={336} height={46} alt={tHeader("logoAlt")} className="h-9 w-auto sm:h-11" />
             </Link>
@@ -305,7 +306,7 @@ export function Header() {
               <a href={ACADEMY_URL} target="_blank" rel="noopener noreferrer" className={buttonClasses("brand")}>
                 {tServices("academy")}
               </a>
-              <Link href="/kontakt" className={buttonClasses("outline")}>
+              <Link prefetch={false} href="/kontakt" className={buttonClasses("outline")}>
                 {tNav("contact")}
               </Link>
             </div>

@@ -265,7 +265,7 @@ export function BlogList({
                   // Decorative: the title is right beside it as real text.
                   alt=""
                   fill
-                  priority
+                  fetchPriority="high"
                   sizes="(min-width: 1060px) 50vw, 100vw"
                   className="object-cover"
                   {...(featured.image.blurDataURL

@@ -20,7 +20,7 @@ Find the domain, open **only** that file, go straight to the code. Don't grep bl
 | Admin AI | [`map/admin-ai.md`](./map/admin-ai.md) | Gemini helpers in the dashboard |
 | Package updates | [`map/package-updates.md`](./map/package-updates.md) | Aktualizacje and Biblioteki screens |
 | Scraper | [`map/scraper.md`](./map/scraper.md) | the Centrum reference mirror |
-| Infra and dev | [`map/infra.md`](./map/infra.md) | local setup, config files, scripts, verification |
+| Infra and dev | [`map/infra/index.md`](./map/infra/index.md) | local setup, config files, scripts, deployment |
 | Parallel work | [`map/parallel-work.md`](./map/parallel-work.md) | worktrees, one database and port per agent |
 | Docs and agent config | [`map/agent-config.md`](./map/agent-config.md) | `docs/`, `.claude/`, skills, budgets |
 
@@ -38,7 +38,7 @@ None of this is in the repo. Don't grep for it, don't assume you missed it.
 - **`/cookies`:** deferred by the client. `/test` and `/podziekowanie` await a client decision.
 - **`/galeria`:** the reference links to a page that **doesn't exist**; the workaround is in `src/lib/external-links.ts`.
 - **E2E tests and browser automation:** none. Unit tests and CI cover pure functions only,
-  see [`map/infra.md`](./map/infra.md).
+  see [`map/infra/index.md`](./map/infra/index.md).
 - **Redis, S3, monitoring, analytics:** in the PRD, not in the code. Dev keeps files on disk and the database in Docker.
 
 Built one of these? **Move it out of this section into its domain file**, that's part of "done".

@@ -14,6 +14,8 @@ Two sites share `src/app/[locale]/`, split by request host in `src/proxy.ts` (se
 
 `src/components/ui/`: `Container` (the 1440px width cap), `Button`, `SectionHeading`. Both sites use
 these as-is; reuse before adding a new one, see [`../../conventions.md`](../../conventions.md).
+`use-scroll-carousel.ts` sits alongside them but only Centrum and the builder read it: it is the
+scroll-snap behaviour behind `NewsCarousel`, `TestimonialCarousel` and the builder's `CarouselView`.
 
 ## Shared gotchas
 

@@ -25,6 +25,9 @@ import ffmpeg from '@ffmpeg-installer/ffmpeg'
 const SOURCE = process.argv[2] ?? 'public/videos/hero-source.mp4'
 const OUT_DIR = 'public/videos'
 const POSTER = 'public/images/home/hero-poster.webp'
+// The source is 24.93 fps. Every encode was defaulting to 30, inventing frames that cost bytes
+// and show nothing, so every rung is pinned to the source's own rate.
+const FPS = '24'
 
 if (!fs.existsSync(SOURCE)) {
   console.error(`No source at ${SOURCE}. Pass the path to the original as the first argument.`)
@@ -51,6 +54,7 @@ run([
   '-an',
   '-c:v', 'libx264', '-preset', 'slow', '-crf', '26',
   '-pix_fmt', 'yuv420p', '-movflags', '+faststart',
+  '-r', FPS,
   '-vf', 'scale=1280:-2',
   path.join(OUT_DIR, 'hero.mp4'),
 ])
@@ -61,28 +65,55 @@ run([
   '-an',
   '-c:v', 'libvpx-vp9', '-crf', '36', '-b:v', '0',
   '-row-mt', '1', '-deadline', 'good', '-cpu-used', '3',
+  '-r', FPS,
   '-vf', 'scale=1280:-2',
   path.join(OUT_DIR, 'hero.webm'),
 ])
 console.log(`vp9  ${path.join(OUT_DIR, 'hero.webm')}: ${kb(path.join(OUT_DIR, 'hero.webm'))}`)
 
-// A 720px pair for phones, picked by `media` on the `<source>`. A 390px-wide section has no use
-// for a 1280px encode: 733KB against 1736KB.
-run([
-  '-i', SOURCE,
-  '-an',
-  '-c:v', 'libvpx-vp9', '-crf', '40', '-b:v', '0',
-  '-row-mt', '1', '-deadline', 'good', '-cpu-used', '3',
-  '-vf', 'scale=720:-2',
-  path.join(OUT_DIR, 'hero-sm.webm'),
-])
-run([
-  '-i', SOURCE,
-  '-an',
-  '-c:v', 'libx264', '-preset', 'slow', '-crf', '29',
-  '-pix_fmt', 'yuv420p', '-movflags', '+faststart',
-  '-vf', 'scale=720:-2',
-  path.join(OUT_DIR, 'hero-sm.mp4'),
-])
-console.log(`vp9  720px: ${kb(path.join(OUT_DIR, 'hero-sm.webm'))}`)
-console.log(`h264 720px: ${kb(path.join(OUT_DIR, 'hero-sm.mp4'))}`)
+/**
+ * Two narrower pairs, picked by `media` on the `<source>`. Three rungs rather than two, because
+ * with only 640px and 1280px a tablet at 800px was being handed the desktop encode.
+ *
+ * The phone rung is the one that matters: it is the LCP element on the homepage, so its first
+ * frame is the metric. It was 736KB at 720px, CRF 40, **30 fps**, and the source is 24.93 fps,
+ * so a third of those frames were interpolated from nothing. Measured, from the same source:
+ *
+ *   720px crf40 24fps   720KB   dropping the invented frames alone buys ~2%
+ *   540px crf40 24fps   528KB   -28%
+ *   540px crf46 24fps   372KB   -49%   <- shipped
+ *
+ * 540px covers a 412px viewport at better than 1:1, and the footage is fast motion with heavy
+ * natural blur, which is exactly what a high CRF hides in. Raise the CRF before the resolution
+ * if this ever needs to get smaller again.
+ */
+const TIERS = [
+  { name: 'sm', width: 540, vp9: '46', h264: '32' },
+  { name: 'md', width: 720, vp9: '42', h264: '30' },
+]
+
+for (const tier of TIERS) {
+  const webm = path.join(OUT_DIR, `hero-${tier.name}.webm`)
+  const mp4 = path.join(OUT_DIR, `hero-${tier.name}.mp4`)
+
+  run([
+    '-i', SOURCE,
+    '-an',
+    '-c:v', 'libvpx-vp9', '-crf', tier.vp9, '-b:v', '0',
+    '-row-mt', '1', '-deadline', 'good', '-cpu-used', '3',
+    '-r', FPS,
+    '-vf', `scale=${tier.width}:-2`,
+    webm,
+  ])
+  run([
+    '-i', SOURCE,
+    '-an',
+    '-c:v', 'libx264', '-preset', 'slow', '-crf', tier.h264,
+    '-pix_fmt', 'yuv420p', '-movflags', '+faststart',
+    '-r', FPS,
+    '-vf', `scale=${tier.width}:-2`,
+    mp4,
+  ])
+  console.log(`vp9  ${tier.width}px: ${kb(webm)}`)
+  console.log(`h264 ${tier.width}px: ${kb(mp4)}`)
+}
