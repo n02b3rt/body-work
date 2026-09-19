@@ -1785,18 +1785,78 @@
   },
   "Hub": {
     "logoAlt": "BODYWORK logo",
+    "homeLabel": "BODYWORK, home",
     "languageSwitch": "PL",
-    "metaTitle": "BODYWORK",
+    "languageSwitchLabel": "Wersja polska",
+    "skipToContent": "Skip to content",
+    "metaTitle": "BODYWORK Poznań. Health and movement centre. Training, physiotherapy, dietetics",
     "metaDescription": "BODYWORK: a personal training and physiotherapy centre, a training academy for professionals, and Alfabet Ruchu, an online education platform.",
+    "nav": {
+      "label": "Page sections",
+      "about": "About us",
+      "training": "Training centre",
+      "contact": "Contact"
+    },
+    "hero": {
+      "heading": "Your body is your friend.",
+      "lines": [
+        "It supports you when you use it the right way.",
+        "It gets in your way when you work against its nature.",
+        "At its core, it is a perfect thing."
+      ],
+      "imageAlt": "A group of BODYWORK clients holding a plank, seen from above in the training hall"
+    },
     "missionHeading": "A centre for working with the body",
     "missionBody": "We combine training, physiotherapy and dietetics to improve your health, fitness and comfort, and we teach the same approach to industry professionals on our courses.",
     "cta": "Go to the site",
     "centrumHeading": "Centrum BODYWORK",
     "centrumBody": "A centre for working with the body: we combine training, physiotherapy and dietetics to improve your health, fitness and comfort.",
+    "centrumImageAlt": "A BODYWORK coach doing a medicine ball exercise in the training hall",
     "akademiaHeading": "Training Academy",
     "akademiaBody": "In-person courses for professionals, focused on putting the knowledge to practical use in everyday client work.",
+    "akademiaImageAlt": "A BODYWORK Academy instructor giving a lecture",
     "alfabetRuchuHeading": "Alfabet Ruchu",
     "alfabetRuchuBody": "An online education platform, developing professional competencies from current, practical knowledge.",
+    "alfabetRuchuImageAlt": "A woman lifting a barbell in front of a board of drawn movement patterns",
+    "about": {
+      "heading": "About us",
+      "body": [
+        "BODYWORK is a place where we take a comprehensive approach to health – through movement, modern physiotherapy and a well-chosen diet.",
+        "If you want to look after your health and fitness in a friendly atmosphere, away from crowded places and under the eye of professional coaches, we are the ideal choice for you."
+      ],
+      "whyHeading": "Why movement?",
+      "whyBody": [
+        "Movement is the main tool at BODYWORK. We train movement, not muscles, because that is how we develop physical fitness and support health. At first your body goes through many changes. Your range of motion and movement patterns improve. This frees you from discomfort or soreness and gives you more freedom to move.",
+        "Next, the muscles themselves get stronger and you build muscular strength. Once your technique in the basic exercises is right, we throw you in at the deep end. You discover new planes of movement and explore the limits of what you can do. Training becomes an adventure that pushes your body to keep adapting."
+      ],
+      "imageAlt": "BODYWORK group class participants in a circle, holding a plank"
+    },
+    "training": {
+      "heading": "Training centre",
+      "body": [
+        "We don't only help our Clients regain full fitness, we are also very happy to share our knowledge with other professionals. We run courses for new and professional coaches and physiotherapists.",
+        "We specialise in functional training, medical training and strength and conditioning for sport. We run our courses in Poznań and Warsaw. We are also the authors of the modern online course “Alfabet Ruchu” and the organisers of “Movementors”, a convention for movement mentors.",
+        "We hold REPs accreditation, which entitles coaches to take up work abroad."
+      ]
+    },
+    "contact": {
+      "heading": "Contact",
+      "body": "Centrum BODYWORK is at ul. Kajki 14 in the Ogrody district. Head from ul. Dąbrowskiego to ul. Zofii Nałkowskiej, then turn right at the end of the street. There is plenty of parking. See you there!",
+      "hoursLabel": "Opening hours:",
+      "hours": [
+        "Monday – Friday / 7:00 – 22:00",
+        "Saturday / 10:00 – 14:00",
+        "Sunday / closed"
+      ],
+      "receptionLabel": "Reception:",
+      "receptionHours": "Mon. – Fri. 7:30 – 21:30",
+      "trainingLabel": "Course enquiries:",
+      "trainingPhone": "609 805 678",
+      "trainingEmail": "szkolenia@body-work.pl",
+      "trainingHours": "Mon. – Fri. 8:00 – 15:30",
+      "phonePrefix": "tel.",
+      "emailPrefix": "e-mail:"
+    },
     "footerCopy": "A centre for working with the body, in Poznań.",
     "copyright": "© {year} BODYWORK"
   }

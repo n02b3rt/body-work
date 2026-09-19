@@ -1,11 +1,14 @@
 import { readdir, stat } from "fs/promises";
 import path from "path";
 import type { MetadataRoute } from "next";
+import { headers } from "next/headers";
 import { getPayload } from "payload";
 import config from "@payload-config";
 import { routing } from "@/i18n/routing";
 import { listPublishedPages } from "@/lib/cms-page";
 import { SITE_URL, localePath } from "@/lib/metadata";
+import { siteForRequestHost } from "@/lib/site-host";
+import { HUB_URL } from "./[locale]/hub/urls";
 
 /**
  * Static routes are discovered by walking `src/app/[locale]` rather than kept in a list:
@@ -59,7 +62,32 @@ async function staticRoutes(): Promise<StaticRoute[]> {
     .sort((a, b) => a.route.localeCompare(b.route));
 }
 
+/**
+ * The hub's sitemap: its one page, in both languages. The proxy never sees `/sitemap.xml` (its
+ * matcher skips file extensions), so this route answers on every host and has to tell them apart
+ * itself; listing Centrum's URLs on the hub host would be another host's URLs, which crawlers drop.
+ */
+async function hubSitemap(): Promise<MetadataRoute.Sitemap> {
+  const mtime = await stat(path.join(process.cwd(), "src", "app", "[locale]", "hub", "page.tsx"))
+    .then((info) => info.mtime)
+    .catch(() => new Date());
+  const languages = Object.fromEntries(
+    routing.locales.map((locale) => [locale, `${HUB_URL}${localePath(locale, "/")}`]),
+  );
+  return routing.locales.map((locale) => ({
+    url: `${HUB_URL}${localePath(locale, "/")}`,
+    lastModified: mtime,
+    changeFrequency: "monthly" as const,
+    priority: locale === routing.defaultLocale ? 1 : 0.8,
+    alternates: { languages },
+  }));
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  if (siteForRequestHost((await headers()).get("host")) === "hub") {
+    return hubSitemap();
+  }
+
   const routes = await staticRoutes();
 
   // Pages built in the admin page builder. The filesystem walk cannot see them,

@@ -1,70 +1,127 @@
+import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ThreeWaySplit } from "@/components/hub/ThreeWaySplit";
+import { About } from "@/components/hub/About";
+import { Contact } from "@/components/hub/Contact";
+import { Hero } from "@/components/hub/Hero";
+import { ThreeWaySplit, type SplitPanel } from "@/components/hub/ThreeWaySplit";
+import { TrainingCentre } from "@/components/hub/TrainingCentre";
 import { routing } from "@/i18n/routing";
+import { FACEBOOK_URL, INSTAGRAM_URL, MAP_URL } from "@/lib/external-links";
+import { hubJsonLd } from "@/lib/hub-jsonld";
 import { localePath } from "@/lib/metadata";
+import { ACADEMY_URL, ALFABET_RUCHU_URL, CENTRUM_URL, HUB_URL } from "./urls";
 
-/** The hub's own origin: the bare host, see the note in `src/lib/metadata.ts`. */
-const HUB_URL = (process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000").replace(/\/$/, "");
+/** 1200x630 JPEG cut from the hero by `scripts/generate-og-images.mjs`. */
+const OG_IMAGE = "/images/og/hub.jpg";
 
-/** Same value already hardcoded in `centrum/Header.tsx` and the Centrum homepage's service
- * grid: Akademia has no env var of its own yet, it isn't built (see docs/map.md). */
-const ACADEMY_URL = "https://akademia.body-work.pl";
-const ALFABET_RUCHU_URL = "https://alfabetruchu.podia.com/";
+/** Centrum's coordinates, the same point `MAP_URL` drops its pin on. */
+const GEO = { latitude: 52.4182498, longitude: 16.8907633 };
+
+type PageProps = { params: Promise<{ locale: string }> };
 
 /**
  * Not `pageMetadata()` from `src/lib/metadata.ts`: that helper is hardwired to Centrum's
- * `SITE_URL`/`SITE_NAME`/RSS feed, since every other caller is a Centrum page. The hub is a
- * different site with a single route, so a plain object is simpler than parameterizing a
- * Centrum-shaped helper for one caller.
+ * `SITE_URL`/`SITE_NAME`/RSS feed. The hub is a different site with a single route.
  */
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Hub" });
   const url = `${HUB_URL}${localePath(locale, "/")}`;
+  const image = { url: OG_IMAGE, width: 1200, height: 630, alt: t("hero.imageAlt") };
 
   return {
-    title: t("metaTitle"),
+    title: { absolute: t("metaTitle") },
     description: t("metaDescription"),
     alternates: {
       canonical: url,
       // The visitor-facing pair, `/` and `/en`, not the rewritten `/hub` next-intl would infer.
-      languages: Object.fromEntries(
-        routing.locales.map((code) => [code, `${HUB_URL}${localePath(code, "/")}`]),
-      ),
+      languages: {
+        ...Object.fromEntries(routing.locales.map((code) => [code, `${HUB_URL}${localePath(code, "/")}`])),
+        "x-default": `${HUB_URL}/`,
+      },
     },
+    openGraph: {
+      type: "website",
+      siteName: "BODYWORK",
+      locale: locale === "pl" ? "pl_PL" : "en_GB",
+      alternateLocale: locale === "pl" ? ["en_GB"] : ["pl_PL"],
+      url,
+      title: t("metaTitle"),
+      description: t("metaDescription"),
+      images: [image],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("metaTitle"),
+      description: t("metaDescription"),
+      images: [image],
+    },
+    robots: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
   };
 }
-
-type PageProps = { params: Promise<{ locale: string }> };
 
 export default async function HubHomePage({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("Hub");
-  const centrumUrl = process.env.NEXT_PUBLIC_CENTRUM_URL || "http://centrum.localhost:3000";
+  const f = await getTranslations("Footer");
 
-  const panels = [
-    { heading: t("centrumHeading"), body: t("centrumBody"), ctaLabel: t("cta"), href: centrumUrl },
-    { heading: t("akademiaHeading"), body: t("akademiaBody"), ctaLabel: t("cta"), href: ACADEMY_URL },
-    {
-      heading: t("alfabetRuchuHeading"),
-      body: t("alfabetRuchuBody"),
-      ctaLabel: t("cta"),
-      href: ALFABET_RUCHU_URL,
+  const panels: SplitPanel[] = [
+    { key: "centrum", href: `${CENTRUM_URL}${localePath(locale, "/")}`, image: "/images/hub/centrum.webp" },
+    { key: "akademia", href: ACADEMY_URL, image: "/images/hub/akademia.webp" },
+    { key: "alfabetRuchu", href: ALFABET_RUCHU_URL, image: "/images/hub/alfabet-ruchu.webp" },
+  ].map((panel) => ({
+    ...panel,
+    heading: t(`${panel.key}Heading`),
+    body: t(`${panel.key}Body`),
+    ctaLabel: t("cta"),
+    imageAlt: t(`${panel.key}ImageAlt`),
+  }));
+
+  const [postalCode, ...city] = f("addressLine3").split(" ");
+
+  const jsonLd = hubJsonLd({
+    locale,
+    hubUrl: HUB_URL,
+    pageUrl: `${HUB_URL}${localePath(locale, "/")}`,
+    centrumUrl: `${CENTRUM_URL}/`,
+    academyUrl: ACADEMY_URL,
+    alfabetRuchuUrl: ALFABET_RUCHU_URL,
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    logo: "/apple-touch-icon.png",
+    image: OG_IMAGE,
+    sameAs: [FACEBOOK_URL, INSTAGRAM_URL],
+    contact: {
+      streetAddress: f("addressLine2"),
+      postalCode,
+      city: city.join(" "),
+      phone: f("phone"),
+      email: f("email"),
+      trainingPhone: t("contact.trainingPhone"),
+      trainingEmail: t("contact.trainingEmail"),
+      ...GEO,
+      mapUrl: MAP_URL,
     },
-  ];
+    destinations: {
+      centrum: { name: t("centrumHeading"), description: t("centrumBody") },
+      academy: { name: t("akademiaHeading"), description: t("akademiaBody") },
+      alfabetRuchu: { name: t("alfabetRuchuHeading"), description: t("alfabetRuchuBody") },
+    },
+    faq: [],
+  });
 
   return (
     <>
-      <div className="border-b border-brand-navy-soft bg-background">
-        <Container className="py-16 lg:py-24">
-          <SectionHeading size="hero">{t("missionHeading")}</SectionHeading>
-          <p className="mt-8 max-w-3xl text-body text-brand-navy">{t("missionBody")}</p>
-        </Container>
-      </div>
-      <ThreeWaySplit items={panels} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
+      <Hero />
+      <ThreeWaySplit heading={t("missionHeading")} body={t("missionBody")} items={panels} />
+      <About />
+      <TrainingCentre />
+      <Contact />
     </>
   );
 }

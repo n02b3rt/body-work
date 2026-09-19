@@ -1791,18 +1791,78 @@
   },
   "Hub": {
     "logoAlt": "Logo BODYWORK",
+    "homeLabel": "BODYWORK, strona główna",
     "languageSwitch": "EN",
-    "metaTitle": "BODYWORK",
+    "languageSwitchLabel": "English version",
+    "skipToContent": "Przejdź do treści",
+    "metaTitle": "BODYWORK Poznań. Centrum zdrowia i ruchu. Trening, fizjoterapia, dietetyka",
     "metaDescription": "BODYWORK: centrum treningu personalnego i fizjoterapii, akademia szkoleniowa dla specjalistów oraz Alfabet Ruchu, platforma edukacji online.",
+    "nav": {
+      "label": "Sekcje strony",
+      "about": "O nas",
+      "training": "Centrum szkoleniowe",
+      "contact": "Kontakt"
+    },
+    "hero": {
+      "heading": "Ciało to twój przyjaciel.",
+      "lines": [
+        "Jest wsparciem, gdy używasz go w poprawny sposób.",
+        "Staje się przeszkodą, gdy działasz wbrew jego naturze.",
+        "W swojej esencji jest zjawiskiem doskonałym."
+      ],
+      "imageAlt": "Grupa klientów BODYWORK w podporze, widok z góry na salę treningową"
+    },
     "missionHeading": "Centrum pracy z ciałem",
     "missionBody": "Łączymy trening, fizjoterapię i dietetykę, aby poprawić Twoje zdrowie, sprawność i komfort życia – a specjalistów branży uczymy tego samego podejścia na naszych szkoleniach.",
     "cta": "Przejdź na stronę",
     "centrumHeading": "Centrum BODYWORK",
     "centrumBody": "Centrum pracy z ciałem: łączymy trening, fizjoterapię i dietetykę, aby poprawić Twoje zdrowie, sprawność i komfort życia.",
+    "centrumImageAlt": "Trenerka BODYWORK wykonuje ćwiczenie z piłką lekarską na sali treningowej",
     "akademiaHeading": "Akademia Szkoleniowa",
     "akademiaBody": "Szkolenia stacjonarne dla specjalistów, z naciskiem na praktyczne zastosowanie wiedzy w codziennej pracy z klientem.",
+    "akademiaImageAlt": "Prowadząca szkolenie Akademii BODYWORK podczas wykładu",
     "alfabetRuchuHeading": "Alfabet Ruchu",
     "alfabetRuchuBody": "Platforma edukacji online, rozwijająca kompetencje zawodowe w oparciu o aktualną, praktyczną wiedzę.",
+    "alfabetRuchuImageAlt": "Ćwicząca podnosi sztangę na tle tablicy z rozpisanymi wzorcami ruchu",
+    "about": {
+      "heading": "O nas",
+      "body": [
+        "BODYWORK to miejsce, w którym w sposób kompleksowy podchodzimy do zdrowia – poprzez ruch, nowoczesną fizjoterapię i właściwie dobraną dietę.",
+        "Jeżeli pragniesz zadbać o swoje zdrowie i sprawność fizyczną w przyjaznej atmosferze, z dala od zatłoczonych miejsc i pod okiem profesjonalnych trenerów, to jesteśmy idealną propozycją dla Ciebie."
+      ],
+      "whyHeading": "Dlaczego ruch?",
+      "whyBody": [
+        "Ruch to główne narzędzie pracy w BODYWORK. Trenujemy ruch, nie mięśnie, ponieważ w ten sposób rozwijamy sprawność fizyczną i wspieramy zdrowie. Na początku Twoje ciało przechodzi wiele przemian. Poprawiają się zakresy ruchu i wzorce ruchowe. Dzięki temu uwalniasz się od dyskomfortu lub bolesności oraz zyskujesz więcej swobody poruszania ciałem.",
+        "Następnie wzmacniają się same mięśnie i rozwijasz siłę mięśniową. Osiągając prawidłową technikę podstawowych ćwiczeń „wrzucamy” Cię na głębszą wodę. Odkrywasz nowe płaszczyzny ruchu i eksplorujesz granice swoich możliwości. Trening staje się przygodą, która zmusza Twoje ciało do nieustannych adaptacji."
+      ],
+      "imageAlt": "Uczestnicy zajęć grupowych BODYWORK w kole, w podporze na dłoniach"
+    },
+    "training": {
+      "heading": "Centrum szkoleniowe",
+      "body": [
+        "Nie tylko pomagamy naszym Klientom w odzyskiwaniu pełni sprawności, ale bardzo chętnie dzielimy się wiedzą z innymi specjalistami. Prowadzimy kursy dla początkujących i profesjonalnych trenerów oraz fizjoterapeutów.",
+        "Specjalizujemy się w treningu funkcjonalnym, medycznym oraz przygotowaniu motorycznym w sporcie. Nasze kursy prowadzimy w Poznaniu i Warszawie. Ponadto jesteśmy autorem nowoczesnego kursu online „Alfabet Ruchu” oraz organizatorem konwencji dla mentorów ruchu „Movementors”.",
+        "Posiadamy akredytację REPs uprawniającą trenerów do podejmowania pracy za granicą."
+      ]
+    },
+    "contact": {
+      "heading": "Kontakt",
+      "body": "Centrum BODYWORK mieści się przy ul. Kajki 14 w dzielnicy Ogrody. Prosimy kierować się od ul. Dąbrowskiego do ul. Zofii Nałkowskiej; następnie przy końcu ulicy prosimy skręcić w prawo. Oferujemy wiele miejsc parkingowych. Zapraszamy!",
+      "hoursLabel": "Godziny otwarcia:",
+      "hours": [
+        "Poniedziałek – piątek / 7:00 – 22:00",
+        "Sobota / 10:00 – 14:00",
+        "Niedziela / zamknięte"
+      ],
+      "receptionLabel": "Recepcja:",
+      "receptionHours": "Pon. – Pt. 7:30 – 21:30",
+      "trainingLabel": "Obsługa szkoleniowa:",
+      "trainingPhone": "609 805 678",
+      "trainingEmail": "szkolenia@body-work.pl",
+      "trainingHours": "Pon. – Pt. 8:00 – 15:30",
+      "phonePrefix": "tel.",
+      "emailPrefix": "e-mail:"
+    },
     "footerCopy": "Centrum pracy z ciałem w Poznaniu.",
     "copyright": "© {year} BODYWORK"
   }

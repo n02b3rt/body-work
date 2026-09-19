@@ -1,37 +1,47 @@
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
+import { FACEBOOK_URL, INSTAGRAM_URL } from "@/lib/external-links";
 
-const FACEBOOK_URL = "https://www.facebook.com/bodyworkpl/?fref=ts";
-
-/** Contact details are the same business as Centrum's, so the strings come from the
- * `Footer` namespace rather than duplicating them under `Hub`. */
-export function Footer() {
-  const t = useTranslations("Hub");
-  const tFooter = useTranslations("Footer");
+/** Legal pages live on Centrum, the one site that has them; the hub links across rather than
+ * duplicating them. */
+export async function Footer({ centrumUrl, locale }: { centrumUrl: string; locale: string }) {
+  const t = await getTranslations("Hub");
+  const f = await getTranslations("Footer");
   const year = new Date().getFullYear();
+  const prefix = locale === "pl" ? "" : `/${locale}`;
 
   return (
-    <footer className="border-t border-brand-navy-soft bg-brand-surface">
-      <Container className="flex flex-col gap-6 py-12 sm:flex-row sm:items-center sm:justify-between">
+    <footer className="bg-brand-navy text-background">
+      <Container className="flex flex-col gap-8 py-12 md:flex-row md:items-center md:justify-between">
         <div>
-          <p className="text-body text-brand-navy">{t("footerCopy")}</p>
-          <p className="mt-2 text-body text-brand-navy">
-            <a href={`tel:+48${tFooter("phone").replace(/\s/g, "")}`} className="hover:underline">
-              {tFooter("phone")}
-            </a>
-            {" · "}
-            <a href={`mailto:${tFooter("email")}`} className="hover:underline">
-              {tFooter("email")}
-            </a>
-          </p>
+          {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG wordmark */}
+          <img
+            src="/icons/logo.svg"
+            width={336}
+            height={46}
+            alt={t("logoAlt")}
+            loading="lazy"
+            className="h-5 w-auto brightness-0 invert"
+          />
+          <p className="mt-4 text-body text-background/75">{t("footerCopy")}</p>
         </div>
-        <div className="flex items-center gap-6">
-          <a href={FACEBOOK_URL} target="_blank" rel="noopener noreferrer" className="hover:opacity-70">
-            {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG icon */}
-            <img src="/icons/facebook.svg" alt="Facebook" className="h-7 w-7" />
+        <nav aria-label={f("kontaktHeading")} className="flex flex-wrap items-center gap-x-6 gap-y-3 text-label uppercase tracking-[0.15em]">
+          <a href={`${centrumUrl}${prefix}/polityka-prywatnosci`} className="hover:underline">
+            {f("privacyPolicy")}
           </a>
-          <p className="text-body text-brand-navy">{t("copyright", { year })}</p>
-        </div>
+          <a href={`${centrumUrl}${prefix}/regulamin`} className="hover:underline">
+            {f("terms")}
+          </a>
+          <a href={FACEBOOK_URL} rel="noopener" aria-label="Facebook" className="hover:opacity-70">
+            {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG icon */}
+            <img src="/icons/facebook-white.svg" alt="" width={28} height={28} loading="lazy" className="h-7 w-7" />
+          </a>
+          <a href={INSTAGRAM_URL} rel="noopener" aria-label="Instagram" className="hover:opacity-70">
+            {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG icon */}
+            <img src="/icons/instagram-white.svg" alt="" width={28} height={28} loading="lazy" className="h-7 w-7" />
+          </a>
+          <span className="normal-case tracking-normal text-background/70">{t("copyright", { year })}</span>
+        </nav>
       </Container>
     </footer>
   );

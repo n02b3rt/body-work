@@ -42,6 +42,7 @@ const DIRS = [
   'public/images/trening-grupowy',
   'public/images/bodylab',
   'public/images/masaz',
+  'public/images/hub',
 ]
 const OUT = 'src/lib/static-blur.json'
 const WIDTH = 16
