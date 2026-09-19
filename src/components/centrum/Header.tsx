@@ -125,10 +125,25 @@ export function Header() {
                   compact ? "[transform:rotateX(180deg)]" : "",
                 )}
               >
-                <span className="absolute inset-0 flex items-center whitespace-nowrap text-label font-light uppercase tracking-[1px] text-brand-navy [backface-visibility:hidden]">
+                {/* Firefox drops `backface-visibility` on these faces (it flattens the
+                 * 3D context here), so both the tagline and the wordmark paint at
+                 * once and overlap. Swapping opacity at the half-way point of the
+                 * flip hides the away-facing side in every browser; the delay keeps
+                 * the swap invisible behind the edge-on frame of the rotation. */}
+                <span
+                  className={cn(
+                    "absolute inset-0 flex items-center whitespace-nowrap text-label font-light uppercase tracking-[1px] text-brand-navy [backface-visibility:hidden] [transition:opacity_0s_250ms] motion-reduce:[transition:none]",
+                    compact ? "opacity-0" : "opacity-100",
+                  )}
+                >
                   {tHeader("tagline")}
                 </span>
-                <span className="absolute inset-0 flex items-center [backface-visibility:hidden] [transform:rotateX(180deg)]">
+                <span
+                  className={cn(
+                    "absolute inset-0 flex items-center [backface-visibility:hidden] [transform:rotateX(180deg)] [transition:opacity_0s_250ms] motion-reduce:[transition:none]",
+                    compact ? "opacity-100" : "opacity-0",
+                  )}
+                >
                   {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG wordmark */}
                   <img src="/icons/logo.svg" width={336} height={46} loading="lazy" alt="" className="h-6 w-auto" />
                 </span>
