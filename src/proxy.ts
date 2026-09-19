@@ -2,26 +2,14 @@ import createMiddleware from "next-intl/middleware";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { routing } from "./i18n/routing";
-
-/** The dashboard lives on its own host, see docs/sites.md. */
-const DEFAULT_DASHBOARD_HOST = "dash.localhost";
-/** Centrum's own host; everything else non-dashboard falls through to the hub, see docs/sites.md. */
-const DEFAULT_CENTRUM_HOST = "centrum.localhost";
+import { siteForRequestHost } from "./lib/site-host";
 
 const handleI18n = createMiddleware(routing);
 
-function dashboardHost() {
-  return (process.env.DASHBOARD_HOST || DEFAULT_DASHBOARD_HOST).toLowerCase();
-}
-
-function centrumHost() {
-  return (process.env.CENTRUM_HOST || DEFAULT_CENTRUM_HOST).toLowerCase();
-}
-
-function hostnameOf(request: NextRequest) {
-  // Prefer the Host header so `dash.localhost` still works when it resolves to 127.0.0.1.
-  const host = request.headers.get("host") || request.nextUrl.host;
-  return host.split(":")[0].toLowerCase();
+/** Which site this request is for, see docs/sites.md. The Host header wins so `dash.localhost`
+ * still works when it resolves to 127.0.0.1. */
+function siteOf(request: NextRequest) {
+  return siteForRequestHost(request.headers.get("host") || request.nextUrl.host);
 }
 
 function isAdminPath(pathname: string) {
@@ -68,7 +56,7 @@ export default function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Dashboard host: serve Payload, never the localised site.
-  if (hostnameOf(request) === dashboardHost()) {
+  if (siteOf(request) === "dashboard") {
     if (pathname === "/") {
       const url = request.nextUrl.clone();
       url.pathname = "/admin";
@@ -101,7 +89,7 @@ export default function proxy(request: NextRequest) {
   }
 
   // Centrum host: its tree lives at `(centrum)/`, a route group, so every path is unchanged.
-  if (hostnameOf(request) === centrumHost()) {
+  if (siteOf(request) === "centrum") {
     return handleI18n(request);
   }
 
@@ -112,8 +100,19 @@ export default function proxy(request: NextRequest) {
   if (!isHubHomePath(pathname)) {
     return notFound();
   }
-  request.nextUrl.pathname = pathname === "/" ? "/hub" : "/en/hub";
-  const response = handleI18n(request);
+  const target = pathname === "/" ? "/hub" : "/en/hub";
+  request.nextUrl.pathname = target;
+  let response = handleI18n(request);
+  // next-intl only rewrites a path that lacks a locale prefix. `/en/hub` already has one, so it
+  // answers `NextResponse.next()`, which serves the *original* `/en`: Centrum's English homepage
+  // on the hub host. Rewrite explicitly then, keeping its headers (the locale cookie).
+  if (response.headers.get("x-middleware-next")) {
+    const url = request.nextUrl.clone();
+    url.pathname = target;
+    const headers = new Headers(response.headers);
+    headers.delete("x-middleware-next");
+    response = NextResponse.rewrite(url, { headers });
+  }
   // next-intl builds its `hreflang` alternates from the pathname it was handed, which here is
   // the rewritten `/hub`: an address that 404s on this host, so advertising it to crawlers is
   // worse than saying nothing. The page's own `generateMetadata` emits the real pair instead.

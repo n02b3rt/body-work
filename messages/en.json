@@ -1785,19 +1785,38 @@
   },
   "Hub": {
     "logoAlt": "BODYWORK logo",
+    "homeLabel": "BODYWORK, home",
     "languageSwitch": "PL",
-    "metaTitle": "BODYWORK",
-    "metaDescription": "BODYWORK: a personal training and physiotherapy centre, a training academy for professionals, and Alfabet Ruchu, an online education platform.",
-    "missionHeading": "A centre for working with the body",
-    "missionBody": "We combine training, physiotherapy and dietetics to improve your health, fitness and comfort, and we teach the same approach to industry professionals on our courses.",
+    "languageSwitchLabel": "Wersja polska",
+    "skipToContent": "Skip to content",
+    "pageHeading": "BODYWORK",
+    "metaTitle": "BODYWORK Poznań: Centrum BODYWORK, Training Academy, Alfabet Ruchu",
+    "metaDescription": "BODYWORK is a space where we bring together health, movement and education: Centrum BODYWORK in Poznań, a Training Academy for coaches and physiotherapists, and the Alfabet Ruchu platform.",
     "cta": "Go to the site",
     "centrumHeading": "Centrum BODYWORK",
-    "centrumBody": "A centre for working with the body: we combine training, physiotherapy and dietetics to improve your health, fitness and comfort.",
+    "centrumBody": "A centre for working with the body – we combine training, physiotherapy and dietetics to improve your health, fitness and comfort.",
     "akademiaHeading": "Training Academy",
-    "akademiaBody": "In-person courses for professionals, focused on putting the knowledge to practical use in everyday client work.",
+    "akademiaBody": "Practice-based, in-person courses for coaches and physiotherapists that turn knowledge into real work with clients.",
     "alfabetRuchuHeading": "Alfabet Ruchu",
-    "alfabetRuchuBody": "An online education platform, developing professional competencies from current, practical knowledge.",
-    "footerCopy": "A centre for working with the body, in Poznań.",
-    "copyright": "© {year} BODYWORK"
+    "alfabetRuchuBody": "An education platform that develops professional competencies, inspires conscious improvement and broadens your perspective with the most current, reliable and practically useful knowledge.",
+    "illustrationAlt": "BODYWORK illustration: muscle anatomy, training, measurement and online learning",
+    "about": [
+      "BODYWORK is a space where we bring together health, movement and education. We have created a place both for people who want to look after their body and fitness, and for coaches and physiotherapists developing their professional competencies.",
+      "Through training, modern physiotherapy, diagnostics and education we help people better understand how the body works and work with movement consciously. In the BODYWORK Academy we train professionals using a practical system of work, and the Alfabet Ruchu platform makes flexible, well-structured online development possible.",
+      "We believe that effective work with the body begins with understanding the person and their real needs."
+    ],
+    "contact": {
+      "heading": "Contact",
+      "address": "Centrum BODYWORK is at ul. Kajki 14 in the Ogrody district.",
+      "receptionLabel": "Reception",
+      "receptionHours": "Mon. – Fri. 7:30 – 21:30",
+      "trainingLabel": "Course enquiries",
+      "trainingPhone": "609 805 678",
+      "trainingEmail": "szkolenia@body-work.pl",
+      "trainingHours": "Mon. – Fri. 8:00 – 15:30",
+      "phonePrefix": "tel.",
+      "emailPrefix": "e-mail:"
+    },
+    "tagline": "Your body is an investment."
   }
 }

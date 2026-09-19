@@ -1791,19 +1791,38 @@
   },
   "Hub": {
     "logoAlt": "Logo BODYWORK",
+    "homeLabel": "BODYWORK, strona główna",
     "languageSwitch": "EN",
-    "metaTitle": "BODYWORK",
-    "metaDescription": "BODYWORK: centrum treningu personalnego i fizjoterapii, akademia szkoleniowa dla specjalistów oraz Alfabet Ruchu, platforma edukacji online.",
-    "missionHeading": "Centrum pracy z ciałem",
-    "missionBody": "Łączymy trening, fizjoterapię i dietetykę, aby poprawić Twoje zdrowie, sprawność i komfort życia – a specjalistów branży uczymy tego samego podejścia na naszych szkoleniach.",
+    "languageSwitchLabel": "English version",
+    "skipToContent": "Przejdź do treści",
+    "pageHeading": "BODYWORK",
+    "metaTitle": "BODYWORK Poznań: Centrum BODYWORK, Akademia Szkoleniowa, Alfabet Ruchu",
+    "metaDescription": "BODYWORK to przestrzeń, w której łączymy zdrowie, ruch i edukację: Centrum BODYWORK w Poznaniu, Akademia Szkoleniowa dla trenerów i fizjoterapeutów oraz platforma Alfabet Ruchu.",
     "cta": "Przejdź na stronę",
     "centrumHeading": "Centrum BODYWORK",
-    "centrumBody": "Centrum pracy z ciałem: łączymy trening, fizjoterapię i dietetykę, aby poprawić Twoje zdrowie, sprawność i komfort życia.",
+    "centrumBody": "Centrum pracy z ciałem – łączymy trening, fizjoterapię i dietetykę, aby poprawić Twoje zdrowie, sprawność i komfort życia.",
     "akademiaHeading": "Akademia Szkoleniowa",
-    "akademiaBody": "Szkolenia stacjonarne dla specjalistów, z naciskiem na praktyczne zastosowanie wiedzy w codziennej pracy z klientem.",
+    "akademiaBody": "Szkolenia stacjonarne dla trenerów i fizjoterapeutów oparte na praktyce, które przekładają wiedzę na realną pracę z podopiecznym.",
     "alfabetRuchuHeading": "Alfabet Ruchu",
-    "alfabetRuchuBody": "Platforma edukacji online, rozwijająca kompetencje zawodowe w oparciu o aktualną, praktyczną wiedzę.",
-    "footerCopy": "Centrum pracy z ciałem w Poznaniu.",
-    "copyright": "© {year} BODYWORK"
+    "alfabetRuchuBody": "Platforma edukacyjna, która rozwija kompetencje zawodowe, inspiruje do świadomego doskonalenia i poszerza perspektywę o najbardziej aktualną, rzetelną i praktycznie użyteczną wiedzę.",
+    "illustrationAlt": "Ilustracja BODYWORK: anatomia mięśni, trening, pomiar i nauka online",
+    "about": [
+      "BODYWORK to przestrzeń, w której łączymy zdrowie, ruch i edukację. Tworzymy miejsce zarówno dla osób, które chcą zadbać o swoje ciało i sprawność, jak i dla trenerów oraz fizjoterapeutów rozwijających swoje kompetencje zawodowe.",
+      "Poprzez trening, nowoczesną fizjoterapię, diagnostykę oraz edukację pomagamy lepiej rozumieć funkcjonowanie organizmu i świadomie pracować z ruchem. W ramach Akademii BODYWORK szkolimy specjalistów w oparciu o praktyczny system pracy, a platforma Alfabet Ruchu umożliwia rozwój online w elastycznej i uporządkowanej formie.",
+      "Wierzymy, że skuteczna praca z ciałem zaczyna się od zrozumienia człowieka i jego realnych potrzeb."
+    ],
+    "contact": {
+      "heading": "Kontakt",
+      "address": "Centrum BODYWORK mieści się przy ul. Kajki 14 w dzielnicy Ogrody.",
+      "receptionLabel": "Recepcja",
+      "receptionHours": "Pon. – Pt. 7:30 – 21:30",
+      "trainingLabel": "Obsługa szkoleniowa",
+      "trainingPhone": "609 805 678",
+      "trainingEmail": "szkolenia@body-work.pl",
+      "trainingHours": "Pon. – Pt. 8:00 – 15:30",
+      "phonePrefix": "tel.",
+      "emailPrefix": "e-mail:"
+    },
+    "tagline": "Ciało to inwestycja."
   }
 }

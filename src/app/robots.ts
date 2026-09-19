@@ -1,7 +1,22 @@
 import type { MetadataRoute } from "next";
+import { headers } from "next/headers";
 import { SITE_URL } from "@/lib/metadata";
+import { siteForRequestHost } from "@/lib/site-host";
+import { HUB_URL } from "./[locale]/hub/urls";
 
-export default function robots(): MetadataRoute.Robots {
+/**
+ * Per host, because the proxy never sees `/robots.txt` (its matcher skips file extensions) and
+ * the hub used to answer with Centrum's file, pointing crawlers at another host's sitemap.
+ */
+export default async function robots(): Promise<MetadataRoute.Robots> {
+  const site = siteForRequestHost((await headers()).get("host"));
+
+  // The dashboard is Payload's login screen: nothing there belongs in an index.
+  if (site === "dashboard") {
+    return { rules: [{ userAgent: "*", disallow: "/" }] };
+  }
+
+  const origin = site === "hub" ? HUB_URL : SITE_URL;
   return {
     rules: [
       {
@@ -12,7 +27,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/admin", "/api/"],
       },
     ],
-    sitemap: `${SITE_URL}/sitemap.xml`,
-    host: SITE_URL,
+    sitemap: `${origin}/sitemap.xml`,
+    host: origin,
   };
 }

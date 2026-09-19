@@ -8,7 +8,7 @@
 
 | Domain | Route group | Role | Content status |
 |---|---|---|---|
-| `body-work.pl` | `app/[locale]/hub/` (a real segment, not a group, see Gotcha below) | One-screen landing, routes visitors to Centrum / Akademia / Alfabet Ruchu (external, `podia.com`) | Landing page built |
+| `body-work.pl` | `app/[locale]/hub/` (a real segment, not a group, see Gotcha below) | Brand landing page: routes visitors to Centrum / Akademia / Alfabet Ruchu (external, `podia.com`) and carries the organisation-level SEO | Landing page built, see [`map/public-site/hub.md`](./map/public-site/hub.md) |
 | `centrum.body-work.pl` | `app/[locale]/(centrum)/` | B2C fitness club: services, team, pricing, gallery, blog, news, signup links to eFitness | Reference content scraped from `bodywork.testowe.eu`, see [`scraped-site-map.md`](./scraped-site-map.md) |
 | `akademia.body-work.pl` | `app/(akademia)/` | B2B training academy: courses, calendar, e-commerce shop, blog | **No design yet**: top schedule risk (PRD §6.3, §15). Build the backend/data model first (collections, calendar, cart) against a neutral layout per PRD §15's mitigation; swap in the real design when it's delivered. |
 | `dash.body-work.pl` | `app/(payload)/admin/` | Shared Payload CMS admin for editors/admins/training staff | Comes largely for free from Payload; customization happens in `collections/`, not hand-built pages |
@@ -61,6 +61,6 @@ NewsCarousel, TextMedia, StatementSection, ServiceGrid, TestimonialCarousel, New
 PartnerLogos) and `src/components/ui/` (Container, Button, SectionHeading). See
 `migration-tracker.md` for per-page status.
 
-The hub is one page, `src/app/[locale]/hub/page.tsx`, with its own minimal `src/components/hub/`
-(Header, Footer, ThreeWaySplit), reachable only through the host rewrite above. Payload isn't
+The hub is one page, `src/app/[locale]/hub/page.tsx`, with its own server-only `src/components/hub/`,
+reachable only through the host rewrite above. Payload isn't
 installed for it: its copy lives in the `Hub` message namespace, same as Centrum's pre-CMS content.
