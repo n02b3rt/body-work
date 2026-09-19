@@ -1,9 +1,10 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
 
-const SECTIONS = ["about", "training", "contact"] as const;
-
 /**
+ * The reference's white bar with the wordmark, minus Centrum's mega-menu: the hub has one page,
+ * so all it needs is the way home and the language switch.
+ *
  * A server component on purpose: the switch is a plain link between `/` and `/en`, so the hub
  * needs no client-side translations at all (see `hub/layout.tsx`).
  */
@@ -13,10 +14,10 @@ export async function Header() {
   const otherLocale = locale === "pl" ? "en" : "pl";
 
   return (
-    <header className="sticky top-0 z-30 border-b border-brand-navy-soft/40 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
+    <header className="border-b border-[#cbd0d6] bg-white">
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:rounded-full focus:bg-brand-navy focus:px-4 focus:py-2 focus:text-background"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-10 focus:bg-[#003b5e] focus:px-4 focus:py-2 focus:text-white"
       >
         {t("skipToContent")}
       </a>
@@ -25,23 +26,12 @@ export async function Header() {
           {/* eslint-disable-next-line @next/next/no-img-element -- trusted static SVG wordmark, no raster optimization needed */}
           <img src="/icons/logo.svg" width={336} height={46} alt={t("logoAlt")} className="h-6 w-auto" />
         </a>
-        <nav aria-label={t("nav.label")} className="hidden md:block">
-          <ul className="flex items-center gap-8 text-label uppercase tracking-[0.15em] text-brand-navy">
-            {SECTIONS.map((id) => (
-              <li key={id}>
-                <a href={`#${id}`} className="py-2 transition-opacity hover:opacity-60">
-                  {t(`nav.${id}`)}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
         <a
           href={otherLocale === "pl" ? "/" : "/en"}
           hrefLang={otherLocale}
           lang={otherLocale}
           aria-label={t("languageSwitchLabel")}
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-brand-navy-soft text-label font-light uppercase text-brand-navy transition-colors hover:bg-brand-navy hover:text-background"
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#cbd0d6] text-label uppercase text-[#003b5e] transition-colors hover:bg-[#003b5e] hover:text-white"
         >
           {t("languageSwitch")}
         </a>

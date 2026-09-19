@@ -1,83 +1,82 @@
+import { Fragment } from "react";
 import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
-import { DIRECTIONS_URL, MAP_URL } from "@/lib/external-links";
 import { toE164 } from "@/lib/hub-jsonld";
-import { SectionIntro } from "./SectionIntro";
 
 /** Via `toE164`: the English `Footer.phone` already carries `+48`, the Polish one doesn't. */
 const telHref = (phone: string) => `tel:${toE164(phone)}`;
 
 /**
- * The live homepage's "Kontakt" block, word for word: directions, opening hours, and both
- * contact points (Centrum's reception and course enquiries). The reception phone and email come
- * from the `Footer` namespace, Centrum's own, so the two sites can't drift apart.
+ * The reference's `#o-nas` and `#kontakt` sections, word for word: three centred paragraphs, then
+ * "KONTAKT" with the address and both contact lines. The reference runs each contact line together
+ * with ` / `; below `sm` the parts stack instead, and the separators only appear once they fit on
+ * one line. The reception phone and email come from `Footer`, Centrum's own, so the sites can't drift.
  */
 export async function Contact() {
-  const t = await getTranslations("Hub.contact");
+  const t = await getTranslations("Hub");
   const f = await getTranslations("Footer");
-  const hours = t.raw("hours") as string[];
+  const about = t.raw("about") as string[];
 
-  const card = "rounded-3xl border border-brand-navy-soft/40 bg-white/60 p-8";
-  const label = "text-label uppercase tracking-[0.2em] text-brand-green";
   const link = "underline-offset-4 hover:underline";
-
-  const contacts = [
-    { label: t("receptionLabel"), phone: f("phone"), email: f("email"), hours: t("receptionHours") },
+  const lines = [
     {
-      label: t("trainingLabel"),
-      phone: t("trainingPhone"),
-      email: t("trainingEmail"),
-      hours: t("trainingHours"),
+      label: t("contact.receptionLabel"),
+      phone: f("phone"),
+      email: f("email"),
+      hours: t("contact.receptionHours"),
+    },
+    {
+      label: t("contact.trainingLabel"),
+      phone: t("contact.trainingPhone"),
+      email: t("contact.trainingEmail"),
+      hours: t("contact.trainingHours"),
     },
   ];
 
   return (
-    <section
-      id="contact"
-      aria-labelledby="contact-heading"
-      className="scroll-mt-16 border-t border-brand-navy-soft/40 bg-brand-surface py-20 lg:py-28"
-    >
-      <Container>
-        <SectionIntro id="contact-heading" heading={t("heading")}>
-          <p>{t("body")}</p>
-        </SectionIntro>
-        <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-btn uppercase tracking-[0.1em] text-brand-navy">
-          <a href={MAP_URL} rel="noopener" className={link}>
-            {f("showOnMap")}
-          </a>
-          <a href={DIRECTIONS_URL} rel="noopener" className={link}>
-            {f("getDirections")}
-          </a>
-        </div>
-        <div className="mt-12 grid gap-6 md:grid-cols-3 lg:mt-16">
-          <div className={card}>
-            <h3 className={label}>{t("hoursLabel")}</h3>
-            <ul className="mt-4 space-y-1 text-body text-brand-navy">
-              {hours.map((line) => (
-                <li key={line}>{line}</li>
-              ))}
-            </ul>
-          </div>
-          {contacts.map((contact) => (
-            <div key={contact.label} className={card}>
-              <h3 className={label}>{contact.label}</h3>
-              <p className="mt-4 text-body text-brand-navy">
-                {t("phonePrefix")}{" "}
-                <a href={telHref(contact.phone)} className={`${link} text-value`}>
-                  {contact.phone}
-                </a>
-              </p>
-              <p className="text-body text-brand-navy">
-                {t("emailPrefix")}{" "}
-                <a href={`mailto:${contact.email}`} className={link}>
-                  {contact.email}
-                </a>
-              </p>
-              <p className="mt-1 text-body text-brand-navy/70">{contact.hours}</p>
-            </div>
+    <>
+      <section aria-label={t("pageHeading")} className="bg-white py-16 lg:py-24">
+        <Container className="mx-auto max-w-5xl space-y-5 text-center text-[0.9375rem] leading-[1.7] tracking-[0.03em] text-[#003b5e]">
+          {about.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
           ))}
-        </div>
-      </Container>
-    </section>
+        </Container>
+      </section>
+      <section id="contact" aria-labelledby="contact-heading" className="bg-white pb-16 lg:pb-24">
+        <Container className="text-center text-[0.9375rem] leading-[1.7] tracking-[0.03em] text-[#003b5e]">
+          <h2 id="contact-heading" className="text-[2rem] font-normal uppercase tracking-[0.03em] lg:text-[2.5rem]">
+            {t("contact.heading")}
+          </h2>
+          <p className="mt-5">{t("contact.address")}</p>
+          {lines.map((line) => {
+            const parts = [
+              <>
+                {line.label}: {t("contact.phonePrefix")}{" "}
+                <a href={telHref(line.phone)} className={link}>
+                  {line.phone}
+                </a>
+              </>,
+              <>
+                {t("contact.emailPrefix")}{" "}
+                <a href={`mailto:${line.email}`} className={link}>
+                  {line.email}
+                </a>
+              </>,
+              <>{line.hours}</>,
+            ];
+            return (
+              <p key={line.label} className="mt-3 flex flex-col sm:block">
+                {parts.map((part, index) => (
+                  <Fragment key={index}>
+                    {index > 0 ? <span aria-hidden className="hidden sm:inline"> / </span> : null}
+                    <span>{part}</span>
+                  </Fragment>
+                ))}
+              </p>
+            );
+          })}
+        </Container>
+      </section>
+    </>
   );
 }

@@ -25,7 +25,7 @@ const CARDS = [
   ['public/images/fizjoterapia/rehab-hero.webp', 'fizjoterapia-rehabilitacja-ruchowa.jpg'],
   ['public/images/fizjoterapia/brzuch-hero.webp', 'fizjoterapia-zdrowy-brzuch.jpg'],
   ['public/images/fizjoterapia/specjalisci-hero.webp', 'fizjoterapia-specjalisci.jpg'],
-  ['public/images/hub/hero.webp', 'hub.jpg'],
+  ['public/images/hub/illustration.webp', 'hub.jpg'],
 ]
 
 fs.mkdirSync(OUT_DIR, { recursive: true })

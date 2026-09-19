@@ -1,17 +1,15 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { About } from "@/components/hub/About";
 import { Contact } from "@/components/hub/Contact";
-import { Hero } from "@/components/hub/Hero";
+import { Illustration } from "@/components/hub/Illustration";
 import { ThreeWaySplit, type SplitPanel } from "@/components/hub/ThreeWaySplit";
-import { TrainingCentre } from "@/components/hub/TrainingCentre";
 import { routing } from "@/i18n/routing";
 import { FACEBOOK_URL, INSTAGRAM_URL, MAP_URL } from "@/lib/external-links";
 import { hubJsonLd } from "@/lib/hub-jsonld";
 import { localePath } from "@/lib/metadata";
 import { ACADEMY_URL, ALFABET_RUCHU_URL, CENTRUM_URL, HUB_URL } from "./urls";
 
-/** 1200x630 JPEG cut from the hero by `scripts/generate-og-images.mjs`. */
+/** 1200x630 JPEG cut from the illustration by `scripts/generate-og-images.mjs`. */
 const OG_IMAGE = "/images/og/hub.jpg";
 
 /** Centrum's coordinates, the same point `MAP_URL` drops its pin on. */
@@ -27,7 +25,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Hub" });
   const url = `${HUB_URL}${localePath(locale, "/")}`;
-  const image = { url: OG_IMAGE, width: 1200, height: 630, alt: t("hero.imageAlt") };
+  const image = { url: OG_IMAGE, width: 1200, height: 630, alt: t("illustrationAlt") };
 
   return {
     title: { absolute: t("metaTitle") },
@@ -67,15 +65,14 @@ export default async function HubHomePage({ params }: PageProps) {
   const f = await getTranslations("Footer");
 
   const panels: SplitPanel[] = [
-    { key: "centrum", href: `${CENTRUM_URL}${localePath(locale, "/")}`, image: "/images/hub/centrum.webp" },
-    { key: "akademia", href: ACADEMY_URL, image: "/images/hub/akademia.webp" },
-    { key: "alfabetRuchu", href: ALFABET_RUCHU_URL, image: "/images/hub/alfabet-ruchu.webp" },
+    { key: "centrum", href: `${CENTRUM_URL}${localePath(locale, "/")}` },
+    { key: "akademia", href: ACADEMY_URL },
+    { key: "alfabetRuchu", href: ALFABET_RUCHU_URL },
   ].map((panel) => ({
     ...panel,
     heading: t(`${panel.key}Heading`),
     body: t(`${panel.key}Body`),
     ctaLabel: t("cta"),
-    imageAlt: t(`${panel.key}ImageAlt`),
   }));
 
   const [postalCode, ...city] = f("addressLine3").split(" ");
@@ -117,10 +114,8 @@ export default async function HubHomePage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
-      <Hero />
-      <ThreeWaySplit heading={t("missionHeading")} body={t("missionBody")} items={panels} />
-      <About />
-      <TrainingCentre />
+      <ThreeWaySplit pageHeading={t("pageHeading")} items={panels} />
+      <Illustration alt={t("illustrationAlt")} />
       <Contact />
     </>
   );
